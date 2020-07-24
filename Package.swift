@@ -11,17 +11,25 @@ let package = Package(
 	],
 	products: [
 		.library(name: "ModelsDSTU2", targets: ["ModelsDSTU2"]),
+		.library(name: "ModelsSTU3", targets: ["ModelsSTU3"]),
 		.library(name: "ModelsR4", targets: ["ModelsR4"]),
 		.library(name: "ModelsBuild", targets: ["ModelsBuild"]),
 	],
 	targets: [
 		.target(name: "FMCore"),
 		.target(name: "ModelsDSTU2", dependencies: ["FMCore"]),
+		.target(name: "ModelsSTU3", dependencies: ["FMCore"]),
 		.target(name: "ModelsR4", dependencies: ["FMCore"]),
 		.target(name: "ModelsBuild", dependencies: ["FMCore"]),
 		.testTarget(name: "CoreTests", dependencies: ["FMCore"]),
 		.testTarget(name: "DateTimeTests", dependencies: ["ModelsR4"]),
-        .testTarget(name: "ModelTests", dependencies: ["ModelsR4"]),
-        .testTarget(name: "PrimitiveTests", dependencies: ["ModelsR4"]),
+		.testTarget(name: "ModelTests",
+		            dependencies: [
+		                "ModelsDSTU2",
+		                "ModelsSTU3",
+		                "ModelsR4",
+		                "ModelsBuild",
+		            ]),
+		.testTarget(name: "PrimitiveTests", dependencies: ["ModelsR4"]),
 	]
 )

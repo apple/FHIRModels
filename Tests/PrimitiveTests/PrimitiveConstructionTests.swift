@@ -353,7 +353,7 @@ class PrimitiveConstructionTests: XCTestCase {
 	
 	// MARK: - Utilities
 	
-	func assertGroup(group: Group, file: StaticString = #file, line: UInt = #line) {
+	func assertGroup(group: Group, file: StaticString = #filePath, line: UInt = #line) {
 		XCTAssertEqual(group.type, GroupType.person.asPrimitive(), file: file, line: line)
 		XCTAssertTrue(group.actual.value?.bool ?? false, file: file, line: line)
 		XCTAssertFalse(group.active?.value?.bool ?? true, file: file, line: line)

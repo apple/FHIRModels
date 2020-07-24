@@ -1,14 +1,14 @@
 FHIRModels
 ==========
 
-![0.1.0](https://img.shields.io/badge/Latest-0.1.0-blueviolet.svg?style=flat) ![🔥 FHIR DSTU-2, R4, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20R4_•%20β4.4-orange.svg?style=flat) ![Works on macOS, iOS, watchOS and tvOS](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](#license)
+![0.2.0](https://img.shields.io/badge/Latest-0.2.0-blueviolet.svg?style=flat) ![🔥 FHIR DSTU2, STU3, R4, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3•%20R4_•%20β4.4-orange.svg?style=flat) ![Works on macOS, iOS, watchOS and tvOS](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](#license)
 
 FHIRModels is a Swift library for [FHIR®][fhir] resource data models.
 
 ## Features
 
 - Native Swift representation of FHIR resources, elements and data types
-- Separate targets for DSTU2, R4 and latest build versions
+- Separate targets for DSTU2, STU3, R4 and latest build versions
 - Enforced non-nullability of mandatory parameters
 - Enums for most closed code systems
 - Enums to support value[x] types
@@ -33,7 +33,7 @@ Alternatively, you can add FHIRModels to your `Package.swift` file as a dependen
 ```swift
 dependencies: [
     .package(url: "https://github.com/apple/FHIRModels.git",
-            .upToNextMajor(from: "0.1.0"))
+            .upToNextMajor(from: "0.2.0"))
 ]
 ```
 
@@ -94,6 +94,21 @@ do {
 }
 ```
 
+### 3. Get resources from Bundle
+
+To get certain resources from a `Bundle` you can do:
+
+```swift
+import ModelsR4
+
+let data = <FHIR JSON data>
+let bundle = try JSONDecoder().decode(ModelsR4.Bundle.self, from: data)
+let observations = bundle.entry?.compactMap {
+    $0.resource?.get(if: ModelsR4.Observation.self)
+}
+// observations is an array of `Observation` instances
+```
+
 ## Model Properties
 
 FHIR Resource and Element types are represented as Swift classes,
@@ -115,6 +130,42 @@ let patient = Patient(name: [name])
 name.given?.first                   // FHIRPrimitive<FHIRString>?
 name.given?.first?.value            // FHIRString?
 name.given?.first?.value?.string    // String?
+```
+
+### Working with primitives
+
+You may be tempted to get the Swift native types from primitive values and pass these around.
+To get a String from the resource ID you would do:
+
+```swift
+let id = resource.id?.value?.string
+```
+
+Instead, consider passing the element around in its full form, in this case as `FHIRPrimitive<FHIRString>`.
+This means you will not lose extensions while you can still use some primitives in code as if they were native types.
+With `FHIRPrimitive<FHIRString>` for example, you can actually do:
+
+```swift
+if resource.id == "101" {
+    
+}
+```
+
+Conversely, you can also assign many `FHIRPrimitive` types with String, Bool or numeric literals, for example:
+
+```swift
+let patient = Patient(...)
+patient.id = "101"
+patient.active = true
+```
+
+Lastly, many Swift native types have been extended to offer an `asFHIR{type}Primitive()` method. URL and String for example offer:
+
+```swift
+let url = URL(string: "http://apple.com")!.asFHIRURIPrimitive()
+// url is a `FHIRPrimitive<FHIRURI>`
+let str = "http://hl7.org/fhir".asFHIRURIPrimitive()
+// str is a `FHIRPrimitive<FHIRURI>?`
 ```
 
 ### Date & Time
