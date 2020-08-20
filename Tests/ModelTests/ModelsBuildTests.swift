@@ -21,6 +21,7 @@ import ModelsBuild
 
 class ModelsBuildTests: XCTestCase {
 	
+    @available(OSX 10.15, *)
 	@available(iOS 13.0, *)
 	func testGroupResourceDecodeEncode() throws {
 		let string =
@@ -76,12 +77,8 @@ class ModelsBuildTests: XCTestCase {
 		XCTAssertEqual(group.characteristic?.count, 2)
 		
 		let encoder = JSONEncoder()
-        
-//		#if os(Linux)
-//        #else
-//        encoder.outputFormatting = .withoutEscapingSlashes
-//        #endif
-        
+        encoder.outputFormatting = .withoutEscapingSlashes
+
 		let encoded = try encoder.encode(group)
 		guard let encodedString = String(data: encoded, encoding: .utf8) else {
 			throw TestError.failed("decoding UTF8 data to string")
