@@ -242,11 +242,17 @@ class PrimitiveConstructionTests: XCTestCase {
 		
 		let decoder = JSONDecoder()
 		let encoder = JSONEncoder()
+        
+        #if os(Linux)
+            encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
+        #else
 		if #available(macOS 10.15, *), #available(iOS 13.0, *) {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
 		} else {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
 		}
+        #endif
+        
 		do {
 			let decoded = try decoder.decode(TestStruct.self, from: data)
 			let encoded = try encoder.encode(decoded)
@@ -281,11 +287,17 @@ class PrimitiveConstructionTests: XCTestCase {
 		
 		let decoder = JSONDecoder()
 		let encoder = JSONEncoder()
-		if #available(macOS 10.15, *), #available(iOS 13.0, *) {
-			encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
-		} else {
-			encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
-		}
+        
+		#if os(Linux)
+            encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
+        #else
+        if #available(macOS 10.15, *), #available(iOS 13.0, *) {
+            encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
+        } else {
+            encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
+        }
+        #endif
+        
 		do {
 			// Assert decoding
 			let group = try decoder.decode(Group.self, from: data)
@@ -353,7 +365,7 @@ class PrimitiveConstructionTests: XCTestCase {
 	
 	// MARK: - Utilities
 	
-	func assertGroup(group: Group, file: StaticString = #filePath, line: UInt = #line) {
+	func assertGroup(group: Group, file: StaticString = #file, line: UInt = #line) {
 		XCTAssertEqual(group.type, GroupType.person.asPrimitive(), file: file, line: line)
 		XCTAssertTrue(group.actual.value?.bool ?? false, file: file, line: line)
 		XCTAssertFalse(group.active?.value?.bool ?? true, file: file, line: line)

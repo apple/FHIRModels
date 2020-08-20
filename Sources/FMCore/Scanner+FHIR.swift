@@ -21,13 +21,21 @@ import Foundation
 public extension Scanner {
 	
 	func hs_scanCharacters(from characterSet: CharacterSet) -> String? {
-		if #available(macOS 10.15, *), #available(iOS 13, *), #available(watchOS 6, *), #available(tvOS 13, *) {
-			return scanCharacters(from: characterSet)
-		}
-		var string: NSString?
-		if scanCharacters(from: characterSet, into: &string), let string = string {
-			return String(string)
-		}
-		return nil
+        #if os(Linux)
+        return scanCharacters(from: characterSet)
+        #else
+
+        if #available(macOS 10.15, *), #available(iOS 13, *), #available(watchOS 6, *), #available(tvOS 13, *) {
+            return scanCharacters(from: characterSet)
+        }
+        
+        var string: NSString?
+        if scanCharacters(from: characterSet, into: &string), let string = string {
+            return String(string)
+        }
+        
+        return nil
+
+        #endif
 	}
 }

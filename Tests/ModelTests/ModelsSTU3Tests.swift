@@ -76,7 +76,12 @@ class ModelsSTU3Tests: XCTestCase {
 		XCTAssertEqual(group.characteristic?.count, 2)
 		
 		let encoder = JSONEncoder()
-		encoder.outputFormatting = .withoutEscapingSlashes
+        
+//		#if os(Linux)
+//        #else
+//        encoder.outputFormatting = .withoutEscapingSlashes
+//        #endif
+        
 		let encoded = try encoder.encode(group)
 		guard let encodedString = String(data: encoded, encoding: .utf8) else {
 			throw TestError.failed("decoding UTF8 data to string")
