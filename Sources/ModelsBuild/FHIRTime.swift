@@ -209,7 +209,7 @@ extension FHIRTime: CustomStringConvertible {
 	
 	public var description: String {
 		if _secondsAreUnaltered, let originalSecondsString = originalSecondsString {
-            return "\(hour.format("02")):\(minute.format("02")):\(originalSecondsString))"
+            return "\(hour.format("02")):\(minute.format("02")):\(originalSecondsString)"
 		}
         return "\(hour.format("02")):\(minute.format("02")):\(FHIRTime.secondFormatter.string(for: second) ?? "00")"
 	}
