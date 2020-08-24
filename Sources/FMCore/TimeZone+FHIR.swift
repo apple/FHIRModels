@@ -34,7 +34,8 @@ public extension TimeZone {
 		let seconds = abs(secondsFromGMT())
 		let hours = seconds / 3600
 		let minutes = (seconds - (3600 * hours)) / 60
-		return String(format: "%@%02d:%02d", ahead ? "+" : "-", hours, minutes)
+		let prefix = ahead ? "+" : "-"
+		return String(format: "\(prefix)%02d:%02d", hours, minutes)
 	}
 	
 	static func hs_parseComponents(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (secondsFromGMT: Int, timeZoneString: String) {

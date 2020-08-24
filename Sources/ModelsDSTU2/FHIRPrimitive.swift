@@ -48,6 +48,20 @@ public protocol FHIRPrimitiveProtocol: Codable {
 	var hasPrimitiveData: Bool { get }
 }
 
+extension FHIRPrimitiveProtocol {
+	
+	/**
+	 Returns an array of Extensions matching the desired URL. An empty array is returned if there are no extensions that
+	 match or there are no extensions at all.
+	 */
+	public func extensions(for url: String) -> [Extension] {
+		let matches = `extension`?.filter {
+			return $0.url.value?.url.absoluteString == url
+		}
+		return matches ?? []
+	}
+}
+
 // MARK: - FHIRPrimitive
 
 /**

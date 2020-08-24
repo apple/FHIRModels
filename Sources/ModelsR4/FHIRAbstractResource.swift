@@ -19,7 +19,7 @@
 import FMCore
 
 /**
- *  Base class for all FHIR resources.
+ Base class for all FHIR resources.
  */
 open class FHIRAbstractResource: FHIRType {
 	

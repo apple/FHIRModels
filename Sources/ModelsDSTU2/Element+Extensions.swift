@@ -1,8 +1,8 @@
 //
-//  Scanner+FHIR.swift
+//  Element+Extensions.swift
 //  HealthSoftware
 //
-//  Copyright 2020 Apple Inc.
+//  2020, Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,23 +16,16 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import Foundation
-
-public extension Scanner {
+public extension Element {
 	
-	func hs_scanCharacters(from characterSet: CharacterSet) -> String? {
-		#if os(Linux)
-		return scanCharacters(from: characterSet)
-		#else
-        
-		if #available(macOS 10.15, *), #available(iOS 13, *), #available(watchOS 6, *), #available(tvOS 13, *) {
-			return scanCharacters(from: characterSet)
+	/**
+	 Returns an array of Extensions matching the desired URL. An empty array is returned if there are no extensions that
+	 match or there are no extensions at all.
+	 */
+	func extensions(for url: String) -> [Extension] {
+		let matches = `extension`?.filter {
+			return $0.url.value?.url.absoluteString == url
 		}
-		var string: NSString?
-		if scanCharacters(from: characterSet, into: &string), let string = string {
-			return String(string)
-		}
-		return nil
-		#endif
+		return matches ?? []
 	}
 }

@@ -1,7 +1,7 @@
 FHIRModels
 ==========
 
-![0.2.0](https://img.shields.io/badge/Latest-0.2.0-blueviolet.svg?style=flat) ![🔥 FHIR DSTU2, STU3, R4, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3•%20R4_•%20β4.4-orange.svg?style=flat) ![Works on macOS, iOS, watchOS and tvOS](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](#license)
+![0.2.1](https://img.shields.io/badge/Latest-0.2.1-blueviolet.svg?style=flat) ![🔥 FHIR DSTU2, STU3, R4, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3_•%20R4_•%20β4.4-orange.svg?style=flat) ![Works on macOS, iOS, watchOS, tvOS and Linux](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS_•%20Linux-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](#license)
 
 FHIRModels is a Swift library for [FHIR®][fhir] resource data models.
 

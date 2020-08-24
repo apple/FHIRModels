@@ -21,6 +21,7 @@ import ModelsSTU3
 
 class ModelsSTU3Tests: XCTestCase {
 	
+	@available(OSX 10.15, *)
 	@available(iOS 13.0, *)
 	func testGroupResourceDecodeEncode() throws {
 		let string =

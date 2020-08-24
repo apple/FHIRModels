@@ -129,9 +129,9 @@ extension DateTime: CustomStringConvertible {
 	public var description: String {
 		if let time = time, let timeZone = timeZone {
 			if _timeZoneIsUnaltered, let originalTimeZoneString = originalTimeZoneString {
-				return String(format: "%@T%@%@", date.description, time.description, originalTimeZoneString)
+				return "\(date.description)T\(time.description)\(originalTimeZoneString)"
 			}
-			return String(format: "%@T%@%@", date.description, time.description, timeZone.fhirDescription)
+			return "\(date.description)T\(time.description)\(timeZone.fhirDescription)"
 		}
 		return date.description
 	}

@@ -36,7 +36,7 @@ public extension DecodingError.Context {
 public extension DecodingError {
 	
 	/**
-	`DecodingError` apparently already adopts `DecodingError`, however the following override is not showing up when
+	`DecodingError` apparently already adopts `LocalizedError`, however the following override is not showing up when
 	calling `localizedDescription` on a DecodingError. Hence you need to do this:
 	
 	```

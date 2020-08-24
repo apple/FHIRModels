@@ -21,6 +21,7 @@ import ModelsR4
 
 class ModelsR4Tests: XCTestCase {
 	
+	@available(OSX 10.15, *)
 	@available(iOS 13.0, *)
 	func testGroupResourceDecodeEncode() throws {
 		let string =

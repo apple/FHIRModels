@@ -22,6 +22,30 @@ import XCTest
 
 class DateTimeTests: XCTestCase {
 	
+	func testEquality() {
+		let sample1: DateTime = "2020-08-20T16:09:12.45-07:00"
+		let sample2: DateTime = "2020-08-20T16:09:12.45-07:00"
+		let sample3: DateTime = "2020-08-20T18:09:12.45-05:00"
+		let sample4: DateTime = "2020-08-20T16:09:12-07:00"
+		let sample5: DateTime = "2020-08-20T16:09:12-04:00"
+		let sample6: DateTime = "2020-08-20"
+		let sample7: DateTime = "2020-08-21"
+		let sample8: DateTime = "2020-08"
+		
+		XCTAssertEqual(sample1, sample1)
+		XCTAssertEqual(sample1, sample2)
+		XCTAssertNotEqual(sample1, sample3)
+		XCTAssertNotEqual(sample1, sample4)
+		XCTAssertNotEqual(sample1, sample5)
+		XCTAssertNotEqual(sample1, sample6)
+		XCTAssertNotEqual(sample1, sample7)
+		XCTAssertNotEqual(sample1, sample8)
+		
+		XCTAssertNotEqual(sample4, sample5)
+		XCTAssertNotEqual(sample6, sample7)
+		XCTAssertNotEqual(sample6, sample8)
+	}
+	
 	func testParsing() {
 		let pairs: [String: DateTime] = [
 			"2014": DateTime(date: FHIRDate(year: 2014)),

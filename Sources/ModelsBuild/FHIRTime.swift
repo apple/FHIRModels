@@ -195,7 +195,7 @@ extension FHIRTime: Codable {
 
 extension FHIRTime: CustomStringConvertible {
 	
-	static let secondFormatter: NumberFormatter = {
+	static let secondsFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
 		formatter.allowsFloats = true
 		formatter.maximumIntegerDigits = 2
@@ -209,9 +209,9 @@ extension FHIRTime: CustomStringConvertible {
 	
 	public var description: String {
 		if _secondsAreUnaltered, let originalSecondsString = originalSecondsString {
-			return String(format: "%02d:%02d:%@", hour, minute, originalSecondsString)
+			return String(format: "%02d:%02d:\(originalSecondsString)", hour, minute)
 		}
-		return String(format: "%02d:%02d:%@", hour, minute, FHIRTime.secondFormatter.string(for: second) ?? "00")
+		return String(format: "%02d:%02d:\(FHIRTime.secondsFormatter.string(for: second) ?? "00")", hour, minute)
 	}
 }
 

@@ -25,10 +25,10 @@ let package = Package(
 		.testTarget(name: "DateTimeTests", dependencies: ["ModelsR4"]),
 		.testTarget(name: "ModelTests",
 		            dependencies: [
-		                "ModelsDSTU2",
-		                "ModelsSTU3",
-		                "ModelsR4",
-		                "ModelsBuild",
+		            	"ModelsDSTU2",
+		            	"ModelsSTU3",
+		            	"ModelsR4",
+		            	"ModelsBuild",
 		            ]),
 		.testTarget(name: "PrimitiveTests", dependencies: ["ModelsR4"]),
 	]

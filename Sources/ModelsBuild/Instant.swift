@@ -122,9 +122,9 @@ extension Instant: CustomStringConvertible {
 	
 	public var description: String {
 		if _timezoneIsUnaltered, let originalTimeZoneString = originalTimeZoneString {
-			return String(format: "%@T%@%@", date.description, time.description, originalTimeZoneString)
+			return "\(date.description)T\(time.description)\(originalTimeZoneString)"
 		}
-		return String(format: "%@T%@%@", date.description, time.description, timeZone.fhirDescription)
+		return "\(date.description)T\(time.description)\(timeZone.fhirDescription)"
 	}
 }
 

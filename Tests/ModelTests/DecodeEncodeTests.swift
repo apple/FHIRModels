@@ -124,7 +124,9 @@ class DecodeEncodeTests: XCTestCase {
 		XCTAssertTrue(stringRepresentation.contains("\"resourceType\":\"Patient\""))
 		XCTAssertTrue(stringRepresentation.contains("\"id\":\"3\""))
 		XCTAssertFalse(stringRepresentation.contains("\"active\":"))
-		XCTAssertTrue(stringRepresentation.contains("\"_active\":{\"extension\":[{\"url\":\"\(extURL)\",\"valueString\":\"\(extVal)\"}]}"))
+		XCTAssertTrue(stringRepresentation.contains("\"_active\":{\"extension\":"))
+		XCTAssertTrue(stringRepresentation.contains("\"url\":\"\(extURL)\""))
+		XCTAssertTrue(stringRepresentation.contains("\"valueString\":\"\(extVal)\""))
 	}
 	
 	// MARK: - Arrays
