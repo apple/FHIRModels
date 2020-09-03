@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,4 +32,8 @@ public enum JournalIssueMedium: String, FHIRPrimitiveType {
 	
 	/// NLM JournalIssue CitedMedium code for print version.
 	case print = "Print"
+	
+	/// Used for article specific publication date which could be the same as or different from journal issue
+	/// publication date.
+	case internetWithoutIssue = "Internet-Without-Issue"
 }

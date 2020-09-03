@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,10 +31,17 @@ public enum TaskCode: String, FHIRPrimitiveType {
 	/// appropriate for the resource type.  This may involve additing additional content, approval, validation, etc.
 	case approve = "approve"
 	
-	/// Act to perform the actions defined in the focus request.  This might result in a 'more assertive' request (order
-	/// for a plan or proposal, filler order for a placer order), but is intend to eventually result in events.  The
-	/// degree of fulfillment requested might be limited by Task.restriction.
+	/// Act to perform the actions described in the focus request.  This might result in a 'more assertive' request
+	/// (order for a plan or proposal, filler order for a placer order), but is intend to eventually result in events.
+	/// The degree of fulfillment requested might be limited by Task.restriction.
 	case fulfill = "fulfill"
+	
+	/// Act to perform the actions defined in the focus definition resource (ActivityDefinition, PlanDefinition,
+	/// Questionnaire, etc.)  For PlanDefinition or ActivityDefinition, this might result in a 'more assertive' request
+	/// (order for a plan or proposal, filler order for a placer order), but is intend to eventually result in events.
+	/// For Questionnaire, this would result in a QuestionnaireResponse - and possibly resources constructed using data
+	/// extracted from the response.  The degree of fulfillment requested might be limited by Task.restriction.
+	case instantiate = "instantiate"
 	
 	/// Abort, cancel or withdraw the focal resource, as appropriate for the type of resource.
 	case abort = "abort"

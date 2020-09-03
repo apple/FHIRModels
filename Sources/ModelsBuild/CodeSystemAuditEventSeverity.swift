@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,26 +28,26 @@ import FMCore
 public enum AuditEventSeverity: String, FHIRPrimitiveType {
 	
 	/// System is unusable.
-	case emergency = "Emergency"
+	case emergency = "emergency"
 	
 	/// Action must be taken immediately.
-	case alert = "Alert"
+	case alert = "alert"
 	
 	/// Critical conditions.
-	case critical = "Critical"
+	case critical = "critical"
 	
 	/// Error conditions.
-	case error = "Error"
+	case error = "error"
 	
 	/// Warning conditions.
-	case warning = "Warning"
+	case warning = "warning"
 	
 	/// Normal but significant condition.
-	case notice = "Notice"
+	case notice = "notice"
 	
 	/// Informational messages.
-	case informational = "Informational"
+	case informational = "informational"
 	
 	/// Debug-level messages.
-	case debug = "Debug"
+	case debug = "debug"
 }

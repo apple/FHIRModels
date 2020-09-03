@@ -2,7 +2,7 @@
 //  Subscription.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Subscription)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Subscription)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,9 +52,6 @@ open class Subscription: DomainResource {
 	/// Criteria for narrowing the subscription topic stream
 	public var filterBy: [SubscriptionFilterBy]?
 	
-	/// Latest error code or note
-	public var error: [CodeableConcept]?
-	
 	/// Channel type for notifications
 	public var channelType: Coding
 	
@@ -94,7 +91,6 @@ open class Subscription: DomainResource {
 							contentType: FHIRPrimitive<FHIRString>? = nil,
 							end: FHIRPrimitive<Instant>? = nil,
 							endpoint: FHIRPrimitive<FHIRURI>? = nil,
-							error: [CodeableConcept]? = nil,
 							`extension`: [Extension]? = nil,
 							filterBy: [SubscriptionFilterBy]? = nil,
 							header: [FHIRPrimitive<FHIRString>]? = nil,
@@ -119,7 +115,6 @@ open class Subscription: DomainResource {
 		self.contentType = contentType
 		self.end = end
 		self.endpoint = endpoint
-		self.error = error
 		self.`extension` = `extension`
 		self.filterBy = filterBy
 		self.header = header
@@ -145,7 +140,6 @@ open class Subscription: DomainResource {
 		case contentType; case _contentType
 		case end; case _end
 		case endpoint; case _endpoint
-		case error
 		case filterBy
 		case header; case _header
 		case heartbeatPeriod; case _heartbeatPeriod
@@ -168,7 +162,6 @@ open class Subscription: DomainResource {
 		self.contentType = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .contentType, auxiliaryKey: ._contentType)
 		self.end = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .end, auxiliaryKey: ._end)
 		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpoint, auxiliaryKey: ._endpoint)
-		self.error = try [CodeableConcept](from: _container, forKeyIfPresent: .error)
 		self.filterBy = try [SubscriptionFilterBy](from: _container, forKeyIfPresent: .filterBy)
 		self.header = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .header, auxiliaryKey: ._header)
 		self.heartbeatPeriod = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .heartbeatPeriod, auxiliaryKey: ._heartbeatPeriod)
@@ -192,7 +185,6 @@ open class Subscription: DomainResource {
 		try contentType?.encode(on: &_container, forKey: .contentType, auxiliaryKey: ._contentType)
 		try end?.encode(on: &_container, forKey: .end, auxiliaryKey: ._end)
 		try endpoint?.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
-		try error?.encode(on: &_container, forKey: .error)
 		try filterBy?.encode(on: &_container, forKey: .filterBy)
 		try header?.encode(on: &_container, forKey: .header, auxiliaryKey: ._header)
 		try heartbeatPeriod?.encode(on: &_container, forKey: .heartbeatPeriod, auxiliaryKey: ._heartbeatPeriod)
@@ -220,7 +212,6 @@ open class Subscription: DomainResource {
 		    && contentType == _other.contentType
 		    && end == _other.end
 		    && endpoint == _other.endpoint
-		    && error == _other.error
 		    && filterBy == _other.filterBy
 		    && header == _other.header
 		    && heartbeatPeriod == _other.heartbeatPeriod
@@ -240,7 +231,6 @@ open class Subscription: DomainResource {
 		hasher.combine(contentType)
 		hasher.combine(end)
 		hasher.combine(endpoint)
-		hasher.combine(error)
 		hasher.combine(filterBy)
 		hasher.combine(header)
 		hasher.combine(heartbeatPeriod)

@@ -2,7 +2,7 @@
 //  Device.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Device)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Device)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,10 +41,10 @@ open class Device: DomainResource {
 	/// Unique Device Identifier (UDI) Barcode string
 	public var udiCarrier: [DeviceUdiCarrier]?
 	
-	/// Status of the Device availability.
+	/// Status of the Device record. This is not the status of the device like availability.
 	public var status: FHIRPrimitive<FHIRDeviceStatus>?
 	
-	/// online | paused | standby | offline | not-ready | transduc-discon | hw-discon | off
+	/// discarded | obsolete | removed
 	public var statusReason: [CodeableConcept]?
 	
 	/// The distinct identification string
@@ -722,6 +722,14 @@ open class DeviceProperty: BackboneElement {
 /**
  The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used
  for the communication.
+ 
+ The device function, including in some cases whether or not the functionality conforms to some standard. For example, a
+ PHD blood pressure specialization indicates that the device conforms to the IEEE 11073-10407 Blood Pressure
+ Specialization. This is NOT an alternate name or an additional descriptive name given by the manufacturer. That would
+ be found in the deviceName element.
+ In the PHD case, there are 11073 10101 nomenclature codes that define the specialization standards and that will be
+ used, for example, in the PHD case for the specialization.systemType element. The specialization.version would be the
+ version of the standard if the systemType referred to a standard.
  */
 open class DeviceSpecialization: BackboneElement {
 	

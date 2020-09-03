@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,4 +38,10 @@ public enum CitationVariantType: String, FHIRPrimitiveType {
 	
 	/// Used to denote a subpart within a supplementary file or appendix.
 	case supplementSubpart = "supplement-subpart"
+	
+	/// Used to define the base citation or an article set with individual articles as variant citations.
+	case baseForArticleSet = "base-for-article-set"
+	
+	/// Used to distinguish an individual article within an article set where the article set is a base citation.
+	case articleSet = "article-set"
 }

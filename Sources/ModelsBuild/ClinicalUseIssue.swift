@@ -2,7 +2,7 @@
 //  ClinicalUseIssue.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/ClinicalUseIssue)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ClinicalUseIssue)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,16 +36,19 @@ open class ClinicalUseIssue: DomainResource {
 	public var type: FHIRPrimitive<ClinicalUseIssueType>
 	
 	/// A categorisation of the issue, primarily for dividing warnings into subject heading areas such as "Pregnancy and
-	/// Lactation", "Overdose", "Effects Ability to Drive and Use Machines"
+	/// Lactation", "Overdose", "Effects on Ability to Drive and Use Machines"
 	public var category: CodeableConcept?
 	
 	/// The medication or procedure for which this is an indication
 	public var subject: [Reference]?
 	
-	/// General description
+	/// Whether this is a current issue or one that has been retired etc
 	public var status: CodeableConcept?
 	
-	/// General description
+	/// General description of an effect (particularly for a general warning, rather than any of the more specific types
+	/// such as indication) for when a distinct coded or textual description is not appropriate using
+	/// Indication.diseaseSymptomProcedure.text, Contraindication.diseaseSymptomProcedure.text etc. For example "May
+	/// affect ability to drive"
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Specifics for when this is a contraindication

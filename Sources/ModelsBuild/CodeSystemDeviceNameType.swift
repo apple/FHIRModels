@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,16 +30,20 @@ public enum DeviceNameType: String, FHIRPrimitiveType {
 	/// UDI Label name.
 	case udiLabelName = "udi-label-name"
 	
-	/// User Friendly name.
+	/// The 'user friendly name' typically is the name of the device on the package it came in or some combination of
+	/// that name with the model number, serial number, or other attribute that makes the name easy to understand for
+	/// the user of that device. It is often exposed in communicating devices transport protocols. It is provided to
+	/// help users identify the device when reported in discovery operations.
 	case userFriendlyName = "user-friendly-name"
 	
-	/// Patient Reported name.
+	/// A name as provided by a patient of the device, for example "knee implant", when documenting, e.g., self-reported
+	/// device.
 	case patientReportedName = "patient-reported-name"
 	
-	/// Manufacturer name.
+	/// The formal name as provided by the manufacturer of the device.
 	case manufacturerName = "manufacturer-name"
 	
-	/// Model name.
+	/// The name of the model. The manufacturer-name or user-friendly-name may include that as a component.
 	case modelName = "model-name"
 	
 	/// other.

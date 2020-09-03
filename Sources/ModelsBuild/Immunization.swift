@@ -2,7 +2,7 @@
 //  Immunization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Immunization)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Immunization)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,6 +44,15 @@ open class Immunization: DomainResource {
 	/// Business identifier
 	public var identifier: [Identifier]?
 	
+	/// Instantiates FHIR protocol or definition for the immunization event
+	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
+	
+	/// Instantiates external protocol or definition for the immunization event
+	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
+	
+	/// Authority that the immunization event is based on
+	public var basedOn: [Reference]?
+	
 	/// Indicates the current status of the immunization event.
 	/// Restricted to: ['completed', 'entered-in-error', 'not-done']
 	public var status: FHIRPrimitive<EventStatus>
@@ -53,6 +62,15 @@ open class Immunization: DomainResource {
 	
 	/// Vaccine product administered
 	public var vaccineCode: CodeableConcept
+	
+	/// Vaccine manufacturer
+	public var manufacturer: Reference?
+	
+	/// Vaccine lot number
+	public var lotNumber: FHIRPrimitive<FHIRString>?
+	
+	/// Vaccine expiration date
+	public var expirationDate: FHIRPrimitive<FHIRDate>?
 	
 	/// Who was immunized
 	public var patient: Reference
@@ -76,15 +94,6 @@ open class Immunization: DomainResource {
 	
 	/// Where immunization occurred
 	public var location: Reference?
-	
-	/// Vaccine manufacturer
-	public var manufacturer: Reference?
-	
-	/// Vaccine lot number
-	public var lotNumber: FHIRPrimitive<FHIRString>?
-	
-	/// Vaccine expiration date
-	public var expirationDate: FHIRPrimitive<FHIRDate>?
 	
 	/// Body site vaccine  was administered
 	public var site: CodeableConcept?
@@ -136,6 +145,7 @@ open class Immunization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+							basedOn: [Reference]? = nil,
 							contained: [ResourceProxy]? = nil,
 							doseQuantity: Quantity? = nil,
 							education: [ImmunizationEducation]? = nil,
@@ -147,6 +157,8 @@ open class Immunization: DomainResource {
 							identifier: [Identifier]? = nil,
 							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 							informationSource: InformationSourceX? = nil,
+							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 							isSubpotent: FHIRPrimitive<FHIRBool>? = nil,
 							language: FHIRPrimitive<FHIRString>? = nil,
 							location: Reference? = nil,
@@ -173,6 +185,7 @@ open class Immunization: DomainResource {
 							vaccineCode: CodeableConcept)
 	{
 		self.init(occurrence: occurrence, patient: patient, status: status, vaccineCode: vaccineCode)
+		self.basedOn = basedOn
 		self.contained = contained
 		self.doseQuantity = doseQuantity
 		self.education = education
@@ -184,6 +197,8 @@ open class Immunization: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.informationSource = informationSource
+		self.instantiatesCanonical = instantiatesCanonical
+		self.instantiatesUri = instantiatesUri
 		self.isSubpotent = isSubpotent
 		self.language = language
 		self.location = location
@@ -209,6 +224,7 @@ open class Immunization: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case basedOn
 		case doseQuantity
 		case education
 		case encounter
@@ -217,6 +233,8 @@ open class Immunization: DomainResource {
 		case identifier
 		case informationSourceCodeableConcept
 		case informationSourceReference
+		case instantiatesCanonical; case _instantiatesCanonical
+		case instantiatesUri; case _instantiatesUri
 		case isSubpotent; case _isSubpotent
 		case location
 		case lotNumber; case _lotNumber
@@ -250,6 +268,7 @@ open class Immunization: DomainResource {
 		}
 		
 		// Decode all our properties
+		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.doseQuantity = try Quantity(from: _container, forKeyIfPresent: .doseQuantity)
 		self.education = try [ImmunizationEducation](from: _container, forKeyIfPresent: .education)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
@@ -270,6 +289,8 @@ open class Immunization: DomainResource {
 			_t_informationSource = .reference(informationSourceReference)
 		}
 		self.informationSource = _t_informationSource
+		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
+		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.isSubpotent = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isSubpotent, auxiliaryKey: ._isSubpotent)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
@@ -311,6 +332,7 @@ open class Immunization: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try doseQuantity?.encode(on: &_container, forKey: .doseQuantity)
 		try education?.encode(on: &_container, forKey: .education)
 		try encounter?.encode(on: &_container, forKey: .encounter)
@@ -325,6 +347,8 @@ open class Immunization: DomainResource {
 				try _value.encode(on: &_container, forKey: .informationSourceReference)
 			}
 		}
+		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
+		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try isSubpotent?.encode(on: &_container, forKey: .isSubpotent, auxiliaryKey: ._isSubpotent)
 		try location?.encode(on: &_container, forKey: .location)
 		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
@@ -364,13 +388,16 @@ open class Immunization: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return doseQuantity == _other.doseQuantity
+		return basedOn == _other.basedOn
+		    && doseQuantity == _other.doseQuantity
 		    && education == _other.education
 		    && encounter == _other.encounter
 		    && expirationDate == _other.expirationDate
 		    && fundingSource == _other.fundingSource
 		    && identifier == _other.identifier
 		    && informationSource == _other.informationSource
+		    && instantiatesCanonical == _other.instantiatesCanonical
+		    && instantiatesUri == _other.instantiatesUri
 		    && isSubpotent == _other.isSubpotent
 		    && location == _other.location
 		    && lotNumber == _other.lotNumber
@@ -395,6 +422,7 @@ open class Immunization: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(basedOn)
 		hasher.combine(doseQuantity)
 		hasher.combine(education)
 		hasher.combine(encounter)
@@ -402,6 +430,8 @@ open class Immunization: DomainResource {
 		hasher.combine(fundingSource)
 		hasher.combine(identifier)
 		hasher.combine(informationSource)
+		hasher.combine(instantiatesCanonical)
+		hasher.combine(instantiatesUri)
 		hasher.combine(isSubpotent)
 		hasher.combine(location)
 		hasher.combine(lotNumber)

@@ -2,7 +2,7 @@
 //  TerminologyCapabilities.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -426,7 +426,7 @@ open class TerminologyCapabilitiesClosure: BackboneElement {
  */
 open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 	
-	/// URI for the Code System
+	/// Canonical identifier for the code system, represented as a URI
 	public var uri: FHIRPrimitive<Canonical>?
 	
 	/// Version of Code System supported
@@ -824,7 +824,7 @@ open class TerminologyCapabilitiesExpansion: BackboneElement {
  */
 open class TerminologyCapabilitiesExpansionParameter: BackboneElement {
 	
-	/// Expansion Parameter name
+	/// Name of the supported expansion parameter
 	public var name: FHIRPrimitive<FHIRString>
 	
 	/// Description of support for parameter

@@ -2,7 +2,7 @@
 //  ExplanationOfBenefit.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +98,7 @@ open class ExplanationOfBenefit: DomainResource {
 	public var claimResponse: Reference?
 	
 	/// The outcome of the claim, predetermination, or preauthorization processing.
-	public var outcome: FHIRPrimitive<RemittanceOutcome>
+	public var outcome: FHIRPrimitive<ClaimProcessingCodes>
 	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -161,7 +161,7 @@ open class ExplanationOfBenefit: DomainResource {
 	public var benefitBalance: [ExplanationOfBenefitBenefitBalance]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurance: [ExplanationOfBenefitInsurance], insurer: Reference, outcome: FHIRPrimitive<RemittanceOutcome>, patient: Reference, provider: Reference, status: FHIRPrimitive<ExplanationOfBenefitStatus>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
+	public init(created: FHIRPrimitive<DateTime>, insurance: [ExplanationOfBenefitInsurance], insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingCodes>, patient: Reference, provider: Reference, status: FHIRPrimitive<ExplanationOfBenefitStatus>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
 		self.created = created
 		self.insurance = insurance
 		self.insurer = insurer
@@ -206,7 +206,7 @@ open class ExplanationOfBenefit: DomainResource {
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
 							originalPrescription: Reference? = nil,
-							outcome: FHIRPrimitive<RemittanceOutcome>,
+							outcome: FHIRPrimitive<ClaimProcessingCodes>,
 							patient: Reference,
 							payee: ExplanationOfBenefitPayee? = nil,
 							payment: ExplanationOfBenefitPayment? = nil,
@@ -349,7 +349,7 @@ open class ExplanationOfBenefit: DomainResource {
 		self.insurer = try Reference(from: _container, forKey: .insurer)
 		self.item = try [ExplanationOfBenefitItem](from: _container, forKeyIfPresent: .item)
 		self.originalPrescription = try Reference(from: _container, forKeyIfPresent: .originalPrescription)
-		self.outcome = try FHIRPrimitive<RemittanceOutcome>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<ClaimProcessingCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.payee = try ExplanationOfBenefitPayee(from: _container, forKeyIfPresent: .payee)
 		self.payment = try ExplanationOfBenefitPayment(from: _container, forKeyIfPresent: .payment)

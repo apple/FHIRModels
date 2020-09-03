@@ -2,7 +2,7 @@
 //  StructureMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/StructureMap)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/StructureMap)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -287,7 +287,7 @@ open class StructureMapGroup: BackboneElement {
 	public var extends: FHIRPrimitive<FHIRString>?
 	
 	/// If this is the default rule set to apply for the source type or this combination of types.
-	public var typeMode: FHIRPrimitive<StructureMapGroupTypeMode>
+	public var typeMode: FHIRPrimitive<StructureMapGroupTypeMode>?
 	
 	/// Additional description/explanation for group
 	public var documentation: FHIRPrimitive<FHIRString>?
@@ -296,14 +296,12 @@ open class StructureMapGroup: BackboneElement {
 	public var input: [StructureMapGroupInput]
 	
 	/// Transform Rule from source to target
-	public var rule: [StructureMapGroupRule]
+	public var rule: [StructureMapGroupRule]?
 	
 	/// Designated initializer taking all required properties
-	public init(input: [StructureMapGroupInput], name: FHIRPrimitive<FHIRString>, rule: [StructureMapGroupRule], typeMode: FHIRPrimitive<StructureMapGroupTypeMode>) {
+	public init(input: [StructureMapGroupInput], name: FHIRPrimitive<FHIRString>) {
 		self.input = input
 		self.name = name
-		self.rule = rule
-		self.typeMode = typeMode
 		super.init()
 	}
 	
@@ -316,15 +314,17 @@ open class StructureMapGroup: BackboneElement {
 							input: [StructureMapGroupInput],
 							modifierExtension: [Extension]? = nil,
 							name: FHIRPrimitive<FHIRString>,
-							rule: [StructureMapGroupRule],
-							typeMode: FHIRPrimitive<StructureMapGroupTypeMode>)
+							rule: [StructureMapGroupRule]? = nil,
+							typeMode: FHIRPrimitive<StructureMapGroupTypeMode>? = nil)
 	{
-		self.init(input: input, name: name, rule: rule, typeMode: typeMode)
+		self.init(input: input, name: name)
 		self.documentation = documentation
 		self.extends = extends
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.rule = rule
+		self.typeMode = typeMode
 	}
 	
 	// MARK: - Codable
@@ -347,8 +347,8 @@ open class StructureMapGroup: BackboneElement {
 		self.extends = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .extends, auxiliaryKey: ._extends)
 		self.input = try [StructureMapGroupInput](from: _container, forKey: .input)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
-		self.rule = try [StructureMapGroupRule](from: _container, forKey: .rule)
-		self.typeMode = try FHIRPrimitive<StructureMapGroupTypeMode>(from: _container, forKey: .typeMode, auxiliaryKey: ._typeMode)
+		self.rule = try [StructureMapGroupRule](from: _container, forKeyIfPresent: .rule)
+		self.typeMode = try FHIRPrimitive<StructureMapGroupTypeMode>(from: _container, forKeyIfPresent: .typeMode, auxiliaryKey: ._typeMode)
 		try super.init(from: decoder)
 	}
 	
@@ -361,8 +361,8 @@ open class StructureMapGroup: BackboneElement {
 		try extends?.encode(on: &_container, forKey: .extends, auxiliaryKey: ._extends)
 		try input.encode(on: &_container, forKey: .input)
 		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
-		try rule.encode(on: &_container, forKey: .rule)
-		try typeMode.encode(on: &_container, forKey: .typeMode, auxiliaryKey: ._typeMode)
+		try rule?.encode(on: &_container, forKey: .rule)
+		try typeMode?.encode(on: &_container, forKey: .typeMode, auxiliaryKey: ._typeMode)
 		try super.encode(to: encoder)
 	}
 	
@@ -501,7 +501,7 @@ open class StructureMapGroupInput: BackboneElement {
 open class StructureMapGroupRule: BackboneElement {
 	
 	/// Name of the rule for internal references
-	public var name: FHIRPrimitive<FHIRString>
+	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Source inputs to the mapping
 	public var source: [StructureMapGroupRuleSource]
@@ -519,8 +519,7 @@ open class StructureMapGroupRule: BackboneElement {
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
-	public init(name: FHIRPrimitive<FHIRString>, source: [StructureMapGroupRuleSource]) {
-		self.name = name
+	public init(source: [StructureMapGroupRuleSource]) {
 		self.source = source
 		super.init()
 	}
@@ -532,17 +531,18 @@ open class StructureMapGroupRule: BackboneElement {
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
+							name: FHIRPrimitive<FHIRString>? = nil,
 							rule: [StructureMapGroupRule]? = nil,
 							source: [StructureMapGroupRuleSource],
 							target: [StructureMapGroupRuleTarget]? = nil)
 	{
-		self.init(name: name, source: source)
+		self.init(source: source)
 		self.dependent = dependent
 		self.documentation = documentation
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.name = name
 		self.rule = rule
 		self.target = target
 	}
@@ -565,7 +565,7 @@ open class StructureMapGroupRule: BackboneElement {
 		// Decode all our properties
 		self.dependent = try [StructureMapGroupRuleDependent](from: _container, forKeyIfPresent: .dependent)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
-		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.rule = try [StructureMapGroupRule](from: _container, forKeyIfPresent: .rule)
 		self.source = try [StructureMapGroupRuleSource](from: _container, forKey: .source)
 		self.target = try [StructureMapGroupRuleTarget](from: _container, forKeyIfPresent: .target)
@@ -579,7 +579,7 @@ open class StructureMapGroupRule: BackboneElement {
 		// Encode all our properties
 		try dependent?.encode(on: &_container, forKey: .dependent)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
-		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try rule?.encode(on: &_container, forKey: .rule)
 		try source.encode(on: &_container, forKey: .source)
 		try target?.encode(on: &_container, forKey: .target)

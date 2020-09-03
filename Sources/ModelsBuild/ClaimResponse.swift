@@ -2,7 +2,7 @@
 //  ClaimResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/ClaimResponse)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ClaimResponse)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,7 +61,7 @@ open class ClaimResponse: DomainResource {
 	public var request: Reference?
 	
 	/// The outcome of the claim, predetermination, or preauthorization processing.
-	public var outcome: FHIRPrimitive<RemittanceOutcome>
+	public var outcome: FHIRPrimitive<ClaimProcessingCodes>
 	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -112,7 +112,7 @@ open class ClaimResponse: DomainResource {
 	public var error: [ClaimResponseError]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<RemittanceOutcome>, patient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
+	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingCodes>, patient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
 		self.created = created
 		self.insurer = insurer
 		self.outcome = outcome
@@ -145,7 +145,7 @@ open class ClaimResponse: DomainResource {
 							language: FHIRPrimitive<FHIRString>? = nil,
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
-							outcome: FHIRPrimitive<RemittanceOutcome>,
+							outcome: FHIRPrimitive<ClaimProcessingCodes>,
 							patient: Reference,
 							payeeType: CodeableConcept? = nil,
 							payment: ClaimResponsePayment? = nil,
@@ -242,7 +242,7 @@ open class ClaimResponse: DomainResource {
 		self.insurance = try [ClaimResponseInsurance](from: _container, forKeyIfPresent: .insurance)
 		self.insurer = try Reference(from: _container, forKey: .insurer)
 		self.item = try [ClaimResponseItem](from: _container, forKeyIfPresent: .item)
-		self.outcome = try FHIRPrimitive<RemittanceOutcome>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<ClaimProcessingCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.payeeType = try CodeableConcept(from: _container, forKeyIfPresent: .payeeType)
 		self.payment = try ClaimResponsePayment(from: _container, forKeyIfPresent: .payment)

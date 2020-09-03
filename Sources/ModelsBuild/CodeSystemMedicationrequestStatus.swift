@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,9 +40,10 @@ public enum MedicationrequestStatus: String, FHIRPrimitiveType {
 	/// All actions that are implied by the prescription have occurred.
 	case completed = "completed"
 	
-	/// Some of the actions that are implied by the medication request may have occurred.  For example, the medication
-	/// may have been dispensed and the patient may have taken some of the medication.  Clinical decision support
-	/// systems should take this status into account
+	/// The prescription was recorded against the wrong patient or for some reason should not have been recorded (e.g.
+	/// wrong medication, wrong dose, etc). Some of the actions that are implied by the medication request may have
+	/// occurred. For example, the medication may have been dispensed and the patient may have taken some of the
+	/// medication.
 	case enteredInError = "entered-in-error"
 	
 	/// Actions implied by the prescription are to be permanently halted, before all of the administrations occurred.

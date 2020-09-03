@@ -2,7 +2,7 @@
 //  MedicinalProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,7 +51,9 @@ open class MedicinalProductDefinition: DomainResource {
 	/// The dose form for a single part product, or combined form of a multiple part product
 	public var combinedPharmaceuticalDoseForm: CodeableConcept?
 	
-	/// General combined description of indication(s) for this product. See also MedicinalProductDefinitionIndication
+	/// General combined description of indication(s) for this product, for use when a structured set is not available.
+	/// See also the ClinicalUseIssue resource, which can be used for more structured indications, and can be made to
+	/// reference to this resource
 	public var indication: FHIRPrimitive<FHIRString>?
 	
 	/// The legal status of supply of the medicinal product as classified by the regulator
@@ -85,6 +87,11 @@ open class MedicinalProductDefinition: DomainResource {
 	/// are not specified by the pharmaceuticalProduct or packagedMedicinalProduct references above. In cases where
 	/// those levels of detail are not used, the ingredients may be specified directly here
 	public var ingredient: [Reference]?
+	
+	/// Any component of the drug product which is not the chemical entity defined as the drug substance or an excipient
+	/// in the drug product. This includes process-related impurities and contaminants, product-related impurities
+	/// including degradation products
+	public var impurity: [Reference]?
 	
 	/// Supporting documentation, typically for regulatory submission
 	public var attachedDocument: [Reference]?
@@ -130,6 +137,7 @@ open class MedicinalProductDefinition: DomainResource {
 							id: FHIRPrimitive<FHIRString>? = nil,
 							identifier: [Identifier]? = nil,
 							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+							impurity: [Reference]? = nil,
 							indication: FHIRPrimitive<FHIRString>? = nil,
 							ingredient: [Reference]? = nil,
 							language: FHIRPrimitive<FHIRString>? = nil,
@@ -166,6 +174,7 @@ open class MedicinalProductDefinition: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.impurity = impurity
 		self.indication = indication
 		self.ingredient = ingredient
 		self.language = language
@@ -200,6 +209,7 @@ open class MedicinalProductDefinition: DomainResource {
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case domain
 		case identifier
+		case impurity
 		case indication; case _indication
 		case ingredient
 		case legalStatusOfSupply
@@ -233,6 +243,7 @@ open class MedicinalProductDefinition: DomainResource {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.domain = try CodeableConcept(from: _container, forKeyIfPresent: .domain)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.impurity = try [Reference](from: _container, forKeyIfPresent: .impurity)
 		self.indication = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .indication, auxiliaryKey: ._indication)
 		self.ingredient = try [Reference](from: _container, forKeyIfPresent: .ingredient)
 		self.legalStatusOfSupply = try CodeableConcept(from: _container, forKeyIfPresent: .legalStatusOfSupply)
@@ -267,6 +278,7 @@ open class MedicinalProductDefinition: DomainResource {
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try domain?.encode(on: &_container, forKey: .domain)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try impurity?.encode(on: &_container, forKey: .impurity)
 		try indication?.encode(on: &_container, forKey: .indication, auxiliaryKey: ._indication)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
 		try legalStatusOfSupply?.encode(on: &_container, forKey: .legalStatusOfSupply)
@@ -305,6 +317,7 @@ open class MedicinalProductDefinition: DomainResource {
 		    && description_fhir == _other.description_fhir
 		    && domain == _other.domain
 		    && identifier == _other.identifier
+		    && impurity == _other.impurity
 		    && indication == _other.indication
 		    && ingredient == _other.ingredient
 		    && legalStatusOfSupply == _other.legalStatusOfSupply
@@ -335,6 +348,7 @@ open class MedicinalProductDefinition: DomainResource {
 		hasher.combine(description_fhir)
 		hasher.combine(domain)
 		hasher.combine(identifier)
+		hasher.combine(impurity)
 		hasher.combine(indication)
 		hasher.combine(ingredient)
 		hasher.combine(legalStatusOfSupply)
@@ -437,21 +451,15 @@ open class MedicinalProductDefinitionContact: BackboneElement {
  */
 open class MedicinalProductDefinitionCrossReference: BackboneElement {
 	
-	/// All possible types for "product[x]"
-	public enum ProductX: Hashable {
-		case codeableReference(CodeableReference)
-	}
-	
 	/// Reference to another product, e.g. for linking authorised to investigational product
-	/// One of `product[x]`
-	public var product: ProductX
+	public var product: CodeableReference
 	
 	/// The type of relationship, for instance branded to generic, product to development product (investigational),
 	/// parallel import version
 	public var type: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(product: ProductX) {
+	public init(product: CodeableReference) {
 		self.product = product
 		super.init()
 	}
@@ -461,7 +469,7 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
-							product: ProductX,
+							product: CodeableReference,
 							type: CodeableConcept? = nil)
 	{
 		self.init(product: product)
@@ -474,7 +482,7 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case productCodeableReference
+		case product
 		case type
 	}
 	
@@ -482,17 +490,8 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		// Validate that we have at least one of the mandatory properties for expanded properties
-		
 		// Decode all our properties
-		var _t_product: ProductX? = nil
-		if let productCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .productCodeableReference) {
-			if _t_product != nil {
-				throw DecodingError.dataCorruptedError(forKey: .productCodeableReference, in: _container, debugDescription: "More than one value provided for \"product\"")
-			}
-			_t_product = .codeableReference(productCodeableReference)
-		}
-		self.product = _t_product!
+		self.product = try CodeableReference(from: _container, forKey: .product)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -502,12 +501,7 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		
-			switch product {
-			case .codeableReference(let _value):
-				try _value.encode(on: &_container, forKey: .productCodeableReference)
-			}
-		
+		try product.encode(on: &_container, forKey: .product)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}

@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,27 +27,12 @@ import FMCore
  */
 public enum FHIRDeviceStatusReason: String, FHIRPrimitiveType {
 	
-	/// The device is off.
-	case online = "online"
+	/// The device has been discarded.
+	case discarded = "discarded"
 	
-	/// The device is paused.
-	case paused = "paused"
+	/// The device is obsolete.
+	case obsolete = "obsolete"
 	
-	/// The device is ready but not actively operating.
-	case standby = "standby"
-	
-	/// The device is offline.
-	case offline = "offline"
-	
-	/// The device is not ready.
-	case notReady = "not-ready"
-	
-	/// The device transducer is disconnected.
-	case transducDiscon = "transduc-discon"
-	
-	/// The device hardware is disconnected.
-	case hwDiscon = "hw-discon"
-	
-	/// The device is off.
-	case off = "off"
+	/// The device has been removed.
+	case removed = "removed"
 }

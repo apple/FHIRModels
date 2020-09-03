@@ -2,7 +2,7 @@
 //  PaymentReconciliation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,7 +50,7 @@ open class PaymentReconciliation: DomainResource {
 	public var requestor: Reference?
 	
 	/// The outcome of a request for a reconciliation.
-	public var outcome: FHIRPrimitive<RemittanceOutcome>?
+	public var outcome: FHIRPrimitive<ClaimProcessingCodes>?
 	
 	/// Disposition message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -96,7 +96,7 @@ open class PaymentReconciliation: DomainResource {
 							language: FHIRPrimitive<FHIRString>? = nil,
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
-							outcome: FHIRPrimitive<RemittanceOutcome>? = nil,
+							outcome: FHIRPrimitive<ClaimProcessingCodes>? = nil,
 							paymentAmount: Money,
 							paymentDate: FHIRPrimitive<FHIRDate>,
 							paymentIdentifier: Identifier? = nil,
@@ -160,7 +160,7 @@ open class PaymentReconciliation: DomainResource {
 		self.disposition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.formCode = try CodeableConcept(from: _container, forKeyIfPresent: .formCode)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.outcome = try FHIRPrimitive<RemittanceOutcome>(from: _container, forKeyIfPresent: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<ClaimProcessingCodes>(from: _container, forKeyIfPresent: .outcome, auxiliaryKey: ._outcome)
 		self.paymentAmount = try Money(from: _container, forKey: .paymentAmount)
 		self.paymentDate = try FHIRPrimitive<FHIRDate>(from: _container, forKey: .paymentDate, auxiliaryKey: ._paymentDate)
 		self.paymentIdentifier = try Identifier(from: _container, forKeyIfPresent: .paymentIdentifier)

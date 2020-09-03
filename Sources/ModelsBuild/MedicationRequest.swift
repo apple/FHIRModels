@@ -2,7 +2,7 @@
 //  MedicationRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/MedicationRequest)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationRequest)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +49,7 @@ open class MedicationRequest: DomainResource {
 	/// Indicates how quickly the Medication Request should be addressed with respect to other requests.
 	public var priority: FHIRPrimitive<RequestPriority>?
 	
-	/// True if request is prohibiting action
+	/// True if patient is to stop taking or not to start taking the medication
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
 	
 	/// Reported rather than primary record

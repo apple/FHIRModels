@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,13 +27,15 @@ import FMCore
  */
 public enum SubscriptionNotificationType: String, FHIRPrimitiveType {
 	
-	/// The notification is being sent as part of the setup or verification of a communications channel.
+	/// The status was generated as part of the setup or verification of a communications channel.
 	case handshake = "handshake"
 	
-	/// The notification is being sent because there has not been a notification generated over an extended period of
-	/// time.
+	/// The status was generated to perform a heartbeat notification to the subscriber.
 	case heartbeat = "heartbeat"
 	
-	/// The notification is being sent due to an event for the subscriber.
+	/// The status was generated for an event to the subscriber.
 	case eventNotification = "event-notification"
+	
+	/// The status was generated in response to a query/request.
+	case queryStatus = "query-status"
 }

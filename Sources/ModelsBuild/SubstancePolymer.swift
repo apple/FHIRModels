@@ -2,7 +2,7 @@
 //  SubstancePolymer.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/SubstancePolymer)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubstancePolymer)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,32 +20,32 @@
 import FMCore
 
 /**
- Todo.
+ Properties of a substance specific to it being a polymer.
  */
 open class SubstancePolymer: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .substancePolymer }
 	
-	/// Todo
+	/// A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition identifier
 	public var identifier: Identifier?
 	
-	/// Todo
+	/// Overall type of the polymer
 	public var `class`: CodeableConcept?
 	
-	/// Todo
+	/// Polymer geometry, e.g. linear, branched, cross-linked, network or dendritic
 	public var geometry: CodeableConcept?
 	
-	/// Todo
+	/// Descrtibes the copolymer sequence type (polymer connectivity)
 	public var copolymerConnectivity: [CodeableConcept]?
 	
-	/// Todo. This is intended to connect to a repeating full modification structure, also used by Protein and Nucleic
+	/// Todo - this is intended to connect to a repeating full modification structure, also used by Protein and Nucleic
 	/// Acid . String is just a placeholder
 	public var modification: FHIRPrimitive<FHIRString>?
 	
 	/// Todo
 	public var monomerSet: [SubstancePolymerMonomerSet]?
 	
-	/// Todo
+	/// Specifies and quantifies the repeated units and their configuration
 	public var `repeat`: [SubstancePolymerRepeat]?
 	
 	/// Designated initializer taking all required properties
@@ -166,10 +166,10 @@ open class SubstancePolymer: DomainResource {
  */
 open class SubstancePolymerMonomerSet: BackboneElement {
 	
-	/// Todo
+	/// Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer Ratio
 	public var ratioType: CodeableConcept?
 	
-	/// Todo
+	/// The starting materials - monomer(s) used in the synthesis of the polymer
 	public var startingMaterial: [SubstancePolymerMonomerSetStartingMaterial]?
 	
 	/// Designated initializer taking all required properties
@@ -241,21 +241,22 @@ open class SubstancePolymerMonomerSet: BackboneElement {
 }
 
 /**
- Todo.
+ The starting materials - monomer(s) used in the synthesis of the polymer.
  */
 open class SubstancePolymerMonomerSetStartingMaterial: BackboneElement {
 	
-	/// Todo
+	/// The type of substance for this starting material
 	public var code: CodeableConcept?
 	
-	/// Todo
+	/// Substance high level category, e.g. chemical substance
 	public var category: CodeableConcept?
 	
-	/// Todo
+	/// Used to specify whether the attribute described is a defining element for the unique identification of the
+	/// polymer
 	public var isDefining: FHIRPrimitive<FHIRBool>?
 	
-	/// Todo
-	public var amount: SubstanceAmount?
+	/// A percentage
+	public var amount: Quantity?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -264,7 +265,7 @@ open class SubstancePolymerMonomerSetStartingMaterial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
+							amount: Quantity? = nil,
 							category: CodeableConcept? = nil,
 							code: CodeableConcept? = nil,
 							`extension`: [Extension]? = nil,
@@ -296,7 +297,7 @@ open class SubstancePolymerMonomerSetStartingMaterial: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.amount = try SubstanceAmount(from: _container, forKeyIfPresent: .amount)
+		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
 		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.isDefining = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isDefining, auxiliaryKey: ._isDefining)
@@ -340,20 +341,17 @@ open class SubstancePolymerMonomerSetStartingMaterial: BackboneElement {
 }
 
 /**
- Todo.
+ Specifies and quantifies the repeated units and their configuration.
  */
 open class SubstancePolymerRepeat: BackboneElement {
 	
-	/// Todo
-	public var numberOfUnits: FHIRPrimitive<FHIRInteger>?
-	
-	/// Todo
+	/// A representation of an (average) molecular formula from a polymer
 	public var averageMolecularFormula: FHIRPrimitive<FHIRString>?
 	
-	/// Todo
+	/// How the quantitative amount of Structural Repeat Units is captured (e.g. Exact, Numeric, Average)
 	public var repeatUnitAmountType: CodeableConcept?
 	
-	/// Todo
+	/// An SRU - Structural Repeat Unit
 	public var repeatUnit: [SubstancePolymerRepeatRepeatUnit]?
 	
 	/// Designated initializer taking all required properties
@@ -367,7 +365,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
-							numberOfUnits: FHIRPrimitive<FHIRInteger>? = nil,
 							repeatUnit: [SubstancePolymerRepeatRepeatUnit]? = nil,
 							repeatUnitAmountType: CodeableConcept? = nil)
 	{
@@ -376,7 +373,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.numberOfUnits = numberOfUnits
 		self.repeatUnit = repeatUnit
 		self.repeatUnitAmountType = repeatUnitAmountType
 	}
@@ -385,7 +381,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case averageMolecularFormula; case _averageMolecularFormula
-		case numberOfUnits; case _numberOfUnits
 		case repeatUnit
 		case repeatUnitAmountType
 	}
@@ -396,7 +391,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 		
 		// Decode all our properties
 		self.averageMolecularFormula = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .averageMolecularFormula, auxiliaryKey: ._averageMolecularFormula)
-		self.numberOfUnits = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .numberOfUnits, auxiliaryKey: ._numberOfUnits)
 		self.repeatUnit = try [SubstancePolymerRepeatRepeatUnit](from: _container, forKeyIfPresent: .repeatUnit)
 		self.repeatUnitAmountType = try CodeableConcept(from: _container, forKeyIfPresent: .repeatUnitAmountType)
 		try super.init(from: decoder)
@@ -408,7 +402,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 		
 		// Encode all our properties
 		try averageMolecularFormula?.encode(on: &_container, forKey: .averageMolecularFormula, auxiliaryKey: ._averageMolecularFormula)
-		try numberOfUnits?.encode(on: &_container, forKey: .numberOfUnits, auxiliaryKey: ._numberOfUnits)
 		try repeatUnit?.encode(on: &_container, forKey: .repeatUnit)
 		try repeatUnitAmountType?.encode(on: &_container, forKey: .repeatUnitAmountType)
 		try super.encode(to: encoder)
@@ -424,7 +417,6 @@ open class SubstancePolymerRepeat: BackboneElement {
 			return false
 		}
 		return averageMolecularFormula == _other.averageMolecularFormula
-		    && numberOfUnits == _other.numberOfUnits
 		    && repeatUnit == _other.repeatUnit
 		    && repeatUnitAmountType == _other.repeatUnitAmountType
 	}
@@ -432,30 +424,29 @@ open class SubstancePolymerRepeat: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(averageMolecularFormula)
-		hasher.combine(numberOfUnits)
 		hasher.combine(repeatUnit)
 		hasher.combine(repeatUnitAmountType)
 	}
 }
 
 /**
- Todo.
+ An SRU - Structural Repeat Unit.
  */
 open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 	
-	/// Todo
+	/// Structural repeat units are essential elements for defining polymers
 	public var unit: FHIRPrimitive<FHIRString>?
 	
-	/// Todo
+	/// The orientation of the polymerisation, e.g. head-tail, head-head, random
 	public var orientation: CodeableConcept?
 	
-	/// Todo
-	public var amount: SubstanceAmount?
+	/// Number of repeats of this unit
+	public var amount: FHIRPrimitive<FHIRInteger>?
 	
-	/// Todo
+	/// Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described
 	public var degreeOfPolymerisation: [SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation]?
 	
-	/// Todo
+	/// A graphical structure for this SRU
 	public var structuralRepresentation: [SubstancePolymerRepeatRepeatUnitStructuralRepresentation]?
 	
 	/// Designated initializer taking all required properties
@@ -465,7 +456,7 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
+							amount: FHIRPrimitive<FHIRInteger>? = nil,
 							degreeOfPolymerisation: [SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation]? = nil,
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
@@ -488,7 +479,7 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case amount
+		case amount; case _amount
 		case degreeOfPolymerisation
 		case orientation
 		case structuralRepresentation
@@ -500,7 +491,7 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.amount = try SubstanceAmount(from: _container, forKeyIfPresent: .amount)
+		self.amount = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .amount, auxiliaryKey: ._amount)
 		self.degreeOfPolymerisation = try [SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation](from: _container, forKeyIfPresent: .degreeOfPolymerisation)
 		self.orientation = try CodeableConcept(from: _container, forKeyIfPresent: .orientation)
 		self.structuralRepresentation = try [SubstancePolymerRepeatRepeatUnitStructuralRepresentation](from: _container, forKeyIfPresent: .structuralRepresentation)
@@ -513,7 +504,7 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try amount?.encode(on: &_container, forKey: .amount)
+		try amount?.encode(on: &_container, forKey: .amount, auxiliaryKey: ._amount)
 		try degreeOfPolymerisation?.encode(on: &_container, forKey: .degreeOfPolymerisation)
 		try orientation?.encode(on: &_container, forKey: .orientation)
 		try structuralRepresentation?.encode(on: &_container, forKey: .structuralRepresentation)
@@ -548,15 +539,21 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 }
 
 /**
- Todo.
+ Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described.
  */
 open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneElement {
 	
-	/// Todo
-	public var degree: CodeableConcept?
+	/// The type of the degree of polymerisation shall be described, e.g. SRU/Polymer Ratio
+	public var type: CodeableConcept?
 	
-	/// Todo
-	public var amount: SubstanceAmount?
+	/// An average amount of polymerisation
+	public var average: FHIRPrimitive<FHIRInteger>?
+	
+	/// A low expected limit of the amount
+	public var low: FHIRPrimitive<FHIRInteger>?
+	
+	/// A high expected limit of the amount
+	public var high: FHIRPrimitive<FHIRInteger>?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -565,25 +562,31 @@ open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneEleme
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
-							degree: CodeableConcept? = nil,
+							average: FHIRPrimitive<FHIRInteger>? = nil,
 							`extension`: [Extension]? = nil,
+							high: FHIRPrimitive<FHIRInteger>? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
+							low: FHIRPrimitive<FHIRInteger>? = nil,
+							modifierExtension: [Extension]? = nil,
+							type: CodeableConcept? = nil)
 	{
 		self.init()
-		self.amount = amount
-		self.degree = degree
+		self.average = average
 		self.`extension` = `extension`
+		self.high = high
 		self.id = id
+		self.low = low
 		self.modifierExtension = modifierExtension
+		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case amount
-		case degree
+		case average; case _average
+		case high; case _high
+		case low; case _low
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -591,8 +594,10 @@ open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneEleme
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.amount = try SubstanceAmount(from: _container, forKeyIfPresent: .amount)
-		self.degree = try CodeableConcept(from: _container, forKeyIfPresent: .degree)
+		self.average = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .average, auxiliaryKey: ._average)
+		self.high = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .high, auxiliaryKey: ._high)
+		self.low = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .low, auxiliaryKey: ._low)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -601,8 +606,10 @@ open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneEleme
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try amount?.encode(on: &_container, forKey: .amount)
-		try degree?.encode(on: &_container, forKey: .degree)
+		try average?.encode(on: &_container, forKey: .average, auxiliaryKey: ._average)
+		try high?.encode(on: &_container, forKey: .high, auxiliaryKey: ._high)
+		try low?.encode(on: &_container, forKey: .low, auxiliaryKey: ._low)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -615,32 +622,37 @@ open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneEleme
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return amount == _other.amount
-		    && degree == _other.degree
+		return average == _other.average
+		    && high == _other.high
+		    && low == _other.low
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(amount)
-		hasher.combine(degree)
+		hasher.combine(average)
+		hasher.combine(high)
+		hasher.combine(low)
+		hasher.combine(type)
 	}
 }
 
 /**
- Todo.
+ A graphical structure for this SRU.
  */
 open class SubstancePolymerRepeatRepeatUnitStructuralRepresentation: BackboneElement {
 	
-	/// Todo
+	/// The type of structure (e.g. Full, Partial, Representative)
 	public var type: CodeableConcept?
 	
-	/// Todo
+	/// The structural representation as text string in a standard format e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB,
+	/// mmCIF
 	public var representation: FHIRPrimitive<FHIRString>?
 	
-	/// Todo
+	/// The format of the representation e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF
 	public var format: CodeableConcept?
 	
-	/// Todo
+	/// An attached file with the structural representation
 	public var attachment: Attachment?
 	
 	/// Designated initializer taking all required properties

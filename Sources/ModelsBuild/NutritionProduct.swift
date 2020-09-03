@@ -2,7 +2,7 @@
 //  NutritionProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,7 @@ open class NutritionProduct: DomainResource {
 	/// Ingredients contained in this product
 	public var ingredient: [NutritionProductIngredient]?
 	
-	/// Allergens that are known to be a part of this nutrition product
+	/// Known or suspected allergens that are a part of this product
 	public var knownAllergen: [CodeableReference]?
 	
 	/// Specifies descriptive properties of the nutrition product

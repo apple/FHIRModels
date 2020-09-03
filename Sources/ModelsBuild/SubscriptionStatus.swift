@@ -2,7 +2,7 @@
 //  SubscriptionStatus.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ open class SubscriptionStatus: DomainResource {
 	override open class var resourceType: ResourceType { return .subscriptionStatus }
 	
 	/// The type of event being conveyed with this notificaiton.
-	public var notificationType: FHIRPrimitive<SubscriptionNotificationType>
+	public var type: FHIRPrimitive<SubscriptionNotificationType>
 	
 	/// Events since the Subscription was created
 	public var eventsSinceSubscriptionStart: FHIRPrimitive<FHIRInteger64>?
@@ -44,19 +44,23 @@ open class SubscriptionStatus: DomainResource {
 	public var status: FHIRPrimitive<SubscriptionState>?
 	
 	/// Reference to the SubscriptionTopic this notification relates to
-	public var topic: Reference
+	public var topic: FHIRPrimitive<Canonical>
+	
+	/// List of errors on the subscription
+	public var error: [CodeableConcept]?
 	
 	/// Designated initializer taking all required properties
-	public init(notificationType: FHIRPrimitive<SubscriptionNotificationType>, subscription: Reference, topic: Reference) {
-		self.notificationType = notificationType
+	public init(subscription: Reference, topic: FHIRPrimitive<Canonical>, type: FHIRPrimitive<SubscriptionNotificationType>) {
 		self.subscription = subscription
 		self.topic = topic
+		self.type = type
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
 							contained: [ResourceProxy]? = nil,
+							error: [CodeableConcept]? = nil,
 							eventsInNotification: FHIRPrimitive<FHIRInteger>? = nil,
 							eventsSinceSubscriptionStart: FHIRPrimitive<FHIRInteger64>? = nil,
 							`extension`: [Extension]? = nil,
@@ -65,14 +69,15 @@ open class SubscriptionStatus: DomainResource {
 							language: FHIRPrimitive<FHIRString>? = nil,
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
-							notificationType: FHIRPrimitive<SubscriptionNotificationType>,
 							status: FHIRPrimitive<SubscriptionState>? = nil,
 							subscription: Reference,
 							text: Narrative? = nil,
-							topic: Reference)
+							topic: FHIRPrimitive<Canonical>,
+							type: FHIRPrimitive<SubscriptionNotificationType>)
 	{
-		self.init(notificationType: notificationType, subscription: subscription, topic: topic)
+		self.init(subscription: subscription, topic: topic, type: type)
 		self.contained = contained
+		self.error = error
 		self.eventsInNotification = eventsInNotification
 		self.eventsSinceSubscriptionStart = eventsSinceSubscriptionStart
 		self.`extension` = `extension`
@@ -88,12 +93,13 @@ open class SubscriptionStatus: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case error
 		case eventsInNotification; case _eventsInNotification
 		case eventsSinceSubscriptionStart; case _eventsSinceSubscriptionStart
-		case notificationType; case _notificationType
 		case status; case _status
 		case subscription
-		case topic
+		case topic; case _topic
+		case type; case _type
 	}
 	
 	/// Initializer for Decodable
@@ -101,12 +107,13 @@ open class SubscriptionStatus: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.error = try [CodeableConcept](from: _container, forKeyIfPresent: .error)
 		self.eventsInNotification = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .eventsInNotification, auxiliaryKey: ._eventsInNotification)
 		self.eventsSinceSubscriptionStart = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .eventsSinceSubscriptionStart, auxiliaryKey: ._eventsSinceSubscriptionStart)
-		self.notificationType = try FHIRPrimitive<SubscriptionNotificationType>(from: _container, forKey: .notificationType, auxiliaryKey: ._notificationType)
 		self.status = try FHIRPrimitive<SubscriptionState>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subscription = try Reference(from: _container, forKey: .subscription)
-		self.topic = try Reference(from: _container, forKey: .topic)
+		self.topic = try FHIRPrimitive<Canonical>(from: _container, forKey: .topic, auxiliaryKey: ._topic)
+		self.type = try FHIRPrimitive<SubscriptionNotificationType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
 	
@@ -115,12 +122,13 @@ open class SubscriptionStatus: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try error?.encode(on: &_container, forKey: .error)
 		try eventsInNotification?.encode(on: &_container, forKey: .eventsInNotification, auxiliaryKey: ._eventsInNotification)
 		try eventsSinceSubscriptionStart?.encode(on: &_container, forKey: .eventsSinceSubscriptionStart, auxiliaryKey: ._eventsSinceSubscriptionStart)
-		try notificationType.encode(on: &_container, forKey: .notificationType, auxiliaryKey: ._notificationType)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subscription.encode(on: &_container, forKey: .subscription)
-		try topic.encode(on: &_container, forKey: .topic)
+		try topic.encode(on: &_container, forKey: .topic, auxiliaryKey: ._topic)
+		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
 	
@@ -133,21 +141,23 @@ open class SubscriptionStatus: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return eventsInNotification == _other.eventsInNotification
+		return error == _other.error
+		    && eventsInNotification == _other.eventsInNotification
 		    && eventsSinceSubscriptionStart == _other.eventsSinceSubscriptionStart
-		    && notificationType == _other.notificationType
 		    && status == _other.status
 		    && subscription == _other.subscription
 		    && topic == _other.topic
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(error)
 		hasher.combine(eventsInNotification)
 		hasher.combine(eventsSinceSubscriptionStart)
-		hasher.combine(notificationType)
 		hasher.combine(status)
 		hasher.combine(subscription)
 		hasher.combine(topic)
+		hasher.combine(type)
 	}
 }

@@ -2,7 +2,7 @@
 //  SubscriptionTopic.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/SubscriptionTopic)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubscriptionTopic)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ open class SubscriptionTopic: DomainResource {
 	override open class var resourceType: ResourceType { return .subscriptionTopic }
 	
 	/// Logical canonical URL to reference this SubscriptionTopic (globally unique)
-	public var url: FHIRPrimitive<FHIRURI>?
+	public var url: FHIRPrimitive<FHIRURI>
 	
 	/// Business Identifier for SubscriptionTopic
 	public var identifier: [Identifier]?
@@ -42,10 +42,7 @@ open class SubscriptionTopic: DomainResource {
 	public var title: FHIRPrimitive<FHIRString>?
 	
 	/// Based on FHIR protocol or definition
-	public var derivedFromCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Based on external protocol or definition
-	public var derivedFromUri: [FHIRPrimitive<FHIRURI>]?
+	public var derivedFrom: [FHIRPrimitive<Canonical>]?
 	
 	/// The current state of the SubscriptionTopic.
 	public var status: FHIRPrimitive<PublicationStatus>
@@ -93,8 +90,9 @@ open class SubscriptionTopic: DomainResource {
 	public var canFilterBy: [SubscriptionTopicCanFilterBy]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<PublicationStatus>) {
+	public init(status: FHIRPrimitive<PublicationStatus>, url: FHIRPrimitive<FHIRURI>) {
 		self.status = status
+		self.url = url
 		super.init()
 	}
 	
@@ -106,8 +104,7 @@ open class SubscriptionTopic: DomainResource {
 							contained: [ResourceProxy]? = nil,
 							copyright: FHIRPrimitive<FHIRString>? = nil,
 							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
+							derivedFrom: [FHIRPrimitive<Canonical>]? = nil,
 							description_fhir: FHIRPrimitive<FHIRString>? = nil,
 							effectivePeriod: Period? = nil,
 							experimental: FHIRPrimitive<FHIRBool>? = nil,
@@ -126,19 +123,18 @@ open class SubscriptionTopic: DomainResource {
 							status: FHIRPrimitive<PublicationStatus>,
 							text: Narrative? = nil,
 							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
+							url: FHIRPrimitive<FHIRURI>,
 							useContext: [UsageContext]? = nil,
 							version: FHIRPrimitive<FHIRString>? = nil)
 	{
-		self.init(status: status)
+		self.init(status: status, url: url)
 		self.approvalDate = approvalDate
 		self.canFilterBy = canFilterBy
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
 		self.date = date
-		self.derivedFromCanonical = derivedFromCanonical
-		self.derivedFromUri = derivedFromUri
+		self.derivedFrom = derivedFrom
 		self.description_fhir = description_fhir
 		self.effectivePeriod = effectivePeriod
 		self.experimental = experimental
@@ -156,7 +152,6 @@ open class SubscriptionTopic: DomainResource {
 		self.resourceTrigger = resourceTrigger
 		self.text = text
 		self.title = title
-		self.url = url
 		self.useContext = useContext
 		self.version = version
 	}
@@ -169,8 +164,7 @@ open class SubscriptionTopic: DomainResource {
 		case contact
 		case copyright; case _copyright
 		case date; case _date
-		case derivedFromCanonical; case _derivedFromCanonical
-		case derivedFromUri; case _derivedFromUri
+		case derivedFrom; case _derivedFrom
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case effectivePeriod
 		case experimental; case _experimental
@@ -197,8 +191,7 @@ open class SubscriptionTopic: DomainResource {
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
-		self.derivedFromCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
-		self.derivedFromUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
+		self.derivedFrom = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
@@ -210,7 +203,7 @@ open class SubscriptionTopic: DomainResource {
 		self.resourceTrigger = try SubscriptionTopicResourceTrigger(from: _container, forKeyIfPresent: .resourceTrigger)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
-		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
+		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		try super.init(from: decoder)
@@ -226,8 +219,7 @@ open class SubscriptionTopic: DomainResource {
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
-		try derivedFromCanonical?.encode(on: &_container, forKey: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
-		try derivedFromUri?.encode(on: &_container, forKey: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
+		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try effectivePeriod?.encode(on: &_container, forKey: .effectivePeriod)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
@@ -239,7 +231,7 @@ open class SubscriptionTopic: DomainResource {
 		try resourceTrigger?.encode(on: &_container, forKey: .resourceTrigger)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
-		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
+		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		try super.encode(to: encoder)
@@ -259,8 +251,7 @@ open class SubscriptionTopic: DomainResource {
 		    && contact == _other.contact
 		    && copyright == _other.copyright
 		    && date == _other.date
-		    && derivedFromCanonical == _other.derivedFromCanonical
-		    && derivedFromUri == _other.derivedFromUri
+		    && derivedFrom == _other.derivedFrom
 		    && description_fhir == _other.description_fhir
 		    && effectivePeriod == _other.effectivePeriod
 		    && experimental == _other.experimental
@@ -284,8 +275,7 @@ open class SubscriptionTopic: DomainResource {
 		hasher.combine(contact)
 		hasher.combine(copyright)
 		hasher.combine(date)
-		hasher.combine(derivedFromCanonical)
-		hasher.combine(derivedFromUri)
+		hasher.combine(derivedFrom)
 		hasher.combine(description_fhir)
 		hasher.combine(effectivePeriod)
 		hasher.combine(experimental)

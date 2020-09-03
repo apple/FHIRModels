@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,9 @@ public enum ArticleUrlType: String, FHIRPrimitiveType {
 	/// URL to reach a specific version of the abstract for the article.
 	case abstractCited = "abstract-cited"
 	
+	/// URL derived from DOI.
+	case dOIBased = "DOI-based"
+	
 	/// URL to reach the full-text of the article.
 	case fullText = "full-text"
 	
@@ -44,4 +47,13 @@ public enum ArticleUrlType: String, FHIRPrimitiveType {
 	
 	/// URL to reach a specific version of the full-text of the article in PDF form.
 	case pDFCited = "PDF-cited"
+	
+	/// Used when URL type is not specified, commonly when only a single URL is provided.
+	case notSpecified = "not-specified"
+	
+	/// URL to reach computable content in JSON format.
+	case JSON = "JSON"
+	
+	/// URL to reach computable content in XML format.
+	case XML = "XML"
 }

@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -185,13 +185,6 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// A fact or piece of data from a  study of a large quantity of numerical data.  A mathematical or quantified
 	/// characteristic of a group of observations.
 	case statistic = "Statistic"
-	
-	/// Chemical substances are a single substance type whose primary defining element is the molecular structure.
-	/// Chemical substances shall be defined on the basis of their complete covalent molecular structure; the presence
-	/// of a salt (counter-ion) and/or solvates (water, alcohols) is also captured. Purity, grade, physical form or
-	/// particle size are not taken into account in the definition of a chemical substance or in the assignment of a
-	/// Substance ID.
-	case substanceAmount = "SubstanceAmount"
 	
 	/// Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned,
 	/// expected or requested to occur. The most common usage is in dosage instructions for medications. They are also

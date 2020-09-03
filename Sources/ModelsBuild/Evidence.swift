@@ -2,7 +2,7 @@
 //  Evidence.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Evidence)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Evidence)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,7 +50,7 @@ open class Evidence: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Use context
+	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
 	/// When the summary was approved by publisher
@@ -59,8 +59,23 @@ open class Evidence: DomainResource {
 	/// When the summary was last reviewed
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
-	/// Contact detail and role for contributor to summary
-	public var contributor: [Contributor]?
+	/// Name of the publisher (organization or individual)
+	public var publisher: FHIRPrimitive<FHIRString>?
+	
+	/// Contact details for the publisher
+	public var contact: [ContactDetail]?
+	
+	/// Who authored the content
+	public var author: [ContactDetail]?
+	
+	/// Who edited the content
+	public var editor: [ContactDetail]?
+	
+	/// Who reviewed the content
+	public var reviewer: [ContactDetail]?
+	
+	/// Who endorsed the content
+	public var endorser: [ContactDetail]?
 	
 	/// Link or citation to artifact associated with the summary
 	public var relatedArtifact: [RelatedArtifact]?
@@ -74,7 +89,7 @@ open class Evidence: DomainResource {
 	/// Footnotes and/or explanatory notes
 	public var note: [Annotation]?
 	
-	/// Evidence variable
+	/// Evidence variable such as population, exposure, or outcome
 	public var variableDefinition: [EvidenceVariableDefinition]
 	
 	/// The particular type of synthesis if this is a synthesis summary
@@ -103,12 +118,15 @@ open class Evidence: DomainResource {
 	public convenience init(
 							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
 							assertion: FHIRPrimitive<FHIRString>? = nil,
+							author: [ContactDetail]? = nil,
 							certainty: [EvidenceCertainty]? = nil,
+							contact: [ContactDetail]? = nil,
 							contained: [ResourceProxy]? = nil,
-							contributor: [Contributor]? = nil,
 							date: FHIRPrimitive<DateTime>? = nil,
 							description_fhir: FHIRPrimitive<FHIRString>? = nil,
 							distribution: [OrderedDistribution]? = nil,
+							editor: [ContactDetail]? = nil,
+							endorser: [ContactDetail]? = nil,
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							identifier: [Identifier]? = nil,
@@ -118,7 +136,9 @@ open class Evidence: DomainResource {
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
 							note: [Annotation]? = nil,
+							publisher: FHIRPrimitive<FHIRString>? = nil,
 							relatedArtifact: [RelatedArtifact]? = nil,
+							reviewer: [ContactDetail]? = nil,
 							statistic: [Statistic]? = nil,
 							status: FHIRPrimitive<PublicationStatus>,
 							studyType: CodeableConcept? = nil,
@@ -133,12 +153,15 @@ open class Evidence: DomainResource {
 		self.init(status: status, variableDefinition: variableDefinition)
 		self.approvalDate = approvalDate
 		self.assertion = assertion
+		self.author = author
 		self.certainty = certainty
+		self.contact = contact
 		self.contained = contained
-		self.contributor = contributor
 		self.date = date
 		self.description_fhir = description_fhir
 		self.distribution = distribution
+		self.editor = editor
+		self.endorser = endorser
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
@@ -148,7 +171,9 @@ open class Evidence: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
+		self.publisher = publisher
 		self.relatedArtifact = relatedArtifact
+		self.reviewer = reviewer
 		self.statistic = statistic
 		self.studyType = studyType
 		self.synthesisType = synthesisType
@@ -164,15 +189,20 @@ open class Evidence: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case approvalDate; case _approvalDate
 		case assertion; case _assertion
+		case author
 		case certainty
-		case contributor
+		case contact
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case distribution
+		case editor
+		case endorser
 		case identifier
 		case lastReviewDate; case _lastReviewDate
 		case note
+		case publisher; case _publisher
 		case relatedArtifact
+		case reviewer
 		case statistic
 		case status; case _status
 		case studyType
@@ -191,15 +221,20 @@ open class Evidence: DomainResource {
 		// Decode all our properties
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		self.assertion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assertion, auxiliaryKey: ._assertion)
+		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
 		self.certainty = try [EvidenceCertainty](from: _container, forKeyIfPresent: .certainty)
-		self.contributor = try [Contributor](from: _container, forKeyIfPresent: .contributor)
+		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.distribution = try [OrderedDistribution](from: _container, forKeyIfPresent: .distribution)
+		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
+		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
+		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
+		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.statistic = try [Statistic](from: _container, forKeyIfPresent: .statistic)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.studyType = try CodeableConcept(from: _container, forKeyIfPresent: .studyType)
@@ -219,15 +254,20 @@ open class Evidence: DomainResource {
 		// Encode all our properties
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
 		try assertion?.encode(on: &_container, forKey: .assertion, auxiliaryKey: ._assertion)
+		try author?.encode(on: &_container, forKey: .author)
 		try certainty?.encode(on: &_container, forKey: .certainty)
-		try contributor?.encode(on: &_container, forKey: .contributor)
+		try contact?.encode(on: &_container, forKey: .contact)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try distribution?.encode(on: &_container, forKey: .distribution)
+		try editor?.encode(on: &_container, forKey: .editor)
+		try endorser?.encode(on: &_container, forKey: .endorser)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		try note?.encode(on: &_container, forKey: .note)
+		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
+		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try statistic?.encode(on: &_container, forKey: .statistic)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try studyType?.encode(on: &_container, forKey: .studyType)
@@ -251,15 +291,20 @@ open class Evidence: DomainResource {
 		}
 		return approvalDate == _other.approvalDate
 		    && assertion == _other.assertion
+		    && author == _other.author
 		    && certainty == _other.certainty
-		    && contributor == _other.contributor
+		    && contact == _other.contact
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && distribution == _other.distribution
+		    && editor == _other.editor
+		    && endorser == _other.endorser
 		    && identifier == _other.identifier
 		    && lastReviewDate == _other.lastReviewDate
 		    && note == _other.note
+		    && publisher == _other.publisher
 		    && relatedArtifact == _other.relatedArtifact
+		    && reviewer == _other.reviewer
 		    && statistic == _other.statistic
 		    && status == _other.status
 		    && studyType == _other.studyType
@@ -275,15 +320,20 @@ open class Evidence: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(approvalDate)
 		hasher.combine(assertion)
+		hasher.combine(author)
 		hasher.combine(certainty)
-		hasher.combine(contributor)
+		hasher.combine(contact)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(distribution)
+		hasher.combine(editor)
+		hasher.combine(endorser)
 		hasher.combine(identifier)
 		hasher.combine(lastReviewDate)
 		hasher.combine(note)
+		hasher.combine(publisher)
 		hasher.combine(relatedArtifact)
+		hasher.combine(reviewer)
 		hasher.combine(statistic)
 		hasher.combine(status)
 		hasher.combine(studyType)
@@ -305,12 +355,12 @@ open class EvidenceCertainty: BackboneElement {
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Footnotes and/or explanatory notes
-	public var note: Annotation?
+	public var note: [Annotation]?
 	
-	/// Rating of certainty
+	/// Quality or certainty of the Evidence
 	public var rating: [CodeableConcept]?
 	
-	/// Subcomponent of certainty
+	/// A domain or subdomain of certainty rating
 	public var certaintySubcomponent: [EvidenceCertaintyCertaintySubcomponent]?
 	
 	/// Designated initializer taking all required properties
@@ -325,7 +375,7 @@ open class EvidenceCertainty: BackboneElement {
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
-							note: Annotation? = nil,
+							note: [Annotation]? = nil,
 							rating: [CodeableConcept]? = nil)
 	{
 		self.init()
@@ -354,7 +404,7 @@ open class EvidenceCertainty: BackboneElement {
 		// Decode all our properties
 		self.certaintySubcomponent = try [EvidenceCertaintyCertaintySubcomponent](from: _container, forKeyIfPresent: .certaintySubcomponent)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.note = try Annotation(from: _container, forKeyIfPresent: .note)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.rating = try [CodeableConcept](from: _container, forKeyIfPresent: .rating)
 		try super.init(from: decoder)
 	}
@@ -396,7 +446,7 @@ open class EvidenceCertainty: BackboneElement {
 }
 
 /**
- Subcomponent of certainty.
+ A domain or subdomain of certainty rating.
  */
 open class EvidenceCertaintyCertaintySubcomponent: BackboneElement {
 	
@@ -404,12 +454,12 @@ open class EvidenceCertaintyCertaintySubcomponent: BackboneElement {
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Footnotes and/or explanatory notes
-	public var note: Annotation?
+	public var note: [Annotation]?
 	
-	/// Type of certainty being rated
+	/// Aspect of quality or certainty being rated
 	public var type: [CodeableConcept]?
 	
-	/// Rating of certainty subcomponent
+	/// Quality or certainty of the aspect
 	public var rating: [CodeableConcept]?
 	
 	/// Designated initializer taking all required properties
@@ -423,7 +473,7 @@ open class EvidenceCertaintyCertaintySubcomponent: BackboneElement {
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
-							note: Annotation? = nil,
+							note: [Annotation]? = nil,
 							rating: [CodeableConcept]? = nil,
 							type: [CodeableConcept]? = nil)
 	{
@@ -452,7 +502,7 @@ open class EvidenceCertaintyCertaintySubcomponent: BackboneElement {
 		
 		// Decode all our properties
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.note = try Annotation(from: _container, forKeyIfPresent: .note)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.rating = try [CodeableConcept](from: _container, forKeyIfPresent: .rating)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -495,11 +545,11 @@ open class EvidenceCertaintyCertaintySubcomponent: BackboneElement {
 }
 
 /**
- Evidence variable.
+ Evidence variable such as population, exposure, or outcome.
  */
 open class EvidenceVariableDefinition: BackboneElement {
 	
-	/// Description of the variable
+	/// A text description or summary of the variable
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Footnotes and/or explanatory notes

@@ -2,7 +2,7 @@
 //  MedicationDispense.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +52,7 @@ open class MedicationDispense: DomainResource {
 	public var medication: CodeableReference
 	
 	/// Who the dispense is for
-	public var subject: Reference?
+	public var subject: Reference
 	
 	/// Encounter associated with event
 	public var encounter: Reference?
@@ -109,9 +109,10 @@ open class MedicationDispense: DomainResource {
 	public var eventHistory: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(medication: CodeableReference, status: FHIRPrimitive<MedicationDispenseStatusCodes>) {
+	public init(medication: CodeableReference, status: FHIRPrimitive<MedicationDispenseStatusCodes>, subject: Reference) {
 		self.medication = medication
 		self.status = status
+		self.subject = subject
 		super.init()
 	}
 	
@@ -144,7 +145,7 @@ open class MedicationDispense: DomainResource {
 							renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
 							status: FHIRPrimitive<MedicationDispenseStatusCodes>,
 							statusReason: CodeableReference? = nil,
-							subject: Reference? = nil,
+							subject: Reference,
 							substitution: MedicationDispenseSubstitution? = nil,
 							supportingInformation: [Reference]? = nil,
 							text: Narrative? = nil,
@@ -152,7 +153,7 @@ open class MedicationDispense: DomainResource {
 							whenHandedOver: FHIRPrimitive<DateTime>? = nil,
 							whenPrepared: FHIRPrimitive<DateTime>? = nil)
 	{
-		self.init(medication: medication, status: status)
+		self.init(medication: medication, status: status, subject: subject)
 		self.authorizingPrescription = authorizingPrescription
 		self.basedOn = basedOn
 		self.category = category
@@ -178,7 +179,6 @@ open class MedicationDispense: DomainResource {
 		self.receiver = receiver
 		self.renderedDosageInstruction = renderedDosageInstruction
 		self.statusReason = statusReason
-		self.subject = subject
 		self.substitution = substitution
 		self.supportingInformation = supportingInformation
 		self.text = text
@@ -243,7 +243,7 @@ open class MedicationDispense: DomainResource {
 		self.renderedDosageInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		self.status = try FHIRPrimitive<MedicationDispenseStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableReference(from: _container, forKeyIfPresent: .statusReason)
-		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
+		self.subject = try Reference(from: _container, forKey: .subject)
 		self.substitution = try MedicationDispenseSubstitution(from: _container, forKeyIfPresent: .substitution)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
@@ -277,7 +277,7 @@ open class MedicationDispense: DomainResource {
 		try renderedDosageInstruction?.encode(on: &_container, forKey: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
-		try subject?.encode(on: &_container, forKey: .subject)
+		try subject.encode(on: &_container, forKey: .subject)
 		try substitution?.encode(on: &_container, forKey: .substitution)
 		try supportingInformation?.encode(on: &_container, forKey: .supportingInformation)
 		try type?.encode(on: &_container, forKey: .type)

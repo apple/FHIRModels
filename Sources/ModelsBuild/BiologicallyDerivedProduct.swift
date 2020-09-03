@@ -2,7 +2,7 @@
 //  BiologicallyDerivedProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 	public var productCode: CodeableConcept?
 	
 	/// Whether the product is currently available.
-	public var status: FHIRPrimitive<ProductStatus>?
+	public var status: FHIRPrimitive<BiologicallyDerivedProductStatus>?
 	
 	/// Procedure request
 	public var request: [Reference]?
@@ -85,7 +85,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 							productCode: CodeableConcept? = nil,
 							quantity: FHIRPrimitive<FHIRInteger>? = nil,
 							request: [Reference]? = nil,
-							status: FHIRPrimitive<ProductStatus>? = nil,
+							status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
 							storage: [BiologicallyDerivedProductStorage]? = nil,
 							text: Narrative? = nil)
 	{
@@ -141,7 +141,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 		self.productCode = try CodeableConcept(from: _container, forKeyIfPresent: .productCode)
 		self.quantity = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .quantity, auxiliaryKey: ._quantity)
 		self.request = try [Reference](from: _container, forKeyIfPresent: .request)
-		self.status = try FHIRPrimitive<ProductStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<BiologicallyDerivedProductStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.storage = try [BiologicallyDerivedProductStorage](from: _container, forKeyIfPresent: .storage)
 		try super.init(from: decoder)
 	}

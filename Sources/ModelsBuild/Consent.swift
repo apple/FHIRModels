@@ -2,7 +2,7 @@
 //  Consent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Consent)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Consent)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ open class Consent: DomainResource {
 	/// Indicates the current state of this Consent resource.
 	public var status: FHIRPrimitive<ConsentState>
 	
-	/// Which of the four areas this resource covers (extensible)
+	/// Which of the three areas this resource covers (extensible)
 	public var scope: CodeableConcept
 	
 	/// Classification of the consent statement - for indexing/retrieval
@@ -52,8 +52,11 @@ open class Consent: DomainResource {
 	/// Who is agreeing to the policy and rules
 	public var performer: [Reference]?
 	
-	/// Custodian of the consent
-	public var organization: [Reference]?
+	/// Consent workflow management
+	public var manager: [Reference]?
+	
+	/// Consent Enforcer
+	public var controller: [Reference]?
 	
 	/// Source from which this consent is taken
 	public var sourceAttachment: [Attachment]?
@@ -85,15 +88,16 @@ open class Consent: DomainResource {
 	public convenience init(
 							category: [CodeableConcept],
 							contained: [ResourceProxy]? = nil,
+							controller: [Reference]? = nil,
 							dateTime: FHIRPrimitive<DateTime>? = nil,
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							identifier: [Identifier]? = nil,
 							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 							language: FHIRPrimitive<FHIRString>? = nil,
+							manager: [Reference]? = nil,
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
-							organization: [Reference]? = nil,
 							performer: [Reference]? = nil,
 							policy: [ConsentPolicy]? = nil,
 							policyRule: CodeableConcept? = nil,
@@ -108,15 +112,16 @@ open class Consent: DomainResource {
 	{
 		self.init(category: category, scope: scope, status: status)
 		self.contained = contained
+		self.controller = controller
 		self.dateTime = dateTime
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
+		self.manager = manager
 		self.meta = meta
 		self.modifierExtension = modifierExtension
-		self.organization = organization
 		self.performer = performer
 		self.policy = policy
 		self.policyRule = policyRule
@@ -132,9 +137,10 @@ open class Consent: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case category
+		case controller
 		case dateTime; case _dateTime
 		case identifier
-		case organization
+		case manager
 		case performer
 		case policy
 		case policyRule
@@ -153,9 +159,10 @@ open class Consent: DomainResource {
 		
 		// Decode all our properties
 		self.category = try [CodeableConcept](from: _container, forKey: .category)
+		self.controller = try [Reference](from: _container, forKeyIfPresent: .controller)
 		self.dateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .dateTime, auxiliaryKey: ._dateTime)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.organization = try [Reference](from: _container, forKeyIfPresent: .organization)
+		self.manager = try [Reference](from: _container, forKeyIfPresent: .manager)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.policy = try [ConsentPolicy](from: _container, forKeyIfPresent: .policy)
 		self.policyRule = try CodeableConcept(from: _container, forKeyIfPresent: .policyRule)
@@ -175,9 +182,10 @@ open class Consent: DomainResource {
 		
 		// Encode all our properties
 		try category.encode(on: &_container, forKey: .category)
+		try controller?.encode(on: &_container, forKey: .controller)
 		try dateTime?.encode(on: &_container, forKey: .dateTime, auxiliaryKey: ._dateTime)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try organization?.encode(on: &_container, forKey: .organization)
+		try manager?.encode(on: &_container, forKey: .manager)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try policy?.encode(on: &_container, forKey: .policy)
 		try policyRule?.encode(on: &_container, forKey: .policyRule)
@@ -201,9 +209,10 @@ open class Consent: DomainResource {
 			return false
 		}
 		return category == _other.category
+		    && controller == _other.controller
 		    && dateTime == _other.dateTime
 		    && identifier == _other.identifier
-		    && organization == _other.organization
+		    && manager == _other.manager
 		    && performer == _other.performer
 		    && policy == _other.policy
 		    && policyRule == _other.policyRule
@@ -219,9 +228,10 @@ open class Consent: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(category)
+		hasher.combine(controller)
 		hasher.combine(dateTime)
 		hasher.combine(identifier)
-		hasher.combine(organization)
+		hasher.combine(manager)
 		hasher.combine(performer)
 		hasher.combine(policy)
 		hasher.combine(policyRule)

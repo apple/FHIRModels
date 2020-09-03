@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -252,8 +252,8 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// This represents statistics, certainty, both the intended and actual population, and evidence variables.
 	case evidence = "Evidence"
 	
-	/// EvidenceFocus.
-	case evidenceFocus = "EvidenceFocus"
+	/// The EvidenceReport.
+	case evidenceReport = "EvidenceReport"
 	
 	/// The EvidenceVariable resource describes an element that knowledge (Evidence) is about.
 	case evidenceVariable = "EvidenceVariable"
@@ -352,8 +352,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// the resources involved in that calculation.
 	case measureReport = "MeasureReport"
 	
-	/// This resource is primarily used for the identification and definition of a medication for the purposes of
-	/// prescribing, dispensing, and administering a medication as well as for making statements about medication use.
+	/// This resource is primarily used for the identification and definition of a medication, including ingredients,
+	/// for the purposes of prescribing, dispensing, and administering a medication as well as for making statements
+	/// about medication use.
 	case medication = "Medication"
 	
 	/// Describes the event of a patient consuming or otherwise being administered a medication.  This may be as simple
@@ -450,7 +451,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// relationship/sub-division relationship.
 	case organizationAffiliation = "OrganizationAffiliation"
 	
-	/// A medicinal product in a container or package.
+	/// A medically related item or items, in a container or package.
 	case packagedProductDefinition = "PackagedProductDefinition"
 	
 	/// This resource is a non-persisted resource used to pass information into and back from an
@@ -580,7 +581,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// direction.
 	case substanceNucleicAcid = "SubstanceNucleicAcid"
 	
-	/// Todo.
+	/// Properties of a substance specific to it being a polymer.
 	case substancePolymer = "SubstancePolymer"
 	
 	/// A SubstanceProtein is defined as a single unit of a linear amino acid sequence, or a combination of subunits

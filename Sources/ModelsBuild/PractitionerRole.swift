@@ -2,7 +2,7 @@
 //  PractitionerRole.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/PractitionerRole)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/PractitionerRole)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -240,7 +240,7 @@ open class PractitionerRole: DomainResource {
  */
 open class PractitionerRoleAvailableTime: BackboneElement {
 	
-	/// Indicates which days of the week are available between the start and end Times.
+	/// Indicates which days of the week are available between the start and end times.
 	public var daysOfWeek: [FHIRPrimitive<DaysOfWeek>]?
 	
 	/// Always available? e.g. 24 hour service

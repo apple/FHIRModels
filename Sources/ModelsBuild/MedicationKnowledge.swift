@@ -2,7 +2,7 @@
 //  MedicationKnowledge.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,9 +34,11 @@ open class MedicationKnowledge: DomainResource {
 	/// Code that identifies this medication
 	public var code: CodeableConcept?
 	
-	/// A code to indicate if the medication is in active use.  The status refers to the validity about the information
-	/// of the medication and not to its medicinal properties.
-	public var status: FHIRPrimitive<MedicationKnowledgeStatusCodes>?
+	/// active | inactive | entered-in-error
+	public var status: FHIRPrimitive<FHIRString>?
+	
+	/// Creator or owner of the knowledge or information about the medication
+	public var author: Reference?
 	
 	/// Manufacturer of the item
 	public var manufacturer: Reference?
@@ -55,6 +57,9 @@ open class MedicationKnowledge: DomainResource {
 	
 	/// A medication resource that is associated with this medication
 	public var associatedMedication: [Reference]?
+	
+	/// A definition resource that is associated with this medication
+	public var associatedDefinition: Reference?
 	
 	/// Category of the medication or product
 	public var productType: [CodeableConcept]?
@@ -87,7 +92,7 @@ open class MedicationKnowledge: DomainResource {
 	public var medicineClassification: [MedicationKnowledgeMedicineClassification]?
 	
 	/// Details about packaged medications
-	public var packaging: MedicationKnowledgePackaging?
+	public var packaging: [MedicationKnowledgePackaging]?
 	
 	/// Specifies descriptive properties of the medicine
 	public var drugCharacteristic: [MedicationKnowledgeDrugCharacteristic]?
@@ -110,7 +115,9 @@ open class MedicationKnowledge: DomainResource {
 	public convenience init(
 							administrationGuideline: [MedicationKnowledgeAdministrationGuideline]? = nil,
 							amount: Quantity? = nil,
+							associatedDefinition: Reference? = nil,
 							associatedMedication: [Reference]? = nil,
+							author: Reference? = nil,
 							clinicalUseIssue: [Reference]? = nil,
 							code: CodeableConcept? = nil,
 							contained: [ResourceProxy]? = nil,
@@ -132,19 +139,21 @@ open class MedicationKnowledge: DomainResource {
 							modifierExtension: [Extension]? = nil,
 							monitoringProgram: [MedicationKnowledgeMonitoringProgram]? = nil,
 							monograph: [MedicationKnowledgeMonograph]? = nil,
-							packaging: MedicationKnowledgePackaging? = nil,
+							packaging: [MedicationKnowledgePackaging]? = nil,
 							preparationInstruction: FHIRPrimitive<FHIRString>? = nil,
 							productType: [CodeableConcept]? = nil,
 							regulatory: [MedicationKnowledgeRegulatory]? = nil,
 							relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]? = nil,
-							status: FHIRPrimitive<MedicationKnowledgeStatusCodes>? = nil,
+							status: FHIRPrimitive<FHIRString>? = nil,
 							synonym: [FHIRPrimitive<FHIRString>]? = nil,
 							text: Narrative? = nil)
 	{
 		self.init()
 		self.administrationGuideline = administrationGuideline
 		self.amount = amount
+		self.associatedDefinition = associatedDefinition
 		self.associatedMedication = associatedMedication
+		self.author = author
 		self.clinicalUseIssue = clinicalUseIssue
 		self.code = code
 		self.contained = contained
@@ -181,7 +190,9 @@ open class MedicationKnowledge: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case administrationGuideline
 		case amount
+		case associatedDefinition
 		case associatedMedication
+		case author
 		case clinicalUseIssue
 		case code
 		case cost
@@ -212,7 +223,9 @@ open class MedicationKnowledge: DomainResource {
 		// Decode all our properties
 		self.administrationGuideline = try [MedicationKnowledgeAdministrationGuideline](from: _container, forKeyIfPresent: .administrationGuideline)
 		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
+		self.associatedDefinition = try Reference(from: _container, forKeyIfPresent: .associatedDefinition)
 		self.associatedMedication = try [Reference](from: _container, forKeyIfPresent: .associatedMedication)
+		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.clinicalUseIssue = try [Reference](from: _container, forKeyIfPresent: .clinicalUseIssue)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.cost = try [MedicationKnowledgeCost](from: _container, forKeyIfPresent: .cost)
@@ -227,12 +240,12 @@ open class MedicationKnowledge: DomainResource {
 		self.medicineClassification = try [MedicationKnowledgeMedicineClassification](from: _container, forKeyIfPresent: .medicineClassification)
 		self.monitoringProgram = try [MedicationKnowledgeMonitoringProgram](from: _container, forKeyIfPresent: .monitoringProgram)
 		self.monograph = try [MedicationKnowledgeMonograph](from: _container, forKeyIfPresent: .monograph)
-		self.packaging = try MedicationKnowledgePackaging(from: _container, forKeyIfPresent: .packaging)
+		self.packaging = try [MedicationKnowledgePackaging](from: _container, forKeyIfPresent: .packaging)
 		self.preparationInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preparationInstruction, auxiliaryKey: ._preparationInstruction)
 		self.productType = try [CodeableConcept](from: _container, forKeyIfPresent: .productType)
 		self.regulatory = try [MedicationKnowledgeRegulatory](from: _container, forKeyIfPresent: .regulatory)
 		self.relatedMedicationKnowledge = try [MedicationKnowledgeRelatedMedicationKnowledge](from: _container, forKeyIfPresent: .relatedMedicationKnowledge)
-		self.status = try FHIRPrimitive<MedicationKnowledgeStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.synonym = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .synonym, auxiliaryKey: ._synonym)
 		try super.init(from: decoder)
 	}
@@ -244,7 +257,9 @@ open class MedicationKnowledge: DomainResource {
 		// Encode all our properties
 		try administrationGuideline?.encode(on: &_container, forKey: .administrationGuideline)
 		try amount?.encode(on: &_container, forKey: .amount)
+		try associatedDefinition?.encode(on: &_container, forKey: .associatedDefinition)
 		try associatedMedication?.encode(on: &_container, forKey: .associatedMedication)
+		try author?.encode(on: &_container, forKey: .author)
 		try clinicalUseIssue?.encode(on: &_container, forKey: .clinicalUseIssue)
 		try code?.encode(on: &_container, forKey: .code)
 		try cost?.encode(on: &_container, forKey: .cost)
@@ -280,7 +295,9 @@ open class MedicationKnowledge: DomainResource {
 		}
 		return administrationGuideline == _other.administrationGuideline
 		    && amount == _other.amount
+		    && associatedDefinition == _other.associatedDefinition
 		    && associatedMedication == _other.associatedMedication
+		    && author == _other.author
 		    && clinicalUseIssue == _other.clinicalUseIssue
 		    && code == _other.code
 		    && cost == _other.cost
@@ -308,7 +325,9 @@ open class MedicationKnowledge: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(administrationGuideline)
 		hasher.combine(amount)
+		hasher.combine(associatedDefinition)
 		hasher.combine(associatedMedication)
+		hasher.combine(author)
 		hasher.combine(clinicalUseIssue)
 		hasher.combine(code)
 		hasher.combine(cost)
@@ -620,17 +639,27 @@ open class MedicationKnowledgeAdministrationGuidelinePatientCharacteristic: Back
  */
 open class MedicationKnowledgeCost: BackboneElement {
 	
+	/// All possible types for "cost[x]"
+	public enum CostX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case money(Money)
+	}
+	
+	/// The date range for which the cost is effective
+	public var effectiveDate: [Period]?
+	
 	/// The category of the cost information
 	public var type: CodeableConcept
 	
 	/// The source or owner for the price information
 	public var source: FHIRPrimitive<FHIRString>?
 	
-	/// The price of the medication
-	public var cost: Money
+	/// The price or category of the cost of the medication
+	/// One of `cost[x]`
+	public var cost: CostX
 	
 	/// Designated initializer taking all required properties
-	public init(cost: Money, type: CodeableConcept) {
+	public init(cost: CostX, type: CodeableConcept) {
 		self.cost = cost
 		self.type = type
 		super.init()
@@ -638,7 +667,8 @@ open class MedicationKnowledgeCost: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cost: Money,
+							cost: CostX,
+							effectiveDate: [Period]? = nil,
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
 							modifierExtension: [Extension]? = nil,
@@ -646,6 +676,7 @@ open class MedicationKnowledgeCost: BackboneElement {
 							type: CodeableConcept)
 	{
 		self.init(cost: cost, type: type)
+		self.effectiveDate = effectiveDate
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -655,7 +686,9 @@ open class MedicationKnowledgeCost: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case cost
+		case costCodeableConcept
+		case costMoney
+		case effectiveDate
 		case source; case _source
 		case type
 	}
@@ -664,8 +697,27 @@ open class MedicationKnowledgeCost: BackboneElement {
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.costCodeableConcept) || _container.contains(CodingKeys.costMoney) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.costCodeableConcept, CodingKeys.costMoney], debugDescription: "Must have at least one value for \"cost\" but have none"))
+		}
+		
 		// Decode all our properties
-		self.cost = try Money(from: _container, forKey: .cost)
+		var _t_cost: CostX? = nil
+		if let costMoney = try Money(from: _container, forKeyIfPresent: .costMoney) {
+			if _t_cost != nil {
+				throw DecodingError.dataCorruptedError(forKey: .costMoney, in: _container, debugDescription: "More than one value provided for \"cost\"")
+			}
+			_t_cost = .money(costMoney)
+		}
+		if let costCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .costCodeableConcept) {
+			if _t_cost != nil {
+				throw DecodingError.dataCorruptedError(forKey: .costCodeableConcept, in: _container, debugDescription: "More than one value provided for \"cost\"")
+			}
+			_t_cost = .codeableConcept(costCodeableConcept)
+		}
+		self.cost = _t_cost!
+		self.effectiveDate = try [Period](from: _container, forKeyIfPresent: .effectiveDate)
 		self.source = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .source, auxiliaryKey: ._source)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
@@ -676,7 +728,15 @@ open class MedicationKnowledgeCost: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try cost.encode(on: &_container, forKey: .cost)
+		
+			switch cost {
+			case .money(let _value):
+				try _value.encode(on: &_container, forKey: .costMoney)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .costCodeableConcept)
+			}
+		
+		try effectiveDate?.encode(on: &_container, forKey: .effectiveDate)
 		try source?.encode(on: &_container, forKey: .source, auxiliaryKey: ._source)
 		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -692,6 +752,7 @@ open class MedicationKnowledgeCost: BackboneElement {
 			return false
 		}
 		return cost == _other.cost
+		    && effectiveDate == _other.effectiveDate
 		    && source == _other.source
 		    && type == _other.type
 	}
@@ -699,6 +760,7 @@ open class MedicationKnowledgeCost: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(cost)
+		hasher.combine(effectiveDate)
 		hasher.combine(source)
 		hasher.combine(type)
 	}
@@ -1326,6 +1388,12 @@ open class MedicationKnowledgeMonograph: BackboneElement {
  */
 open class MedicationKnowledgePackaging: BackboneElement {
 	
+	/// Business identifier of the packaged medication
+	public var identifier: Identifier?
+	
+	/// Cost of the packaged medication
+	public var cost: MedicationKnowledgeCost?
+	
 	/// A code that defines the specific type of packaging that the medication can be found in
 	public var type: CodeableConcept?
 	
@@ -1348,9 +1416,11 @@ open class MedicationKnowledgePackaging: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+							cost: MedicationKnowledgeCost? = nil,
 							device: Reference? = nil,
 							`extension`: [Extension]? = nil,
 							id: FHIRPrimitive<FHIRString>? = nil,
+							identifier: Identifier? = nil,
 							material: CodeableConcept? = nil,
 							modifierExtension: [Extension]? = nil,
 							packaging: [MedicationKnowledgePackaging]? = nil,
@@ -1358,9 +1428,11 @@ open class MedicationKnowledgePackaging: BackboneElement {
 							type: CodeableConcept? = nil)
 	{
 		self.init()
+		self.cost = cost
 		self.device = device
 		self.`extension` = `extension`
 		self.id = id
+		self.identifier = identifier
 		self.material = material
 		self.modifierExtension = modifierExtension
 		self.packaging = packaging
@@ -1371,7 +1443,9 @@ open class MedicationKnowledgePackaging: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case cost
 		case device
+		case identifier
 		case material
 		case packaging
 		case quantity
@@ -1383,7 +1457,9 @@ open class MedicationKnowledgePackaging: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.cost = try MedicationKnowledgeCost(from: _container, forKeyIfPresent: .cost)
 		self.device = try Reference(from: _container, forKeyIfPresent: .device)
+		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
 		self.material = try CodeableConcept(from: _container, forKeyIfPresent: .material)
 		self.packaging = try [MedicationKnowledgePackaging](from: _container, forKeyIfPresent: .packaging)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
@@ -1396,7 +1472,9 @@ open class MedicationKnowledgePackaging: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try cost?.encode(on: &_container, forKey: .cost)
 		try device?.encode(on: &_container, forKey: .device)
+		try identifier?.encode(on: &_container, forKey: .identifier)
 		try material?.encode(on: &_container, forKey: .material)
 		try packaging?.encode(on: &_container, forKey: .packaging)
 		try quantity?.encode(on: &_container, forKey: .quantity)
@@ -1413,7 +1491,9 @@ open class MedicationKnowledgePackaging: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return device == _other.device
+		return cost == _other.cost
+		    && device == _other.device
+		    && identifier == _other.identifier
 		    && material == _other.material
 		    && packaging == _other.packaging
 		    && quantity == _other.quantity
@@ -1422,7 +1502,9 @@ open class MedicationKnowledgePackaging: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(cost)
 		hasher.combine(device)
+		hasher.combine(identifier)
 		hasher.combine(material)
 		hasher.combine(packaging)
 		hasher.combine(quantity)
@@ -1690,7 +1772,9 @@ open class MedicationKnowledgeRegulatorySubstitution: BackboneElement {
 /**
  Associated or related medication information.
  
- Associated or related knowledge about a medication.
+ Associated or related medications. For example, if the medication is a branded product (e.g. Crestor), this is the
+ Therapeutic Moeity (e.g. Rosuvastatin) or if this is a generic medication (e.g. Rosuvastatin), this would link to a
+ branded product (e.g. Crestor.
  */
 open class MedicationKnowledgeRelatedMedicationKnowledge: BackboneElement {
 	

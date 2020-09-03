@@ -3,6 +3,10 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+### 0.3.0
+
+- Update _build_ models to 4.5.0-a621ed4bdc (http://hl7.org/fhir/2020Sep/)
+
 ### 0.2.1
 
 - Successfully build library under Linux (#4)

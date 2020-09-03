@@ -2,7 +2,7 @@
 //  SubstanceReferenceInformation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/SubstanceReferenceInformation)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubstanceReferenceInformation)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,9 +36,6 @@ open class SubstanceReferenceInformation: DomainResource {
 	public var geneElement: [SubstanceReferenceInformationGeneElement]?
 	
 	/// Todo
-	public var classification: [SubstanceReferenceInformationClassification]?
-	
-	/// Todo
 	public var target: [SubstanceReferenceInformationTarget]?
 	
 	/// Designated initializer taking all required properties
@@ -48,7 +45,6 @@ open class SubstanceReferenceInformation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							classification: [SubstanceReferenceInformationClassification]? = nil,
 							comment: FHIRPrimitive<FHIRString>? = nil,
 							contained: [ResourceProxy]? = nil,
 							`extension`: [Extension]? = nil,
@@ -63,7 +59,6 @@ open class SubstanceReferenceInformation: DomainResource {
 							text: Narrative? = nil)
 	{
 		self.init()
-		self.classification = classification
 		self.comment = comment
 		self.contained = contained
 		self.`extension` = `extension`
@@ -81,7 +76,6 @@ open class SubstanceReferenceInformation: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case classification
 		case comment; case _comment
 		case gene
 		case geneElement
@@ -93,7 +87,6 @@ open class SubstanceReferenceInformation: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.classification = try [SubstanceReferenceInformationClassification](from: _container, forKeyIfPresent: .classification)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.gene = try [SubstanceReferenceInformationGene](from: _container, forKeyIfPresent: .gene)
 		self.geneElement = try [SubstanceReferenceInformationGeneElement](from: _container, forKeyIfPresent: .geneElement)
@@ -106,7 +99,6 @@ open class SubstanceReferenceInformation: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try classification?.encode(on: &_container, forKey: .classification)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try gene?.encode(on: &_container, forKey: .gene)
 		try geneElement?.encode(on: &_container, forKey: .geneElement)
@@ -123,8 +115,7 @@ open class SubstanceReferenceInformation: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return classification == _other.classification
-		    && comment == _other.comment
+		return comment == _other.comment
 		    && gene == _other.gene
 		    && geneElement == _other.geneElement
 		    && target == _other.target
@@ -132,110 +123,10 @@ open class SubstanceReferenceInformation: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(classification)
 		hasher.combine(comment)
 		hasher.combine(gene)
 		hasher.combine(geneElement)
 		hasher.combine(target)
-	}
-}
-
-/**
- Todo.
- */
-open class SubstanceReferenceInformationClassification: BackboneElement {
-	
-	/// Todo
-	public var domain: CodeableConcept?
-	
-	/// Todo
-	public var classification: CodeableConcept?
-	
-	/// Todo
-	public var subtype: [CodeableConcept]?
-	
-	/// Todo
-	public var source: [Reference]?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							classification: CodeableConcept? = nil,
-							domain: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: [Reference]? = nil,
-							subtype: [CodeableConcept]? = nil)
-	{
-		self.init()
-		self.classification = classification
-		self.domain = domain
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.source = source
-		self.subtype = subtype
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case classification
-		case domain
-		case source
-		case subtype
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.classification = try CodeableConcept(from: _container, forKeyIfPresent: .classification)
-		self.domain = try CodeableConcept(from: _container, forKeyIfPresent: .domain)
-		self.source = try [Reference](from: _container, forKeyIfPresent: .source)
-		self.subtype = try [CodeableConcept](from: _container, forKeyIfPresent: .subtype)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try classification?.encode(on: &_container, forKey: .classification)
-		try domain?.encode(on: &_container, forKey: .domain)
-		try source?.encode(on: &_container, forKey: .source)
-		try subtype?.encode(on: &_container, forKey: .subtype)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? SubstanceReferenceInformationClassification else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return classification == _other.classification
-		    && domain == _other.domain
-		    && source == _other.source
-		    && subtype == _other.subtype
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(classification)
-		hasher.combine(domain)
-		hasher.combine(source)
-		hasher.combine(subtype)
 	}
 }
 

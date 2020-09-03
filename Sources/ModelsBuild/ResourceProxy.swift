@@ -2,7 +2,7 @@
 //  ResourceProxy.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -75,7 +75,7 @@ public enum ResourceProxy: FHIRType {
 	case episodeOfCare(EpisodeOfCare)
 	case eventDefinition(EventDefinition)
 	case evidence(Evidence)
-	case evidenceFocus(EvidenceFocus)
+	case evidenceReport(EvidenceReport)
 	case evidenceVariable(EvidenceVariable)
 	case exampleScenario(ExampleScenario)
 	case explanationOfBenefit(ExplanationOfBenefit)
@@ -283,8 +283,8 @@ public enum ResourceProxy: FHIRType {
 			return "EventDefinition"
 		case .evidence:
 			return "Evidence"
-		case .evidenceFocus:
-			return "EvidenceFocus"
+		case .evidenceReport:
+			return "EvidenceReport"
 		case .evidenceVariable:
 			return "EvidenceVariable"
 		case .exampleScenario:
@@ -590,8 +590,8 @@ public enum ResourceProxy: FHIRType {
 			self = .eventDefinition(resource as! EventDefinition)
 		case .evidence:
 			self = .evidence(resource as! Evidence)
-		case .evidenceFocus:
-			self = .evidenceFocus(resource as! EvidenceFocus)
+		case .evidenceReport:
+			self = .evidenceReport(resource as! EvidenceReport)
 		case .evidenceVariable:
 			self = .evidenceVariable(resource as! EvidenceVariable)
 		case .exampleScenario:
@@ -893,7 +893,7 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .evidence(let resource):
 			return resource
-		case .evidenceFocus(let resource):
+		case .evidenceReport(let resource):
 			return resource
 		case .evidenceVariable(let resource):
 			return resource
@@ -1213,8 +1213,8 @@ public enum ResourceProxy: FHIRType {
 			self = .eventDefinition(try EventDefinition(from: decoder))
 		case "Evidence":
 			self = .evidence(try Evidence(from: decoder))
-		case "EvidenceFocus":
-			self = .evidenceFocus(try EvidenceFocus(from: decoder))
+		case "EvidenceReport":
+			self = .evidenceReport(try EvidenceReport(from: decoder))
 		case "EvidenceVariable":
 			self = .evidenceVariable(try EvidenceVariable(from: decoder))
 		case "ExampleScenario":

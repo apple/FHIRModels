@@ -2,7 +2,7 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.4.0-29ad3ab0
+//  Generated from FHIR 4.5.0-a621ed4bdc
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,9 +26,6 @@ import FMCore
  ValueSet: http://hl7.org/fhir/ValueSet/map-group-type-mode
  */
 public enum StructureMapGroupTypeMode: String, FHIRPrimitiveType {
-	
-	/// This group is not a default group for the types.
-	case none = "none"
 	
 	/// This group is a default mapping group for the specified types and for the primary source type.
 	case types = "types"

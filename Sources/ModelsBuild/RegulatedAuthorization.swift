@@ -2,7 +2,7 @@
 //  RegulatedAuthorization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,7 +76,7 @@ open class RegulatedAuthorization: DomainResource {
 	/// Authorization in areas within a country
 	public var jurisdictionalAuthorization: [Reference]?
 	
-	/// Marketing Authorization Holder
+	/// The organization that holds the granted authorization
 	public var holder: Reference?
 	
 	/// Medicines Regulatory Agency

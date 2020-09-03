@@ -2,7 +2,7 @@
 //  PackagedProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- A medicinal product in a container or package.
+ A medically related item or items, in a container or package.
  */
 open class PackagedProductDefinition: DomainResource {
 	
@@ -29,44 +29,47 @@ open class PackagedProductDefinition: DomainResource {
 	/// Unique identifier
 	public var identifier: [Identifier]?
 	
-	/// A name for this product pack. Typically what it would be listed as in a drug formulary
+	/// A name for this package. Typically what it would be listed as in a drug formulary or catalogue, inventory etc
 	public var name: FHIRPrimitive<FHIRString>?
+	
+	/// A high level category e.g. medicinal product, raw material, shipping/transport container, etc
+	public var type: CodeableConcept?
 	
 	/// The product that this is a pack for
 	public var subject: [Reference]?
 	
-	/// The status within the lifecycle of this product. A high level status, this is not intended to duplicate details
-	/// carried elswhere such as legal status, or authorization or marketing status
+	/// The status within the lifecycle of this item. A high level status, this is not intended to duplicate details
+	/// carried elsewhere such as legal status, or authorization or marketing status
 	public var status: CodeableConcept?
 	
 	/// The date at which the given status became applicable
 	public var statusDate: FHIRPrimitive<DateTime>?
 	
-	/// Textual description. Note that this is not the name of the product
+	/// Textual description. Note that this is not the name of the package or product
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
-	/// The legal status of supply of the medicinal product as classified by the regulator
+	/// The legal status of supply of the packaged item as classified by the regulator
 	public var legalStatusOfSupply: CodeableConcept?
 	
 	/// Marketing information
 	public var marketingStatus: [MarketingStatus]?
 	
-	/// Allows the key product features to be recorded, such as "hospital pack", "nurse prescribable", "calendar pack"
+	/// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable", "calendar pack"
 	public var characteristic: [CodeableConcept]?
 	
 	/// States whether a drug product is supplied with another item such as a diluent or adjuvant
 	public var copackagedIndicator: FHIRPrimitive<FHIRBool>?
 	
-	/// Manufacturer of this Package Item
+	/// An authorization for this package type
 	public var marketingAuthorization: Reference?
 	
-	/// Manufacturer of this Package Item
+	/// Manufacturer of this package type
 	public var manufacturer: [Reference]?
 	
 	/// Batch numbering
 	public var batchIdentifier: [PackagedProductDefinitionBatchIdentifier]?
 	
-	/// A packaging item, as a contained for medicine, possibly with other packaging items within
+	/// A packaging item, as a container for medically related items, possibly with other packaging items within
 	public var package: [PackagedProductDefinitionPackage]?
 	
 	/// Designated initializer taking all required properties
@@ -97,7 +100,8 @@ open class PackagedProductDefinition: DomainResource {
 							status: CodeableConcept? = nil,
 							statusDate: FHIRPrimitive<DateTime>? = nil,
 							subject: [Reference]? = nil,
-							text: Narrative? = nil)
+							text: Narrative? = nil,
+							type: CodeableConcept? = nil)
 	{
 		self.init()
 		self.batchIdentifier = batchIdentifier
@@ -122,6 +126,7 @@ open class PackagedProductDefinition: DomainResource {
 		self.statusDate = statusDate
 		self.subject = subject
 		self.text = text
+		self.type = type
 	}
 	
 	// MARK: - Codable
@@ -141,6 +146,7 @@ open class PackagedProductDefinition: DomainResource {
 		case status
 		case statusDate; case _statusDate
 		case subject
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -162,6 +168,7 @@ open class PackagedProductDefinition: DomainResource {
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.statusDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .statusDate, auxiliaryKey: ._statusDate)
 		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -184,6 +191,7 @@ open class PackagedProductDefinition: DomainResource {
 		try status?.encode(on: &_container, forKey: .status)
 		try statusDate?.encode(on: &_container, forKey: .statusDate, auxiliaryKey: ._statusDate)
 		try subject?.encode(on: &_container, forKey: .subject)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -210,6 +218,7 @@ open class PackagedProductDefinition: DomainResource {
 		    && status == _other.status
 		    && statusDate == _other.statusDate
 		    && subject == _other.subject
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -228,6 +237,7 @@ open class PackagedProductDefinition: DomainResource {
 		hasher.combine(status)
 		hasher.combine(statusDate)
 		hasher.combine(subject)
+		hasher.combine(type)
 	}
 }
 
@@ -311,18 +321,18 @@ open class PackagedProductDefinitionBatchIdentifier: BackboneElement {
 }
 
 /**
- A packaging item, as a contained for medicine, possibly with other packaging items within.
+ A packaging item, as a container for medically related items, possibly with other packaging items within.
  */
 open class PackagedProductDefinitionPackage: BackboneElement {
 	
 	/// Including possibly Data Carrier Identifier
 	public var identifier: [Identifier]?
 	
-	/// The physical type of the container of the medicine
+	/// The physical type of the container of the items
 	public var type: CodeableConcept?
 	
-	/// The quantity of this package in the medicinal product, at the current level of packaging. If specified, the
-	/// outermost level is always 1
+	/// The quantity of this level of packaging in the package that contains it. If specified, the outermost level is
+	/// always 1
 	public var quantity: FHIRPrimitive<FHIRInteger>?
 	
 	/// Material type of the package item
@@ -334,7 +344,7 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	/// Shelf Life and storage information
 	public var shelfLifeStorage: [ProductShelfLife]?
 	
-	/// Manufacturer of this Package Item
+	/// Manufacturer of this package Item
 	public var manufacturer: [Reference]?
 	
 	/// General characteristics of this item
@@ -481,7 +491,9 @@ open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 		case quantity(Quantity)
 	}
 	
-	/// The manufactured item or device as contained in the packaged medicinal product
+	/// The actual item(s) of medication, as manufactured, or a device (typically, but not necessarily, a co-packaged
+	/// one), or other medically related item (such as food, biologicals, raw materials, medical fluids, gases etc.), as
+	/// contained in the package
 	public var item: [Reference]?
 	
 	/// The number of this type of item within this packaging

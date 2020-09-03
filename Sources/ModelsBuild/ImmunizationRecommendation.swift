@@ -2,7 +2,7 @@
 //  ImmunizationRecommendation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,6 +31,12 @@ open class ImmunizationRecommendation: DomainResource {
 	
 	/// Business identifier
 	public var identifier: [Identifier]?
+	
+	/// Instantiates FHIR protocol or definition for the immunization recommendation
+	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
+	
+	/// Instantiates external protocol or definition for the immunization recommendation
+	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Who this profile is for
 	public var patient: Reference
@@ -61,6 +67,8 @@ open class ImmunizationRecommendation: DomainResource {
 							id: FHIRPrimitive<FHIRString>? = nil,
 							identifier: [Identifier]? = nil,
 							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 							language: FHIRPrimitive<FHIRString>? = nil,
 							meta: Meta? = nil,
 							modifierExtension: [Extension]? = nil,
@@ -75,6 +83,8 @@ open class ImmunizationRecommendation: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.instantiatesCanonical = instantiatesCanonical
+		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
@@ -87,6 +97,8 @@ open class ImmunizationRecommendation: DomainResource {
 		case authority
 		case date; case _date
 		case identifier
+		case instantiatesCanonical; case _instantiatesCanonical
+		case instantiatesUri; case _instantiatesUri
 		case patient
 		case recommendation
 	}
@@ -99,6 +111,8 @@ open class ImmunizationRecommendation: DomainResource {
 		self.authority = try Reference(from: _container, forKeyIfPresent: .authority)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKey: .date, auxiliaryKey: ._date)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
+		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.recommendation = try [ImmunizationRecommendationRecommendation](from: _container, forKey: .recommendation)
 		try super.init(from: decoder)
@@ -112,6 +126,8 @@ open class ImmunizationRecommendation: DomainResource {
 		try authority?.encode(on: &_container, forKey: .authority)
 		try date.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
+		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try patient.encode(on: &_container, forKey: .patient)
 		try recommendation.encode(on: &_container, forKey: .recommendation)
 		try super.encode(to: encoder)
@@ -129,6 +145,8 @@ open class ImmunizationRecommendation: DomainResource {
 		return authority == _other.authority
 		    && date == _other.date
 		    && identifier == _other.identifier
+		    && instantiatesCanonical == _other.instantiatesCanonical
+		    && instantiatesUri == _other.instantiatesUri
 		    && patient == _other.patient
 		    && recommendation == _other.recommendation
 	}
@@ -138,6 +156,8 @@ open class ImmunizationRecommendation: DomainResource {
 		hasher.combine(authority)
 		hasher.combine(date)
 		hasher.combine(identifier)
+		hasher.combine(instantiatesCanonical)
+		hasher.combine(instantiatesUri)
 		hasher.combine(patient)
 		hasher.combine(recommendation)
 	}

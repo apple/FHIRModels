@@ -2,7 +2,7 @@
 //  Medication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.4.0-29ad3ab0 (http://hl7.org/fhir/StructureDefinition/Medication)
+//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Medication)
 //  Copyright 2020 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,9 @@ import FMCore
 /**
  Definition of a Medication.
  
- This resource is primarily used for the identification and definition of a medication for the purposes of prescribing,
- dispensing, and administering a medication as well as for making statements about medication use.
+ This resource is primarily used for the identification and definition of a medication, including ingredients, for the
+ purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication
+ use.
  */
 open class Medication: DomainResource {
 	
