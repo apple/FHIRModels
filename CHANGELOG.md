@@ -3,7 +3,12 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
-### 0.3.0
+### 0.3.1
+
+- Add extensions for converting FHIRDate, DateTime, and Instant to NSDate
+- Add extensions for converting NSDate to FHIRTime, FHIRDate, DateTime, and Instant
+
+## 0.3.0
 
 - Update _build_ models to 4.5.0-a621ed4bdc (http://hl7.org/fhir/2020Sep/)
 
