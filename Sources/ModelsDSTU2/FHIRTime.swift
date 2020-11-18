@@ -198,6 +198,7 @@ extension FHIRTime: CustomStringConvertible {
 	static let secondsFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
 		formatter.allowsFloats = true
+        formatter.decimalSeparator = "."
 		formatter.maximumIntegerDigits = 2
 		formatter.minimumIntegerDigits = 2
 		formatter.alwaysShowsDecimalSeparator = false

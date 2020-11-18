@@ -19,7 +19,7 @@
 import Foundation
 import FMCore
 
-extension FHIRDate: ExpressibleAsNSDate {
+extension FHIRDate: ExpressibleAsNSDate, ConstructibleFromNSDate {
 	
 	public func asNSDate() throws -> Date {
 		let dateComponents = FHIRDateComponents(year: year, month: month, day: day)

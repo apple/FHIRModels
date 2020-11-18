@@ -242,7 +242,7 @@ class PrimitiveConstructionTests: XCTestCase {
 		
 		let decoder = JSONDecoder()
 		let encoder = JSONEncoder()
-		if #available(macOS 10.15, *), #available(iOS 13.0, *) {
+		if #available(macOS 10.15, *), #available(iOS 13.0, *), #available(watchOS 7.0, *), #available(tvOS 13.0, *) {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
 		} else {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted]
@@ -281,7 +281,7 @@ class PrimitiveConstructionTests: XCTestCase {
 		
 		let decoder = JSONDecoder()
 		let encoder = JSONEncoder()
-		if #available(macOS 10.15, *), #available(iOS 13.0, *) {
+        if #available(macOS 10.15, *), #available(iOS 13.0, *), #available(watchOS 7.0, *), #available(tvOS 13.0, *) {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted, .withoutEscapingSlashes]
 		} else {
 			encoder.outputFormatting = [.sortedKeys, .prettyPrinted]

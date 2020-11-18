@@ -22,7 +22,9 @@ import ModelsBuild
 class ModelsBuildTests: XCTestCase {
 	
 	@available(OSX 10.15, *)
-	@available(iOS 13.0, *)
+    @available(iOS 13.0, *)
+    @available(watchOS 7.0, *)
+    @available(tvOS 13.0, *)
 	func testGroupResourceDecodeEncode() throws {
 		let string =
 """

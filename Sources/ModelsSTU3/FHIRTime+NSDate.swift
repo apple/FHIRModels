@@ -20,6 +20,7 @@ import Foundation
 import FMCore
 
 extension FHIRTime: ConstructibleFromNSDate {
+	
 	public init(date: Date, timeZone: TimeZone = TimeZone.current) throws {
 		self.originalSecondsString = nil
 		(self.hour, self.minute, self.second) = try FHIRDateComponents.timeComponents(from: date, with: timeZone)

@@ -3,6 +3,10 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+### 0.3.2
+
+- Fix time formatting in certain locales: https://github.com/apple/FHIRModels/issues/7
+
 ### 0.3.1
 
 - Add extensions for converting FHIRDate, DateTime, and Instant to NSDate

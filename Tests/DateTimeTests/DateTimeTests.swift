@@ -17,7 +17,7 @@
 //  limitations under the License.
 
 import FMCore
-import ModelsR4
+@testable import ModelsR4
 import XCTest
 
 class DateTimeTests: XCTestCase {
@@ -88,7 +88,9 @@ class DateTimeTests: XCTestCase {
 		let string = "2017-12-09T09:30:51Z"
 		var parsed = try! DateTime(string)
 		XCTAssertNotNil(parsed.originalTimeZoneString)
-		let expected = DateTime(date: FHIRDate(year: 2017, month: 12, day: 9), time: FHIRTime(hour: 9, minute: 30, second: 51), timezone: TimeZone(secondsFromGMT: 0))
+        let expected = DateTime(date: FHIRDate(year: 2017, month: 12, day: 9),
+                                time: FHIRTime(hour: 9, minute: 30, second: 51),
+                                timezone: TimeZone(secondsFromGMT: 0))
 		XCTAssertEqual(parsed, expected)
 		XCTAssertEqual(parsed.description, string)
 
@@ -97,5 +99,9 @@ class DateTimeTests: XCTestCase {
 		XCTAssertNotEqual(parsed, expected)
 		XCTAssertEqual(parsed.description, "2017-12-09T09:30:51-05:00")
 		XCTAssertEqual(parsed.timeZone, TimeZone(secondsFromGMT: -5 * 3600))
+        
+        FHIRTime.secondsFormatter.locale = Locale(identifier: "de_DE")
+        parsed.time?.second = 49.3
+        XCTAssertEqual(parsed.description, "2017-12-09T09:30:49.3-05:00")
 	}
 }

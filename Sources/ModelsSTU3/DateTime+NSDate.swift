@@ -20,6 +20,7 @@ import Foundation
 import FMCore
 
 extension DateTime: ExpressibleAsNSDate, ConstructibleFromNSDate {
+	
 	public func asNSDate() throws -> Date {
 		let dateComponents = FHIRDateComponents(year: date.year,
 												month: date.month,
