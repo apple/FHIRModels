@@ -30,9 +30,25 @@ public enum MedicationStatusCodes: String, FHIRPrimitiveType {
 	/// The medication is available for use.
 	case active = "active"
 	
-	/// The medication is not available for use.
-	case inactive = "inactive"
+	/// 
+	case active = "completed"
 	
 	/// The medication was entered in error.
 	case enteredInError = "entered-in-error"
+	
+	///
+	case intended = "intended"	
+	
+	/// 
+	case stopped = "stopped"
+	
+	/// 
+	case onHold = "on-hold"
+	
+	/// 
+	case unknown = "unknown"
+	
+	/// 
+	case notTaken = "not-taken"
+	
 }
