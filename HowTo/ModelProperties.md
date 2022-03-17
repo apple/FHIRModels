@@ -54,3 +54,24 @@ let url = URL(string: "http://apple.com")!.asFHIRURIPrimitive()
 let str = "http://hl7.org/fhir".asFHIRURIPrimitive()
 // str is a `FHIRPrimitive<FHIRURI>?`
 ```
+
+## Working with Value-X
+
+Some properties on FHIR models can be of different types and will be represented by different keys in the serialized payload, commonly referred to as ["value X"][valuex].
+These properties are mutually exclusive.
+As an example, look at [`MedicationStatement.medicationX`][medvaluex], where you can have a Medication either as a reference (`medicationReference`) or as an inline codeable concept (`medicationCodeableConcept`).
+
+In FHIRModels, these are modeled as **enums** to ensure exclusivity, you can work with them as follows:
+
+```swift
+let med = try decoder.decode(MedicationStatement.self, from: data)
+if case .reference(let ref) = med.medication {
+    print("--> medication reference display: \(ref.display ?? "{nil}")")
+} else if case .codeableConcept(let cc) = med.medication {
+    print("--> medication codeable concept text: \(cc.text ?? "{nil}")")
+    // Note: you should also look at `cc.coding`
+}
+```
+
+[valuex]: http://hl7.org/fhir/formats.html#choice
+[medvaluex]: http://hl7.org/fhir/medicationstatement-definitions.html#MedicationStatement.medication_x_
