@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Specimen)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -75,28 +75,28 @@ open class Specimen: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							accessionIdentifier: Identifier? = nil,
-							collection: SpecimenCollection? = nil,
-							condition: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							container: [SpecimenContainer]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							parent: [Reference]? = nil,
-							processing: [SpecimenProcessing]? = nil,
-							receivedTime: FHIRPrimitive<DateTime>? = nil,
-							request: [Reference]? = nil,
-							status: FHIRPrimitive<SpecimenStatus>? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		accessionIdentifier: Identifier? = nil,
+		collection: SpecimenCollection? = nil,
+		condition: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		container: [SpecimenContainer]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		parent: [Reference]? = nil,
+		processing: [SpecimenProcessing]? = nil,
+		receivedTime: FHIRPrimitive<DateTime>? = nil,
+		request: [Reference]? = nil,
+		status: FHIRPrimitive<SpecimenStatus>? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.accessionIdentifier = accessionIdentifier
 		self.collection = collection
@@ -272,17 +272,17 @@ open class SpecimenCollection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							bodySite: CodeableConcept? = nil,
-							collected: CollectedX? = nil,
-							collector: Reference? = nil,
-							duration: Duration? = nil,
-							`extension`: [Extension]? = nil,
-							fastingStatus: FastingStatusX? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil)
-	{
+		bodySite: CodeableConcept? = nil,
+		collected: CollectedX? = nil,
+		collector: Reference? = nil,
+		duration: Duration? = nil,
+		`extension`: [Extension]? = nil,
+		fastingStatus: FastingStatusX? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil
+	) {
 		self.init()
 		self.bodySite = bodySite
 		self.collected = collected
@@ -450,16 +450,16 @@ open class SpecimenContainer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additive: AdditiveX? = nil,
-							capacity: Quantity? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							modifierExtension: [Extension]? = nil,
-							specimenQuantity: Quantity? = nil,
-							type: CodeableConcept? = nil)
-	{
+		additive: AdditiveX? = nil,
+		capacity: Quantity? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		modifierExtension: [Extension]? = nil,
+		specimenQuantity: Quantity? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.additive = additive
 		self.capacity = capacity
@@ -593,14 +593,14 @@ open class SpecimenProcessing: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additive: [Reference]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							procedure: CodeableConcept? = nil,
-							time: TimeX? = nil)
-	{
+		additive: [Reference]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		procedure: CodeableConcept? = nil,
+		time: TimeX? = nil
+	) {
 		self.init()
 		self.additive = additive
 		self.description_fhir = description_fhir

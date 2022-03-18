@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,36 +27,36 @@ import FMCore
  */
 public enum TemplateStatusCodeLifeCycle: String, FHIRPrimitiveType {
 	
+	/// Design has been deemed fit for the intended purpose and is published by the governance group.
+	case active
+	
+	/// A drafted design is determined to be erroneous or not fit for intended purpose and is discontinued before ever
+	/// being published in an active state.
+	case cancelled
+	
 	/// Design is under development (nascent).
-	case draft = "draft"
+	case draft
 	
 	/// Design is completed and is being reviewed.
-	case pending = "pending"
+	case pending
 	
-	/// Design has been deemed fit for the intended purpose and is published by the governance group.
-	case active = "active"
+	/// A previously drafted design is determined to be erroneous or not fit for intended purpose and is discontinued
+	/// before ever being published for consideration in a pending state.
+	case rejected
+	
+	/// A previously active design is discontinued from use. It should no longer be used for future designs, but for
+	/// historical purposes may be used to process data previously recorded using this design. A newer design may or may
+	/// not exist. The design is published in the retired state.
+	case retired
 	
 	/// Design is active, but is under review. The review may result in a change to the design. The change may
 	/// necessitate a new version to be created. This in turn may result in the prior version of the template to be
 	/// retired. Alternatively, the review may result in a change to the design that does not require a new version to
 	/// be created, or it may result in no change to the design at all.
-	case review = "review"
-	
-	/// A drafted design is determined to be erroneous or not fit for intended purpose and is discontinued before ever
-	/// being published in an active state.
-	case cancelled = "cancelled"
-	
-	/// A previously drafted design is determined to be erroneous or not fit for intended purpose and is discontinued
-	/// before ever being published for consideration in a pending state.
-	case rejected = "rejected"
-	
-	/// A previously active design is discontinued from use. It should no longer be used for future designs, but for
-	/// historical purposes may be used to process data previously recorded using this design. A newer design may or may
-	/// not exist. The design is published in the retired state.
-	case retired = "retired"
+	case review
 	
 	/// A design is determined to be erroneous or not fit for the intended purpose and should no longer be used, even
 	/// for historical purposes. No new designs can be developed for this template. The associated template no longer
 	/// needs to be published, but if published, is shown in the terminated state.
-	case terminated = "terminated"
+	case terminated
 }

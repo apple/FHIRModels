@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -329,44 +329,44 @@ open class ElementDefinition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							base: ElementDefinitionBase? = nil,
-							binding: ElementDefinitionBinding? = nil,
-							code: [Coding]? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							condition: [FHIRPrimitive<FHIRString>]? = nil,
-							constraint: [ElementDefinitionConstraint]? = nil,
-							contentReference: FHIRPrimitive<FHIRURI>? = nil,
-							defaultValue: DefaultValueX? = nil,
-							definition: FHIRPrimitive<FHIRString>? = nil,
-							example: [ElementDefinitionExample]? = nil,
-							`extension`: [Extension]? = nil,
-							fixed: FixedX? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isModifier: FHIRPrimitive<FHIRBool>? = nil,
-							isModifierReason: FHIRPrimitive<FHIRString>? = nil,
-							isSummary: FHIRPrimitive<FHIRBool>? = nil,
-							label: FHIRPrimitive<FHIRString>? = nil,
-							mapping: [ElementDefinitionMapping]? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							maxLength: FHIRPrimitive<FHIRInteger>? = nil,
-							maxValue: MaxValueX? = nil,
-							meaningWhenMissing: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							minValue: MinValueX? = nil,
-							modifierExtension: [Extension]? = nil,
-							mustSupport: FHIRPrimitive<FHIRBool>? = nil,
-							orderMeaning: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>,
-							pattern: PatternX? = nil,
-							representation: [FHIRPrimitive<PropertyRepresentation>]? = nil,
-							requirements: FHIRPrimitive<FHIRString>? = nil,
-							short: FHIRPrimitive<FHIRString>? = nil,
-							sliceIsConstraining: FHIRPrimitive<FHIRBool>? = nil,
-							sliceName: FHIRPrimitive<FHIRString>? = nil,
-							slicing: ElementDefinitionSlicing? = nil,
-							type: [ElementDefinitionType]? = nil)
-	{
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		base: ElementDefinitionBase? = nil,
+		binding: ElementDefinitionBinding? = nil,
+		code: [Coding]? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		condition: [FHIRPrimitive<FHIRString>]? = nil,
+		constraint: [ElementDefinitionConstraint]? = nil,
+		contentReference: FHIRPrimitive<FHIRURI>? = nil,
+		defaultValue: DefaultValueX? = nil,
+		definition: FHIRPrimitive<FHIRString>? = nil,
+		example: [ElementDefinitionExample]? = nil,
+		`extension`: [Extension]? = nil,
+		fixed: FixedX? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isModifier: FHIRPrimitive<FHIRBool>? = nil,
+		isModifierReason: FHIRPrimitive<FHIRString>? = nil,
+		isSummary: FHIRPrimitive<FHIRBool>? = nil,
+		label: FHIRPrimitive<FHIRString>? = nil,
+		mapping: [ElementDefinitionMapping]? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		maxLength: FHIRPrimitive<FHIRInteger>? = nil,
+		maxValue: MaxValueX? = nil,
+		meaningWhenMissing: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		minValue: MinValueX? = nil,
+		modifierExtension: [Extension]? = nil,
+		mustSupport: FHIRPrimitive<FHIRBool>? = nil,
+		orderMeaning: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>,
+		pattern: PatternX? = nil,
+		representation: [FHIRPrimitive<PropertyRepresentation>]? = nil,
+		requirements: FHIRPrimitive<FHIRString>? = nil,
+		short: FHIRPrimitive<FHIRString>? = nil,
+		sliceIsConstraining: FHIRPrimitive<FHIRBool>? = nil,
+		sliceName: FHIRPrimitive<FHIRString>? = nil,
+		slicing: ElementDefinitionSlicing? = nil,
+		type: [ElementDefinitionType]? = nil
+	) {
 		self.init(path: path)
 		self.alias = alias
 		self.base = base
@@ -2170,12 +2170,12 @@ open class ElementDefinitionBase: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>,
-							min: FHIRPrimitive<FHIRUnsignedInteger>,
-							path: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>,
+		min: FHIRPrimitive<FHIRUnsignedInteger>,
+		path: FHIRPrimitive<FHIRString>
+	) {
 		self.init(max: max, min: min, path: path)
 		self.`extension` = `extension`
 		self.id = id
@@ -2259,12 +2259,12 @@ open class ElementDefinitionBinding: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							strength: FHIRPrimitive<BindingStrength>,
-							valueSet: FHIRPrimitive<Canonical>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		strength: FHIRPrimitive<BindingStrength>,
+		valueSet: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init(strength: strength)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -2363,16 +2363,16 @@ open class ElementDefinitionConstraint: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							human: FHIRPrimitive<FHIRString>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							key: FHIRPrimitive<FHIRString>,
-							requirements: FHIRPrimitive<FHIRString>? = nil,
-							severity: FHIRPrimitive<ConstraintSeverity>,
-							source: FHIRPrimitive<Canonical>? = nil,
-							xpath: FHIRPrimitive<FHIRString>? = nil)
-	{
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		human: FHIRPrimitive<FHIRString>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: FHIRPrimitive<FHIRString>,
+		requirements: FHIRPrimitive<FHIRString>? = nil,
+		severity: FHIRPrimitive<ConstraintSeverity>,
+		source: FHIRPrimitive<Canonical>? = nil,
+		xpath: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(human: human, key: key, severity: severity)
 		self.expression = expression
 		self.`extension` = `extension`
@@ -2531,11 +2531,11 @@ open class ElementDefinitionExample: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							label: FHIRPrimitive<FHIRString>,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		label: FHIRPrimitive<FHIRString>,
+		value: ValueX
+	) {
 		self.init(label: label, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -3074,13 +3074,13 @@ open class ElementDefinitionMapping: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identity: FHIRPrimitive<FHIRString>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							map: FHIRPrimitive<FHIRString>)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identity: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		map: FHIRPrimitive<FHIRString>
+	) {
 		self.init(identity: identity, map: map)
 		self.comment = comment
 		self.`extension` = `extension`
@@ -3177,13 +3177,13 @@ open class ElementDefinitionSlicing: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							discriminator: [ElementDefinitionSlicingDiscriminator]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							ordered: FHIRPrimitive<FHIRBool>? = nil,
-							rules: FHIRPrimitive<SlicingRules>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		discriminator: [ElementDefinitionSlicingDiscriminator]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		ordered: FHIRPrimitive<FHIRBool>? = nil,
+		rules: FHIRPrimitive<SlicingRules>
+	) {
 		self.init(rules: rules)
 		self.description_fhir = description_fhir
 		self.discriminator = discriminator
@@ -3273,11 +3273,11 @@ open class ElementDefinitionSlicingDiscriminator: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<DiscriminatorType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<DiscriminatorType>
+	) {
 		self.init(path: path, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -3361,14 +3361,14 @@ open class ElementDefinitionType: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							aggregation: [FHIRPrimitive<AggregationMode>]? = nil,
-							code: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							profile: [FHIRPrimitive<Canonical>]? = nil,
-							targetProfile: [FHIRPrimitive<Canonical>]? = nil,
-							versioning: FHIRPrimitive<ReferenceVersionRules>? = nil)
-	{
+		aggregation: [FHIRPrimitive<AggregationMode>]? = nil,
+		code: FHIRPrimitive<FHIRURI>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		profile: [FHIRPrimitive<Canonical>]? = nil,
+		targetProfile: [FHIRPrimitive<Canonical>]? = nil,
+		versioning: FHIRPrimitive<ReferenceVersionRules>? = nil
+	) {
 		self.init(code: code)
 		self.aggregation = aggregation
 		self.`extension` = `extension`

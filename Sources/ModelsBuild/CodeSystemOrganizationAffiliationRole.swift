@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,36 +21,35 @@ import FMCore
 
 /**
  This example value set defines a set of codes that can be used to indicate the role of one Organization in relation to
- another.
+ its affiliation with another.
  
  URL: http://hl7.org/fhir/organization-role
- ValueSet: http://hl7.org/fhir/ValueSet/organization-role
  */
 public enum OrganizationAffiliationRole: String, FHIRPrimitiveType {
-	
-	/// provider
-	case provider = "provider"
-	
-	/// An organization such as a public health agency, community/social services provider, etc.
-	case agency = "agency"
-	
-	/// An organization providing research-related services such as conducting research, recruiting research
-	/// participants, analyzing data, etc.
-	case research = "research"
-	
-	/// An organization providing reimbursement, payment, or related services
-	case payer = "payer"
-	
-	/// An organization providing diagnostic testing/laboratory services
-	case diagnostics = "diagnostics"
-	
-	/// An organization that provides medical supplies (e.g. medical devices, equipment, pharmaceutical products, etc.)
-	case supplier = "supplier"
 	
 	/// An organization that facilitates electronic clinical data exchange between entities
 	case HIEHIO = "HIE/HIO"
 	
+	/// An organization such as a public health agency, community/social services provider, etc.
+	case agency
+	
+	/// An organization providing diagnostic testing/laboratory services
+	case diagnostics
+	
 	/// A type of non-ownership relationship between entities (encompasses partnerships, collaboration, joint ventures,
 	/// etc.)
-	case member = "member"
+	case member
+	
+	/// An organization providing reimbursement, payment, or related services
+	case payer
+	
+	/// provider
+	case provider
+	
+	/// An organization providing research-related services such as conducting research, recruiting research
+	/// participants, analyzing data, etc.
+	case research
+	
+	/// An organization that provides medical supplies (e.g. medical devices, equipment, pharmaceutical products, etc.)
+	case supplier
 }

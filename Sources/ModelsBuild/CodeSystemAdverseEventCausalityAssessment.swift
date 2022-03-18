@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,26 +31,26 @@ public enum AdverseEventCausalityAssessment: String, FHIRPrimitiveType {
 	/// explained by disease or other drugs; iii) Response to withdrawal plausible (pharmacologically, pathologically);
 	/// iv) Event definitive pharmacologically or phenomenologically (i.e. an objective and specific medical disorder or
 	/// a recognized pharmacological phenomenon); or v) Re-challenge satisfactory, if necessary.
-	case certain = "certain"
+	case certain
+	
+	/// i) Event or laboratory test abnormality; ii) More data for proper assessment needed; or iii) Additional data
+	/// under examination.
+	case conditionalClassified = "conditional-classified"
+	
+	/// i) Event or laboratory test abnormality, with reasonable time relationship to drug intake; ii) Could also be
+	/// explained by disease or other drugs; or iii) Information on drug withdrawal may be lacking or unclear.
+	case possible
 	
 	/// i) Event or laboratory test abnormality, with reasonable time relationship to drug intake; ii) Unlikely to be
 	/// attributed to disease or other drugs; iii) Response to withdrawal clinically reasonable; or iv) Re-challenge not
 	/// required.
 	case probablyLikely = "probably-likely"
 	
-	/// i) Event or laboratory test abnormality, with reasonable time relationship to drug intake; ii) Could also be
-	/// explained by disease or other drugs; or iii) Information on drug withdrawal may be lacking or unclear.
-	case possible = "possible"
-	
-	/// i) Event or laboratory test abnormality, with a time to drug intake that makes a relationship improbable (but
-	/// not impossible); or ii) Disease or other drugs provide plausible explanations.
-	case unlikely = "unlikely"
-	
-	/// i) Event or laboratory test abnormality; ii) More data for proper assessment needed; or iii) Additional data
-	/// under examination.
-	case conditionalClassified = "conditional-classified"
-	
 	/// i) Report suggesting an adverse reaction; ii) Cannot be judged because information is insufficient or
 	/// contradictory; or iii) Data cannot be supplemented or verified.
 	case unassessableUnclassifiable = "unassessable-unclassifiable"
+	
+	/// i) Event or laboratory test abnormality, with a time to drug intake that makes a relationship improbable (but
+	/// not impossible); or ii) Disease or other drugs provide plausible explanations.
+	case unlikely
 }

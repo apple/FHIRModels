@@ -2,8 +2,8 @@
 //  DataRequirement.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/DataRequirement)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DataRequirement)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -66,17 +66,17 @@ open class DataRequirement: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							codeFilter: [DataRequirementCodeFilter]? = nil,
-							dateFilter: [DataRequirementDateFilter]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							limit: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							mustSupport: [FHIRPrimitive<FHIRString>]? = nil,
-							profile: [FHIRPrimitive<Canonical>]? = nil,
-							sort: [DataRequirementSort]? = nil,
-							subject: SubjectX? = nil,
-							type: FHIRPrimitive<FHIRString>)
-	{
+		codeFilter: [DataRequirementCodeFilter]? = nil,
+		dateFilter: [DataRequirementDateFilter]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		limit: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		mustSupport: [FHIRPrimitive<FHIRString>]? = nil,
+		profile: [FHIRPrimitive<Canonical>]? = nil,
+		sort: [DataRequirementSort]? = nil,
+		subject: SubjectX? = nil,
+		type: FHIRPrimitive<FHIRString>
+	) {
 		self.init(type: type)
 		self.codeFilter = codeFilter
 		self.dateFilter = dateFilter
@@ -214,13 +214,13 @@ open class DataRequirementCodeFilter: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [Coding]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>? = nil,
-							searchParam: FHIRPrimitive<FHIRString>? = nil,
-							valueSet: FHIRPrimitive<Canonical>? = nil)
-	{
+		code: [Coding]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		searchParam: FHIRPrimitive<FHIRString>? = nil,
+		valueSet: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -319,12 +319,12 @@ open class DataRequirementDateFilter: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>? = nil,
-							searchParam: FHIRPrimitive<FHIRString>? = nil,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		searchParam: FHIRPrimitive<FHIRString>? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -437,11 +437,11 @@ open class DataRequirementSort: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							direction: FHIRPrimitive<SortDirection>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>)
-	{
+		direction: FHIRPrimitive<SortDirection>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>
+	) {
 		self.init(direction: direction, path: path)
 		self.`extension` = `extension`
 		self.id = id

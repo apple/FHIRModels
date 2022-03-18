@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public enum GuideParameterCode: String, FHIRPrimitiveType {
 	/// If the value of this string 0..* parameter is one of the metadata fields then all conformance resources will
 	/// have any specified [Resource].[field] overwritten with the ImplementationGuide.[field], where field is one of:
 	/// version, date, status, publisher, contact, copyright, experimental, jurisdiction, useContext.
-	case apply = "apply"
+	case apply
 	
 	/// The value of this string 0..* parameter is a subfolder of the build context's location that is to be scanned to
 	/// load resources. Scope is (if present) a particular resource type.

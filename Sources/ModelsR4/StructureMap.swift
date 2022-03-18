@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/StructureMap)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -91,33 +91,33 @@ open class StructureMap: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							group: [StructureMapGroup],
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							`import`: [FHIRPrimitive<Canonical>]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							structure: [StructureMapStructure]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		group: [StructureMapGroup],
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		`import`: [FHIRPrimitive<Canonical>]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		structure: [StructureMapStructure]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(group: group, name: name, status: status, url: url)
 		self.contact = contact
 		self.contained = contained
@@ -306,16 +306,16 @@ open class StructureMapGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							extends: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							input: [StructureMapGroupInput],
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							rule: [StructureMapGroupRule],
-							typeMode: FHIRPrimitive<StructureMapGroupTypeMode>)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		extends: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		input: [StructureMapGroupInput],
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		rule: [StructureMapGroupRule],
+		typeMode: FHIRPrimitive<StructureMapGroupTypeMode>
+	) {
 		self.init(input: input, name: name, rule: rule, typeMode: typeMode)
 		self.documentation = documentation
 		self.extends = extends
@@ -419,14 +419,14 @@ open class StructureMapGroupInput: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<StructureMapInputMode>,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<FHIRString>? = nil)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<StructureMapInputMode>,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(mode: mode, name: name)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -524,16 +524,16 @@ open class StructureMapGroupRule: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							dependent: [StructureMapGroupRuleDependent]? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							rule: [StructureMapGroupRule]? = nil,
-							source: [StructureMapGroupRuleSource],
-							target: [StructureMapGroupRuleTarget]? = nil)
-	{
+		dependent: [StructureMapGroupRuleDependent]? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		rule: [StructureMapGroupRule]? = nil,
+		source: [StructureMapGroupRuleSource],
+		target: [StructureMapGroupRuleTarget]? = nil
+	) {
 		self.init(name: name, source: source)
 		self.dependent = dependent
 		self.documentation = documentation
@@ -631,12 +631,12 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							variable: [FHIRPrimitive<FHIRString>])
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		variable: [FHIRPrimitive<FHIRString>]
+	) {
 		self.init(name: name, variable: variable)
 		self.`extension` = `extension`
 		self.id = id
@@ -791,21 +791,21 @@ open class StructureMapGroupRuleSource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							check: FHIRPrimitive<FHIRString>? = nil,
-							condition: FHIRPrimitive<FHIRString>? = nil,
-							context: FHIRPrimitive<FHIRString>,
-							defaultValue: DefaultValueX? = nil,
-							element: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							listMode: FHIRPrimitive<StructureMapSourceListMode>? = nil,
-							logMessage: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<FHIRString>? = nil,
-							variable: FHIRPrimitive<FHIRString>? = nil)
-	{
+		check: FHIRPrimitive<FHIRString>? = nil,
+		condition: FHIRPrimitive<FHIRString>? = nil,
+		context: FHIRPrimitive<FHIRString>,
+		defaultValue: DefaultValueX? = nil,
+		element: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		listMode: FHIRPrimitive<StructureMapSourceListMode>? = nil,
+		logMessage: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<FHIRString>? = nil,
+		variable: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(context: context)
 		self.check = check
 		self.condition = condition
@@ -1403,18 +1403,18 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							context: FHIRPrimitive<FHIRString>? = nil,
-							contextType: FHIRPrimitive<StructureMapContextType>? = nil,
-							element: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							listMode: [FHIRPrimitive<StructureMapTargetListMode>]? = nil,
-							listRuleId: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							parameter: [StructureMapGroupRuleTargetParameter]? = nil,
-							transform: FHIRPrimitive<StructureMapTransform>? = nil,
-							variable: FHIRPrimitive<FHIRString>? = nil)
-	{
+		context: FHIRPrimitive<FHIRString>? = nil,
+		contextType: FHIRPrimitive<StructureMapContextType>? = nil,
+		element: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		listMode: [FHIRPrimitive<StructureMapTargetListMode>]? = nil,
+		listRuleId: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		parameter: [StructureMapGroupRuleTargetParameter]? = nil,
+		transform: FHIRPrimitive<StructureMapTransform>? = nil,
+		variable: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.context = context
 		self.contextType = contextType
@@ -1532,11 +1532,11 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -1667,14 +1667,14 @@ open class StructureMapStructure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							alias: FHIRPrimitive<FHIRString>? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<StructureMapModelMode>,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<Canonical>)
-	{
+		alias: FHIRPrimitive<FHIRString>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<StructureMapModelMode>,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<Canonical>
+	) {
 		self.init(mode: mode, url: url)
 		self.alias = alias
 		self.documentation = documentation

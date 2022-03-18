@@ -2,8 +2,8 @@
 //  TestReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/TestReport)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TestReport)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,14 +31,14 @@ open class TestReport: DomainResource {
 	/// External identifier
 	public var identifier: Identifier?
 	
-	/// Informal name of the executed TestScript
+	/// Informal name of the executed TestReport
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// The current state of this test report.
 	public var status: FHIRPrimitive<TestReportStatus>
 	
-	/// Reference to the  version-specific TestScript that was executed to produce this TestReport
-	public var testScript: Reference
+	/// Canonical URL to the  version-specific TestScript that was executed to produce this TestReport
+	public var testScript: FHIRPrimitive<Canonical>
 	
 	/// The overall result from the execution of the TestScript.
 	public var result: FHIRPrimitive<TestReportResult>
@@ -65,7 +65,7 @@ open class TestReport: DomainResource {
 	public var teardown: TestReportTeardown?
 	
 	/// Designated initializer taking all required properties
-	public init(result: FHIRPrimitive<TestReportResult>, status: FHIRPrimitive<TestReportStatus>, testScript: Reference) {
+	public init(result: FHIRPrimitive<TestReportResult>, status: FHIRPrimitive<TestReportStatus>, testScript: FHIRPrimitive<Canonical>) {
 		self.result = result
 		self.status = status
 		self.testScript = testScript
@@ -74,27 +74,27 @@ open class TestReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issued: FHIRPrimitive<DateTime>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							participant: [TestReportParticipant]? = nil,
-							result: FHIRPrimitive<TestReportResult>,
-							score: FHIRPrimitive<FHIRDecimal>? = nil,
-							setup: TestReportSetup? = nil,
-							status: FHIRPrimitive<TestReportStatus>,
-							teardown: TestReportTeardown? = nil,
-							test: [TestReportTest]? = nil,
-							testScript: Reference,
-							tester: FHIRPrimitive<FHIRString>? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issued: FHIRPrimitive<DateTime>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		participant: [TestReportParticipant]? = nil,
+		result: FHIRPrimitive<TestReportResult>,
+		score: FHIRPrimitive<FHIRDecimal>? = nil,
+		setup: TestReportSetup? = nil,
+		status: FHIRPrimitive<TestReportStatus>,
+		teardown: TestReportTeardown? = nil,
+		test: [TestReportTest]? = nil,
+		testScript: FHIRPrimitive<Canonical>,
+		tester: FHIRPrimitive<FHIRString>? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(result: result, status: status, testScript: testScript)
 		self.contained = contained
 		self.`extension` = `extension`
@@ -128,7 +128,7 @@ open class TestReport: DomainResource {
 		case status; case _status
 		case teardown
 		case test
-		case testScript
+		case testScript; case _testScript
 		case tester; case _tester
 	}
 	
@@ -147,7 +147,7 @@ open class TestReport: DomainResource {
 		self.status = try FHIRPrimitive<TestReportStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.teardown = try TestReportTeardown(from: _container, forKeyIfPresent: .teardown)
 		self.test = try [TestReportTest](from: _container, forKeyIfPresent: .test)
-		self.testScript = try Reference(from: _container, forKey: .testScript)
+		self.testScript = try FHIRPrimitive<Canonical>(from: _container, forKey: .testScript, auxiliaryKey: ._testScript)
 		self.tester = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .tester, auxiliaryKey: ._tester)
 		try super.init(from: decoder)
 	}
@@ -167,7 +167,7 @@ open class TestReport: DomainResource {
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try teardown?.encode(on: &_container, forKey: .teardown)
 		try test?.encode(on: &_container, forKey: .test)
-		try testScript.encode(on: &_container, forKey: .testScript)
+		try testScript.encode(on: &_container, forKey: .testScript, auxiliaryKey: ._testScript)
 		try tester?.encode(on: &_container, forKey: .tester, auxiliaryKey: ._tester)
 		try super.encode(to: encoder)
 	}
@@ -235,13 +235,13 @@ open class TestReportParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<TestReportParticipantType>,
-							uri: FHIRPrimitive<FHIRURI>)
-	{
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<TestReportParticipantType>,
+		uri: FHIRPrimitive<FHIRURI>
+	) {
 		self.init(type: type, uri: uri)
 		self.display = display
 		self.`extension` = `extension`
@@ -317,11 +317,11 @@ open class TestReportSetup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestReportSetupAction],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: [TestReportSetupAction],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(action: action)
 		self.`extension` = `extension`
 		self.id = id
@@ -390,12 +390,12 @@ open class TestReportSetupAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assert: TestReportSetupActionAssert? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestReportSetupActionOperation? = nil)
-	{
+		assert: TestReportSetupActionAssert? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestReportSetupActionOperation? = nil
+	) {
 		self.init()
 		self.assert = assert
 		self.`extension` = `extension`
@@ -475,13 +475,13 @@ open class TestReportSetupActionAssert: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							message: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							result: FHIRPrimitive<TestReportActionResult>)
-	{
+		detail: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		message: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		result: FHIRPrimitive<TestReportActionResult>
+	) {
 		self.init(result: result)
 		self.detail = detail
 		self.`extension` = `extension`
@@ -566,13 +566,13 @@ open class TestReportSetupActionOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							message: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							result: FHIRPrimitive<TestReportActionResult>)
-	{
+		detail: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		message: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		result: FHIRPrimitive<TestReportActionResult>
+	) {
 		self.init(result: result)
 		self.detail = detail
 		self.`extension` = `extension`
@@ -652,11 +652,11 @@ open class TestReportTeardown: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestReportTeardownAction],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: [TestReportTeardownAction],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(action: action)
 		self.`extension` = `extension`
 		self.id = id
@@ -723,11 +723,11 @@ open class TestReportTeardownAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestReportSetupActionOperation)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestReportSetupActionOperation
+	) {
 		self.init(operation: operation)
 		self.`extension` = `extension`
 		self.id = id
@@ -798,13 +798,13 @@ open class TestReportTest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestReportTestAction],
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil)
-	{
+		action: [TestReportTestAction],
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(action: action)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -885,12 +885,12 @@ open class TestReportTestAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assert: TestReportSetupActionAssert? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestReportSetupActionOperation? = nil)
-	{
+		assert: TestReportSetupActionAssert? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestReportSetupActionOperation? = nil
+	) {
 		self.init()
 		self.assert = assert
 		self.`extension` = `extension`

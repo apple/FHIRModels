@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@
 import FMCore
 
 /**
- The type of catalog.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/catalogType
- ValueSet: http://hl7.org/fhir/ValueSet/catalogType
+ URL: http://hl7.org/fhir/catalogType
  */
 public enum CatalogType: String, FHIRPrimitiveType {
 	
-	/// Medication Catalog.
-	case medication = "medication"
+	/// Protocol List.
+	case `protocol`
 	
 	/// Device Catalog.
-	case device = "device"
+	case device
 	
-	/// Protocol List.
-	case `protocol` = "protocol"
+	/// Medication Catalog.
+	case medication
 }

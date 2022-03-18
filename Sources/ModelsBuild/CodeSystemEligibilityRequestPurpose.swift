@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,11 +33,11 @@ public enum EligibilityRequestPurpose: String, FHIRPrimitiveType {
 	
 	/// The plan benefits and optionally benefits consumed  for the listed, or discovered if specified, converages are
 	/// requested.
-	case benefits = "benefits"
+	case benefits
 	
 	/// The insurer is requested to report on any coverages which they are aware of in addition to any specifed.
-	case discovery = "discovery"
+	case discovery
 	
 	/// A check that the specified coverages are in-force is requested.
-	case validation = "validation"
+	case validation
 }

@@ -2,8 +2,8 @@
 //  Bundle.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Bundle)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Bundle)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,18 +57,18 @@ open class Bundle: Resource {
 	
 	/// Convenience initializer
 	public convenience init(
-							entry: [BundleEntry]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							link: [BundleLink]? = nil,
-							meta: Meta? = nil,
-							signature: Signature? = nil,
-							timestamp: FHIRPrimitive<Instant>? = nil,
-							total: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							type: FHIRPrimitive<BundleType>)
-	{
+		entry: [BundleEntry]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		link: [BundleLink]? = nil,
+		meta: Meta? = nil,
+		signature: Signature? = nil,
+		timestamp: FHIRPrimitive<Instant>? = nil,
+		total: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		type: FHIRPrimitive<BundleType>
+	) {
 		self.init(type: type)
 		self.entry = entry
 		self.id = id
@@ -187,16 +187,16 @@ open class BundleEntry: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							fullUrl: FHIRPrimitive<FHIRURI>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: [BundleLink]? = nil,
-							modifierExtension: [Extension]? = nil,
-							request: BundleEntryRequest? = nil,
-							resource: ResourceProxy? = nil,
-							response: BundleEntryResponse? = nil,
-							search: BundleEntrySearch? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		fullUrl: FHIRPrimitive<FHIRURI>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: [BundleLink]? = nil,
+		modifierExtension: [Extension]? = nil,
+		request: BundleEntryRequest? = nil,
+		resource: ResourceProxy? = nil,
+		response: BundleEntryResponse? = nil,
+		search: BundleEntrySearch? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.fullUrl = fullUrl
@@ -312,16 +312,16 @@ open class BundleEntryRequest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							ifMatch: FHIRPrimitive<FHIRString>? = nil,
-							ifModifiedSince: FHIRPrimitive<Instant>? = nil,
-							ifNoneExist: FHIRPrimitive<FHIRString>? = nil,
-							ifNoneMatch: FHIRPrimitive<FHIRString>? = nil,
-							method: FHIRPrimitive<HTTPVerb>,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<FHIRURI>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		ifMatch: FHIRPrimitive<FHIRString>? = nil,
+		ifModifiedSince: FHIRPrimitive<Instant>? = nil,
+		ifNoneExist: FHIRPrimitive<FHIRString>? = nil,
+		ifNoneMatch: FHIRPrimitive<FHIRString>? = nil,
+		method: FHIRPrimitive<HTTPVerb>,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<FHIRURI>
+	) {
 		self.init(method: method, url: url)
 		self.`extension` = `extension`
 		self.id = id
@@ -430,15 +430,15 @@ open class BundleEntryResponse: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							etag: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							lastModified: FHIRPrimitive<Instant>? = nil,
-							location: FHIRPrimitive<FHIRURI>? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: ResourceProxy? = nil,
-							status: FHIRPrimitive<FHIRString>)
-	{
+		etag: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		lastModified: FHIRPrimitive<Instant>? = nil,
+		location: FHIRPrimitive<FHIRURI>? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: ResourceProxy? = nil,
+		status: FHIRPrimitive<FHIRString>
+	) {
 		self.init(status: status)
 		self.etag = etag
 		self.`extension` = `extension`
@@ -532,12 +532,12 @@ open class BundleEntrySearch: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<SearchEntryMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							score: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<SearchEntryMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		score: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -615,12 +615,12 @@ open class BundleLink: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							relation: FHIRPrimitive<FHIRString>,
-							url: FHIRPrimitive<FHIRURI>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		relation: FHIRPrimitive<FHIRString>,
+		url: FHIRPrimitive<FHIRURI>
+	) {
 		self.init(relation: relation, url: url)
 		self.`extension` = `extension`
 		self.id = id

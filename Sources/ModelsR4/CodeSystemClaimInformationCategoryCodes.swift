@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,44 +28,44 @@ import FMCore
 public enum ClaimInformationCategoryCodes: String, FHIRPrimitiveType {
 	
 	/// Codes conveying additional situation and condition information.
-	case info = "info"
+	case info
 	
 	/// Discharge status and discharge to locations.
-	case discharge = "discharge"
+	case discharge
 	
 	/// Period, start or end dates of aspects of the Condition.
-	case onset = "onset"
+	case onset
 	
 	/// Nature and date of the related event e.g. Last exam, service, X-ray etc.
-	case related = "related"
+	case related
 	
 	/// Insurance policy exceptions.
-	case exception = "exception"
+	case exception
 	
 	/// Materials being forwarded, e.g. Models, molds, images, documents.
-	case material = "material"
+	case material
 	
 	/// Materials attached such as images, documents and resources.
-	case attachment = "attachment"
+	case attachment
 	
 	/// Teeth which are missing for any reason, for example: prior extraction, never developed.
-	case missingtooth = "missingtooth"
+	case missingtooth
 	
 	/// The type of prosthesis and date of supply if a previously supplied prosthesis.
-	case prosthesis = "prosthesis"
+	case prosthesis
 	
 	/// Other information identified by the type.system.
-	case other = "other"
+	case other
 	
 	/// An indication that the patient was hospitalized, the period if known otherwise a Yes/No (boolean).
-	case hospitalized = "hospitalized"
+	case hospitalized
 	
 	/// An indication that the patient was unable to work, the period if known otherwise a Yes/No (boolean).
-	case employmentimpacted = "employmentimpacted"
+	case employmentimpacted
 	
 	/// The external cause of an illness or injury.
-	case externalcause = "externalcause"
+	case externalcause
 	
 	/// The reason for the patient visit.
-	case patientreasonforvisit = "patientreasonforvisit"
+	case patientreasonforvisit
 }

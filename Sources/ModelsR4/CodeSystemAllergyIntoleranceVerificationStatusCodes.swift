@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import FMCore
 public enum AllergyIntoleranceVerificationStatusCodes: String, FHIRPrimitiveType {
 	
 	/// A low level of certainty about the propensity for a reaction to the identified substance.
-	case unconfirmed = "unconfirmed"
+	case unconfirmed
 	
 	/// A high level of certainty about the propensity for a reaction to the identified substance, which may include
 	/// clinical evidence by testing or rechallenge.
-	case confirmed = "confirmed"
+	case confirmed
 	
 	/// A propensity for a reaction to the identified substance has been disputed or disproven with a sufficient level
 	/// of clinical certainty to justify invalidating the assertion. This might or might not include testing or
 	/// rechallenge.
-	case refuted = "refuted"
+	case refuted
 	
 	/// The statement was entered in error and is not valid.
 	case enteredInError = "entered-in-error"

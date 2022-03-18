@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,16 +29,16 @@ import FMCore
 public enum DiagnosisRole: String, FHIRPrimitiveType {
 	
 	/// AD
-	case AD = "AD"
+	case AD
 	
 	/// DD
-	case DD = "DD"
+	case DD
 	
 	/// CC
-	case CC = "CC"
+	case CC
 	
 	/// CM
-	case CM = "CM"
+	case CM
 	
 	/// preOp
 	case preOp = "pre-op"
@@ -47,5 +47,5 @@ public enum DiagnosisRole: String, FHIRPrimitiveType {
 	case postOp = "post-op"
 	
 	/// billing
-	case billing = "billing"
+	case billing
 }

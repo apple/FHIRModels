@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ServiceRequest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -160,48 +160,48 @@ open class ServiceRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asNeeded: AsNeededX? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							insurance: [Reference]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							locationCode: [CodeableConcept]? = nil,
-							locationReference: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							orderDetail: [CodeableConcept]? = nil,
-							patientInstruction: FHIRPrimitive<FHIRString>? = nil,
-							performer: [Reference]? = nil,
-							performerType: CodeableConcept? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							quantity: QuantityX? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							relevantHistory: [Reference]? = nil,
-							replaces: [Reference]? = nil,
-							requester: Reference? = nil,
-							requisition: Identifier? = nil,
-							specimen: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		asNeeded: AsNeededX? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		insurance: [Reference]? = nil,
+		intent: FHIRPrimitive<RequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		locationCode: [CodeableConcept]? = nil,
+		locationReference: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		orderDetail: [CodeableConcept]? = nil,
+		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
+		performer: [Reference]? = nil,
+		performerType: CodeableConcept? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		quantity: QuantityX? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		relevantHistory: [Reference]? = nil,
+		replaces: [Reference]? = nil,
+		requester: Reference? = nil,
+		requisition: Identifier? = nil,
+		specimen: [Reference]? = nil,
+		status: FHIRPrimitive<RequestStatus>,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, status: status, subject: subject)
 		self.asNeeded = asNeeded
 		self.authoredOn = authoredOn

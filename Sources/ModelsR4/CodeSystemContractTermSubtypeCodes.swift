@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum ContractTermSubtypeCodes: String, FHIRPrimitiveType {
 	
 	/// Terms that go to the very root of a contract.
-	case condition = "condition"
+	case condition
 	
 	/// Less imperative than a condition, so the contract will survive a breach
-	case warranty = "warranty"
+	case warranty
 	
 	/// Breach of which might or might not go to the root of the contract depending upon the nature of the breach
-	case innominate = "innominate"
+	case innominate
 }

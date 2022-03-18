@@ -2,8 +2,8 @@
 //  NutritionProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -66,25 +66,25 @@ open class NutritionProduct: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [NutritionProductIngredient]? = nil,
-							instance: NutritionProductInstance? = nil,
-							knownAllergen: [CodeableReference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							nutrient: [NutritionProductNutrient]? = nil,
-							productCharacteristic: [NutritionProductProductCharacteristic]? = nil,
-							status: FHIRPrimitive<NutritionProductStatus>,
-							text: Narrative? = nil)
-	{
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [NutritionProductIngredient]? = nil,
+		instance: NutritionProductInstance? = nil,
+		knownAllergen: [CodeableReference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		nutrient: [NutritionProductNutrient]? = nil,
+		productCharacteristic: [NutritionProductProductCharacteristic]? = nil,
+		status: FHIRPrimitive<NutritionProductStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(status: status)
 		self.category = category
 		self.code = code
@@ -211,12 +211,12 @@ open class NutritionProductIngredient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: [Ratio]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: CodeableReference,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: [Ratio]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: CodeableReference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.amount = amount
 		self.`extension` = `extension`
@@ -294,6 +294,10 @@ open class NutritionProductInstance: BackboneElement {
 	/// The date until which the product is expected to be good for consumption
 	public var useBy: FHIRPrimitive<DateTime>?
 	
+	/// An identifier that supports traceability to the biological entity that is the source of biological material in
+	/// the product
+	public var biologicalSource: Identifier?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -301,16 +305,18 @@ open class NutritionProductInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expiry: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							lotNumber: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil,
-							useBy: FHIRPrimitive<DateTime>? = nil)
-	{
+		biologicalSource: Identifier? = nil,
+		expiry: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil,
+		useBy: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init()
+		self.biologicalSource = biologicalSource
 		self.expiry = expiry
 		self.`extension` = `extension`
 		self.id = id
@@ -324,6 +330,7 @@ open class NutritionProductInstance: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case biologicalSource
 		case expiry; case _expiry
 		case identifier
 		case lotNumber; case _lotNumber
@@ -336,6 +343,7 @@ open class NutritionProductInstance: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.biologicalSource = try Identifier(from: _container, forKeyIfPresent: .biologicalSource)
 		self.expiry = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expiry, auxiliaryKey: ._expiry)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
@@ -349,6 +357,7 @@ open class NutritionProductInstance: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try biologicalSource?.encode(on: &_container, forKey: .biologicalSource)
 		try expiry?.encode(on: &_container, forKey: .expiry, auxiliaryKey: ._expiry)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
@@ -366,7 +375,8 @@ open class NutritionProductInstance: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return expiry == _other.expiry
+		return biologicalSource == _other.biologicalSource
+		    && expiry == _other.expiry
 		    && identifier == _other.identifier
 		    && lotNumber == _other.lotNumber
 		    && quantity == _other.quantity
@@ -375,6 +385,7 @@ open class NutritionProductInstance: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(biologicalSource)
 		hasher.combine(expiry)
 		hasher.combine(identifier)
 		hasher.combine(lotNumber)
@@ -401,12 +412,12 @@ open class NutritionProductNutrient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: [Ratio]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: CodeableReference? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: [Ratio]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: CodeableReference? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.`extension` = `extension`
@@ -493,12 +504,12 @@ open class NutritionProductProductCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX
+	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id

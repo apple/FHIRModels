@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@
 import FMCore
 
 /**
- Defines how concepts are processed into the expansion when it's for UI presentation.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/expansion-processing-rule
- ValueSet: http://hl7.org/fhir/ValueSet/expansion-processing-rule
+ URL: http://hl7.org/fhir/expansion-processing-rule
  */
 public enum ExpansionProcessingRule: String, FHIRPrimitiveType {
 	
-	/// The expansion (when in UI mode) includes all codes *and* any defined groups (in extensions).
+	/// he expansion (e.g. when in UI mode) includes all codes; those included in a group and those not included in a
+	/// group, as well as the codes for the groups themselves (e.g. a parent node in a hierarchical code system).
 	case allCodes = "all-codes"
 	
-	/// The expanion (when in UI mode) lists the groups, and then any codes that have not been included in a group.
-	case ungrouped = "ungrouped"
-	
-	/// The expansion (when in UI mode) only includes the defined groups.
+	/// The expansion (e.g. when in UI mode) only includes the codes for the groups.
 	case groupsOnly = "groups-only"
+	
+	/// The expansion (e.g. when in UI mode) includes the codes for the groups, and any codes that are not included in a
+	/// group.
+	case ungrouped
 }

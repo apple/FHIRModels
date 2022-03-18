@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import FMCore
  */
 public enum Indicator: String, FHIRPrimitiveType {
 	
-	/// info
-	case info = "info"
+	/// The response is critical and indicates that it contains information or activities that have high urgency and
+	/// importance that should be immediately addressed
+	case critical
 	
-	/// warning
-	case warning = "warning"
+	/// The response is informational and indicates that it contains additional information or relevant guidance that
+	/// may be of interest
+	case info
 	
-	/// critical
-	case critical = "critical"
+	/// The response is a warning and indicates that it contains urgent or highly relevant information that should be
+	/// considered
+	case warning
 }

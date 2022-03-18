@@ -2,8 +2,8 @@
 //  TerminologyCapabilities.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -118,40 +118,40 @@ open class TerminologyCapabilities: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							closure: TerminologyCapabilitiesClosure? = nil,
-							codeSearch: FHIRPrimitive<CodeSearchSupport>? = nil,
-							codeSystem: [TerminologyCapabilitiesCodeSystem]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							expansion: TerminologyCapabilitiesExpansion? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implementation: TerminologyCapabilitiesImplementation? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<CapabilityStatementKind>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lockedDate: FHIRPrimitive<FHIRBool>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							software: TerminologyCapabilitiesSoftware? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							translation: TerminologyCapabilitiesTranslation? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							validateCode: TerminologyCapabilitiesValidateCode? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		closure: TerminologyCapabilitiesClosure? = nil,
+		codeSearch: FHIRPrimitive<CodeSearchSupport>? = nil,
+		codeSystem: [TerminologyCapabilitiesCodeSystem]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		expansion: TerminologyCapabilitiesExpansion? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implementation: TerminologyCapabilitiesImplementation? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<CapabilityStatementKind>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lockedDate: FHIRPrimitive<FHIRBool>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		software: TerminologyCapabilitiesSoftware? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		translation: TerminologyCapabilitiesTranslation? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		validateCode: TerminologyCapabilitiesValidateCode? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(date: date, kind: kind, status: status)
 		self.closure = closure
 		self.codeSearch = codeSearch
@@ -364,11 +364,11 @@ open class TerminologyCapabilitiesClosure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							translation: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		translation: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -442,13 +442,13 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subsumption: FHIRPrimitive<FHIRBool>? = nil,
-							uri: FHIRPrimitive<Canonical>? = nil,
-							version: [TerminologyCapabilitiesCodeSystemVersion]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subsumption: FHIRPrimitive<FHIRBool>? = nil,
+		uri: FHIRPrimitive<Canonical>? = nil,
+		version: [TerminologyCapabilitiesCodeSystemVersion]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -542,16 +542,16 @@ open class TerminologyCapabilitiesCodeSystemVersion: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							compositional: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							filter: [TerminologyCapabilitiesCodeSystemVersionFilter]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isDefault: FHIRPrimitive<FHIRBool>? = nil,
-							language: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							property: [FHIRPrimitive<FHIRString>]? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		compositional: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		filter: [TerminologyCapabilitiesCodeSystemVersionFilter]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isDefault: FHIRPrimitive<FHIRBool>? = nil,
+		language: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		property: [FHIRPrimitive<FHIRString>]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.compositional = compositional
@@ -651,12 +651,12 @@ open class TerminologyCapabilitiesCodeSystemVersionFilter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							op: [FHIRPrimitive<FHIRString>])
-	{
+		code: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		op: [FHIRPrimitive<FHIRString>]
+	) {
 		self.init(code: code, op: op)
 		self.`extension` = `extension`
 		self.id = id
@@ -737,15 +737,15 @@ open class TerminologyCapabilitiesExpansion: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							hierarchical: FHIRPrimitive<FHIRBool>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							incomplete: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							paging: FHIRPrimitive<FHIRBool>? = nil,
-							parameter: [TerminologyCapabilitiesExpansionParameter]? = nil,
-							textFilter: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		hierarchical: FHIRPrimitive<FHIRBool>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		incomplete: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		paging: FHIRPrimitive<FHIRBool>? = nil,
+		parameter: [TerminologyCapabilitiesExpansionParameter]? = nil,
+		textFilter: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.hierarchical = hierarchical
@@ -838,12 +838,12 @@ open class TerminologyCapabilitiesExpansionParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>
+	) {
 		self.init(name: name)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -920,12 +920,12 @@ open class TerminologyCapabilitiesImplementation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.`extension` = `extension`
 		self.id = id
@@ -1002,12 +1002,12 @@ open class TerminologyCapabilitiesSoftware: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.`extension` = `extension`
 		self.id = id
@@ -1078,11 +1078,11 @@ open class TerminologyCapabilitiesTranslation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							needsMap: FHIRPrimitive<FHIRBool>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		needsMap: FHIRPrimitive<FHIRBool>
+	) {
 		self.init(needsMap: needsMap)
 		self.`extension` = `extension`
 		self.id = id
@@ -1147,11 +1147,11 @@ open class TerminologyCapabilitiesValidateCode: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							translations: FHIRPrimitive<FHIRBool>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		translations: FHIRPrimitive<FHIRBool>
+	) {
 		self.init(translations: translations)
 		self.`extension` = `extension`
 		self.id = id

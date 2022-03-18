@@ -2,8 +2,8 @@
 //  Population.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Population)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Population)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,14 +53,14 @@ open class Population: BackboneType {
 	
 	/// Convenience initializer
 	public convenience init(
-							age: AgeX? = nil,
-							`extension`: [Extension]? = nil,
-							gender: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							physiologicalCondition: CodeableConcept? = nil,
-							race: CodeableConcept? = nil)
-	{
+		age: AgeX? = nil,
+		`extension`: [Extension]? = nil,
+		gender: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		physiologicalCondition: CodeableConcept? = nil,
+		race: CodeableConcept? = nil
+	) {
 		self.init()
 		self.age = age
 		self.`extension` = `extension`

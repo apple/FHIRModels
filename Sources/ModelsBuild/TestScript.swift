@@ -2,8 +2,8 @@
 //  TestScript.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/TestScript)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TestScript)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,10 +33,10 @@ open class TestScript: DomainResource {
 	override open class var resourceType: ResourceType { return .testScript }
 	
 	/// Canonical identifier for this test script, represented as a URI (globally unique)
-	public var url: FHIRPrimitive<FHIRURI>
+	public var url: FHIRPrimitive<FHIRURI>?
 	
 	/// Additional identifier for the test script
-	public var identifier: Identifier?
+	public var identifier: [Identifier]?
 	
 	/// Business version of the test script
 	public var version: FHIRPrimitive<FHIRString>?
@@ -86,6 +86,9 @@ open class TestScript: DomainResource {
 	/// Required capability that is assumed to function correctly on the FHIR server being tested
 	public var metadata: TestScriptMetadata?
 	
+	/// Indication of the artifact(s) that are tested by this test case
+	public var scope: [TestScriptScope]?
+	
 	/// Fixture in the test script - by reference (uri)
 	public var fixture: [TestScriptFixture]?
 	
@@ -105,49 +108,49 @@ open class TestScript: DomainResource {
 	public var teardown: TestScriptTeardown?
 	
 	/// Designated initializer taking all required properties
-	public init(name: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<PublicationStatus>, url: FHIRPrimitive<FHIRURI>) {
+	public init(name: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<PublicationStatus>) {
 		self.name = name
 		self.status = status
-		self.url = url
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							destination: [TestScriptDestination]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							fixture: [TestScriptFixture]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							metadata: TestScriptMetadata? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							origin: [TestScriptOrigin]? = nil,
-							profile: [Reference]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							setup: TestScriptSetup? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							teardown: TestScriptTeardown? = nil,
-							test: [TestScriptTest]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							variable: [TestScriptVariable]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
-		self.init(name: name, status: status, url: url)
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		destination: [TestScriptDestination]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		fixture: [TestScriptFixture]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		metadata: TestScriptMetadata? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		origin: [TestScriptOrigin]? = nil,
+		profile: [Reference]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		scope: [TestScriptScope]? = nil,
+		setup: TestScriptSetup? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		teardown: TestScriptTeardown? = nil,
+		test: [TestScriptTest]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		variable: [TestScriptVariable]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
+		self.init(name: name, status: status)
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
@@ -169,11 +172,13 @@ open class TestScript: DomainResource {
 		self.profile = profile
 		self.publisher = publisher
 		self.purpose = purpose
+		self.scope = scope
 		self.setup = setup
 		self.teardown = teardown
 		self.test = test
 		self.text = text
 		self.title = title
+		self.url = url
 		self.useContext = useContext
 		self.variable = variable
 		self.version = version
@@ -197,6 +202,7 @@ open class TestScript: DomainResource {
 		case profile
 		case publisher; case _publisher
 		case purpose; case _purpose
+		case scope
 		case setup
 		case status; case _status
 		case teardown
@@ -220,7 +226,7 @@ open class TestScript: DomainResource {
 		self.destination = try [TestScriptDestination](from: _container, forKeyIfPresent: .destination)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.fixture = try [TestScriptFixture](from: _container, forKeyIfPresent: .fixture)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.metadata = try TestScriptMetadata(from: _container, forKeyIfPresent: .metadata)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
@@ -228,12 +234,13 @@ open class TestScript: DomainResource {
 		self.profile = try [Reference](from: _container, forKeyIfPresent: .profile)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
+		self.scope = try [TestScriptScope](from: _container, forKeyIfPresent: .scope)
 		self.setup = try TestScriptSetup(from: _container, forKeyIfPresent: .setup)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.teardown = try TestScriptTeardown(from: _container, forKeyIfPresent: .teardown)
 		self.test = try [TestScriptTest](from: _container, forKeyIfPresent: .test)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
-		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
+		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.variable = try [TestScriptVariable](from: _container, forKeyIfPresent: .variable)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
@@ -260,12 +267,13 @@ open class TestScript: DomainResource {
 		try profile?.encode(on: &_container, forKey: .profile)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
+		try scope?.encode(on: &_container, forKey: .scope)
 		try setup?.encode(on: &_container, forKey: .setup)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try teardown?.encode(on: &_container, forKey: .teardown)
 		try test?.encode(on: &_container, forKey: .test)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
-		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
+		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try variable?.encode(on: &_container, forKey: .variable)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
@@ -296,6 +304,7 @@ open class TestScript: DomainResource {
 		    && profile == _other.profile
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
+		    && scope == _other.scope
 		    && setup == _other.setup
 		    && status == _other.status
 		    && teardown == _other.teardown
@@ -324,6 +333,7 @@ open class TestScript: DomainResource {
 		hasher.combine(profile)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
+		hasher.combine(scope)
 		hasher.combine(setup)
 		hasher.combine(status)
 		hasher.combine(teardown)
@@ -358,12 +368,12 @@ open class TestScriptDestination: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							index: FHIRPrimitive<FHIRInteger>,
-							modifierExtension: [Extension]? = nil,
-							profile: Coding)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		index: FHIRPrimitive<FHIRInteger>,
+		modifierExtension: [Extension]? = nil,
+		profile: Coding
+	) {
 		self.init(index: index, profile: profile)
 		self.`extension` = `extension`
 		self.id = id
@@ -442,13 +452,13 @@ open class TestScriptFixture: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							autocreate: FHIRPrimitive<FHIRBool>,
-							autodelete: FHIRPrimitive<FHIRBool>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							resource: Reference? = nil)
-	{
+		autocreate: FHIRPrimitive<FHIRBool>,
+		autodelete: FHIRPrimitive<FHIRBool>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		resource: Reference? = nil
+	) {
 		self.init(autocreate: autocreate, autodelete: autodelete)
 		self.`extension` = `extension`
 		self.id = id
@@ -529,12 +539,12 @@ open class TestScriptMetadata: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							capability: [TestScriptMetadataCapability],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: [TestScriptMetadataLink]? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		capability: [TestScriptMetadataCapability],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: [TestScriptMetadataLink]? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(capability: capability)
 		self.`extension` = `extension`
 		self.id = id
@@ -627,17 +637,17 @@ open class TestScriptMetadataCapability: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							capabilities: FHIRPrimitive<Canonical>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							destination: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: [FHIRPrimitive<FHIRURI>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							origin: [FHIRPrimitive<FHIRInteger>]? = nil,
-							required: FHIRPrimitive<FHIRBool>,
-							validated: FHIRPrimitive<FHIRBool>)
-	{
+		capabilities: FHIRPrimitive<Canonical>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		destination: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: [FHIRPrimitive<FHIRURI>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		origin: [FHIRPrimitive<FHIRInteger>]? = nil,
+		required: FHIRPrimitive<FHIRBool>,
+		validated: FHIRPrimitive<FHIRBool>
+	) {
 		self.init(capabilities: capabilities, required: required, validated: validated)
 		self.description_fhir = description_fhir
 		self.destination = destination
@@ -741,12 +751,12 @@ open class TestScriptMetadataLink: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<FHIRURI>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<FHIRURI>
+	) {
 		self.init(url: url)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -823,12 +833,12 @@ open class TestScriptOrigin: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							index: FHIRPrimitive<FHIRInteger>,
-							modifierExtension: [Extension]? = nil,
-							profile: Coding)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		index: FHIRPrimitive<FHIRInteger>,
+		modifierExtension: [Extension]? = nil,
+		profile: Coding
+	) {
 		self.init(index: index, profile: profile)
 		self.`extension` = `extension`
 		self.id = id
@@ -883,6 +893,98 @@ open class TestScriptOrigin: BackboneElement {
 }
 
 /**
+ Indication of the artifact(s) that are tested by this test case.
+ 
+ The scope indicates a conformance artifact that is tested by the test(s) within this test case and the expectation of
+ the test outcome(s) as well as the intended test phase inclusion.
+ */
+open class TestScriptScope: BackboneElement {
+	
+	/// The specific conformance artifact being tested
+	public var artifact: FHIRPrimitive<Canonical>
+	
+	/// required | optional | strict
+	public var conformance: CodeableConcept?
+	
+	/// unit | integration | production
+	public var phase: CodeableConcept?
+	
+	/// Designated initializer taking all required properties
+	public init(artifact: FHIRPrimitive<Canonical>) {
+		self.artifact = artifact
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		artifact: FHIRPrimitive<Canonical>,
+		conformance: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		phase: CodeableConcept? = nil
+	) {
+		self.init(artifact: artifact)
+		self.conformance = conformance
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.phase = phase
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case artifact; case _artifact
+		case conformance
+		case phase
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.artifact = try FHIRPrimitive<Canonical>(from: _container, forKey: .artifact, auxiliaryKey: ._artifact)
+		self.conformance = try CodeableConcept(from: _container, forKeyIfPresent: .conformance)
+		self.phase = try CodeableConcept(from: _container, forKeyIfPresent: .phase)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try artifact.encode(on: &_container, forKey: .artifact, auxiliaryKey: ._artifact)
+		try conformance?.encode(on: &_container, forKey: .conformance)
+		try phase?.encode(on: &_container, forKey: .phase)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? TestScriptScope else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return artifact == _other.artifact
+		    && conformance == _other.conformance
+		    && phase == _other.phase
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(artifact)
+		hasher.combine(conformance)
+		hasher.combine(phase)
+	}
+}
+
+/**
  A series of required setup operations before tests are executed.
  */
 open class TestScriptSetup: BackboneElement {
@@ -898,11 +1000,11 @@ open class TestScriptSetup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestScriptSetupAction],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: [TestScriptSetupAction],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(action: action)
 		self.`extension` = `extension`
 		self.id = id
@@ -971,12 +1073,12 @@ open class TestScriptSetupAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assert: TestScriptSetupActionAssert? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestScriptSetupActionOperation? = nil)
-	{
+		assert: TestScriptSetupActionAssert? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestScriptSetupActionOperation? = nil
+	) {
 		self.init()
 		self.assert = assert
 		self.`extension` = `extension`
@@ -1096,6 +1198,9 @@ open class TestScriptSetupActionAssert: BackboneElement {
 	/// Fixture Id of source expression or headerField
 	public var sourceId: FHIRPrimitive<FHIRString>?
 	
+	/// If this assert fails, will the current test execution stop?
+	public var stopTestOnFail: FHIRPrimitive<FHIRBool>
+	
 	/// Profile Id of validation profile reference
 	public var validateProfileId: FHIRPrimitive<FHIRString>?
 	
@@ -1106,40 +1211,42 @@ open class TestScriptSetupActionAssert: BackboneElement {
 	public var warningOnly: FHIRPrimitive<FHIRBool>
 	
 	/// Designated initializer taking all required properties
-	public init(warningOnly: FHIRPrimitive<FHIRBool>) {
+	public init(stopTestOnFail: FHIRPrimitive<FHIRBool>, warningOnly: FHIRPrimitive<FHIRBool>) {
+		self.stopTestOnFail = stopTestOnFail
 		self.warningOnly = warningOnly
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							compareToSourceExpression: FHIRPrimitive<FHIRString>? = nil,
-							compareToSourceId: FHIRPrimitive<FHIRString>? = nil,
-							compareToSourcePath: FHIRPrimitive<FHIRString>? = nil,
-							contentType: FHIRPrimitive<FHIRString>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							direction: FHIRPrimitive<AssertionDirectionType>? = nil,
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							headerField: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							label: FHIRPrimitive<FHIRString>? = nil,
-							minimumId: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							navigationLinks: FHIRPrimitive<FHIRBool>? = nil,
-							`operator`: FHIRPrimitive<AssertionOperatorType>? = nil,
-							path: FHIRPrimitive<FHIRString>? = nil,
-							requestMethod: FHIRPrimitive<TestScriptRequestMethodCode>? = nil,
-							requestURL: FHIRPrimitive<FHIRString>? = nil,
-							resource: FHIRPrimitive<FHIRString>? = nil,
-							response: FHIRPrimitive<AssertionResponseTypes>? = nil,
-							responseCode: FHIRPrimitive<FHIRString>? = nil,
-							sourceId: FHIRPrimitive<FHIRString>? = nil,
-							validateProfileId: FHIRPrimitive<FHIRString>? = nil,
-							value: FHIRPrimitive<FHIRString>? = nil,
-							warningOnly: FHIRPrimitive<FHIRBool>)
-	{
-		self.init(warningOnly: warningOnly)
+		compareToSourceExpression: FHIRPrimitive<FHIRString>? = nil,
+		compareToSourceId: FHIRPrimitive<FHIRString>? = nil,
+		compareToSourcePath: FHIRPrimitive<FHIRString>? = nil,
+		contentType: FHIRPrimitive<FHIRString>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		direction: FHIRPrimitive<AssertionDirectionType>? = nil,
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		headerField: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		label: FHIRPrimitive<FHIRString>? = nil,
+		minimumId: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		navigationLinks: FHIRPrimitive<FHIRBool>? = nil,
+		`operator`: FHIRPrimitive<AssertionOperatorType>? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		requestMethod: FHIRPrimitive<TestScriptRequestMethodCode>? = nil,
+		requestURL: FHIRPrimitive<FHIRString>? = nil,
+		resource: FHIRPrimitive<FHIRString>? = nil,
+		response: FHIRPrimitive<AssertionResponseTypes>? = nil,
+		responseCode: FHIRPrimitive<FHIRString>? = nil,
+		sourceId: FHIRPrimitive<FHIRString>? = nil,
+		stopTestOnFail: FHIRPrimitive<FHIRBool>,
+		validateProfileId: FHIRPrimitive<FHIRString>? = nil,
+		value: FHIRPrimitive<FHIRString>? = nil,
+		warningOnly: FHIRPrimitive<FHIRBool>
+	) {
+		self.init(stopTestOnFail: stopTestOnFail, warningOnly: warningOnly)
 		self.compareToSourceExpression = compareToSourceExpression
 		self.compareToSourceId = compareToSourceId
 		self.compareToSourcePath = compareToSourcePath
@@ -1188,6 +1295,7 @@ open class TestScriptSetupActionAssert: BackboneElement {
 		case response; case _response
 		case responseCode; case _responseCode
 		case sourceId; case _sourceId
+		case stopTestOnFail; case _stopTestOnFail
 		case validateProfileId; case _validateProfileId
 		case value; case _value
 		case warningOnly; case _warningOnly
@@ -1217,6 +1325,7 @@ open class TestScriptSetupActionAssert: BackboneElement {
 		self.response = try FHIRPrimitive<AssertionResponseTypes>(from: _container, forKeyIfPresent: .response, auxiliaryKey: ._response)
 		self.responseCode = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .responseCode, auxiliaryKey: ._responseCode)
 		self.sourceId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sourceId, auxiliaryKey: ._sourceId)
+		self.stopTestOnFail = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .stopTestOnFail, auxiliaryKey: ._stopTestOnFail)
 		self.validateProfileId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .validateProfileId, auxiliaryKey: ._validateProfileId)
 		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .value, auxiliaryKey: ._value)
 		self.warningOnly = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .warningOnly, auxiliaryKey: ._warningOnly)
@@ -1247,6 +1356,7 @@ open class TestScriptSetupActionAssert: BackboneElement {
 		try response?.encode(on: &_container, forKey: .response, auxiliaryKey: ._response)
 		try responseCode?.encode(on: &_container, forKey: .responseCode, auxiliaryKey: ._responseCode)
 		try sourceId?.encode(on: &_container, forKey: .sourceId, auxiliaryKey: ._sourceId)
+		try stopTestOnFail.encode(on: &_container, forKey: .stopTestOnFail, auxiliaryKey: ._stopTestOnFail)
 		try validateProfileId?.encode(on: &_container, forKey: .validateProfileId, auxiliaryKey: ._validateProfileId)
 		try value?.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
 		try warningOnly.encode(on: &_container, forKey: .warningOnly, auxiliaryKey: ._warningOnly)
@@ -1281,6 +1391,7 @@ open class TestScriptSetupActionAssert: BackboneElement {
 		    && response == _other.response
 		    && responseCode == _other.responseCode
 		    && sourceId == _other.sourceId
+		    && stopTestOnFail == _other.stopTestOnFail
 		    && validateProfileId == _other.validateProfileId
 		    && value == _other.value
 		    && warningOnly == _other.warningOnly
@@ -1307,6 +1418,7 @@ open class TestScriptSetupActionAssert: BackboneElement {
 		hasher.combine(response)
 		hasher.combine(responseCode)
 		hasher.combine(sourceId)
+		hasher.combine(stopTestOnFail)
 		hasher.combine(validateProfileId)
 		hasher.combine(value)
 		hasher.combine(warningOnly)
@@ -1324,7 +1436,7 @@ open class TestScriptSetupActionOperation: BackboneElement {
 	public var type: Coding?
 	
 	/// Resource type
-	public var resource: FHIRPrimitive<FHIRString>?
+	public var resource: FHIRPrimitive<FHIRURI>?
 	
 	/// Tracking/logging operation label
 	public var label: FHIRPrimitive<FHIRString>?
@@ -1379,27 +1491,27 @@ open class TestScriptSetupActionOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							accept: FHIRPrimitive<FHIRString>? = nil,
-							contentType: FHIRPrimitive<FHIRString>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							destination: FHIRPrimitive<FHIRInteger>? = nil,
-							encodeRequestUrl: FHIRPrimitive<FHIRBool>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							label: FHIRPrimitive<FHIRString>? = nil,
-							method: FHIRPrimitive<TestScriptRequestMethodCode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							origin: FHIRPrimitive<FHIRInteger>? = nil,
-							params: FHIRPrimitive<FHIRString>? = nil,
-							requestHeader: [TestScriptSetupActionOperationRequestHeader]? = nil,
-							requestId: FHIRPrimitive<FHIRString>? = nil,
-							resource: FHIRPrimitive<FHIRString>? = nil,
-							responseId: FHIRPrimitive<FHIRString>? = nil,
-							sourceId: FHIRPrimitive<FHIRString>? = nil,
-							targetId: FHIRPrimitive<FHIRString>? = nil,
-							type: Coding? = nil,
-							url: FHIRPrimitive<FHIRString>? = nil)
-	{
+		accept: FHIRPrimitive<FHIRString>? = nil,
+		contentType: FHIRPrimitive<FHIRString>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		destination: FHIRPrimitive<FHIRInteger>? = nil,
+		encodeRequestUrl: FHIRPrimitive<FHIRBool>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		label: FHIRPrimitive<FHIRString>? = nil,
+		method: FHIRPrimitive<TestScriptRequestMethodCode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		origin: FHIRPrimitive<FHIRInteger>? = nil,
+		params: FHIRPrimitive<FHIRString>? = nil,
+		requestHeader: [TestScriptSetupActionOperationRequestHeader]? = nil,
+		requestId: FHIRPrimitive<FHIRString>? = nil,
+		resource: FHIRPrimitive<FHIRURI>? = nil,
+		responseId: FHIRPrimitive<FHIRString>? = nil,
+		sourceId: FHIRPrimitive<FHIRString>? = nil,
+		targetId: FHIRPrimitive<FHIRString>? = nil,
+		type: Coding? = nil,
+		url: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(encodeRequestUrl: encodeRequestUrl)
 		self.accept = accept
 		self.contentType = contentType
@@ -1460,7 +1572,7 @@ open class TestScriptSetupActionOperation: BackboneElement {
 		self.params = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .params, auxiliaryKey: ._params)
 		self.requestHeader = try [TestScriptSetupActionOperationRequestHeader](from: _container, forKeyIfPresent: .requestHeader)
 		self.requestId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .requestId, auxiliaryKey: ._requestId)
-		self.resource = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
+		self.resource = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
 		self.responseId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .responseId, auxiliaryKey: ._responseId)
 		self.sourceId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sourceId, auxiliaryKey: ._sourceId)
 		self.targetId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetId, auxiliaryKey: ._targetId)
@@ -1566,12 +1678,12 @@ open class TestScriptSetupActionOperationRequestHeader: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							field: FHIRPrimitive<FHIRString>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		field: FHIRPrimitive<FHIRString>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(field: field, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -1643,11 +1755,11 @@ open class TestScriptTeardown: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestScriptTeardownAction],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: [TestScriptTeardownAction],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(action: action)
 		self.`extension` = `extension`
 		self.id = id
@@ -1714,11 +1826,11 @@ open class TestScriptTeardownAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestScriptSetupActionOperation)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestScriptSetupActionOperation
+	) {
 		self.init(operation: operation)
 		self.`extension` = `extension`
 		self.id = id
@@ -1789,13 +1901,13 @@ open class TestScriptTest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [TestScriptTestAction],
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil)
-	{
+		action: [TestScriptTestAction],
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(action: action)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -1876,12 +1988,12 @@ open class TestScriptTestAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assert: TestScriptSetupActionAssert? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: TestScriptSetupActionOperation? = nil)
-	{
+		assert: TestScriptSetupActionAssert? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: TestScriptSetupActionOperation? = nil
+	) {
 		self.init()
 		self.assert = assert
 		self.`extension` = `extension`
@@ -1976,18 +2088,18 @@ open class TestScriptVariable: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							defaultValue: FHIRPrimitive<FHIRString>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							headerField: FHIRPrimitive<FHIRString>? = nil,
-							hint: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							path: FHIRPrimitive<FHIRString>? = nil,
-							sourceId: FHIRPrimitive<FHIRString>? = nil)
-	{
+		defaultValue: FHIRPrimitive<FHIRString>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		headerField: FHIRPrimitive<FHIRString>? = nil,
+		hint: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		sourceId: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.defaultValue = defaultValue
 		self.description_fhir = description_fhir

@@ -2,8 +2,8 @@
 //  ResourceProxy.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ public enum ResourceProxy: FHIRType {
 	case allergyIntolerance(AllergyIntolerance)
 	case appointment(Appointment)
 	case appointmentResponse(AppointmentResponse)
+	case artifactAssessment(ArtifactAssessment)
 	case auditEvent(AuditEvent)
 	case basic(Basic)
 	case binary(Binary)
@@ -37,20 +38,20 @@ public enum ResourceProxy: FHIRType {
 	case capabilityStatement2(CapabilityStatement2)
 	case carePlan(CarePlan)
 	case careTeam(CareTeam)
-	case catalogEntry(CatalogEntry)
 	case chargeItem(ChargeItem)
 	case chargeItemDefinition(ChargeItemDefinition)
 	case citation(Citation)
 	case claim(Claim)
 	case claimResponse(ClaimResponse)
 	case clinicalImpression(ClinicalImpression)
-	case clinicalUseIssue(ClinicalUseIssue)
+	case clinicalUseDefinition(ClinicalUseDefinition)
 	case codeSystem(CodeSystem)
 	case communication(Communication)
 	case communicationRequest(CommunicationRequest)
 	case compartmentDefinition(CompartmentDefinition)
 	case composition(Composition)
 	case conceptMap(ConceptMap)
+	case conceptMap2(ConceptMap2)
 	case condition(Condition)
 	case conditionDefinition(ConditionDefinition)
 	case consent(Consent)
@@ -61,9 +62,10 @@ public enum ResourceProxy: FHIRType {
 	case detectedIssue(DetectedIssue)
 	case device(Device)
 	case deviceDefinition(DeviceDefinition)
+	case deviceDispense(DeviceDispense)
 	case deviceMetric(DeviceMetric)
 	case deviceRequest(DeviceRequest)
-	case deviceUseStatement(DeviceUseStatement)
+	case deviceUsage(DeviceUsage)
 	case diagnosticReport(DiagnosticReport)
 	case documentManifest(DocumentManifest)
 	case documentReference(DocumentReference)
@@ -86,6 +88,7 @@ public enum ResourceProxy: FHIRType {
 	case group(Group)
 	case guidanceResponse(GuidanceResponse)
 	case healthcareService(HealthcareService)
+	case imagingSelection(ImagingSelection)
 	case imagingStudy(ImagingStudy)
 	case immunization(Immunization)
 	case immunizationEvaluation(ImmunizationEvaluation)
@@ -93,6 +96,7 @@ public enum ResourceProxy: FHIRType {
 	case implementationGuide(ImplementationGuide)
 	case ingredient(Ingredient)
 	case insurancePlan(InsurancePlan)
+	case inventoryReport(InventoryReport)
 	case invoice(Invoice)
 	case library(Library)
 	case linkage(Linkage)
@@ -166,6 +170,7 @@ public enum ResourceProxy: FHIRType {
 	case terminologyCapabilities(TerminologyCapabilities)
 	case testReport(TestReport)
 	case testScript(TestScript)
+	case transport(Transport)
 	case valueSet(ValueSet)
 	case verificationResult(VerificationResult)
 	case visionPrescription(VisionPrescription)
@@ -187,6 +192,8 @@ public enum ResourceProxy: FHIRType {
 			return "Appointment"
 		case .appointmentResponse:
 			return "AppointmentResponse"
+		case .artifactAssessment:
+			return "ArtifactAssessment"
 		case .auditEvent:
 			return "AuditEvent"
 		case .basic:
@@ -207,8 +214,6 @@ public enum ResourceProxy: FHIRType {
 			return "CarePlan"
 		case .careTeam:
 			return "CareTeam"
-		case .catalogEntry:
-			return "CatalogEntry"
 		case .chargeItem:
 			return "ChargeItem"
 		case .chargeItemDefinition:
@@ -221,8 +226,8 @@ public enum ResourceProxy: FHIRType {
 			return "ClaimResponse"
 		case .clinicalImpression:
 			return "ClinicalImpression"
-		case .clinicalUseIssue:
-			return "ClinicalUseIssue"
+		case .clinicalUseDefinition:
+			return "ClinicalUseDefinition"
 		case .codeSystem:
 			return "CodeSystem"
 		case .communication:
@@ -235,6 +240,8 @@ public enum ResourceProxy: FHIRType {
 			return "Composition"
 		case .conceptMap:
 			return "ConceptMap"
+		case .conceptMap2:
+			return "ConceptMap2"
 		case .condition:
 			return "Condition"
 		case .conditionDefinition:
@@ -255,12 +262,14 @@ public enum ResourceProxy: FHIRType {
 			return "Device"
 		case .deviceDefinition:
 			return "DeviceDefinition"
+		case .deviceDispense:
+			return "DeviceDispense"
 		case .deviceMetric:
 			return "DeviceMetric"
 		case .deviceRequest:
 			return "DeviceRequest"
-		case .deviceUseStatement:
-			return "DeviceUseStatement"
+		case .deviceUsage:
+			return "DeviceUsage"
 		case .diagnosticReport:
 			return "DiagnosticReport"
 		case .documentManifest:
@@ -305,6 +314,8 @@ public enum ResourceProxy: FHIRType {
 			return "GuidanceResponse"
 		case .healthcareService:
 			return "HealthcareService"
+		case .imagingSelection:
+			return "ImagingSelection"
 		case .imagingStudy:
 			return "ImagingStudy"
 		case .immunization:
@@ -319,6 +330,8 @@ public enum ResourceProxy: FHIRType {
 			return "Ingredient"
 		case .insurancePlan:
 			return "InsurancePlan"
+		case .inventoryReport:
+			return "InventoryReport"
 		case .invoice:
 			return "Invoice"
 		case .library:
@@ -465,6 +478,8 @@ public enum ResourceProxy: FHIRType {
 			return "TestReport"
 		case .testScript:
 			return "TestScript"
+		case .transport:
+			return "Transport"
 		case .valueSet:
 			return "ValueSet"
 		case .verificationResult:
@@ -494,6 +509,8 @@ public enum ResourceProxy: FHIRType {
 			self = .appointment(resource as! Appointment)
 		case .appointmentResponse:
 			self = .appointmentResponse(resource as! AppointmentResponse)
+		case .artifactAssessment:
+			self = .artifactAssessment(resource as! ArtifactAssessment)
 		case .auditEvent:
 			self = .auditEvent(resource as! AuditEvent)
 		case .basic:
@@ -514,8 +531,6 @@ public enum ResourceProxy: FHIRType {
 			self = .carePlan(resource as! CarePlan)
 		case .careTeam:
 			self = .careTeam(resource as! CareTeam)
-		case .catalogEntry:
-			self = .catalogEntry(resource as! CatalogEntry)
 		case .chargeItem:
 			self = .chargeItem(resource as! ChargeItem)
 		case .chargeItemDefinition:
@@ -528,8 +543,8 @@ public enum ResourceProxy: FHIRType {
 			self = .claimResponse(resource as! ClaimResponse)
 		case .clinicalImpression:
 			self = .clinicalImpression(resource as! ClinicalImpression)
-		case .clinicalUseIssue:
-			self = .clinicalUseIssue(resource as! ClinicalUseIssue)
+		case .clinicalUseDefinition:
+			self = .clinicalUseDefinition(resource as! ClinicalUseDefinition)
 		case .codeSystem:
 			self = .codeSystem(resource as! CodeSystem)
 		case .communication:
@@ -542,6 +557,8 @@ public enum ResourceProxy: FHIRType {
 			self = .composition(resource as! Composition)
 		case .conceptMap:
 			self = .conceptMap(resource as! ConceptMap)
+		case .conceptMap2:
+			self = .conceptMap2(resource as! ConceptMap2)
 		case .condition:
 			self = .condition(resource as! Condition)
 		case .conditionDefinition:
@@ -562,12 +579,14 @@ public enum ResourceProxy: FHIRType {
 			self = .device(resource as! Device)
 		case .deviceDefinition:
 			self = .deviceDefinition(resource as! DeviceDefinition)
+		case .deviceDispense:
+			self = .deviceDispense(resource as! DeviceDispense)
 		case .deviceMetric:
 			self = .deviceMetric(resource as! DeviceMetric)
 		case .deviceRequest:
 			self = .deviceRequest(resource as! DeviceRequest)
-		case .deviceUseStatement:
-			self = .deviceUseStatement(resource as! DeviceUseStatement)
+		case .deviceUsage:
+			self = .deviceUsage(resource as! DeviceUsage)
 		case .diagnosticReport:
 			self = .diagnosticReport(resource as! DiagnosticReport)
 		case .documentManifest:
@@ -612,6 +631,8 @@ public enum ResourceProxy: FHIRType {
 			self = .guidanceResponse(resource as! GuidanceResponse)
 		case .healthcareService:
 			self = .healthcareService(resource as! HealthcareService)
+		case .imagingSelection:
+			self = .imagingSelection(resource as! ImagingSelection)
 		case .imagingStudy:
 			self = .imagingStudy(resource as! ImagingStudy)
 		case .immunization:
@@ -626,6 +647,8 @@ public enum ResourceProxy: FHIRType {
 			self = .ingredient(resource as! Ingredient)
 		case .insurancePlan:
 			self = .insurancePlan(resource as! InsurancePlan)
+		case .inventoryReport:
+			self = .inventoryReport(resource as! InventoryReport)
 		case .invoice:
 			self = .invoice(resource as! Invoice)
 		case .library:
@@ -772,6 +795,8 @@ public enum ResourceProxy: FHIRType {
 			self = .testReport(resource as! TestReport)
 		case .testScript:
 			self = .testScript(resource as! TestScript)
+		case .transport:
+			self = .transport(resource as! Transport)
 		case .valueSet:
 			self = .valueSet(resource as! ValueSet)
 		case .verificationResult:
@@ -797,6 +822,8 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .appointmentResponse(let resource):
 			return resource
+		case .artifactAssessment(let resource):
+			return resource
 		case .auditEvent(let resource):
 			return resource
 		case .basic(let resource):
@@ -817,8 +844,6 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .careTeam(let resource):
 			return resource
-		case .catalogEntry(let resource):
-			return resource
 		case .chargeItem(let resource):
 			return resource
 		case .chargeItemDefinition(let resource):
@@ -831,7 +856,7 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .clinicalImpression(let resource):
 			return resource
-		case .clinicalUseIssue(let resource):
+		case .clinicalUseDefinition(let resource):
 			return resource
 		case .codeSystem(let resource):
 			return resource
@@ -844,6 +869,8 @@ public enum ResourceProxy: FHIRType {
 		case .composition(let resource):
 			return resource
 		case .conceptMap(let resource):
+			return resource
+		case .conceptMap2(let resource):
 			return resource
 		case .condition(let resource):
 			return resource
@@ -865,11 +892,13 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .deviceDefinition(let resource):
 			return resource
+		case .deviceDispense(let resource):
+			return resource
 		case .deviceMetric(let resource):
 			return resource
 		case .deviceRequest(let resource):
 			return resource
-		case .deviceUseStatement(let resource):
+		case .deviceUsage(let resource):
 			return resource
 		case .diagnosticReport(let resource):
 			return resource
@@ -915,6 +944,8 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .healthcareService(let resource):
 			return resource
+		case .imagingSelection(let resource):
+			return resource
 		case .imagingStudy(let resource):
 			return resource
 		case .immunization(let resource):
@@ -928,6 +959,8 @@ public enum ResourceProxy: FHIRType {
 		case .ingredient(let resource):
 			return resource
 		case .insurancePlan(let resource):
+			return resource
+		case .inventoryReport(let resource):
 			return resource
 		case .invoice(let resource):
 			return resource
@@ -1075,6 +1108,8 @@ public enum ResourceProxy: FHIRType {
 			return resource
 		case .testScript(let resource):
 			return resource
+		case .transport(let resource):
+			return resource
 		case .valueSet(let resource):
 			return resource
 		case .verificationResult(let resource):
@@ -1117,6 +1152,8 @@ public enum ResourceProxy: FHIRType {
 			self = .appointment(try Appointment(from: decoder))
 		case "AppointmentResponse":
 			self = .appointmentResponse(try AppointmentResponse(from: decoder))
+		case "ArtifactAssessment":
+			self = .artifactAssessment(try ArtifactAssessment(from: decoder))
 		case "AuditEvent":
 			self = .auditEvent(try AuditEvent(from: decoder))
 		case "Basic":
@@ -1137,8 +1174,6 @@ public enum ResourceProxy: FHIRType {
 			self = .carePlan(try CarePlan(from: decoder))
 		case "CareTeam":
 			self = .careTeam(try CareTeam(from: decoder))
-		case "CatalogEntry":
-			self = .catalogEntry(try CatalogEntry(from: decoder))
 		case "ChargeItem":
 			self = .chargeItem(try ChargeItem(from: decoder))
 		case "ChargeItemDefinition":
@@ -1151,8 +1186,8 @@ public enum ResourceProxy: FHIRType {
 			self = .claimResponse(try ClaimResponse(from: decoder))
 		case "ClinicalImpression":
 			self = .clinicalImpression(try ClinicalImpression(from: decoder))
-		case "ClinicalUseIssue":
-			self = .clinicalUseIssue(try ClinicalUseIssue(from: decoder))
+		case "ClinicalUseDefinition":
+			self = .clinicalUseDefinition(try ClinicalUseDefinition(from: decoder))
 		case "CodeSystem":
 			self = .codeSystem(try CodeSystem(from: decoder))
 		case "Communication":
@@ -1165,6 +1200,8 @@ public enum ResourceProxy: FHIRType {
 			self = .composition(try Composition(from: decoder))
 		case "ConceptMap":
 			self = .conceptMap(try ConceptMap(from: decoder))
+		case "ConceptMap2":
+			self = .conceptMap2(try ConceptMap2(from: decoder))
 		case "Condition":
 			self = .condition(try Condition(from: decoder))
 		case "ConditionDefinition":
@@ -1185,12 +1222,14 @@ public enum ResourceProxy: FHIRType {
 			self = .device(try Device(from: decoder))
 		case "DeviceDefinition":
 			self = .deviceDefinition(try DeviceDefinition(from: decoder))
+		case "DeviceDispense":
+			self = .deviceDispense(try DeviceDispense(from: decoder))
 		case "DeviceMetric":
 			self = .deviceMetric(try DeviceMetric(from: decoder))
 		case "DeviceRequest":
 			self = .deviceRequest(try DeviceRequest(from: decoder))
-		case "DeviceUseStatement":
-			self = .deviceUseStatement(try DeviceUseStatement(from: decoder))
+		case "DeviceUsage":
+			self = .deviceUsage(try DeviceUsage(from: decoder))
 		case "DiagnosticReport":
 			self = .diagnosticReport(try DiagnosticReport(from: decoder))
 		case "DocumentManifest":
@@ -1235,6 +1274,8 @@ public enum ResourceProxy: FHIRType {
 			self = .guidanceResponse(try GuidanceResponse(from: decoder))
 		case "HealthcareService":
 			self = .healthcareService(try HealthcareService(from: decoder))
+		case "ImagingSelection":
+			self = .imagingSelection(try ImagingSelection(from: decoder))
 		case "ImagingStudy":
 			self = .imagingStudy(try ImagingStudy(from: decoder))
 		case "Immunization":
@@ -1249,6 +1290,8 @@ public enum ResourceProxy: FHIRType {
 			self = .ingredient(try Ingredient(from: decoder))
 		case "InsurancePlan":
 			self = .insurancePlan(try InsurancePlan(from: decoder))
+		case "InventoryReport":
+			self = .inventoryReport(try InventoryReport(from: decoder))
 		case "Invoice":
 			self = .invoice(try Invoice(from: decoder))
 		case "Library":
@@ -1395,6 +1438,8 @@ public enum ResourceProxy: FHIRType {
 			self = .testReport(try TestReport(from: decoder))
 		case "TestScript":
 			self = .testScript(try TestScript(from: decoder))
+		case "Transport":
+			self = .transport(try Transport(from: decoder))
 		case "ValueSet":
 			self = .valueSet(try ValueSet(from: decoder))
 		case "VerificationResult":

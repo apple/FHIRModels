@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import FMCore
 public enum ParticipationStatus: String, FHIRPrimitiveType {
 	
 	/// The participant has accepted the appointment.
-	case accepted = "accepted"
+	case accepted
 	
 	/// The participant has declined the appointment and will not participate in the appointment.
-	case declined = "declined"
-	
-	/// The participant has  tentatively accepted the appointment. This could be automatically created by a system and
-	/// requires further processing before it can be accepted. There is no commitment that attendance will occur.
-	case tentative = "tentative"
+	case declined
 	
 	/// The participant needs to indicate if they accept the appointment by changing this status to one of the other
 	/// statuses.
 	case needsAction = "needs-action"
+	
+	/// The participant has  tentatively accepted the appointment. This could be automatically created by a system and
+	/// requires further processing before it can be accepted. There is no commitment that attendance will occur.
+	case tentative
 }

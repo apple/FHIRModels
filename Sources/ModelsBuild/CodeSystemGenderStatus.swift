@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,16 +24,15 @@ import FMCore
  reproductive organs.
  
  URL: http://hl7.org/fhir/animal-genderstatus
- ValueSet: http://hl7.org/fhir/ValueSet/animal-genderstatus
  */
 public enum GenderStatus: String, FHIRPrimitiveType {
 	
-	/// The animal has been sterilized, castrated or otherwise made infertile.
-	case neutered = "neutered"
-	
 	/// The animal's reproductive organs are intact.
-	case intact = "intact"
+	case intact
+	
+	/// The animal has been sterilized, castrated or otherwise made infertile.
+	case neutered
 	
 	/// Unable to determine whether the animal has been neutered.
-	case unknown = "unknown"
+	case unknown
 }

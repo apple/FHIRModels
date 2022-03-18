@@ -2,8 +2,8 @@
 //  Questionnaire.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Questionnaire)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Questionnaire)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ open class Questionnaire: DomainResource {
 	/// The types of subjects that can be the subject of responses created for the questionnaire.
 	public var subjectType: [FHIRPrimitive<ResourceType>]?
 	
-	/// Date last changed
+	/// Date last formally published
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// Name of the publisher (organization or individual)
@@ -107,37 +107,37 @@ open class Questionnaire: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							code: [Coding]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFrom: [FHIRPrimitive<Canonical>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effectivePeriod: Period? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							item: [QuestionnaireItem]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subjectType: [FHIRPrimitive<ResourceType>]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		code: [Coding]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivedFrom: [FHIRPrimitive<Canonical>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effectivePeriod: Period? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		item: [QuestionnaireItem]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subjectType: [FHIRPrimitive<ResourceType>]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
 		self.code = code
@@ -340,7 +340,7 @@ open class QuestionnaireItem: BackboneElement {
 	public var text: FHIRPrimitive<FHIRString>?
 	
 	/// The type of questionnaire item this is - whether text for display, a grouping of other items or a particular
-	/// type of data to be captured (string, integer, coded choice, etc.).
+	/// type of data to be captured (string, integer, Coding, etc.).
 	public var type: FHIRPrimitive<QuestionnaireItemType>
 	
 	/// Only allow data when
@@ -348,6 +348,9 @@ open class QuestionnaireItem: BackboneElement {
 	
 	/// Controls how multiple enableWhen values are interpreted -  whether all or any must be true.
 	public var enableBehavior: FHIRPrimitive<EnableWhenBehavior>?
+	
+	/// Indicates if and how items that are disabled (because enableWhen evaluates to 'false') should be displayed.
+	public var disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>?
 	
 	/// Whether the item must be included in data results
 	public var required: FHIRPrimitive<FHIRBool>?
@@ -360,6 +363,10 @@ open class QuestionnaireItem: BackboneElement {
 	
 	/// No more than this many characters
 	public var maxLength: FHIRPrimitive<FHIRInteger>?
+	
+	/// For items that have a defined set of allowed answers (via answerOption or answerValueset), indicates whether
+	/// values *other* than those specified can be selected.
+	public var answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>?
 	
 	/// Valueset containing permitted answers
 	public var answerValueSet: FHIRPrimitive<Canonical>?
@@ -382,31 +389,35 @@ open class QuestionnaireItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answerOption: [QuestionnaireItemAnswerOption]? = nil,
-							answerValueSet: FHIRPrimitive<Canonical>? = nil,
-							code: [Coding]? = nil,
-							definition: FHIRPrimitive<FHIRURI>? = nil,
-							enableBehavior: FHIRPrimitive<EnableWhenBehavior>? = nil,
-							enableWhen: [QuestionnaireItemEnableWhen]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							initial: [QuestionnaireItemInitial]? = nil,
-							item: [QuestionnaireItem]? = nil,
-							linkId: FHIRPrimitive<FHIRString>,
-							maxLength: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							prefix: FHIRPrimitive<FHIRString>? = nil,
-							readOnly: FHIRPrimitive<FHIRBool>? = nil,
-							repeats: FHIRPrimitive<FHIRBool>? = nil,
-							required: FHIRPrimitive<FHIRBool>? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<QuestionnaireItemType>)
-	{
+		answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>? = nil,
+		answerOption: [QuestionnaireItemAnswerOption]? = nil,
+		answerValueSet: FHIRPrimitive<Canonical>? = nil,
+		code: [Coding]? = nil,
+		definition: FHIRPrimitive<FHIRURI>? = nil,
+		disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>? = nil,
+		enableBehavior: FHIRPrimitive<EnableWhenBehavior>? = nil,
+		enableWhen: [QuestionnaireItemEnableWhen]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		initial: [QuestionnaireItemInitial]? = nil,
+		item: [QuestionnaireItem]? = nil,
+		linkId: FHIRPrimitive<FHIRString>,
+		maxLength: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		prefix: FHIRPrimitive<FHIRString>? = nil,
+		readOnly: FHIRPrimitive<FHIRBool>? = nil,
+		repeats: FHIRPrimitive<FHIRBool>? = nil,
+		required: FHIRPrimitive<FHIRBool>? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<QuestionnaireItemType>
+	) {
 		self.init(linkId: linkId, type: type)
+		self.answerConstraint = answerConstraint
 		self.answerOption = answerOption
 		self.answerValueSet = answerValueSet
 		self.code = code
 		self.definition = definition
+		self.disabledDisplay = disabledDisplay
 		self.enableBehavior = enableBehavior
 		self.enableWhen = enableWhen
 		self.`extension` = `extension`
@@ -425,10 +436,12 @@ open class QuestionnaireItem: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case answerConstraint; case _answerConstraint
 		case answerOption
 		case answerValueSet; case _answerValueSet
 		case code
 		case definition; case _definition
+		case disabledDisplay; case _disabledDisplay
 		case enableBehavior; case _enableBehavior
 		case enableWhen
 		case initial
@@ -448,10 +461,12 @@ open class QuestionnaireItem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.answerConstraint = try FHIRPrimitive<QuestionnaireAnswerConstraint>(from: _container, forKeyIfPresent: .answerConstraint, auxiliaryKey: ._answerConstraint)
 		self.answerOption = try [QuestionnaireItemAnswerOption](from: _container, forKeyIfPresent: .answerOption)
 		self.answerValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .answerValueSet, auxiliaryKey: ._answerValueSet)
 		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.definition = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
+		self.disabledDisplay = try FHIRPrimitive<QuestionnaireItemDisabledDisplay>(from: _container, forKeyIfPresent: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
 		self.enableBehavior = try FHIRPrimitive<EnableWhenBehavior>(from: _container, forKeyIfPresent: .enableBehavior, auxiliaryKey: ._enableBehavior)
 		self.enableWhen = try [QuestionnaireItemEnableWhen](from: _container, forKeyIfPresent: .enableWhen)
 		self.initial = try [QuestionnaireItemInitial](from: _container, forKeyIfPresent: .initial)
@@ -472,10 +487,12 @@ open class QuestionnaireItem: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try answerConstraint?.encode(on: &_container, forKey: .answerConstraint, auxiliaryKey: ._answerConstraint)
 		try answerOption?.encode(on: &_container, forKey: .answerOption)
 		try answerValueSet?.encode(on: &_container, forKey: .answerValueSet, auxiliaryKey: ._answerValueSet)
 		try code?.encode(on: &_container, forKey: .code)
 		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
+		try disabledDisplay?.encode(on: &_container, forKey: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
 		try enableBehavior?.encode(on: &_container, forKey: .enableBehavior, auxiliaryKey: ._enableBehavior)
 		try enableWhen?.encode(on: &_container, forKey: .enableWhen)
 		try initial?.encode(on: &_container, forKey: .initial)
@@ -500,10 +517,12 @@ open class QuestionnaireItem: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return answerOption == _other.answerOption
+		return answerConstraint == _other.answerConstraint
+		    && answerOption == _other.answerOption
 		    && answerValueSet == _other.answerValueSet
 		    && code == _other.code
 		    && definition == _other.definition
+		    && disabledDisplay == _other.disabledDisplay
 		    && enableBehavior == _other.enableBehavior
 		    && enableWhen == _other.enableWhen
 		    && initial == _other.initial
@@ -520,10 +539,12 @@ open class QuestionnaireItem: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(answerConstraint)
 		hasher.combine(answerOption)
 		hasher.combine(answerValueSet)
 		hasher.combine(code)
 		hasher.combine(definition)
+		hasher.combine(disabledDisplay)
 		hasher.combine(enableBehavior)
 		hasher.combine(enableWhen)
 		hasher.combine(initial)
@@ -542,7 +563,7 @@ open class QuestionnaireItem: BackboneElement {
 /**
  Permitted answer.
  
- One of the permitted answers for a "choice" or "open-choice" question.
+ One of the permitted answers for the question.
  */
 open class QuestionnaireItemAnswerOption: BackboneElement {
 	
@@ -571,12 +592,12 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							initialSelected: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		initialSelected: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -715,7 +736,7 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 		case time(FHIRPrimitive<FHIRTime>)
 	}
 	
-	/// Question that determines whether item is enabled
+	/// The linkId of question that determines whether item is enabled/disabled
 	public var question: FHIRPrimitive<FHIRString>
 	
 	/// Specifies the criteria by which the question is enabled.
@@ -735,13 +756,13 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answer: AnswerX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							`operator`: FHIRPrimitive<QuestionnaireItemOperator>,
-							question: FHIRPrimitive<FHIRString>)
-	{
+		answer: AnswerX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		`operator`: FHIRPrimitive<QuestionnaireItemOperator>,
+		question: FHIRPrimitive<FHIRString>
+	) {
 		self.init(answer: answer, operator: `operator`, question: question)
 		self.`extension` = `extension`
 		self.id = id
@@ -934,11 +955,11 @@ open class QuestionnaireItemInitial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id

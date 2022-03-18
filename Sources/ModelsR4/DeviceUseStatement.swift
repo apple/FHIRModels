@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DeviceUseStatement)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -87,28 +87,28 @@ open class DeviceUseStatement: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							bodySite: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							derivedFrom: [Reference]? = nil,
-							device: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							recordedOn: FHIRPrimitive<DateTime>? = nil,
-							source: Reference? = nil,
-							status: FHIRPrimitive<DeviceUseStatementStatus>,
-							subject: Reference,
-							text: Narrative? = nil,
-							timing: TimingX? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		bodySite: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		derivedFrom: [Reference]? = nil,
+		device: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		recordedOn: FHIRPrimitive<DateTime>? = nil,
+		source: Reference? = nil,
+		status: FHIRPrimitive<DeviceUseStatementStatus>,
+		subject: Reference,
+		text: Narrative? = nil,
+		timing: TimingX? = nil
+	) {
 		self.init(device: device, status: status, subject: subject)
 		self.basedOn = basedOn
 		self.bodySite = bodySite

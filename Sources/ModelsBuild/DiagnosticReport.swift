@@ -2,8 +2,8 @@
 //  DiagnosticReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/DiagnosticReport)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DiagnosticReport)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,10 +23,11 @@ import FMCore
  A Diagnostic report - a combination of request information, atomic results, images, interpretation, as well as
  formatted reports.
  
- The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations,
- and/or specimens derived from these. The report includes clinical context such as requesting and provider information,
- and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic
- reports.
+ The findings and interpretation of diagnostic tests performed on patients, groups of patients, products, substances,
+ devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting
+ provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted
+ representation of diagnostic reports. The report also includes non-clinical context such as batch analysis and
+ stability reporting of products and substances.
  */
 open class DiagnosticReport: DomainResource {
 	
@@ -78,11 +79,17 @@ open class DiagnosticReport: DomainResource {
 	/// Observations
 	public var result: [Reference]?
 	
+	/// Comments about the diagnostic report
+	public var note: [Annotation]?
+	
 	/// Reference to full details of imaging associated with the diagnostic report
 	public var imagingStudy: [Reference]?
 	
-	/// Key images associated with this report
+	/// Key images or data associated with this report
 	public var media: [DiagnosticReportMedia]?
+	
+	/// Reference to a Composition resource for the DiagnosticReport structure
+	public var composition: Reference?
 	
 	/// Clinical conclusion (interpretation) of test results
 	public var conclusion: FHIRPrimitive<FHIRString>?
@@ -102,36 +109,39 @@ open class DiagnosticReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							conclusion: FHIRPrimitive<FHIRString>? = nil,
-							conclusionCode: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							imagingStudy: [Reference]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issued: FHIRPrimitive<Instant>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							media: [DiagnosticReportMedia]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							performer: [Reference]? = nil,
-							presentedForm: [Attachment]? = nil,
-							result: [Reference]? = nil,
-							resultsInterpreter: [Reference]? = nil,
-							specimen: [Reference]? = nil,
-							status: FHIRPrimitive<DiagnosticReportStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		composition: Reference? = nil,
+		conclusion: FHIRPrimitive<FHIRString>? = nil,
+		conclusionCode: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		imagingStudy: [Reference]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issued: FHIRPrimitive<Instant>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		media: [DiagnosticReportMedia]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		performer: [Reference]? = nil,
+		presentedForm: [Attachment]? = nil,
+		result: [Reference]? = nil,
+		resultsInterpreter: [Reference]? = nil,
+		specimen: [Reference]? = nil,
+		status: FHIRPrimitive<DiagnosticReportStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, status: status)
 		self.basedOn = basedOn
 		self.category = category
+		self.composition = composition
 		self.conclusion = conclusion
 		self.conclusionCode = conclusionCode
 		self.contained = contained
@@ -147,6 +157,7 @@ open class DiagnosticReport: DomainResource {
 		self.media = media
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.note = note
 		self.performer = performer
 		self.presentedForm = presentedForm
 		self.result = result
@@ -162,6 +173,7 @@ open class DiagnosticReport: DomainResource {
 		case basedOn
 		case category
 		case code
+		case composition
 		case conclusion; case _conclusion
 		case conclusionCode
 		case effectiveDateTime; case _effectiveDateTime
@@ -171,6 +183,7 @@ open class DiagnosticReport: DomainResource {
 		case imagingStudy
 		case issued; case _issued
 		case media
+		case note
 		case performer
 		case presentedForm
 		case result
@@ -188,6 +201,7 @@ open class DiagnosticReport: DomainResource {
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.composition = try Reference(from: _container, forKeyIfPresent: .composition)
 		self.conclusion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .conclusion, auxiliaryKey: ._conclusion)
 		self.conclusionCode = try [CodeableConcept](from: _container, forKeyIfPresent: .conclusionCode)
 		var _t_effective: EffectiveX? = nil
@@ -209,6 +223,7 @@ open class DiagnosticReport: DomainResource {
 		self.imagingStudy = try [Reference](from: _container, forKeyIfPresent: .imagingStudy)
 		self.issued = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .issued, auxiliaryKey: ._issued)
 		self.media = try [DiagnosticReportMedia](from: _container, forKeyIfPresent: .media)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.presentedForm = try [Attachment](from: _container, forKeyIfPresent: .presentedForm)
 		self.result = try [Reference](from: _container, forKeyIfPresent: .result)
@@ -227,6 +242,7 @@ open class DiagnosticReport: DomainResource {
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
 		try code.encode(on: &_container, forKey: .code)
+		try composition?.encode(on: &_container, forKey: .composition)
 		try conclusion?.encode(on: &_container, forKey: .conclusion, auxiliaryKey: ._conclusion)
 		try conclusionCode?.encode(on: &_container, forKey: .conclusionCode)
 		if let _enum = effective {
@@ -242,6 +258,7 @@ open class DiagnosticReport: DomainResource {
 		try imagingStudy?.encode(on: &_container, forKey: .imagingStudy)
 		try issued?.encode(on: &_container, forKey: .issued, auxiliaryKey: ._issued)
 		try media?.encode(on: &_container, forKey: .media)
+		try note?.encode(on: &_container, forKey: .note)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try presentedForm?.encode(on: &_container, forKey: .presentedForm)
 		try result?.encode(on: &_container, forKey: .result)
@@ -264,6 +281,7 @@ open class DiagnosticReport: DomainResource {
 		return basedOn == _other.basedOn
 		    && category == _other.category
 		    && code == _other.code
+		    && composition == _other.composition
 		    && conclusion == _other.conclusion
 		    && conclusionCode == _other.conclusionCode
 		    && effective == _other.effective
@@ -272,6 +290,7 @@ open class DiagnosticReport: DomainResource {
 		    && imagingStudy == _other.imagingStudy
 		    && issued == _other.issued
 		    && media == _other.media
+		    && note == _other.note
 		    && performer == _other.performer
 		    && presentedForm == _other.presentedForm
 		    && result == _other.result
@@ -286,6 +305,7 @@ open class DiagnosticReport: DomainResource {
 		hasher.combine(basedOn)
 		hasher.combine(category)
 		hasher.combine(code)
+		hasher.combine(composition)
 		hasher.combine(conclusion)
 		hasher.combine(conclusionCode)
 		hasher.combine(effective)
@@ -294,6 +314,7 @@ open class DiagnosticReport: DomainResource {
 		hasher.combine(imagingStudy)
 		hasher.combine(issued)
 		hasher.combine(media)
+		hasher.combine(note)
 		hasher.combine(performer)
 		hasher.combine(presentedForm)
 		hasher.combine(result)
@@ -305,17 +326,17 @@ open class DiagnosticReport: DomainResource {
 }
 
 /**
- Key images associated with this report.
+ Key images or data associated with this report.
  
- A list of key images associated with this report. The images are generally created during the diagnostic process, and
- may be directly of the patient, or of treated specimens (i.e. slides of interest).
+ A list of key images or data associated with this report. The images or data are generally created during the
+ diagnostic process, and may be directly of the patient, or of treated specimens (i.e. slides of interest).
  */
 open class DiagnosticReportMedia: BackboneElement {
 	
-	/// Comment about the image (e.g. explanation)
+	/// Comment about the image or data (e.g. explanation)
 	public var comment: FHIRPrimitive<FHIRString>?
 	
-	/// Reference to the image source
+	/// Reference to the image or data source
 	public var link: Reference
 	
 	/// Designated initializer taking all required properties
@@ -326,12 +347,12 @@ open class DiagnosticReportMedia: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(link: link)
 		self.comment = comment
 		self.`extension` = `extension`

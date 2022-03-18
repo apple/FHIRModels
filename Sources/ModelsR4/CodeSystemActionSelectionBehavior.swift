@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import FMCore
 public enum ActionSelectionBehavior: String, FHIRPrimitiveType {
 	
 	/// Any number of the actions in the group may be chosen, from zero to all.
-	case any = "any"
+	case any
 	
 	/// All the actions in the group must be selected as a single unit.
-	case all = "all"
+	case all
 	
 	/// All the actions in the group are meant to be chosen as a single unit: either all must be selected by the end
 	/// user, or none may be selected.

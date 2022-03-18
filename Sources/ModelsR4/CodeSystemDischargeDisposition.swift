@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import FMCore
 public enum DischargeDisposition: String, FHIRPrimitiveType {
 	
 	/// The patient was dicharged and has indicated that they are going to return home afterwards.
-	case home = "home"
+	case home
 	
 	/// The patient was discharged and has indicated that they are going to return home afterwards, but not the
 	/// patient's home - e.g. a family member's home.
@@ -38,27 +38,27 @@ public enum DischargeDisposition: String, FHIRPrimitiveType {
 	case otherHcf = "other-hcf"
 	
 	/// The patient has been discharged into palliative care.
-	case hosp = "hosp"
+	case hosp
 	
 	/// The patient has been discharged into long-term care where is likely to be monitored through an ongoing episode-
 	/// of-care.
-	case long = "long"
+	case long
 	
 	/// The patient self discharged against medical advice.
-	case aadvice = "aadvice"
+	case aadvice
 	
 	/// The patient has deceased during this encounter.
-	case exp = "exp"
+	case exp
 	
 	/// The patient has been transferred to a psychiatric facility.
-	case psy = "psy"
+	case psy
 	
 	/// The patient was discharged and is to receive post acute care rehabilitation services.
-	case rehab = "rehab"
+	case rehab
 	
 	/// The patient has been discharged to a skilled nursing facility for the patient to receive additional care.
-	case snf = "snf"
+	case snf
 	
 	/// The discharge disposition has not otherwise defined.
-	case oth = "oth"
+	case oth
 }

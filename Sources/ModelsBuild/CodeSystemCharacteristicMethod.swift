@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,6 +27,11 @@ import FMCore
  */
 public enum CharacteristicMethod: String, FHIRPrimitiveType {
 	
-	/// Default.
-	case `default` = "Default"
+	/// Any non-systematic method for determining whether or not adverse events have occurred, such as self-reporting by
+	/// participants or occasional assessment/testing
+	case nonSystematicAssessment = "non-systematic-assessment"
+	
+	/// Any method of routinely determining whether or not certain adverse events have occurred, for example through a
+	/// standard questionnaire, regular investigator assessment, regular laboratory testing, or other method
+	case systematicAssessment = "systematic-assessment"
 }

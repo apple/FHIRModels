@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,9 +27,25 @@ import FMCore
  */
 public enum ContributorSummaryType: String, FHIRPrimitiveType {
 	
+	/// Display of the list of acknowledged parties as a complete string.
+	case acknowledgementList = "acknowledgement-list"
+	
+	/// Statement of acknowledgment of contributions beyond those compiled for formal contributorship statements.
+	case acknowledgmentStatement = "acknowledgment-statement"
+	
 	/// Display of the author list as a complete string.
-	case authorString = "authorString"
+	case authorString = "author-string"
+	
+	/// Statement of completing interests related to the creation of the cited artifact. Also called conflicts of
+	/// interest or declaration of interests.
+	case competingInterestsStatement = "competing-interests-statement"
+	
+	/// Display of the list of contributors as a complete string.
+	case contributorshipList = "contributorship-list"
 	
 	/// Compiled summary of contributions.
-	case contributorshipStatement = "contributorshipStatement"
+	case contributorshipStatement = "contributorship-statement"
+	
+	/// Statement of financial support for the creation of the cited artifact.
+	case fundingStatement = "funding-statement"
 }

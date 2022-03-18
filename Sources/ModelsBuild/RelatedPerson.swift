@@ -2,8 +2,8 @@
 //  RelatedPerson.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/RelatedPerson)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RelatedPerson)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  A person that is related to a patient, but who is not a direct target of care.
  
- Information about a person that is involved in the care for a patient, but who is not the target of healthcare, nor has
- a formal responsibility in the care process.
+ Information about a person that is involved in a patient's health or the care for a patient, but who is not the target
+ of healthcare, nor has a formal responsibility in the care process.
  */
 open class RelatedPerson: DomainResource {
 	
@@ -38,7 +38,7 @@ open class RelatedPerson: DomainResource {
 	/// The patient this person is related to
 	public var patient: Reference
 	
-	/// The nature of the relationship
+	/// The relationship of the related person to the patient
 	public var relationship: [CodeableConcept]?
 	
 	/// A name associated with the person
@@ -63,7 +63,7 @@ open class RelatedPerson: DomainResource {
 	/// Period of time that this relationship is considered valid
 	public var period: Period?
 	
-	/// A language which may be used to communicate with about the patient's health
+	/// A language which may be used to communicate with the related person about the patient's health
 	public var communication: [RelatedPersonCommunication]?
 	
 	/// Designated initializer taking all required properties
@@ -74,27 +74,27 @@ open class RelatedPerson: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							birthDate: FHIRPrimitive<FHIRDate>? = nil,
-							communication: [RelatedPersonCommunication]? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: [HumanName]? = nil,
-							patient: Reference,
-							period: Period? = nil,
-							photo: [Attachment]? = nil,
-							relationship: [CodeableConcept]? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		birthDate: FHIRPrimitive<FHIRDate>? = nil,
+		communication: [RelatedPersonCommunication]? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: [HumanName]? = nil,
+		patient: Reference,
+		period: Period? = nil,
+		photo: [Attachment]? = nil,
+		relationship: [CodeableConcept]? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(patient: patient)
 		self.active = active
 		self.address = address
@@ -215,11 +215,11 @@ open class RelatedPerson: DomainResource {
 }
 
 /**
- A language which may be used to communicate with about the patient's health.
+ A language which may be used to communicate with the related person about the patient's health.
  */
 open class RelatedPersonCommunication: BackboneElement {
 	
-	/// The language which can be used to communicate with the patient about his or her health
+	/// The language which can be used to communicate with the related person about the patient's health
 	public var language: CodeableConcept
 	
 	/// Language preference indicator
@@ -233,12 +233,12 @@ open class RelatedPersonCommunication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: CodeableConcept,
-							modifierExtension: [Extension]? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: CodeableConcept,
+		modifierExtension: [Extension]? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init(language: language)
 		self.`extension` = `extension`
 		self.id = id

@@ -2,8 +2,8 @@
 //  ServiceRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ServiceRequest)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ServiceRequest)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -66,17 +66,17 @@ open class ServiceRequest: DomainResource {
 	/// Composite Request ID
 	public var requisition: Identifier?
 	
-	/// The status of the order.
-	public var status: FHIRPrimitive<RequestStatus>
+	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Whether the request is a proposal, plan, an original order or a reflex order.
-	public var intent: FHIRPrimitive<RequestIntent>
+	/// proposal | plan | directive | order +
+	public var intent: FHIRPrimitive<FHIRString>
 	
 	/// Classification of service
 	public var category: [CodeableConcept]?
 	
-	/// Indicates how quickly the ServiceRequest should be addressed with respect to other requests.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// True if service/procedure should not be performed
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
@@ -132,8 +132,11 @@ open class ServiceRequest: DomainResource {
 	/// Procedure Samples
 	public var specimen: [Reference]?
 	
-	/// Location on Body
+	/// Coded location on Body
 	public var bodySite: [CodeableConcept]?
+	
+	/// BodyStructure-based location on the body
+	public var bodyStructure: Reference?
 	
 	/// Comments
 	public var note: [Annotation]?
@@ -145,7 +148,7 @@ open class ServiceRequest: DomainResource {
 	public var relevantHistory: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>, subject: Reference) {
+	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.intent = intent
 		self.status = status
 		self.subject = subject
@@ -154,51 +157,53 @@ open class ServiceRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asNeeded: AsNeededX? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							insurance: [Reference]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: [CodeableReference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							orderDetail: [CodeableConcept]? = nil,
-							patientInstruction: FHIRPrimitive<FHIRString>? = nil,
-							performer: [Reference]? = nil,
-							performerType: CodeableConcept? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							quantity: QuantityX? = nil,
-							reason: [CodeableReference]? = nil,
-							relevantHistory: [Reference]? = nil,
-							replaces: [Reference]? = nil,
-							requester: Reference? = nil,
-							requisition: Identifier? = nil,
-							specimen: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		asNeeded: AsNeededX? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		bodyStructure: Reference? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		insurance: [Reference]? = nil,
+		intent: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: [CodeableReference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		orderDetail: [CodeableConcept]? = nil,
+		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
+		performer: [Reference]? = nil,
+		performerType: CodeableConcept? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		quantity: QuantityX? = nil,
+		reason: [CodeableReference]? = nil,
+		relevantHistory: [Reference]? = nil,
+		replaces: [Reference]? = nil,
+		requester: Reference? = nil,
+		requisition: Identifier? = nil,
+		specimen: [Reference]? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, status: status, subject: subject)
 		self.asNeeded = asNeeded
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
 		self.bodySite = bodySite
+		self.bodyStructure = bodyStructure
 		self.category = category
 		self.code = code
 		self.contained = contained
@@ -241,6 +246,7 @@ open class ServiceRequest: DomainResource {
 		case authoredOn; case _authoredOn
 		case basedOn
 		case bodySite
+		case bodyStructure
 		case category
 		case code
 		case doNotPerform; case _doNotPerform
@@ -296,6 +302,7 @@ open class ServiceRequest: DomainResource {
 		self.authoredOn = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authoredOn, auxiliaryKey: ._authoredOn)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try [CodeableConcept](from: _container, forKeyIfPresent: .bodySite)
+		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
@@ -304,7 +311,7 @@ open class ServiceRequest: DomainResource {
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.insurance = try [Reference](from: _container, forKeyIfPresent: .insurance)
-		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.location = try [CodeableReference](from: _container, forKeyIfPresent: .location)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurrence: OccurrenceX? = nil
@@ -331,7 +338,7 @@ open class ServiceRequest: DomainResource {
 		self.patientInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .patientInstruction, auxiliaryKey: ._patientInstruction)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.performerType = try CodeableConcept(from: _container, forKeyIfPresent: .performerType)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		var _t_quantity: QuantityX? = nil
 		if let quantityQuantity = try Quantity(from: _container, forKeyIfPresent: .quantityQuantity) {
 			if _t_quantity != nil {
@@ -358,7 +365,7 @@ open class ServiceRequest: DomainResource {
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
 		self.requisition = try Identifier(from: _container, forKeyIfPresent: .requisition)
 		self.specimen = try [Reference](from: _container, forKeyIfPresent: .specimen)
-		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
@@ -380,6 +387,7 @@ open class ServiceRequest: DomainResource {
 		try authoredOn?.encode(on: &_container, forKey: .authoredOn, auxiliaryKey: ._authoredOn)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
+		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
 		try category?.encode(on: &_container, forKey: .category)
 		try code?.encode(on: &_container, forKey: .code)
 		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
@@ -441,6 +449,7 @@ open class ServiceRequest: DomainResource {
 		    && authoredOn == _other.authoredOn
 		    && basedOn == _other.basedOn
 		    && bodySite == _other.bodySite
+		    && bodyStructure == _other.bodyStructure
 		    && category == _other.category
 		    && code == _other.code
 		    && doNotPerform == _other.doNotPerform
@@ -476,6 +485,7 @@ open class ServiceRequest: DomainResource {
 		hasher.combine(authoredOn)
 		hasher.combine(basedOn)
 		hasher.combine(bodySite)
+		hasher.combine(bodyStructure)
 		hasher.combine(category)
 		hasher.combine(code)
 		hasher.combine(doNotPerform)

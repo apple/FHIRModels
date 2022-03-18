@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Condition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -108,32 +108,32 @@ open class Condition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							abatement: AbatementX? = nil,
-							asserter: Reference? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							category: [CodeableConcept]? = nil,
-							clinicalStatus: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							evidence: [ConditionEvidence]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: OnsetX? = nil,
-							recordedDate: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							severity: CodeableConcept? = nil,
-							stage: [ConditionStage]? = nil,
-							subject: Reference,
-							text: Narrative? = nil,
-							verificationStatus: CodeableConcept? = nil)
-	{
+		abatement: AbatementX? = nil,
+		asserter: Reference? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		category: [CodeableConcept]? = nil,
+		clinicalStatus: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		evidence: [ConditionEvidence]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: OnsetX? = nil,
+		recordedDate: FHIRPrimitive<DateTime>? = nil,
+		recorder: Reference? = nil,
+		severity: CodeableConcept? = nil,
+		stage: [ConditionStage]? = nil,
+		subject: Reference,
+		text: Narrative? = nil,
+		verificationStatus: CodeableConcept? = nil
+	) {
 		self.init(subject: subject)
 		self.abatement = abatement
 		self.asserter = asserter
@@ -400,12 +400,12 @@ open class ConditionEvidence: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							detail: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		detail: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.detail = detail
@@ -484,13 +484,13 @@ open class ConditionStage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assessment: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							summary: CodeableConcept? = nil,
-							type: CodeableConcept? = nil)
-	{
+		assessment: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		summary: CodeableConcept? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.assessment = assessment
 		self.`extension` = `extension`

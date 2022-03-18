@@ -2,8 +2,8 @@
 //  CommunicationRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/CommunicationRequest)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CommunicationRequest)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -47,17 +47,20 @@ open class CommunicationRequest: DomainResource {
 	/// Composite request this is part of
 	public var groupIdentifier: Identifier?
 	
-	/// The status of the proposal or order.
-	public var status: FHIRPrimitive<RequestStatus>
+	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
 	
+	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+	public var intent: FHIRPrimitive<FHIRString>
+	
 	/// Message category
 	public var category: [CodeableConcept]?
 	
-	/// Characterizes how quickly the proposed act must be initiated. Includes concepts such as stat, urgent, routine.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// True if request is prohibiting action
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
@@ -100,44 +103,46 @@ open class CommunicationRequest: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<RequestStatus>) {
+	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>) {
+		self.intent = intent
 		self.status = status
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							about: [Reference]? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							informationProvider: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medium: [CodeableConcept]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							payload: [CommunicationRequestPayload]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reason: [CodeableReference]? = nil,
-							recipient: [Reference]? = nil,
-							replaces: [Reference]? = nil,
-							requester: Reference? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
-		self.init(status: status)
+		about: [Reference]? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		informationProvider: [Reference]? = nil,
+		intent: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medium: [CodeableConcept]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		payload: [CommunicationRequestPayload]? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		reason: [CodeableReference]? = nil,
+		recipient: [Reference]? = nil,
+		replaces: [Reference]? = nil,
+		requester: Reference? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
+		self.init(intent: intent, status: status)
 		self.about = about
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
@@ -180,6 +185,7 @@ open class CommunicationRequest: DomainResource {
 		case groupIdentifier
 		case identifier
 		case informationProvider
+		case intent; case _intent
 		case medium
 		case note
 		case occurrenceDateTime; case _occurrenceDateTime
@@ -209,6 +215,7 @@ open class CommunicationRequest: DomainResource {
 		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.informationProvider = try [Reference](from: _container, forKeyIfPresent: .informationProvider)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.medium = try [CodeableConcept](from: _container, forKeyIfPresent: .medium)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurrence: OccurrenceX? = nil
@@ -226,12 +233,12 @@ open class CommunicationRequest: DomainResource {
 		}
 		self.occurrence = _t_occurrence
 		self.payload = try [CommunicationRequestPayload](from: _container, forKeyIfPresent: .payload)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.recipient = try [Reference](from: _container, forKeyIfPresent: .recipient)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
-		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
@@ -251,6 +258,7 @@ open class CommunicationRequest: DomainResource {
 		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try informationProvider?.encode(on: &_container, forKey: .informationProvider)
+		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
 		try medium?.encode(on: &_container, forKey: .medium)
 		try note?.encode(on: &_container, forKey: .note)
 		if let _enum = occurrence {
@@ -291,6 +299,7 @@ open class CommunicationRequest: DomainResource {
 		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
 		    && informationProvider == _other.informationProvider
+		    && intent == _other.intent
 		    && medium == _other.medium
 		    && note == _other.note
 		    && occurrence == _other.occurrence
@@ -316,6 +325,7 @@ open class CommunicationRequest: DomainResource {
 		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
 		hasher.combine(informationProvider)
+		hasher.combine(intent)
 		hasher.combine(medium)
 		hasher.combine(note)
 		hasher.combine(occurrence)
@@ -357,11 +367,11 @@ open class CommunicationRequestPayload: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id

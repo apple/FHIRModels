@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,59 +28,95 @@ import FMCore
 public enum StateChangeReason: String, FHIRPrimitiveType {
 	
 	/// adverse event.
-	case adverseEvent = "adverseEvent"
+	case adverseEvent
+	
+	/// The study is now complete.
+	case complete
 	
 	/// death (adverse event).
-	case death = "death"
+	case death
 	
-	/// did not meet eligibility criteria.
-	case notEligible = "notEligible"
+	/// Relapse of disease.
+	case diseaseRelapse
 	
 	/// eligible but unwilling or unable to participate.
-	case eligibleButNo = "eligibleButNo"
+	case eligibleButNo
 	
 	/// enrolled or registered.
-	case enrolled = "enrolled"
+	case enrolled
 	
 	/// exclusion.
-	case exclusion = "exclusion"
+	case exclusion
+	
+	/// Subject failed randomization.
+	case failedRandomization
 	
 	/// follow-up complete.
-	case followUpComplete = "followUpComplete"
+	case followUpComplete
 	
 	/// inclusion.
-	case inclusion = "inclusion"
+	case inclusion
 	
 	/// Informed consent signed.
-	case informedConsentSigned = "informedConsentSigned"
+	case informedConsentSigned
 	
 	/// intervention or observation complete.
-	case intOrObsComplete = "intOrObsComplete"
+	case intOrObsComplete
+	
+	/// The study activities were not efficient in dealing with the underlying issue.
+	case lackOfEfficacy
+	
+	/// The subject can no longer be followed up.
+	case lostToFollowUp
 	
 	/// non-compliance.
-	case nonCompliance = "nonCompliance"
+	case nonCompliance
+	
+	/// did not meet eligibility criteria.
+	case notEligible
+	
+	/// A physician has decided the subject should no longer continue on the study.
+	case physicianDecision
 	
 	/// pre-registered or slot reserved.
-	case preReg = "preReg"
+	case preReg
+	
+	/// Subject is now pregnant and no longer meets the inclusion criteria.
+	case pregnancy
+	
+	/// The subject has a disease that has progressed to far to allow them to continue in the study.
+	case progressiveDisease
+	
+	/// There has been a protocol deviation that cannot be corrected or compensated for.
+	case protocolDeviation
+	
+	/// The subject has recovered and no longer meets the inclusion criteria.
+	case recovery
 	
 	/// refuse consent.
-	case refuseConsent = "refuseConsent"
+	case refuseConsent
 	
 	/// screen failure.
-	case screenFailure = "screenFailure"
+	case screenFailure
+	
+	/// The site where the subject was being treated is no longer in the study.
+	case siteTerminated
 	
 	/// study permanently closed to accrual.
-	case studyClosed = "studyClosed"
+	case studyClosed
 	
 	/// study terminated.
-	case studyTerminated = "studyTerminated"
+	case studyTerminated
 	
 	/// subject refusal.
-	case subjectRefusal = "subjectRefusal"
+	case subjectRefusal
+	
+	/// The subject cannot continue on the study due to technical issues.
+	case technicalProblems
 	
 	/// unwilling or unable to participate.
-	case unwillingOrUnable = "unwillingOrUnable"
+	case unwillingOrUnable
 	
 	/// withdrawn consent.
-	case withdrawnConsent = "withdrawnConsent"
+	case withdrawnConsent
 }

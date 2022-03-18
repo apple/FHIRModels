@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,20 +27,20 @@ import FMCore
 public enum PractitionerRoleCodes: String, FHIRPrimitiveType {
 	
 	/// A qualified/registered medical practitioner
-	case doctor = "doctor"
+	case doctor
 	
 	/// A practitioner with nursing experience that may be qualified/registered
-	case nurse = "nurse"
+	case nurse
 	
 	/// A qualified/registered/licensed pharmacist
-	case pharmacist = "pharmacist"
+	case pharmacist
 	
 	/// A practitioner that may perform research
-	case researcher = "researcher"
+	case researcher
 	
 	/// Someone who is able to provide educational services
-	case teacher = "teacher"
+	case teacher
 	
 	/// Someone who is qualified in Information and Communication Technologies
-	case ict = "ict"
+	case ict
 }

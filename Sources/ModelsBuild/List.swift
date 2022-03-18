@@ -2,8 +2,8 @@
 //  List.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/List)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/List)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -76,28 +76,28 @@ open class List: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							emptyReason: CodeableConcept? = nil,
-							encounter: Reference? = nil,
-							entry: [ListEntry]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							mode: FHIRPrimitive<ListMode>,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							orderedBy: CodeableConcept? = nil,
-							source: Reference? = nil,
-							status: FHIRPrimitive<ListStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		emptyReason: CodeableConcept? = nil,
+		encounter: Reference? = nil,
+		entry: [ListEntry]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		mode: FHIRPrimitive<ListMode>,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		orderedBy: CodeableConcept? = nil,
+		source: Reference? = nil,
+		status: FHIRPrimitive<ListStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(mode: mode, status: status)
 		self.code = code
 		self.contained = contained
@@ -249,14 +249,14 @@ open class ListEntry: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<DateTime>? = nil,
-							deleted: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							flag: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		date: FHIRPrimitive<DateTime>? = nil,
+		deleted: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		flag: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.date = date
 		self.deleted = deleted

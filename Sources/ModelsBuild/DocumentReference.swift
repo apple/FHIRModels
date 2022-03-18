@@ -2,8 +2,8 @@
 //  DocumentReference.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/DocumentReference)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DocumentReference)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ open class DocumentReference: DomainResource {
 	public var encounter: [Reference]?
 	
 	/// Main clinical acts documented
-	public var event: [CodeableConcept]?
+	public var event: [CodeableReference]?
 	
 	/// Kind of facility where patient was seen
 	public var facilityType: CodeableConcept?
@@ -75,7 +75,7 @@ open class DocumentReference: DomainResource {
 	/// Who and/or what authored the document
 	public var author: [Reference]?
 	
-	/// Attests to accuracy of composition
+	/// Attests to accuracy of the document
 	public var attester: [DocumentReferenceAttester]?
 	
 	/// Organization which maintains the document
@@ -108,37 +108,37 @@ open class DocumentReference: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							attester: [DocumentReferenceAttester]? = nil,
-							author: [Reference]? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							content: [DocumentReferenceContent],
-							custodian: Reference? = nil,
-							date: FHIRPrimitive<Instant>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							docStatus: FHIRPrimitive<CompositionStatus>? = nil,
-							encounter: [Reference]? = nil,
-							event: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							facilityType: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							practiceSetting: CodeableConcept? = nil,
-							related: [Reference]? = nil,
-							relatesTo: [DocumentReferenceRelatesTo]? = nil,
-							securityLabel: [CodeableConcept]? = nil,
-							sourcePatientInfo: Reference? = nil,
-							status: FHIRPrimitive<DocumentReferenceStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		attester: [DocumentReferenceAttester]? = nil,
+		author: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		content: [DocumentReferenceContent],
+		custodian: Reference? = nil,
+		date: FHIRPrimitive<Instant>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		docStatus: FHIRPrimitive<CompositionStatus>? = nil,
+		encounter: [Reference]? = nil,
+		event: [CodeableReference]? = nil,
+		`extension`: [Extension]? = nil,
+		facilityType: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		practiceSetting: CodeableConcept? = nil,
+		related: [Reference]? = nil,
+		relatesTo: [DocumentReferenceRelatesTo]? = nil,
+		securityLabel: [CodeableConcept]? = nil,
+		sourcePatientInfo: Reference? = nil,
+		status: FHIRPrimitive<DocumentReferenceStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(content: content, status: status)
 		self.attester = attester
 		self.author = author
@@ -212,7 +212,7 @@ open class DocumentReference: DomainResource {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.docStatus = try FHIRPrimitive<CompositionStatus>(from: _container, forKeyIfPresent: .docStatus, auxiliaryKey: ._docStatus)
 		self.encounter = try [Reference](from: _container, forKeyIfPresent: .encounter)
-		self.event = try [CodeableConcept](from: _container, forKeyIfPresent: .event)
+		self.event = try [CodeableReference](from: _container, forKeyIfPresent: .event)
 		self.facilityType = try CodeableConcept(from: _container, forKeyIfPresent: .facilityType)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
@@ -318,19 +318,19 @@ open class DocumentReference: DomainResource {
 }
 
 /**
- Attests to accuracy of composition.
+ Attests to accuracy of the document.
  
- A participant who has attested to the accuracy of the composition/document.
+ A participant who has attested to the accuracy of the document.
  */
 open class DocumentReferenceAttester: BackboneElement {
 	
 	/// The type of attestation the authenticator offers.
 	public var mode: FHIRPrimitive<DocumentAttestationMode>
 	
-	/// When the composition was attested
+	/// When the document was attested
 	public var time: FHIRPrimitive<DateTime>?
 	
-	/// Who attested the composition
+	/// Who attested the document
 	public var party: Reference?
 	
 	/// Designated initializer taking all required properties
@@ -341,13 +341,13 @@ open class DocumentReferenceAttester: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<DocumentAttestationMode>,
-							modifierExtension: [Extension]? = nil,
-							party: Reference? = nil,
-							time: FHIRPrimitive<DateTime>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<DocumentAttestationMode>,
+		modifierExtension: [Extension]? = nil,
+		party: Reference? = nil,
+		time: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init(mode: mode)
 		self.`extension` = `extension`
 		self.id = id
@@ -419,8 +419,8 @@ open class DocumentReferenceContent: BackboneElement {
 	/// Where to access the document
 	public var attachment: Attachment
 	
-	/// Format/content rules for the document
-	public var format: Coding?
+	/// Content profile rules for the document
+	public var profile: [DocumentReferenceContentProfile]?
 	
 	/// Identifier of the attachment binary
 	public var identifier: Identifier?
@@ -433,27 +433,27 @@ open class DocumentReferenceContent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							attachment: Attachment,
-							`extension`: [Extension]? = nil,
-							format: Coding? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		attachment: Attachment,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		profile: [DocumentReferenceContentProfile]? = nil
+	) {
 		self.init(attachment: attachment)
 		self.`extension` = `extension`
-		self.format = format
 		self.id = id
 		self.identifier = identifier
 		self.modifierExtension = modifierExtension
+		self.profile = profile
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case attachment
-		case format
 		case identifier
+		case profile
 	}
 	
 	/// Initializer for Decodable
@@ -462,8 +462,8 @@ open class DocumentReferenceContent: BackboneElement {
 		
 		// Decode all our properties
 		self.attachment = try Attachment(from: _container, forKey: .attachment)
-		self.format = try Coding(from: _container, forKeyIfPresent: .format)
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.profile = try [DocumentReferenceContentProfile](from: _container, forKeyIfPresent: .profile)
 		try super.init(from: decoder)
 	}
 	
@@ -473,8 +473,8 @@ open class DocumentReferenceContent: BackboneElement {
 		
 		// Encode all our properties
 		try attachment.encode(on: &_container, forKey: .attachment)
-		try format?.encode(on: &_container, forKey: .format)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try profile?.encode(on: &_container, forKey: .profile)
 		try super.encode(to: encoder)
 	}
 	
@@ -488,15 +488,130 @@ open class DocumentReferenceContent: BackboneElement {
 			return false
 		}
 		return attachment == _other.attachment
-		    && format == _other.format
 		    && identifier == _other.identifier
+		    && profile == _other.profile
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(attachment)
-		hasher.combine(format)
 		hasher.combine(identifier)
+		hasher.combine(profile)
+	}
+}
+
+/**
+ Content profile rules for the document.
+ 
+ An identifier of the document constraints, encoding, structure, and template that the document conforms to beyond the
+ base format indicated in the mimeType.
+ */
+open class DocumentReferenceContentProfile: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case coding(Coding)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// Code|uri|canonical
+	/// One of `value[x]`
+	public var value: ValueX
+	
+	/// Designated initializer taking all required properties
+	public init(value: ValueX) {
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
+		self.init(value: value)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case valueCanonical; case _valueCanonical
+		case valueCoding
+		case valueUri; case _valueUri
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueCanonical, CodingKeys.valueCoding, CodingKeys.valueUri], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
+		// Decode all our properties
+		var _t_value: ValueX? = nil
+		if let valueCoding = try Coding(from: _container, forKeyIfPresent: .valueCoding) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCoding, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .coding(valueCoding)
+		}
+		if let valueUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .valueUri, auxiliaryKey: ._valueUri) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueUri, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .uri(valueUri)
+		}
+		if let valueCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .valueCanonical, auxiliaryKey: ._valueCanonical) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCanonical, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .canonical(valueCanonical)
+		}
+		self.value = _t_value!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		
+			switch value {
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .valueCoding)
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .valueUri, auxiliaryKey: ._valueUri)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .valueCanonical, auxiliaryKey: ._valueCanonical)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? DocumentReferenceContentProfile else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(value)
 	}
 }
 
@@ -507,14 +622,14 @@ open class DocumentReferenceContent: BackboneElement {
  */
 open class DocumentReferenceRelatesTo: BackboneElement {
 	
-	/// The type of relationship that this document has with anther document.
-	public var code: FHIRPrimitive<DocumentRelationshipType>
+	/// The relationship type with another document
+	public var code: CodeableConcept
 	
 	/// Target of the relationship
 	public var target: Reference
 	
 	/// Designated initializer taking all required properties
-	public init(code: FHIRPrimitive<DocumentRelationshipType>, target: Reference) {
+	public init(code: CodeableConcept, target: Reference) {
 		self.code = code
 		self.target = target
 		super.init()
@@ -522,12 +637,12 @@ open class DocumentReferenceRelatesTo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<DocumentRelationshipType>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: Reference)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: Reference
+	) {
 		self.init(code: code, target: target)
 		self.`extension` = `extension`
 		self.id = id
@@ -537,7 +652,7 @@ open class DocumentReferenceRelatesTo: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case code; case _code
+		case code
 		case target
 	}
 	
@@ -546,7 +661,7 @@ open class DocumentReferenceRelatesTo: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.code = try FHIRPrimitive<DocumentRelationshipType>(from: _container, forKey: .code, auxiliaryKey: ._code)
+		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.target = try Reference(from: _container, forKey: .target)
 		try super.init(from: decoder)
 	}
@@ -556,7 +671,7 @@ open class DocumentReferenceRelatesTo: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
+		try code.encode(on: &_container, forKey: .code)
 		try target.encode(on: &_container, forKey: .target)
 		try super.encode(to: encoder)
 	}

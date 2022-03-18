@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,19 +28,19 @@ import FMCore
 public enum FinancialTaskCodes: String, FHIRPrimitiveType {
 	
 	/// Cancel or reverse a resource, such as a claim or preauthorization, which is in-process or complete.
-	case cancel = "cancel"
+	case cancel
 	
 	/// Retrieve selected or all queued resources or messages.
-	case poll = "poll"
+	case poll
 	
 	/// Release any reserved funds or material obligations associated with a resource. For example, any unused but
 	/// reserved funds or treatment allowance associated with a preauthorization once treatment is complete.
-	case release = "release"
+	case release
 	
 	/// Indication that the processing of a resource, such as a claim, for some or all of the required work is now being
 	/// requested.
-	case reprocess = "reprocess"
+	case reprocess
 	
 	/// Check on the processing status of a resource such as the adjudication of a claim.
-	case status = "status"
+	case status
 }

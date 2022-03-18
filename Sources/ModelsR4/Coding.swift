@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Coding)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -46,14 +46,14 @@ open class Coding: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							userSelected: FHIRPrimitive<FHIRBool>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		userSelected: FHIRPrimitive<FHIRBool>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.display = display

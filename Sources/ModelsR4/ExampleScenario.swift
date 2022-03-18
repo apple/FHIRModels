@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ExampleScenario)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -85,32 +85,32 @@ open class ExampleScenario: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: [ExampleScenarioActor]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instance: [ExampleScenarioInstance]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							process: [ExampleScenarioProcess]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil,
-							workflow: [FHIRPrimitive<Canonical>]? = nil)
-	{
+		actor: [ExampleScenarioActor]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instance: [ExampleScenarioInstance]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		process: [ExampleScenarioProcess]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil,
+		workflow: [FHIRPrimitive<Canonical>]? = nil
+	) {
 		self.init(status: status)
 		self.actor = actor
 		self.contact = contact
@@ -286,14 +286,14 @@ open class ExampleScenarioActor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actorId: FHIRPrimitive<FHIRString>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<ExampleScenarioActorType>)
-	{
+		actorId: FHIRPrimitive<FHIRString>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<ExampleScenarioActorType>
+	) {
 		self.init(actorId: actorId, type: type)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -391,16 +391,16 @@ open class ExampleScenarioInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							containedInstance: [ExampleScenarioInstanceContainedInstance]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							resourceId: FHIRPrimitive<FHIRString>,
-							resourceType: FHIRPrimitive<ResourceType>,
-							version: [ExampleScenarioInstanceVersion]? = nil)
-	{
+		containedInstance: [ExampleScenarioInstanceContainedInstance]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		resourceId: FHIRPrimitive<FHIRString>,
+		resourceType: FHIRPrimitive<ResourceType>,
+		version: [ExampleScenarioInstanceVersion]? = nil
+	) {
 		self.init(resourceId: resourceId, resourceType: resourceType)
 		self.containedInstance = containedInstance
 		self.description_fhir = description_fhir
@@ -499,12 +499,12 @@ open class ExampleScenarioInstanceContainedInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							resourceId: FHIRPrimitive<FHIRString>,
-							versionId: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		resourceId: FHIRPrimitive<FHIRString>,
+		versionId: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(resourceId: resourceId)
 		self.`extension` = `extension`
 		self.id = id
@@ -579,12 +579,12 @@ open class ExampleScenarioInstanceVersion: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							versionId: FHIRPrimitive<FHIRString>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		versionId: FHIRPrimitive<FHIRString>
+	) {
 		self.init(description_fhir: description_fhir, versionId: versionId)
 		self.`extension` = `extension`
 		self.id = id
@@ -666,15 +666,15 @@ open class ExampleScenarioProcess: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							postConditions: FHIRPrimitive<FHIRString>? = nil,
-							preConditions: FHIRPrimitive<FHIRString>? = nil,
-							step: [ExampleScenarioProcessStep]? = nil,
-							title: FHIRPrimitive<FHIRString>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		postConditions: FHIRPrimitive<FHIRString>? = nil,
+		preConditions: FHIRPrimitive<FHIRString>? = nil,
+		step: [ExampleScenarioProcessStep]? = nil,
+		title: FHIRPrimitive<FHIRString>
+	) {
 		self.init(title: title)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -771,14 +771,14 @@ open class ExampleScenarioProcessStep: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							alternative: [ExampleScenarioProcessStepAlternative]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: ExampleScenarioProcessStepOperation? = nil,
-							pause: FHIRPrimitive<FHIRBool>? = nil,
-							process: [ExampleScenarioProcess]? = nil)
-	{
+		alternative: [ExampleScenarioProcessStepAlternative]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: ExampleScenarioProcessStepOperation? = nil,
+		pause: FHIRPrimitive<FHIRBool>? = nil,
+		process: [ExampleScenarioProcess]? = nil
+	) {
 		self.init()
 		self.alternative = alternative
 		self.`extension` = `extension`
@@ -871,13 +871,13 @@ open class ExampleScenarioProcessStepAlternative: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							step: [ExampleScenarioProcessStep]? = nil,
-							title: FHIRPrimitive<FHIRString>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		step: [ExampleScenarioProcessStep]? = nil,
+		title: FHIRPrimitive<FHIRString>
+	) {
 		self.init(title: title)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -981,20 +981,20 @@ open class ExampleScenarioProcessStepOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							initiator: FHIRPrimitive<FHIRString>? = nil,
-							initiatorActive: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							number: FHIRPrimitive<FHIRString>,
-							receiver: FHIRPrimitive<FHIRString>? = nil,
-							receiverActive: FHIRPrimitive<FHIRBool>? = nil,
-							request: ExampleScenarioInstanceContainedInstance? = nil,
-							response: ExampleScenarioInstanceContainedInstance? = nil,
-							type: FHIRPrimitive<FHIRString>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		initiator: FHIRPrimitive<FHIRString>? = nil,
+		initiatorActive: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		number: FHIRPrimitive<FHIRString>,
+		receiver: FHIRPrimitive<FHIRString>? = nil,
+		receiverActive: FHIRPrimitive<FHIRBool>? = nil,
+		request: ExampleScenarioInstanceContainedInstance? = nil,
+		response: ExampleScenarioInstanceContainedInstance? = nil,
+		type: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(number: number)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`

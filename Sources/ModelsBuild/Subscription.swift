@@ -2,8 +2,8 @@
 //  Subscription.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Subscription)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Subscription)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,10 +35,10 @@ open class Subscription: DomainResource {
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// The status of the subscription, which marks the server state for managing the subscription.
-	public var status: FHIRPrimitive<SubscriptionState>
+	public var status: FHIRPrimitive<SubscriptionStatusCodes>
 	
 	/// Reference to the subscription topic being subscribed to
-	public var topic: Reference
+	public var topic: FHIRPrimitive<Canonical>
 	
 	/// Contact details for source (e.g. troubleshooting)
 	public var contact: [ContactPoint]?
@@ -74,8 +74,11 @@ open class Subscription: DomainResource {
 	/// the resource id, or the full resource content.
 	public var content: FHIRPrimitive<SubscriptionPayloadContent>?
 	
+	/// Maximum number of triggering resources included in notification bundles
+	public var maxCount: FHIRPrimitive<FHIRPositiveInteger>?
+	
 	/// Designated initializer taking all required properties
-	public init(channelType: Coding, status: FHIRPrimitive<SubscriptionState>, topic: Reference) {
+	public init(channelType: Coding, status: FHIRPrimitive<SubscriptionStatusCodes>, topic: FHIRPrimitive<Canonical>) {
 		self.channelType = channelType
 		self.status = status
 		self.topic = topic
@@ -84,30 +87,31 @@ open class Subscription: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							channelType: Coding,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							content: FHIRPrimitive<SubscriptionPayloadContent>? = nil,
-							contentType: FHIRPrimitive<FHIRString>? = nil,
-							end: FHIRPrimitive<Instant>? = nil,
-							endpoint: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							filterBy: [SubscriptionFilterBy]? = nil,
-							header: [FHIRPrimitive<FHIRString>]? = nil,
-							heartbeatPeriod: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							reason: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<SubscriptionState>,
-							text: Narrative? = nil,
-							timeout: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							topic: Reference)
-	{
+		channelType: Coding,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		content: FHIRPrimitive<SubscriptionPayloadContent>? = nil,
+		contentType: FHIRPrimitive<FHIRString>? = nil,
+		end: FHIRPrimitive<Instant>? = nil,
+		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		filterBy: [SubscriptionFilterBy]? = nil,
+		header: [FHIRPrimitive<FHIRString>]? = nil,
+		heartbeatPeriod: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		maxCount: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		reason: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<SubscriptionStatusCodes>,
+		text: Narrative? = nil,
+		timeout: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		topic: FHIRPrimitive<Canonical>
+	) {
 		self.init(channelType: channelType, status: status, topic: topic)
 		self.contact = contact
 		self.contained = contained
@@ -123,6 +127,7 @@ open class Subscription: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
+		self.maxCount = maxCount
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
@@ -144,11 +149,12 @@ open class Subscription: DomainResource {
 		case header; case _header
 		case heartbeatPeriod; case _heartbeatPeriod
 		case identifier
+		case maxCount; case _maxCount
 		case name; case _name
 		case reason; case _reason
 		case status; case _status
 		case timeout; case _timeout
-		case topic
+		case topic; case _topic
 	}
 	
 	/// Initializer for Decodable
@@ -166,11 +172,12 @@ open class Subscription: DomainResource {
 		self.header = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .header, auxiliaryKey: ._header)
 		self.heartbeatPeriod = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .heartbeatPeriod, auxiliaryKey: ._heartbeatPeriod)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.maxCount = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .maxCount, auxiliaryKey: ._maxCount)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.reason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .reason, auxiliaryKey: ._reason)
-		self.status = try FHIRPrimitive<SubscriptionState>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<SubscriptionStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.timeout = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .timeout, auxiliaryKey: ._timeout)
-		self.topic = try Reference(from: _container, forKey: .topic)
+		self.topic = try FHIRPrimitive<Canonical>(from: _container, forKey: .topic, auxiliaryKey: ._topic)
 		try super.init(from: decoder)
 	}
 	
@@ -189,11 +196,12 @@ open class Subscription: DomainResource {
 		try header?.encode(on: &_container, forKey: .header, auxiliaryKey: ._header)
 		try heartbeatPeriod?.encode(on: &_container, forKey: .heartbeatPeriod, auxiliaryKey: ._heartbeatPeriod)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try maxCount?.encode(on: &_container, forKey: .maxCount, auxiliaryKey: ._maxCount)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try reason?.encode(on: &_container, forKey: .reason, auxiliaryKey: ._reason)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try timeout?.encode(on: &_container, forKey: .timeout, auxiliaryKey: ._timeout)
-		try topic.encode(on: &_container, forKey: .topic)
+		try topic.encode(on: &_container, forKey: .topic, auxiliaryKey: ._topic)
 		try super.encode(to: encoder)
 	}
 	
@@ -216,6 +224,7 @@ open class Subscription: DomainResource {
 		    && header == _other.header
 		    && heartbeatPeriod == _other.heartbeatPeriod
 		    && identifier == _other.identifier
+		    && maxCount == _other.maxCount
 		    && name == _other.name
 		    && reason == _other.reason
 		    && status == _other.status
@@ -235,6 +244,7 @@ open class Subscription: DomainResource {
 		hasher.combine(header)
 		hasher.combine(heartbeatPeriod)
 		hasher.combine(identifier)
+		hasher.combine(maxCount)
 		hasher.combine(name)
 		hasher.combine(reason)
 		hasher.combine(status)
@@ -251,43 +261,50 @@ open class Subscription: DomainResource {
  */
 open class SubscriptionFilterBy: BackboneElement {
 	
-	/// Filter label defined in SubscriptionTopic
-	public var searchParamName: FHIRPrimitive<FHIRString>
+	/// Allowed Data type or Resource (reference to definition) for this Subscription
+	public var resourceType: FHIRPrimitive<FHIRURI>?
 	
-	/// The operator to apply to the filter value when determining matches (Search modifiers).
-	public var searchModifier: FHIRPrimitive<SubscriptionSearchModifier>?
+	/// Filter label defined in SubscriptionTopic
+	public var filterParameter: FHIRPrimitive<FHIRString>
+	
+	/// Operator to apply when determining matches (Search Modifiers), from the list of allowed modifiers for this
+	/// filter in the relevant SubscriptionTopic.
+	public var modifier: FHIRPrimitive<SubscriptionSearchModifer>?
 	
 	/// Literal value or resource path
 	public var value: FHIRPrimitive<FHIRString>
 	
 	/// Designated initializer taking all required properties
-	public init(searchParamName: FHIRPrimitive<FHIRString>, value: FHIRPrimitive<FHIRString>) {
-		self.searchParamName = searchParamName
+	public init(filterParameter: FHIRPrimitive<FHIRString>, value: FHIRPrimitive<FHIRString>) {
+		self.filterParameter = filterParameter
 		self.value = value
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							searchModifier: FHIRPrimitive<SubscriptionSearchModifier>? = nil,
-							searchParamName: FHIRPrimitive<FHIRString>,
-							value: FHIRPrimitive<FHIRString>)
-	{
-		self.init(searchParamName: searchParamName, value: value)
+		`extension`: [Extension]? = nil,
+		filterParameter: FHIRPrimitive<FHIRString>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: FHIRPrimitive<SubscriptionSearchModifer>? = nil,
+		modifierExtension: [Extension]? = nil,
+		resourceType: FHIRPrimitive<FHIRURI>? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
+		self.init(filterParameter: filterParameter, value: value)
 		self.`extension` = `extension`
 		self.id = id
+		self.modifier = modifier
 		self.modifierExtension = modifierExtension
-		self.searchModifier = searchModifier
+		self.resourceType = resourceType
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case searchModifier; case _searchModifier
-		case searchParamName; case _searchParamName
+		case filterParameter; case _filterParameter
+		case modifier; case _modifier
+		case resourceType; case _resourceType
 		case value; case _value
 	}
 	
@@ -296,8 +313,9 @@ open class SubscriptionFilterBy: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.searchModifier = try FHIRPrimitive<SubscriptionSearchModifier>(from: _container, forKeyIfPresent: .searchModifier, auxiliaryKey: ._searchModifier)
-		self.searchParamName = try FHIRPrimitive<FHIRString>(from: _container, forKey: .searchParamName, auxiliaryKey: ._searchParamName)
+		self.filterParameter = try FHIRPrimitive<FHIRString>(from: _container, forKey: .filterParameter, auxiliaryKey: ._filterParameter)
+		self.modifier = try FHIRPrimitive<SubscriptionSearchModifer>(from: _container, forKeyIfPresent: .modifier, auxiliaryKey: ._modifier)
+		self.resourceType = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .resourceType, auxiliaryKey: ._resourceType)
 		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
 		try super.init(from: decoder)
 	}
@@ -307,8 +325,9 @@ open class SubscriptionFilterBy: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try searchModifier?.encode(on: &_container, forKey: .searchModifier, auxiliaryKey: ._searchModifier)
-		try searchParamName.encode(on: &_container, forKey: .searchParamName, auxiliaryKey: ._searchParamName)
+		try filterParameter.encode(on: &_container, forKey: .filterParameter, auxiliaryKey: ._filterParameter)
+		try modifier?.encode(on: &_container, forKey: .modifier, auxiliaryKey: ._modifier)
+		try resourceType?.encode(on: &_container, forKey: .resourceType, auxiliaryKey: ._resourceType)
 		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
 		try super.encode(to: encoder)
 	}
@@ -322,15 +341,17 @@ open class SubscriptionFilterBy: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return searchModifier == _other.searchModifier
-		    && searchParamName == _other.searchParamName
+		return filterParameter == _other.filterParameter
+		    && modifier == _other.modifier
+		    && resourceType == _other.resourceType
 		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(searchModifier)
-		hasher.combine(searchParamName)
+		hasher.combine(filterParameter)
+		hasher.combine(modifier)
+		hasher.combine(resourceType)
 		hasher.combine(value)
 	}
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,20 +27,20 @@ import FMCore
  */
 public enum AllergyIntoleranceCategory: String, FHIRPrimitiveType {
 	
-	/// Any substance consumed to provide nutritional support for the body.
-	case food = "food"
-	
-	/// Substances administered to achieve a physiological effect.
-	case medication = "medication"
-	
-	/// Any substances that are encountered in the environment, including any substance not already classified as food,
-	/// medication, or biologic.
-	case environment = "environment"
-	
 	/// A preparation that is synthesized from living organisms or their products, especially a human or animal protein,
 	/// such as a hormone or antitoxin, that is used as a diagnostic, preventive, or therapeutic agent. Examples of
 	/// biologic medications include: vaccines; allergenic extracts, which are used for both diagnosis and treatment
 	/// (for example, allergy shots); gene therapies; cellular therapies.  There are other biologic products, such as
 	/// tissues, which are not typically associated with allergies.
-	case biologic = "biologic"
+	case biologic
+	
+	/// Any substances that are encountered in the environment, including any substance not already classified as food,
+	/// medication, or biologic.
+	case environment
+	
+	/// Any substance consumed to provide nutritional support for the body.
+	case food
+	
+	/// Substances administered to achieve a physiological effect.
+	case medication
 }

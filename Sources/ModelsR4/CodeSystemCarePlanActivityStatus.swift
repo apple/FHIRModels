@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public enum CarePlanActivityStatus: String, FHIRPrimitiveType {
 	case notStarted = "not-started"
 	
 	/// Appointment or other booking has occurred but activity has not yet begun.
-	case scheduled = "scheduled"
+	case scheduled
 	
 	/// Care plan activity has been started but is not yet complete.
 	case inProgress = "in-progress"
@@ -40,17 +40,17 @@ public enum CarePlanActivityStatus: String, FHIRPrimitiveType {
 	case onHold = "on-hold"
 	
 	/// Care plan activity has been completed (more or less) as planned.
-	case completed = "completed"
+	case completed
 	
 	/// The planned care plan activity has been withdrawn.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// The planned care plan activity has been ended prior to completion after the activity was started.
-	case stopped = "stopped"
+	case stopped
 	
 	/// The current state of the care plan activity is not known.  Note: This concept is not to be used for "other" -
 	/// one of the listed statuses is presumed to apply, but the authoring/source system does not know which one.
-	case unknown = "unknown"
+	case unknown
 	
 	/// Care plan activity was entered in error and voided.
 	case enteredInError = "entered-in-error"

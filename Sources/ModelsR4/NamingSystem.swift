@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/NamingSystem)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -80,28 +80,28 @@ open class NamingSystem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<NamingSystemType>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							responsible: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							uniqueId: [NamingSystemUniqueId],
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<NamingSystemType>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		responsible: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		uniqueId: [NamingSystemUniqueId],
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil
+	) {
 		self.init(date: date, kind: kind, name: name, status: status, uniqueId: uniqueId)
 		self.contact = contact
 		self.contained = contained
@@ -254,15 +254,15 @@ open class NamingSystemUniqueId: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil,
-							type: FHIRPrimitive<NamingSystemIdentifierType>,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil,
+		type: FHIRPrimitive<NamingSystemIdentifierType>,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(type: type, value: value)
 		self.comment = comment
 		self.`extension` = `extension`

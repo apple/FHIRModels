@@ -2,8 +2,8 @@
 //  CodeSystem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/CodeSystem)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CodeSystem)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -120,41 +120,41 @@ open class CodeSystem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							caseSensitive: FHIRPrimitive<FHIRBool>? = nil,
-							compositional: FHIRPrimitive<FHIRBool>? = nil,
-							concept: [CodeSystemConcept]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							content: FHIRPrimitive<CodeSystemContentMode>,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							count: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							filter: [CodeSystemFilter]? = nil,
-							hierarchyMeaning: FHIRPrimitive<CodeSystemHierarchyMeaning>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							property: [CodeSystemProperty]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							supplements: FHIRPrimitive<Canonical>? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							valueSet: FHIRPrimitive<Canonical>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil,
-							versionNeeded: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		caseSensitive: FHIRPrimitive<FHIRBool>? = nil,
+		compositional: FHIRPrimitive<FHIRBool>? = nil,
+		concept: [CodeSystemConcept]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		content: FHIRPrimitive<CodeSystemContentMode>,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		count: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		filter: [CodeSystemFilter]? = nil,
+		hierarchyMeaning: FHIRPrimitive<CodeSystemHierarchyMeaning>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		property: [CodeSystemProperty]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		supplements: FHIRPrimitive<Canonical>? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		valueSet: FHIRPrimitive<Canonical>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionNeeded: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init(content: content, status: status)
 		self.caseSensitive = caseSensitive
 		self.compositional = compositional
@@ -391,16 +391,16 @@ open class CodeSystemConcept: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							concept: [CodeSystemConcept]? = nil,
-							definition: FHIRPrimitive<FHIRString>? = nil,
-							designation: [CodeSystemConceptDesignation]? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							property: [CodeSystemConceptProperty]? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		concept: [CodeSystemConcept]? = nil,
+		definition: FHIRPrimitive<FHIRString>? = nil,
+		designation: [CodeSystemConceptDesignation]? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		property: [CodeSystemConceptProperty]? = nil
+	) {
 		self.init(code: code)
 		self.concept = concept
 		self.definition = definition
@@ -504,13 +504,13 @@ open class CodeSystemConceptDesignation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							use: Coding? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		use: Coding? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -605,12 +605,12 @@ open class CodeSystemConceptProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -764,14 +764,14 @@ open class CodeSystemFilter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							`operator`: [FHIRPrimitive<FilterOperator>],
-							value: FHIRPrimitive<FHIRString>)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		`operator`: [FHIRPrimitive<FilterOperator>],
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(code: code, operator: `operator`, value: value)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -865,14 +865,14 @@ open class CodeSystemProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<PropertyType>,
-							uri: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<PropertyType>,
+		uri: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(code: code, type: type)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`

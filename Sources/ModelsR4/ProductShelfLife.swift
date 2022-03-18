@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ProductShelfLife)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -51,14 +51,14 @@ open class ProductShelfLife: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Quantity,
-							specialPrecautionsForStorage: [CodeableConcept]? = nil,
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Quantity,
+		specialPrecautionsForStorage: [CodeableConcept]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(period: period, type: type)
 		self.`extension` = `extension`
 		self.id = id

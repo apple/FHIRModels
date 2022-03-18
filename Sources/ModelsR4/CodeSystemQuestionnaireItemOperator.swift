@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import FMCore
 public enum QuestionnaireItemOperator: String, FHIRPrimitiveType {
 	
 	/// True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).
-	case exists = "exists"
+	case exists
 	
 	/// True if whether at least one answer has a value that is equal to the enableWhen answer.
 	case equal = "="

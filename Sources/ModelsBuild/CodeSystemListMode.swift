@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,14 +27,14 @@ import FMCore
  */
 public enum ListMode: String, FHIRPrimitiveType {
 	
-	/// This list is the master list, maintained in an ongoing fashion with regular updates as the real world list it is
-	/// tracking changes.
-	case working = "working"
-	
-	/// This list was prepared as a snapshot. It should not be assumed to be current.
-	case snapshot = "snapshot"
-	
 	/// A point-in-time list that shows what changes have been made or recommended.  E.g. a discharge medication list
 	/// showing what was added and removed during an encounter.
-	case changes = "changes"
+	case changes
+	
+	/// This list was prepared as a snapshot. It should not be assumed to be current.
+	case snapshot
+	
+	/// This list is the master list, maintained in an ongoing fashion with regular updates as the real world list it is
+	/// tracking changes.
+	case working
 }

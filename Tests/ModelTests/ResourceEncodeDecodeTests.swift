@@ -33,7 +33,7 @@ class ResourceEncodeDecodeTests: XCTestCase {
 		
 		let data = try medicationData()
 		let medication = try decoder.decode(MedicationRequest.self, from: data)
-		let _ = try encoder.encode(medication)
+		_ = try encoder.encode(medication)
 		
 		// Via ResourceProxy
 		let proxy = try decoder.decode(ResourceProxy.self, from: data)
@@ -59,7 +59,7 @@ class ResourceEncodeDecodeTests: XCTestCase {
 			guard let data = medicationJSON.data(using: .utf8) else {
 				throw ResourceEncodeDecodeTestError.unableToConvertStringToData
 			}
-			let _ = try decoder.decode(MedicationRequest.self, from: data)
+			_ = try decoder.decode(MedicationRequest.self, from: data)
 			XCTFail("Should have trown a decode exception but I'm still here")
 		} catch DecodingError.dataCorrupted(let context) {
 			XCTAssertEqual(context.debugDescription, "The given data was not valid JSON.")
@@ -76,7 +76,7 @@ class ResourceEncodeDecodeTests: XCTestCase {
 				copy.removeValue(forKey: "intent")
 				return copy
 			})
-			let _ = try decoder.decode(MedicationRequest.self, from: data)
+			_ = try decoder.decode(MedicationRequest.self, from: data)
 			XCTFail("Should have trown a decode exception but I'm still here")
 		} catch DecodingError.keyNotFound(let key, _) {
 			XCTAssertEqual(key.stringValue, "intent")
@@ -93,7 +93,7 @@ class ResourceEncodeDecodeTests: XCTestCase {
 				copy.removeValue(forKey: "medicationCodeableConcept")
 				return copy
 			})
-			let _ = try decoder.decode(MedicationRequest.self, from: data)
+			_ = try decoder.decode(MedicationRequest.self, from: data)
 			XCTFail("Should have trown a decode exception but I'm still here")
 		} catch DecodingError.valueNotFound(_, let context) {
 			XCTAssertEqual(context.codingPath.first?.stringValue, "medicationCodeableConcept")
@@ -112,7 +112,7 @@ class ResourceEncodeDecodeTests: XCTestCase {
 				copy["foo"] = "bar"
 				return copy
 			})
-			let _ = try decoder.decode(MedicationRequest.self, from: data)
+			_ = try decoder.decode(MedicationRequest.self, from: data)
 			XCTFail("Should have trown a decode exception but I'm still here")
 		} catch DecodingError.dataCorrupted(let context) {
 			XCTAssertEqual(context.codingPath.first?.stringValue, "foo")

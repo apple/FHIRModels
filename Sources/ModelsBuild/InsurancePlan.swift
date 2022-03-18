@@ -2,8 +2,8 @@
 //  InsurancePlan.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/InsurancePlan)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/InsurancePlan)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,8 +53,8 @@ open class InsurancePlan: DomainResource {
 	/// Where product applies
 	public var coverageArea: [Reference]?
 	
-	/// Contact for the product
-	public var contact: [InsurancePlanContact]?
+	/// Official contact details relevant to the health insurance plan/product
+	public var contact: [ExtendedContactDetail]?
 	
 	/// Technical endpoint
 	public var endpoint: [Reference]?
@@ -75,29 +75,29 @@ open class InsurancePlan: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							administeredBy: Reference? = nil,
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							contact: [InsurancePlanContact]? = nil,
-							contained: [ResourceProxy]? = nil,
-							coverage: [InsurancePlanCoverage]? = nil,
-							coverageArea: [Reference]? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							network: [Reference]? = nil,
-							ownedBy: Reference? = nil,
-							period: Period? = nil,
-							plan: [InsurancePlanPlan]? = nil,
-							status: FHIRPrimitive<PublicationStatus>? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		administeredBy: Reference? = nil,
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		contact: [ExtendedContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		coverage: [InsurancePlanCoverage]? = nil,
+		coverageArea: [Reference]? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		network: [Reference]? = nil,
+		ownedBy: Reference? = nil,
+		period: Period? = nil,
+		plan: [InsurancePlanPlan]? = nil,
+		status: FHIRPrimitive<PublicationStatus>? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.administeredBy = administeredBy
 		self.alias = alias
@@ -149,7 +149,7 @@ open class InsurancePlan: DomainResource {
 		// Decode all our properties
 		self.administeredBy = try Reference(from: _container, forKeyIfPresent: .administeredBy)
 		self.alias = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .alias, auxiliaryKey: ._alias)
-		self.contact = try [InsurancePlanContact](from: _container, forKeyIfPresent: .contact)
+		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.coverage = try [InsurancePlanCoverage](from: _container, forKeyIfPresent: .coverage)
 		self.coverageArea = try [Reference](from: _container, forKeyIfPresent: .coverageArea)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
@@ -231,107 +231,6 @@ open class InsurancePlan: DomainResource {
 }
 
 /**
- Contact for the product.
- 
- The contact for the health insurance product for a certain purpose.
- */
-open class InsurancePlanContact: BackboneElement {
-	
-	/// The type of contact
-	public var purpose: CodeableConcept?
-	
-	/// A name associated with the contact
-	public var name: HumanName?
-	
-	/// Contact details (telephone, email, etc.)  for a contact
-	public var telecom: [ContactPoint]?
-	
-	/// Visiting or postal addresses for the contact
-	public var address: Address?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							address: Address? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: HumanName? = nil,
-							purpose: CodeableConcept? = nil,
-							telecom: [ContactPoint]? = nil)
-	{
-		self.init()
-		self.address = address
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.name = name
-		self.purpose = purpose
-		self.telecom = telecom
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case address
-		case name
-		case purpose
-		case telecom
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.address = try Address(from: _container, forKeyIfPresent: .address)
-		self.name = try HumanName(from: _container, forKeyIfPresent: .name)
-		self.purpose = try CodeableConcept(from: _container, forKeyIfPresent: .purpose)
-		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try address?.encode(on: &_container, forKey: .address)
-		try name?.encode(on: &_container, forKey: .name)
-		try purpose?.encode(on: &_container, forKey: .purpose)
-		try telecom?.encode(on: &_container, forKey: .telecom)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? InsurancePlanContact else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return address == _other.address
-		    && name == _other.name
-		    && purpose == _other.purpose
-		    && telecom == _other.telecom
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(address)
-		hasher.combine(name)
-		hasher.combine(purpose)
-		hasher.combine(telecom)
-	}
-}
-
-/**
  Coverage details.
  
  Details about the coverage offered by the insurance product.
@@ -356,13 +255,13 @@ open class InsurancePlanCoverage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							benefit: [InsurancePlanCoverageBenefit],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							network: [Reference]? = nil,
-							type: CodeableConcept)
-	{
+		benefit: [InsurancePlanCoverageBenefit],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		network: [Reference]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(benefit: benefit, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -446,13 +345,13 @@ open class InsurancePlanCoverageBenefit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							limit: [InsurancePlanCoverageBenefitLimit]? = nil,
-							modifierExtension: [Extension]? = nil,
-							requirement: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		limit: [InsurancePlanCoverageBenefitLimit]? = nil,
+		modifierExtension: [Extension]? = nil,
+		requirement: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -533,12 +432,12 @@ open class InsurancePlanCoverageBenefitLimit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: Quantity? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: Quantity? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -626,16 +525,16 @@ open class InsurancePlanPlan: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							coverageArea: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							generalCost: [InsurancePlanPlanGeneralCost]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							modifierExtension: [Extension]? = nil,
-							network: [Reference]? = nil,
-							specificCost: [InsurancePlanPlanSpecificCost]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		coverageArea: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		generalCost: [InsurancePlanPlanGeneralCost]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		modifierExtension: [Extension]? = nil,
+		network: [Reference]? = nil,
+		specificCost: [InsurancePlanPlanSpecificCost]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.coverageArea = coverageArea
 		self.`extension` = `extension`
@@ -741,14 +640,14 @@ open class InsurancePlanPlanGeneralCost: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							cost: Money? = nil,
-							`extension`: [Extension]? = nil,
-							groupSize: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		cost: Money? = nil,
+		`extension`: [Extension]? = nil,
+		groupSize: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.comment = comment
 		self.cost = cost
@@ -837,12 +736,12 @@ open class InsurancePlanPlanSpecificCost: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							benefit: [InsurancePlanPlanSpecificCostBenefit]? = nil,
-							category: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		benefit: [InsurancePlanPlanSpecificCostBenefit]? = nil,
+		category: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(category: category)
 		self.benefit = benefit
 		self.`extension` = `extension`
@@ -918,12 +817,12 @@ open class InsurancePlanPlanSpecificCostBenefit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cost: [InsurancePlanPlanSpecificCostBenefitCost]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		cost: [InsurancePlanPlanSpecificCostBenefitCost]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.cost = cost
 		self.`extension` = `extension`
@@ -1005,14 +904,14 @@ open class InsurancePlanPlanSpecificCostBenefitCost: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							applicability: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							qualifiers: [CodeableConcept]? = nil,
-							type: CodeableConcept,
-							value: Quantity? = nil)
-	{
+		applicability: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		qualifiers: [CodeableConcept]? = nil,
+		type: CodeableConcept,
+		value: Quantity? = nil
+	) {
 		self.init(type: type)
 		self.applicability = applicability
 		self.`extension` = `extension`

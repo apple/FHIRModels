@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum PaymentTypeCodes: String, FHIRPrimitiveType {
 	
 	/// The amount is partial or complete settlement of the amounts due.
-	case payment = "payment"
+	case payment
 	
 	/// The amount is an adjustment regarding claims already paid.
-	case adjustment = "adjustment"
+	case adjustment
 	
 	/// The amount is an advance against future claims.
-	case advance = "advance"
+	case advance
 }

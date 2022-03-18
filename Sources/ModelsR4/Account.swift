@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Account)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,26 +71,26 @@ open class Account: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							coverage: [AccountCoverage]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							guarantor: [AccountGuarantor]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							owner: Reference? = nil,
-							partOf: Reference? = nil,
-							servicePeriod: Period? = nil,
-							status: FHIRPrimitive<AccountStatus>,
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		coverage: [AccountCoverage]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		guarantor: [AccountGuarantor]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		owner: Reference? = nil,
+		partOf: Reference? = nil,
+		servicePeriod: Period? = nil,
+		status: FHIRPrimitive<AccountStatus>,
+		subject: [Reference]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(status: status)
 		self.contained = contained
 		self.coverage = coverage
@@ -224,12 +224,12 @@ open class AccountCoverage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							coverage: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							priority: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		coverage: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		priority: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init(coverage: coverage)
 		self.`extension` = `extension`
 		self.id = id
@@ -308,13 +308,13 @@ open class AccountGuarantor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onHold: FHIRPrimitive<FHIRBool>? = nil,
-							party: Reference,
-							period: Period? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onHold: FHIRPrimitive<FHIRBool>? = nil,
+		party: Reference,
+		period: Period? = nil
+	) {
 		self.init(party: party)
 		self.`extension` = `extension`
 		self.id = id

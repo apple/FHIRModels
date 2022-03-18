@@ -2,8 +2,8 @@
 //  EvidenceReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/EvidenceReport)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/EvidenceReport)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ import FMCore
 /**
  A EvidenceReport.
  
- The EvidenceReport.
+ The EvidenceReport Resource is a specialized container for a collection of resources and codeable concepts, adapted to
+ support compositions of Evidence, EvidenceVariable, and Citation resources and related concepts.
  
  Interfaces:
 	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
@@ -31,6 +32,12 @@ import FMCore
 open class EvidenceReport: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .evidenceReport }
+	
+	/// All possible types for "citeAs[x]"
+	public enum CiteAsX: Hashable {
+		case markdown(FHIRPrimitive<FHIRString>)
+		case reference(Reference)
+	}
 	
 	/// Canonical identifier for this EvidenceReport, represented as a globally unique URI
 	public var url: FHIRPrimitive<FHIRURI>?
@@ -41,14 +48,15 @@ open class EvidenceReport: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// May include DOI, PMID, PMCID, etc.
+	/// Unique identifier for the evidence report
 	public var identifier: [Identifier]?
 	
-	/// May include trial registry identifiers
+	/// Identifiers for articles that may relate to more than one evidence report
 	public var relatedIdentifier: [Identifier]?
 	
 	/// Citation for this report
-	public var citeAs: Reference?
+	/// One of `citeAs[x]`
+	public var citeAs: CiteAsX?
 	
 	/// Kind of report
 	public var type: CodeableConcept?
@@ -95,33 +103,33 @@ open class EvidenceReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [ContactDetail]? = nil,
-							citeAs: Reference? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							editor: [ContactDetail]? = nil,
-							endorser: [ContactDetail]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							relatedIdentifier: [Identifier]? = nil,
-							relatesTo: [EvidenceReportRelatesTo]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							section: [EvidenceReportSection]? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: EvidenceReportSubject,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil)
-	{
+		author: [ContactDetail]? = nil,
+		citeAs: CiteAsX? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		editor: [ContactDetail]? = nil,
+		endorser: [ContactDetail]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		relatedIdentifier: [Identifier]? = nil,
+		relatesTo: [EvidenceReportRelatesTo]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		section: [EvidenceReportSection]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: EvidenceReportSubject,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.author = author
 		self.citeAs = citeAs
@@ -153,7 +161,8 @@ open class EvidenceReport: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case author
-		case citeAs
+		case citeAsMarkdown; case _citeAsMarkdown
+		case citeAsReference
 		case contact
 		case editor
 		case endorser
@@ -178,7 +187,20 @@ open class EvidenceReport: DomainResource {
 		
 		// Decode all our properties
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
-		self.citeAs = try Reference(from: _container, forKeyIfPresent: .citeAs)
+		var _t_citeAs: CiteAsX? = nil
+		if let citeAsReference = try Reference(from: _container, forKeyIfPresent: .citeAsReference) {
+			if _t_citeAs != nil {
+				throw DecodingError.dataCorruptedError(forKey: .citeAsReference, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
+			}
+			_t_citeAs = .reference(citeAsReference)
+		}
+		if let citeAsMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown) {
+			if _t_citeAs != nil {
+				throw DecodingError.dataCorruptedError(forKey: .citeAsMarkdown, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
+			}
+			_t_citeAs = .markdown(citeAsMarkdown)
+		}
+		self.citeAs = _t_citeAs
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
 		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
@@ -204,7 +226,14 @@ open class EvidenceReport: DomainResource {
 		
 		// Encode all our properties
 		try author?.encode(on: &_container, forKey: .author)
-		try citeAs?.encode(on: &_container, forKey: .citeAs)
+		if let _enum = citeAs {
+			switch _enum {
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .citeAsReference)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown)
+			}
+		}
 		try contact?.encode(on: &_container, forKey: .contact)
 		try editor?.encode(on: &_container, forKey: .editor)
 		try endorser?.encode(on: &_container, forKey: .endorser)
@@ -283,21 +312,14 @@ open class EvidenceReport: DomainResource {
  */
 open class EvidenceReportRelatesTo: BackboneElement {
 	
-	/// All possible types for "target[x]"
-	public enum TargetX: Hashable {
-		case identifier(Identifier)
-		case reference(Reference)
-	}
-	
 	/// The type of relationship that this composition has with anther composition or document.
 	public var code: FHIRPrimitive<ReportRelationshipType>
 	
 	/// Target of the relationship
-	/// One of `target[x]`
-	public var target: TargetX
+	public var target: EvidenceReportRelatesToTarget
 	
 	/// Designated initializer taking all required properties
-	public init(code: FHIRPrimitive<ReportRelationshipType>, target: TargetX) {
+	public init(code: FHIRPrimitive<ReportRelationshipType>, target: EvidenceReportRelatesToTarget) {
 		self.code = code
 		self.target = target
 		super.init()
@@ -305,12 +327,12 @@ open class EvidenceReportRelatesTo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<ReportRelationshipType>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: TargetX)
-	{
+		code: FHIRPrimitive<ReportRelationshipType>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: EvidenceReportRelatesToTarget
+	) {
 		self.init(code: code, target: target)
 		self.`extension` = `extension`
 		self.id = id
@@ -321,35 +343,16 @@ open class EvidenceReportRelatesTo: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
-		case targetIdentifier
-		case targetReference
+		case target
 	}
 	
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.targetIdentifier) || _container.contains(CodingKeys.targetReference) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.targetIdentifier, CodingKeys.targetReference], debugDescription: "Must have at least one value for \"target\" but have none"))
-		}
-		
 		// Decode all our properties
 		self.code = try FHIRPrimitive<ReportRelationshipType>(from: _container, forKey: .code, auxiliaryKey: ._code)
-		var _t_target: TargetX? = nil
-		if let targetIdentifier = try Identifier(from: _container, forKeyIfPresent: .targetIdentifier) {
-			if _t_target != nil {
-				throw DecodingError.dataCorruptedError(forKey: .targetIdentifier, in: _container, debugDescription: "More than one value provided for \"target\"")
-			}
-			_t_target = .identifier(targetIdentifier)
-		}
-		if let targetReference = try Reference(from: _container, forKeyIfPresent: .targetReference) {
-			if _t_target != nil {
-				throw DecodingError.dataCorruptedError(forKey: .targetReference, in: _container, debugDescription: "More than one value provided for \"target\"")
-			}
-			_t_target = .reference(targetReference)
-		}
-		self.target = _t_target!
+		self.target = try EvidenceReportRelatesToTarget(from: _container, forKey: .target)
 		try super.init(from: decoder)
 	}
 	
@@ -359,14 +362,7 @@ open class EvidenceReportRelatesTo: BackboneElement {
 		
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
-		
-			switch target {
-			case .identifier(let _value):
-				try _value.encode(on: &_container, forKey: .targetIdentifier)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .targetReference)
-			}
-		
+		try target.encode(on: &_container, forKey: .target)
 		try super.encode(to: encoder)
 	}
 	
@@ -387,6 +383,107 @@ open class EvidenceReportRelatesTo: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(target)
+	}
+}
+
+/**
+ Target of the relationship.
+ 
+ The target composition/document of this relationship.
+ */
+open class EvidenceReportRelatesToTarget: BackboneElement {
+	
+	/// Target of the relationship URL
+	public var url: FHIRPrimitive<FHIRURI>?
+	
+	/// Target of the relationship Identifier
+	public var identifier: Identifier?
+	
+	/// Target of the relationship Display
+	public var display: FHIRPrimitive<FHIRString>?
+	
+	/// Target of the relationship Resource reference
+	public var resource: Reference?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		resource: Reference? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil
+	) {
+		self.init()
+		self.display = display
+		self.`extension` = `extension`
+		self.id = id
+		self.identifier = identifier
+		self.modifierExtension = modifierExtension
+		self.resource = resource
+		self.url = url
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case display; case _display
+		case identifier
+		case resource
+		case url; case _url
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.display = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .display, auxiliaryKey: ._display)
+		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.resource = try Reference(from: _container, forKeyIfPresent: .resource)
+		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try display?.encode(on: &_container, forKey: .display, auxiliaryKey: ._display)
+		try identifier?.encode(on: &_container, forKey: .identifier)
+		try resource?.encode(on: &_container, forKey: .resource)
+		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? EvidenceReportRelatesToTarget else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return display == _other.display
+		    && identifier == _other.identifier
+		    && resource == _other.resource
+		    && url == _other.url
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(display)
+		hasher.combine(identifier)
+		hasher.combine(resource)
+		hasher.combine(url)
 	}
 }
 
@@ -420,11 +517,14 @@ open class EvidenceReportSection: BackboneElement {
 	/// Order of section entries
 	public var orderedBy: CodeableConcept?
 	
-	/// Extensible classifiers
+	/// Extensible classifiers as content
 	public var entryClassifier: [CodeableConcept]?
 	
-	/// A reference to data that supports this section
+	/// Reference to resources as content
 	public var entryReference: [Reference]?
+	
+	/// Quantity as content
+	public var entryQuantity: [Quantity]?
 	
 	/// Why the section is empty
 	public var emptyReason: CodeableConcept?
@@ -439,25 +539,27 @@ open class EvidenceReportSection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [Reference]? = nil,
-							emptyReason: CodeableConcept? = nil,
-							entryClassifier: [CodeableConcept]? = nil,
-							entryReference: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							focus: CodeableConcept? = nil,
-							focusReference: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<ListMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							orderedBy: CodeableConcept? = nil,
-							section: [EvidenceReportSection]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		author: [Reference]? = nil,
+		emptyReason: CodeableConcept? = nil,
+		entryClassifier: [CodeableConcept]? = nil,
+		entryQuantity: [Quantity]? = nil,
+		entryReference: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		focus: CodeableConcept? = nil,
+		focusReference: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<ListMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		orderedBy: CodeableConcept? = nil,
+		section: [EvidenceReportSection]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.author = author
 		self.emptyReason = emptyReason
 		self.entryClassifier = entryClassifier
+		self.entryQuantity = entryQuantity
 		self.entryReference = entryReference
 		self.`extension` = `extension`
 		self.focus = focus
@@ -477,6 +579,7 @@ open class EvidenceReportSection: BackboneElement {
 		case author
 		case emptyReason
 		case entryClassifier
+		case entryQuantity
 		case entryReference
 		case focus
 		case focusReference
@@ -495,6 +598,7 @@ open class EvidenceReportSection: BackboneElement {
 		self.author = try [Reference](from: _container, forKeyIfPresent: .author)
 		self.emptyReason = try CodeableConcept(from: _container, forKeyIfPresent: .emptyReason)
 		self.entryClassifier = try [CodeableConcept](from: _container, forKeyIfPresent: .entryClassifier)
+		self.entryQuantity = try [Quantity](from: _container, forKeyIfPresent: .entryQuantity)
 		self.entryReference = try [Reference](from: _container, forKeyIfPresent: .entryReference)
 		self.focus = try CodeableConcept(from: _container, forKeyIfPresent: .focus)
 		self.focusReference = try Reference(from: _container, forKeyIfPresent: .focusReference)
@@ -514,6 +618,7 @@ open class EvidenceReportSection: BackboneElement {
 		try author?.encode(on: &_container, forKey: .author)
 		try emptyReason?.encode(on: &_container, forKey: .emptyReason)
 		try entryClassifier?.encode(on: &_container, forKey: .entryClassifier)
+		try entryQuantity?.encode(on: &_container, forKey: .entryQuantity)
 		try entryReference?.encode(on: &_container, forKey: .entryReference)
 		try focus?.encode(on: &_container, forKey: .focus)
 		try focusReference?.encode(on: &_container, forKey: .focusReference)
@@ -537,6 +642,7 @@ open class EvidenceReportSection: BackboneElement {
 		return author == _other.author
 		    && emptyReason == _other.emptyReason
 		    && entryClassifier == _other.entryClassifier
+		    && entryQuantity == _other.entryQuantity
 		    && entryReference == _other.entryReference
 		    && focus == _other.focus
 		    && focusReference == _other.focusReference
@@ -552,6 +658,7 @@ open class EvidenceReportSection: BackboneElement {
 		hasher.combine(author)
 		hasher.combine(emptyReason)
 		hasher.combine(entryClassifier)
+		hasher.combine(entryQuantity)
 		hasher.combine(entryReference)
 		hasher.combine(focus)
 		hasher.combine(focusReference)
@@ -583,12 +690,12 @@ open class EvidenceReportSubject: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							characteristic: [EvidenceReportSubjectCharacteristic]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil)
-	{
+		characteristic: [EvidenceReportSubjectCharacteristic]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil
+	) {
 		self.init()
 		self.characteristic = characteristic
 		self.`extension` = `extension`
@@ -680,14 +787,14 @@ open class EvidenceReportSubjectCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							exclude: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							value: ValueX)
-	{
+		code: CodeableConcept,
+		exclude: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		value: ValueX
+	) {
 		self.init(code: code, value: value)
 		self.exclude = exclude
 		self.`extension` = `extension`

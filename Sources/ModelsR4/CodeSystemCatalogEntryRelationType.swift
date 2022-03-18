@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import FMCore
 public enum CatalogEntryRelationType: String, FHIRPrimitiveType {
 	
 	/// the related entry represents an activity that may be triggered by the current item.
-	case triggers = "triggers"
+	case triggers
 	
 	/// the related entry represents an item that replaces the current retired item.
 	case isReplacedBy = "is-replaced-by"

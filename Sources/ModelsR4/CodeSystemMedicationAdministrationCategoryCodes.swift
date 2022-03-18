@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import FMCore
 public enum MedicationAdministrationCategoryCodes: String, FHIRPrimitiveType {
 	
 	/// Includes administrations in an inpatient or acute care setting
-	case inpatient = "inpatient"
+	case inpatient
 	
 	/// Includes administrations in an outpatient setting (for example, Emergency Department, Outpatient Clinic,
 	/// Outpatient Surgery, Doctor's office)
-	case outpatient = "outpatient"
+	case outpatient
 	
 	/// Includes administrations by the patient in their home (this would include long term care or nursing homes,
 	/// hospices, etc.)
-	case community = "community"
+	case community
 }

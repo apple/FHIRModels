@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Endpoint)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -74,26 +74,26 @@ open class Endpoint: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: FHIRPrimitive<FHIRURI>,
-							connectionType: Coding,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							header: [FHIRPrimitive<FHIRString>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							payloadMimeType: [FHIRPrimitive<FHIRString>]? = nil,
-							payloadType: [CodeableConcept],
-							period: Period? = nil,
-							status: FHIRPrimitive<EndpointStatus>,
-							text: Narrative? = nil)
-	{
+		address: FHIRPrimitive<FHIRURI>,
+		connectionType: Coding,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		header: [FHIRPrimitive<FHIRString>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		payloadMimeType: [FHIRPrimitive<FHIRString>]? = nil,
+		payloadType: [CodeableConcept],
+		period: Period? = nil,
+		status: FHIRPrimitive<EndpointStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(address: address, connectionType: connectionType, payloadType: payloadType, status: status)
 		self.contact = contact
 		self.contained = contained

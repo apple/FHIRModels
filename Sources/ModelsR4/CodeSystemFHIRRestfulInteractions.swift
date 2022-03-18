@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,22 +28,22 @@ import FMCore
 public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	
 	/// Read the current state of the resource.
-	case read = "read"
+	case read
 	
 	/// Read the state of a specific version of the resource.
-	case vread = "vread"
+	case vread
 	
 	/// Update an existing resource by its id (or create it if it is new).
-	case update = "update"
+	case update
 	
 	/// Update an existing resource by posting a set of changes to it.
-	case patch = "patch"
+	case patch
 	
 	/// Delete a resource.
-	case delete = "delete"
+	case delete
 	
 	/// Retrieve the change history for a particular resource, type of resource, or the entire system.
-	case history = "history"
+	case history
 	
 	/// Retrieve the change history for a particular resource.
 	case historyInstance = "history-instance"
@@ -55,10 +55,10 @@ public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	case historySystem = "history-system"
 	
 	/// Create a new resource with a server assigned id.
-	case create = "create"
+	case create
 	
 	/// Search a resource type or all resources based on some filter criteria.
-	case search = "search"
+	case search
 	
 	/// Search all resources of the specified type based on some filter criteria.
 	case searchType = "search-type"
@@ -67,14 +67,14 @@ public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	case searchSystem = "search-system"
 	
 	/// Get a Capability Statement for the system.
-	case capabilities = "capabilities"
+	case capabilities
 	
 	/// Update, create or delete a set of resources as a single transaction.
-	case transaction = "transaction"
+	case transaction
 	
 	/// perform a set of a separate interactions in a single http operation
-	case batch = "batch"
+	case batch
 	
 	/// Perform an operation as defined by an OperationDefinition.
-	case operation = "operation"
+	case operation
 }

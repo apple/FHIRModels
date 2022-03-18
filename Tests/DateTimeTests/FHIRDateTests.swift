@@ -64,7 +64,7 @@ class FHIRDateTests: XCTestCase {
 				let fhirdate = try FHIRDate(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
 			} catch FHIRDateParserError.invalidYear(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidYear but threw \(error)")
@@ -84,7 +84,7 @@ class FHIRDateTests: XCTestCase {
 				let fhirdate = try FHIRDate(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
 			} catch FHIRDateParserError.invalidMonth(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidMonth but threw \(error)")
@@ -103,7 +103,7 @@ class FHIRDateTests: XCTestCase {
 				let fhirdate = try FHIRDate(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
 			} catch FHIRDateParserError.invalidDay(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidDay but threw \(error)")
@@ -126,11 +126,45 @@ class FHIRDateTests: XCTestCase {
 				let fhirdate = try FHIRDate(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
 			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
 			}
 		}
-	}
+    }
+    
+    func testComparison() throws {
+        try assertLeftToRight("2021-01-07", "2021-01-08", compares: .orderedAscending)
+        try assertLeftToRight("2021-01-07", "2021-01-07", compares: .orderedSame)
+        try assertLeftToRight("2021-01-07", "2021-01-06", compares: .orderedDescending)
+        
+        try assertLeftToRight("2021-02", "2021-03", compares: .orderedAscending)
+        try assertLeftToRight("2021-02", "2021-02", compares: .orderedSame)
+        try assertLeftToRight("2021-02", "2021-01", compares: .orderedDescending)
+        
+        try assertLeftToRight("2021", "2022", compares: .orderedAscending)
+        try assertLeftToRight("2021", "2021", compares: .orderedSame)
+        try assertLeftToRight("2021", "2020", compares: .orderedDescending)
+        
+        try assertLeftToRight("2021-01-07", "2021-01", compares: .orderedDescending)
+        try assertLeftToRight("2021-01-07", "2021", compares: .orderedDescending)
+        try assertLeftToRight("2021-01", "2021-01-06", compares: .orderedAscending)
+        try assertLeftToRight("2021", "2021-01-06", compares: .orderedAscending)
+        try assertLeftToRight("2020-12-31", "2021-01-01", compares: .orderedAscending)
+    }
+    
+    // MARK: - Tools
+    
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+        let leftDate = try FHIRDate(left)
+        let rightDate = try FHIRDate(right)
+        if compares == .orderedDescending {
+            XCTAssertTrue(leftDate > rightDate, file: file, line: line)
+        } else if compares == .orderedSame {
+            XCTAssertEqual(leftDate, rightDate, file: file, line: line)
+        } else {
+            XCTAssertTrue(leftDate < rightDate, file: file, line: line)
+        }
+    }
 }

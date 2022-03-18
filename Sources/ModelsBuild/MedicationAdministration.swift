@@ -2,8 +2,8 @@
 //  MedicationAdministration.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -81,6 +81,12 @@ open class MedicationAdministration: DomainResource {
 	/// When the MedicationAdministration was first captured in the subject's record
 	public var recorded: FHIRPrimitive<DateTime>?
 	
+	/// Full dose was not administered
+	public var isSubPotent: FHIRPrimitive<FHIRBool>?
+	
+	/// Reason full dose was not administered
+	public var subPotentReason: [CodeableConcept]?
+	
 	/// Who performed the medication administration and what they did
 	public var performer: [MedicationAdministrationPerformer]?
 	
@@ -113,36 +119,38 @@ open class MedicationAdministration: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							device: [Reference]? = nil,
-							dosage: MedicationAdministrationDosage? = nil,
-							encounter: Reference? = nil,
-							eventHistory: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: CodeableReference,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurence: OccurenceX,
-							partOf: [Reference]? = nil,
-							performer: [MedicationAdministrationPerformer]? = nil,
-							reason: [CodeableReference]? = nil,
-							recorded: FHIRPrimitive<DateTime>? = nil,
-							request: Reference? = nil,
-							status: FHIRPrimitive<MedicationAdministrationStatusCodes>,
-							statusReason: [CodeableConcept]? = nil,
-							subject: Reference,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		device: [Reference]? = nil,
+		dosage: MedicationAdministrationDosage? = nil,
+		encounter: Reference? = nil,
+		eventHistory: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		isSubPotent: FHIRPrimitive<FHIRBool>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: CodeableReference,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurence: OccurenceX,
+		partOf: [Reference]? = nil,
+		performer: [MedicationAdministrationPerformer]? = nil,
+		reason: [CodeableReference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		request: Reference? = nil,
+		status: FHIRPrimitive<MedicationAdministrationStatusCodes>,
+		statusReason: [CodeableConcept]? = nil,
+		subPotentReason: [CodeableConcept]? = nil,
+		subject: Reference,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(medication: medication, occurence: occurence, status: status, subject: subject)
 		self.basedOn = basedOn
 		self.category = category
@@ -157,6 +165,7 @@ open class MedicationAdministration: DomainResource {
 		self.implicitRules = implicitRules
 		self.instantiatesCanonical = instantiatesCanonical
 		self.instantiatesUri = instantiatesUri
+		self.isSubPotent = isSubPotent
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
@@ -167,6 +176,7 @@ open class MedicationAdministration: DomainResource {
 		self.recorded = recorded
 		self.request = request
 		self.statusReason = statusReason
+		self.subPotentReason = subPotentReason
 		self.supportingInformation = supportingInformation
 		self.text = text
 	}
@@ -183,6 +193,7 @@ open class MedicationAdministration: DomainResource {
 		case identifier
 		case instantiatesCanonical; case _instantiatesCanonical
 		case instantiatesUri; case _instantiatesUri
+		case isSubPotent; case _isSubPotent
 		case medication
 		case note
 		case occurenceDateTime; case _occurenceDateTime
@@ -194,6 +205,7 @@ open class MedicationAdministration: DomainResource {
 		case request
 		case status; case _status
 		case statusReason
+		case subPotentReason
 		case subject
 		case supportingInformation
 	}
@@ -217,6 +229,7 @@ open class MedicationAdministration: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
+		self.isSubPotent = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isSubPotent, auxiliaryKey: ._isSubPotent)
 		self.medication = try CodeableReference(from: _container, forKey: .medication)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurence: OccurenceX? = nil
@@ -240,6 +253,7 @@ open class MedicationAdministration: DomainResource {
 		self.request = try Reference(from: _container, forKeyIfPresent: .request)
 		self.status = try FHIRPrimitive<MedicationAdministrationStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
+		self.subPotentReason = try [CodeableConcept](from: _container, forKeyIfPresent: .subPotentReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
 		try super.init(from: decoder)
@@ -259,6 +273,7 @@ open class MedicationAdministration: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
+		try isSubPotent?.encode(on: &_container, forKey: .isSubPotent, auxiliaryKey: ._isSubPotent)
 		try medication.encode(on: &_container, forKey: .medication)
 		try note?.encode(on: &_container, forKey: .note)
 		
@@ -276,6 +291,7 @@ open class MedicationAdministration: DomainResource {
 		try request?.encode(on: &_container, forKey: .request)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
+		try subPotentReason?.encode(on: &_container, forKey: .subPotentReason)
 		try subject.encode(on: &_container, forKey: .subject)
 		try supportingInformation?.encode(on: &_container, forKey: .supportingInformation)
 		try super.encode(to: encoder)
@@ -299,6 +315,7 @@ open class MedicationAdministration: DomainResource {
 		    && identifier == _other.identifier
 		    && instantiatesCanonical == _other.instantiatesCanonical
 		    && instantiatesUri == _other.instantiatesUri
+		    && isSubPotent == _other.isSubPotent
 		    && medication == _other.medication
 		    && note == _other.note
 		    && occurence == _other.occurence
@@ -309,6 +326,7 @@ open class MedicationAdministration: DomainResource {
 		    && request == _other.request
 		    && status == _other.status
 		    && statusReason == _other.statusReason
+		    && subPotentReason == _other.subPotentReason
 		    && subject == _other.subject
 		    && supportingInformation == _other.supportingInformation
 	}
@@ -324,6 +342,7 @@ open class MedicationAdministration: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(instantiatesCanonical)
 		hasher.combine(instantiatesUri)
+		hasher.combine(isSubPotent)
 		hasher.combine(medication)
 		hasher.combine(note)
 		hasher.combine(occurence)
@@ -334,6 +353,7 @@ open class MedicationAdministration: DomainResource {
 		hasher.combine(request)
 		hasher.combine(status)
 		hasher.combine(statusReason)
+		hasher.combine(subPotentReason)
 		hasher.combine(subject)
 		hasher.combine(supportingInformation)
 	}
@@ -378,16 +398,16 @@ open class MedicationAdministrationDosage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							dose: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							rate: RateX? = nil,
-							route: CodeableConcept? = nil,
-							site: CodeableConcept? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		dose: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		rate: RateX? = nil,
+		route: CodeableConcept? = nil,
+		site: CodeableConcept? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.dose = dose
 		self.`extension` = `extension`
@@ -509,12 +529,12 @@ open class MedicationAdministrationPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum DeviceMetricCategory: String, FHIRPrimitiveType {
 	
 	/// DeviceObservations generated for this DeviceMetric are measured.
-	case measurement = "measurement"
+	case measurement
 	
 	/// DeviceObservations generated for this DeviceMetric is a setting that will influence the behavior of the Device.
-	case setting = "setting"
+	case setting
 	
 	/// DeviceObservations generated for this DeviceMetric are calculated.
-	case calculation = "calculation"
+	case calculation
 	
 	/// The category of this DeviceMetric is unspecified.
-	case unspecified = "unspecified"
+	case unspecified
 }

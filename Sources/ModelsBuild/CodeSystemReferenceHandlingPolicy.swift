@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,22 +27,22 @@ import FMCore
  */
 public enum ReferenceHandlingPolicy: String, FHIRPrimitiveType {
 	
+	/// The server enforces that references have integrity - e.g. it ensures that references can always be resolved.
+	/// This is typically the case for clinical record systems, but often not the case for middleware/proxy systems.
+	case enforced
+	
 	/// The server supports and populates Literal references (i.e. using Reference.reference) where they are known (this
 	/// code does not guarantee that all references are literal; see 'enforced').
-	case literal = "literal"
+	case literal
+	
+	/// The server does not support references that point to other servers.
+	case local
 	
 	/// The server allows logical references (i.e. using Reference.identifier).
-	case logical = "logical"
+	case logical
 	
 	/// The server will attempt to resolve logical references to literal references - i.e. converting
 	/// Reference.identifier to Reference.reference (if resolution fails, the server may still accept resources; see
 	/// logical).
-	case resolves = "resolves"
-	
-	/// The server enforces that references have integrity - e.g. it ensures that references can always be resolved.
-	/// This is typically the case for clinical record systems, but often not the case for middleware/proxy systems.
-	case enforced = "enforced"
-	
-	/// The server does not support references that point to other servers.
-	case local = "local"
+	case resolves
 }

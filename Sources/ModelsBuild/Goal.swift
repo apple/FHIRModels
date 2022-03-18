@@ -2,8 +2,8 @@
 //  Goal.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Goal)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Goal)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ open class Goal: DomainResource {
 	public var statusReason: FHIRPrimitive<FHIRString>?
 	
 	/// Who's responsible for creating Goal?
-	public var expressedBy: Reference?
+	public var source: Reference?
 	
 	/// Issues addressed by this goal
 	public var addresses: [Reference]?
@@ -95,38 +95,37 @@ open class Goal: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							achievementStatus: CodeableConcept? = nil,
-							addresses: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							continuous: FHIRPrimitive<FHIRBool>? = nil,
-							description_fhir: CodeableConcept,
-							expressedBy: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lifecycleStatus: FHIRPrimitive<GoalLifecycleStatus>,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							outcome: [CodeableReference]? = nil,
-							priority: CodeableConcept? = nil,
-							start: StartX? = nil,
-							statusDate: FHIRPrimitive<FHIRDate>? = nil,
-							statusReason: FHIRPrimitive<FHIRString>? = nil,
-							subject: Reference,
-							target: [GoalTarget]? = nil,
-							text: Narrative? = nil)
-	{
+		achievementStatus: CodeableConcept? = nil,
+		addresses: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		continuous: FHIRPrimitive<FHIRBool>? = nil,
+		description_fhir: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lifecycleStatus: FHIRPrimitive<GoalLifecycleStatus>,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		outcome: [CodeableReference]? = nil,
+		priority: CodeableConcept? = nil,
+		source: Reference? = nil,
+		start: StartX? = nil,
+		statusDate: FHIRPrimitive<FHIRDate>? = nil,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
+		subject: Reference,
+		target: [GoalTarget]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(description_fhir: description_fhir, lifecycleStatus: lifecycleStatus, subject: subject)
 		self.achievementStatus = achievementStatus
 		self.addresses = addresses
 		self.category = category
 		self.contained = contained
 		self.continuous = continuous
-		self.expressedBy = expressedBy
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
@@ -137,6 +136,7 @@ open class Goal: DomainResource {
 		self.note = note
 		self.outcome = outcome
 		self.priority = priority
+		self.source = source
 		self.start = start
 		self.statusDate = statusDate
 		self.statusReason = statusReason
@@ -152,12 +152,12 @@ open class Goal: DomainResource {
 		case category
 		case continuous; case _continuous
 		case description_fhir = "description"
-		case expressedBy
 		case identifier
 		case lifecycleStatus; case _lifecycleStatus
 		case note
 		case outcome
 		case priority
+		case source
 		case startCodeableConcept
 		case startDate; case _startDate
 		case statusDate; case _statusDate
@@ -176,12 +176,12 @@ open class Goal: DomainResource {
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.continuous = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .continuous, auxiliaryKey: ._continuous)
 		self.description_fhir = try CodeableConcept(from: _container, forKey: .description_fhir)
-		self.expressedBy = try Reference(from: _container, forKeyIfPresent: .expressedBy)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lifecycleStatus = try FHIRPrimitive<GoalLifecycleStatus>(from: _container, forKey: .lifecycleStatus, auxiliaryKey: ._lifecycleStatus)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.outcome = try [CodeableReference](from: _container, forKeyIfPresent: .outcome)
 		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
+		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		var _t_start: StartX? = nil
 		if let startDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .startDate, auxiliaryKey: ._startDate) {
 			if _t_start != nil {
@@ -213,12 +213,12 @@ open class Goal: DomainResource {
 		try category?.encode(on: &_container, forKey: .category)
 		try continuous?.encode(on: &_container, forKey: .continuous, auxiliaryKey: ._continuous)
 		try description_fhir.encode(on: &_container, forKey: .description_fhir)
-		try expressedBy?.encode(on: &_container, forKey: .expressedBy)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lifecycleStatus.encode(on: &_container, forKey: .lifecycleStatus, auxiliaryKey: ._lifecycleStatus)
 		try note?.encode(on: &_container, forKey: .note)
 		try outcome?.encode(on: &_container, forKey: .outcome)
 		try priority?.encode(on: &_container, forKey: .priority)
+		try source?.encode(on: &_container, forKey: .source)
 		if let _enum = start {
 			switch _enum {
 			case .date(let _value):
@@ -248,12 +248,12 @@ open class Goal: DomainResource {
 		    && category == _other.category
 		    && continuous == _other.continuous
 		    && description_fhir == _other.description_fhir
-		    && expressedBy == _other.expressedBy
 		    && identifier == _other.identifier
 		    && lifecycleStatus == _other.lifecycleStatus
 		    && note == _other.note
 		    && outcome == _other.outcome
 		    && priority == _other.priority
+		    && source == _other.source
 		    && start == _other.start
 		    && statusDate == _other.statusDate
 		    && statusReason == _other.statusReason
@@ -268,12 +268,12 @@ open class Goal: DomainResource {
 		hasher.combine(category)
 		hasher.combine(continuous)
 		hasher.combine(description_fhir)
-		hasher.combine(expressedBy)
 		hasher.combine(identifier)
 		hasher.combine(lifecycleStatus)
 		hasher.combine(note)
 		hasher.combine(outcome)
 		hasher.combine(priority)
+		hasher.combine(source)
 		hasher.combine(start)
 		hasher.combine(statusDate)
 		hasher.combine(statusReason)
@@ -324,13 +324,13 @@ open class GoalTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: DetailX? = nil,
-							due: DueX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measure: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		detail: DetailX? = nil,
+		due: DueX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measure: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.detail = detail
 		self.due = due

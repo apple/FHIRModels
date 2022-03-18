@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum ActionRequiredBehavior: String, FHIRPrimitiveType {
 	
+	/// An action with this behavior may be included in the set of actions processed by the end user.
+	case could
+	
 	/// An action with this behavior must be included in the actions processed by the end user; the end user SHALL NOT
 	/// choose not to include this action.
-	case must = "must"
-	
-	/// An action with this behavior may be included in the set of actions processed by the end user.
-	case could = "could"
+	case must
 	
 	/// An action with this behavior must be included in the set of actions processed by the end user, unless the end
 	/// user provides documentation as to why the action was not included.

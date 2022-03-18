@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -186,70 +186,70 @@ public enum DataType: String, FHIRPrimitiveType {
 	case usageContext = "UsageContext"
 	
 	/// A stream of bytes
-	case base64Binary = "base64Binary"
+	case base64Binary
 	
 	/// Value of "true" or "false"
-	case boolean = "boolean"
+	case boolean
 	
 	/// A URI that is a reference to a canonical URL on a FHIR resource
-	case canonical = "canonical"
+	case canonical
 	
 	/// A string which has at least one character and no leading or trailing whitespace and where there is no whitespace
 	/// other than single spaces in the contents
-	case code = "code"
+	case code
 	
 	/// A date or partial date (e.g. just year or year + month). There is no time zone. The format is a union of the
 	/// schema types gYear, gYearMonth and date.  Dates SHALL be valid dates.
-	case date = "date"
+	case date
 	
 	/// A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time
 	/// zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds
 	/// must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates
 	/// SHALL be valid dates.
-	case dateTime = "dateTime"
+	case dateTime
 	
 	/// A rational number with implicit precision
-	case decimal = "decimal"
+	case decimal
 	
 	/// Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an
 	/// integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-
 	/// insensitive.
-	case id = "id"
+	case id
 	
 	/// An instant in time - known at least to the second
-	case instant = "instant"
+	case instant
 	
 	/// A whole number
-	case integer = "integer"
+	case integer
 	
 	/// A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation
 	/// engine
-	case markdown = "markdown"
+	case markdown
 	
 	/// An OID represented as a URI
-	case oid = "oid"
+	case oid
 	
 	/// An integer with a value that is positive (e.g. >0)
-	case positiveInt = "positiveInt"
+	case positiveInt
 	
 	/// A sequence of Unicode characters
-	case string = "string"
+	case string
 	
 	/// A time during the day, with no date specified
-	case time = "time"
+	case time
 	
 	/// An integer with a value that is not negative (e.g. >= 0)
-	case unsignedInt = "unsignedInt"
+	case unsignedInt
 	
 	/// String of characters used to identify a name or a resource
-	case uri = "uri"
+	case uri
 	
 	/// A URI that is a literal reference
-	case url = "url"
+	case url
 	
 	/// A UUID, represented as a URI
-	case uuid = "uuid"
+	case uuid
 	
 	/// XHTML format, as defined by W3C, but restricted usage (mainly, no active content)
-	case xhtml = "xhtml"
+	case xhtml
 }

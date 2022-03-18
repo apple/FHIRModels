@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,16 +31,16 @@ public enum ValidationProcess: String, FHIRPrimitiveType {
 	case editCheck = "edit-check"
 	
 	/// valueset
-	case valueset = "valueset"
+	case valueset
 	
 	/// primary
-	case primary = "primary"
+	case primary
 	
 	/// multi
-	case multi = "multi"
+	case multi
 	
 	/// standalone
-	case standalone = "standalone"
+	case standalone
 	
 	/// inContext
 	case inContext = "in-context"

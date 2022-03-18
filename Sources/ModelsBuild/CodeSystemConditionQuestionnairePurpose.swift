@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum ConditionQuestionnairePurpose: String, FHIRPrimitiveType {
 	
-	/// A pre-admit questionnaire.
-	case preadmit = "preadmit"
-	
 	/// A questionnaire that helps with diferential diagnosis.
 	case diffDiagnosis = "diff-diagnosis"
 	
 	/// A questionnaire to check on outcomes for the patient.
-	case outcome = "outcome"
+	case outcome
+	
+	/// A pre-admit questionnaire.
+	case preadmit
 }

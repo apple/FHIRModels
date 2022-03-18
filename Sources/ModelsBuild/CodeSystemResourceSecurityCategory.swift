@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,9 @@
 import FMCore
 
 /**
- Provides general guidance around the kind of access Control to Read, Search, Create, Update, or Delete a resource.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/resource-security-category
- ValueSet: http://hl7.org/fhir/ValueSet/resource-security-category
+ URL: http://hl7.org/fhir/resource-security-category
  */
 public enum ResourceSecurityCategory: String, FHIRPrimitiveType {
 	
@@ -33,7 +32,7 @@ public enum ResourceSecurityCategory: String, FHIRPrimitiveType {
 	/// the source publishing them, and protected from integrity failures in communication. For this reason server
 	/// authenticated https (TLS) is recommended to provide authentication of the server and integrity protection in
 	/// transit. This is normal web-server use of https.
-	case anonymous = "anonymous"
+	case anonymous
 	
 	/// These Resources tend to not contain any individual data, but do have data that describe business or service
 	/// sensitive data. The use of the term Business is not intended to only mean an incorporated business, but rather
@@ -43,7 +42,7 @@ public enum ResourceSecurityCategory: String, FHIRPrimitiveType {
 	/// client authentication methods such as: mutual-authenticated-TLS, APIKey, App signed JWT, or App OAuth client-id
 	/// JWT For example: a App that uses a Business protected Provider Directory to determine other business endpoint
 	/// details.
-	case business = "business"
+	case business
 	
 	/// These Resources do NOT contain Patient data, but do contain individual information about other participants.
 	/// These other individuals are Practitioners, PractitionerRole, CareTeam, or other users. These identities are
@@ -51,18 +50,18 @@ public enum ResourceSecurityCategory: String, FHIRPrimitiveType {
 	/// and thus must consider Privacy risk. Often access to these other identities are covered by business
 	/// relationships. For this purpose access to these Resources will tend to be Role specific using methods such as
 	/// RBAC or ABAC.
-	case individual = "individual"
-	
-	/// These Resources make up the bulk of FHIR and therefore are the most commonly understood. These Resources contain
-	/// highly sesitive health information, or are closely linked to highly sensitive health information. These
-	/// Resources will often use the security labels to differentiate various confidentiality levels within this broad
-	/// group of Patient Sensitive data. Access to these Resources often requires a declared Purpose Of Use. Access to
-	/// these Resources is often controlled by a Privacy Consent.
-	case patient = "patient"
+	case individual
 	
 	/// Some Resources can be used for a wide scope of use-cases that span very sensitive to very non-sensitive. These
 	/// Resources do not fall into any of the above classifications, as their sensitivity is highly variable. These
 	/// Resources will need special handling. These Resources often contain metadata that describes the content in a way
 	/// that can be used for Access Control decisions.
 	case notClassified = "not-classified"
+	
+	/// These Resources make up the bulk of FHIR and therefore are the most commonly understood. These Resources contain
+	/// highly sesitive health information, or are closely linked to highly sensitive health information. These
+	/// Resources will often use the security labels to differentiate various confidentiality levels within this broad
+	/// group of Patient Sensitive data. Access to these Resources often requires a declared Purpose Of Use. Access to
+	/// these Resources is often controlled by a Privacy Consent.
+	case patient
 }

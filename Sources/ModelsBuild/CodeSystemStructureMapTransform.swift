@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,59 +27,59 @@ import FMCore
  */
 public enum StructureMapTransform: String, FHIRPrimitiveType {
 	
-	/// create(type : string) - type is passed through to the application on the standard API, and must be known by it.
-	case create = "create"
-	
-	/// copy(source).
-	case copy = "copy"
-	
-	/// truncate(source, length) - source must be stringy type.
-	case truncate = "truncate"
-	
-	/// escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note
-	/// that this is for when the string itself is escaped.
-	case escape = "escape"
-	
-	/// cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one
-	/// and only one target type known.
-	case cast = "cast"
-	
-	/// append(source...) - source is element or string.
-	case append = "append"
-	
-	/// translate(source, uri_of_map) - use the translate operation.
-	case translate = "translate"
-	
-	/// reference(source : object) - return a string that references the provided tree properly.
-	case reference = "reference"
-	
-	/// Perform a date operation. *Parameters to be documented*.
-	case dateOp = "dateOp"
-	
-	/// Generate a random UUID (in lowercase). No Parameters.
-	case uuid = "uuid"
-	
-	/// Return the appropriate string to put in a reference that refers to the resource provided as a parameter.
-	case pointer = "pointer"
-	
-	/// Execute the supplied FHIRPath expression and use the value returned by that.
-	case evaluate = "evaluate"
-	
-	/// Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).
-	case cc = "cc"
-	
 	/// Create a Coding. Parameters = (system. Code[, display]).
 	case C = "c"
 	
-	/// Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation
-	/// e.g. [comparator]value[space]unit.
-	case qty = "qty"
+	/// append(source...) - source is element or string.
+	case append
 	
-	/// Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value
-	/// set.
-	case id = "id"
+	/// cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one
+	/// and only one target type known.
+	case cast
+	
+	/// Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).
+	case cc
+	
+	/// copy(source).
+	case copy
 	
 	/// Create a contact details. Parameters = (value) or (system, value). If no system is provided, the system should
 	/// be inferred from the content of the value.
-	case cp = "cp"
+	case cp
+	
+	/// create(type : string) - type is passed through to the application on the standard API, and must be known by it.
+	case create
+	
+	/// Perform a date operation. *Parameters to be documented*.
+	case dateOp
+	
+	/// escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note
+	/// that this is for when the string itself is escaped.
+	case escape
+	
+	/// Execute the supplied FHIRPath expression and use the value returned by that.
+	case evaluate
+	
+	/// Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value
+	/// set.
+	case id
+	
+	/// Return the appropriate string to put in a reference that refers to the resource provided as a parameter.
+	case pointer
+	
+	/// Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation
+	/// e.g. [comparator]value[space]unit.
+	case qty
+	
+	/// reference(source : object) - return a string that references the provided tree properly.
+	case reference
+	
+	/// translate(source, uri_of_map) - use the translate operation.
+	case translate
+	
+	/// truncate(source, length) - source must be stringy type.
+	case truncate
+	
+	/// Generate a random UUID (in lowercase). No Parameters.
+	case uuid
 }

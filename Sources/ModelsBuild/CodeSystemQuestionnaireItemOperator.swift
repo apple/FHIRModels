@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,24 +27,25 @@ import FMCore
  */
 public enum QuestionnaireItemOperator: String, FHIRPrimitiveType {
 	
-	/// True if whether an answer exists is equal to the enableWhen answer (which must be a boolean).
-	case exists = "exists"
-	
-	/// True if whether at least one answer has a value that is equal to the enableWhen answer.
+	/// True if at least one answer has a value that is equal to the enableWhen answer.
 	case equal = "="
 	
-	/// True if whether at least no answer has a value that is equal to the enableWhen answer.
-	case notEqual = "!="
+	/// True if the determination of 'whether an answer exists for the question' is equal to the enableWhen answer
+	/// (which must be a boolean).
+	case exists
 	
-	/// True if whether at least no answer has a value that is greater than the enableWhen answer.
+	/// True if at least one answer has a value that is greater than the enableWhen answer.
 	case greaterThan = ">"
 	
-	/// True if whether at least no answer has a value that is less than the enableWhen answer.
-	case lessThan = "<"
-	
-	/// True if whether at least no answer has a value that is greater or equal to the enableWhen answer.
+	/// True if at least one answer has a value that is greater or equal to the enableWhen answer.
 	case greaterThanOrEqual = ">="
 	
-	/// True if whether at least no answer has a value that is less or equal to the enableWhen answer.
+	/// True if at least one answer has a value that is less than the enableWhen answer.
+	case lessThan = "<"
+	
+	/// True if at least one answer has a value that is less or equal to the enableWhen answer.
 	case lessThanOrEqual = "<="
+	
+	/// True if no answer has a value that is equal to the enableWhen answer.
+	case notEqual = "!="
 }

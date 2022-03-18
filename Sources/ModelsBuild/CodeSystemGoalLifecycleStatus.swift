@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,30 +27,30 @@ import FMCore
  */
 public enum GoalLifecycleStatus: String, FHIRPrimitiveType {
 	
-	/// A goal is proposed for this patient.
-	case proposed = "proposed"
-	
-	/// A goal is planned for this patient.
-	case planned = "planned"
-	
 	/// A proposed goal was accepted or acknowledged.
-	case accepted = "accepted"
+	case accepted
 	
 	/// The goal is being sought actively.
-	case active = "active"
-	
-	/// The goal remains a long term objective but is no longer being actively pursued for a temporary period of time.
-	case onHold = "on-hold"
-	
-	/// The goal is no longer being sought.
-	case completed = "completed"
+	case active
 	
 	/// The goal has been abandoned.
-	case cancelled = "cancelled"
+	case cancelled
+	
+	/// The goal is no longer being sought.
+	case completed
 	
 	/// The goal was entered in error and voided.
 	case enteredInError = "entered-in-error"
 	
+	/// The goal remains a long term objective but is no longer being actively pursued for a temporary period of time.
+	case onHold = "on-hold"
+	
+	/// A goal is planned for this patient.
+	case planned
+	
+	/// A goal is proposed for this patient.
+	case proposed
+	
 	/// A proposed goal was rejected.
-	case rejected = "rejected"
+	case rejected
 }

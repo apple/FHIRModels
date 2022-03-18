@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/PractitionerRole)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -78,29 +78,29 @@ open class PractitionerRole: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
-							availableTime: [PractitionerRoleAvailableTime]? = nil,
-							code: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							healthcareService: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							notAvailable: [PractitionerRoleNotAvailable]? = nil,
-							organization: Reference? = nil,
-							period: Period? = nil,
-							practitioner: Reference? = nil,
-							specialty: [CodeableConcept]? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
+		availableTime: [PractitionerRoleAvailableTime]? = nil,
+		code: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		healthcareService: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		notAvailable: [PractitionerRoleNotAvailable]? = nil,
+		organization: Reference? = nil,
+		period: Period? = nil,
+		practitioner: Reference? = nil,
+		specialty: [CodeableConcept]? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.active = active
 		self.availabilityExceptions = availabilityExceptions
@@ -259,14 +259,14 @@ open class PractitionerRoleAvailableTime: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allDay: FHIRPrimitive<FHIRBool>? = nil,
-							availableEndTime: FHIRPrimitive<FHIRTime>? = nil,
-							availableStartTime: FHIRPrimitive<FHIRTime>? = nil,
-							daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		allDay: FHIRPrimitive<FHIRBool>? = nil,
+		availableEndTime: FHIRPrimitive<FHIRTime>? = nil,
+		availableStartTime: FHIRPrimitive<FHIRTime>? = nil,
+		daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.allDay = allDay
 		self.availableEndTime = availableEndTime
@@ -355,12 +355,12 @@ open class PractitionerRoleNotAvailable: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>,
-							during: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>,
+		during: Period? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.during = during
 		self.`extension` = `extension`

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/UsageContext)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -52,11 +52,11 @@ open class UsageContext: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: Coding,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							value: ValueX)
-	{
+		code: Coding,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		value: ValueX
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id

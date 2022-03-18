@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,29 +28,29 @@ import FMCore
 public enum SearchComparator: String, FHIRPrimitiveType {
 	
 	/// the value for the parameter in the resource is equal to the provided value.
-	case eq = "eq"
+	case eq
 	
 	/// the value for the parameter in the resource is not equal to the provided value.
-	case ne = "ne"
+	case ne
 	
 	/// the value for the parameter in the resource is greater than the provided value.
-	case gt = "gt"
+	case gt
 	
 	/// the value for the parameter in the resource is less than the provided value.
-	case lt = "lt"
+	case lt
 	
 	/// the value for the parameter in the resource is greater or equal to the provided value.
-	case ge = "ge"
+	case ge
 	
 	/// the value for the parameter in the resource is less or equal to the provided value.
-	case le = "le"
+	case le
 	
 	/// the value for the parameter in the resource starts after the provided value.
-	case sa = "sa"
+	case sa
 	
 	/// the value for the parameter in the resource ends before the provided value.
-	case eb = "eb"
+	case eb
 	
 	/// the value for the parameter in the resource is approximately the same to the provided value.
-	case ap = "ap"
+	case ap
 }

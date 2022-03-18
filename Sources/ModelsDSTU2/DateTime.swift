@@ -2,7 +2,7 @@
 //  DateTime.swift
 //  HealthSoftware
 //
-//  2020, Apple Inc.
+//  2021, Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,6 +25,13 @@ import FMCore
  provided due to schema type constraints but may be zero-filled and may be ignored. Dates SHALL be valid dates.
  
  There are slight variations in permitted members, see FHIRDate's and FHIRTime's descriptions.
+ 
+ A caveat on `Comparable` and `Equatable`:
+ 
+ - When using `Equatable`, the instances are compared directly, meaning all properties must be identical
+     - Use `==` to compare whether two instances are identical
+     - Use `a.compare(b) == .orderedSame` to compare whether two instances represent the exact same date & time
+ - When using `Comparable`, the instances are converted to an absolute time respecting their timezone
  
  http://hl7.org/fhir/datatypes.html#datetime
  */
@@ -77,9 +84,9 @@ public struct DateTime: FHIRPrimitiveType {
 		
 		// Date
 		let date = try FHIRDate.parse(from: scanner, expectAtEnd: false)
-		var time: FHIRTime? = nil
-		var timeZone: TimeZone? = nil
-		var timeZoneString: String? = nil
+		var time: FHIRTime?
+		var timeZone: TimeZone?
+		var timeZoneString: String?
 		
 		// Time
 		if scanner.scanString("T", into: nil) {
@@ -94,7 +101,7 @@ public struct DateTime: FHIRPrimitiveType {
 		// At end
 		let scanLocation = scanner.scanLocation
 		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		return (date, time, timeZone, timeZoneString)
@@ -110,7 +117,7 @@ extension DateTime: ExpressibleByStringLiteral {
 	}
 }
 
-extension DateTime: Decodable {
+extension DateTime: Codable {
 	
 	public init(from decoder: Decoder) throws {
 		let container = try decoder.singleValueContainer()
@@ -150,5 +157,18 @@ extension DateTime: Equatable {
 			return false
 		}
 		return true
+	}
+}
+
+extension DateTime: Comparable {
+	
+	/// This comparison will be done by taking time zones into account.
+	public static func <(l: DateTime, r: DateTime) -> Bool {
+		do {
+			return try l.compare(r) == .orderedAscending
+		} catch {
+			print("DateTime comparison \(String(describing: l)) < \(String(describing: r)) raised \(String(describing: error))")
+			return false
+		}
 	}
 }

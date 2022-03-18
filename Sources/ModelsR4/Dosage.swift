@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Dosage)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -79,23 +79,23 @@ open class Dosage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additionalInstruction: [CodeableConcept]? = nil,
-							asNeeded: AsNeededX? = nil,
-							doseAndRate: [DosageDoseAndRate]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							maxDosePerAdministration: Quantity? = nil,
-							maxDosePerLifetime: Quantity? = nil,
-							maxDosePerPeriod: Ratio? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							patientInstruction: FHIRPrimitive<FHIRString>? = nil,
-							route: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRInteger>? = nil,
-							site: CodeableConcept? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							timing: Timing? = nil)
-	{
+		additionalInstruction: [CodeableConcept]? = nil,
+		asNeeded: AsNeededX? = nil,
+		doseAndRate: [DosageDoseAndRate]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		maxDosePerAdministration: Quantity? = nil,
+		maxDosePerLifetime: Quantity? = nil,
+		maxDosePerPeriod: Ratio? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
+		route: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRInteger>? = nil,
+		site: CodeableConcept? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		timing: Timing? = nil
+	) {
 		self.init()
 		self.additionalInstruction = additionalInstruction
 		self.asNeeded = asNeeded
@@ -276,12 +276,12 @@ open class DosageDoseAndRate: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							dose: DoseX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							rate: RateX? = nil,
-							type: CodeableConcept? = nil)
-	{
+		dose: DoseX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		rate: RateX? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.dose = dose
 		self.`extension` = `extension`

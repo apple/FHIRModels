@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ImagingStudy)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -100,35 +100,35 @@ open class ImagingStudy: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							encounter: Reference? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							interpreter: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modality: [Coding]? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							numberOfSeries: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							procedureCode: [CodeableConcept]? = nil,
-							procedureReference: Reference? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							referrer: Reference? = nil,
-							series: [ImagingStudySeries]? = nil,
-							started: FHIRPrimitive<DateTime>? = nil,
-							status: FHIRPrimitive<ImagingStudyStatus>,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		interpreter: [Reference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modality: [Coding]? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		numberOfSeries: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		procedureCode: [CodeableConcept]? = nil,
+		procedureReference: Reference? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		referrer: Reference? = nil,
+		series: [ImagingStudySeries]? = nil,
+		started: FHIRPrimitive<DateTime>? = nil,
+		status: FHIRPrimitive<ImagingStudyStatus>,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.basedOn = basedOn
 		self.contained = contained
@@ -347,22 +347,22 @@ open class ImagingStudySeries: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							bodySite: Coding? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instance: [ImagingStudySeriesInstance]? = nil,
-							laterality: Coding? = nil,
-							modality: Coding,
-							modifierExtension: [Extension]? = nil,
-							number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							performer: [ImagingStudySeriesPerformer]? = nil,
-							specimen: [Reference]? = nil,
-							started: FHIRPrimitive<DateTime>? = nil,
-							uid: FHIRPrimitive<FHIRString>)
-	{
+		bodySite: Coding? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instance: [ImagingStudySeriesInstance]? = nil,
+		laterality: Coding? = nil,
+		modality: Coding,
+		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		performer: [ImagingStudySeriesPerformer]? = nil,
+		specimen: [Reference]? = nil,
+		started: FHIRPrimitive<DateTime>? = nil,
+		uid: FHIRPrimitive<FHIRString>
+	) {
 		self.init(modality: modality, uid: uid)
 		self.bodySite = bodySite
 		self.description_fhir = description_fhir
@@ -504,14 +504,14 @@ open class ImagingStudySeriesInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							sopClass: Coding,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							uid: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		sopClass: Coding,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		uid: FHIRPrimitive<FHIRString>
+	) {
 		self.init(sopClass: sopClass, uid: uid)
 		self.`extension` = `extension`
 		self.id = id
@@ -598,12 +598,12 @@ open class ImagingStudySeriesPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

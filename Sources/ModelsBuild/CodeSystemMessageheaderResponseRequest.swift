@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ import FMCore
 public enum MessageheaderResponseRequest: String, FHIRPrimitiveType {
 	
 	/// initiator expects a response for this message.
-	case always = "always"
+	case always
+	
+	/// initiator does not expect a response.
+	case never
 	
 	/// initiator expects a response only if in error.
 	case onError = "on-error"
-	
-	/// initiator does not expect a response.
-	case never = "never"
 	
 	/// initiator expects a response only if successful.
 	case onSuccess = "on-success"

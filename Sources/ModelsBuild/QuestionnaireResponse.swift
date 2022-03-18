@@ -2,8 +2,8 @@
 //  QuestionnaireResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ open class QuestionnaireResponse: DomainResource {
 	override open class var resourceType: ResourceType { return .questionnaireResponse }
 	
 	/// Unique id for this set of answers
-	public var identifier: Identifier?
+	public var identifier: [Identifier]?
 	
 	/// Request fulfilled by this QuestionnaireResponse
 	public var basedOn: [Reference]?
@@ -53,10 +53,10 @@ open class QuestionnaireResponse: DomainResource {
 	/// Date the answers were gathered
 	public var authored: FHIRPrimitive<DateTime>?
 	
-	/// Person who received and recorded the answers
+	/// The individual or device that received and recorded the answers
 	public var author: Reference?
 	
-	/// The person who answered the questions
+	/// The individual or device that answered the questions
 	public var source: Reference?
 	
 	/// Groups and questions
@@ -70,26 +70,26 @@ open class QuestionnaireResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							authored: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							partOf: [Reference]? = nil,
-							questionnaire: FHIRPrimitive<Canonical>? = nil,
-							source: Reference? = nil,
-							status: FHIRPrimitive<QuestionnaireResponseStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		authored: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		partOf: [Reference]? = nil,
+		questionnaire: FHIRPrimitive<Canonical>? = nil,
+		source: Reference? = nil,
+		status: FHIRPrimitive<QuestionnaireResponseStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(status: status)
 		self.author = author
 		self.authored = authored
@@ -136,7 +136,7 @@ open class QuestionnaireResponse: DomainResource {
 		self.authored = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authored, auxiliaryKey: ._authored)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.item = try [QuestionnaireResponseItem](from: _container, forKeyIfPresent: .item)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.questionnaire = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .questionnaire, auxiliaryKey: ._questionnaire)
@@ -222,7 +222,7 @@ open class QuestionnaireResponseItem: BackboneElement {
 	/// The response(s) to the question
 	public var answer: [QuestionnaireResponseItemAnswer]?
 	
-	/// Nested questionnaire response items
+	/// Child items of group item
 	public var item: [QuestionnaireResponseItem]?
 	
 	/// Designated initializer taking all required properties
@@ -233,15 +233,15 @@ open class QuestionnaireResponseItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answer: [QuestionnaireResponseItemAnswer]? = nil,
-							definition: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							linkId: FHIRPrimitive<FHIRString>,
-							modifierExtension: [Extension]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		answer: [QuestionnaireResponseItemAnswer]? = nil,
+		definition: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		linkId: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(linkId: linkId)
 		self.answer = answer
 		self.definition = definition
@@ -339,30 +339,30 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 	
 	/// Single-valued answer to the question
 	/// One of `value[x]`
-	public var value: ValueX?
+	public var value: ValueX
 	
-	/// Nested groups and questions
+	/// Child items of question
 	public var item: [QuestionnaireResponseItem]?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(value: ValueX) {
+		self.value = value
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX? = nil)
-	{
-		self.init()
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
+		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
 		self.item = item
 		self.modifierExtension = modifierExtension
-		self.value = value
 	}
 	
 	// MARK: - Codable
@@ -386,6 +386,11 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAttachment, CodingKeys.valueBoolean, CodingKeys.valueCoding, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueInteger, CodingKeys.valueQuantity, CodingKeys.valueReference, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueUri], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
 		
 		// Decode all our properties
 		self.item = try [QuestionnaireResponseItem](from: _container, forKeyIfPresent: .item)
@@ -462,7 +467,7 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 			}
 			_t_value = .reference(valueReference)
 		}
-		self.value = _t_value
+		self.value = _t_value!
 		try super.init(from: decoder)
 	}
 	
@@ -472,8 +477,8 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 		
 		// Encode all our properties
 		try item?.encode(on: &_container, forKey: .item)
-		if let _enum = value {
-			switch _enum {
+		
+			switch value {
 			case .boolean(let _value):
 				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
 			case .decimal(let _value):
@@ -499,7 +504,7 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .valueReference)
 			}
-		}
+		
 		try super.encode(to: encoder)
 	}
 	

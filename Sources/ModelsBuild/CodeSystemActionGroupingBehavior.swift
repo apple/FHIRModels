@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,9 +27,6 @@ import FMCore
  */
 public enum ActionGroupingBehavior: String, FHIRPrimitiveType {
 	
-	/// Any group marked with this behavior should be displayed as a visual group to the end user.
-	case visualGroup = "visual-group"
-	
 	/// A group with this behavior logically groups its sub-elements, and may be shown as a visual group to the end
 	/// user, but it is not required to do so.
 	case logicalGroup = "logical-group"
@@ -42,4 +39,7 @@ public enum ActionGroupingBehavior: String, FHIRPrimitiveType {
 	/// would almost always have an associated selection behavior of "AtMostOne", unless it's a required action, in
 	/// which case, it would be "ExactlyOne".
 	case sentenceGroup = "sentence-group"
+	
+	/// Any group marked with this behavior should be displayed as a visual group to the end user.
+	case visualGroup = "visual-group"
 }

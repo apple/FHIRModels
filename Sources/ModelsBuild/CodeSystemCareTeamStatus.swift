@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,20 +27,20 @@ import FMCore
  */
 public enum CareTeamStatus: String, FHIRPrimitiveType {
 	
-	/// The care team has been drafted and proposed, but not yet participating in the coordination and delivery of
-	/// patient care.
-	case proposed = "proposed"
-	
 	/// The care team is currently participating in the coordination and delivery of care.
-	case active = "active"
-	
-	/// The care team is temporarily on hold or suspended and not participating in the coordination and delivery of
-	/// care.
-	case suspended = "suspended"
-	
-	/// The care team was, but is no longer, participating in the coordination and delivery of care.
-	case inactive = "inactive"
+	case active
 	
 	/// The care team should have never existed.
 	case enteredInError = "entered-in-error"
+	
+	/// The care team was, but is no longer, participating in the coordination and delivery of care.
+	case inactive
+	
+	/// The care team has been drafted and proposed, but not yet participating in the coordination and delivery of
+	/// patient care.
+	case proposed
+	
+	/// The care team is temporarily on hold or suspended and not participating in the coordination and delivery of
+	/// care.
+	case suspended
 }

@@ -2,8 +2,8 @@
 //  Communication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Communication)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Communication)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,8 +48,8 @@ open class Communication: DomainResource {
 	/// Reply to
 	public var inResponseTo: [Reference]?
 	
-	/// The status of the transmission.
-	public var status: FHIRPrimitive<EventStatus>
+	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -57,9 +57,8 @@ open class Communication: DomainResource {
 	/// Message category
 	public var category: [CodeableConcept]?
 	
-	/// Characterizes how quickly the planned or in progress communication must be addressed. Includes concepts such as
-	/// stat, urgent, routine.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// A channel of communication
 	public var medium: [CodeableConcept]?
@@ -98,44 +97,44 @@ open class Communication: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<EventStatus>) {
+	public init(status: FHIRPrimitive<FHIRString>) {
 		self.status = status
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							about: [Reference]? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							inResponseTo: [Reference]? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medium: [CodeableConcept]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							payload: [CommunicationPayload]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reason: [CodeableReference]? = nil,
-							received: FHIRPrimitive<DateTime>? = nil,
-							recipient: [Reference]? = nil,
-							sender: Reference? = nil,
-							sent: FHIRPrimitive<DateTime>? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							topic: CodeableConcept? = nil)
-	{
+		about: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		inResponseTo: [Reference]? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medium: [CodeableConcept]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		payload: [CommunicationPayload]? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		reason: [CodeableReference]? = nil,
+		received: FHIRPrimitive<DateTime>? = nil,
+		recipient: [Reference]? = nil,
+		sender: Reference? = nil,
+		sent: FHIRPrimitive<DateTime>? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		topic: CodeableConcept? = nil
+	) {
 		self.init(status: status)
 		self.about = about
 		self.basedOn = basedOn
@@ -212,13 +211,13 @@ open class Communication: DomainResource {
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.payload = try [CommunicationPayload](from: _container, forKeyIfPresent: .payload)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.received = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .received, auxiliaryKey: ._received)
 		self.recipient = try [Reference](from: _container, forKeyIfPresent: .recipient)
 		self.sender = try Reference(from: _container, forKeyIfPresent: .sender)
 		self.sent = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .sent, auxiliaryKey: ._sent)
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.topic = try CodeableConcept(from: _container, forKeyIfPresent: .topic)
@@ -341,11 +340,11 @@ open class CommunicationPayload: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id

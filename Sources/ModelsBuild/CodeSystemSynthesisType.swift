@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,26 +27,26 @@ import FMCore
  */
 public enum SynthesisType: String, FHIRPrimitiveType {
 	
-	/// A meta-analysis of the summary data of estimates from individual studies or data sets.
-	case stdMA = "std-MA"
-	
 	/// A meta-analysis of the individual participant data from individual studies or data sets.
 	case IPDMA = "IPD-MA"
 	
-	/// An indirect meta-analysis derived from 2 or more direct comparisons in a network meta-analysis.
-	case indirectNMA = "indirect-NMA"
+	/// An approach describing a body of evidence by categorically classifying individual studies (eg 3 studies showed
+	/// beneft and 2 studied found no effect).
+	case classification
 	
 	/// An composite meta-analysis derived from direct comparisons and indirect comparisons in a network meta-analysis.
 	case combinedNMA = "combined-NMA"
 	
-	/// A range of results across a body of evidence.
-	case range = "range"
-	
-	/// An approach describing a body of evidence by categorically classifying individual studies (eg 3 studies showed
-	/// beneft and 2 studied found no effect).
-	case classification = "classification"
+	/// An indirect meta-analysis derived from 2 or more direct comparisons in a network meta-analysis.
+	case indirectNMA = "indirect-NMA"
 	
 	/// Not applicable because the evidence is not from a synthesis but from a single study. Used fo explicitly state
 	/// that it's not a synthesis.
 	case notApplicable = "NotApplicable"
+	
+	/// A range of results across a body of evidence.
+	case range
+	
+	/// A meta-analysis of the summary data of estimates from individual studies or data sets.
+	case stdMA = "std-MA"
 }

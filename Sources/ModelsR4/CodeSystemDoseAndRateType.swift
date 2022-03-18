@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum DoseAndRateType: String, FHIRPrimitiveType {
 	
 	/// The dose specified is calculated by the prescriber or the system.
-	case calculated = "calculated"
+	case calculated
 	
 	/// The dose specified is as ordered by the prescriber.
-	case ordered = "ordered"
+	case ordered
 }

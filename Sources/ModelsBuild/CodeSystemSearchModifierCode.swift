@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,48 +27,48 @@ import FMCore
  */
 public enum SearchModifierCode: String, FHIRPrimitiveType {
 	
-	/// The search parameter returns resources that have a value or not.
-	case missing = "missing"
+	/// The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests
+	/// whether the coding is in the specified value set.
+	case `in`
 	
-	/// The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole
-	/// string, including casing and accents).
-	case exact = "exact"
+	/// The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical
+	/// relationships).
+	case above
+	
+	/// The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or
+	/// hierarchical relationships).
+	case below
 	
 	/// The search parameter returns resources that include the supplied parameter value anywhere within the field being
 	/// searched.
-	case contains = "contains"
+	case contains
+	
+	/// The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole
+	/// string, including casing and accents).
+	case exact
+	
+	/// The search parameter applies to the identifier on the resource, not the reference.
+	case identifier
+	
+	/// The search parameter returns resources that have a value or not.
+	case missing
 	
 	/// The search parameter returns resources that do not contain a match.
-	case not = "not"
-	
-	/// The search parameter is processed as a string that searches text associated with the code/value - either
-	/// CodeableConcept.text, Coding.display, or Identifier.type.text.
-	case text = "text"
-	
-	/// The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests
-	/// whether the coding is in the specified value set.
-	case `in` = "in"
+	case not
 	
 	/// The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests
 	/// whether the coding is not in the specified value set.
 	case notIn = "not-in"
 	
-	/// The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or
-	/// hierarchical relationships).
-	case below = "below"
+	/// The search parameter has the format system|code|value, where the system and code refer to an
+	/// Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.
+	case ofType
 	
-	/// The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical
-	/// relationships).
-	case above = "above"
+	/// The search parameter is processed as a string that searches text associated with the code/value - either
+	/// CodeableConcept.text, Coding.display, or Identifier.type.text.
+	case text
 	
 	/// The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not
 	/// actually :type, but :Patient etc.).
-	case type = "type"
-	
-	/// The search parameter applies to the identifier on the resource, not the reference.
-	case identifier = "identifier"
-	
-	/// The search parameter has the format system|code|value, where the system and code refer to an
-	/// Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.
-	case ofType = "ofType"
+	case type
 }

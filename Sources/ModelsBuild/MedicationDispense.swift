@@ -2,8 +2,8 @@
 //  MedicationDispense.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -43,7 +43,10 @@ open class MedicationDispense: DomainResource {
 	public var status: FHIRPrimitive<MedicationDispenseStatusCodes>
 	
 	/// Why a dispense was not performed
-	public var statusReason: CodeableReference?
+	public var notPerformedReason: CodeableReference?
+	
+	/// When the status changed
+	public var statusChanged: FHIRPrimitive<DateTime>?
 	
 	/// Type of medication dispense
 	public var category: [CodeableConcept]?
@@ -78,6 +81,9 @@ open class MedicationDispense: DomainResource {
 	/// Amount of medication expressed as a timing amount
 	public var daysSupply: Quantity?
 	
+	/// When the recording of the dispense started
+	public var recorded: FHIRPrimitive<DateTime>?
+	
 	/// When product was packaged and reviewed
 	public var whenPrepared: FHIRPrimitive<DateTime>?
 	
@@ -102,9 +108,6 @@ open class MedicationDispense: DomainResource {
 	/// Whether a substitution was performed on the dispense
 	public var substitution: MedicationDispenseSubstitution?
 	
-	/// Clinical issue with action
-	public var detectedIssue: [Reference]?
-	
 	/// A list of relevant lifecycle events
 	public var eventHistory: [Reference]?
 	
@@ -118,41 +121,42 @@ open class MedicationDispense: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authorizingPrescription: [Reference]? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							daysSupply: Quantity? = nil,
-							destination: Reference? = nil,
-							detectedIssue: [Reference]? = nil,
-							dosageInstruction: [Dosage]? = nil,
-							encounter: Reference? = nil,
-							eventHistory: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							medication: CodeableReference,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							performer: [MedicationDispensePerformer]? = nil,
-							quantity: Quantity? = nil,
-							receiver: [Reference]? = nil,
-							renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<MedicationDispenseStatusCodes>,
-							statusReason: CodeableReference? = nil,
-							subject: Reference,
-							substitution: MedicationDispenseSubstitution? = nil,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							whenHandedOver: FHIRPrimitive<DateTime>? = nil,
-							whenPrepared: FHIRPrimitive<DateTime>? = nil)
-	{
+		authorizingPrescription: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		daysSupply: Quantity? = nil,
+		destination: Reference? = nil,
+		dosageInstruction: [Dosage]? = nil,
+		encounter: Reference? = nil,
+		eventHistory: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		medication: CodeableReference,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		notPerformedReason: CodeableReference? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		performer: [MedicationDispensePerformer]? = nil,
+		quantity: Quantity? = nil,
+		receiver: [Reference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<MedicationDispenseStatusCodes>,
+		statusChanged: FHIRPrimitive<DateTime>? = nil,
+		subject: Reference,
+		substitution: MedicationDispenseSubstitution? = nil,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		whenHandedOver: FHIRPrimitive<DateTime>? = nil,
+		whenPrepared: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init(medication: medication, status: status, subject: subject)
 		self.authorizingPrescription = authorizingPrescription
 		self.basedOn = basedOn
@@ -160,7 +164,6 @@ open class MedicationDispense: DomainResource {
 		self.contained = contained
 		self.daysSupply = daysSupply
 		self.destination = destination
-		self.detectedIssue = detectedIssue
 		self.dosageInstruction = dosageInstruction
 		self.encounter = encounter
 		self.eventHistory = eventHistory
@@ -172,13 +175,15 @@ open class MedicationDispense: DomainResource {
 		self.location = location
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.notPerformedReason = notPerformedReason
 		self.note = note
 		self.partOf = partOf
 		self.performer = performer
 		self.quantity = quantity
 		self.receiver = receiver
+		self.recorded = recorded
 		self.renderedDosageInstruction = renderedDosageInstruction
-		self.statusReason = statusReason
+		self.statusChanged = statusChanged
 		self.substitution = substitution
 		self.supportingInformation = supportingInformation
 		self.text = text
@@ -195,21 +200,22 @@ open class MedicationDispense: DomainResource {
 		case category
 		case daysSupply
 		case destination
-		case detectedIssue
 		case dosageInstruction
 		case encounter
 		case eventHistory
 		case identifier
 		case location
 		case medication
+		case notPerformedReason
 		case note
 		case partOf
 		case performer
 		case quantity
 		case receiver
+		case recorded; case _recorded
 		case renderedDosageInstruction; case _renderedDosageInstruction
 		case status; case _status
-		case statusReason
+		case statusChanged; case _statusChanged
 		case subject
 		case substitution
 		case supportingInformation
@@ -228,21 +234,22 @@ open class MedicationDispense: DomainResource {
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.daysSupply = try Quantity(from: _container, forKeyIfPresent: .daysSupply)
 		self.destination = try Reference(from: _container, forKeyIfPresent: .destination)
-		self.detectedIssue = try [Reference](from: _container, forKeyIfPresent: .detectedIssue)
 		self.dosageInstruction = try [Dosage](from: _container, forKeyIfPresent: .dosageInstruction)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.eventHistory = try [Reference](from: _container, forKeyIfPresent: .eventHistory)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.medication = try CodeableReference(from: _container, forKey: .medication)
+		self.notPerformedReason = try CodeableReference(from: _container, forKeyIfPresent: .notPerformedReason)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.performer = try [MedicationDispensePerformer](from: _container, forKeyIfPresent: .performer)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.receiver = try [Reference](from: _container, forKeyIfPresent: .receiver)
+		self.recorded = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .recorded, auxiliaryKey: ._recorded)
 		self.renderedDosageInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		self.status = try FHIRPrimitive<MedicationDispenseStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.statusReason = try CodeableReference(from: _container, forKeyIfPresent: .statusReason)
+		self.statusChanged = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .statusChanged, auxiliaryKey: ._statusChanged)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.substitution = try MedicationDispenseSubstitution(from: _container, forKeyIfPresent: .substitution)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
@@ -262,21 +269,22 @@ open class MedicationDispense: DomainResource {
 		try category?.encode(on: &_container, forKey: .category)
 		try daysSupply?.encode(on: &_container, forKey: .daysSupply)
 		try destination?.encode(on: &_container, forKey: .destination)
-		try detectedIssue?.encode(on: &_container, forKey: .detectedIssue)
 		try dosageInstruction?.encode(on: &_container, forKey: .dosageInstruction)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try eventHistory?.encode(on: &_container, forKey: .eventHistory)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try location?.encode(on: &_container, forKey: .location)
 		try medication.encode(on: &_container, forKey: .medication)
+		try notPerformedReason?.encode(on: &_container, forKey: .notPerformedReason)
 		try note?.encode(on: &_container, forKey: .note)
 		try partOf?.encode(on: &_container, forKey: .partOf)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try quantity?.encode(on: &_container, forKey: .quantity)
 		try receiver?.encode(on: &_container, forKey: .receiver)
+		try recorded?.encode(on: &_container, forKey: .recorded, auxiliaryKey: ._recorded)
 		try renderedDosageInstruction?.encode(on: &_container, forKey: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try statusReason?.encode(on: &_container, forKey: .statusReason)
+		try statusChanged?.encode(on: &_container, forKey: .statusChanged, auxiliaryKey: ._statusChanged)
 		try subject.encode(on: &_container, forKey: .subject)
 		try substitution?.encode(on: &_container, forKey: .substitution)
 		try supportingInformation?.encode(on: &_container, forKey: .supportingInformation)
@@ -300,21 +308,22 @@ open class MedicationDispense: DomainResource {
 		    && category == _other.category
 		    && daysSupply == _other.daysSupply
 		    && destination == _other.destination
-		    && detectedIssue == _other.detectedIssue
 		    && dosageInstruction == _other.dosageInstruction
 		    && encounter == _other.encounter
 		    && eventHistory == _other.eventHistory
 		    && identifier == _other.identifier
 		    && location == _other.location
 		    && medication == _other.medication
+		    && notPerformedReason == _other.notPerformedReason
 		    && note == _other.note
 		    && partOf == _other.partOf
 		    && performer == _other.performer
 		    && quantity == _other.quantity
 		    && receiver == _other.receiver
+		    && recorded == _other.recorded
 		    && renderedDosageInstruction == _other.renderedDosageInstruction
 		    && status == _other.status
-		    && statusReason == _other.statusReason
+		    && statusChanged == _other.statusChanged
 		    && subject == _other.subject
 		    && substitution == _other.substitution
 		    && supportingInformation == _other.supportingInformation
@@ -330,21 +339,22 @@ open class MedicationDispense: DomainResource {
 		hasher.combine(category)
 		hasher.combine(daysSupply)
 		hasher.combine(destination)
-		hasher.combine(detectedIssue)
 		hasher.combine(dosageInstruction)
 		hasher.combine(encounter)
 		hasher.combine(eventHistory)
 		hasher.combine(identifier)
 		hasher.combine(location)
 		hasher.combine(medication)
+		hasher.combine(notPerformedReason)
 		hasher.combine(note)
 		hasher.combine(partOf)
 		hasher.combine(performer)
 		hasher.combine(quantity)
 		hasher.combine(receiver)
+		hasher.combine(recorded)
 		hasher.combine(renderedDosageInstruction)
 		hasher.combine(status)
-		hasher.combine(statusReason)
+		hasher.combine(statusChanged)
 		hasher.combine(subject)
 		hasher.combine(substitution)
 		hasher.combine(supportingInformation)
@@ -375,12 +385,12 @@ open class MedicationDispensePerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function
@@ -464,14 +474,14 @@ open class MedicationDispenseSubstitution: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: [CodeableConcept]? = nil,
-							responsibleParty: Reference? = nil,
-							type: CodeableConcept? = nil,
-							wasSubstituted: FHIRPrimitive<FHIRBool>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: [CodeableConcept]? = nil,
+		responsibleParty: Reference? = nil,
+		type: CodeableConcept? = nil,
+		wasSubstituted: FHIRPrimitive<FHIRBool>
+	) {
 		self.init(wasSubstituted: wasSubstituted)
 		self.`extension` = `extension`
 		self.id = id

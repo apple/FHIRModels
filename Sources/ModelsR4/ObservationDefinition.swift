@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ObservationDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -77,28 +77,28 @@ open class ObservationDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							abnormalCodedValueSet: Reference? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							contained: [ResourceProxy]? = nil,
-							criticalCodedValueSet: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							multipleResultsAllowed: FHIRPrimitive<FHIRBool>? = nil,
-							normalCodedValueSet: Reference? = nil,
-							permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
-							preferredReportName: FHIRPrimitive<FHIRString>? = nil,
-							qualifiedInterval: [ObservationDefinitionQualifiedInterval]? = nil,
-							quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil,
-							text: Narrative? = nil,
-							validCodedValueSet: Reference? = nil)
-	{
+		abnormalCodedValueSet: Reference? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		contained: [ResourceProxy]? = nil,
+		criticalCodedValueSet: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		multipleResultsAllowed: FHIRPrimitive<FHIRBool>? = nil,
+		normalCodedValueSet: Reference? = nil,
+		permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
+		preferredReportName: FHIRPrimitive<FHIRString>? = nil,
+		qualifiedInterval: [ObservationDefinitionQualifiedInterval]? = nil,
+		quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil,
+		text: Narrative? = nil,
+		validCodedValueSet: Reference? = nil
+	) {
 		self.init(code: code)
 		self.abnormalCodedValueSet = abnormalCodedValueSet
 		self.category = category
@@ -264,18 +264,18 @@ open class ObservationDefinitionQualifiedInterval: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							age: Range? = nil,
-							appliesTo: [CodeableConcept]? = nil,
-							category: FHIRPrimitive<ObservationRangeCategory>? = nil,
-							condition: FHIRPrimitive<FHIRString>? = nil,
-							context: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							gestationalAge: Range? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							range: Range? = nil)
-	{
+		age: Range? = nil,
+		appliesTo: [CodeableConcept]? = nil,
+		category: FHIRPrimitive<ObservationRangeCategory>? = nil,
+		condition: FHIRPrimitive<FHIRString>? = nil,
+		context: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		gestationalAge: Range? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		range: Range? = nil
+	) {
 		self.init()
 		self.age = age
 		self.appliesTo = appliesTo
@@ -393,14 +393,14 @@ open class ObservationDefinitionQuantitativeDetails: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							conversionFactor: FHIRPrimitive<FHIRDecimal>? = nil,
-							customaryUnit: CodeableConcept? = nil,
-							decimalPrecision: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							unit: CodeableConcept? = nil)
-	{
+		conversionFactor: FHIRPrimitive<FHIRDecimal>? = nil,
+		customaryUnit: CodeableConcept? = nil,
+		decimalPrecision: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		unit: CodeableConcept? = nil
+	) {
 		self.init()
 		self.conversionFactor = conversionFactor
 		self.customaryUnit = customaryUnit

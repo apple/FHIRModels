@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,24 +27,24 @@ import FMCore
  */
 public enum StudyType: String, FHIRPrimitiveType {
 	
-	/// randomized controlled trial.
-	case RCT = "RCT"
-	
 	/// controlled (but not randomized) trial.
-	case CCT = "CCT"
+	case CCT
 	
-	/// observational study comparing cohorts.
-	case cohort = "cohort"
+	/// randomized controlled trial.
+	case RCT
 	
 	/// case-control study.
 	case caseControl = "case-control"
 	
-	/// uncontrolled cohort or case series.
-	case series = "series"
-	
 	/// a single case report.
 	case caseReport = "case-report"
 	
+	/// observational study comparing cohorts.
+	case cohort
+	
 	/// a combination of 1 or more types of studies.
-	case mixed = "mixed"
+	case mixed
+	
+	/// uncontrolled cohort or case series.
+	case series
 }

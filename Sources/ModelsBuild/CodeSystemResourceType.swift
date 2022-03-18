@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,7 +34,8 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// practitioner, or other performance context.
 	case activityDefinition = "ActivityDefinition"
 	
-	/// A pharmaceutical product described in terms of its composition and dose form.
+	/// A medicinal product in the final form which is suitable for administering to a patient (after any mixing of
+	/// multiple components, dissolution etc. has been performed).
 	case administrableProductDefinition = "AdministrableProductDefinition"
 	
 	/// An event (i.e. any change to current patient status) that may be related to unintended effects on a patient or
@@ -54,6 +55,10 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// A reply to an appointment request for a patient and/or practitioner(s), such as a confirmation or rejection.
 	case appointmentResponse = "AppointmentResponse"
 	
+	/// This Resource provides one or more comments, classifiers or ratings about a Resource and supports attribution
+	/// and rights management metadata for the added content.
+	case artifactAssessment = "ArtifactAssessment"
+	
 	/// A record of an event relevant for purposes such as operations, privacy, security, maintenance, and performance
 	/// analysis.
 	case auditEvent = "AuditEvent"
@@ -66,8 +71,8 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// A Binary resource can contain any content, whether text, image, pdf, zip archive, etc.
 	case binary = "Binary"
 	
-	/// A material substance originating from a biological entity intended to be transplanted or infused
-	/// into another (possibly the same) biological entity.
+	/// A biological material originating from a biological entity intended to be transplanted or infused into another
+	/// (possibly the same) biological entity.
 	case biologicallyDerivedProduct = "BiologicallyDerivedProduct"
 	
 	/// Record details about an anatomical structure.  This resource may be used when a coded concept does not provide
@@ -95,9 +100,6 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// of care.
 	case careTeam = "CareTeam"
 	
-	/// Catalog entries are wrappers that contextualize items included in a catalog.
-	case catalogEntry = "CatalogEntry"
-	
 	/// The resource ChargeItem describes the provision of healthcare provider products for a certain patient, therefore
 	/// referring not only to the product, but containing in addition details of the provision, like date, time, amounts
 	/// and participating organizations and persons. Main Usage of the ChargeItem is to enable the billing process and
@@ -109,7 +111,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// resource gives only a rough structure and requires profiling for each type of billing code system.
 	case chargeItemDefinition = "ChargeItemDefinition"
 	
-	/// The Citation.
+	/// The Citation Resource enables reference to any knowledge artifact for purposes of identification and
+	/// attribution. The Citation Resource supports existing reference structures and developing publication practices
+	/// such as versioning, expressing complex contributorship roles, and referencing computable resources.
 	case citation = "Citation"
 	
 	/// A provider issued list of professional services and products which have been provided, or are to be provided, to
@@ -126,9 +130,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// recording of assessment tools such as Apgar score.
 	case clinicalImpression = "ClinicalImpression"
 	
-	/// A single usage issue - either an indication, contraindication, interaction or an undesirable effect for a
-	/// medicinal product, medication, device or procedure.
-	case clinicalUseIssue = "ClinicalUseIssue"
+	/// A single issue - either an indication, contraindication, interaction or an undesirable effect for a medicinal
+	/// product, medication, device or procedure.
+	case clinicalUseDefinition = "ClinicalUseDefinition"
 	
 	/// The CodeSystem resource is used to declare the existence of and describe a code system or code system supplement
 	/// and its key properties, and optionally define a part or all of its content.
@@ -157,6 +161,10 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// A statement of relationships from one set of concepts to one or more other concepts - either concepts in code
 	/// systems, or data element/data element concepts, or classes in class models.
 	case conceptMap = "ConceptMap"
+	
+	/// A statement of relationships from one set of concepts to one or more other concepts - either concepts in code
+	/// systems, or data element/data element concepts, or classes in class models.
+	case conceptMap2 = "ConceptMap2"
 	
 	/// A clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen
 	/// to a level of concern.
@@ -190,28 +198,37 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// for a patient; e.g. Drug-drug interaction, Ineffective treatment frequency, Procedure-condition conflict, etc.
 	case detectedIssue = "DetectedIssue"
 	
-	/// A type of a manufactured item that is used in the provision of healthcare without being substantially changed
-	/// through that activity. The device may be a medical or non-medical device.
+	/// This resource describes the properties (regulated, has real time clock, etc.), adminstrative (manufacturer name,
+	/// model number, serial number, firmware, etc), and type (knee replacement, blood pressure cuff, MRI, etc.) of a
+	/// physical unit (these values do not change much within a given module, for example the serail number,
+	/// manufacturer name, and model number). An actual unit may consist of several modules in a distinct hierarchy and
+	/// these are represented by multiple Device resources and bound through the 'parent' element.
 	case device = "Device"
 	
-	/// The characteristics, operational status and capabilities of a medical-related component of a medical device.
+	/// This is a specialized resource that defines the characteristics and capabilities of a device.
 	case deviceDefinition = "DeviceDefinition"
+	
+	/// Indicates that a device is to be or has been dispensed for a named person/patient.  This includes a description
+	/// of the product (supply) provided and the instructions for using the device.
+	case deviceDispense = "DeviceDispense"
 	
 	/// Describes a measurement, calculation or setting capability of a medical device.
 	case deviceMetric = "DeviceMetric"
 	
-	/// Represents a request for a patient to employ a medical device. The device may be an implantable device, or an
-	/// external assistive device, such as a walker.
+	/// Represents a request a device to be provided to a specific patient. The device may be an implantable device to
+	/// be subsequently implanted, or an external assistive device, such as a walker, to be delivered and subsequently
+	/// be used.
 	case deviceRequest = "DeviceRequest"
 	
 	/// A record of a device being used by a patient where the record is the result of a report from the patient or a
 	/// clinician.
-	case deviceUseStatement = "DeviceUseStatement"
+	case deviceUsage = "DeviceUsage"
 	
-	/// The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and
-	/// locations, and/or specimens derived from these. The report includes clinical context such as requesting and
-	/// provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted
-	/// representation of diagnostic reports.
+	/// The findings and interpretation of diagnostic tests performed on patients, groups of patients, products,
+	/// substances, devices, and locations, and/or specimens derived from these. The report includes clinical context
+	/// such as requesting provider information, and some mix of atomic results, images, textual and coded
+	/// interpretations, and formatted representation of diagnostic reports. The report also includes non-clinical
+	/// context such as batch analysis and stability reporting of products and substances.
 	case diagnosticReport = "DiagnosticReport"
 	
 	/// A collection of documents compiled for a purpose together with metadata that applies to the collection.
@@ -225,7 +242,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// be inline base64 encoded data or provided by direct reference.
 	case documentReference = "DocumentReference"
 	
-	/// A resource that includes narrative, extensions, and contained resources.
+	/// --- Abstract Type! ---A resource that includes narrative, extensions, and contained resources.
 	case domainResource = "DomainResource"
 	
 	/// An interaction between a patient and healthcare provider(s) for the purpose of providing healthcare service(s)
@@ -233,7 +250,8 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	case encounter = "Encounter"
 	
 	/// The technical details of an endpoint that can be used for electronic services, such as for web services
-	/// providing XDS.b or a REST endpoint for another FHIR server. This may include any security context information.
+	/// providing XDS.b, a REST endpoint for another FHIR server, or a s/Mime email address. This may include any
+	/// security context information.
 	case endpoint = "Endpoint"
 	
 	/// This resource provides the insurance enrollment details to the insurer regarding a specified coverage.
@@ -249,10 +267,13 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// The EventDefinition resource provides a reusable description of when a particular event can occur.
 	case eventDefinition = "EventDefinition"
 	
-	/// This represents statistics, certainty, both the intended and actual population, and evidence variables.
+	/// The Evidence Resource provides a machine-interpretable expression of an evidence concept including the evidence
+	/// variables (e.g., population, exposures/interventions, comparators, outcomes, measured variables, confounding
+	/// variables), the statistics, and the certainty of this evidence.
 	case evidence = "Evidence"
 	
-	/// The EvidenceReport.
+	/// The EvidenceReport Resource is a specialized container for a collection of resources and codeable concepts,
+	/// adapted to support compositions of Evidence, EvidenceVariable, and Citation resources and related concepts.
 	case evidenceReport = "EvidenceReport"
 	
 	/// The EvidenceVariable resource describes an element that knowledge (Evidence) is about.
@@ -293,6 +314,11 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// The details of a healthcare service available at a location.
 	case healthcareService = "HealthcareService"
 	
+	/// A selection of DICOM SOP instances and/or frames within a single Study and Series. This might include additional
+	/// specifics such as an image region, an Observation UID or a Segmentation Number, allowing linkage to an
+	/// Observation Resource or transferring this information along with the ImagingStudy Resource.
+	case imagingSelection = "ImagingSelection"
+	
 	/// Representation of the content produced in a DICOM imaging study. A study comprises a set of series, each of
 	/// which includes a set of Service-Object Pair Instances (SOP Instances - images or other data) acquired or
 	/// produced in a common context.  A series is of only one modality (e.g. X-ray, CT, MR, ultrasound), but a study
@@ -321,6 +347,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	
 	/// Details of a Health Insurance product/plan provided by an organization.
 	case insurancePlan = "InsurancePlan"
+	
+	/// A report of inventory or stock items.
+	case inventoryReport = "InventoryReport"
 	
 	/// Invoice containing collected ChargeItems from an Account with calculated individual and total price for Billing
 	/// purpose.
@@ -395,7 +424,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	case medicationUsage = "MedicationUsage"
 	
 	/// Detailed definition of a medicinal product, typically for uses other than direct patient care (e.g. regulatory
-	/// use).
+	/// use, drug catalogs, to support prescribing, adverse events management etc.).
 	case medicinalProductDefinition = "MedicinalProductDefinition"
 	
 	/// Defines the characteristics of a message that can be shared between systems, including the type of event that
@@ -447,7 +476,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// healthcare practice groups, payer/insurer, etc.
 	case organization = "Organization"
 	
-	/// Defines an affiliation/assotiation/relationship between 2 distinct oganizations, that is not a part-of
+	/// Defines an affiliation/assotiation/relationship between 2 distinct organizations, that is not a part-of
 	/// relationship/sub-division relationship.
 	case organizationAffiliation = "OrganizationAffiliation"
 	
@@ -476,8 +505,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	case person = "Person"
 	
 	/// This resource allows for the definition of various types of plans as a sharable, consumable, and executable
-	/// artifact. The resource is general enough to support the description of a broad range of clinical artifacts such
-	/// as clinical decision support rules, order sets and protocols.
+	/// artifact. The resource is general enough to support the description of a broad range of clinical and non-
+	/// clinical artifacts such as clinical decision support rules, order sets, protocols, and drug quality
+	/// specifications.
 	case planDefinition = "PlanDefinition"
 	
 	/// A person who is directly or indirectly involved in the provisioning of healthcare.
@@ -487,8 +517,10 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// period of time.
 	case practitionerRole = "PractitionerRole"
 	
-	/// An action that is or was performed on or for a patient. This can be a physical intervention like an operation,
-	/// or less invasive like long term services, counseling, or hypnotherapy.
+	/// An action that is or was performed on or for a patient, practitioner, device, organization, or location. For
+	/// example, this can be a physical intervention on a patient like an operation, or less invasive like long term
+	/// services, counseling, or hypnotherapy.  This can be a quality or safety inspection for a location, organization,
+	/// or device.  This can be an accreditation procedure on a practitioner for licensing.
 	case procedure = "Procedure"
 	
 	/// Provenance of a resource is a record that describes entities and processes involved in producing and delivering
@@ -509,11 +541,13 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// corresponding to the structure of the grouping of the questionnaire being responded to.
 	case questionnaireResponse = "QuestionnaireResponse"
 	
-	/// The regulatory authorization of a medicinal product, device or process.
+	/// Regulatory approval, clearance or licencing related to a regulated product, treatment, facility or activity that
+	/// is cited in a guidance, regulation, rule or legislative act. An example is Market Authorization relating to a
+	/// Medicinal Product.
 	case regulatedAuthorization = "RegulatedAuthorization"
 	
-	/// Information about a person that is involved in the care for a patient, but who is not the target of healthcare,
-	/// nor has a formal responsibility in the care process.
+	/// Information about a person that is involved in a patient's health or the care for a patient, but who is not the
+	/// target of healthcare, nor has a formal responsibility in the care process.
 	case relatedPerson = "RelatedPerson"
 	
 	/// A group of related requests that can be used to capture intended activities that have inter-dependencies such as
@@ -529,7 +563,7 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// A physical entity which is the primary unit of operational and/or administrative interest in a study.
 	case researchSubject = "ResearchSubject"
 	
-	/// This is the base resource type for everything.
+	/// --- Abstract Type! ---This is the base resource type for everything.
 	case resource = "Resource"
 	
 	/// An assessment of the likely outcome(s) for a patient or other subject as well as the likelihood of each outcome.
@@ -609,7 +643,8 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// Record of delivery of what is supplied.
 	case supplyDelivery = "SupplyDelivery"
 	
-	/// A record of a request for a medication, substance or device used in the healthcare setting.
+	/// A record of a non-patient specific request for a medication, substance, device, certain types of biologically
+	/// derived product, and nutrition product used in the healthcare setting.
 	case supplyRequest = "SupplyRequest"
 	
 	/// A task to be performed.
@@ -626,6 +661,9 @@ public enum ResourceType: String, FHIRPrimitiveType {
 	/// A structured set of tests against a FHIR server or client implementation to determine compliance against the
 	/// FHIR specification.
 	case testScript = "TestScript"
+	
+	/// Record of transport.
+	case transport = "Transport"
 	
 	/// A ValueSet resource instance specifies a set of codes drawn from one or more code systems, intended for use in a
 	/// particular context. Value sets link between [[[CodeSystem]]] definitions and their use in [coded

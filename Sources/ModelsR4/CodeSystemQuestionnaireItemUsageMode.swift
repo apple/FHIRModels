@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,10 +31,10 @@ public enum QuestionnaireItemUsageMode: String, FHIRPrimitiveType {
 	case captureDisplay = "capture-display"
 	
 	/// Render the item only when capturing data.
-	case capture = "capture"
+	case capture
 	
 	/// Render the item only when displaying a completed form.
-	case display = "display"
+	case display
 	
 	/// Render the item only when displaying a completed form and the item has been answered (or has child items that
 	/// have been answered).

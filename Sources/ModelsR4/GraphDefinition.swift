@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/GraphDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -84,30 +84,30 @@ open class GraphDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							link: [GraphDefinitionLink]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							start: FHIRPrimitive<ResourceType>,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		link: [GraphDefinitionLink]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		start: FHIRPrimitive<ResourceType>,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name, start: start, status: status)
 		self.contact = contact
 		self.contained = contained
@@ -273,16 +273,16 @@ open class GraphDefinitionLink: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							path: FHIRPrimitive<FHIRString>? = nil,
-							sliceName: FHIRPrimitive<FHIRString>? = nil,
-							target: [GraphDefinitionLinkTarget]? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		sliceName: FHIRPrimitive<FHIRString>? = nil,
+		target: [GraphDefinitionLinkTarget]? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -390,15 +390,15 @@ open class GraphDefinitionLinkTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							compartment: [GraphDefinitionLinkTargetCompartment]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: [GraphDefinitionLink]? = nil,
-							modifierExtension: [Extension]? = nil,
-							params: FHIRPrimitive<FHIRString>? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							type: FHIRPrimitive<ResourceType>)
-	{
+		compartment: [GraphDefinitionLinkTargetCompartment]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: [GraphDefinitionLink]? = nil,
+		modifierExtension: [Extension]? = nil,
+		params: FHIRPrimitive<FHIRString>? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		type: FHIRPrimitive<ResourceType>
+	) {
 		self.init(type: type)
 		self.compartment = compartment
 		self.`extension` = `extension`
@@ -502,15 +502,15 @@ open class GraphDefinitionLinkTargetCompartment: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<CompartmentType>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							rule: FHIRPrimitive<GraphCompartmentRule>,
-							use: FHIRPrimitive<GraphCompartmentUse>)
-	{
+		code: FHIRPrimitive<CompartmentType>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		rule: FHIRPrimitive<GraphCompartmentRule>,
+		use: FHIRPrimitive<GraphCompartmentUse>
+	) {
 		self.init(code: code, rule: rule, use: use)
 		self.description_fhir = description_fhir
 		self.expression = expression

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ContactDetail)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,11 +39,11 @@ open class ContactDetail: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							telecom: [ContactPoint]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		telecom: [ContactPoint]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

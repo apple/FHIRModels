@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,14 +34,14 @@ public enum DefinitionUseCodes: String, FHIRPrimitiveType {
 	case customResource = "custom-resource"
 	
 	/// This structure captures an analysis of a domain
-	case dam = "dam"
+	case dam
 	
 	/// This structure represents and existing structure (e.g. CDA, HL7 v2)
 	case wireFormat = "wire-format"
 	
 	/// This structure captures an analysis of a domain
-	case archetype = "archetype"
+	case archetype
 	
 	/// This structure is a template (n.b: 'template' has many meanings)
-	case template = "template"
+	case template
 }

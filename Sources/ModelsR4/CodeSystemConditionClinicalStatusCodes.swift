@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,26 +28,26 @@ import FMCore
 public enum ConditionClinicalStatusCodes: String, FHIRPrimitiveType {
 	
 	/// The subject is currently experiencing the symptoms of the condition or there is evidence of the condition.
-	case active = "active"
+	case active
 	
 	/// The subject is experiencing a re-occurence or repeating of a previously resolved condition, e.g. urinary tract
 	/// infection, pancreatitis, cholangitis, conjunctivitis.
-	case recurrence = "recurrence"
+	case recurrence
 	
 	/// The subject is experiencing a return of a condition, or signs and symptoms after a period of improvement or
 	/// remission, e.g. relapse of cancer, multiple sclerosis, rheumatoid arthritis, systemic lupus erythematosus,
 	/// bipolar disorder, [psychotic relapse of] schizophrenia, etc.
-	case relapse = "relapse"
+	case relapse
 	
 	/// The subject is no longer experiencing the symptoms of the condition or there is no longer evidence of the
 	/// condition.
-	case inactive = "inactive"
+	case inactive
 	
 	/// The subject is no longer experiencing the symptoms of the condition, but there is a risk of the symptoms
 	/// returning.
-	case remission = "remission"
+	case remission
 	
 	/// The subject is no longer experiencing the symptoms of the condition and there is a negligible perceived risk of
 	/// the symptoms returning.
-	case resolved = "resolved"
+	case resolved
 }

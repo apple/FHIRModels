@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Claim)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -127,42 +127,42 @@ open class Claim: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							accident: ClaimAccident? = nil,
-							billablePeriod: Period? = nil,
-							careTeam: [ClaimCareTeam]? = nil,
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>,
-							diagnosis: [ClaimDiagnosis]? = nil,
-							enterer: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							facility: Reference? = nil,
-							fundsReserve: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							insurance: [ClaimInsurance],
-							insurer: Reference? = nil,
-							item: [ClaimItem]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							originalPrescription: Reference? = nil,
-							patient: Reference,
-							payee: ClaimPayee? = nil,
-							prescription: Reference? = nil,
-							priority: CodeableConcept,
-							procedure: [ClaimProcedure]? = nil,
-							provider: Reference,
-							referral: Reference? = nil,
-							related: [ClaimRelated]? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							subType: CodeableConcept? = nil,
-							supportingInfo: [ClaimSupportingInfo]? = nil,
-							text: Narrative? = nil,
-							total: Money? = nil,
-							type: CodeableConcept,
-							use: FHIRPrimitive<Use>)
-	{
+		accident: ClaimAccident? = nil,
+		billablePeriod: Period? = nil,
+		careTeam: [ClaimCareTeam]? = nil,
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>,
+		diagnosis: [ClaimDiagnosis]? = nil,
+		enterer: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		facility: Reference? = nil,
+		fundsReserve: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		insurance: [ClaimInsurance],
+		insurer: Reference? = nil,
+		item: [ClaimItem]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		originalPrescription: Reference? = nil,
+		patient: Reference,
+		payee: ClaimPayee? = nil,
+		prescription: Reference? = nil,
+		priority: CodeableConcept,
+		procedure: [ClaimProcedure]? = nil,
+		provider: Reference,
+		referral: Reference? = nil,
+		related: [ClaimRelated]? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		subType: CodeableConcept? = nil,
+		supportingInfo: [ClaimSupportingInfo]? = nil,
+		text: Narrative? = nil,
+		total: Money? = nil,
+		type: CodeableConcept,
+		use: FHIRPrimitive<Use>
+	) {
 		self.init(created: created, insurance: insurance, patient: patient, priority: priority, provider: provider, status: status, type: type, use: use)
 		self.accident = accident
 		self.billablePeriod = billablePeriod
@@ -396,13 +396,13 @@ open class ClaimAccident: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<FHIRDate>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							location: LocationX? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		date: FHIRPrimitive<FHIRDate>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		location: LocationX? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(date: date)
 		self.`extension` = `extension`
 		self.id = id
@@ -515,15 +515,15 @@ open class ClaimCareTeam: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							provider: Reference,
-							qualification: CodeableConcept? = nil,
-							responsible: FHIRPrimitive<FHIRBool>? = nil,
-							role: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		provider: Reference,
+		qualification: CodeableConcept? = nil,
+		responsible: FHIRPrimitive<FHIRBool>? = nil,
+		role: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>
+	) {
 		self.init(provider: provider, sequence: sequence)
 		self.`extension` = `extension`
 		self.id = id
@@ -633,15 +633,15 @@ open class ClaimDiagnosis: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							diagnosis: DiagnosisX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onAdmission: CodeableConcept? = nil,
-							packageCode: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							type: [CodeableConcept]? = nil)
-	{
+		diagnosis: DiagnosisX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onAdmission: CodeableConcept? = nil,
+		packageCode: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init(diagnosis: diagnosis, sequence: sequence)
 		self.`extension` = `extension`
 		self.id = id
@@ -777,17 +777,17 @@ open class ClaimInsurance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							businessArrangement: FHIRPrimitive<FHIRString>? = nil,
-							claimResponse: Reference? = nil,
-							coverage: Reference,
-							`extension`: [Extension]? = nil,
-							focal: FHIRPrimitive<FHIRBool>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							preAuthRef: [FHIRPrimitive<FHIRString>]? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>)
-	{
+		businessArrangement: FHIRPrimitive<FHIRString>? = nil,
+		claimResponse: Reference? = nil,
+		coverage: Reference,
+		`extension`: [Extension]? = nil,
+		focal: FHIRPrimitive<FHIRBool>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		preAuthRef: [FHIRPrimitive<FHIRString>]? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>
+	) {
 		self.init(coverage: coverage, focal: focal, sequence: sequence)
 		self.businessArrangement = businessArrangement
 		self.claimResponse = claimResponse
@@ -965,31 +965,31 @@ open class ClaimItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							bodySite: CodeableConcept? = nil,
-							careTeamSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							category: CodeableConcept? = nil,
-							detail: [ClaimItemDetail]? = nil,
-							diagnosisSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							encounter: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							informationSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							location: LocationX? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							procedureSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							productOrService: CodeableConcept,
-							programCode: [CodeableConcept]? = nil,
-							quantity: Quantity? = nil,
-							revenue: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							serviced: ServicedX? = nil,
-							subSite: [CodeableConcept]? = nil,
-							udi: [Reference]? = nil,
-							unitPrice: Money? = nil)
-	{
+		bodySite: CodeableConcept? = nil,
+		careTeamSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		category: CodeableConcept? = nil,
+		detail: [ClaimItemDetail]? = nil,
+		diagnosisSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		encounter: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		informationSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		location: LocationX? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		procedureSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		productOrService: CodeableConcept,
+		programCode: [CodeableConcept]? = nil,
+		quantity: Quantity? = nil,
+		revenue: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		serviced: ServicedX? = nil,
+		subSite: [CodeableConcept]? = nil,
+		udi: [Reference]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(productOrService: productOrService, sequence: sequence)
 		self.bodySite = bodySite
 		self.careTeamSequence = careTeamSequence
@@ -1260,22 +1260,22 @@ open class ClaimItemDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							productOrService: CodeableConcept,
-							programCode: [CodeableConcept]? = nil,
-							quantity: Quantity? = nil,
-							revenue: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							subDetail: [ClaimItemDetailSubDetail]? = nil,
-							udi: [Reference]? = nil,
-							unitPrice: Money? = nil)
-	{
+		category: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		productOrService: CodeableConcept,
+		programCode: [CodeableConcept]? = nil,
+		quantity: Quantity? = nil,
+		revenue: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		subDetail: [ClaimItemDetailSubDetail]? = nil,
+		udi: [Reference]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(productOrService: productOrService, sequence: sequence)
 		self.category = category
 		self.`extension` = `extension`
@@ -1438,21 +1438,21 @@ open class ClaimItemDetailSubDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							productOrService: CodeableConcept,
-							programCode: [CodeableConcept]? = nil,
-							quantity: Quantity? = nil,
-							revenue: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							udi: [Reference]? = nil,
-							unitPrice: Money? = nil)
-	{
+		category: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		productOrService: CodeableConcept,
+		programCode: [CodeableConcept]? = nil,
+		quantity: Quantity? = nil,
+		revenue: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		udi: [Reference]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(productOrService: productOrService, sequence: sequence)
 		self.category = category
 		self.`extension` = `extension`
@@ -1581,12 +1581,12 @@ open class ClaimPayee: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							party: Reference? = nil,
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		party: Reference? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1679,15 +1679,15 @@ open class ClaimProcedure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							procedure: ProcedureX,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							type: [CodeableConcept]? = nil,
-							udi: [Reference]? = nil)
-	{
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		procedure: ProcedureX,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		type: [CodeableConcept]? = nil,
+		udi: [Reference]? = nil
+	) {
 		self.init(procedure: procedure, sequence: sequence)
 		self.date = date
 		self.`extension` = `extension`
@@ -1809,13 +1809,13 @@ open class ClaimRelated: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							claim: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: Identifier? = nil,
-							relationship: CodeableConcept? = nil)
-	{
+		claim: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: Identifier? = nil,
+		relationship: CodeableConcept? = nil
+	) {
 		self.init()
 		self.claim = claim
 		self.`extension` = `extension`
@@ -1929,16 +1929,16 @@ open class ClaimSupportingInfo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept,
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>,
-							timing: TimingX? = nil,
-							value: ValueX? = nil)
-	{
+		category: CodeableConcept,
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		timing: TimingX? = nil,
+		value: ValueX? = nil
+	) {
 		self.init(category: category, sequence: sequence)
 		self.code = code
 		self.`extension` = `extension`

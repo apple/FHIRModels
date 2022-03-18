@@ -2,8 +2,8 @@
 //  Medication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Medication)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Medication)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,14 +39,15 @@ open class Medication: DomainResource {
 	/// A code to indicate if the medication is in active use.
 	public var status: FHIRPrimitive<MedicationStatusCodes>?
 	
-	/// Manufacturer of the item
-	public var manufacturer: Reference?
+	/// Organization responsible for manufacturing the item
+	public var marketingAuthorizationHolder: Reference?
 	
 	/// powder | tablets | capsule +
 	public var doseForm: CodeableConcept?
 	
-	/// Amount of drug in package
-	public var amount: Ratio?
+	/// When the specified product code does not infer a package size, this is the specific amount of drug in the
+	/// product
+	public var totalVolume: Ratio?
 	
 	/// Active or inactive ingredient
 	public var ingredient: [MedicationIngredient]?
@@ -61,25 +62,24 @@ open class Medication: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Ratio? = nil,
-							batch: MedicationBatch? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							doseForm: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [MedicationIngredient]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							status: FHIRPrimitive<MedicationStatusCodes>? = nil,
-							text: Narrative? = nil)
-	{
+		batch: MedicationBatch? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		doseForm: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [MedicationIngredient]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		marketingAuthorizationHolder: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: FHIRPrimitive<MedicationStatusCodes>? = nil,
+		text: Narrative? = nil,
+		totalVolume: Ratio? = nil
+	) {
 		self.init()
-		self.amount = amount
 		self.batch = batch
 		self.code = code
 		self.contained = contained
@@ -90,24 +90,25 @@ open class Medication: DomainResource {
 		self.implicitRules = implicitRules
 		self.ingredient = ingredient
 		self.language = language
-		self.manufacturer = manufacturer
+		self.marketingAuthorizationHolder = marketingAuthorizationHolder
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.status = status
 		self.text = text
+		self.totalVolume = totalVolume
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case amount
 		case batch
 		case code
 		case doseForm
 		case identifier
 		case ingredient
-		case manufacturer
+		case marketingAuthorizationHolder
 		case status; case _status
+		case totalVolume
 	}
 	
 	/// Initializer for Decodable
@@ -115,14 +116,14 @@ open class Medication: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.amount = try Ratio(from: _container, forKeyIfPresent: .amount)
 		self.batch = try MedicationBatch(from: _container, forKeyIfPresent: .batch)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.doseForm = try CodeableConcept(from: _container, forKeyIfPresent: .doseForm)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.ingredient = try [MedicationIngredient](from: _container, forKeyIfPresent: .ingredient)
-		self.manufacturer = try Reference(from: _container, forKeyIfPresent: .manufacturer)
+		self.marketingAuthorizationHolder = try Reference(from: _container, forKeyIfPresent: .marketingAuthorizationHolder)
 		self.status = try FHIRPrimitive<MedicationStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.totalVolume = try Ratio(from: _container, forKeyIfPresent: .totalVolume)
 		try super.init(from: decoder)
 	}
 	
@@ -131,14 +132,14 @@ open class Medication: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try amount?.encode(on: &_container, forKey: .amount)
 		try batch?.encode(on: &_container, forKey: .batch)
 		try code?.encode(on: &_container, forKey: .code)
 		try doseForm?.encode(on: &_container, forKey: .doseForm)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
-		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
+		try marketingAuthorizationHolder?.encode(on: &_container, forKey: .marketingAuthorizationHolder)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try totalVolume?.encode(on: &_container, forKey: .totalVolume)
 		try super.encode(to: encoder)
 	}
 	
@@ -151,26 +152,26 @@ open class Medication: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return amount == _other.amount
-		    && batch == _other.batch
+		return batch == _other.batch
 		    && code == _other.code
 		    && doseForm == _other.doseForm
 		    && identifier == _other.identifier
 		    && ingredient == _other.ingredient
-		    && manufacturer == _other.manufacturer
+		    && marketingAuthorizationHolder == _other.marketingAuthorizationHolder
 		    && status == _other.status
+		    && totalVolume == _other.totalVolume
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(amount)
 		hasher.combine(batch)
 		hasher.combine(code)
 		hasher.combine(doseForm)
 		hasher.combine(identifier)
 		hasher.combine(ingredient)
-		hasher.combine(manufacturer)
+		hasher.combine(marketingAuthorizationHolder)
 		hasher.combine(status)
+		hasher.combine(totalVolume)
 	}
 }
 
@@ -194,12 +195,12 @@ open class MedicationBatch: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expirationDate: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							lotNumber: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		expirationDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.expirationDate = expirationDate
 		self.`extension` = `extension`
@@ -287,13 +288,13 @@ open class MedicationIngredient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isActive: FHIRPrimitive<FHIRBool>? = nil,
-							item: CodeableReference,
-							modifierExtension: [Extension]? = nil,
-							strength: StrengthX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isActive: FHIRPrimitive<FHIRBool>? = nil,
+		item: CodeableReference,
+		modifierExtension: [Extension]? = nil,
+		strength: StrengthX? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id

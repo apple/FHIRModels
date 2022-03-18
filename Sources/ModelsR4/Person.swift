@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Person)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -65,25 +65,25 @@ open class Person: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							birthDate: FHIRPrimitive<FHIRDate>? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							link: [PersonLink]? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: [HumanName]? = nil,
-							photo: Attachment? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		birthDate: FHIRPrimitive<FHIRDate>? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		link: [PersonLink]? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: [HumanName]? = nil,
+		photo: Attachment? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.active = active
 		self.address = address
@@ -211,12 +211,12 @@ open class PersonLink: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assurance: FHIRPrimitive<IdentityAssuranceLevel>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: Reference)
-	{
+		assurance: FHIRPrimitive<IdentityAssuranceLevel>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: Reference
+	) {
 		self.init(target: target)
 		self.assurance = assurance
 		self.`extension` = `extension`

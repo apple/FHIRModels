@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum OperationKind: String, FHIRPrimitiveType {
 	
 	/// This operation is invoked as an operation.
-	case operation = "operation"
+	case operation
 	
 	/// This operation is a named query, invoked using the search mechanism.
-	case query = "query"
+	case query
 }

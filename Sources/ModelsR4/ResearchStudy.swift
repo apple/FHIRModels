@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ResearchStudy)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -113,39 +113,39 @@ open class ResearchStudy: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							arm: [ResearchStudyArm]? = nil,
-							category: [CodeableConcept]? = nil,
-							condition: [CodeableConcept]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							enrollment: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							focus: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							keyword: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: [CodeableConcept]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							objective: [ResearchStudyObjective]? = nil,
-							partOf: [Reference]? = nil,
-							period: Period? = nil,
-							phase: CodeableConcept? = nil,
-							primaryPurposeType: CodeableConcept? = nil,
-							principalInvestigator: Reference? = nil,
-							`protocol`: [Reference]? = nil,
-							reasonStopped: CodeableConcept? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							site: [Reference]? = nil,
-							sponsor: Reference? = nil,
-							status: FHIRPrimitive<ResearchStudyStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		arm: [ResearchStudyArm]? = nil,
+		category: [CodeableConcept]? = nil,
+		condition: [CodeableConcept]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		enrollment: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		focus: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		keyword: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: [CodeableConcept]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		objective: [ResearchStudyObjective]? = nil,
+		partOf: [Reference]? = nil,
+		period: Period? = nil,
+		phase: CodeableConcept? = nil,
+		primaryPurposeType: CodeableConcept? = nil,
+		principalInvestigator: Reference? = nil,
+		`protocol`: [Reference]? = nil,
+		reasonStopped: CodeableConcept? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		site: [Reference]? = nil,
+		sponsor: Reference? = nil,
+		status: FHIRPrimitive<ResearchStudyStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.arm = arm
 		self.category = category
@@ -362,13 +362,13 @@ open class ResearchStudyArm: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: CodeableConcept? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept? = nil
+	) {
 		self.init(name: name)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -450,12 +450,12 @@ open class ResearchStudyObjective: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

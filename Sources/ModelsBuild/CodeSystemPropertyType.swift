@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,26 +27,26 @@ import FMCore
  */
 public enum PropertyType: String, FHIRPrimitiveType {
 	
+	/// The property value is a boolean true | false.
+	case boolean
+	
 	/// The property value is a code that identifies a concept defined in the code system.
-	case code = "code"
+	case code
 	
 	/// The property  value is a code defined in an external code system. This may be used for translations, but is not
 	/// the intent.
 	case coding = "Coding"
 	
-	/// The property value is a string.
-	case string = "string"
+	/// The property is a date or a date + time.
+	case dateTime
+	
+	/// The property value is a decimal number.
+	case decimal
 	
 	/// The property value is a string (often used to assign ranking values to concepts for supporting score
 	/// assessments).
-	case integer = "integer"
+	case integer
 	
-	/// The property value is a boolean true | false.
-	case boolean = "boolean"
-	
-	/// The property is a date or a date + time.
-	case dateTime = "dateTime"
-	
-	/// The property value is a decimal number.
-	case decimal = "decimal"
+	/// The property value is a string.
+	case string
 }

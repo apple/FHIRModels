@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,96 +27,96 @@ import FMCore
  */
 public enum EvidenceClassifier: String, FHIRPrimitiveType {
 	
-	/// About COVID-19.
-	case cOVID19Specific = "COVID19Specific"
-	
-	/// Not about COVID-19 but relevant to COVID-19 management or understanding.
-	case cOVID19Relevant = "COVID19Relevant"
-	
-	/// contains human COVID-19 disease in the research data as any variable (population, exposure or outcome).
-	case cOVID19HumanResearch = "COVID19HumanResearch"
-	
-	/// such as randomized trial, observational study.
-	case originalResearch = "OriginalResearch"
-	
-	/// such as systematic review, meta-analysis, rapid review.
-	case researchSynthesis = "ResearchSynthesis"
-	
-	/// for clinical practice guidelines.
-	case guideline = "Guideline"
-	
-	/// for research protocols.
-	case researchProtocol = "ResearchProtocol"
-	
-	/// for things that are not research reports, research protocols or guidelines.
-	case notResearchNotGuideline = "NotResearchNotGuideline"
-	
-	/// about therapeutic interventions.
-	case treatment = "Treatment"
-	
-	/// about preventive care and interventions.
-	case preventionAndControl = "PreventionAndControl"
-	
-	/// about methods to distinguish having or not having a condition.
-	case diagnosis = "Diagnosis"
-	
-	/// about predicting risk for something or risk factors for it.
-	case prognosisPrediction = "PrognosisPrediction"
-	
-	/// ratedAsYes
-	case ratedAsYes = "RatedAsYes"
-	
-	/// Rated as no, negative, absent, or exclude.
-	case ratedAsNo = "RatedAsNo"
-	
-	/// Neither rated as yes nor rated as no.
-	case notAssessed = "NotAssessed"
-	
-	/// classified as randomized controlled trial.
-	case ratedAsRCT = "RatedAsRCT"
-	
-	/// classified as nonrandomized controlled trial (experimental).
-	case ratedAsControlledTrial = "RatedAsControlledTrial"
-	
-	/// classified as comparative cohort study (observational).
-	case ratedAsComparativeCohort = "RatedAsComparativeCohort"
-	
-	/// classified as case-control study.
-	case ratedAsCaseControl = "RatedAsCaseControl"
-	
-	/// classified as uncontrolled cohort (case series).
-	case ratedAsUncontrolledSeries = "RatedAsUncontrolledSeries"
-	
-	/// classified as mixed-methods study.
-	case ratedAsMixedMethods = "RatedAsMixedMethods"
-	
-	/// classified as other concept (not elsewhere classified).
-	case ratedAsOther = "RatedAsOther"
-	
-	/// Risk of bias assessment.
-	case riskOfBias = "RiskOfBias"
-	
-	/// No blinding.
-	case noBlinding = "NoBlinding"
-	
 	/// Allocation concealment not stated.
 	case allocConcealNotStated = "AllocConcealNotStated"
-	
-	/// Early trial termination.
-	case earlyTrialTermination = "EarlyTrialTermination"
-	
-	/// No intention-to-treat analysis.
-	case noITT = "NoITT"
-	
-	/// Results presented in preprint (pre-final publication) form.
-	case preprint = "Preprint"
-	
-	/// Preliminary analysis.
-	case preliminaryAnalysis = "PreliminaryAnalysis"
 	
 	/// Differences between groups at start of trial may confound or bias the findings.
 	case baselineImbalance = "BaselineImbalance"
 	
+	/// contains human COVID-19 disease in the research data as any variable (population, exposure or outcome).
+	case cOVID19HumanResearch = "COVID19HumanResearch"
+	
+	/// Not about COVID-19 but relevant to COVID-19 management or understanding.
+	case cOVID19Relevant = "COVID19Relevant"
+	
+	/// About COVID-19.
+	case cOVID19Specific = "COVID19Specific"
+	
+	/// about methods to distinguish having or not having a condition.
+	case diagnosis = "Diagnosis"
+	
+	/// Early trial termination.
+	case earlyTrialTermination = "EarlyTrialTermination"
+	
+	/// for clinical practice guidelines.
+	case guideline = "Guideline"
+	
+	/// No blinding.
+	case noBlinding = "NoBlinding"
+	
+	/// No intention-to-treat analysis.
+	case noITT = "NoITT"
+	
+	/// Neither rated as yes nor rated as no.
+	case notAssessed = "NotAssessed"
+	
+	/// for things that are not research reports, research protocols or guidelines.
+	case notResearchNotGuideline = "NotResearchNotGuideline"
+	
+	/// such as randomized trial, observational study.
+	case originalResearch = "OriginalResearch"
+	
+	/// Preliminary analysis.
+	case preliminaryAnalysis = "PreliminaryAnalysis"
+	
+	/// Results presented in preprint (pre-final publication) form.
+	case preprint = "Preprint"
+	
+	/// about preventive care and interventions.
+	case preventionAndControl = "PreventionAndControl"
+	
+	/// about predicting risk for something or risk factors for it.
+	case prognosisPrediction = "PrognosisPrediction"
+	
+	/// classified as case-control study.
+	case ratedAsCaseControl = "RatedAsCaseControl"
+	
+	/// classified as comparative cohort study (observational).
+	case ratedAsComparativeCohort = "RatedAsComparativeCohort"
+	
+	/// classified as nonrandomized controlled trial (experimental).
+	case ratedAsControlledTrial = "RatedAsControlledTrial"
+	
+	/// classified as mixed-methods study.
+	case ratedAsMixedMethods = "RatedAsMixedMethods"
+	
+	/// Rated as no, negative, absent, or exclude.
+	case ratedAsNo = "RatedAsNo"
+	
+	/// classified as other concept (not elsewhere classified).
+	case ratedAsOther = "RatedAsOther"
+	
+	/// classified as randomized controlled trial.
+	case ratedAsRCT = "RatedAsRCT"
+	
+	/// classified as uncontrolled cohort (case series).
+	case ratedAsUncontrolledSeries = "RatedAsUncontrolledSeries"
+	
+	/// ratedAsYes
+	case ratedAsYes = "RatedAsYes"
+	
+	/// for research protocols.
+	case researchProtocol = "ResearchProtocol"
+	
+	/// such as systematic review, meta-analysis, rapid review.
+	case researchSynthesis = "ResearchSynthesis"
+	
+	/// Risk of bias assessment.
+	case riskOfBias = "RiskOfBias"
+	
 	/// Subgroup analysis.
 	case subgroupAnalysis = "SubgroupAnalysis"
+	
+	/// about therapeutic interventions.
+	case treatment = "Treatment"
 }

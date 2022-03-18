@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,28 +27,6 @@ import FMCore
  */
 public enum ResearchStudyPrimaryPurposeType: String, FHIRPrimitiveType {
 	
-	/// One or more interventions are being evaluated for treating a disease, syndrome, or condition.
-	case treatment = "treatment"
-	
-	/// One or more interventions are being assessed for preventing the development of a specific disease or health
-	/// condition.
-	case prevention = "prevention"
-	
-	/// One or more interventions are being evaluated for identifying a disease or health condition.
-	case diagnostic = "diagnostic"
-	
-	/// One or more interventions are evaluated for maximizing comfort, minimizing side effects, or mitigating against a
-	/// decline in the participant's health or function.
-	case supportiveCare = "supportive-care"
-	
-	/// One or more interventions are assessed or examined for identifying a condition, or risk factors for a condition,
-	/// in people who are not yet known to have the condition or risk factor.
-	case screening = "screening"
-	
-	/// One or more interventions for evaluating the delivery, processes, management, organization, or financing of
-	/// healthcare.
-	case healthServicesResearch = "health-services-research"
-	
 	/// One or more interventions for examining the basic mechanism of action (for example, physiology or biomechanics
 	/// of an intervention).
 	case basicScience = "basic-science"
@@ -57,4 +35,26 @@ public enum ResearchStudyPrimaryPurposeType: String, FHIRPrimitiveType {
 	/// prototype device and not health outcomes. Such studies are conducted to confirm the design and operating
 	/// specifications of a device before beginning a full clinical trial.
 	case deviceFeasibility = "device-feasibility"
+	
+	/// One or more interventions are being evaluated for identifying a disease or health condition.
+	case diagnostic
+	
+	/// One or more interventions for evaluating the delivery, processes, management, organization, or financing of
+	/// healthcare.
+	case healthServicesResearch = "health-services-research"
+	
+	/// One or more interventions are being assessed for preventing the development of a specific disease or health
+	/// condition.
+	case prevention
+	
+	/// One or more interventions are assessed or examined for identifying a condition, or risk factors for a condition,
+	/// in people who are not yet known to have the condition or risk factor.
+	case screening
+	
+	/// One or more interventions are evaluated for maximizing comfort, minimizing side effects, or mitigating against a
+	/// decline in the participant's health or function.
+	case supportiveCare = "supportive-care"
+	
+	/// One or more interventions are being evaluated for treating a disease, syndrome, or condition.
+	case treatment
 }

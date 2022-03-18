@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,28 +29,28 @@ public enum ContactPointSystem: String, FHIRPrimitiveType {
 	
 	/// The value is a telephone number used for voice calls. Use of full international numbers starting with + is
 	/// recommended to enable automatic dialing support but not required.
-	case phone = "phone"
+	case phone
 	
 	/// The value is a fax machine. Use of full international numbers starting with + is recommended to enable automatic
 	/// dialing support but not required.
-	case fax = "fax"
+	case fax
 	
 	/// The value is an email address.
-	case email = "email"
+	case email
 	
 	/// The value is a pager number. These may be local pager numbers that are only usable on a particular pager system.
-	case pager = "pager"
+	case pager
 	
 	/// A contact that is not a phone, fax, pager or email address and is expressed as a URL.  This is intended for
 	/// various institutional or personal contacts including web sites, blogs, Skype, Twitter, Facebook, etc. Do not use
 	/// for email addresses.
-	case url = "url"
+	case url
 	
 	/// A contact that can be used for sending an sms message (e.g. mobile phones, some landlines).
-	case sms = "sms"
+	case sms
 	
 	/// A contact that is not a phone, fax, page or email address and is not expressible as a URL.  E.g. Internal mail
 	/// address.  This SHOULD NOT be used for contacts that are expressible as a URL (e.g. Skype, Twitter, Facebook,
 	/// etc.)  Extensions may be used to distinguish "other" contact types.
-	case other = "other"
+	case other
 }

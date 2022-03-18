@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/AllergyIntolerance)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -95,31 +95,31 @@ open class AllergyIntolerance: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asserter: Reference? = nil,
-							category: [FHIRPrimitive<AllergyIntoleranceCategory>]? = nil,
-							clinicalStatus: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							criticality: FHIRPrimitive<AllergyIntoleranceCriticality>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastOccurrence: FHIRPrimitive<DateTime>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: OnsetX? = nil,
-							patient: Reference,
-							reaction: [AllergyIntoleranceReaction]? = nil,
-							recordedDate: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<AllergyIntoleranceType>? = nil,
-							verificationStatus: CodeableConcept? = nil)
-	{
+		asserter: Reference? = nil,
+		category: [FHIRPrimitive<AllergyIntoleranceCategory>]? = nil,
+		clinicalStatus: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		criticality: FHIRPrimitive<AllergyIntoleranceCriticality>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastOccurrence: FHIRPrimitive<DateTime>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: OnsetX? = nil,
+		patient: Reference,
+		reaction: [AllergyIntoleranceReaction]? = nil,
+		recordedDate: FHIRPrimitive<DateTime>? = nil,
+		recorder: Reference? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<AllergyIntoleranceType>? = nil,
+		verificationStatus: CodeableConcept? = nil
+	) {
 		self.init(patient: patient)
 		self.asserter = asserter
 		self.category = category
@@ -348,17 +348,17 @@ open class AllergyIntoleranceReaction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							exposureRoute: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manifestation: [CodeableConcept],
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: FHIRPrimitive<DateTime>? = nil,
-							severity: FHIRPrimitive<AllergyIntoleranceSeverity>? = nil,
-							substance: CodeableConcept? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		exposureRoute: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manifestation: [CodeableConcept],
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: FHIRPrimitive<DateTime>? = nil,
+		severity: FHIRPrimitive<AllergyIntoleranceSeverity>? = nil,
+		substance: CodeableConcept? = nil
+	) {
 		self.init(manifestation: manifestation)
 		self.description_fhir = description_fhir
 		self.exposureRoute = exposureRoute

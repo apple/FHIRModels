@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import FMCore
 public enum ExposureState: String, FHIRPrimitiveType {
 	
 	/// used when the results by exposure is describing the results for the primary exposure of interest.
-	case exposure = "exposure"
+	case exposure
 	
 	/// used when the results by exposure is describing the results for the alternative exposure state, control state or
 	/// comparator state.

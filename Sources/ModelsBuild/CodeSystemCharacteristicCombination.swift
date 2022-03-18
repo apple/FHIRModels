@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,17 @@ import FMCore
 public enum CharacteristicCombination: String, FHIRPrimitiveType {
 	
 	/// Combine characteristics with AND.
-	case intersection = "intersection"
+	case allOf = "all-of"
 	
 	/// Combine characteristics with OR.
-	case union = "union"
+	case anyOf = "any-of"
+	
+	/// Meet at least the threshold number of characteristics for definition.
+	case atLeast = "at-least"
+	
+	/// Meet at most the threshold number of characteristics for definition.
+	case atMost = "at-most"
+	
+	///  Combine characteristics statistically.
+	case netEffect = "net-effect"
 }

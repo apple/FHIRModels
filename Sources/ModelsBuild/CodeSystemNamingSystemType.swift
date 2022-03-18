@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ public enum NamingSystemType: String, FHIRPrimitiveType {
 	
 	/// The naming system is used to define concepts and symbols to represent those concepts; e.g. UCUM, LOINC, NDC
 	/// code, local lab codes, etc.
-	case codesystem = "codesystem"
+	case codesystem
 	
 	/// The naming system is used to manage identifiers (e.g. license numbers, order numbers, etc.).
-	case identifier = "identifier"
+	case identifier
 	
 	/// The naming system is used as the root for other identifiers and naming systems.
-	case root = "root"
+	case root
 }

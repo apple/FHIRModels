@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,39 +27,39 @@ import FMCore
  */
 public enum AssertionResponseTypes: String, FHIRPrimitiveType {
 	
-	/// Response code is 200.
-	case okay = "okay"
-	
-	/// Response code is 201.
-	case created = "created"
-	
-	/// Response code is 204.
-	case noContent = "noContent"
-	
-	/// Response code is 304.
-	case notModified = "notModified"
-	
 	/// Response code is 400.
-	case bad = "bad"
-	
-	/// Response code is 403.
-	case forbidden = "forbidden"
-	
-	/// Response code is 404.
-	case notFound = "notFound"
-	
-	/// Response code is 405.
-	case methodNotAllowed = "methodNotAllowed"
+	case bad
 	
 	/// Response code is 409.
-	case conflict = "conflict"
+	case conflict
+	
+	/// Response code is 201.
+	case created
+	
+	/// Response code is 403.
+	case forbidden
 	
 	/// Response code is 410.
-	case gone = "gone"
+	case gone
+	
+	/// Response code is 405.
+	case methodNotAllowed
+	
+	/// Response code is 204.
+	case noContent
+	
+	/// Response code is 404.
+	case notFound
+	
+	/// Response code is 304.
+	case notModified
+	
+	/// Response code is 200.
+	case okay
 	
 	/// Response code is 412.
-	case preconditionFailed = "preconditionFailed"
+	case preconditionFailed
 	
 	/// Response code is 422.
-	case unprocessable = "unprocessable"
+	case unprocessable
 }

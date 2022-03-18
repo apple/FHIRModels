@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ChargeItem)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -134,41 +134,41 @@ open class ChargeItem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: [Reference]? = nil,
-							bodysite: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							contained: [ResourceProxy]? = nil,
-							context: Reference? = nil,
-							costCenter: Reference? = nil,
-							definitionCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							definitionUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							enteredDate: FHIRPrimitive<DateTime>? = nil,
-							enterer: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							factorOverride: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							overrideReason: FHIRPrimitive<FHIRString>? = nil,
-							partOf: [Reference]? = nil,
-							performer: [ChargeItemPerformer]? = nil,
-							performingOrganization: Reference? = nil,
-							priceOverride: Money? = nil,
-							product: ProductX? = nil,
-							quantity: Quantity? = nil,
-							reason: [CodeableConcept]? = nil,
-							requestingOrganization: Reference? = nil,
-							service: [Reference]? = nil,
-							status: FHIRPrimitive<ChargeItemStatus>,
-							subject: Reference,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		account: [Reference]? = nil,
+		bodysite: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		contained: [ResourceProxy]? = nil,
+		context: Reference? = nil,
+		costCenter: Reference? = nil,
+		definitionCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		definitionUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		enteredDate: FHIRPrimitive<DateTime>? = nil,
+		enterer: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		factorOverride: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		overrideReason: FHIRPrimitive<FHIRString>? = nil,
+		partOf: [Reference]? = nil,
+		performer: [ChargeItemPerformer]? = nil,
+		performingOrganization: Reference? = nil,
+		priceOverride: Money? = nil,
+		product: ProductX? = nil,
+		quantity: Quantity? = nil,
+		reason: [CodeableConcept]? = nil,
+		requestingOrganization: Reference? = nil,
+		service: [Reference]? = nil,
+		status: FHIRPrimitive<ChargeItemStatus>,
+		subject: Reference,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, status: status, subject: subject)
 		self.account = account
 		self.bodysite = bodysite
@@ -442,12 +442,12 @@ open class ChargeItemPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

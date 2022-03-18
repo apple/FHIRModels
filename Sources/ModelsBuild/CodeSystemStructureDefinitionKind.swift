@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,22 +27,22 @@ import FMCore
  */
 public enum StructureDefinitionKind: String, FHIRPrimitiveType {
 	
-	/// A primitive type that has a value and an extension. These can be used throughout complex datatype, Resource and
-	/// extension definitions. Only the base specification can define primitive types.
-	case primitiveType = "primitive-type"
-	
 	/// A  complex structure that defines a set of data elements that is suitable for use in 'resources'. The base
 	/// specification defines a number of complex types, and other specifications can define additional types. These
 	/// structures do not have a maintained identity.
 	case complexType = "complex-type"
+	
+	/// A pattern or a template that is not intended to be a real resource or complex type.
+	case logical
+	
+	/// A primitive type that has a value and an extension. These can be used throughout complex datatype, Resource and
+	/// extension definitions. Only the base specification can define primitive types.
+	case primitiveType = "primitive-type"
 	
 	/// A 'resource' - a directed acyclic graph of elements that aggregrates other types into an identifiable entity.
 	/// The base FHIR resources are defined by the FHIR specification itself but other 'resources' can be defined in
 	/// additional specifications (though these will not be recognised as 'resources' by the FHIR specification (i.e.
 	/// they do not get end-points etc, or act as the targets of references in FHIR defined resources - though other
 	/// specificatiosn can treat them this way).
-	case resource = "resource"
-	
-	/// A pattern or a template that is not intended to be a real resource or complex type.
-	case logical = "logical"
+	case resource
 }

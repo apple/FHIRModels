@@ -2,8 +2,8 @@
 //  ClaimResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ClaimResponse)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ClaimResponse)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@ open class ClaimResponse: DomainResource {
 	public var request: Reference?
 	
 	/// The outcome of the claim, predetermination, or preauthorization processing.
-	public var outcome: FHIRPrimitive<ClaimProcessingCodes>
+	public var outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>
 	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -112,7 +112,7 @@ open class ClaimResponse: DomainResource {
 	public var error: [ClaimResponseError]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingCodes>, patient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
+	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>, patient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
 		self.created = created
 		self.insurer = insurer
 		self.outcome = outcome
@@ -125,42 +125,42 @@ open class ClaimResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							addItem: [ClaimResponseAddItem]? = nil,
-							adjudication: [ClaimResponseItemAdjudication]? = nil,
-							communicationRequest: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>,
-							disposition: FHIRPrimitive<FHIRString>? = nil,
-							error: [ClaimResponseError]? = nil,
-							`extension`: [Extension]? = nil,
-							form: Attachment? = nil,
-							formCode: CodeableConcept? = nil,
-							fundsReserve: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							insurance: [ClaimResponseInsurance]? = nil,
-							insurer: Reference,
-							item: [ClaimResponseItem]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: FHIRPrimitive<ClaimProcessingCodes>,
-							patient: Reference,
-							payeeType: CodeableConcept? = nil,
-							payment: ClaimResponsePayment? = nil,
-							preAuthPeriod: Period? = nil,
-							preAuthRef: FHIRPrimitive<FHIRString>? = nil,
-							processNote: [ClaimResponseProcessNote]? = nil,
-							request: Reference? = nil,
-							requestor: Reference? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							subType: CodeableConcept? = nil,
-							text: Narrative? = nil,
-							total: [ClaimResponseTotal]? = nil,
-							type: CodeableConcept,
-							use: FHIRPrimitive<Use>)
-	{
+		addItem: [ClaimResponseAddItem]? = nil,
+		adjudication: [ClaimResponseItemAdjudication]? = nil,
+		communicationRequest: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>,
+		disposition: FHIRPrimitive<FHIRString>? = nil,
+		error: [ClaimResponseError]? = nil,
+		`extension`: [Extension]? = nil,
+		form: Attachment? = nil,
+		formCode: CodeableConcept? = nil,
+		fundsReserve: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		insurance: [ClaimResponseInsurance]? = nil,
+		insurer: Reference,
+		item: [ClaimResponseItem]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>,
+		patient: Reference,
+		payeeType: CodeableConcept? = nil,
+		payment: ClaimResponsePayment? = nil,
+		preAuthPeriod: Period? = nil,
+		preAuthRef: FHIRPrimitive<FHIRString>? = nil,
+		processNote: [ClaimResponseProcessNote]? = nil,
+		request: Reference? = nil,
+		requestor: Reference? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		subType: CodeableConcept? = nil,
+		text: Narrative? = nil,
+		total: [ClaimResponseTotal]? = nil,
+		type: CodeableConcept,
+		use: FHIRPrimitive<Use>
+	) {
 		self.init(created: created, insurer: insurer, outcome: outcome, patient: patient, status: status, type: type, use: use)
 		self.addItem = addItem
 		self.adjudication = adjudication
@@ -242,7 +242,7 @@ open class ClaimResponse: DomainResource {
 		self.insurance = try [ClaimResponseInsurance](from: _container, forKeyIfPresent: .insurance)
 		self.insurer = try Reference(from: _container, forKey: .insurer)
 		self.item = try [ClaimResponseItem](from: _container, forKeyIfPresent: .item)
-		self.outcome = try FHIRPrimitive<ClaimProcessingCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<ClaimProcessingOutcomeCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.payeeType = try CodeableConcept(from: _container, forKeyIfPresent: .payeeType)
 		self.payment = try ClaimResponsePayment(from: _container, forKeyIfPresent: .payment)
@@ -449,28 +449,28 @@ open class ClaimResponseAddItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication],
-							bodySite: CodeableConcept? = nil,
-							detail: [ClaimResponseAddItemDetail]? = nil,
-							detailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							itemSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							location: LocationX? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							productOrService: CodeableConcept,
-							programCode: [CodeableConcept]? = nil,
-							provider: [Reference]? = nil,
-							quantity: Quantity? = nil,
-							serviced: ServicedX? = nil,
-							subSite: [CodeableConcept]? = nil,
-							subdetailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							unitPrice: Money? = nil)
-	{
+		adjudication: [ClaimResponseItemAdjudication],
+		bodySite: CodeableConcept? = nil,
+		detail: [ClaimResponseAddItemDetail]? = nil,
+		detailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		itemSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		location: LocationX? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		productOrService: CodeableConcept,
+		programCode: [CodeableConcept]? = nil,
+		provider: [Reference]? = nil,
+		quantity: Quantity? = nil,
+		serviced: ServicedX? = nil,
+		subSite: [CodeableConcept]? = nil,
+		subdetailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(adjudication: adjudication, productOrService: productOrService)
 		self.bodySite = bodySite
 		self.detail = detail
@@ -714,19 +714,19 @@ open class ClaimResponseAddItemDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication],
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							productOrService: CodeableConcept,
-							quantity: Quantity? = nil,
-							subDetail: [ClaimResponseAddItemDetailSubDetail]? = nil,
-							unitPrice: Money? = nil)
-	{
+		adjudication: [ClaimResponseItemAdjudication],
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		productOrService: CodeableConcept,
+		quantity: Quantity? = nil,
+		subDetail: [ClaimResponseAddItemDetailSubDetail]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(adjudication: adjudication, productOrService: productOrService)
 		self.`extension` = `extension`
 		self.factor = factor
@@ -862,18 +862,18 @@ open class ClaimResponseAddItemDetailSubDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication],
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							productOrService: CodeableConcept,
-							quantity: Quantity? = nil,
-							unitPrice: Money? = nil)
-	{
+		adjudication: [ClaimResponseItemAdjudication],
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		productOrService: CodeableConcept,
+		quantity: Quantity? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init(adjudication: adjudication, productOrService: productOrService)
 		self.`extension` = `extension`
 		self.factor = factor
@@ -990,14 +990,14 @@ open class ClaimResponseError: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							detailSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							itemSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		code: CodeableConcept,
+		detailSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		itemSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init(code: code)
 		self.detailSequence = detailSequence
 		self.`extension` = `extension`
@@ -1096,15 +1096,15 @@ open class ClaimResponseInsurance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							businessArrangement: FHIRPrimitive<FHIRString>? = nil,
-							claimResponse: Reference? = nil,
-							coverage: Reference,
-							`extension`: [Extension]? = nil,
-							focal: FHIRPrimitive<FHIRBool>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>)
-	{
+		businessArrangement: FHIRPrimitive<FHIRString>? = nil,
+		claimResponse: Reference? = nil,
+		coverage: Reference,
+		`extension`: [Extension]? = nil,
+		focal: FHIRPrimitive<FHIRBool>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>
+	) {
 		self.init(coverage: coverage, focal: focal, sequence: sequence)
 		self.businessArrangement = businessArrangement
 		self.claimResponse = claimResponse
@@ -1204,14 +1204,14 @@ open class ClaimResponseItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication],
-							detail: [ClaimResponseItemDetail]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							itemSequence: FHIRPrimitive<FHIRPositiveInteger>,
-							modifierExtension: [Extension]? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil)
-	{
+		adjudication: [ClaimResponseItemAdjudication],
+		detail: [ClaimResponseItemDetail]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		itemSequence: FHIRPrimitive<FHIRPositiveInteger>,
+		modifierExtension: [Extension]? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil
+	) {
 		self.init(adjudication: adjudication, itemSequence: itemSequence)
 		self.detail = detail
 		self.`extension` = `extension`
@@ -1305,14 +1305,14 @@ open class ClaimResponseItemAdjudication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Money? = nil,
-							category: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil,
-							value: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		amount: Money? = nil,
+		category: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		value: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init(category: category)
 		self.amount = amount
 		self.`extension` = `extension`
@@ -1407,14 +1407,14 @@ open class ClaimResponseItemDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication],
-							detailSequence: FHIRPrimitive<FHIRPositiveInteger>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							subDetail: [ClaimResponseItemDetailSubDetail]? = nil)
-	{
+		adjudication: [ClaimResponseItemAdjudication],
+		detailSequence: FHIRPrimitive<FHIRPositiveInteger>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		subDetail: [ClaimResponseItemDetailSubDetail]? = nil
+	) {
 		self.init(adjudication: adjudication, detailSequence: detailSequence)
 		self.`extension` = `extension`
 		self.id = id
@@ -1504,13 +1504,13 @@ open class ClaimResponseItemDetailSubDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjudication: [ClaimResponseItemAdjudication]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>)
-	{
+		adjudication: [ClaimResponseItemAdjudication]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		subDetailSequence: FHIRPrimitive<FHIRPositiveInteger>
+	) {
 		self.init(subDetailSequence: subDetailSequence)
 		self.adjudication = adjudication
 		self.`extension` = `extension`
@@ -1605,16 +1605,16 @@ open class ClaimResponsePayment: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							adjustment: Money? = nil,
-							adjustmentReason: CodeableConcept? = nil,
-							amount: Money,
-							date: FHIRPrimitive<FHIRDate>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		adjustment: Money? = nil,
+		adjustmentReason: CodeableConcept? = nil,
+		amount: Money,
+		date: FHIRPrimitive<FHIRDate>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(amount: amount, type: type)
 		self.adjustment = adjustment
 		self.adjustmentReason = adjustmentReason
@@ -1719,14 +1719,14 @@ open class ClaimResponseProcessNote: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							number: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							text: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<NoteType>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		text: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<NoteType>? = nil
+	) {
 		self.init(text: text)
 		self.`extension` = `extension`
 		self.id = id
@@ -1815,12 +1815,12 @@ open class ClaimResponseTotal: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Money,
-							category: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: Money,
+		category: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(amount: amount, category: category)
 		self.`extension` = `extension`
 		self.id = id

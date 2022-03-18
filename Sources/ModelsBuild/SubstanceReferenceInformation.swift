@@ -2,8 +2,8 @@
 //  SubstanceReferenceInformation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubstanceReferenceInformation)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SubstanceReferenceInformation)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,19 +45,19 @@ open class SubstanceReferenceInformation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							gene: [SubstanceReferenceInformationGene]? = nil,
-							geneElement: [SubstanceReferenceInformationGeneElement]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: [SubstanceReferenceInformationTarget]? = nil,
-							text: Narrative? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		gene: [SubstanceReferenceInformationGene]? = nil,
+		geneElement: [SubstanceReferenceInformationGeneElement]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: [SubstanceReferenceInformationTarget]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.comment = comment
 		self.contained = contained
@@ -151,13 +151,13 @@ open class SubstanceReferenceInformationGene: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							gene: CodeableConcept? = nil,
-							geneSequenceOrigin: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: [Reference]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		gene: CodeableConcept? = nil,
+		geneSequenceOrigin: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: [Reference]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.gene = gene
@@ -240,13 +240,13 @@ open class SubstanceReferenceInformationGeneElement: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							element: Identifier? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: [Reference]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		element: Identifier? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: [Reference]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.element = element
 		self.`extension` = `extension`
@@ -352,18 +352,18 @@ open class SubstanceReferenceInformationTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							amountType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interaction: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							organism: CodeableConcept? = nil,
-							organismType: CodeableConcept? = nil,
-							source: [Reference]? = nil,
-							target: Identifier? = nil,
-							type: CodeableConcept? = nil)
-	{
+		amount: AmountX? = nil,
+		amountType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interaction: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		organism: CodeableConcept? = nil,
+		organismType: CodeableConcept? = nil,
+		source: [Reference]? = nil,
+		target: Identifier? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.amountType = amountType

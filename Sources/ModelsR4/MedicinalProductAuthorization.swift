@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductAuthorization)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -83,31 +83,31 @@ open class MedicinalProductAuthorization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							country: [CodeableConcept]? = nil,
-							dataExclusivityPeriod: Period? = nil,
-							dateOfFirstAuthorization: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							holder: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							internationalBirthDate: FHIRPrimitive<DateTime>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							jurisdictionalAuthorization: [MedicinalProductAuthorizationJurisdictionalAuthorization]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							legalBasis: CodeableConcept? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							procedure: MedicinalProductAuthorizationProcedure? = nil,
-							regulator: Reference? = nil,
-							restoreDate: FHIRPrimitive<DateTime>? = nil,
-							status: CodeableConcept? = nil,
-							statusDate: FHIRPrimitive<DateTime>? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							validityPeriod: Period? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		country: [CodeableConcept]? = nil,
+		dataExclusivityPeriod: Period? = nil,
+		dateOfFirstAuthorization: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		holder: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		internationalBirthDate: FHIRPrimitive<DateTime>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		jurisdictionalAuthorization: [MedicinalProductAuthorizationJurisdictionalAuthorization]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		legalBasis: CodeableConcept? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		procedure: MedicinalProductAuthorizationProcedure? = nil,
+		regulator: Reference? = nil,
+		restoreDate: FHIRPrimitive<DateTime>? = nil,
+		status: CodeableConcept? = nil,
+		statusDate: FHIRPrimitive<DateTime>? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		validityPeriod: Period? = nil
+	) {
 		self.init()
 		self.contained = contained
 		self.country = country
@@ -279,15 +279,15 @@ open class MedicinalProductAuthorizationJurisdictionalAuthorization: BackboneEle
 	
 	/// Convenience initializer
 	public convenience init(
-							country: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							legalStatusOfSupply: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							validityPeriod: Period? = nil)
-	{
+		country: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		legalStatusOfSupply: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		validityPeriod: Period? = nil
+	) {
 		self.init()
 		self.country = country
 		self.`extension` = `extension`
@@ -393,14 +393,14 @@ open class MedicinalProductAuthorizationProcedure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							application: [MedicinalProductAuthorizationProcedure]? = nil,
-							date: DateX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		application: [MedicinalProductAuthorizationProcedure]? = nil,
+		date: DateX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.application = application
 		self.date = date

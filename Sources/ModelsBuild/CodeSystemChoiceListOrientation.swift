@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,16 +20,15 @@
 import FMCore
 
 /**
- Direction in which lists of possible answers should be displayed.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/choice-list-orientation
- ValueSet: http://hl7.org/fhir/ValueSet/choice-list-orientation
+ URL: http://hl7.org/fhir/choice-list-orientation
  */
 public enum ChoiceListOrientation: String, FHIRPrimitiveType {
 	
 	/// List choices along the horizontal axis.
-	case horizontal = "horizontal"
+	case horizontal
 	
 	/// List choices down the vertical axis.
-	case vertical = "vertical"
+	case vertical
 }

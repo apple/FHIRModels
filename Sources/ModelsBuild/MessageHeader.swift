@@ -2,8 +2,8 @@
 //  MessageHeader.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MessageHeader)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MessageHeader)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -79,26 +79,26 @@ open class MessageHeader: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							definition: FHIRPrimitive<Canonical>? = nil,
-							destination: [MessageHeaderDestination]? = nil,
-							enterer: Reference? = nil,
-							event: EventX,
-							`extension`: [Extension]? = nil,
-							focus: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil,
-							response: MessageHeaderResponse? = nil,
-							responsible: Reference? = nil,
-							sender: Reference? = nil,
-							source: MessageHeaderSource,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		definition: FHIRPrimitive<Canonical>? = nil,
+		destination: [MessageHeaderDestination]? = nil,
+		enterer: Reference? = nil,
+		event: EventX,
+		`extension`: [Extension]? = nil,
+		focus: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		response: MessageHeaderResponse? = nil,
+		responsible: Reference? = nil,
+		sender: Reference? = nil,
+		source: MessageHeaderSource,
+		text: Narrative? = nil
+	) {
 		self.init(event: event, source: source)
 		self.author = author
 		self.contained = contained
@@ -251,28 +251,28 @@ open class MessageHeaderDestination: BackboneElement {
 	public var target: Reference?
 	
 	/// Actual destination address or id
-	public var endpoint: FHIRPrimitive<FHIRURI>
+	public var endpoint: FHIRPrimitive<FHIRURI>?
 	
 	/// Intended "real-world" recipient for the data
 	public var receiver: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(endpoint: FHIRPrimitive<FHIRURI>) {
-		self.endpoint = endpoint
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							endpoint: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							receiver: Reference? = nil,
-							target: Reference? = nil)
-	{
-		self.init(endpoint: endpoint)
+		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		receiver: Reference? = nil,
+		target: Reference? = nil
+	) {
+		self.init()
+		self.endpoint = endpoint
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -295,7 +295,7 @@ open class MessageHeaderDestination: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpoint, auxiliaryKey: ._endpoint)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.receiver = try Reference(from: _container, forKeyIfPresent: .receiver)
 		self.target = try Reference(from: _container, forKeyIfPresent: .target)
@@ -307,7 +307,7 @@ open class MessageHeaderDestination: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try endpoint.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		try endpoint?.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try receiver?.encode(on: &_container, forKey: .receiver)
 		try target?.encode(on: &_container, forKey: .target)
@@ -346,7 +346,7 @@ open class MessageHeaderDestination: BackboneElement {
 open class MessageHeaderResponse: BackboneElement {
 	
 	/// Id of original message
-	public var identifier: FHIRPrimitive<FHIRString>
+	public var identifier: Identifier
 	
 	/// Code that identifies the type of response to the message - whether it was successful or not, and whether it
 	/// should be resent or not.
@@ -356,7 +356,7 @@ open class MessageHeaderResponse: BackboneElement {
 	public var details: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(code: FHIRPrimitive<ResponseType>, identifier: FHIRPrimitive<FHIRString>) {
+	public init(code: FHIRPrimitive<ResponseType>, identifier: Identifier) {
 		self.code = code
 		self.identifier = identifier
 		super.init()
@@ -364,13 +364,13 @@ open class MessageHeaderResponse: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<ResponseType>,
-							details: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: FHIRPrimitive<FHIRString>,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<ResponseType>,
+		details: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code, identifier: identifier)
 		self.details = details
 		self.`extension` = `extension`
@@ -383,7 +383,7 @@ open class MessageHeaderResponse: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
 		case details
-		case identifier; case _identifier
+		case identifier
 	}
 	
 	/// Initializer for Decodable
@@ -393,7 +393,7 @@ open class MessageHeaderResponse: BackboneElement {
 		// Decode all our properties
 		self.code = try FHIRPrimitive<ResponseType>(from: _container, forKey: .code, auxiliaryKey: ._code)
 		self.details = try Reference(from: _container, forKeyIfPresent: .details)
-		self.identifier = try FHIRPrimitive<FHIRString>(from: _container, forKey: .identifier, auxiliaryKey: ._identifier)
+		self.identifier = try Identifier(from: _container, forKey: .identifier)
 		try super.init(from: decoder)
 	}
 	
@@ -404,7 +404,7 @@ open class MessageHeaderResponse: BackboneElement {
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
 		try details?.encode(on: &_container, forKey: .details)
-		try identifier.encode(on: &_container, forKey: .identifier, auxiliaryKey: ._identifier)
+		try identifier.encode(on: &_container, forKey: .identifier)
 		try super.encode(to: encoder)
 	}
 	
@@ -450,27 +450,27 @@ open class MessageHeaderSource: BackboneElement {
 	public var contact: ContactPoint?
 	
 	/// Actual message source address or id
-	public var endpoint: FHIRPrimitive<FHIRURI>
+	public var endpoint: FHIRPrimitive<FHIRURI>?
 	
 	/// Designated initializer taking all required properties
-	public init(endpoint: FHIRPrimitive<FHIRURI>) {
-		self.endpoint = endpoint
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: ContactPoint? = nil,
-							endpoint: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							software: FHIRPrimitive<FHIRString>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
-		self.init(endpoint: endpoint)
+		contact: ContactPoint? = nil,
+		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		software: FHIRPrimitive<FHIRString>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
+		self.init()
 		self.contact = contact
+		self.endpoint = endpoint
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -495,7 +495,7 @@ open class MessageHeaderSource: BackboneElement {
 		
 		// Decode all our properties
 		self.contact = try ContactPoint(from: _container, forKeyIfPresent: .contact)
-		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpoint, auxiliaryKey: ._endpoint)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.software = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .software, auxiliaryKey: ._software)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
@@ -508,7 +508,7 @@ open class MessageHeaderSource: BackboneElement {
 		
 		// Encode all our properties
 		try contact?.encode(on: &_container, forKey: .contact)
-		try endpoint.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		try endpoint?.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try software?.encode(on: &_container, forKey: .software, auxiliaryKey: ._software)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)

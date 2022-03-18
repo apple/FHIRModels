@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public enum EventStatus: String, FHIRPrimitiveType {
 	
 	/// The core event has not started yet, but some staging activities have begun (e.g. surgical suite preparation).
 	/// Preparation stages may be tracked for billing purposes.
-	case preparation = "preparation"
+	case preparation
 	
 	/// The event is currently occurring.
 	case inProgress = "in-progress"
@@ -43,10 +43,10 @@ public enum EventStatus: String, FHIRPrimitiveType {
 	
 	/// The event was terminated prior to the full completion of the intended activity but after at least some of the
 	/// 'main' activity (beyond preparation) has occurred.
-	case stopped = "stopped"
+	case stopped
 	
 	/// The event has now concluded.
-	case completed = "completed"
+	case completed
 	
 	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it.  (If real-world activity has occurred, the status should be "stopped" rather than "entered-in-error".).
@@ -55,5 +55,5 @@ public enum EventStatus: String, FHIRPrimitiveType {
 	/// The authoring/source system does not know which of the status values currently applies for this event.  Note:
 	/// This concept is not to be used for "other" - one of the listed statuses is presumed to apply,  but the
 	/// authoring/source system does not know which.
-	case unknown = "unknown"
+	case unknown
 }

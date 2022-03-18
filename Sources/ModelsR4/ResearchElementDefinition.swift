@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ResearchElementDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -145,48 +145,48 @@ open class ResearchElementDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							author: [ContactDetail]? = nil,
-							characteristic: [ResearchElementDefinitionCharacteristic],
-							comment: [FHIRPrimitive<FHIRString>]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							editor: [ContactDetail]? = nil,
-							effectivePeriod: Period? = nil,
-							endorser: [ContactDetail]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							library: [FHIRPrimitive<Canonical>]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							shortTitle: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: [CodeableConcept]? = nil,
-							type: FHIRPrimitive<ResearchElementType>,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil,
-							variableType: FHIRPrimitive<EvidenceVariableType>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
+		characteristic: [ResearchElementDefinitionCharacteristic],
+		comment: [FHIRPrimitive<FHIRString>]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		shortTitle: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: SubjectX? = nil,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
+		type: FHIRPrimitive<ResearchElementType>,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil,
+		variableType: FHIRPrimitive<EvidenceVariableType>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(characteristic: characteristic, status: status, type: type)
 		self.approvalDate = approvalDate
 		self.author = author
@@ -530,22 +530,22 @@ open class ResearchElementDefinitionCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: DefinitionX,
-							exclude: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							participantEffective: ParticipantEffectiveX? = nil,
-							participantEffectiveDescription: FHIRPrimitive<FHIRString>? = nil,
-							participantEffectiveGroupMeasure: FHIRPrimitive<GroupMeasure>? = nil,
-							participantEffectiveTimeFromStart: Duration? = nil,
-							studyEffective: StudyEffectiveX? = nil,
-							studyEffectiveDescription: FHIRPrimitive<FHIRString>? = nil,
-							studyEffectiveGroupMeasure: FHIRPrimitive<GroupMeasure>? = nil,
-							studyEffectiveTimeFromStart: Duration? = nil,
-							unitOfMeasure: CodeableConcept? = nil,
-							usageContext: [UsageContext]? = nil)
-	{
+		definition: DefinitionX,
+		exclude: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		participantEffective: ParticipantEffectiveX? = nil,
+		participantEffectiveDescription: FHIRPrimitive<FHIRString>? = nil,
+		participantEffectiveGroupMeasure: FHIRPrimitive<GroupMeasure>? = nil,
+		participantEffectiveTimeFromStart: Duration? = nil,
+		studyEffective: StudyEffectiveX? = nil,
+		studyEffectiveDescription: FHIRPrimitive<FHIRString>? = nil,
+		studyEffectiveGroupMeasure: FHIRPrimitive<GroupMeasure>? = nil,
+		studyEffectiveTimeFromStart: Duration? = nil,
+		unitOfMeasure: CodeableConcept? = nil,
+		usageContext: [UsageContext]? = nil
+	) {
 		self.init(definition: definition)
 		self.exclude = exclude
 		self.`extension` = `extension`

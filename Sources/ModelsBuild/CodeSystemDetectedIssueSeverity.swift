@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import FMCore
 public enum DetectedIssueSeverity: String, FHIRPrimitiveType {
 	
 	/// Indicates the issue may be life-threatening or has the potential to cause permanent injury.
-	case high = "high"
-	
-	/// Indicates the issue may result in noticeable adverse consequences but is unlikely to be life-threatening or
-	/// cause permanent injury.
-	case moderate = "moderate"
+	case high
 	
 	/// Indicates the issue may result in some adverse consequences but is unlikely to substantially affect the
 	/// situation of the subject.
-	case low = "low"
+	case low
+	
+	/// Indicates the issue may result in noticeable adverse consequences but is unlikely to be life-threatening or
+	/// cause permanent injury.
+	case moderate
 }

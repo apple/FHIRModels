@@ -2,8 +2,8 @@
 //  Timing.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Timing)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Timing)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ open class Timing: BackboneType {
 	/// When the event is to occur
 	public var `repeat`: TimingRepeat?
 	
-	/// BID | TID | QID | AM | PM | QD | QOD | +
+	/// C | BID | TID | QID | AM | PM | QD | QOD | +
 	public var code: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
@@ -45,13 +45,13 @@ open class Timing: BackboneType {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							event: [FHIRPrimitive<DateTime>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							`repeat`: TimingRepeat? = nil)
-	{
+		code: CodeableConcept? = nil,
+		event: [FHIRPrimitive<DateTime>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		`repeat`: TimingRepeat? = nil
+	) {
 		self.init()
 		self.code = code
 		self.event = event
@@ -146,13 +146,14 @@ open class TimingRepeat: Element {
 	/// s | min | h | d | wk | mo | a - unit of time (UCUM)
 	public var durationUnit: FHIRPrimitive<FHIRString>?
 	
-	/// Event occurs frequency times per period
+	/// Indicates the number of repetitions that should occur within a period. I.e. Event occurs frequency times per
+	/// period
 	public var frequency: FHIRPrimitive<FHIRPositiveInteger>?
 	
 	/// Event occurs up to frequencyMax times per period
 	public var frequencyMax: FHIRPrimitive<FHIRPositiveInteger>?
 	
-	/// Event occurs frequency times per period
+	/// The duration to which the frequency applies. I.e. Event occurs frequency times per period
 	public var period: FHIRPrimitive<FHIRDecimal>?
 	
 	/// Upper limit of period (3-4 hours)
@@ -180,24 +181,24 @@ open class TimingRepeat: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							bounds: BoundsX? = nil,
-							count: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							countMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							dayOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							duration: FHIRPrimitive<FHIRDecimal>? = nil,
-							durationMax: FHIRPrimitive<FHIRDecimal>? = nil,
-							durationUnit: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							frequency: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							frequencyMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							offset: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							period: FHIRPrimitive<FHIRDecimal>? = nil,
-							periodMax: FHIRPrimitive<FHIRDecimal>? = nil,
-							periodUnit: FHIRPrimitive<FHIRString>? = nil,
-							timeOfDay: [FHIRPrimitive<FHIRTime>]? = nil,
-							when: [FHIRPrimitive<FHIRString>]? = nil)
-	{
+		bounds: BoundsX? = nil,
+		count: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		countMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		dayOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		duration: FHIRPrimitive<FHIRDecimal>? = nil,
+		durationMax: FHIRPrimitive<FHIRDecimal>? = nil,
+		durationUnit: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		frequency: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		frequencyMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		offset: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		period: FHIRPrimitive<FHIRDecimal>? = nil,
+		periodMax: FHIRPrimitive<FHIRDecimal>? = nil,
+		periodUnit: FHIRPrimitive<FHIRString>? = nil,
+		timeOfDay: [FHIRPrimitive<FHIRTime>]? = nil,
+		when: [FHIRPrimitive<FHIRString>]? = nil
+	) {
 		self.init()
 		self.bounds = bounds
 		self.count = count

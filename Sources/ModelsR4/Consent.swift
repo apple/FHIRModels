@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Consent)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -86,28 +86,28 @@ open class Consent: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: [CodeableConcept],
-							contained: [ResourceProxy]? = nil,
-							dateTime: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							organization: [Reference]? = nil,
-							patient: Reference? = nil,
-							performer: [Reference]? = nil,
-							policy: [ConsentPolicy]? = nil,
-							policyRule: CodeableConcept? = nil,
-							provision: ConsentProvision? = nil,
-							scope: CodeableConcept,
-							source: SourceX? = nil,
-							status: FHIRPrimitive<ConsentState>,
-							text: Narrative? = nil,
-							verification: [ConsentVerification]? = nil)
-	{
+		category: [CodeableConcept],
+		contained: [ResourceProxy]? = nil,
+		dateTime: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		organization: [Reference]? = nil,
+		patient: Reference? = nil,
+		performer: [Reference]? = nil,
+		policy: [ConsentPolicy]? = nil,
+		policyRule: CodeableConcept? = nil,
+		provision: ConsentProvision? = nil,
+		scope: CodeableConcept,
+		source: SourceX? = nil,
+		status: FHIRPrimitive<ConsentState>,
+		text: Narrative? = nil,
+		verification: [ConsentVerification]? = nil
+	) {
 		self.init(category: category, scope: scope, status: status)
 		self.contained = contained
 		self.dateTime = dateTime
@@ -273,12 +273,12 @@ open class ConsentPolicy: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							uri: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		authority: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		uri: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init()
 		self.authority = authority
 		self.`extension` = `extension`
@@ -382,21 +382,21 @@ open class ConsentProvision: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [CodeableConcept]? = nil,
-							actor: [ConsentProvisionActor]? = nil,
-							`class`: [Coding]? = nil,
-							code: [CodeableConcept]? = nil,
-							data: [ConsentProvisionData]? = nil,
-							dataPeriod: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							provision: [ConsentProvision]? = nil,
-							purpose: [Coding]? = nil,
-							securityLabel: [Coding]? = nil,
-							type: FHIRPrimitive<ConsentProvisionType>? = nil)
-	{
+		action: [CodeableConcept]? = nil,
+		actor: [ConsentProvisionActor]? = nil,
+		`class`: [Coding]? = nil,
+		code: [CodeableConcept]? = nil,
+		data: [ConsentProvisionData]? = nil,
+		dataPeriod: Period? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		provision: [ConsentProvision]? = nil,
+		purpose: [Coding]? = nil,
+		securityLabel: [Coding]? = nil,
+		type: FHIRPrimitive<ConsentProvisionType>? = nil
+	) {
 		self.init()
 		self.action = action
 		self.actor = actor
@@ -529,12 +529,12 @@ open class ConsentProvisionActor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: Reference,
-							role: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: Reference,
+		role: CodeableConcept
+	) {
 		self.init(reference: reference, role: role)
 		self.`extension` = `extension`
 		self.id = id
@@ -610,12 +610,12 @@ open class ConsentProvisionData: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							meaning: FHIRPrimitive<ConsentDataMeaning>,
-							modifierExtension: [Extension]? = nil,
-							reference: Reference)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		meaning: FHIRPrimitive<ConsentDataMeaning>,
+		modifierExtension: [Extension]? = nil,
+		reference: Reference
+	) {
 		self.init(meaning: meaning, reference: reference)
 		self.`extension` = `extension`
 		self.id = id
@@ -694,13 +694,13 @@ open class ConsentVerification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							verificationDate: FHIRPrimitive<DateTime>? = nil,
-							verified: FHIRPrimitive<FHIRBool>,
-							verifiedWith: Reference? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		verificationDate: FHIRPrimitive<DateTime>? = nil,
+		verified: FHIRPrimitive<FHIRBool>,
+		verifiedWith: Reference? = nil
+	) {
 		self.init(verified: verified)
 		self.`extension` = `extension`
 		self.id = id

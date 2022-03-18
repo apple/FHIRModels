@@ -76,7 +76,7 @@ class DateTimeTests: XCTestCase {
 				let dateTime = try DateTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(dateTime)")
 			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
@@ -88,9 +88,9 @@ class DateTimeTests: XCTestCase {
 		let string = "2017-12-09T09:30:51Z"
 		var parsed = try! DateTime(string)
 		XCTAssertNotNil(parsed.originalTimeZoneString)
-        let expected = DateTime(date: FHIRDate(year: 2017, month: 12, day: 9),
-                                time: FHIRTime(hour: 9, minute: 30, second: 51),
-                                timezone: TimeZone(secondsFromGMT: 0))
+		let expected = DateTime(date: FHIRDate(year: 2017, month: 12, day: 9),
+		                        time: FHIRTime(hour: 9, minute: 30, second: 51),
+		                        timezone: TimeZone(secondsFromGMT: 0))
 		XCTAssertEqual(parsed, expected)
 		XCTAssertEqual(parsed.description, string)
 
@@ -99,9 +99,43 @@ class DateTimeTests: XCTestCase {
 		XCTAssertNotEqual(parsed, expected)
 		XCTAssertEqual(parsed.description, "2017-12-09T09:30:51-05:00")
 		XCTAssertEqual(parsed.timeZone, TimeZone(secondsFromGMT: -5 * 3600))
-        
-        FHIRTime.secondsFormatter.locale = Locale(identifier: "de_DE")
-        parsed.time?.second = 49.3
-        XCTAssertEqual(parsed.description, "2017-12-09T09:30:49.3-05:00")
+		
+		FHIRTime.secondsFormatter.locale = Locale(identifier: "de_DE")
+		parsed.time?.second = 49.3
+		XCTAssertEqual(parsed.description, "2017-12-09T09:30:49.3-05:00")
 	}
+    
+    func testComparison() throws {
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T22:33:45Z", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T21:33:44-02:00", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T23:33:45+01:00", compares: .orderedAscending)
+
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T22:33:44Z", compares: .orderedSame)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T20:33:44-02:00", compares: .orderedSame)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T23:33:44+01:00", compares: .orderedSame)
+        
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T22:33:43Z", compares: .orderedDescending)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T23:33:44+02:00", compares: .orderedDescending)
+        try assertLeftToRight("2021-08-11T22:33:44Z", "2021-08-11T19:33:43-03:00", compares: .orderedDescending)
+        
+        try assertLeftToRight("2021-08-11", "2021-08-12", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-11", "2021-08-11", compares: .orderedSame)
+        try assertLeftToRight("2021-08-11", "2021-08-10", compares: .orderedDescending)
+        
+        try assertLeftToRight("2021-08-11", "2021-09-11", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-11", "2021-08-11", compares: .orderedSame)
+        try assertLeftToRight("2021-08-11", "2021-07-11", compares: .orderedDescending)
+		
+		try assertLeftToRight("2021-08-11", "2022-08-11", compares: .orderedAscending)
+		try assertLeftToRight("2021-08-11", "2021-08-11", compares: .orderedSame)
+		try assertLeftToRight("2021-08-11", "2020-08-11", compares: .orderedDescending)
+    }
+    
+    // MARK: - Tools
+    
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+        let leftDate = try DateTime(left)
+        let rightDate = try DateTime(right)
+		XCTAssertEqual(try leftDate.compare(rightDate), compares, file: file, line: line)
+    }
 }

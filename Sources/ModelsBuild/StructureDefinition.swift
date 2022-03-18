@@ -2,8 +2,8 @@
 //  StructureDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/StructureDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/StructureDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -126,42 +126,42 @@ open class StructureDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							abstract: FHIRPrimitive<FHIRBool>,
-							baseDefinition: FHIRPrimitive<Canonical>? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							context: [StructureDefinitionContext]? = nil,
-							contextInvariant: [FHIRPrimitive<FHIRString>]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivation: FHIRPrimitive<TypeDerivationRule>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							differential: StructureDefinitionDifferential? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							fhirVersion: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							keyword: [Coding]? = nil,
-							kind: FHIRPrimitive<StructureDefinitionKind>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							mapping: [StructureDefinitionMapping]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							snapshot: StructureDefinitionSnapshot? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<FHIRURI>,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		abstract: FHIRPrimitive<FHIRBool>,
+		baseDefinition: FHIRPrimitive<Canonical>? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		context: [StructureDefinitionContext]? = nil,
+		contextInvariant: [FHIRPrimitive<FHIRString>]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivation: FHIRPrimitive<TypeDerivationRule>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		differential: StructureDefinitionDifferential? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		fhirVersion: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		keyword: [Coding]? = nil,
+		kind: FHIRPrimitive<StructureDefinitionKind>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		mapping: [StructureDefinitionMapping]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		snapshot: StructureDefinitionSnapshot? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<FHIRURI>,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(abstract: abstract, kind: kind, name: name, status: status, type: type, url: url)
 		self.baseDefinition = baseDefinition
 		self.contact = contact
@@ -388,12 +388,12 @@ open class StructureDefinitionContext: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<ExtensionContextType>)
-	{
+		expression: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<ExtensionContextType>
+	) {
 		self.init(expression: expression, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -465,11 +465,11 @@ open class StructureDefinitionDifferential: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							element: [ElementDefinition],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		element: [ElementDefinition],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(element: element)
 		self.`extension` = `extension`
 		self.id = id
@@ -545,14 +545,14 @@ open class StructureDefinitionMapping: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identity: FHIRPrimitive<FHIRString>,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							uri: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identity: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		uri: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(identity: identity)
 		self.comment = comment
 		self.`extension` = `extension`
@@ -638,11 +638,11 @@ open class StructureDefinitionSnapshot: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							element: [ElementDefinition],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		element: [ElementDefinition],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(element: element)
 		self.`extension` = `extension`
 		self.id = id

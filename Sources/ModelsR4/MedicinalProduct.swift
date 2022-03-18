@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProduct)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -94,35 +94,35 @@ open class MedicinalProduct: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							additionalMonitoringIndicator: CodeableConcept? = nil,
-							attachedDocument: [Reference]? = nil,
-							clinicalTrial: [Reference]? = nil,
-							combinedPharmaceuticalDoseForm: CodeableConcept? = nil,
-							contact: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							crossReference: [Identifier]? = nil,
-							domain: Coding? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							legalStatusOfSupply: CodeableConcept? = nil,
-							manufacturingBusinessOperation: [MedicinalProductManufacturingBusinessOperation]? = nil,
-							marketingStatus: [MarketingStatus]? = nil,
-							masterFile: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: [MedicinalProductName],
-							packagedMedicinalProduct: [Reference]? = nil,
-							paediatricUseIndicator: CodeableConcept? = nil,
-							pharmaceuticalProduct: [Reference]? = nil,
-							productClassification: [CodeableConcept]? = nil,
-							specialDesignation: [MedicinalProductSpecialDesignation]? = nil,
-							specialMeasures: [FHIRPrimitive<FHIRString>]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		additionalMonitoringIndicator: CodeableConcept? = nil,
+		attachedDocument: [Reference]? = nil,
+		clinicalTrial: [Reference]? = nil,
+		combinedPharmaceuticalDoseForm: CodeableConcept? = nil,
+		contact: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		crossReference: [Identifier]? = nil,
+		domain: Coding? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		legalStatusOfSupply: CodeableConcept? = nil,
+		manufacturingBusinessOperation: [MedicinalProductManufacturingBusinessOperation]? = nil,
+		marketingStatus: [MarketingStatus]? = nil,
+		masterFile: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: [MedicinalProductName],
+		packagedMedicinalProduct: [Reference]? = nil,
+		paediatricUseIndicator: CodeableConcept? = nil,
+		pharmaceuticalProduct: [Reference]? = nil,
+		productClassification: [CodeableConcept]? = nil,
+		specialDesignation: [MedicinalProductSpecialDesignation]? = nil,
+		specialMeasures: [FHIRPrimitive<FHIRString>]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(name: name)
 		self.additionalMonitoringIndicator = additionalMonitoringIndicator
 		self.attachedDocument = attachedDocument
@@ -320,16 +320,16 @@ open class MedicinalProductManufacturingBusinessOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authorisationReferenceNumber: Identifier? = nil,
-							confidentialityIndicator: CodeableConcept? = nil,
-							effectiveDate: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: [Reference]? = nil,
-							modifierExtension: [Extension]? = nil,
-							operationType: CodeableConcept? = nil,
-							regulator: Reference? = nil)
-	{
+		authorisationReferenceNumber: Identifier? = nil,
+		confidentialityIndicator: CodeableConcept? = nil,
+		effectiveDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: [Reference]? = nil,
+		modifierExtension: [Extension]? = nil,
+		operationType: CodeableConcept? = nil,
+		regulator: Reference? = nil
+	) {
 		self.init()
 		self.authorisationReferenceNumber = authorisationReferenceNumber
 		self.confidentialityIndicator = confidentialityIndicator
@@ -431,13 +431,13 @@ open class MedicinalProductName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							countryLanguage: [MedicinalProductNameCountryLanguage]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							namePart: [MedicinalProductNameNamePart]? = nil,
-							productName: FHIRPrimitive<FHIRString>)
-	{
+		countryLanguage: [MedicinalProductNameCountryLanguage]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		namePart: [MedicinalProductNameNamePart]? = nil,
+		productName: FHIRPrimitive<FHIRString>
+	) {
 		self.init(productName: productName)
 		self.countryLanguage = countryLanguage
 		self.`extension` = `extension`
@@ -521,13 +521,13 @@ open class MedicinalProductNameCountryLanguage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							country: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							jurisdiction: CodeableConcept? = nil,
-							language: CodeableConcept,
-							modifierExtension: [Extension]? = nil)
-	{
+		country: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: CodeableConcept? = nil,
+		language: CodeableConcept,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(country: country, language: language)
 		self.`extension` = `extension`
 		self.id = id
@@ -607,12 +607,12 @@ open class MedicinalProductNameNamePart: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							part: FHIRPrimitive<FHIRString>,
-							type: Coding)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		part: FHIRPrimitive<FHIRString>,
+		type: Coding
+	) {
 		self.init(part: part, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -706,17 +706,17 @@ open class MedicinalProductSpecialDesignation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							indication: IndicationX? = nil,
-							intendedUse: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							species: CodeableConcept? = nil,
-							status: CodeableConcept? = nil,
-							type: CodeableConcept? = nil)
-	{
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		indication: IndicationX? = nil,
+		intendedUse: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		species: CodeableConcept? = nil,
+		status: CodeableConcept? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.date = date
 		self.`extension` = `extension`

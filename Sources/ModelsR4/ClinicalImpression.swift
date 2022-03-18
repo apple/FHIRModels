@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ClinicalImpression)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -109,35 +109,35 @@ open class ClinicalImpression: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							assessor: Reference? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							finding: [ClinicalImpressionFinding]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							investigation: [ClinicalImpressionInvestigation]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							previous: Reference? = nil,
-							problem: [Reference]? = nil,
-							prognosisCodeableConcept: [CodeableConcept]? = nil,
-							prognosisReference: [Reference]? = nil,
-							`protocol`: [FHIRPrimitive<FHIRURI>]? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference,
-							summary: FHIRPrimitive<FHIRString>? = nil,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		assessor: Reference? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		finding: [ClinicalImpressionFinding]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		investigation: [ClinicalImpressionInvestigation]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		previous: Reference? = nil,
+		problem: [Reference]? = nil,
+		prognosisCodeableConcept: [CodeableConcept]? = nil,
+		prognosisReference: [Reference]? = nil,
+		`protocol`: [FHIRPrimitive<FHIRURI>]? = nil,
+		status: FHIRPrimitive<EventStatus>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference,
+		summary: FHIRPrimitive<FHIRString>? = nil,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.assessor = assessor
 		self.code = code
@@ -348,13 +348,13 @@ open class ClinicalImpressionFinding: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							basis: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							itemCodeableConcept: CodeableConcept? = nil,
-							itemReference: Reference? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		basis: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		itemCodeableConcept: CodeableConcept? = nil,
+		itemReference: Reference? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.basis = basis
 		self.`extension` = `extension`
@@ -439,12 +439,12 @@ open class ClinicalImpressionInvestigation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [Reference]? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [Reference]? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.id = id

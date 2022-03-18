@@ -2,8 +2,8 @@
 //  PackagedProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,51 +26,54 @@ open class PackagedProductDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .packagedProductDefinition }
 	
-	/// Unique identifier
+	/// A unique identifier for this package as whole
 	public var identifier: [Identifier]?
 	
-	/// A name for this package. Typically what it would be listed as in a drug formulary or catalogue, inventory etc
+	/// A name for this package. Typically as listed in a drug formulary, catalogue, inventory etc
 	public var name: FHIRPrimitive<FHIRString>?
 	
-	/// A high level category e.g. medicinal product, raw material, shipping/transport container, etc
+	/// A high level category e.g. medicinal product, raw material, shipping container etc
 	public var type: CodeableConcept?
 	
 	/// The product that this is a pack for
-	public var subject: [Reference]?
+	public var packageFor: [Reference]?
 	
-	/// The status within the lifecycle of this item. A high level status, this is not intended to duplicate details
-	/// carried elsewhere such as legal status, or authorization or marketing status
+	/// The status within the lifecycle of this item. High level - not intended to duplicate details elsewhere e.g.
+	/// legal status, or authorization/marketing status
 	public var status: CodeableConcept?
 	
 	/// The date at which the given status became applicable
 	public var statusDate: FHIRPrimitive<DateTime>?
 	
+	/// A total of the complete count of contained items of a particular type/form, independent of sub-packaging or
+	/// organization. This can be considered as the pack size
+	public var containedItemQuantity: [Quantity]?
+	
 	/// Textual description. Note that this is not the name of the package or product
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// The legal status of supply of the packaged item as classified by the regulator
-	public var legalStatusOfSupply: CodeableConcept?
+	public var legalStatusOfSupply: [PackagedProductDefinitionLegalStatusOfSupply]?
 	
-	/// Marketing information
+	/// Allows specifying that an item is on the market for sale, or that it is not available, and the dates and
+	/// locations associated
 	public var marketingStatus: [MarketingStatus]?
 	
-	/// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable", "calendar pack"
+	/// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable"
 	public var characteristic: [CodeableConcept]?
 	
-	/// States whether a drug product is supplied with another item such as a diluent or adjuvant
+	/// If the drug product is supplied with another item such as a diluent or adjuvant
 	public var copackagedIndicator: FHIRPrimitive<FHIRBool>?
 	
-	/// An authorization for this package type
-	public var marketingAuthorization: Reference?
-	
-	/// Manufacturer of this package type
+	/// Manufacturer of this package type (multiple means these are all possible manufacturers)
 	public var manufacturer: [Reference]?
 	
-	/// Batch numbering
-	public var batchIdentifier: [PackagedProductDefinitionBatchIdentifier]?
+	/// Additional information or supporting documentation about the packaged product
+	public var attachedDocument: [Reference]?
 	
-	/// A packaging item, as a container for medically related items, possibly with other packaging items within
-	public var package: [PackagedProductDefinitionPackage]?
+	/// A packaging item, as a container for medically related items, possibly with other packaging items within, or a
+	/// packaging component, such as bottle cap
+	public var package: PackagedProductDefinitionPackage?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -79,34 +82,35 @@ open class PackagedProductDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							batchIdentifier: [PackagedProductDefinitionBatchIdentifier]? = nil,
-							characteristic: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copackagedIndicator: FHIRPrimitive<FHIRBool>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							legalStatusOfSupply: CodeableConcept? = nil,
-							manufacturer: [Reference]? = nil,
-							marketingAuthorization: Reference? = nil,
-							marketingStatus: [MarketingStatus]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							package: [PackagedProductDefinitionPackage]? = nil,
-							status: CodeableConcept? = nil,
-							statusDate: FHIRPrimitive<DateTime>? = nil,
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		attachedDocument: [Reference]? = nil,
+		characteristic: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		containedItemQuantity: [Quantity]? = nil,
+		copackagedIndicator: FHIRPrimitive<FHIRBool>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		legalStatusOfSupply: [PackagedProductDefinitionLegalStatusOfSupply]? = nil,
+		manufacturer: [Reference]? = nil,
+		marketingStatus: [MarketingStatus]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		package: PackagedProductDefinitionPackage? = nil,
+		packageFor: [Reference]? = nil,
+		status: CodeableConcept? = nil,
+		statusDate: FHIRPrimitive<DateTime>? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
-		self.batchIdentifier = batchIdentifier
+		self.attachedDocument = attachedDocument
 		self.characteristic = characteristic
 		self.contained = contained
+		self.containedItemQuantity = containedItemQuantity
 		self.copackagedIndicator = copackagedIndicator
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -116,15 +120,14 @@ open class PackagedProductDefinition: DomainResource {
 		self.language = language
 		self.legalStatusOfSupply = legalStatusOfSupply
 		self.manufacturer = manufacturer
-		self.marketingAuthorization = marketingAuthorization
 		self.marketingStatus = marketingStatus
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.package = package
+		self.packageFor = packageFor
 		self.status = status
 		self.statusDate = statusDate
-		self.subject = subject
 		self.text = text
 		self.type = type
 	}
@@ -132,20 +135,20 @@ open class PackagedProductDefinition: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case batchIdentifier
+		case attachedDocument
 		case characteristic
+		case containedItemQuantity
 		case copackagedIndicator; case _copackagedIndicator
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case identifier
 		case legalStatusOfSupply
 		case manufacturer
-		case marketingAuthorization
 		case marketingStatus
 		case name; case _name
 		case package
+		case packageFor
 		case status
 		case statusDate; case _statusDate
-		case subject
 		case type
 	}
 	
@@ -154,20 +157,20 @@ open class PackagedProductDefinition: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.batchIdentifier = try [PackagedProductDefinitionBatchIdentifier](from: _container, forKeyIfPresent: .batchIdentifier)
+		self.attachedDocument = try [Reference](from: _container, forKeyIfPresent: .attachedDocument)
 		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
+		self.containedItemQuantity = try [Quantity](from: _container, forKeyIfPresent: .containedItemQuantity)
 		self.copackagedIndicator = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .copackagedIndicator, auxiliaryKey: ._copackagedIndicator)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.legalStatusOfSupply = try CodeableConcept(from: _container, forKeyIfPresent: .legalStatusOfSupply)
+		self.legalStatusOfSupply = try [PackagedProductDefinitionLegalStatusOfSupply](from: _container, forKeyIfPresent: .legalStatusOfSupply)
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
-		self.marketingAuthorization = try Reference(from: _container, forKeyIfPresent: .marketingAuthorization)
 		self.marketingStatus = try [MarketingStatus](from: _container, forKeyIfPresent: .marketingStatus)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
-		self.package = try [PackagedProductDefinitionPackage](from: _container, forKeyIfPresent: .package)
+		self.package = try PackagedProductDefinitionPackage(from: _container, forKeyIfPresent: .package)
+		self.packageFor = try [Reference](from: _container, forKeyIfPresent: .packageFor)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.statusDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .statusDate, auxiliaryKey: ._statusDate)
-		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -177,20 +180,20 @@ open class PackagedProductDefinition: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try batchIdentifier?.encode(on: &_container, forKey: .batchIdentifier)
+		try attachedDocument?.encode(on: &_container, forKey: .attachedDocument)
 		try characteristic?.encode(on: &_container, forKey: .characteristic)
+		try containedItemQuantity?.encode(on: &_container, forKey: .containedItemQuantity)
 		try copackagedIndicator?.encode(on: &_container, forKey: .copackagedIndicator, auxiliaryKey: ._copackagedIndicator)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try legalStatusOfSupply?.encode(on: &_container, forKey: .legalStatusOfSupply)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
-		try marketingAuthorization?.encode(on: &_container, forKey: .marketingAuthorization)
 		try marketingStatus?.encode(on: &_container, forKey: .marketingStatus)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try package?.encode(on: &_container, forKey: .package)
+		try packageFor?.encode(on: &_container, forKey: .packageFor)
 		try status?.encode(on: &_container, forKey: .status)
 		try statusDate?.encode(on: &_container, forKey: .statusDate, auxiliaryKey: ._statusDate)
-		try subject?.encode(on: &_container, forKey: .subject)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -204,80 +207,80 @@ open class PackagedProductDefinition: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return batchIdentifier == _other.batchIdentifier
+		return attachedDocument == _other.attachedDocument
 		    && characteristic == _other.characteristic
+		    && containedItemQuantity == _other.containedItemQuantity
 		    && copackagedIndicator == _other.copackagedIndicator
 		    && description_fhir == _other.description_fhir
 		    && identifier == _other.identifier
 		    && legalStatusOfSupply == _other.legalStatusOfSupply
 		    && manufacturer == _other.manufacturer
-		    && marketingAuthorization == _other.marketingAuthorization
 		    && marketingStatus == _other.marketingStatus
 		    && name == _other.name
 		    && package == _other.package
+		    && packageFor == _other.packageFor
 		    && status == _other.status
 		    && statusDate == _other.statusDate
-		    && subject == _other.subject
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(batchIdentifier)
+		hasher.combine(attachedDocument)
 		hasher.combine(characteristic)
+		hasher.combine(containedItemQuantity)
 		hasher.combine(copackagedIndicator)
 		hasher.combine(description_fhir)
 		hasher.combine(identifier)
 		hasher.combine(legalStatusOfSupply)
 		hasher.combine(manufacturer)
-		hasher.combine(marketingAuthorization)
 		hasher.combine(marketingStatus)
 		hasher.combine(name)
 		hasher.combine(package)
+		hasher.combine(packageFor)
 		hasher.combine(status)
 		hasher.combine(statusDate)
-		hasher.combine(subject)
 		hasher.combine(type)
 	}
 }
 
 /**
- Batch numbering.
+ The legal status of supply of the packaged item as classified by the regulator.
  */
-open class PackagedProductDefinitionBatchIdentifier: BackboneElement {
+open class PackagedProductDefinitionLegalStatusOfSupply: BackboneElement {
 	
-	/// A number appearing on the outer packaging of a specific batch
-	public var outerPackaging: Identifier
+	/// The actual status of supply. In what situation this package type may be supplied for use
+	public var code: CodeableConcept?
 	
-	/// A number appearing on the immediate packaging (and not the outer packaging)
-	public var immediatePackaging: Identifier?
+	/// The place where the legal status of supply applies
+	public var jurisdiction: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(outerPackaging: Identifier) {
-		self.outerPackaging = outerPackaging
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							immediatePackaging: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							outerPackaging: Identifier)
-	{
-		self.init(outerPackaging: outerPackaging)
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.code = code
 		self.`extension` = `extension`
 		self.id = id
-		self.immediatePackaging = immediatePackaging
+		self.jurisdiction = jurisdiction
 		self.modifierExtension = modifierExtension
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case immediatePackaging
-		case outerPackaging
+		case code
+		case jurisdiction
 	}
 	
 	/// Initializer for Decodable
@@ -285,8 +288,8 @@ open class PackagedProductDefinitionBatchIdentifier: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.immediatePackaging = try Identifier(from: _container, forKeyIfPresent: .immediatePackaging)
-		self.outerPackaging = try Identifier(from: _container, forKey: .outerPackaging)
+		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.jurisdiction = try CodeableConcept(from: _container, forKeyIfPresent: .jurisdiction)
 		try super.init(from: decoder)
 	}
 	
@@ -295,56 +298,61 @@ open class PackagedProductDefinitionBatchIdentifier: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try immediatePackaging?.encode(on: &_container, forKey: .immediatePackaging)
-		try outerPackaging.encode(on: &_container, forKey: .outerPackaging)
+		try code?.encode(on: &_container, forKey: .code)
+		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? PackagedProductDefinitionBatchIdentifier else {
+		guard let _other = _other as? PackagedProductDefinitionLegalStatusOfSupply else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return immediatePackaging == _other.immediatePackaging
-		    && outerPackaging == _other.outerPackaging
+		return code == _other.code
+		    && jurisdiction == _other.jurisdiction
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(immediatePackaging)
-		hasher.combine(outerPackaging)
+		hasher.combine(code)
+		hasher.combine(jurisdiction)
 	}
 }
 
 /**
- A packaging item, as a container for medically related items, possibly with other packaging items within.
+ A packaging item, as a container for medically related items, possibly with other packaging items within, or a
+ packaging component, such as bottle cap.
+ 
+ A packaging item, as a container for medically related items, possibly with other packaging items within, or a
+ packaging component, such as bottle cap (which is not a device or a medication manufactured item).
  */
 open class PackagedProductDefinitionPackage: BackboneElement {
 	
-	/// Including possibly Data Carrier Identifier
+	/// An identifier that is specific to this particular part of the packaging. Including possibly a Data Carrier
+	/// Identifier
 	public var identifier: [Identifier]?
 	
 	/// The physical type of the container of the items
 	public var type: CodeableConcept?
 	
-	/// The quantity of this level of packaging in the package that contains it. If specified, the outermost level is
-	/// always 1
+	/// The quantity of this level of packaging in the package that contains it (with the outermost level being 1)
 	public var quantity: FHIRPrimitive<FHIRInteger>?
 	
 	/// Material type of the package item
 	public var material: [CodeableConcept]?
 	
-	/// A possible alternate material for the packaging
+	/// A possible alternate material for this part of the packaging, that is allowed to be used instead of the usual
+	/// material
 	public var alternateMaterial: [CodeableConcept]?
 	
 	/// Shelf Life and storage information
 	public var shelfLifeStorage: [ProductShelfLife]?
 	
-	/// Manufacturer of this package Item
+	/// Manufacturer of this package Item (multiple means these are all possible manufacturers)
 	public var manufacturer: [Reference]?
 	
 	/// General characteristics of this item
@@ -353,7 +361,7 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	/// The item(s) within the packaging
 	public var containedItem: [PackagedProductDefinitionPackageContainedItem]?
 	
-	/// Allows containers within containers
+	/// Allows containers (and parts of containers) within containers, still a single packaged product
 	public var package: [PackagedProductDefinitionPackage]?
 	
 	/// Designated initializer taking all required properties
@@ -363,20 +371,20 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							alternateMaterial: [CodeableConcept]? = nil,
-							containedItem: [PackagedProductDefinitionPackageContainedItem]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							manufacturer: [Reference]? = nil,
-							material: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							package: [PackagedProductDefinitionPackage]? = nil,
-							property: [PackagedProductDefinitionPackageProperty]? = nil,
-							quantity: FHIRPrimitive<FHIRInteger>? = nil,
-							shelfLifeStorage: [ProductShelfLife]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		alternateMaterial: [CodeableConcept]? = nil,
+		containedItem: [PackagedProductDefinitionPackageContainedItem]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		manufacturer: [Reference]? = nil,
+		material: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		package: [PackagedProductDefinitionPackage]? = nil,
+		property: [PackagedProductDefinitionPackageProperty]? = nil,
+		quantity: FHIRPrimitive<FHIRInteger>? = nil,
+		shelfLifeStorage: [ProductShelfLife]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.alternateMaterial = alternateMaterial
 		self.containedItem = containedItem
@@ -485,47 +493,38 @@ open class PackagedProductDefinitionPackage: BackboneElement {
  */
 open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 	
-	/// All possible types for "amount[x]"
-	public enum AmountX: Hashable {
-		case integer(FHIRPrimitive<FHIRInteger>)
-		case quantity(Quantity)
-	}
-	
-	/// The actual item(s) of medication, as manufactured, or a device (typically, but not necessarily, a co-packaged
-	/// one), or other medically related item (such as food, biologicals, raw materials, medical fluids, gases etc.), as
-	/// contained in the package
-	public var item: [Reference]?
+	/// The actual item(s) of medication, as manufactured, or a device, or other medically related item (food,
+	/// biologicals, raw materials, medical fluids, gases etc.), as contained in the package
+	public var item: CodeableReference
 	
 	/// The number of this type of item within this packaging
-	/// One of `amount[x]`
-	public var amount: AmountX?
+	public var amount: Quantity?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(item: CodeableReference) {
+		self.item = item
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [Reference]? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
-		self.init()
+		amount: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: CodeableReference,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init(item: item)
 		self.amount = amount
 		self.`extension` = `extension`
 		self.id = id
-		self.item = item
 		self.modifierExtension = modifierExtension
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case amountInteger; case _amountInteger
-		case amountQuantity
+		case amount
 		case item
 	}
 	
@@ -534,21 +533,8 @@ open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		var _t_amount: AmountX? = nil
-		if let amountQuantity = try Quantity(from: _container, forKeyIfPresent: .amountQuantity) {
-			if _t_amount != nil {
-				throw DecodingError.dataCorruptedError(forKey: .amountQuantity, in: _container, debugDescription: "More than one value provided for \"amount\"")
-			}
-			_t_amount = .quantity(amountQuantity)
-		}
-		if let amountInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .amountInteger, auxiliaryKey: ._amountInteger) {
-			if _t_amount != nil {
-				throw DecodingError.dataCorruptedError(forKey: .amountInteger, in: _container, debugDescription: "More than one value provided for \"amount\"")
-			}
-			_t_amount = .integer(amountInteger)
-		}
-		self.amount = _t_amount
-		self.item = try [Reference](from: _container, forKeyIfPresent: .item)
+		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
+		self.item = try CodeableReference(from: _container, forKey: .item)
 		try super.init(from: decoder)
 	}
 	
@@ -557,15 +543,8 @@ open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		if let _enum = amount {
-			switch _enum {
-			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .amountQuantity)
-			case .integer(let _value):
-				try _value.encode(on: &_container, forKey: .amountInteger, auxiliaryKey: ._amountInteger)
-			}
-		}
-		try item?.encode(on: &_container, forKey: .item)
+		try amount?.encode(on: &_container, forKey: .amount)
+		try item.encode(on: &_container, forKey: .item)
 		try super.encode(to: encoder)
 	}
 	
@@ -618,12 +597,12 @@ open class PackagedProductDefinitionPackageProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id

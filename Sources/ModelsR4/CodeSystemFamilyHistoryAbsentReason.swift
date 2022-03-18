@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@ public enum FamilyHistoryAbsentReason: String, FHIRPrimitiveType {
 	case subjectUnknown = "subject-unknown"
 	
 	/// The patient withheld or refused to share the information.
-	case withheld = "withheld"
+	case withheld
 	
 	/// Information cannot be obtained; e.g. unconscious patient.
 	case unableToObtain = "unable-to-obtain"
 	
 	/// Patient does not have the information now, but can provide the information at a later date.
-	case deferred = "deferred"
+	case deferred
 }

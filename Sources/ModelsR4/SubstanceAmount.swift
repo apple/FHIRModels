@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SubstanceAmount)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,14 +60,14 @@ open class SubstanceAmount: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							amountText: FHIRPrimitive<FHIRString>? = nil,
-							amountType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							referenceRange: SubstanceAmountReferenceRange? = nil)
-	{
+		amount: AmountX? = nil,
+		amountText: FHIRPrimitive<FHIRString>? = nil,
+		amountType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		referenceRange: SubstanceAmountReferenceRange? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.amountText = amountText
@@ -183,11 +183,11 @@ open class SubstanceAmountReferenceRange: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							highLimit: Quantity? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							lowLimit: Quantity? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		highLimit: Quantity? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		lowLimit: Quantity? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.highLimit = highLimit

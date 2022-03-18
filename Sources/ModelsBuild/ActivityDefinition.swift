@@ -2,8 +2,8 @@
 //  ActivityDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ActivityDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ActivityDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ open class ActivityDefinition: DomainResource {
 	
 	/// All possible types for "subject[x]"
 	public enum SubjectX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
 		case codeableConcept(CodeableConcept)
 		case reference(Reference)
 	}
@@ -48,9 +49,7 @@ open class ActivityDefinition: DomainResource {
 	/// All possible types for "timing[x]"
 	public enum TimingX: Hashable {
 		case age(Age)
-		case dateTime(FHIRPrimitive<DateTime>)
 		case duration(Duration)
-		case period(Period)
 		case range(Range)
 		case timing(Timing)
 	}
@@ -150,12 +149,11 @@ open class ActivityDefinition: DomainResource {
 	/// Detail type of activity
 	public var code: CodeableConcept?
 	
-	/// Indicates the level of authority/intentionality associated with the activity and where the request should fit
-	/// into the workflow chain.
-	public var intent: FHIRPrimitive<RequestIntent>?
+	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+	public var intent: FHIRPrimitive<FHIRString>?
 	
-	/// Indicates how quickly the activity  should be addressed with respect to other requests.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// True if the activity should not be performed
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
@@ -165,7 +163,7 @@ open class ActivityDefinition: DomainResource {
 	public var timing: TimingX?
 	
 	/// Where it should happen
-	public var location: Reference?
+	public var location: CodeableReference?
 	
 	/// Who should participate in the action
 	public var participant: [ActivityDefinitionParticipant]?
@@ -206,61 +204,61 @@ open class ActivityDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							author: [ContactDetail]? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							dosage: [Dosage]? = nil,
-							dynamicValue: [ActivityDefinitionDynamicValue]? = nil,
-							editor: [ContactDetail]? = nil,
-							effectivePeriod: Period? = nil,
-							endorser: [ContactDetail]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							intent: FHIRPrimitive<RequestIntent>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<RequestResourceType>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							library: [FHIRPrimitive<Canonical>]? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							observationRequirement: [Reference]? = nil,
-							observationResultRequirement: [Reference]? = nil,
-							participant: [ActivityDefinitionParticipant]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							product: ProductX? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							quantity: Quantity? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							specimenRequirement: [Reference]? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							text: Narrative? = nil,
-							timing: TimingX? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: [CodeableConcept]? = nil,
-							transform: FHIRPrimitive<Canonical>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		dosage: [Dosage]? = nil,
+		dynamicValue: [ActivityDefinitionDynamicValue]? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		intent: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<RequestResourceType>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
+		location: CodeableReference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		observationRequirement: [Reference]? = nil,
+		observationResultRequirement: [Reference]? = nil,
+		participant: [ActivityDefinitionParticipant]? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		product: ProductX? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		quantity: Quantity? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		specimenRequirement: [Reference]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: SubjectX? = nil,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		text: Narrative? = nil,
+		timing: TimingX? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
+		transform: FHIRPrimitive<Canonical>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
 		self.author = author
@@ -357,13 +355,12 @@ open class ActivityDefinition: DomainResource {
 		case reviewer
 		case specimenRequirement
 		case status; case _status
+		case subjectCanonical; case _subjectCanonical
 		case subjectCodeableConcept
 		case subjectReference
 		case subtitle; case _subtitle
 		case timingAge
-		case timingDateTime; case _timingDateTime
 		case timingDuration
-		case timingPeriod
 		case timingRange
 		case timingTiming
 		case title; case _title
@@ -396,17 +393,17 @@ open class ActivityDefinition: DomainResource {
 		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKeyIfPresent: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .intent, auxiliaryKey: ._intent)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.kind = try FHIRPrimitive<RequestResourceType>(from: _container, forKeyIfPresent: .kind, auxiliaryKey: ._kind)
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		self.library = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .library, auxiliaryKey: ._library)
-		self.location = try Reference(from: _container, forKeyIfPresent: .location)
+		self.location = try CodeableReference(from: _container, forKeyIfPresent: .location)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.observationRequirement = try [Reference](from: _container, forKeyIfPresent: .observationRequirement)
 		self.observationResultRequirement = try [Reference](from: _container, forKeyIfPresent: .observationResultRequirement)
 		self.participant = try [ActivityDefinitionParticipant](from: _container, forKeyIfPresent: .participant)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		var _t_product: ProductX? = nil
 		if let productReference = try Reference(from: _container, forKeyIfPresent: .productReference) {
 			if _t_product != nil {
@@ -442,6 +439,12 @@ open class ActivityDefinition: DomainResource {
 			}
 			_t_subject = .reference(subjectReference)
 		}
+		if let subjectCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .subjectCanonical, auxiliaryKey: ._subjectCanonical) {
+			if _t_subject != nil {
+				throw DecodingError.dataCorruptedError(forKey: .subjectCanonical, in: _container, debugDescription: "More than one value provided for \"subject\"")
+			}
+			_t_subject = .canonical(subjectCanonical)
+		}
 		self.subject = _t_subject
 		self.subtitle = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .subtitle, auxiliaryKey: ._subtitle)
 		var _t_timing: TimingX? = nil
@@ -451,23 +454,11 @@ open class ActivityDefinition: DomainResource {
 			}
 			_t_timing = .timing(timingTiming)
 		}
-		if let timingDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .timingDateTime, auxiliaryKey: ._timingDateTime) {
-			if _t_timing != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timingDateTime, in: _container, debugDescription: "More than one value provided for \"timing\"")
-			}
-			_t_timing = .dateTime(timingDateTime)
-		}
 		if let timingAge = try Age(from: _container, forKeyIfPresent: .timingAge) {
 			if _t_timing != nil {
 				throw DecodingError.dataCorruptedError(forKey: .timingAge, in: _container, debugDescription: "More than one value provided for \"timing\"")
 			}
 			_t_timing = .age(timingAge)
-		}
-		if let timingPeriod = try Period(from: _container, forKeyIfPresent: .timingPeriod) {
-			if _t_timing != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timingPeriod, in: _container, debugDescription: "More than one value provided for \"timing\"")
-			}
-			_t_timing = .period(timingPeriod)
 		}
 		if let timingRange = try Range(from: _container, forKeyIfPresent: .timingRange) {
 			if _t_timing != nil {
@@ -546,6 +537,8 @@ open class ActivityDefinition: DomainResource {
 				try _value.encode(on: &_container, forKey: .subjectCodeableConcept)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .subjectReference)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .subjectCanonical, auxiliaryKey: ._subjectCanonical)
 			}
 		}
 		try subtitle?.encode(on: &_container, forKey: .subtitle, auxiliaryKey: ._subtitle)
@@ -553,12 +546,8 @@ open class ActivityDefinition: DomainResource {
 			switch _enum {
 			case .timing(let _value):
 				try _value.encode(on: &_container, forKey: .timingTiming)
-			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .timingDateTime, auxiliaryKey: ._timingDateTime)
 			case .age(let _value):
 				try _value.encode(on: &_container, forKey: .timingAge)
-			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .timingPeriod)
 			case .range(let _value):
 				try _value.encode(on: &_container, forKey: .timingRange)
 			case .duration(let _value):
@@ -707,12 +696,12 @@ open class ActivityDefinitionDynamicValue: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: Expression,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							path: FHIRPrimitive<FHIRString>)
-	{
+		expression: Expression,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		path: FHIRPrimitive<FHIRString>
+	) {
 		self.init(expression: expression, path: path)
 		self.`extension` = `extension`
 		self.id = id
@@ -774,37 +763,49 @@ open class ActivityDefinitionDynamicValue: BackboneElement {
 open class ActivityDefinitionParticipant: BackboneElement {
 	
 	/// The type of participant in the action.
-	public var type: FHIRPrimitive<ActionParticipantType>
+	public var type: FHIRPrimitive<ActionParticipantType>?
+	
+	/// Who or what can participate
+	public var typeReference: Reference?
 	
 	/// E.g. Nurse, Surgeon, Parent, etc.
 	public var role: CodeableConcept?
 	
+	/// E.g. Author, Reviewer, Witness, etc.
+	public var function: CodeableConcept?
+	
 	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<ActionParticipantType>) {
-		self.type = type
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: CodeableConcept? = nil,
-							type: FHIRPrimitive<ActionParticipantType>)
-	{
-		self.init(type: type)
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept? = nil,
+		type: FHIRPrimitive<ActionParticipantType>? = nil,
+		typeReference: Reference? = nil
+	) {
+		self.init()
 		self.`extension` = `extension`
+		self.function = function
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.role = role
+		self.type = type
+		self.typeReference = typeReference
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case function
 		case role
 		case type; case _type
+		case typeReference
 	}
 	
 	/// Initializer for Decodable
@@ -812,8 +813,10 @@ open class ActivityDefinitionParticipant: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
-		self.type = try FHIRPrimitive<ActionParticipantType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ActionParticipantType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
+		self.typeReference = try Reference(from: _container, forKeyIfPresent: .typeReference)
 		try super.init(from: decoder)
 	}
 	
@@ -822,8 +825,10 @@ open class ActivityDefinitionParticipant: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try function?.encode(on: &_container, forKey: .function)
 		try role?.encode(on: &_container, forKey: .role)
-		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try typeReference?.encode(on: &_container, forKey: .typeReference)
 		try super.encode(to: encoder)
 	}
 	
@@ -836,13 +841,17 @@ open class ActivityDefinitionParticipant: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return role == _other.role
+		return function == _other.function
+		    && role == _other.role
 		    && type == _other.type
+		    && typeReference == _other.typeReference
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(function)
 		hasher.combine(role)
 		hasher.combine(type)
+		hasher.combine(typeReference)
 	}
 }

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductInteraction)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -56,22 +56,22 @@ open class MedicinalProductInteraction: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effect: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							incidence: CodeableConcept? = nil,
-							interactant: [MedicinalProductInteractionInteractant]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							management: CodeableConcept? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effect: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		incidence: CodeableConcept? = nil,
+		interactant: [MedicinalProductInteractionInteractant]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		management: CodeableConcept? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		subject: [Reference]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.contained = contained
 		self.description_fhir = description_fhir
@@ -185,11 +185,11 @@ open class MedicinalProductInteractionInteractant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id

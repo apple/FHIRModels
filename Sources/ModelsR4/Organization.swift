@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Organization)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -67,25 +67,25 @@ open class Organization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							contact: [OrganizationContact]? = nil,
-							contained: [ResourceProxy]? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							partOf: Reference? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		contact: [OrganizationContact]? = nil,
+		contained: [ResourceProxy]? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		partOf: Reference? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.active = active
 		self.address = address
@@ -218,14 +218,14 @@ open class OrganizationContact: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: Address? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: HumanName? = nil,
-							purpose: CodeableConcept? = nil,
-							telecom: [ContactPoint]? = nil)
-	{
+		address: Address? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: HumanName? = nil,
+		purpose: CodeableConcept? = nil,
+		telecom: [ContactPoint]? = nil
+	) {
 		self.init()
 		self.address = address
 		self.`extension` = `extension`

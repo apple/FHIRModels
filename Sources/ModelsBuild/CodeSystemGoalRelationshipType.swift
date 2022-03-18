@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,26 +20,25 @@
 import FMCore
 
 /**
- Types of relationships between two goals.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/goal-relationship-type
- ValueSet: http://hl7.org/fhir/ValueSet/goal-relationship-type
+ URL: http://hl7.org/fhir/goal-relationship-type
  */
 public enum GoalRelationshipType: String, FHIRPrimitiveType {
 	
-	/// Indicates that the target goal is one which must be met before striving for the current goal.
-	case predecessor = "predecessor"
-	
-	/// Indicates that the target goal is a desired objective once the current goal is met.
-	case successor = "successor"
-	
-	/// Indicates that this goal has been replaced by the target goal.
-	case replacement = "replacement"
-	
 	/// Indicates that the target goal is considered to be a "piece" of attaining this goal.
-	case milestone = "milestone"
+	case milestone
 	
 	/// Indicates that the relationship is not covered by one of the pre-defined codes.  (An extension may convey more
 	/// information about the meaning of the relationship.).
-	case other = "other"
+	case other
+	
+	/// Indicates that the target goal is one which must be met before striving for the current goal.
+	case predecessor
+	
+	/// Indicates that this goal has been replaced by the target goal.
+	case replacement
+	
+	/// Indicates that the target goal is a desired objective once the current goal is met.
+	case successor
 }

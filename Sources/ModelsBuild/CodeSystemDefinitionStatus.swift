@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,17 +27,17 @@ import FMCore
  */
 public enum DefinitionStatus: String, FHIRPrimitiveType {
 	
-	/// The definition is in the design stage and is not yet considered to be "ready for use".
-	case draft = "draft"
-	
 	/// The definition is considered ready for use.
-	case active = "active"
+	case active
 	
-	/// The definition should no longer be used.
-	case withdrawn = "withdrawn"
+	/// The definition is in the design stage and is not yet considered to be "ready for use".
+	case draft
 	
 	/// The authoring/source system does not know which of the status values currently applies for this resource.  Note:
 	/// This concept is not to be used for "other" - one of the listed statuses is presumed to apply,  but the
 	/// authoring/source system does not know which.
-	case unknown = "unknown"
+	case unknown
+	
+	/// The definition should no longer be used.
+	case withdrawn
 }

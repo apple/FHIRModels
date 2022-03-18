@@ -2,8 +2,8 @@
 //  Attachment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Attachment)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Attachment)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,22 +72,22 @@ open class Attachment: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							contentType: FHIRPrimitive<FHIRString>? = nil,
-							creation: FHIRPrimitive<DateTime>? = nil,
-							data: FHIRPrimitive<Base64Binary>? = nil,
-							duration: FHIRPrimitive<FHIRDecimal>? = nil,
-							`extension`: [Extension]? = nil,
-							frames: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							hash: FHIRPrimitive<Base64Binary>? = nil,
-							height: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							pages: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							size: FHIRPrimitive<FHIRInteger64>? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							width: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		contentType: FHIRPrimitive<FHIRString>? = nil,
+		creation: FHIRPrimitive<DateTime>? = nil,
+		data: FHIRPrimitive<Base64Binary>? = nil,
+		duration: FHIRPrimitive<FHIRDecimal>? = nil,
+		`extension`: [Extension]? = nil,
+		frames: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		hash: FHIRPrimitive<Base64Binary>? = nil,
+		height: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		pages: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		size: FHIRPrimitive<FHIRInteger64>? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		width: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init()
 		self.contentType = contentType
 		self.creation = creation

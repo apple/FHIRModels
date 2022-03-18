@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicationStatement)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ open class MedicationStatement: DomainResource {
 	
 	/// A code representing the patient or other source's judgment about the state of the medication used that this
 	/// statement is about.  Generally, this will be active or completed.
-	public var status: FHIRPrimitive<MedicationStatusCodes>
+	public var status: FHIRPrimitive<MedicationStatementStatusCodes>
 	
 	/// Reason for current status
 	public var statusReason: [CodeableConcept]?
@@ -109,7 +109,7 @@ open class MedicationStatement: DomainResource {
 	public var dosage: [Dosage]?
 	
 	/// Designated initializer taking all required properties
-	public init(medication: MedicationX, status: FHIRPrimitive<MedicationStatusCodes>, subject: Reference) {
+	public init(medication: MedicationX, status: FHIRPrimitive<MedicationStatementStatusCodes>, subject: Reference) {
 		self.medication = medication
 		self.status = status
 		self.subject = subject
@@ -118,32 +118,32 @@ open class MedicationStatement: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							category: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							context: Reference? = nil,
-							dateAsserted: FHIRPrimitive<DateTime>? = nil,
-							derivedFrom: [Reference]? = nil,
-							dosage: [Dosage]? = nil,
-							effective: EffectiveX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							informationSource: Reference? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: MedicationX,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							status: FHIRPrimitive<MedicationStatusCodes>,
-							statusReason: [CodeableConcept]? = nil,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		category: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		context: Reference? = nil,
+		dateAsserted: FHIRPrimitive<DateTime>? = nil,
+		derivedFrom: [Reference]? = nil,
+		dosage: [Dosage]? = nil,
+		effective: EffectiveX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		informationSource: Reference? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: MedicationX,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		status: FHIRPrimitive<MedicationStatementStatusCodes>,
+		statusReason: [CodeableConcept]? = nil,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(medication: medication, status: status, subject: subject)
 		self.basedOn = basedOn
 		self.category = category
@@ -243,7 +243,7 @@ open class MedicationStatement: DomainResource {
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.reasonCode = try [CodeableConcept](from: _container, forKeyIfPresent: .reasonCode)
 		self.reasonReference = try [Reference](from: _container, forKeyIfPresent: .reasonReference)
-		self.status = try FHIRPrimitive<MedicationStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<MedicationStatementStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		try super.init(from: decoder)

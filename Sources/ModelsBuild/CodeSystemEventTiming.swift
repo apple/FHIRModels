@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,25 +26,33 @@ import FMCore
  */
 public enum EventTiming: String, FHIRPrimitiveType {
 	
+	/// Event occurs during the afternoon. The exact time is unspecified and established by institution convention or
+	/// patient interpretation.
+	case AFT
+	
+	/// Event occurs during the evening. The exact time is unspecified and established by institution convention or
+	/// patient interpretation.
+	case EVE
+	
+	/// Event occurs a single time (with no repetitions) as soon as possible after the scheduled or actual start of the
+	/// overall event.
+	case IMD
+	
 	/// Event occurs during the morning. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case MORN = "MORN"
+	case MORN
 	
-	/// Event occurs during the early morning. The exact time is unspecified and established by institution convention
-	/// or patient interpretation.
-	case mORNEarly = "MORN.early"
-	
-	/// Event occurs during the late morning. The exact time is unspecified and established by institution convention or
+	/// Event occurs during the night. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case mORNLate = "MORN.late"
+	case NIGHT
 	
 	/// Event occurs around 12:00pm. The exact time is unspecified and established by institution convention or patient
 	/// interpretation.
-	case NOON = "NOON"
+	case NOON
 	
-	/// Event occurs during the afternoon. The exact time is unspecified and established by institution convention or
-	/// patient interpretation.
-	case AFT = "AFT"
+	/// Event occurs [offset] after subject goes to sleep. The exact time is unspecified and established by institution
+	/// convention or patient interpretation.
+	case PHS
 	
 	/// Event occurs during the early afternoon. The exact time is unspecified and established by institution convention
 	/// or patient interpretation.
@@ -54,10 +62,6 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	/// or patient interpretation.
 	case aFTLate = "AFT.late"
 	
-	/// Event occurs during the evening. The exact time is unspecified and established by institution convention or
-	/// patient interpretation.
-	case EVE = "EVE"
-	
 	/// Event occurs during the early evening. The exact time is unspecified and established by institution convention
 	/// or patient interpretation.
 	case eVEEarly = "EVE.early"
@@ -66,11 +70,11 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	/// patient interpretation.
 	case eVELate = "EVE.late"
 	
-	/// Event occurs during the night. The exact time is unspecified and established by institution convention or
-	/// patient interpretation.
-	case NIGHT = "NIGHT"
+	/// Event occurs during the early morning. The exact time is unspecified and established by institution convention
+	/// or patient interpretation.
+	case mORNEarly = "MORN.early"
 	
-	/// Event occurs [offset] after subject goes to sleep. The exact time is unspecified and established by institution
-	/// convention or patient interpretation.
-	case PHS = "PHS"
+	/// Event occurs during the late morning. The exact time is unspecified and established by institution convention or
+	/// patient interpretation.
+	case mORNLate = "MORN.late"
 }

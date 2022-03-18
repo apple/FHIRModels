@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ public enum MedicationAdministrationPerformerFunctionCodes: String, FHIRPrimitiv
 	
 	/// A person, non-person living subject, organization or device that who actually and principally carries out the
 	/// action
-	case performer = "performer"
+	case performer
 	
 	/// A person who verifies the correctness and appropriateness of the service (plan, order, event, etc.) and hence
 	/// takes on accountability.
-	case verifier = "verifier"
+	case verifier
 	
 	/// A person witnessing the action happening without doing anything. A witness is not necessarily aware, much less
 	/// approves of anything stated in the service event. Example for a witness is students watching an operation or an
 	/// advanced directive witness.
-	case witness = "witness"
+	case witness
 }

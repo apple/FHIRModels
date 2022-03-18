@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,18 +28,18 @@ import FMCore
 public enum ClaimTypeCodes: String, FHIRPrimitiveType {
 	
 	/// Hospital, clinic and typically inpatient claims.
-	case institutional = "institutional"
+	case institutional
 	
 	/// Dental, Denture and Hygiene claims.
-	case oral = "oral"
+	case oral
 	
 	/// Pharmacy claims for goods and services.
-	case pharmacy = "pharmacy"
+	case pharmacy
 	
 	/// Typically, outpatient claims from Physician, Psychological, Chiropractor, Physiotherapy, Speech Pathology,
 	/// rehabilitative, consulting.
-	case professional = "professional"
+	case professional
 	
 	/// Vision claims for professional services and products such as glasses and contact lenses.
-	case vision = "vision"
+	case vision
 }

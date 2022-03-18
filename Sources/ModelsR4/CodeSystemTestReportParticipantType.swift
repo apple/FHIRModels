@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ public enum TestReportParticipantType: String, FHIRPrimitiveType {
 	case testEngine = "test-engine"
 	
 	/// A FHIR Client.
-	case client = "client"
+	case client
 	
 	/// A FHIR Server.
-	case server = "server"
+	case server
 }

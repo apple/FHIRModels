@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,20 +29,20 @@ import FMCore
 public enum ContactEntityType: String, FHIRPrimitiveType {
 	
 	/// Contact details for information regarding to billing/general finance enquiries.
-	case BILL = "BILL"
+	case BILL
 	
 	/// Contact details for administrative enquiries.
-	case ADMIN = "ADMIN"
+	case ADMIN
 	
 	/// Contact details for issues related to Human Resources, such as staff matters, OH&S etc.
-	case HR = "HR"
+	case HR
 	
 	/// Contact details for dealing with issues related to insurance claims/adjudication/payment.
-	case PAYOR = "PAYOR"
+	case PAYOR
 	
 	/// Generic information contact for patients.
-	case PATINF = "PATINF"
+	case PATINF
 	
 	/// Dedicated contact point for matters relating to press enquiries.
-	case PRESS = "PRESS"
+	case PRESS
 }

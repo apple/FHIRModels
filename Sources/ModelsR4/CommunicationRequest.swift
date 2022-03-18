@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CommunicationRequest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -110,37 +110,37 @@ open class CommunicationRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							about: [Reference]? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medium: [CodeableConcept]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							payload: [CommunicationRequestPayload]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							recipient: [Reference]? = nil,
-							replaces: [Reference]? = nil,
-							requester: Reference? = nil,
-							sender: Reference? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		about: [Reference]? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medium: [CodeableConcept]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		payload: [CommunicationRequestPayload]? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		recipient: [Reference]? = nil,
+		replaces: [Reference]? = nil,
+		requester: Reference? = nil,
+		sender: Reference? = nil,
+		status: FHIRPrimitive<RequestStatus>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(status: status)
 		self.about = about
 		self.authoredOn = authoredOn
@@ -367,11 +367,11 @@ open class CommunicationRequestPayload: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id

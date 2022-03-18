@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SubstanceNucleicAcid)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -54,20 +54,20 @@ open class SubstanceNucleicAcid: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							areaOfHybridisation: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							numberOfSubunits: FHIRPrimitive<FHIRInteger>? = nil,
-							oligoNucleotideType: CodeableConcept? = nil,
-							sequenceType: CodeableConcept? = nil,
-							subunit: [SubstanceNucleicAcidSubunit]? = nil,
-							text: Narrative? = nil)
-	{
+		areaOfHybridisation: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfSubunits: FHIRPrimitive<FHIRInteger>? = nil,
+		oligoNucleotideType: CodeableConcept? = nil,
+		sequenceType: CodeableConcept? = nil,
+		subunit: [SubstanceNucleicAcidSubunit]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.areaOfHybridisation = areaOfHybridisation
 		self.contained = contained
@@ -190,18 +190,18 @@ open class SubstanceNucleicAcidSubunit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							fivePrime: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							length: FHIRPrimitive<FHIRInteger>? = nil,
-							linkage: [SubstanceNucleicAcidSubunitLinkage]? = nil,
-							modifierExtension: [Extension]? = nil,
-							sequence: FHIRPrimitive<FHIRString>? = nil,
-							sequenceAttachment: Attachment? = nil,
-							subunit: FHIRPrimitive<FHIRInteger>? = nil,
-							sugar: [SubstanceNucleicAcidSubunitSugar]? = nil,
-							threePrime: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		fivePrime: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		length: FHIRPrimitive<FHIRInteger>? = nil,
+		linkage: [SubstanceNucleicAcidSubunitLinkage]? = nil,
+		modifierExtension: [Extension]? = nil,
+		sequence: FHIRPrimitive<FHIRString>? = nil,
+		sequenceAttachment: Attachment? = nil,
+		subunit: FHIRPrimitive<FHIRInteger>? = nil,
+		sugar: [SubstanceNucleicAcidSubunitSugar]? = nil,
+		threePrime: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.fivePrime = fivePrime
@@ -321,14 +321,14 @@ open class SubstanceNucleicAcidSubunitLinkage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							connectivity: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							residueSite: FHIRPrimitive<FHIRString>? = nil)
-	{
+		connectivity: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		residueSite: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.connectivity = connectivity
 		self.`extension` = `extension`
@@ -418,13 +418,13 @@ open class SubstanceNucleicAcidSubunitSugar: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							residueSite: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		residueSite: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

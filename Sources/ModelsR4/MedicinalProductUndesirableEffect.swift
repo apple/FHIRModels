@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductUndesirableEffect)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -50,20 +50,20 @@ open class MedicinalProductUndesirableEffect: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							classification: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							frequencyOfOccurrence: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [Population]? = nil,
-							subject: [Reference]? = nil,
-							symptomConditionEffect: CodeableConcept? = nil,
-							text: Narrative? = nil)
-	{
+		classification: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		frequencyOfOccurrence: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [Population]? = nil,
+		subject: [Reference]? = nil,
+		symptomConditionEffect: CodeableConcept? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.classification = classification
 		self.contained = contained

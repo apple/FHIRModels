@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Patient)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -99,31 +99,31 @@ open class Patient: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							birthDate: FHIRPrimitive<FHIRDate>? = nil,
-							communication: [PatientCommunication]? = nil,
-							contact: [PatientContact]? = nil,
-							contained: [ResourceProxy]? = nil,
-							deceased: DeceasedX? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							generalPractitioner: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							link: [PatientLink]? = nil,
-							managingOrganization: Reference? = nil,
-							maritalStatus: CodeableConcept? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							multipleBirth: MultipleBirthX? = nil,
-							name: [HumanName]? = nil,
-							photo: [Attachment]? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		birthDate: FHIRPrimitive<FHIRDate>? = nil,
+		communication: [PatientCommunication]? = nil,
+		contact: [PatientContact]? = nil,
+		contained: [ResourceProxy]? = nil,
+		deceased: DeceasedX? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		generalPractitioner: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		link: [PatientLink]? = nil,
+		managingOrganization: Reference? = nil,
+		maritalStatus: CodeableConcept? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		multipleBirth: MultipleBirthX? = nil,
+		name: [HumanName]? = nil,
+		photo: [Attachment]? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.active = active
 		self.address = address
@@ -329,12 +329,12 @@ open class PatientCommunication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: CodeableConcept,
-							modifierExtension: [Extension]? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: CodeableConcept,
+		modifierExtension: [Extension]? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init(language: language)
 		self.`extension` = `extension`
 		self.id = id
@@ -423,17 +423,17 @@ open class PatientContact: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: Address? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: HumanName? = nil,
-							organization: Reference? = nil,
-							period: Period? = nil,
-							relationship: [CodeableConcept]? = nil,
-							telecom: [ContactPoint]? = nil)
-	{
+		address: Address? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: HumanName? = nil,
+		organization: Reference? = nil,
+		period: Period? = nil,
+		relationship: [CodeableConcept]? = nil,
+		telecom: [ContactPoint]? = nil
+	) {
 		self.init()
 		self.address = address
 		self.`extension` = `extension`
@@ -541,12 +541,12 @@ open class PatientLink: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							other: Reference,
-							type: FHIRPrimitive<LinkType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		other: Reference,
+		type: FHIRPrimitive<LinkType>
+	) {
 		self.init(other: other, type: type)
 		self.`extension` = `extension`
 		self.id = id

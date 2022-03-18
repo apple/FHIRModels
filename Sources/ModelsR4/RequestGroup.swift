@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/RequestGroup)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -94,33 +94,33 @@ open class RequestGroup: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [RequestGroupAction]? = nil,
-							author: Reference? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							replaces: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		action: [RequestGroupAction]? = nil,
+		author: Reference? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		intent: FHIRPrimitive<RequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		replaces: [Reference]? = nil,
+		status: FHIRPrimitive<RequestStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, status: status)
 		self.action = action
 		self.author = author
@@ -357,29 +357,29 @@ open class RequestGroupAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [RequestGroupAction]? = nil,
-							cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
-							code: [CodeableConcept]? = nil,
-							condition: [RequestGroupActionCondition]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							documentation: [RelatedArtifact]? = nil,
-							`extension`: [Extension]? = nil,
-							groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							participant: [Reference]? = nil,
-							precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
-							prefix: FHIRPrimitive<FHIRString>? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							relatedAction: [RequestGroupActionRelatedAction]? = nil,
-							requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
-							resource: Reference? = nil,
-							selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
-							textEquivalent: FHIRPrimitive<FHIRString>? = nil,
-							timing: TimingX? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		action: [RequestGroupAction]? = nil,
+		cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
+		code: [CodeableConcept]? = nil,
+		condition: [RequestGroupActionCondition]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		documentation: [RelatedArtifact]? = nil,
+		`extension`: [Extension]? = nil,
+		groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		participant: [Reference]? = nil,
+		precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
+		prefix: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		relatedAction: [RequestGroupActionRelatedAction]? = nil,
+		requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
+		resource: Reference? = nil,
+		selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
+		textEquivalent: FHIRPrimitive<FHIRString>? = nil,
+		timing: TimingX? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.action = action
 		self.cardinalityBehavior = cardinalityBehavior
@@ -615,12 +615,12 @@ open class RequestGroupActionCondition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: Expression? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							kind: FHIRPrimitive<ActionConditionKind>,
-							modifierExtension: [Extension]? = nil)
-	{
+		expression: Expression? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		kind: FHIRPrimitive<ActionConditionKind>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(kind: kind)
 		self.expression = expression
 		self.`extension` = `extension`
@@ -707,13 +707,13 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actionId: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							offset: OffsetX? = nil,
-							relationship: FHIRPrimitive<ActionRelationshipType>)
-	{
+		actionId: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		offset: OffsetX? = nil,
+		relationship: FHIRPrimitive<ActionRelationshipType>
+	) {
 		self.init(actionId: actionId, relationship: relationship)
 		self.`extension` = `extension`
 		self.id = id

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import FMCore
 public enum RejectionCriterion: String, FHIRPrimitiveType {
 	
 	/// blood specimen hemolized.
-	case hemolized = "hemolized"
+	case hemolized
 	
 	/// insufficient quantity of specimen.
-	case insufficient = "insufficient"
+	case insufficient
 	
 	/// specimen container broken.
-	case broken = "broken"
+	case broken
 	
 	/// specimen clotted.
-	case clotted = "clotted"
+	case clotted
 	
 	/// specimen temperature inappropriate.
 	case wrongTemperature = "wrong-temperature"

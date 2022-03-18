@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,24 +28,24 @@ import FMCore
 public enum UDIEntryType: String, FHIRPrimitiveType {
 	
 	/// a barcodescanner captured the data from the device label.
-	case barcode = "barcode"
-	
-	/// An RFID chip reader captured the data from the device label.
-	case rfid = "rfid"
-	
-	/// The data was read from the label by a person and manually entered. (e.g.  via a keyboard).
-	case manual = "manual"
+	case barcode
 	
 	/// The data originated from a patient's implant card and was read by an operator.
-	case card = "card"
-	
-	/// The data originated from a patient source and was not directly scanned or read from a label or card.
-	case selfReported = "self-reported"
+	case card
 	
 	/// The UDI information was received electronically from the device through a communication protocol, such as the
 	/// IEEE 11073 20601 version 4 exchange protocol over Bluetooth or USB.
 	case electronicTransmission = "electronic-transmission"
 	
+	/// The data was read from the label by a person and manually entered. (e.g.  via a keyboard).
+	case manual
+	
+	/// An RFID chip reader captured the data from the device label.
+	case rfid
+	
+	/// The data originated from a patient source and was not directly scanned or read from a label or card.
+	case selfReported = "self-reported"
+	
 	/// The method of data capture has not been determined.
-	case unknown = "unknown"
+	case unknown
 }

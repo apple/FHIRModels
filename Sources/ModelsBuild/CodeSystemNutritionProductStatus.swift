@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,12 +28,12 @@ import FMCore
 public enum NutritionProductStatus: String, FHIRPrimitiveType {
 	
 	/// The product can be used.
-	case active = "active"
-	
-	/// The product is not expected or allowed to be used.
-	case inactive = "inactive"
+	case active
 	
 	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it.  (If real-world activity has occurred, the status should be "cancelled" rather than "entered-in-error".).
 	case enteredInError = "entered-in-error"
+	
+	/// The product is not expected or allowed to be used.
+	case inactive
 }

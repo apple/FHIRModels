@@ -2,8 +2,8 @@
 //  Encounter.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Encounter)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Encounter)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,8 +71,14 @@ open class Encounter: DomainResource {
 	/// The appointment that scheduled this encounter
 	public var appointment: [Reference]?
 	
-	/// The start and end time of the encounter
-	public var period: Period?
+	/// The actual start and end time of the encounter
+	public var actualPeriod: Period?
+	
+	/// The planned start date/time (or admission date) of the encounter
+	public var plannedStartDate: FHIRPrimitive<DateTime>?
+	
+	/// The planned end date/time (or discharge date) of the encounter
+	public var plannedEndDate: FHIRPrimitive<DateTime>?
 	
 	/// Quantity of time the encounter lasted (less time absent)
 	public var length: Duration?
@@ -107,40 +113,43 @@ open class Encounter: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: [Reference]? = nil,
-							appointment: [Reference]? = nil,
-							basedOn: [Reference]? = nil,
-							`class`: Coding,
-							classHistory: [EncounterClassHistory]? = nil,
-							contained: [ResourceProxy]? = nil,
-							diagnosis: [EncounterDiagnosis]? = nil,
-							episodeOfCare: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							hospitalization: EncounterHospitalization? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							length: Duration? = nil,
-							location: [EncounterLocation]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							partOf: Reference? = nil,
-							participant: [EncounterParticipant]? = nil,
-							period: Period? = nil,
-							priority: CodeableConcept? = nil,
-							reason: [CodeableReference]? = nil,
-							serviceProvider: Reference? = nil,
-							serviceType: CodeableConcept? = nil,
-							status: FHIRPrimitive<EncounterStatus>,
-							statusHistory: [EncounterStatusHistory]? = nil,
-							subject: Reference? = nil,
-							subjectStatus: CodeableConcept? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		account: [Reference]? = nil,
+		actualPeriod: Period? = nil,
+		appointment: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
+		`class`: Coding,
+		classHistory: [EncounterClassHistory]? = nil,
+		contained: [ResourceProxy]? = nil,
+		diagnosis: [EncounterDiagnosis]? = nil,
+		episodeOfCare: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		hospitalization: EncounterHospitalization? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		length: Duration? = nil,
+		location: [EncounterLocation]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		partOf: Reference? = nil,
+		participant: [EncounterParticipant]? = nil,
+		plannedEndDate: FHIRPrimitive<DateTime>? = nil,
+		plannedStartDate: FHIRPrimitive<DateTime>? = nil,
+		priority: CodeableConcept? = nil,
+		reason: [CodeableReference]? = nil,
+		serviceProvider: Reference? = nil,
+		serviceType: CodeableConcept? = nil,
+		status: FHIRPrimitive<EncounterStatus>,
+		statusHistory: [EncounterStatusHistory]? = nil,
+		subject: Reference? = nil,
+		subjectStatus: CodeableConcept? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init(class: `class`, status: status)
 		self.account = account
+		self.actualPeriod = actualPeriod
 		self.appointment = appointment
 		self.basedOn = basedOn
 		self.classHistory = classHistory
@@ -159,7 +168,8 @@ open class Encounter: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.partOf = partOf
 		self.participant = participant
-		self.period = period
+		self.plannedEndDate = plannedEndDate
+		self.plannedStartDate = plannedStartDate
 		self.priority = priority
 		self.reason = reason
 		self.serviceProvider = serviceProvider
@@ -175,6 +185,7 @@ open class Encounter: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case account
+		case actualPeriod
 		case appointment
 		case basedOn
 		case `class` = "class"
@@ -187,7 +198,8 @@ open class Encounter: DomainResource {
 		case location
 		case partOf
 		case participant
-		case period
+		case plannedEndDate; case _plannedEndDate
+		case plannedStartDate; case _plannedStartDate
 		case priority
 		case reason
 		case serviceProvider
@@ -205,6 +217,7 @@ open class Encounter: DomainResource {
 		
 		// Decode all our properties
 		self.account = try [Reference](from: _container, forKeyIfPresent: .account)
+		self.actualPeriod = try Period(from: _container, forKeyIfPresent: .actualPeriod)
 		self.appointment = try [Reference](from: _container, forKeyIfPresent: .appointment)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.`class` = try Coding(from: _container, forKey: .`class`)
@@ -217,7 +230,8 @@ open class Encounter: DomainResource {
 		self.location = try [EncounterLocation](from: _container, forKeyIfPresent: .location)
 		self.partOf = try Reference(from: _container, forKeyIfPresent: .partOf)
 		self.participant = try [EncounterParticipant](from: _container, forKeyIfPresent: .participant)
-		self.period = try Period(from: _container, forKeyIfPresent: .period)
+		self.plannedEndDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .plannedEndDate, auxiliaryKey: ._plannedEndDate)
+		self.plannedStartDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .plannedStartDate, auxiliaryKey: ._plannedStartDate)
 		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.serviceProvider = try Reference(from: _container, forKeyIfPresent: .serviceProvider)
@@ -236,6 +250,7 @@ open class Encounter: DomainResource {
 		
 		// Encode all our properties
 		try account?.encode(on: &_container, forKey: .account)
+		try actualPeriod?.encode(on: &_container, forKey: .actualPeriod)
 		try appointment?.encode(on: &_container, forKey: .appointment)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try `class`.encode(on: &_container, forKey: .`class`)
@@ -248,7 +263,8 @@ open class Encounter: DomainResource {
 		try location?.encode(on: &_container, forKey: .location)
 		try partOf?.encode(on: &_container, forKey: .partOf)
 		try participant?.encode(on: &_container, forKey: .participant)
-		try period?.encode(on: &_container, forKey: .period)
+		try plannedEndDate?.encode(on: &_container, forKey: .plannedEndDate, auxiliaryKey: ._plannedEndDate)
+		try plannedStartDate?.encode(on: &_container, forKey: .plannedStartDate, auxiliaryKey: ._plannedStartDate)
 		try priority?.encode(on: &_container, forKey: .priority)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try serviceProvider?.encode(on: &_container, forKey: .serviceProvider)
@@ -271,6 +287,7 @@ open class Encounter: DomainResource {
 			return false
 		}
 		return account == _other.account
+		    && actualPeriod == _other.actualPeriod
 		    && appointment == _other.appointment
 		    && basedOn == _other.basedOn
 		    && `class` == _other.`class`
@@ -283,7 +300,8 @@ open class Encounter: DomainResource {
 		    && location == _other.location
 		    && partOf == _other.partOf
 		    && participant == _other.participant
-		    && period == _other.period
+		    && plannedEndDate == _other.plannedEndDate
+		    && plannedStartDate == _other.plannedStartDate
 		    && priority == _other.priority
 		    && reason == _other.reason
 		    && serviceProvider == _other.serviceProvider
@@ -298,6 +316,7 @@ open class Encounter: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(account)
+		hasher.combine(actualPeriod)
 		hasher.combine(appointment)
 		hasher.combine(basedOn)
 		hasher.combine(`class`)
@@ -310,7 +329,8 @@ open class Encounter: DomainResource {
 		hasher.combine(location)
 		hasher.combine(partOf)
 		hasher.combine(participant)
-		hasher.combine(period)
+		hasher.combine(plannedEndDate)
+		hasher.combine(plannedStartDate)
 		hasher.combine(priority)
 		hasher.combine(reason)
 		hasher.combine(serviceProvider)
@@ -349,12 +369,12 @@ open class EncounterClassHistory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`class`: Coding,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period)
-	{
+		`class`: Coding,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period
+	) {
 		self.init(class: `class`, period: period)
 		self.`extension` = `extension`
 		self.id = id
@@ -430,13 +450,13 @@ open class EncounterDiagnosis: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							condition: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							use: CodeableConcept? = nil)
-	{
+		condition: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		use: CodeableConcept? = nil
+	) {
 		self.init(condition: condition)
 		self.`extension` = `extension`
 		self.id = id
@@ -537,19 +557,19 @@ open class EncounterHospitalization: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							admitSource: CodeableConcept? = nil,
-							destination: Reference? = nil,
-							dietPreference: [CodeableConcept]? = nil,
-							dischargeDisposition: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							origin: Reference? = nil,
-							preAdmissionIdentifier: Identifier? = nil,
-							reAdmission: CodeableConcept? = nil,
-							specialArrangement: [CodeableConcept]? = nil,
-							specialCourtesy: [CodeableConcept]? = nil)
-	{
+		admitSource: CodeableConcept? = nil,
+		destination: Reference? = nil,
+		dietPreference: [CodeableConcept]? = nil,
+		dischargeDisposition: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		origin: Reference? = nil,
+		preAdmissionIdentifier: Identifier? = nil,
+		reAdmission: CodeableConcept? = nil,
+		specialArrangement: [CodeableConcept]? = nil,
+		specialCourtesy: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.admitSource = admitSource
 		self.destination = destination
@@ -675,14 +695,14 @@ open class EncounterLocation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							physicalType: CodeableConcept? = nil,
-							status: FHIRPrimitive<EncounterLocationStatus>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		physicalType: CodeableConcept? = nil,
+		status: FHIRPrimitive<EncounterLocationStatus>? = nil
+	) {
 		self.init(location: location)
 		self.`extension` = `extension`
 		self.id = id
@@ -762,8 +782,8 @@ open class EncounterParticipant: BackboneElement {
 	/// Period of time during the encounter that the participant participated
 	public var period: Period?
 	
-	/// Persons involved in the encounter other than the patient
-	public var individual: Reference?
+	/// Persons involved in the encounter (including patient)
+	public var actor: Reference?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -772,17 +792,17 @@ open class EncounterParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							individual: Reference? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		actor: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
+		self.actor = actor
 		self.`extension` = `extension`
 		self.id = id
-		self.individual = individual
 		self.modifierExtension = modifierExtension
 		self.period = period
 		self.type = type
@@ -791,7 +811,7 @@ open class EncounterParticipant: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case individual
+		case actor
 		case period
 		case type
 	}
@@ -801,7 +821,7 @@ open class EncounterParticipant: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.individual = try Reference(from: _container, forKeyIfPresent: .individual)
+		self.actor = try Reference(from: _container, forKeyIfPresent: .actor)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -812,7 +832,7 @@ open class EncounterParticipant: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try individual?.encode(on: &_container, forKey: .individual)
+		try actor?.encode(on: &_container, forKey: .actor)
 		try period?.encode(on: &_container, forKey: .period)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -827,14 +847,14 @@ open class EncounterParticipant: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return individual == _other.individual
+		return actor == _other.actor
 		    && period == _other.period
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(individual)
+		hasher.combine(actor)
 		hasher.combine(period)
 		hasher.combine(type)
 	}
@@ -863,12 +883,12 @@ open class EncounterStatusHistory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period,
-							status: FHIRPrimitive<EncounterStatus>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period,
+		status: FHIRPrimitive<EncounterStatus>
+	) {
 		self.init(period: period, status: status)
 		self.`extension` = `extension`
 		self.id = id

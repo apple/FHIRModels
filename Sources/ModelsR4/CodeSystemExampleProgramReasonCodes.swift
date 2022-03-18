@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum ExampleProgramReasonCodes: String, FHIRPrimitiveType {
 	
 	/// Child Asthma Program
-	case `as` = "as"
+	case `as`
 	
 	/// Hemodialysis Program.
-	case hd = "hd"
+	case hd
 	
 	/// Autism Screening Program.
-	case auscr = "auscr"
+	case auscr
 	
 	/// No program code applies.
-	case none = "none"
+	case none
 }

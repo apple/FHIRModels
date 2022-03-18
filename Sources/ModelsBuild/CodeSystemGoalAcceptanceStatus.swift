@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@
 import FMCore
 
 /**
- Codes indicating whether the goal has been accepted by a stakeholder.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/goal-acceptance-status
- ValueSet: http://hl7.org/fhir/ValueSet/goal-acceptance-status
+ URL: http://hl7.org/fhir/goal-acceptance-status
  */
 public enum GoalAcceptanceStatus: String, FHIRPrimitiveType {
 	
 	/// Stakeholder supports pursuit of the goal.
-	case agree = "agree"
+	case agree
 	
 	/// Stakeholder is not in support of the pursuit of the goal.
-	case disagree = "disagree"
+	case disagree
 	
 	/// Stakeholder has not yet made a decision on whether they support the goal.
-	case pending = "pending"
+	case pending
 }

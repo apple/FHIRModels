@@ -2,8 +2,8 @@
 //  Endpoint.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Endpoint)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Endpoint)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,9 @@ import FMCore
 /**
  The technical details of an endpoint that can be used for electronic services.
  
- The technical details of an endpoint that can be used for electronic services, such as for web services providing XDS.b
- or a REST endpoint for another FHIR server. This may include any security context information.
+ The technical details of an endpoint that can be used for electronic services, such as for web services providing
+ XDS.b, a REST endpoint for another FHIR server, or a s/Mime email address. This may include any security context
+ information.
  */
 open class Endpoint: DomainResource {
 	
@@ -74,26 +75,26 @@ open class Endpoint: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: FHIRPrimitive<FHIRURI>,
-							connectionType: Coding,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							header: [FHIRPrimitive<FHIRString>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							payloadMimeType: [FHIRPrimitive<FHIRString>]? = nil,
-							payloadType: [CodeableConcept],
-							period: Period? = nil,
-							status: FHIRPrimitive<EndpointStatus>,
-							text: Narrative? = nil)
-	{
+		address: FHIRPrimitive<FHIRURI>,
+		connectionType: Coding,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		header: [FHIRPrimitive<FHIRString>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		payloadMimeType: [FHIRPrimitive<FHIRString>]? = nil,
+		payloadType: [CodeableConcept],
+		period: Period? = nil,
+		status: FHIRPrimitive<EndpointStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(address: address, connectionType: connectionType, payloadType: payloadType, status: status)
 		self.contact = contact
 		self.contained = contained

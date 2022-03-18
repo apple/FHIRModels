@@ -2,8 +2,8 @@
 //  NamingSystem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/NamingSystem)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/NamingSystem)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,6 +40,9 @@ open class NamingSystem: DomainResource {
 	
 	/// Name for this naming system (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>
+	
+	/// Title for this naming system (human friendly)
+	public var title: FHIRPrimitive<FHIRString>?
 	
 	/// The status of this naming system. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
@@ -89,30 +92,31 @@ open class NamingSystem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<NamingSystemType>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							responsible: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							uniqueId: [NamingSystemUniqueId],
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<NamingSystemType>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		responsible: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil,
+		uniqueId: [NamingSystemUniqueId],
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(date: date, kind: kind, name: name, status: status, uniqueId: uniqueId)
 		self.contact = contact
 		self.contained = contained
@@ -127,6 +131,7 @@ open class NamingSystem: DomainResource {
 		self.publisher = publisher
 		self.responsible = responsible
 		self.text = text
+		self.title = title
 		self.type = type
 		self.url = url
 		self.usage = usage
@@ -146,6 +151,7 @@ open class NamingSystem: DomainResource {
 		case publisher; case _publisher
 		case responsible; case _responsible
 		case status; case _status
+		case title; case _title
 		case type
 		case uniqueId
 		case url; case _url
@@ -168,6 +174,7 @@ open class NamingSystem: DomainResource {
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.responsible = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .responsible, auxiliaryKey: ._responsible)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		self.uniqueId = try [NamingSystemUniqueId](from: _container, forKey: .uniqueId)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
@@ -191,6 +198,7 @@ open class NamingSystem: DomainResource {
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try responsible?.encode(on: &_container, forKey: .responsible, auxiliaryKey: ._responsible)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try type?.encode(on: &_container, forKey: .type)
 		try uniqueId.encode(on: &_container, forKey: .uniqueId)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
@@ -218,6 +226,7 @@ open class NamingSystem: DomainResource {
 		    && publisher == _other.publisher
 		    && responsible == _other.responsible
 		    && status == _other.status
+		    && title == _other.title
 		    && type == _other.type
 		    && uniqueId == _other.uniqueId
 		    && url == _other.url
@@ -237,6 +246,7 @@ open class NamingSystem: DomainResource {
 		hasher.combine(publisher)
 		hasher.combine(responsible)
 		hasher.combine(status)
+		hasher.combine(title)
 		hasher.combine(type)
 		hasher.combine(uniqueId)
 		hasher.combine(url)
@@ -268,6 +278,9 @@ open class NamingSystemUniqueId: BackboneElement {
 	/// When is identifier valid?
 	public var period: Period?
 	
+	/// Whether the identifier is authoritative
+	public var authoritative: FHIRPrimitive<FHIRBool>?
+	
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<NamingSystemIdentifierType>, value: FHIRPrimitive<FHIRString>) {
 		self.type = type
@@ -277,16 +290,18 @@ open class NamingSystemUniqueId: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil,
-							type: FHIRPrimitive<NamingSystemIdentifierType>,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		authoritative: FHIRPrimitive<FHIRBool>? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil,
+		type: FHIRPrimitive<NamingSystemIdentifierType>,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(type: type, value: value)
+		self.authoritative = authoritative
 		self.comment = comment
 		self.`extension` = `extension`
 		self.id = id
@@ -298,6 +313,7 @@ open class NamingSystemUniqueId: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case authoritative; case _authoritative
 		case comment; case _comment
 		case period
 		case preferred; case _preferred
@@ -310,6 +326,7 @@ open class NamingSystemUniqueId: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.authoritative = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .authoritative, auxiliaryKey: ._authoritative)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.preferred = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .preferred, auxiliaryKey: ._preferred)
@@ -323,6 +340,7 @@ open class NamingSystemUniqueId: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try authoritative?.encode(on: &_container, forKey: .authoritative, auxiliaryKey: ._authoritative)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try period?.encode(on: &_container, forKey: .period)
 		try preferred?.encode(on: &_container, forKey: .preferred, auxiliaryKey: ._preferred)
@@ -340,7 +358,8 @@ open class NamingSystemUniqueId: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return comment == _other.comment
+		return authoritative == _other.authoritative
+		    && comment == _other.comment
 		    && period == _other.period
 		    && preferred == _other.preferred
 		    && type == _other.type
@@ -349,6 +368,7 @@ open class NamingSystemUniqueId: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(authoritative)
 		hasher.combine(comment)
 		hasher.combine(period)
 		hasher.combine(preferred)

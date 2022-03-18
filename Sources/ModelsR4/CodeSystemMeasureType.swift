@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,19 +30,19 @@ public enum MeasureType: String, FHIRPrimitiveType {
 	/// A measure which focuses on a process which leads to a certain outcome, meaning that a scientific basis exists
 	/// for believing that the process, when executed well, will increase the probability of achieving a desired
 	/// outcome.
-	case process = "process"
+	case process
 	
 	/// A measure that indicates the result of the performance (or non-performance) of a function or process.
-	case outcome = "outcome"
+	case outcome
 	
 	/// A measure that focuses on a health care provider's capacity, systems, and processes to provide high-quality
 	/// care.
-	case structure = "structure"
+	case structure
 	
 	/// A measure that focuses on patient-reported information such as patient engagement or patient experience
 	/// measures.
 	case patientReportedOutcome = "patient-reported-outcome"
 	
 	/// A measure that combines multiple component measures in to a single quality measure.
-	case composite = "composite"
+	case composite
 }

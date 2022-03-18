@@ -2,8 +2,8 @@
 //  VerificationResult.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/VerificationResult)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/VerificationResult)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -78,29 +78,29 @@ open class VerificationResult: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							attestation: VerificationResultAttestation? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							failureAction: CodeableConcept? = nil,
-							frequency: Timing? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastPerformed: FHIRPrimitive<DateTime>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							need: CodeableConcept? = nil,
-							nextScheduled: FHIRPrimitive<FHIRDate>? = nil,
-							primarySource: [VerificationResultPrimarySource]? = nil,
-							status: FHIRPrimitive<Status>,
-							statusDate: FHIRPrimitive<DateTime>? = nil,
-							target: [Reference]? = nil,
-							targetLocation: [FHIRPrimitive<FHIRString>]? = nil,
-							text: Narrative? = nil,
-							validationProcess: [CodeableConcept]? = nil,
-							validationType: CodeableConcept? = nil,
-							validator: [VerificationResultValidator]? = nil)
-	{
+		attestation: VerificationResultAttestation? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		failureAction: CodeableConcept? = nil,
+		frequency: Timing? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastPerformed: FHIRPrimitive<DateTime>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		need: CodeableConcept? = nil,
+		nextScheduled: FHIRPrimitive<FHIRDate>? = nil,
+		primarySource: [VerificationResultPrimarySource]? = nil,
+		status: FHIRPrimitive<Status>,
+		statusDate: FHIRPrimitive<DateTime>? = nil,
+		target: [Reference]? = nil,
+		targetLocation: [FHIRPrimitive<FHIRString>]? = nil,
+		text: Narrative? = nil,
+		validationProcess: [CodeableConcept]? = nil,
+		validationType: CodeableConcept? = nil,
+		validator: [VerificationResultValidator]? = nil
+	) {
 		self.init(status: status)
 		self.attestation = attestation
 		self.contained = contained
@@ -269,18 +269,18 @@ open class VerificationResultAttestation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							communicationMethod: CodeableConcept? = nil,
-							date: FHIRPrimitive<FHIRDate>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onBehalfOf: Reference? = nil,
-							proxyIdentityCertificate: FHIRPrimitive<FHIRString>? = nil,
-							proxySignature: Signature? = nil,
-							sourceIdentityCertificate: FHIRPrimitive<FHIRString>? = nil,
-							sourceSignature: Signature? = nil,
-							who: Reference? = nil)
-	{
+		communicationMethod: CodeableConcept? = nil,
+		date: FHIRPrimitive<FHIRDate>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onBehalfOf: Reference? = nil,
+		proxyIdentityCertificate: FHIRPrimitive<FHIRString>? = nil,
+		proxySignature: Signature? = nil,
+		sourceIdentityCertificate: FHIRPrimitive<FHIRString>? = nil,
+		sourceSignature: Signature? = nil,
+		who: Reference? = nil
+	) {
 		self.init()
 		self.communicationMethod = communicationMethod
 		self.date = date
@@ -406,17 +406,17 @@ open class VerificationResultPrimarySource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							canPushUpdates: CodeableConcept? = nil,
-							communicationMethod: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							pushTypeAvailable: [CodeableConcept]? = nil,
-							type: [CodeableConcept]? = nil,
-							validationDate: FHIRPrimitive<DateTime>? = nil,
-							validationStatus: CodeableConcept? = nil,
-							who: Reference? = nil)
-	{
+		canPushUpdates: CodeableConcept? = nil,
+		communicationMethod: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		pushTypeAvailable: [CodeableConcept]? = nil,
+		type: [CodeableConcept]? = nil,
+		validationDate: FHIRPrimitive<DateTime>? = nil,
+		validationStatus: CodeableConcept? = nil,
+		who: Reference? = nil
+	) {
 		self.init()
 		self.canPushUpdates = canPushUpdates
 		self.communicationMethod = communicationMethod
@@ -524,13 +524,13 @@ open class VerificationResultValidator: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							attestationSignature: Signature? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identityCertificate: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							organization: Reference)
-	{
+		attestationSignature: Signature? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identityCertificate: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		organization: Reference
+	) {
 		self.init(organization: organization)
 		self.attestationSignature = attestationSignature
 		self.`extension` = `extension`

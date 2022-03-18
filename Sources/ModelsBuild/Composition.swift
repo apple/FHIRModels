@@ -2,8 +2,8 @@
 //  Composition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Composition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Composition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ open class Composition: DomainResource {
 	public var custodian: Reference?
 	
 	/// Relationships to other compositions/documents
-	public var relatesTo: [CompositionRelatesTo]?
+	public var relatesTo: [RelatedArtifact]?
 	
 	/// The clinical service(s) being documented
 	public var event: [CompositionEvent]?
@@ -91,30 +91,30 @@ open class Composition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							attester: [CompositionAttester]? = nil,
-							author: [Reference],
-							category: [CodeableConcept]? = nil,
-							confidentiality: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							custodian: Reference? = nil,
-							date: FHIRPrimitive<DateTime>,
-							encounter: Reference? = nil,
-							event: [CompositionEvent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							relatesTo: [CompositionRelatesTo]? = nil,
-							section: [CompositionSection]? = nil,
-							status: FHIRPrimitive<CompositionStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>,
-							type: CodeableConcept)
-	{
+		attester: [CompositionAttester]? = nil,
+		author: [Reference],
+		category: [CodeableConcept]? = nil,
+		confidentiality: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		custodian: Reference? = nil,
+		date: FHIRPrimitive<DateTime>,
+		encounter: Reference? = nil,
+		event: [CompositionEvent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		relatesTo: [RelatedArtifact]? = nil,
+		section: [CompositionSection]? = nil,
+		status: FHIRPrimitive<CompositionStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept
+	) {
 		self.init(author: author, date: date, status: status, title: title, type: type)
 		self.attester = attester
 		self.category = category
@@ -170,7 +170,7 @@ open class Composition: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.event = try [CompositionEvent](from: _container, forKeyIfPresent: .event)
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
-		self.relatesTo = try [CompositionRelatesTo](from: _container, forKeyIfPresent: .relatesTo)
+		self.relatesTo = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatesTo)
 		self.section = try [CompositionSection](from: _container, forKeyIfPresent: .section)
 		self.status = try FHIRPrimitive<CompositionStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
@@ -255,8 +255,8 @@ open class Composition: DomainResource {
  */
 open class CompositionAttester: BackboneElement {
 	
-	/// The type of attestation the authenticator offers.
-	public var mode: FHIRPrimitive<CompositionAttestationMode>
+	/// personal | professional | legal | official
+	public var mode: CodeableConcept
 	
 	/// When the composition was attested
 	public var time: FHIRPrimitive<DateTime>?
@@ -265,20 +265,20 @@ open class CompositionAttester: BackboneElement {
 	public var party: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(mode: FHIRPrimitive<CompositionAttestationMode>) {
+	public init(mode: CodeableConcept) {
 		self.mode = mode
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<CompositionAttestationMode>,
-							modifierExtension: [Extension]? = nil,
-							party: Reference? = nil,
-							time: FHIRPrimitive<DateTime>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: CodeableConcept,
+		modifierExtension: [Extension]? = nil,
+		party: Reference? = nil,
+		time: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init(mode: mode)
 		self.`extension` = `extension`
 		self.id = id
@@ -290,7 +290,7 @@ open class CompositionAttester: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case mode; case _mode
+		case mode
 		case party
 		case time; case _time
 	}
@@ -300,7 +300,7 @@ open class CompositionAttester: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.mode = try FHIRPrimitive<CompositionAttestationMode>(from: _container, forKey: .mode, auxiliaryKey: ._mode)
+		self.mode = try CodeableConcept(from: _container, forKey: .mode)
 		self.party = try Reference(from: _container, forKeyIfPresent: .party)
 		self.time = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .time, auxiliaryKey: ._time)
 		try super.init(from: decoder)
@@ -311,7 +311,7 @@ open class CompositionAttester: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try mode.encode(on: &_container, forKey: .mode, auxiliaryKey: ._mode)
+		try mode.encode(on: &_container, forKey: .mode)
 		try party?.encode(on: &_container, forKey: .party)
 		try time?.encode(on: &_container, forKey: .time, auxiliaryKey: ._time)
 		try super.encode(to: encoder)
@@ -362,13 +362,13 @@ open class CompositionEvent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							detail: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		detail: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil
+	) {
 		self.init()
 		self.code = code
 		self.detail = detail
@@ -431,120 +431,6 @@ open class CompositionEvent: BackboneElement {
 }
 
 /**
- Relationships to other compositions/documents.
- 
- Relationships that this composition has with other compositions or documents that already exist.
- */
-open class CompositionRelatesTo: BackboneElement {
-	
-	/// All possible types for "target[x]"
-	public enum TargetX: Hashable {
-		case identifier(Identifier)
-		case reference(Reference)
-	}
-	
-	/// The type of relationship that this composition has with anther composition or document.
-	public var code: FHIRPrimitive<DocumentRelationshipType>
-	
-	/// Target of the relationship
-	/// One of `target[x]`
-	public var target: TargetX
-	
-	/// Designated initializer taking all required properties
-	public init(code: FHIRPrimitive<DocumentRelationshipType>, target: TargetX) {
-		self.code = code
-		self.target = target
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							code: FHIRPrimitive<DocumentRelationshipType>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: TargetX)
-	{
-		self.init(code: code, target: target)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case code; case _code
-		case targetIdentifier
-		case targetReference
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.targetIdentifier) || _container.contains(CodingKeys.targetReference) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.targetIdentifier, CodingKeys.targetReference], debugDescription: "Must have at least one value for \"target\" but have none"))
-		}
-		
-		// Decode all our properties
-		self.code = try FHIRPrimitive<DocumentRelationshipType>(from: _container, forKey: .code, auxiliaryKey: ._code)
-		var _t_target: TargetX? = nil
-		if let targetIdentifier = try Identifier(from: _container, forKeyIfPresent: .targetIdentifier) {
-			if _t_target != nil {
-				throw DecodingError.dataCorruptedError(forKey: .targetIdentifier, in: _container, debugDescription: "More than one value provided for \"target\"")
-			}
-			_t_target = .identifier(targetIdentifier)
-		}
-		if let targetReference = try Reference(from: _container, forKeyIfPresent: .targetReference) {
-			if _t_target != nil {
-				throw DecodingError.dataCorruptedError(forKey: .targetReference, in: _container, debugDescription: "More than one value provided for \"target\"")
-			}
-			_t_target = .reference(targetReference)
-		}
-		self.target = _t_target!
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
-		
-			switch target {
-			case .identifier(let _value):
-				try _value.encode(on: &_container, forKey: .targetIdentifier)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .targetReference)
-			}
-		
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? CompositionRelatesTo else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return code == _other.code
-		    && target == _other.target
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(code)
-		hasher.combine(target)
-	}
-}
-
-/**
  Composition is broken into sections.
  
  The root of the sections that make up the composition.
@@ -590,20 +476,20 @@ open class CompositionSection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							emptyReason: CodeableConcept? = nil,
-							entry: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							focus: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<ListMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							orderedBy: CodeableConcept? = nil,
-							section: [CompositionSection]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		author: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		emptyReason: CodeableConcept? = nil,
+		entry: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		focus: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<ListMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		orderedBy: CodeableConcept? = nil,
+		section: [CompositionSection]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.author = author
 		self.code = code

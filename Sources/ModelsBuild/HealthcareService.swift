@@ -2,8 +2,8 @@
 //  HealthcareService.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/HealthcareService)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/HealthcareService)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -59,7 +59,10 @@ open class HealthcareService: DomainResource {
 	/// Facilitates quick identification of the service
 	public var photo: Attachment?
 	
-	/// Contacts related to the healthcare service
+	/// Official contact details for the HealthcareService
+	public var contact: [ExtendedContactDetail]?
+	
+	/// Deprecated - use contact.telecom
 	public var telecom: [ContactPoint]?
 	
 	/// Location(s) service is intended for/available to
@@ -105,39 +108,40 @@ open class HealthcareService: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							appointmentRequired: FHIRPrimitive<FHIRBool>? = nil,
-							availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
-							availableTime: [HealthcareServiceAvailableTime]? = nil,
-							category: [CodeableConcept]? = nil,
-							characteristic: [CodeableConcept]? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							communication: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							coverageArea: [Reference]? = nil,
-							eligibility: [HealthcareServiceEligibility]? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							extraDetails: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							notAvailable: [HealthcareServiceNotAvailable]? = nil,
-							photo: Attachment? = nil,
-							program: [CodeableConcept]? = nil,
-							providedBy: Reference? = nil,
-							referralMethod: [CodeableConcept]? = nil,
-							serviceProvisionCode: [CodeableConcept]? = nil,
-							specialty: [CodeableConcept]? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		appointmentRequired: FHIRPrimitive<FHIRBool>? = nil,
+		availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
+		availableTime: [HealthcareServiceAvailableTime]? = nil,
+		category: [CodeableConcept]? = nil,
+		characteristic: [CodeableConcept]? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		communication: [CodeableConcept]? = nil,
+		contact: [ExtendedContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		coverageArea: [Reference]? = nil,
+		eligibility: [HealthcareServiceEligibility]? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		extraDetails: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		notAvailable: [HealthcareServiceNotAvailable]? = nil,
+		photo: Attachment? = nil,
+		program: [CodeableConcept]? = nil,
+		providedBy: Reference? = nil,
+		referralMethod: [CodeableConcept]? = nil,
+		serviceProvisionCode: [CodeableConcept]? = nil,
+		specialty: [CodeableConcept]? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.active = active
 		self.appointmentRequired = appointmentRequired
@@ -147,6 +151,7 @@ open class HealthcareService: DomainResource {
 		self.characteristic = characteristic
 		self.comment = comment
 		self.communication = communication
+		self.contact = contact
 		self.contained = contained
 		self.coverageArea = coverageArea
 		self.eligibility = eligibility
@@ -184,6 +189,7 @@ open class HealthcareService: DomainResource {
 		case characteristic
 		case comment; case _comment
 		case communication
+		case contact
 		case coverageArea
 		case eligibility
 		case endpoint
@@ -215,6 +221,7 @@ open class HealthcareService: DomainResource {
 		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.communication = try [CodeableConcept](from: _container, forKeyIfPresent: .communication)
+		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.coverageArea = try [Reference](from: _container, forKeyIfPresent: .coverageArea)
 		self.eligibility = try [HealthcareServiceEligibility](from: _container, forKeyIfPresent: .eligibility)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
@@ -247,6 +254,7 @@ open class HealthcareService: DomainResource {
 		try characteristic?.encode(on: &_container, forKey: .characteristic)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try communication?.encode(on: &_container, forKey: .communication)
+		try contact?.encode(on: &_container, forKey: .contact)
 		try coverageArea?.encode(on: &_container, forKey: .coverageArea)
 		try eligibility?.encode(on: &_container, forKey: .eligibility)
 		try endpoint?.encode(on: &_container, forKey: .endpoint)
@@ -283,6 +291,7 @@ open class HealthcareService: DomainResource {
 		    && characteristic == _other.characteristic
 		    && comment == _other.comment
 		    && communication == _other.communication
+		    && contact == _other.contact
 		    && coverageArea == _other.coverageArea
 		    && eligibility == _other.eligibility
 		    && endpoint == _other.endpoint
@@ -311,6 +320,7 @@ open class HealthcareService: DomainResource {
 		hasher.combine(characteristic)
 		hasher.combine(comment)
 		hasher.combine(communication)
+		hasher.combine(contact)
 		hasher.combine(coverageArea)
 		hasher.combine(eligibility)
 		hasher.combine(endpoint)
@@ -340,7 +350,7 @@ open class HealthcareServiceAvailableTime: BackboneElement {
 	/// Indicates which days of the week are available between the start and end Times.
 	public var daysOfWeek: [FHIRPrimitive<DaysOfWeek>]?
 	
-	/// Always available? e.g. 24 hour service
+	/// Always available? i.e. 24 hour service
 	public var allDay: FHIRPrimitive<FHIRBool>?
 	
 	/// Opening time of day (ignored if allDay = true)
@@ -356,14 +366,14 @@ open class HealthcareServiceAvailableTime: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allDay: FHIRPrimitive<FHIRBool>? = nil,
-							availableEndTime: FHIRPrimitive<FHIRTime>? = nil,
-							availableStartTime: FHIRPrimitive<FHIRTime>? = nil,
-							daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		allDay: FHIRPrimitive<FHIRBool>? = nil,
+		availableEndTime: FHIRPrimitive<FHIRTime>? = nil,
+		availableStartTime: FHIRPrimitive<FHIRTime>? = nil,
+		daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.allDay = allDay
 		self.availableEndTime = availableEndTime
@@ -451,12 +461,12 @@ open class HealthcareServiceEligibility: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.comment = comment
@@ -533,12 +543,12 @@ open class HealthcareServiceNotAvailable: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>,
-							during: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>,
+		during: Period? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.during = during
 		self.`extension` = `extension`

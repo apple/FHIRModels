@@ -2,8 +2,8 @@
 //  Coding.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Coding)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Coding)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -46,14 +46,14 @@ open class Coding: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							userSelected: FHIRPrimitive<FHIRBool>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		userSelected: FHIRPrimitive<FHIRBool>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.display = display

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicationRequest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -152,47 +152,47 @@ open class MedicationRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							courseOfTherapyType: CodeableConcept? = nil,
-							detectedIssue: [Reference]? = nil,
-							dispenseRequest: MedicationRequestDispenseRequest? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							dosageInstruction: [Dosage]? = nil,
-							encounter: Reference? = nil,
-							eventHistory: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							insurance: [Reference]? = nil,
-							intent: FHIRPrimitive<MedicationRequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: MedicationX,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							performer: Reference? = nil,
-							performerType: CodeableConcept? = nil,
-							priorPrescription: Reference? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							recorder: Reference? = nil,
-							reported: ReportedX? = nil,
-							requester: Reference? = nil,
-							status: FHIRPrimitive<MedicationrequestStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference,
-							substitution: MedicationRequestSubstitution? = nil,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		courseOfTherapyType: CodeableConcept? = nil,
+		detectedIssue: [Reference]? = nil,
+		dispenseRequest: MedicationRequestDispenseRequest? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		dosageInstruction: [Dosage]? = nil,
+		encounter: Reference? = nil,
+		eventHistory: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		insurance: [Reference]? = nil,
+		intent: FHIRPrimitive<MedicationRequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: MedicationX,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		performer: Reference? = nil,
+		performerType: CodeableConcept? = nil,
+		priorPrescription: Reference? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		recorder: Reference? = nil,
+		reported: ReportedX? = nil,
+		requester: Reference? = nil,
+		status: FHIRPrimitive<MedicationrequestStatus>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference,
+		substitution: MedicationRequestSubstitution? = nil,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, medication: medication, status: status, subject: subject)
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
@@ -514,17 +514,17 @@ open class MedicationRequestDispenseRequest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							dispenseInterval: Duration? = nil,
-							expectedSupplyDuration: Duration? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							initialFill: MedicationRequestDispenseRequestInitialFill? = nil,
-							modifierExtension: [Extension]? = nil,
-							numberOfRepeatsAllowed: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							performer: Reference? = nil,
-							quantity: Quantity? = nil,
-							validityPeriod: Period? = nil)
-	{
+		dispenseInterval: Duration? = nil,
+		expectedSupplyDuration: Duration? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		initialFill: MedicationRequestDispenseRequestInitialFill? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfRepeatsAllowed: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		performer: Reference? = nil,
+		quantity: Quantity? = nil,
+		validityPeriod: Period? = nil
+	) {
 		self.init()
 		self.dispenseInterval = dispenseInterval
 		self.expectedSupplyDuration = expectedSupplyDuration
@@ -630,12 +630,12 @@ open class MedicationRequestDispenseRequestInitialFill: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							duration: Duration? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil)
-	{
+		duration: Duration? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil
+	) {
 		self.init()
 		self.duration = duration
 		self.`extension` = `extension`
@@ -721,12 +721,12 @@ open class MedicationRequestSubstitution: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allowed: AllowedX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil)
-	{
+		allowed: AllowedX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil
+	) {
 		self.init(allowed: allowed)
 		self.`extension` = `extension`
 		self.id = id

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Composition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -91,30 +91,30 @@ open class Composition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							attester: [CompositionAttester]? = nil,
-							author: [Reference],
-							category: [CodeableConcept]? = nil,
-							confidentiality: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							custodian: Reference? = nil,
-							date: FHIRPrimitive<DateTime>,
-							encounter: Reference? = nil,
-							event: [CompositionEvent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							relatesTo: [CompositionRelatesTo]? = nil,
-							section: [CompositionSection]? = nil,
-							status: FHIRPrimitive<CompositionStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>,
-							type: CodeableConcept)
-	{
+		attester: [CompositionAttester]? = nil,
+		author: [Reference],
+		category: [CodeableConcept]? = nil,
+		confidentiality: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		custodian: Reference? = nil,
+		date: FHIRPrimitive<DateTime>,
+		encounter: Reference? = nil,
+		event: [CompositionEvent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		relatesTo: [CompositionRelatesTo]? = nil,
+		section: [CompositionSection]? = nil,
+		status: FHIRPrimitive<CompositionStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept
+	) {
 		self.init(author: author, date: date, status: status, title: title, type: type)
 		self.attester = attester
 		self.category = category
@@ -272,13 +272,13 @@ open class CompositionAttester: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<CompositionAttestationMode>,
-							modifierExtension: [Extension]? = nil,
-							party: Reference? = nil,
-							time: FHIRPrimitive<DateTime>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<CompositionAttestationMode>,
+		modifierExtension: [Extension]? = nil,
+		party: Reference? = nil,
+		time: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init(mode: mode)
 		self.`extension` = `extension`
 		self.id = id
@@ -362,13 +362,13 @@ open class CompositionEvent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							detail: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		detail: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil
+	) {
 		self.init()
 		self.code = code
 		self.detail = detail
@@ -459,12 +459,12 @@ open class CompositionRelatesTo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<DocumentRelationshipType>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							target: TargetX)
-	{
+		code: FHIRPrimitive<DocumentRelationshipType>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: TargetX
+	) {
 		self.init(code: code, target: target)
 		self.`extension` = `extension`
 		self.id = id
@@ -590,20 +590,20 @@ open class CompositionSection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							emptyReason: CodeableConcept? = nil,
-							entry: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							focus: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<ListMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							orderedBy: CodeableConcept? = nil,
-							section: [CompositionSection]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		author: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		emptyReason: CodeableConcept? = nil,
+		entry: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		focus: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<ListMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		orderedBy: CodeableConcept? = nil,
+		section: [CompositionSection]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.author = author
 		self.code = code

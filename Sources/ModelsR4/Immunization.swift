@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Immunization)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -132,43 +132,43 @@ open class Immunization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							doseQuantity: Quantity? = nil,
-							education: [ImmunizationEducation]? = nil,
-							encounter: Reference? = nil,
-							expirationDate: FHIRPrimitive<FHIRDate>? = nil,
-							`extension`: [Extension]? = nil,
-							fundingSource: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							isSubpotent: FHIRPrimitive<FHIRBool>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							lotNumber: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX,
-							patient: Reference,
-							performer: [ImmunizationPerformer]? = nil,
-							primarySource: FHIRPrimitive<FHIRBool>? = nil,
-							programEligibility: [CodeableConcept]? = nil,
-							protocolApplied: [ImmunizationProtocolApplied]? = nil,
-							reaction: [ImmunizationReaction]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							recorded: FHIRPrimitive<DateTime>? = nil,
-							reportOrigin: CodeableConcept? = nil,
-							route: CodeableConcept? = nil,
-							site: CodeableConcept? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subpotentReason: [CodeableConcept]? = nil,
-							text: Narrative? = nil,
-							vaccineCode: CodeableConcept)
-	{
+		contained: [ResourceProxy]? = nil,
+		doseQuantity: Quantity? = nil,
+		education: [ImmunizationEducation]? = nil,
+		encounter: Reference? = nil,
+		expirationDate: FHIRPrimitive<FHIRDate>? = nil,
+		`extension`: [Extension]? = nil,
+		fundingSource: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		isSubpotent: FHIRPrimitive<FHIRBool>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX,
+		patient: Reference,
+		performer: [ImmunizationPerformer]? = nil,
+		primarySource: FHIRPrimitive<FHIRBool>? = nil,
+		programEligibility: [CodeableConcept]? = nil,
+		protocolApplied: [ImmunizationProtocolApplied]? = nil,
+		reaction: [ImmunizationReaction]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		reportOrigin: CodeableConcept? = nil,
+		route: CodeableConcept? = nil,
+		site: CodeableConcept? = nil,
+		status: FHIRPrimitive<EventStatus>,
+		statusReason: CodeableConcept? = nil,
+		subpotentReason: [CodeableConcept]? = nil,
+		text: Narrative? = nil,
+		vaccineCode: CodeableConcept
+	) {
 		self.init(occurrence: occurrence, patient: patient, status: status, vaccineCode: vaccineCode)
 		self.contained = contained
 		self.doseQuantity = doseQuantity
@@ -433,14 +433,14 @@ open class ImmunizationEducation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentType: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							presentationDate: FHIRPrimitive<DateTime>? = nil,
-							publicationDate: FHIRPrimitive<DateTime>? = nil,
-							reference: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		documentType: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		presentationDate: FHIRPrimitive<DateTime>? = nil,
+		publicationDate: FHIRPrimitive<DateTime>? = nil,
+		reference: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init()
 		self.documentType = documentType
 		self.`extension` = `extension`
@@ -529,12 +529,12 @@ open class ImmunizationPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function
@@ -633,15 +633,15 @@ open class ImmunizationProtocolApplied: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: Reference? = nil,
-							doseNumber: DoseNumberX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							series: FHIRPrimitive<FHIRString>? = nil,
-							seriesDoses: SeriesDosesX? = nil,
-							targetDisease: [CodeableConcept]? = nil)
-	{
+		authority: Reference? = nil,
+		doseNumber: DoseNumberX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		series: FHIRPrimitive<FHIRString>? = nil,
+		seriesDoses: SeriesDosesX? = nil,
+		targetDisease: [CodeableConcept]? = nil
+	) {
 		self.init(doseNumber: doseNumber)
 		self.authority = authority
 		self.`extension` = `extension`
@@ -784,13 +784,13 @@ open class ImmunizationReaction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<DateTime>? = nil,
-							detail: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reported: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		date: FHIRPrimitive<DateTime>? = nil,
+		detail: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reported: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init()
 		self.date = date
 		self.detail = detail

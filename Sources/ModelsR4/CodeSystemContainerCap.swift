@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,38 +28,38 @@ import FMCore
 public enum ContainerCap: String, FHIRPrimitiveType {
 	
 	/// red cap.
-	case red = "red"
+	case red
 	
 	/// yellow cap.
-	case yellow = "yellow"
+	case yellow
 	
 	/// dark yellow cap.
 	case darkYellow = "dark-yellow"
 	
 	/// grey cap.
-	case grey = "grey"
+	case grey
 	
 	/// light blue cap.
 	case lightBlue = "light-blue"
 	
 	/// black cap.
-	case black = "black"
+	case black
 	
 	/// green cap.
-	case green = "green"
+	case green
 	
 	/// light green cap.
 	case lightGreen = "light-green"
 	
 	/// lavender cap.
-	case lavender = "lavender"
+	case lavender
 	
 	/// brown cap.
-	case brown = "brown"
+	case brown
 	
 	/// white cap.
-	case white = "white"
+	case white
 	
 	/// pink cap.
-	case pink = "pink"
+	case pink
 }

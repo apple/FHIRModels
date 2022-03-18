@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Age)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,14 +31,14 @@ open class Age: Quantity {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							comparator: FHIRPrimitive<QuantityComparator>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							unit: FHIRPrimitive<FHIRString>? = nil,
-							value: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		comparator: FHIRPrimitive<QuantityComparator>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		unit: FHIRPrimitive<FHIRString>? = nil,
+		value: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.comparator = comparator

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,35 +28,35 @@ import FMCore
 public enum CoverageClassCodes: String, FHIRPrimitiveType {
 	
 	/// An employee group
-	case group = "group"
+	case group
 	
 	/// A sub-group of an employee group
-	case subgroup = "subgroup"
+	case subgroup
 	
 	/// A specific suite of benefits.
-	case plan = "plan"
+	case plan
 	
 	/// A subset of a specific suite of benefits.
-	case subplan = "subplan"
+	case subplan
 	
 	/// A class of benefits.
-	case `class` = "class"
+	case `class`
 	
 	/// A subset of a class of benefits.
-	case subclass = "subclass"
+	case subclass
 	
 	/// A sequence number associated with a short-term continuance of the coverage.
-	case sequence = "sequence"
+	case sequence
 	
 	/// Pharmacy benefit manager's Business Identification Number.
-	case rxbin = "rxbin"
+	case rxbin
 	
 	/// A Pharmacy Benefit Manager specified Processor Control Number.
-	case rxpcn = "rxpcn"
+	case rxpcn
 	
 	/// A Pharmacy Benefit Manager specified Member ID.
-	case rxid = "rxid"
+	case rxid
 	
 	/// A Pharmacy Benefit Manager specified Group number.
-	case rxgroup = "rxgroup"
+	case rxgroup
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum ConstraintSeverity: String, FHIRPrimitiveType {
 	
 	/// If the constraint is violated, the resource is not conformant.
-	case error = "error"
+	case error
 	
 	/// If the constraint is violated, the resource is conformant, but it is not necessarily following best practice.
-	case warning = "warning"
+	case warning
 }

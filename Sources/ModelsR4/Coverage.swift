@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Coverage)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -90,32 +90,32 @@ open class Coverage: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							beneficiary: Reference,
-							`class`: [CoverageClass]? = nil,
-							contained: [ResourceProxy]? = nil,
-							contract: [Reference]? = nil,
-							costToBeneficiary: [CoverageCostToBeneficiary]? = nil,
-							dependent: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							network: FHIRPrimitive<FHIRString>? = nil,
-							order: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							payor: [Reference],
-							period: Period? = nil,
-							policyHolder: Reference? = nil,
-							relationship: CodeableConcept? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							subrogation: FHIRPrimitive<FHIRBool>? = nil,
-							subscriber: Reference? = nil,
-							subscriberId: FHIRPrimitive<FHIRString>? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		beneficiary: Reference,
+		`class`: [CoverageClass]? = nil,
+		contained: [ResourceProxy]? = nil,
+		contract: [Reference]? = nil,
+		costToBeneficiary: [CoverageCostToBeneficiary]? = nil,
+		dependent: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		network: FHIRPrimitive<FHIRString>? = nil,
+		order: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		payor: [Reference],
+		period: Period? = nil,
+		policyHolder: Reference? = nil,
+		relationship: CodeableConcept? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		subrogation: FHIRPrimitive<FHIRBool>? = nil,
+		subscriber: Reference? = nil,
+		subscriberId: FHIRPrimitive<FHIRString>? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(beneficiary: beneficiary, payor: payor, status: status)
 		self.`class` = `class`
 		self.contained = contained
@@ -288,13 +288,13 @@ open class CoverageClass: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -386,13 +386,13 @@ open class CoverageCostToBeneficiary: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							exception: [CoverageCostToBeneficiaryException]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil,
-							value: ValueX)
-	{
+		exception: [CoverageCostToBeneficiaryException]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.exception = exception
 		self.`extension` = `extension`
@@ -500,12 +500,12 @@ open class CoverageCostToBeneficiaryException: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id

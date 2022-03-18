@@ -2,8 +2,8 @@
 //  Signature.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Signature)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Signature)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ import FMCore
 open class Signature: DataType {
 	
 	/// Indication of the reason the entity signed the object(s)
-	public var type: [Coding]
+	public var type: [Coding]?
 	
 	/// When the signature was created
-	public var when: FHIRPrimitive<Instant>
+	public var when: FHIRPrimitive<Instant>?
 	
 	/// Who signed
-	public var who: Reference
+	public var who: Reference?
 	
 	/// The party represented
 	public var onBehalfOf: Reference?
@@ -50,32 +50,32 @@ open class Signature: DataType {
 	public var data: FHIRPrimitive<Base64Binary>?
 	
 	/// Designated initializer taking all required properties
-	public init(type: [Coding], when: FHIRPrimitive<Instant>, who: Reference) {
-		self.type = type
-		self.when = when
-		self.who = who
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							data: FHIRPrimitive<Base64Binary>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							onBehalfOf: Reference? = nil,
-							sigFormat: FHIRPrimitive<FHIRString>? = nil,
-							targetFormat: FHIRPrimitive<FHIRString>? = nil,
-							type: [Coding],
-							when: FHIRPrimitive<Instant>,
-							who: Reference)
-	{
-		self.init(type: type, when: when, who: who)
+		data: FHIRPrimitive<Base64Binary>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		onBehalfOf: Reference? = nil,
+		sigFormat: FHIRPrimitive<FHIRString>? = nil,
+		targetFormat: FHIRPrimitive<FHIRString>? = nil,
+		type: [Coding]? = nil,
+		when: FHIRPrimitive<Instant>? = nil,
+		who: Reference? = nil
+	) {
+		self.init()
 		self.data = data
 		self.`extension` = `extension`
 		self.id = id
 		self.onBehalfOf = onBehalfOf
 		self.sigFormat = sigFormat
 		self.targetFormat = targetFormat
+		self.type = type
+		self.when = when
+		self.who = who
 	}
 	
 	// MARK: - Codable
@@ -99,9 +99,9 @@ open class Signature: DataType {
 		self.onBehalfOf = try Reference(from: _container, forKeyIfPresent: .onBehalfOf)
 		self.sigFormat = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sigFormat, auxiliaryKey: ._sigFormat)
 		self.targetFormat = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetFormat, auxiliaryKey: ._targetFormat)
-		self.type = try [Coding](from: _container, forKey: .type)
-		self.when = try FHIRPrimitive<Instant>(from: _container, forKey: .when, auxiliaryKey: ._when)
-		self.who = try Reference(from: _container, forKey: .who)
+		self.type = try [Coding](from: _container, forKeyIfPresent: .type)
+		self.when = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .when, auxiliaryKey: ._when)
+		self.who = try Reference(from: _container, forKeyIfPresent: .who)
 		try super.init(from: decoder)
 	}
 	
@@ -114,9 +114,9 @@ open class Signature: DataType {
 		try onBehalfOf?.encode(on: &_container, forKey: .onBehalfOf)
 		try sigFormat?.encode(on: &_container, forKey: .sigFormat, auxiliaryKey: ._sigFormat)
 		try targetFormat?.encode(on: &_container, forKey: .targetFormat, auxiliaryKey: ._targetFormat)
-		try type.encode(on: &_container, forKey: .type)
-		try when.encode(on: &_container, forKey: .when, auxiliaryKey: ._when)
-		try who.encode(on: &_container, forKey: .who)
+		try type?.encode(on: &_container, forKey: .type)
+		try when?.encode(on: &_container, forKey: .when, auxiliaryKey: ._when)
+		try who?.encode(on: &_container, forKey: .who)
 		try super.encode(to: encoder)
 	}
 	

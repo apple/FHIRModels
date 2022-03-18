@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ import FMCore
  URL: http://hl7.org/fhir/data-types
  */
 public enum FHIRDataType: String, FHIRPrimitiveType {
+	
+	/// Optional Extension Element - found in all resources.
+	case `extension` = "Extension"
 	
 	/// An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This
 	/// data type may be used to convey addresses for use in delivering mail as well as for visiting locations which
@@ -50,10 +53,23 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// Base definition for all types defined in FHIR type system.
 	case base = "Base"
 	
+	/// A stream of bytes
+	case base64Binary
+	
+	/// Value of "true" or "false"
+	case boolean
+	
+	/// A URI that is a reference to a canonical URL on a FHIR resource
+	case canonical
+	
+	/// A string which has at least one character and no leading or trailing whitespace and where there is no whitespace
+	/// other than single spaces in the contents
+	case code
+	
 	/// A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.
 	case codeableConcept = "CodeableConcept"
 	
-	/// A reference to a resource (by instance), or instead, a reference to a cencept defined in a terminology or
+	/// A reference to a resource (by instance), or instead, a reference to a concept defined in a terminology or
 	/// ontology (by class).
 	case codeableReference = "CodeableReference"
 	
@@ -81,6 +97,19 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// The base class for all re-useable types defined as part of the FHIR Specification.
 	case dataType = "DataType"
 	
+	/// A date or partial date (e.g. just year or year + month). There is no UTC offset. The format is a union of the
+	/// schema types gYear, gYearMonth and date.  Dates SHALL be valid dates.
+	case date
+	
+	/// A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a UTC
+	/// offset SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime.
+	/// Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.
+	/// Dates SHALL be valid dates.
+	case dateTime
+	
+	/// A rational number with implicit precision
+	case decimal
+	
 	/// A length - a value with a unit that is a physical distance.
 	case distance = "Distance"
 	
@@ -100,15 +129,34 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// must specify the context in which the expression is evaluated, and how the result of the expression is used.
 	case expression = "Expression"
 	
-	/// Optional Extension Element - found in all resources.
-	case `extension` = "Extension"
+	/// Specifies contact information for a specific purpose over a period of time, might be handled/monitored by a
+	/// specific named person or organization.
+	case extendedContactDetail = "ExtendedContactDetail"
 	
 	/// A human's name with the ability to identify parts and usage.
 	case humanName = "HumanName"
 	
+	/// Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an
+	/// integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-
+	/// insensitive.
+	case id
+	
 	/// An identifier - identifies some entity uniquely and unambiguously. Typically this is used for business
 	/// identifiers.
 	case identifier = "Identifier"
+	
+	/// An instant in time - known at least to the second
+	case instant
+	
+	/// A whole number
+	case integer
+	
+	/// A very large whole number
+	case integer64
+	
+	/// A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation
+	/// engine
+	case markdown
 	
 	/// The marketing status describes the date when a medicinal product is actually put on the market or the date as of
 	/// which it is no longer available.
@@ -128,8 +176,8 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// resource.
 	case narrative = "Narrative"
 	
-	/// An ordered list (distribution) of statistics.
-	case orderedDistribution = "OrderedDistribution"
+	/// An OID represented as a URI
+	case oid
 	
 	/// The parameters to the module. This collection specifies both the input and output parameters. Input parameters
 	/// are provided by the caller as part of the $evaluate operation. Output parameters are included in the
@@ -141,6 +189,9 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	
 	/// A populatioof people with some set of grouping criteria.
 	case population = "Population"
+	
+	/// An integer with a value that is positive (e.g. >0)
+	case positiveInt
 	
 	/// The base type for all re-useable types defined that have a simple property.
 	case primitiveType = "PrimitiveType"
@@ -163,6 +214,9 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// A relationship of two Quantity values - expressed as a numerator and a denominator.
 	case ratio = "Ratio"
 	
+	/// A range of ratios expressed as a low and high numerator and a denominator.
+	case ratioRange = "RatioRange"
+	
 	/// A reference from one resource to another.
 	case reference = "Reference"
 	
@@ -182,9 +236,11 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// simpleQuantity
 	case simpleQuantity = "SimpleQuantity"
 	
-	/// A fact or piece of data from a  study of a large quantity of numerical data.  A mathematical or quantified
-	/// characteristic of a group of observations.
-	case statistic = "Statistic"
+	/// A sequence of Unicode characters
+	case string
+	
+	/// A time during the day, with no date specified
+	case time
 	
 	/// Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned,
 	/// expected or requested to occur. The most common usage is in dosage instructions for medications. They are also
@@ -196,79 +252,23 @@ public enum FHIRDataType: String, FHIRPrimitiveType {
 	/// determined by the type element.
 	case triggerDefinition = "TriggerDefinition"
 	
+	/// An integer with a value that is not negative (e.g. >= 0)
+	case unsignedInt
+	
+	/// String of characters used to identify a name or a resource
+	case uri
+	
+	/// A URI that is a literal reference
+	case url
+	
 	/// Specifies clinical/business/etc. metadata that can be used to retrieve, index and/or categorize an artifact.
 	/// This metadata can either be specific to the applicable population (e.g., age category, DRG) or the specific
 	/// context of care (e.g., venue, care setting, provider of care).
 	case usageContext = "UsageContext"
 	
-	/// A stream of bytes
-	case base64Binary = "base64Binary"
-	
-	/// Value of "true" or "false"
-	case boolean = "boolean"
-	
-	/// A URI that is a reference to a canonical URL on a FHIR resource
-	case canonical = "canonical"
-	
-	/// A string which has at least one character and no leading or trailing whitespace and where there is no whitespace
-	/// other than single spaces in the contents
-	case code = "code"
-	
-	/// A date or partial date (e.g. just year or year + month). There is no time zone. The format is a union of the
-	/// schema types gYear, gYearMonth and date.  Dates SHALL be valid dates.
-	case date = "date"
-	
-	/// A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time
-	/// zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds
-	/// must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates
-	/// SHALL be valid dates.
-	case dateTime = "dateTime"
-	
-	/// A rational number with implicit precision
-	case decimal = "decimal"
-	
-	/// Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an
-	/// integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-
-	/// insensitive.
-	case id = "id"
-	
-	/// An instant in time - known at least to the second
-	case instant = "instant"
-	
-	/// A whole number
-	case integer = "integer"
-	
-	/// A very large whole number
-	case integer64 = "integer64"
-	
-	/// A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation
-	/// engine
-	case markdown = "markdown"
-	
-	/// An OID represented as a URI
-	case oid = "oid"
-	
-	/// An integer with a value that is positive (e.g. >0)
-	case positiveInt = "positiveInt"
-	
-	/// A sequence of Unicode characters
-	case string = "string"
-	
-	/// A time during the day, with no date specified
-	case time = "time"
-	
-	/// An integer with a value that is not negative (e.g. >= 0)
-	case unsignedInt = "unsignedInt"
-	
-	/// String of characters used to identify a name or a resource
-	case uri = "uri"
-	
-	/// A URI that is a literal reference
-	case url = "url"
-	
 	/// A UUID, represented as a URI
-	case uuid = "uuid"
+	case uuid
 	
 	/// XHTML format, as defined by W3C, but restricted usage (mainly, no active content)
-	case xhtml = "xhtml"
+	case xhtml
 }

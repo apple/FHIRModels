@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Flag)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -62,23 +62,23 @@ open class Flag: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							status: FHIRPrimitive<FlagStatus>,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		status: FHIRPrimitive<FlagStatus>,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, status: status, subject: subject)
 		self.author = author
 		self.category = category

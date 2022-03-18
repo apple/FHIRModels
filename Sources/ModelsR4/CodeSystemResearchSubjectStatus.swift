@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import FMCore
 public enum ResearchSubjectStatus: String, FHIRPrimitiveType {
 	
 	/// An identified person that can be considered for inclusion in a study.
-	case candidate = "candidate"
+	case candidate
 	
 	/// A person that has met the eligibility criteria for inclusion in a study.
-	case eligible = "eligible"
+	case eligible
 	
 	/// A person is no longer receiving study intervention and/or being evaluated with tests and procedures according to
 	/// the protocol, but they are being monitored on a protocol-prescribed schedule.
@@ -40,7 +40,7 @@ public enum ResearchSubjectStatus: String, FHIRPrimitiveType {
 	/// A person who did not meet one or more criteria required for participation in a study is considered to have
 	/// failed screening or
 	/// is ineligible for the study.
-	case ineligible = "ineligible"
+	case ineligible
 	
 	/// A person for whom registration was not completed.
 	case notRegistered = "not-registered"
@@ -69,8 +69,8 @@ public enum ResearchSubjectStatus: String, FHIRPrimitiveType {
 	case potentialCandidate = "potential-candidate"
 	
 	/// A person who is being evaluated for eligibility for a study.
-	case screening = "screening"
+	case screening
 	
 	/// The person has withdrawn their participation in the study before registration.
-	case withdrawn = "withdrawn"
+	case withdrawn
 }

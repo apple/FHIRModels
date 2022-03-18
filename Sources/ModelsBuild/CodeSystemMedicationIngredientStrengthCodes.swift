@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- Medication Ingredient Strength Codes
+ None
  
  URL: http://hl7.org/fhir/CodeSystem/medication-ingredientstrength
  ValueSet: http://hl7.org/fhir/ValueSet/medication-ingredientstrength
@@ -28,8 +28,8 @@ import FMCore
 public enum MedicationIngredientStrengthCodes: String, FHIRPrimitiveType {
 	
 	/// As much as is sufficient.
-	case qs = "qs"
+	case qs
 	
 	/// Very small amount.
-	case trace = "trace"
+	case trace
 }

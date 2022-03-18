@@ -2,8 +2,8 @@
 //  MolecularSequence.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MolecularSequence)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MolecularSequence)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -85,31 +85,31 @@ open class MolecularSequence: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							coordinateSystem: FHIRPrimitive<FHIRInteger>,
-							device: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							observedSeq: FHIRPrimitive<FHIRString>? = nil,
-							patient: Reference? = nil,
-							performer: Reference? = nil,
-							pointer: [Reference]? = nil,
-							quality: [MolecularSequenceQuality]? = nil,
-							quantity: Quantity? = nil,
-							readCoverage: FHIRPrimitive<FHIRInteger>? = nil,
-							referenceSeq: MolecularSequenceReferenceSeq? = nil,
-							repository: [MolecularSequenceRepository]? = nil,
-							specimen: Reference? = nil,
-							structureVariant: [MolecularSequenceStructureVariant]? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<SequenceType>? = nil,
-							variant: [MolecularSequenceVariant]? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		coordinateSystem: FHIRPrimitive<FHIRInteger>,
+		device: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		observedSeq: FHIRPrimitive<FHIRString>? = nil,
+		patient: Reference? = nil,
+		performer: Reference? = nil,
+		pointer: [Reference]? = nil,
+		quality: [MolecularSequenceQuality]? = nil,
+		quantity: Quantity? = nil,
+		readCoverage: FHIRPrimitive<FHIRInteger>? = nil,
+		referenceSeq: MolecularSequenceReferenceSeq? = nil,
+		repository: [MolecularSequenceRepository]? = nil,
+		specimen: Reference? = nil,
+		structureVariant: [MolecularSequenceStructureVariant]? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<SequenceType>? = nil,
+		variant: [MolecularSequenceVariant]? = nil
+	) {
 		self.init(coordinateSystem: coordinateSystem)
 		self.contained = contained
 		self.device = device
@@ -314,25 +314,25 @@ open class MolecularSequenceQuality: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							end: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							fScore: FHIRPrimitive<FHIRDecimal>? = nil,
-							gtFP: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							precision: FHIRPrimitive<FHIRDecimal>? = nil,
-							queryFP: FHIRPrimitive<FHIRDecimal>? = nil,
-							queryTP: FHIRPrimitive<FHIRDecimal>? = nil,
-							recall: FHIRPrimitive<FHIRDecimal>? = nil,
-							roc: MolecularSequenceQualityRoc? = nil,
-							score: Quantity? = nil,
-							standardSequence: CodeableConcept? = nil,
-							start: FHIRPrimitive<FHIRInteger>? = nil,
-							truthFN: FHIRPrimitive<FHIRDecimal>? = nil,
-							truthTP: FHIRPrimitive<FHIRDecimal>? = nil,
-							type: FHIRPrimitive<QualityType>)
-	{
+		end: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		fScore: FHIRPrimitive<FHIRDecimal>? = nil,
+		gtFP: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		precision: FHIRPrimitive<FHIRDecimal>? = nil,
+		queryFP: FHIRPrimitive<FHIRDecimal>? = nil,
+		queryTP: FHIRPrimitive<FHIRDecimal>? = nil,
+		recall: FHIRPrimitive<FHIRDecimal>? = nil,
+		roc: MolecularSequenceQualityRoc? = nil,
+		score: Quantity? = nil,
+		standardSequence: CodeableConcept? = nil,
+		start: FHIRPrimitive<FHIRInteger>? = nil,
+		truthFN: FHIRPrimitive<FHIRDecimal>? = nil,
+		truthTP: FHIRPrimitive<FHIRDecimal>? = nil,
+		type: FHIRPrimitive<QualityType>
+	) {
 		self.init(type: type)
 		self.end = end
 		self.`extension` = `extension`
@@ -500,17 +500,17 @@ open class MolecularSequenceQualityRoc: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							fMeasure: [FHIRPrimitive<FHIRDecimal>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							numFN: [FHIRPrimitive<FHIRInteger>]? = nil,
-							numFP: [FHIRPrimitive<FHIRInteger>]? = nil,
-							numTP: [FHIRPrimitive<FHIRInteger>]? = nil,
-							precision: [FHIRPrimitive<FHIRDecimal>]? = nil,
-							score: [FHIRPrimitive<FHIRInteger>]? = nil,
-							sensitivity: [FHIRPrimitive<FHIRDecimal>]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		fMeasure: [FHIRPrimitive<FHIRDecimal>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		numFN: [FHIRPrimitive<FHIRInteger>]? = nil,
+		numFP: [FHIRPrimitive<FHIRInteger>]? = nil,
+		numTP: [FHIRPrimitive<FHIRInteger>]? = nil,
+		precision: [FHIRPrimitive<FHIRDecimal>]? = nil,
+		score: [FHIRPrimitive<FHIRInteger>]? = nil,
+		sensitivity: [FHIRPrimitive<FHIRDecimal>]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.fMeasure = fMeasure
@@ -639,19 +639,19 @@ open class MolecularSequenceReferenceSeq: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							chromosome: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							genomeBuild: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							orientation: FHIRPrimitive<OrientationType>? = nil,
-							referenceSeqId: CodeableConcept? = nil,
-							referenceSeqPointer: Reference? = nil,
-							referenceSeqString: FHIRPrimitive<FHIRString>? = nil,
-							strand: FHIRPrimitive<StrandType>? = nil,
-							windowEnd: FHIRPrimitive<FHIRInteger>? = nil,
-							windowStart: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		chromosome: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		genomeBuild: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		orientation: FHIRPrimitive<OrientationType>? = nil,
+		referenceSeqId: CodeableConcept? = nil,
+		referenceSeqPointer: Reference? = nil,
+		referenceSeqString: FHIRPrimitive<FHIRString>? = nil,
+		strand: FHIRPrimitive<StrandType>? = nil,
+		windowEnd: FHIRPrimitive<FHIRInteger>? = nil,
+		windowStart: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init()
 		self.chromosome = chromosome
 		self.`extension` = `extension`
@@ -783,16 +783,16 @@ open class MolecularSequenceRepository: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							datasetId: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							readsetId: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<RepositoryType>,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							variantsetId: FHIRPrimitive<FHIRString>? = nil)
-	{
+		datasetId: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		readsetId: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<RepositoryType>,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		variantsetId: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(type: type)
 		self.datasetId = datasetId
 		self.`extension` = `extension`
@@ -900,15 +900,15 @@ open class MolecularSequenceStructureVariant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							exact: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							inner: MolecularSequenceStructureVariantInner? = nil,
-							length: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							outer: MolecularSequenceStructureVariantOuter? = nil,
-							variantType: CodeableConcept? = nil)
-	{
+		exact: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		inner: MolecularSequenceStructureVariantInner? = nil,
+		length: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		outer: MolecularSequenceStructureVariantOuter? = nil,
+		variantType: CodeableConcept? = nil
+	) {
 		self.init()
 		self.exact = exact
 		self.`extension` = `extension`
@@ -1000,12 +1000,12 @@ open class MolecularSequenceStructureVariantInner: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							end: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							start: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		end: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		start: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init()
 		self.end = end
 		self.`extension` = `extension`
@@ -1079,12 +1079,12 @@ open class MolecularSequenceStructureVariantOuter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							end: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							start: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		end: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		start: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init()
 		self.end = end
 		self.`extension` = `extension`
@@ -1175,16 +1175,16 @@ open class MolecularSequenceVariant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cigar: FHIRPrimitive<FHIRString>? = nil,
-							end: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							observedAllele: FHIRPrimitive<FHIRString>? = nil,
-							referenceAllele: FHIRPrimitive<FHIRString>? = nil,
-							start: FHIRPrimitive<FHIRInteger>? = nil,
-							variantPointer: Reference? = nil)
-	{
+		cigar: FHIRPrimitive<FHIRString>? = nil,
+		end: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		observedAllele: FHIRPrimitive<FHIRString>? = nil,
+		referenceAllele: FHIRPrimitive<FHIRString>? = nil,
+		start: FHIRPrimitive<FHIRInteger>? = nil,
+		variantPointer: Reference? = nil
+	) {
 		self.init()
 		self.cigar = cigar
 		self.end = end

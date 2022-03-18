@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,29 +20,28 @@
 import FMCore
 
 /**
- This value set is provided as an example. The value set to instantiate this attribute should be drawn from a robust
- terminology code system that consists of or contains concepts to support the procedure performance process.
+ This value set is provided as an exemplar. The value set to instantiate this attribute should be drawn from a
+ terminologically robust code system that consists of or contains concepts to support the procedure performance process.
  
  URL: http://hl7.org/fhir/procedure-progress-status-code
- ValueSet: http://hl7.org/fhir/ValueSet/procedure-progress-status-codes
  */
 public enum ProcedureProgressStatusCodes: String, FHIRPrimitiveType {
-	
-	/// A patient is in the Operating Room.
-	case inOperatingRoom = "in-operating-room"
-	
-	/// The patient is prepared for a procedure.
-	case prepared = "prepared"
 	
 	/// The patient is under anesthesia.
 	case anesthesiaInduced = "anesthesia-induced"
 	
-	/// The patient has open incision(s).
-	case openIncision = "open-incision"
-	
 	/// The patient has incision(s) closed.
 	case closedIncision = "closed-incision"
 	
+	/// A patient is in the Operating Room.
+	case inOperatingRoom = "in-operating-room"
+	
 	/// The patient is in the recovery room.
 	case inRecoveryRoom = "in-recovery-room"
+	
+	/// The patient has open incision(s).
+	case openIncision = "open-incision"
+	
+	/// The patient is prepared for a procedure.
+	case prepared
 }

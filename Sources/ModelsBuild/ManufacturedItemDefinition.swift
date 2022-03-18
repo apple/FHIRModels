@@ -2,8 +2,8 @@
 //  ManufacturedItemDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ManufacturedItemDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ManufacturedItemDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,46 +30,52 @@ open class ManufacturedItemDefinition: DomainResource {
 	/// Unique identifier
 	public var identifier: [Identifier]?
 	
-	/// Dose form as manufactured and before any transformation into the pharmaceutical product
+	/// The status of this item. Enables tracking the life-cycle of the content.
+	public var status: FHIRPrimitive<PublicationStatus>
+	
+	/// Dose form as manufactured (before any necessary transformation)
 	public var manufacturedDoseForm: CodeableConcept
 	
-	/// The “real world” units in which the quantity of the manufactured item is described
+	/// The “real world” units in which the quantity of the item is described
 	public var unitOfPresentation: CodeableConcept?
 	
 	/// Manufacturer of the item (Note that this should be named "manufacturer" but it currently causes technical
 	/// issues)
 	public var manufacturer: [Reference]?
 	
-	/// The ingredients that make up this manufactured item
-	public var ingredient: [Reference]?
+	/// The ingredients of this manufactured item. Only needed if these are not specified by incoming references from
+	/// the Ingredient resource
+	public var ingredient: [CodeableConcept]?
 	
 	/// General characteristics of this item
 	public var property: [ManufacturedItemDefinitionProperty]?
 	
 	/// Designated initializer taking all required properties
-	public init(manufacturedDoseForm: CodeableConcept) {
+	public init(manufacturedDoseForm: CodeableConcept, status: FHIRPrimitive<PublicationStatus>) {
 		self.manufacturedDoseForm = manufacturedDoseForm
+		self.status = status
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturedDoseForm: CodeableConcept,
-							manufacturer: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							property: [ManufacturedItemDefinitionProperty]? = nil,
-							text: Narrative? = nil,
-							unitOfPresentation: CodeableConcept? = nil)
-	{
-		self.init(manufacturedDoseForm: manufacturedDoseForm)
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manufacturedDoseForm: CodeableConcept,
+		manufacturer: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		property: [ManufacturedItemDefinitionProperty]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		unitOfPresentation: CodeableConcept? = nil
+	) {
+		self.init(manufacturedDoseForm: manufacturedDoseForm, status: status)
 		self.contained = contained
 		self.`extension` = `extension`
 		self.id = id
@@ -93,6 +99,7 @@ open class ManufacturedItemDefinition: DomainResource {
 		case manufacturedDoseForm
 		case manufacturer
 		case property
+		case status; case _status
 		case unitOfPresentation
 	}
 	
@@ -102,10 +109,11 @@ open class ManufacturedItemDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.ingredient = try [Reference](from: _container, forKeyIfPresent: .ingredient)
+		self.ingredient = try [CodeableConcept](from: _container, forKeyIfPresent: .ingredient)
 		self.manufacturedDoseForm = try CodeableConcept(from: _container, forKey: .manufacturedDoseForm)
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
 		self.property = try [ManufacturedItemDefinitionProperty](from: _container, forKeyIfPresent: .property)
+		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.unitOfPresentation = try CodeableConcept(from: _container, forKeyIfPresent: .unitOfPresentation)
 		try super.init(from: decoder)
 	}
@@ -120,6 +128,7 @@ open class ManufacturedItemDefinition: DomainResource {
 		try manufacturedDoseForm.encode(on: &_container, forKey: .manufacturedDoseForm)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
 		try property?.encode(on: &_container, forKey: .property)
+		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try unitOfPresentation?.encode(on: &_container, forKey: .unitOfPresentation)
 		try super.encode(to: encoder)
 	}
@@ -138,6 +147,7 @@ open class ManufacturedItemDefinition: DomainResource {
 		    && manufacturedDoseForm == _other.manufacturedDoseForm
 		    && manufacturer == _other.manufacturer
 		    && property == _other.property
+		    && status == _other.status
 		    && unitOfPresentation == _other.unitOfPresentation
 	}
 	
@@ -148,6 +158,7 @@ open class ManufacturedItemDefinition: DomainResource {
 		hasher.combine(manufacturedDoseForm)
 		hasher.combine(manufacturer)
 		hasher.combine(property)
+		hasher.combine(status)
 		hasher.combine(unitOfPresentation)
 	}
 }
@@ -181,12 +192,12 @@ open class ManufacturedItemDefinitionProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id

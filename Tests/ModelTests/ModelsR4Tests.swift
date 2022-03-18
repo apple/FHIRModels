@@ -23,47 +23,47 @@ class ModelsR4Tests: XCTestCase {
 	
 	@available(OSX 10.15, *)
 	@available(iOS 13.0, *)
-    @available(watchOS 7.0, *)
-    @available(tvOS 13.0, *)
+	@available(watchOS 7.0, *)
+	@available(tvOS 13.0, *)
 	func testGroupResourceDecodeEncode() throws {
 		let string =
-"""
-{
-	"resourceType": "Group",
-	"id": "101",
-	"text": {
-		"status": "additional",
-		"div": "<div><p>Herd of 25 horses</p><p>Gender: mixed</p><p>Owner: John Smith</p></div>"
-	},
-	"type": "animal",
-	"actual": true,
-	"code": {
-		"text": "Horse"
-	},
-	"name": "John's herd",
-	"quantity": 25,
-	"characteristic": [
-		{
-			"code": {
-				"text": "gender"
-			},
-			"valueCodeableConcept": {
-				"text": "mixed"
-			},
-			"exclude": false
-		},
-		{
-			"code": {
-				"text": "owner"
-			},
-			"valueCodeableConcept": {
-				"text": "John Smith"
-			},
-			"exclude": false
-		}
-	]
-}
-"""
+            """
+            {
+                "resourceType": "Group",
+                "id": "101",
+                "text": {
+                    "status": "additional",
+                    "div": "<div><p>Herd of 25 horses</p><p>Gender: mixed</p><p>Owner: John Smith</p></div>"
+                },
+                "type": "animal",
+                "actual": true,
+                "code": {
+                    "text": "Horse"
+                },
+                "name": "John's herd",
+                "quantity": 25,
+                "characteristic": [
+                    {
+                        "code": {
+                            "text": "gender"
+                        },
+                        "valueCodeableConcept": {
+                            "text": "mixed"
+                        },
+                        "exclude": false
+                    },
+                    {
+                        "code": {
+                            "text": "owner"
+                        },
+                        "valueCodeableConcept": {
+                            "text": "John Smith"
+                        },
+                        "exclude": false
+                    }
+                ]
+            }
+            """
 		guard let data = string.data(using: .utf8) else {
 			throw TestError.failed("encoding string to UTF8 data")
 		}

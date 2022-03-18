@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -69,26 +69,26 @@ open class BiologicallyDerivedProduct: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							collection: BiologicallyDerivedProductCollection? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manipulation: BiologicallyDerivedProductManipulation? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							parent: [Reference]? = nil,
-							processing: [BiologicallyDerivedProductProcessing]? = nil,
-							productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>? = nil,
-							productCode: CodeableConcept? = nil,
-							quantity: FHIRPrimitive<FHIRInteger>? = nil,
-							request: [Reference]? = nil,
-							status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
-							storage: [BiologicallyDerivedProductStorage]? = nil,
-							text: Narrative? = nil)
-	{
+		collection: BiologicallyDerivedProductCollection? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manipulation: BiologicallyDerivedProductManipulation? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		parent: [Reference]? = nil,
+		processing: [BiologicallyDerivedProductProcessing]? = nil,
+		productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>? = nil,
+		productCode: CodeableConcept? = nil,
+		quantity: FHIRPrimitive<FHIRInteger>? = nil,
+		request: [Reference]? = nil,
+		status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
+		storage: [BiologicallyDerivedProductStorage]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.collection = collection
 		self.contained = contained
@@ -231,13 +231,13 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							collected: CollectedX? = nil,
-							collector: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: Reference? = nil)
-	{
+		collected: CollectedX? = nil,
+		collector: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: Reference? = nil
+	) {
 		self.init()
 		self.collected = collected
 		self.collector = collector
@@ -348,12 +348,12 @@ open class BiologicallyDerivedProductManipulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							time: TimeX? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		time: TimeX? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -464,14 +464,14 @@ open class BiologicallyDerivedProductProcessing: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additive: Reference? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							procedure: CodeableConcept? = nil,
-							time: TimeX? = nil)
-	{
+		additive: Reference? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		procedure: CodeableConcept? = nil,
+		time: TimeX? = nil
+	) {
 		self.init()
 		self.additive = additive
 		self.description_fhir = description_fhir
@@ -584,14 +584,14 @@ open class BiologicallyDerivedProductStorage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							duration: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							scale: FHIRPrimitive<BiologicallyDerivedProductStorageScale>? = nil,
-							temperature: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		duration: Period? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		scale: FHIRPrimitive<BiologicallyDerivedProductStorageScale>? = nil,
+		temperature: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.duration = duration

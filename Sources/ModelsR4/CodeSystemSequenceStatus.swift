@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum SequenceStatus: String, FHIRPrimitiveType {
 	
 	/// the variant is detected.
-	case positive = "positive"
+	case positive
 	
 	/// no variant is detected.
-	case negative = "negative"
+	case negative
 	
 	/// result of the variant is missing.
-	case absent = "absent"
+	case absent
 }

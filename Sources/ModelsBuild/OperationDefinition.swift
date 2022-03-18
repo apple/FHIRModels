@@ -2,8 +2,8 @@
 //  OperationDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -124,41 +124,41 @@ open class OperationDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							affectsState: FHIRPrimitive<FHIRBool>? = nil,
-							base: FHIRPrimitive<Canonical>? = nil,
-							code: FHIRPrimitive<FHIRString>,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							inputProfile: FHIRPrimitive<Canonical>? = nil,
-							instance: FHIRPrimitive<FHIRBool>,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<OperationKind>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							outputProfile: FHIRPrimitive<Canonical>? = nil,
-							overload: [OperationDefinitionOverload]? = nil,
-							parameter: [OperationDefinitionParameter]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							resource: [FHIRPrimitive<ResourceType>]? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							system: FHIRPrimitive<FHIRBool>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<FHIRBool>,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		affectsState: FHIRPrimitive<FHIRBool>? = nil,
+		base: FHIRPrimitive<Canonical>? = nil,
+		code: FHIRPrimitive<FHIRString>,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		inputProfile: FHIRPrimitive<Canonical>? = nil,
+		instance: FHIRPrimitive<FHIRBool>,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<OperationKind>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		outputProfile: FHIRPrimitive<Canonical>? = nil,
+		overload: [OperationDefinitionOverload]? = nil,
+		parameter: [OperationDefinitionParameter]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		resource: [FHIRPrimitive<ResourceType>]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		system: FHIRPrimitive<FHIRBool>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<FHIRBool>,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(code: code, instance: instance, kind: kind, name: name, status: status, system: system, type: type)
 		self.affectsState = affectsState
 		self.base = base
@@ -377,12 +377,12 @@ open class OperationDefinitionOverload: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							parameterName: [FHIRPrimitive<FHIRString>]? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		parameterName: [FHIRPrimitive<FHIRString>]? = nil
+	) {
 		self.init()
 		self.comment = comment
 		self.`extension` = `extension`
@@ -489,21 +489,21 @@ open class OperationDefinitionParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							binding: OperationDefinitionParameterBinding? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>,
-							min: FHIRPrimitive<FHIRInteger>,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							part: [OperationDefinitionParameter]? = nil,
-							referencedFrom: [OperationDefinitionParameterReferencedFrom]? = nil,
-							searchType: FHIRPrimitive<SearchParamType>? = nil,
-							targetProfile: [FHIRPrimitive<Canonical>]? = nil,
-							type: FHIRPrimitive<FHIRString>? = nil,
-							use: FHIRPrimitive<OperationParameterUse>)
-	{
+		binding: OperationDefinitionParameterBinding? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>,
+		min: FHIRPrimitive<FHIRInteger>,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		part: [OperationDefinitionParameter]? = nil,
+		referencedFrom: [OperationDefinitionParameterReferencedFrom]? = nil,
+		searchType: FHIRPrimitive<SearchParamType>? = nil,
+		targetProfile: [FHIRPrimitive<Canonical>]? = nil,
+		type: FHIRPrimitive<FHIRString>? = nil,
+		use: FHIRPrimitive<OperationParameterUse>
+	) {
 		self.init(max: max, min: min, name: name, use: use)
 		self.binding = binding
 		self.documentation = documentation
@@ -632,12 +632,12 @@ open class OperationDefinitionParameterBinding: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							strength: FHIRPrimitive<BindingStrength>,
-							valueSet: FHIRPrimitive<Canonical>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		strength: FHIRPrimitive<BindingStrength>,
+		valueSet: FHIRPrimitive<Canonical>
+	) {
 		self.init(strength: strength, valueSet: valueSet)
 		self.`extension` = `extension`
 		self.id = id
@@ -712,12 +712,12 @@ open class OperationDefinitionParameterReferencedFrom: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: FHIRPrimitive<FHIRString>,
-							sourceId: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: FHIRPrimitive<FHIRString>,
+		sourceId: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(source: source)
 		self.`extension` = `extension`
 		self.id = id

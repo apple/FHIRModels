@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DeviceMetric)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,25 +71,25 @@ open class DeviceMetric: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							calibration: [DeviceMetricCalibration]? = nil,
-							category: FHIRPrimitive<DeviceMetricCategory>,
-							color: FHIRPrimitive<DeviceMetricColor>? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							measurementPeriod: Timing? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>? = nil,
-							parent: Reference? = nil,
-							source: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept,
-							unit: CodeableConcept? = nil)
-	{
+		calibration: [DeviceMetricCalibration]? = nil,
+		category: FHIRPrimitive<DeviceMetricCategory>,
+		color: FHIRPrimitive<DeviceMetricColor>? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		measurementPeriod: Timing? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>? = nil,
+		parent: Reference? = nil,
+		source: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept,
+		unit: CodeableConcept? = nil
+	) {
 		self.init(category: category, type: type)
 		self.calibration = calibration
 		self.color = color
@@ -217,13 +217,13 @@ open class DeviceMetricCalibration: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							state: FHIRPrimitive<DeviceMetricCalibrationState>? = nil,
-							time: FHIRPrimitive<Instant>? = nil,
-							type: FHIRPrimitive<DeviceMetricCalibrationType>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		state: FHIRPrimitive<DeviceMetricCalibrationState>? = nil,
+		time: FHIRPrimitive<Instant>? = nil,
+		type: FHIRPrimitive<DeviceMetricCalibrationType>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

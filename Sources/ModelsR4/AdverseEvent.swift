@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/AdverseEvent)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -102,35 +102,35 @@ open class AdverseEvent: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actuality: FHIRPrimitive<AdverseEventActuality>,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							contributor: [Reference]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							detected: FHIRPrimitive<DateTime>? = nil,
-							encounter: Reference? = nil,
-							event: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: CodeableConcept? = nil,
-							recordedDate: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							referenceDocument: [Reference]? = nil,
-							resultingCondition: [Reference]? = nil,
-							seriousness: CodeableConcept? = nil,
-							severity: CodeableConcept? = nil,
-							study: [Reference]? = nil,
-							subject: Reference,
-							subjectMedicalHistory: [Reference]? = nil,
-							suspectEntity: [AdverseEventSuspectEntity]? = nil,
-							text: Narrative? = nil)
-	{
+		actuality: FHIRPrimitive<AdverseEventActuality>,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		contributor: [Reference]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		detected: FHIRPrimitive<DateTime>? = nil,
+		encounter: Reference? = nil,
+		event: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: CodeableConcept? = nil,
+		recordedDate: FHIRPrimitive<DateTime>? = nil,
+		recorder: Reference? = nil,
+		referenceDocument: [Reference]? = nil,
+		resultingCondition: [Reference]? = nil,
+		seriousness: CodeableConcept? = nil,
+		severity: CodeableConcept? = nil,
+		study: [Reference]? = nil,
+		subject: Reference,
+		subjectMedicalHistory: [Reference]? = nil,
+		suspectEntity: [AdverseEventSuspectEntity]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(actuality: actuality, subject: subject)
 		self.category = category
 		self.contained = contained
@@ -318,12 +318,12 @@ open class AdverseEventSuspectEntity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							causality: [AdverseEventSuspectEntityCausality]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instance: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		causality: [AdverseEventSuspectEntityCausality]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instance: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(instance: instance)
 		self.causality = causality
 		self.`extension` = `extension`
@@ -402,14 +402,14 @@ open class AdverseEventSuspectEntityCausality: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assessment: CodeableConcept? = nil,
-							author: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							productRelatedness: FHIRPrimitive<FHIRString>? = nil)
-	{
+		assessment: CodeableConcept? = nil,
+		author: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		productRelatedness: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.assessment = assessment
 		self.author = author

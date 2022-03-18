@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum ExamplePharmacyServiceCodes: String, FHIRPrimitiveType {
 	
 	/// Smoking cessation
-	case smokecess = "smokecess"
+	case smokecess
 	
 	/// Flu Shot
-	case flushot = "flushot"
+	case flushot
 	
 	/// The wholesale price of the medication.
-	case drugcost = "drugcost"
+	case drugcost
 	
 	/// The additional cost assessed on the drug.
-	case markup = "markup"
+	case markup
 	
 	/// The professional fee charged for dispensing the product or service.
-	case dispensefee = "dispensefee"
+	case dispensefee
 	
 	/// The professional fee charged for compounding the medication.
-	case compoundfee = "compoundfee"
+	case compoundfee
 }

@@ -2,8 +2,8 @@
 //  Permission.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Permission)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Permission)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -65,25 +65,25 @@ open class Permission: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asserter: Reference? = nil,
-							assertionDate: [FHIRPrimitive<DateTime>]? = nil,
-							contained: [ResourceProxy]? = nil,
-							dataScope: [Expression]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							intent: CodeableConcept? = nil,
-							justification: PermissionJustification? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							processingActivity: [PermissionProcessingActivity]? = nil,
-							purpose: [CodeableConcept]? = nil,
-							status: FHIRPrimitive<PermissionStatus>,
-							text: Narrative? = nil,
-							usageLimitations: [CodeableConcept]? = nil,
-							validity: Period? = nil)
-	{
+		asserter: Reference? = nil,
+		assertionDate: [FHIRPrimitive<DateTime>]? = nil,
+		contained: [ResourceProxy]? = nil,
+		dataScope: [Expression]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		intent: CodeableConcept? = nil,
+		justification: PermissionJustification? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		processingActivity: [PermissionProcessingActivity]? = nil,
+		purpose: [CodeableConcept]? = nil,
+		status: FHIRPrimitive<PermissionStatus>,
+		text: Narrative? = nil,
+		usageLimitations: [CodeableConcept]? = nil,
+		validity: Period? = nil
+	) {
 		self.init(status: status)
 		self.asserter = asserter
 		self.assertionDate = assertionDate
@@ -211,12 +211,12 @@ open class PermissionJustification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							evidence: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							grounds: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		evidence: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		grounds: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.evidence = evidence
 		self.`extension` = `extension`
@@ -296,13 +296,13 @@ open class PermissionProcessingActivity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							partyCodeableConcept: [CodeableConcept]? = nil,
-							partyReference: [Reference]? = nil,
-							purpose: [CodeableConcept]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		partyCodeableConcept: [CodeableConcept]? = nil,
+		partyReference: [Reference]? = nil,
+		purpose: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,16 +22,13 @@ import FMCore
 /**
  The validation status of the target
  
- URL: http://hl7.org/fhir/CodeSystem/status
- ValueSet: http://hl7.org/fhir/ValueSet/verificationresult-status
+ URL: http://hl7.org/fhir/CodeSystem/verificationresult-status
+ ValueSet: http://hl7.org/fhir/ValueSet/status
  */
 public enum Status: String, FHIRPrimitiveType {
 	
 	/// ***TODO***
-	case attested = "attested"
-	
-	/// ***TODO***
-	case validated = "validated"
+	case attested
 	
 	/// ***TODO***
 	case inProcess = "in-process"
@@ -40,8 +37,11 @@ public enum Status: String, FHIRPrimitiveType {
 	case reqRevalid = "req-revalid"
 	
 	/// ***TODO***
+	case revalFail = "reval-fail"
+	
+	/// ***TODO***
 	case valFail = "val-fail"
 	
 	/// ***TODO***
-	case revalFail = "reval-fail"
+	case validated
 }

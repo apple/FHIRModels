@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,38 +28,38 @@ import FMCore
 public enum AssertionResponseTypes: String, FHIRPrimitiveType {
 	
 	/// Response code is 200.
-	case okay = "okay"
+	case okay
 	
 	/// Response code is 201.
-	case created = "created"
+	case created
 	
 	/// Response code is 204.
-	case noContent = "noContent"
+	case noContent
 	
 	/// Response code is 304.
-	case notModified = "notModified"
+	case notModified
 	
 	/// Response code is 400.
-	case bad = "bad"
+	case bad
 	
 	/// Response code is 403.
-	case forbidden = "forbidden"
+	case forbidden
 	
 	/// Response code is 404.
-	case notFound = "notFound"
+	case notFound
 	
 	/// Response code is 405.
-	case methodNotAllowed = "methodNotAllowed"
+	case methodNotAllowed
 	
 	/// Response code is 409.
-	case conflict = "conflict"
+	case conflict
 	
 	/// Response code is 410.
-	case gone = "gone"
+	case gone
 	
 	/// Response code is 412.
-	case preconditionFailed = "preconditionFailed"
+	case preconditionFailed
 	
 	/// Response code is 422.
-	case unprocessable = "unprocessable"
+	case unprocessable
 }

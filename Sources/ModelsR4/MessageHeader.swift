@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MessageHeader)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -79,26 +79,26 @@ open class MessageHeader: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							definition: FHIRPrimitive<Canonical>? = nil,
-							destination: [MessageHeaderDestination]? = nil,
-							enterer: Reference? = nil,
-							event: EventX,
-							`extension`: [Extension]? = nil,
-							focus: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil,
-							response: MessageHeaderResponse? = nil,
-							responsible: Reference? = nil,
-							sender: Reference? = nil,
-							source: MessageHeaderSource,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		definition: FHIRPrimitive<Canonical>? = nil,
+		destination: [MessageHeaderDestination]? = nil,
+		enterer: Reference? = nil,
+		event: EventX,
+		`extension`: [Extension]? = nil,
+		focus: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		response: MessageHeaderResponse? = nil,
+		responsible: Reference? = nil,
+		sender: Reference? = nil,
+		source: MessageHeaderSource,
+		text: Narrative? = nil
+	) {
 		self.init(event: event, source: source)
 		self.author = author
 		self.contained = contained
@@ -264,14 +264,14 @@ open class MessageHeaderDestination: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							endpoint: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							receiver: Reference? = nil,
-							target: Reference? = nil)
-	{
+		endpoint: FHIRPrimitive<FHIRURI>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		receiver: Reference? = nil,
+		target: Reference? = nil
+	) {
 		self.init(endpoint: endpoint)
 		self.`extension` = `extension`
 		self.id = id
@@ -364,13 +364,13 @@ open class MessageHeaderResponse: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<ResponseType>,
-							details: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: FHIRPrimitive<FHIRString>,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<ResponseType>,
+		details: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code, identifier: identifier)
 		self.details = details
 		self.`extension` = `extension`
@@ -460,15 +460,15 @@ open class MessageHeaderSource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: ContactPoint? = nil,
-							endpoint: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							software: FHIRPrimitive<FHIRString>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: ContactPoint? = nil,
+		endpoint: FHIRPrimitive<FHIRURI>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		software: FHIRPrimitive<FHIRString>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(endpoint: endpoint)
 		self.contact = contact
 		self.`extension` = `extension`

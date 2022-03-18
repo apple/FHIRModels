@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,27 +28,27 @@ import FMCore
 public enum SubstanceCategoryCodes: String, FHIRPrimitiveType {
 	
 	/// A substance that causes an allergic reaction.
-	case allergen = "allergen"
+	case allergen
 	
 	/// A substance that is produced by or extracted from a biological source.
-	case biological = "biological"
+	case biological
 	
 	/// A substance that comes directly from a human or an animal (e.g. blood, urine, feces, tears, etc.).
-	case body = "body"
+	case body
 	
 	/// Any organic or inorganic substance of a particular molecular identity, including -- (i) any combination of such
 	/// substances occurring in whole or in part as a result of a chemical reaction or occurring in nature and (ii) any
 	/// element or uncombined radical (http://www.epa.gov/opptintr/import-export/pubs/importguide.pdf).
-	case chemical = "chemical"
+	case chemical
 	
 	/// A food, dietary ingredient, or dietary supplement for human or animal.
-	case food = "food"
+	case food
 	
 	/// A substance intended for use in the diagnosis, cure, mitigation, treatment, or prevention of disease in man or
 	/// other animals (Federal Food Drug and Cosmetic Act).
-	case drug = "drug"
+	case drug
 	
 	/// A finished product which is not normally ingested, absorbed or injected (e.g. steel, iron, wood, plastic and
 	/// paper).
-	case material = "material"
+	case material
 }

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	
 	/// Event occurs during the morning. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case MORN = "MORN"
+	case MORN
 	
 	/// Event occurs during the early morning. The exact time is unspecified and established by institution convention
 	/// or patient interpretation.
@@ -40,11 +40,11 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	
 	/// Event occurs around 12:00pm. The exact time is unspecified and established by institution convention or patient
 	/// interpretation.
-	case NOON = "NOON"
+	case NOON
 	
 	/// Event occurs during the afternoon. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case AFT = "AFT"
+	case AFT
 	
 	/// Event occurs during the early afternoon. The exact time is unspecified and established by institution convention
 	/// or patient interpretation.
@@ -56,7 +56,7 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	
 	/// Event occurs during the evening. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case EVE = "EVE"
+	case EVE
 	
 	/// Event occurs during the early evening. The exact time is unspecified and established by institution convention
 	/// or patient interpretation.
@@ -68,9 +68,9 @@ public enum EventTiming: String, FHIRPrimitiveType {
 	
 	/// Event occurs during the night. The exact time is unspecified and established by institution convention or
 	/// patient interpretation.
-	case NIGHT = "NIGHT"
+	case NIGHT
 	
 	/// Event occurs [offset] after subject goes to sleep. The exact time is unspecified and established by institution
 	/// convention or patient interpretation.
-	case PHS = "PHS"
+	case PHS
 }

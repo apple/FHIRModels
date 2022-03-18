@@ -2,8 +2,8 @@
 //  Account.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Account)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Account)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,6 +34,9 @@ open class Account: DomainResource {
 	
 	/// Indicates whether the account is presently used/usable or not.
 	public var status: FHIRPrimitive<AccountStatus>
+	
+	/// Tracks the lifecycle of the account through the billing process
+	public var billingStatus: CodeableConcept?
 	
 	/// E.g. patient, expense, depreciation
 	public var type: CodeableConcept?
@@ -71,27 +74,29 @@ open class Account: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							coverage: [AccountCoverage]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							guarantor: [AccountGuarantor]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							owner: Reference? = nil,
-							partOf: Reference? = nil,
-							servicePeriod: Period? = nil,
-							status: FHIRPrimitive<AccountStatus>,
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		billingStatus: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		coverage: [AccountCoverage]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		guarantor: [AccountGuarantor]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		owner: Reference? = nil,
+		partOf: Reference? = nil,
+		servicePeriod: Period? = nil,
+		status: FHIRPrimitive<AccountStatus>,
+		subject: [Reference]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(status: status)
+		self.billingStatus = billingStatus
 		self.contained = contained
 		self.coverage = coverage
 		self.description_fhir = description_fhir
@@ -115,6 +120,7 @@ open class Account: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case billingStatus
 		case coverage
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case guarantor
@@ -133,6 +139,7 @@ open class Account: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.billingStatus = try CodeableConcept(from: _container, forKeyIfPresent: .billingStatus)
 		self.coverage = try [AccountCoverage](from: _container, forKeyIfPresent: .coverage)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.guarantor = try [AccountGuarantor](from: _container, forKeyIfPresent: .guarantor)
@@ -152,6 +159,7 @@ open class Account: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try billingStatus?.encode(on: &_container, forKey: .billingStatus)
 		try coverage?.encode(on: &_container, forKey: .coverage)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try guarantor?.encode(on: &_container, forKey: .guarantor)
@@ -175,7 +183,8 @@ open class Account: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return coverage == _other.coverage
+		return billingStatus == _other.billingStatus
+		    && coverage == _other.coverage
 		    && description_fhir == _other.description_fhir
 		    && guarantor == _other.guarantor
 		    && identifier == _other.identifier
@@ -190,6 +199,7 @@ open class Account: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(billingStatus)
 		hasher.combine(coverage)
 		hasher.combine(description_fhir)
 		hasher.combine(guarantor)
@@ -224,12 +234,12 @@ open class AccountCoverage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							coverage: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							priority: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		coverage: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		priority: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init(coverage: coverage)
 		self.`extension` = `extension`
 		self.id = id
@@ -308,13 +318,13 @@ open class AccountGuarantor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onHold: FHIRPrimitive<FHIRBool>? = nil,
-							party: Reference,
-							period: Period? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onHold: FHIRPrimitive<FHIRBool>? = nil,
+		party: Reference,
+		period: Period? = nil
+	) {
 		self.init(party: party)
 		self.`extension` = `extension`
 		self.id = id

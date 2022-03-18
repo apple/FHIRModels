@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/NutritionOrder)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -91,32 +91,32 @@ open class NutritionOrder: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							allergyIntolerance: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							dateTime: FHIRPrimitive<DateTime>,
-							encounter: Reference? = nil,
-							enteralFormula: NutritionOrderEnteralFormula? = nil,
-							excludeFoodModifier: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							foodPreferenceModifier: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiates: [FHIRPrimitive<FHIRURI>]? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							oralDiet: NutritionOrderOralDiet? = nil,
-							orderer: Reference? = nil,
-							patient: Reference,
-							status: FHIRPrimitive<RequestStatus>,
-							supplement: [NutritionOrderSupplement]? = nil,
-							text: Narrative? = nil)
-	{
+		allergyIntolerance: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		dateTime: FHIRPrimitive<DateTime>,
+		encounter: Reference? = nil,
+		enteralFormula: NutritionOrderEnteralFormula? = nil,
+		excludeFoodModifier: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		foodPreferenceModifier: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiates: [FHIRPrimitive<FHIRURI>]? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		intent: FHIRPrimitive<RequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		oralDiet: NutritionOrderOralDiet? = nil,
+		orderer: Reference? = nil,
+		patient: Reference,
+		status: FHIRPrimitive<RequestStatus>,
+		supplement: [NutritionOrderSupplement]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(dateTime: dateTime, intent: intent, patient: patient, status: status)
 		self.allergyIntolerance = allergyIntolerance
 		self.contained = contained
@@ -305,19 +305,19 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additiveProductName: FHIRPrimitive<FHIRString>? = nil,
-							additiveType: CodeableConcept? = nil,
-							administration: [NutritionOrderEnteralFormulaAdministration]? = nil,
-							administrationInstruction: FHIRPrimitive<FHIRString>? = nil,
-							baseFormulaProductName: FHIRPrimitive<FHIRString>? = nil,
-							baseFormulaType: CodeableConcept? = nil,
-							caloricDensity: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							maxVolumeToDeliver: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							routeofAdministration: CodeableConcept? = nil)
-	{
+		additiveProductName: FHIRPrimitive<FHIRString>? = nil,
+		additiveType: CodeableConcept? = nil,
+		administration: [NutritionOrderEnteralFormulaAdministration]? = nil,
+		administrationInstruction: FHIRPrimitive<FHIRString>? = nil,
+		baseFormulaProductName: FHIRPrimitive<FHIRString>? = nil,
+		baseFormulaType: CodeableConcept? = nil,
+		caloricDensity: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		maxVolumeToDeliver: Quantity? = nil,
+		modifierExtension: [Extension]? = nil,
+		routeofAdministration: CodeableConcept? = nil
+	) {
 		self.init()
 		self.additiveProductName = additiveProductName
 		self.additiveType = additiveType
@@ -447,13 +447,13 @@ open class NutritionOrderEnteralFormulaAdministration: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil,
-							rate: RateX? = nil,
-							schedule: Timing? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil,
+		rate: RateX? = nil,
+		schedule: Timing? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -568,16 +568,16 @@ open class NutritionOrderOralDiet: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							fluidConsistencyType: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instruction: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							nutrient: [NutritionOrderOralDietNutrient]? = nil,
-							schedule: [Timing]? = nil,
-							texture: [NutritionOrderOralDietTexture]? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		fluidConsistencyType: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instruction: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		nutrient: [NutritionOrderOralDietNutrient]? = nil,
+		schedule: [Timing]? = nil,
+		texture: [NutritionOrderOralDietTexture]? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.fluidConsistencyType = fluidConsistencyType
@@ -678,12 +678,12 @@ open class NutritionOrderOralDietNutrient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.`extension` = `extension`
@@ -759,12 +759,12 @@ open class NutritionOrderOralDietTexture: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							foodType: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		foodType: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.foodType = foodType
@@ -849,15 +849,15 @@ open class NutritionOrderSupplement: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instruction: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							productName: FHIRPrimitive<FHIRString>? = nil,
-							quantity: Quantity? = nil,
-							schedule: [Timing]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instruction: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		productName: FHIRPrimitive<FHIRString>? = nil,
+		quantity: Quantity? = nil,
+		schedule: [Timing]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

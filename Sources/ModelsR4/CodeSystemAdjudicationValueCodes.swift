@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,26 +29,26 @@ import FMCore
 public enum AdjudicationValueCodes: String, FHIRPrimitiveType {
 	
 	/// The total submitted amount for the claim or group or line item.
-	case submitted = "submitted"
+	case submitted
 	
 	/// Patient Co-Payment
-	case copay = "copay"
+	case copay
 	
 	/// Amount of the change which is considered for adjudication.
-	case eligible = "eligible"
+	case eligible
 	
 	/// Amount deducted from the eligible amount prior to adjudication.
-	case deductible = "deductible"
+	case deductible
 	
 	/// The amount of deductible which could not allocated to other line items.
-	case unallocdeduct = "unallocdeduct"
+	case unallocdeduct
 	
 	/// Eligible Percentage.
-	case eligpercent = "eligpercent"
+	case eligpercent
 	
 	/// The amount of tax.
-	case tax = "tax"
+	case tax
 	
 	/// Amount payable under the coverage
-	case benefit = "benefit"
+	case benefit
 }

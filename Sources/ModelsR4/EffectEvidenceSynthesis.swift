@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/EffectEvidenceSynthesis)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -140,48 +140,48 @@ open class EffectEvidenceSynthesis: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							author: [ContactDetail]? = nil,
-							certainty: [EffectEvidenceSynthesisCertainty]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							editor: [ContactDetail]? = nil,
-							effectEstimate: [EffectEvidenceSynthesisEffectEstimate]? = nil,
-							effectivePeriod: Period? = nil,
-							endorser: [ContactDetail]? = nil,
-							exposure: Reference,
-							exposureAlternative: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							note: [Annotation]? = nil,
-							outcome: Reference,
-							population: Reference,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							resultsByExposure: [EffectEvidenceSynthesisResultsByExposure]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							sampleSize: EffectEvidenceSynthesisSampleSize? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							studyType: CodeableConcept? = nil,
-							synthesisType: CodeableConcept? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: [CodeableConcept]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
+		certainty: [EffectEvidenceSynthesisCertainty]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectEstimate: [EffectEvidenceSynthesisEffectEstimate]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
+		exposure: Reference,
+		exposureAlternative: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		note: [Annotation]? = nil,
+		outcome: Reference,
+		population: Reference,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		resultsByExposure: [EffectEvidenceSynthesisResultsByExposure]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		sampleSize: EffectEvidenceSynthesisSampleSize? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		studyType: CodeableConcept? = nil,
+		synthesisType: CodeableConcept? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(exposure: exposure, exposureAlternative: exposureAlternative, outcome: outcome, population: population, status: status)
 		self.approvalDate = approvalDate
 		self.author = author
@@ -446,13 +446,13 @@ open class EffectEvidenceSynthesisCertainty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							certaintySubcomponent: [EffectEvidenceSynthesisCertaintyCertaintySubcomponent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							rating: [CodeableConcept]? = nil)
-	{
+		certaintySubcomponent: [EffectEvidenceSynthesisCertaintyCertaintySubcomponent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		rating: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.certaintySubcomponent = certaintySubcomponent
 		self.`extension` = `extension`
@@ -537,13 +537,13 @@ open class EffectEvidenceSynthesisCertaintyCertaintySubcomponent: BackboneElemen
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							rating: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		rating: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -637,16 +637,16 @@ open class EffectEvidenceSynthesisEffectEstimate: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							precisionEstimate: [EffectEvidenceSynthesisEffectEstimatePrecisionEstimate]? = nil,
-							type: CodeableConcept? = nil,
-							unitOfMeasure: CodeableConcept? = nil,
-							value: FHIRPrimitive<FHIRDecimal>? = nil,
-							variantState: CodeableConcept? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		precisionEstimate: [EffectEvidenceSynthesisEffectEstimatePrecisionEstimate]? = nil,
+		type: CodeableConcept? = nil,
+		unitOfMeasure: CodeableConcept? = nil,
+		value: FHIRPrimitive<FHIRDecimal>? = nil,
+		variantState: CodeableConcept? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -752,14 +752,14 @@ open class EffectEvidenceSynthesisEffectEstimatePrecisionEstimate: BackboneEleme
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							from: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							level: FHIRPrimitive<FHIRDecimal>? = nil,
-							modifierExtension: [Extension]? = nil,
-							to: FHIRPrimitive<FHIRDecimal>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		from: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		level: FHIRPrimitive<FHIRDecimal>? = nil,
+		modifierExtension: [Extension]? = nil,
+		to: FHIRPrimitive<FHIRDecimal>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.from = from
@@ -854,14 +854,14 @@ open class EffectEvidenceSynthesisResultsByExposure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							exposureState: FHIRPrimitive<ExposureState>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							riskEvidenceSynthesis: Reference,
-							variantState: CodeableConcept? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		exposureState: FHIRPrimitive<ExposureState>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		riskEvidenceSynthesis: Reference,
+		variantState: CodeableConcept? = nil
+	) {
 		self.init(riskEvidenceSynthesis: riskEvidenceSynthesis)
 		self.description_fhir = description_fhir
 		self.exposureState = exposureState
@@ -951,13 +951,13 @@ open class EffectEvidenceSynthesisSampleSize: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							numberOfParticipants: FHIRPrimitive<FHIRInteger>? = nil,
-							numberOfStudies: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfParticipants: FHIRPrimitive<FHIRInteger>? = nil,
+		numberOfStudies: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`

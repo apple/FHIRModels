@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SubstanceSpecification)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -90,34 +90,34 @@ open class SubstanceSpecification: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [SubstanceSpecificationFHIRString]? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							domain: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							moiety: [SubstanceSpecificationMoiety]? = nil,
-							molecularWeight: [SubstanceSpecificationStructureIsotopeMolecularWeight]? = nil,
-							name: [SubstanceSpecificationName]? = nil,
-							nucleicAcid: Reference? = nil,
-							polymer: Reference? = nil,
-							property: [SubstanceSpecificationProperty]? = nil,
-							protein: Reference? = nil,
-							referenceInformation: Reference? = nil,
-							relationship: [SubstanceSpecificationRelationship]? = nil,
-							source: [Reference]? = nil,
-							sourceMaterial: Reference? = nil,
-							status: CodeableConcept? = nil,
-							structure: SubstanceSpecificationStructure? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		code: [SubstanceSpecificationFHIRString]? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		domain: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		moiety: [SubstanceSpecificationMoiety]? = nil,
+		molecularWeight: [SubstanceSpecificationStructureIsotopeMolecularWeight]? = nil,
+		name: [SubstanceSpecificationName]? = nil,
+		nucleicAcid: Reference? = nil,
+		polymer: Reference? = nil,
+		property: [SubstanceSpecificationProperty]? = nil,
+		protein: Reference? = nil,
+		referenceInformation: Reference? = nil,
+		relationship: [SubstanceSpecificationRelationship]? = nil,
+		source: [Reference]? = nil,
+		sourceMaterial: Reference? = nil,
+		status: CodeableConcept? = nil,
+		structure: SubstanceSpecificationStructure? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.code = code
 		self.comment = comment
@@ -307,15 +307,15 @@ open class SubstanceSpecificationFHIRString: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: [Reference]? = nil,
-							status: CodeableConcept? = nil,
-							statusDate: FHIRPrimitive<DateTime>? = nil)
-	{
+		code: CodeableConcept? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: [Reference]? = nil,
+		status: CodeableConcept? = nil,
+		statusDate: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.comment = comment
@@ -429,17 +429,17 @@ open class SubstanceSpecificationMoiety: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularFormula: FHIRPrimitive<FHIRString>? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							opticalActivity: CodeableConcept? = nil,
-							role: CodeableConcept? = nil,
-							stereochemistry: CodeableConcept? = nil)
-	{
+		amount: AmountX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		molecularFormula: FHIRPrimitive<FHIRString>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		opticalActivity: CodeableConcept? = nil,
+		role: CodeableConcept? = nil,
+		stereochemistry: CodeableConcept? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.`extension` = `extension`
@@ -593,21 +593,21 @@ open class SubstanceSpecificationName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							domain: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							official: [SubstanceSpecificationNameOfficial]? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil,
-							source: [Reference]? = nil,
-							status: CodeableConcept? = nil,
-							synonym: [SubstanceSpecificationName]? = nil,
-							translation: [SubstanceSpecificationName]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		domain: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		official: [SubstanceSpecificationNameOfficial]? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil,
+		source: [Reference]? = nil,
+		status: CodeableConcept? = nil,
+		synonym: [SubstanceSpecificationName]? = nil,
+		translation: [SubstanceSpecificationName]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(name: name)
 		self.domain = domain
 		self.`extension` = `extension`
@@ -737,13 +737,13 @@ open class SubstanceSpecificationNameOfficial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: CodeableConcept? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							status: CodeableConcept? = nil)
-	{
+		authority: CodeableConcept? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: CodeableConcept? = nil
+	) {
 		self.init()
 		self.authority = authority
 		self.date = date
@@ -847,15 +847,15 @@ open class SubstanceSpecificationProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							category: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							definingSubstance: DefiningSubstanceX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							parameters: FHIRPrimitive<FHIRString>? = nil)
-	{
+		amount: AmountX? = nil,
+		category: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		definingSubstance: DefiningSubstanceX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		parameters: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.category = category
@@ -1022,17 +1022,17 @@ open class SubstanceSpecificationRelationship: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							amountRatioLowLimit: Ratio? = nil,
-							amountType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isDefining: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							relationship: CodeableConcept? = nil,
-							source: [Reference]? = nil,
-							substance: SubstanceX? = nil)
-	{
+		amount: AmountX? = nil,
+		amountRatioLowLimit: Ratio? = nil,
+		amountType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isDefining: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		relationship: CodeableConcept? = nil,
+		source: [Reference]? = nil,
+		substance: SubstanceX? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.amountRatioLowLimit = amountRatioLowLimit
@@ -1215,18 +1215,18 @@ open class SubstanceSpecificationStructure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isotope: [SubstanceSpecificationStructureIsotope]? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularFormula: FHIRPrimitive<FHIRString>? = nil,
-							molecularFormulaByMoiety: FHIRPrimitive<FHIRString>? = nil,
-							molecularWeight: SubstanceSpecificationStructureIsotopeMolecularWeight? = nil,
-							opticalActivity: CodeableConcept? = nil,
-							representation: [SubstanceSpecificationStructureRepresentation]? = nil,
-							source: [Reference]? = nil,
-							stereochemistry: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isotope: [SubstanceSpecificationStructureIsotope]? = nil,
+		modifierExtension: [Extension]? = nil,
+		molecularFormula: FHIRPrimitive<FHIRString>? = nil,
+		molecularFormulaByMoiety: FHIRPrimitive<FHIRString>? = nil,
+		molecularWeight: SubstanceSpecificationStructureIsotopeMolecularWeight? = nil,
+		opticalActivity: CodeableConcept? = nil,
+		representation: [SubstanceSpecificationStructureRepresentation]? = nil,
+		source: [Reference]? = nil,
+		stereochemistry: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -1345,15 +1345,15 @@ open class SubstanceSpecificationStructureIsotope: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							halfLife: Quantity? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularWeight: SubstanceSpecificationStructureIsotopeMolecularWeight? = nil,
-							name: CodeableConcept? = nil,
-							substitution: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		halfLife: Quantity? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		molecularWeight: SubstanceSpecificationStructureIsotopeMolecularWeight? = nil,
+		name: CodeableConcept? = nil,
+		substitution: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.halfLife = halfLife
@@ -1450,13 +1450,13 @@ open class SubstanceSpecificationStructureIsotopeMolecularWeight: BackboneElemen
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		amount: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.`extension` = `extension`
@@ -1539,13 +1539,13 @@ open class SubstanceSpecificationStructureRepresentation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							attachment: Attachment? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							representation: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		attachment: Attachment? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		representation: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.attachment = attachment
 		self.`extension` = `extension`

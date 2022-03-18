@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ImplementationGuide)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -102,35 +102,35 @@ open class ImplementationGuide: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							definition: ImplementationGuideDefinition? = nil,
-							dependsOn: [ImplementationGuideDependsOn]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							fhirVersion: [FHIRPrimitive<FHIRString>],
-							global: [ImplementationGuideGlobal]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							license: FHIRPrimitive<FHIRString>? = nil,
-							manifest: ImplementationGuideManifest? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							packageId: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		definition: ImplementationGuideDefinition? = nil,
+		dependsOn: [ImplementationGuideDependsOn]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		fhirVersion: [FHIRPrimitive<FHIRString>],
+		global: [ImplementationGuideGlobal]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		license: FHIRPrimitive<FHIRString>? = nil,
+		manifest: ImplementationGuideManifest? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		packageId: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(fhirVersion: fhirVersion, name: name, packageId: packageId, status: status, url: url)
 		self.contact = contact
 		self.contained = contained
@@ -324,15 +324,15 @@ open class ImplementationGuideDefinition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							grouping: [ImplementationGuideDefinitionGrouping]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							page: ImplementationGuideDefinitionPage? = nil,
-							parameter: [ImplementationGuideDefinitionParameter]? = nil,
-							resource: [ImplementationGuideDefinitionResource],
-							template: [ImplementationGuideDefinitionTemplate]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		grouping: [ImplementationGuideDefinitionGrouping]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		page: ImplementationGuideDefinitionPage? = nil,
+		parameter: [ImplementationGuideDefinitionParameter]? = nil,
+		resource: [ImplementationGuideDefinitionResource],
+		template: [ImplementationGuideDefinitionTemplate]? = nil
+	) {
 		self.init(resource: resource)
 		self.`extension` = `extension`
 		self.grouping = grouping
@@ -426,12 +426,12 @@ open class ImplementationGuideDefinitionGrouping: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>
+	) {
 		self.init(name: name)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -522,14 +522,14 @@ open class ImplementationGuideDefinitionPage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							generation: FHIRPrimitive<GuidePageGeneration>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: NameX,
-							page: [ImplementationGuideDefinitionPage]? = nil,
-							title: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		generation: FHIRPrimitive<GuidePageGeneration>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: NameX,
+		page: [ImplementationGuideDefinitionPage]? = nil,
+		title: FHIRPrimitive<FHIRString>
+	) {
 		self.init(generation: generation, name: name, title: title)
 		self.`extension` = `extension`
 		self.id = id
@@ -640,12 +640,12 @@ open class ImplementationGuideDefinitionParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<GuideParameterCode>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		code: FHIRPrimitive<GuideParameterCode>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -740,16 +740,16 @@ open class ImplementationGuideDefinitionResource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							example: ExampleX? = nil,
-							`extension`: [Extension]? = nil,
-							fhirVersion: [FHIRPrimitive<FHIRString>]? = nil,
-							groupingId: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							reference: Reference)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		example: ExampleX? = nil,
+		`extension`: [Extension]? = nil,
+		fhirVersion: [FHIRPrimitive<FHIRString>]? = nil,
+		groupingId: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		reference: Reference
+	) {
 		self.init(reference: reference)
 		self.description_fhir = description_fhir
 		self.example = example
@@ -872,13 +872,13 @@ open class ImplementationGuideDefinitionTemplate: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							scope: FHIRPrimitive<FHIRString>? = nil,
-							source: FHIRPrimitive<FHIRString>)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		scope: FHIRPrimitive<FHIRString>? = nil,
+		source: FHIRPrimitive<FHIRString>
+	) {
 		self.init(code: code, source: source)
 		self.`extension` = `extension`
 		self.id = id
@@ -963,13 +963,13 @@ open class ImplementationGuideDependsOn: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							packageId: FHIRPrimitive<FHIRString>? = nil,
-							uri: FHIRPrimitive<Canonical>,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		packageId: FHIRPrimitive<FHIRString>? = nil,
+		uri: FHIRPrimitive<Canonical>,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(uri: uri)
 		self.`extension` = `extension`
 		self.id = id
@@ -1052,12 +1052,12 @@ open class ImplementationGuideGlobal: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							profile: FHIRPrimitive<Canonical>,
-							type: FHIRPrimitive<ResourceType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		profile: FHIRPrimitive<Canonical>,
+		type: FHIRPrimitive<ResourceType>
+	) {
 		self.init(profile: profile, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1141,15 +1141,15 @@ open class ImplementationGuideManifest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							image: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							other: [FHIRPrimitive<FHIRString>]? = nil,
-							page: [ImplementationGuideManifestPage]? = nil,
-							rendering: FHIRPrimitive<FHIRURI>? = nil,
-							resource: [ImplementationGuideManifestResource])
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		image: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		other: [FHIRPrimitive<FHIRString>]? = nil,
+		page: [ImplementationGuideManifestPage]? = nil,
+		rendering: FHIRPrimitive<FHIRURI>? = nil,
+		resource: [ImplementationGuideManifestResource]
+	) {
 		self.init(resource: resource)
 		self.`extension` = `extension`
 		self.id = id
@@ -1246,13 +1246,13 @@ open class ImplementationGuideManifestPage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							anchor: [FHIRPrimitive<FHIRString>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		anchor: [FHIRPrimitive<FHIRString>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.anchor = anchor
 		self.`extension` = `extension`
@@ -1345,13 +1345,13 @@ open class ImplementationGuideManifestResource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							example: ExampleX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: Reference,
-							relativePath: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		example: ExampleX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: Reference,
+		relativePath: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(reference: reference)
 		self.example = example
 		self.`extension` = `extension`

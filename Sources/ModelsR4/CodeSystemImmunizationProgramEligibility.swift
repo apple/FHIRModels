@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,8 +30,8 @@ import FMCore
 public enum ImmunizationProgramEligibility: String, FHIRPrimitiveType {
 	
 	/// The patient is not eligible for the funding program.
-	case ineligible = "ineligible"
+	case ineligible
 	
 	/// The patient is eligible for the funding program because they are uninsured.
-	case uninsured = "uninsured"
+	case uninsured
 }

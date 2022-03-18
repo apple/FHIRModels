@@ -71,7 +71,7 @@ class FHIRTimeTests: XCTestCase {
 				let fhirtime = try FHIRTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirtime)")
 			} catch FHIRDateParserError.invalidHour(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidHour but threw \(error)")
@@ -88,7 +88,7 @@ class FHIRTimeTests: XCTestCase {
 				let fhirtime = try FHIRTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirtime)")
 			} catch FHIRDateParserError.invalidMinute(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidMinute but threw \(error)")
@@ -106,7 +106,7 @@ class FHIRTimeTests: XCTestCase {
 				let fhirtime = try FHIRTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirtime)")
 			} catch FHIRDateParserError.invalidSecond(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidSecond but threw \(error)")
@@ -131,7 +131,7 @@ class FHIRTimeTests: XCTestCase {
 				let fhirtime = try FHIRTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirtime)")
 			} catch FHIRDateParserError.invalidSeparator(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidSeparator but threw \(error)")
@@ -150,11 +150,42 @@ class FHIRTimeTests: XCTestCase {
 				let fhirtime = try FHIRTime(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirtime)")
 			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
 			}
 		}
 	}
+    
+    func testComparison() throws {
+        try assertLeftToRight("13:44:00", "13:44:02", compares: .orderedAscending)
+        try assertLeftToRight("13:44:01", "13:44:02", compares: .orderedAscending)
+        try assertLeftToRight("13:44:01.999999", "13:44:02", compares: .orderedAscending)
+        try assertLeftToRight("13:44:02", "13:44:02", compares: .orderedSame)
+        try assertLeftToRight("13:44:03", "13:44:02.99999", compares: .orderedDescending)
+        try assertLeftToRight("13:44:03", "13:44:02", compares: .orderedDescending)
+        
+        try assertLeftToRight("13:44:02", "13:45:02", compares: .orderedAscending)
+        try assertLeftToRight("13:44:02", "13:44:02", compares: .orderedSame)
+        try assertLeftToRight("13:44:02", "13:43:02", compares: .orderedDescending)
+        
+        try assertLeftToRight("13:44:02", "14:44:02", compares: .orderedAscending)
+        try assertLeftToRight("13:44:02", "13:44:02", compares: .orderedSame)
+        try assertLeftToRight("13:44:02", "12:44:02", compares: .orderedDescending)
+    }
+    
+    // MARK: - Tools
+    
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+        let leftTime = try FHIRTime(left)
+        let rightTime = try FHIRTime(right)
+        if compares == .orderedDescending {
+            XCTAssertTrue(leftTime > rightTime, file: file, line: line)
+        } else if compares == .orderedSame {
+            XCTAssertEqual(leftTime, rightTime)
+        } else {
+            XCTAssertTrue(leftTime < rightTime, file: file, line: line)
+        }
+    }
 }

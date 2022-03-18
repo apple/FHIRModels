@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,18 +27,18 @@ import FMCore
  */
 public enum ConsentState: String, FHIRPrimitiveType {
 	
-	/// The consent is in development or awaiting use but is not yet intended to be acted upon.
-	case draft = "draft"
-	
 	/// The consent is to be followed and enforced.
-	case active = "active"
+	case active
 	
-	/// The consent is terminated or replaced.
-	case inactive = "inactive"
+	/// The consent is in development or awaiting use but is not yet intended to be acted upon.
+	case draft
 	
 	/// The consent was created wrongly (e.g. wrong patient) and should be ignored.
 	case enteredInError = "entered-in-error"
 	
+	/// The consent is terminated or replaced.
+	case inactive
+	
 	/// The resource is in an indeterminate state.
-	case unknown = "unknown"
+	case unknown
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,30 +27,30 @@ import FMCore
  */
 public enum SearchComparator: String, FHIRPrimitiveType {
 	
-	/// the value for the parameter in the resource is equal to the provided value.
-	case eq = "eq"
-	
-	/// the value for the parameter in the resource is not equal to the provided value.
-	case ne = "ne"
-	
-	/// the value for the parameter in the resource is greater than the provided value.
-	case gt = "gt"
-	
-	/// the value for the parameter in the resource is less than the provided value.
-	case lt = "lt"
-	
-	/// the value for the parameter in the resource is greater or equal to the provided value.
-	case ge = "ge"
-	
-	/// the value for the parameter in the resource is less or equal to the provided value.
-	case le = "le"
-	
-	/// the value for the parameter in the resource starts after the provided value.
-	case sa = "sa"
+	/// the value for the parameter in the resource is approximately the same to the provided value.
+	case ap
 	
 	/// the value for the parameter in the resource ends before the provided value.
-	case eb = "eb"
+	case eb
 	
-	/// the value for the parameter in the resource is approximately the same to the provided value.
-	case ap = "ap"
+	/// the value for the parameter in the resource is equal to the provided value.
+	case eq
+	
+	/// the value for the parameter in the resource is greater or equal to the provided value.
+	case ge
+	
+	/// the value for the parameter in the resource is greater than the provided value.
+	case gt
+	
+	/// the value for the parameter in the resource is less or equal to the provided value.
+	case le
+	
+	/// the value for the parameter in the resource is less than the provided value.
+	case lt
+	
+	/// the value for the parameter in the resource is not equal to the provided value.
+	case ne
+	
+	/// the value for the parameter in the resource starts after the provided value.
+	case sa
 }

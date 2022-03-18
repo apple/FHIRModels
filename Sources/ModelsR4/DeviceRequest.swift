@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DeviceRequest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -126,39 +126,39 @@ open class DeviceRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							code: CodeX,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							insurance: [Reference]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							parameter: [DeviceRequestParameter]? = nil,
-							performer: Reference? = nil,
-							performerType: CodeableConcept? = nil,
-							priorRequest: [Reference]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							relevantHistory: [Reference]? = nil,
-							requester: Reference? = nil,
-							status: FHIRPrimitive<RequestStatus>? = nil,
-							subject: Reference,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		code: CodeX,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		insurance: [Reference]? = nil,
+		intent: FHIRPrimitive<RequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		parameter: [DeviceRequestParameter]? = nil,
+		performer: Reference? = nil,
+		performerType: CodeableConcept? = nil,
+		priorRequest: [Reference]? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		relevantHistory: [Reference]? = nil,
+		requester: Reference? = nil,
+		status: FHIRPrimitive<RequestStatus>? = nil,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, intent: intent, subject: subject)
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
@@ -433,12 +433,12 @@ open class DeviceRequestParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,19 +31,19 @@ public enum CertaintySubcomponentRating: String, FHIRPrimitiveType {
 	case noChange = "no-change"
 	
 	/// reduce quality rating by 1.
-	case downcode1 = "downcode1"
+	case downcode1
 	
 	/// reduce quality rating by 2.
-	case downcode2 = "downcode2"
+	case downcode2
 	
 	/// reduce quality rating by 3.
-	case downcode3 = "downcode3"
+	case downcode3
 	
 	/// increase quality rating by 1.
-	case upcode1 = "upcode1"
+	case upcode1
 	
 	/// increase quality rating by 2.
-	case upcode2 = "upcode2"
+	case upcode2
 	
 	/// no serious concern.
 	case noConcern = "no-concern"
@@ -55,8 +55,8 @@ public enum CertaintySubcomponentRating: String, FHIRPrimitiveType {
 	case criticalConcern = "critical-concern"
 	
 	/// possible reason for increasing quality rating was checked and found to bepresent.
-	case present = "present"
+	case present
 	
 	/// possible reason for increasing quality rating was checked and found to be absent.
-	case absent = "absent"
+	case absent
 }

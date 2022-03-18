@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ public enum DeviceMetricCalibrationState: String, FHIRPrimitiveType {
 	case calibrationRequired = "calibration-required"
 	
 	/// The metric has been calibrated.
-	case calibrated = "calibrated"
+	case calibrated
 	
 	/// The state of calibration of this metric is unspecified.
-	case unspecified = "unspecified"
+	case unspecified
 }

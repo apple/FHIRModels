@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ import FMCore
  */
 public enum DeviceMetricOperationalStatus: String, FHIRPrimitiveType {
 	
-	/// The DeviceMetric is operating and will generate DeviceObservations.
-	case on = "on"
-	
-	/// The DeviceMetric is not operating.
-	case off = "off"
-	
-	/// The DeviceMetric is operating, but will not generate any DeviceObservations.
-	case standby = "standby"
-	
 	/// The DeviceMetric was entered in error.
 	case enteredInError = "entered-in-error"
+	
+	/// The DeviceMetric is not operating.
+	case off
+	
+	/// The DeviceMetric is operating and will generate DeviceObservations.
+	case on
+	
+	/// The DeviceMetric is operating, but will not generate any DeviceObservations.
+	case standby
 }

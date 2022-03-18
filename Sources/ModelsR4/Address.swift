@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Address)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -66,19 +66,19 @@ open class Address: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							city: FHIRPrimitive<FHIRString>? = nil,
-							country: FHIRPrimitive<FHIRString>? = nil,
-							district: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							line: [FHIRPrimitive<FHIRString>]? = nil,
-							period: Period? = nil,
-							postalCode: FHIRPrimitive<FHIRString>? = nil,
-							state: FHIRPrimitive<FHIRString>? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<AddressType>? = nil,
-							use: FHIRPrimitive<AddressUse>? = nil)
-	{
+		city: FHIRPrimitive<FHIRString>? = nil,
+		country: FHIRPrimitive<FHIRString>? = nil,
+		district: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		line: [FHIRPrimitive<FHIRString>]? = nil,
+		period: Period? = nil,
+		postalCode: FHIRPrimitive<FHIRString>? = nil,
+		state: FHIRPrimitive<FHIRString>? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<AddressType>? = nil,
+		use: FHIRPrimitive<AddressUse>? = nil
+	) {
 		self.init()
 		self.city = city
 		self.country = country

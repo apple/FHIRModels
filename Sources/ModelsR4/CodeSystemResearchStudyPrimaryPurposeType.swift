@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum ResearchStudyPrimaryPurposeType: String, FHIRPrimitiveType {
 	
 	/// One or more interventions are being evaluated for treating a disease, syndrome, or condition.
-	case treatment = "treatment"
+	case treatment
 	
 	/// One or more interventions are being assessed for preventing the development of a specific disease or health
 	/// condition.
-	case prevention = "prevention"
+	case prevention
 	
 	/// One or more interventions are being evaluated for identifying a disease or health condition.
-	case diagnostic = "diagnostic"
+	case diagnostic
 	
 	/// One or more interventions are evaluated for maximizing comfort, minimizing side effects, or mitigating against a
 	/// decline in the participant's health or function.
@@ -43,7 +43,7 @@ public enum ResearchStudyPrimaryPurposeType: String, FHIRPrimitiveType {
 	
 	/// One or more interventions are assessed or examined for identifying a condition, or risk factors for a condition,
 	/// in people who are not yet known to have the condition or risk factor.
-	case screening = "screening"
+	case screening
 	
 	/// One or more interventions for evaluating the delivery, processes, management, organization, or financing of
 	/// healthcare.

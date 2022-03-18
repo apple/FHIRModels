@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ValueSet)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -94,33 +94,33 @@ open class ValueSet: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							compose: ValueSetCompose? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							expansion: ValueSetExpansion? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							immutable: FHIRPrimitive<FHIRBool>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		compose: ValueSetCompose? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		expansion: ValueSetExpansion? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		immutable: FHIRPrimitive<FHIRBool>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.compose = compose
 		self.contact = contact
@@ -304,14 +304,14 @@ open class ValueSetCompose: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							exclude: [ValueSetComposeInclude]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							inactive: FHIRPrimitive<FHIRBool>? = nil,
-							include: [ValueSetComposeInclude],
-							lockedDate: FHIRPrimitive<FHIRDate>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		exclude: [ValueSetComposeInclude]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		inactive: FHIRPrimitive<FHIRBool>? = nil,
+		include: [ValueSetComposeInclude],
+		lockedDate: FHIRPrimitive<FHIRDate>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(include: include)
 		self.exclude = exclude
 		self.`extension` = `extension`
@@ -405,15 +405,15 @@ open class ValueSetComposeInclude: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							concept: [ValueSetComposeIncludeConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							filter: [ValueSetComposeIncludeFilter]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							valueSet: [FHIRPrimitive<Canonical>]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		concept: [ValueSetComposeIncludeConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		filter: [ValueSetComposeIncludeFilter]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		valueSet: [FHIRPrimitive<Canonical>]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.concept = concept
 		self.`extension` = `extension`
@@ -511,13 +511,13 @@ open class ValueSetComposeIncludeConcept: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>,
-							designation: [ValueSetComposeIncludeConceptDesignation]? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>,
+		designation: [ValueSetComposeIncludeConceptDesignation]? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.designation = designation
 		self.display = display
@@ -603,13 +603,13 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							use: Coding? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		use: Coding? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -697,13 +697,13 @@ open class ValueSetComposeIncludeFilter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							op: FHIRPrimitive<FilterOperator>,
-							property: FHIRPrimitive<FHIRString>,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		op: FHIRPrimitive<FilterOperator>,
+		property: FHIRPrimitive<FHIRString>,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(op: op, property: property, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -796,16 +796,16 @@ open class ValueSetExpansion: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							contains: [ValueSetExpansionContains]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: FHIRPrimitive<FHIRURI>? = nil,
-							modifierExtension: [Extension]? = nil,
-							offset: FHIRPrimitive<FHIRInteger>? = nil,
-							parameter: [ValueSetExpansionParameter]? = nil,
-							timestamp: FHIRPrimitive<DateTime>,
-							total: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		contains: [ValueSetExpansionContains]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: FHIRPrimitive<FHIRURI>? = nil,
+		modifierExtension: [Extension]? = nil,
+		offset: FHIRPrimitive<FHIRInteger>? = nil,
+		parameter: [ValueSetExpansionParameter]? = nil,
+		timestamp: FHIRPrimitive<DateTime>,
+		total: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init(timestamp: timestamp)
 		self.contains = contains
 		self.`extension` = `extension`
@@ -922,18 +922,18 @@ open class ValueSetExpansionContains: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							abstract: FHIRPrimitive<FHIRBool>? = nil,
-							code: FHIRPrimitive<FHIRString>? = nil,
-							contains: [ValueSetExpansionContains]? = nil,
-							designation: [ValueSetComposeIncludeConceptDesignation]? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							inactive: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		abstract: FHIRPrimitive<FHIRBool>? = nil,
+		code: FHIRPrimitive<FHIRString>? = nil,
+		contains: [ValueSetExpansionContains]? = nil,
+		designation: [ValueSetComposeIncludeConceptDesignation]? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		inactive: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.abstract = abstract
 		self.code = code
@@ -1059,12 +1059,12 @@ open class ValueSetExpansionParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		value: ValueX? = nil
+	) {
 		self.init(name: name)
 		self.`extension` = `extension`
 		self.id = id

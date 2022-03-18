@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,54 +27,54 @@ import FMCore
  */
 public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	
-	/// Read the current state of the resource.
-	case read = "read"
+	/// perform a set of a separate interactions in a single http operation
+	case batch
 	
-	/// Read the state of a specific version of the resource.
-	case vread = "vread"
+	/// Get a Capability Statement for the system.
+	case capabilities
 	
-	/// Update an existing resource by its id (or create it if it is new).
-	case update = "update"
-	
-	/// Update an existing resource by posting a set of changes to it.
-	case patch = "patch"
+	/// Create a new resource with a server assigned id.
+	case create
 	
 	/// Delete a resource.
-	case delete = "delete"
+	case delete
 	
 	/// Retrieve the change history for a particular resource, type of resource, or the entire system.
-	case history = "history"
+	case history
 	
 	/// Retrieve the change history for a particular resource.
 	case historyInstance = "history-instance"
 	
-	/// Retrieve the change history for all resources of a particular type.
-	case historyType = "history-type"
-	
 	/// Retrieve the change history for all resources on a system.
 	case historySystem = "history-system"
 	
-	/// Create a new resource with a server assigned id.
-	case create = "create"
+	/// Retrieve the change history for all resources of a particular type.
+	case historyType = "history-type"
+	
+	/// Perform an operation as defined by an OperationDefinition.
+	case operation
+	
+	/// Update an existing resource by posting a set of changes to it.
+	case patch
+	
+	/// Read the current state of the resource.
+	case read
 	
 	/// Search a resource type or all resources based on some filter criteria.
-	case search = "search"
-	
-	/// Search all resources of the specified type based on some filter criteria.
-	case searchType = "search-type"
+	case search
 	
 	/// Search all resources based on some filter criteria.
 	case searchSystem = "search-system"
 	
-	/// Get a Capability Statement for the system.
-	case capabilities = "capabilities"
+	/// Search all resources of the specified type based on some filter criteria.
+	case searchType = "search-type"
 	
 	/// Update, create or delete a set of resources as a single transaction.
-	case transaction = "transaction"
+	case transaction
 	
-	/// perform a set of a separate interactions in a single http operation
-	case batch = "batch"
+	/// Update an existing resource by its id (or create it if it is new).
+	case update
 	
-	/// Perform an operation as defined by an OperationDefinition.
-	case operation = "operation"
+	/// Read the state of a specific version of the resource.
+	case vread
 }

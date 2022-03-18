@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,24 +20,22 @@
 import FMCore
 
 /**
- Indicates the degree of adherence to a specified behavior or capability expected for a system to be deemed conformant
- with a specification.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/conformance-expectation
- ValueSet: http://hl7.org/fhir/ValueSet/conformance-expectation
+ URL: http://hl7.org/fhir/conformance-expectation
  */
 public enum ConformanceExpectation: String, FHIRPrimitiveType {
 	
+	/// Support for the specified capability is not necessary to be considered conformant, and the requirement should be
+	/// considered strictly optional.
+	case MAY
+	
 	/// Support for the specified capability is required to be considered conformant.
-	case SHALL = "SHALL"
+	case SHALL
 	
 	/// Support for the specified capability is strongly encouraged, and failure to support it should only occur after
 	/// careful consideration.
-	case SHOULD = "SHOULD"
-	
-	/// Support for the specified capability is not necessary to be considered conformant, and the requirement should be
-	/// considered strictly optional.
-	case MAY = "MAY"
+	case SHOULD
 	
 	/// Support for the specified capability is strongly discouraged and should occur only after careful consideration.
 	case SHOULDNOT = "SHOULD-NOT"

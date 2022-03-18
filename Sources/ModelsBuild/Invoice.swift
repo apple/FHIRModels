@@ -2,8 +2,8 @@
 //  Invoice.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Invoice)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Invoice)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -85,31 +85,31 @@ open class Invoice: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: Reference? = nil,
-							cancelledReason: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issuer: Reference? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lineItem: [InvoiceLineItem]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							participant: [InvoiceParticipant]? = nil,
-							paymentTerms: FHIRPrimitive<FHIRString>? = nil,
-							recipient: Reference? = nil,
-							status: FHIRPrimitive<InvoiceStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							totalGross: Money? = nil,
-							totalNet: Money? = nil,
-							totalPriceComponent: [InvoiceLineItemPriceComponent]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		account: Reference? = nil,
+		cancelledReason: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issuer: Reference? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lineItem: [InvoiceLineItem]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		participant: [InvoiceParticipant]? = nil,
+		paymentTerms: FHIRPrimitive<FHIRString>? = nil,
+		recipient: Reference? = nil,
+		status: FHIRPrimitive<InvoiceStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		totalGross: Money? = nil,
+		totalNet: Money? = nil,
+		totalPriceComponent: [InvoiceLineItemPriceComponent]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(status: status)
 		self.account = account
 		self.cancelledReason = cancelledReason
@@ -285,13 +285,13 @@ open class InvoiceLineItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							chargeItem: ChargeItemX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							priceComponent: [InvoiceLineItemPriceComponent]? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		chargeItem: ChargeItemX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		priceComponent: [InvoiceLineItemPriceComponent]? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init(chargeItem: chargeItem)
 		self.`extension` = `extension`
 		self.id = id
@@ -408,14 +408,14 @@ open class InvoiceLineItemPriceComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Money? = nil,
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<InvoicePriceComponentType>)
-	{
+		amount: Money? = nil,
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<InvoicePriceComponentType>
+	) {
 		self.init(type: type)
 		self.amount = amount
 		self.code = code
@@ -503,12 +503,12 @@ open class InvoiceParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: CodeableConcept? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.id = id

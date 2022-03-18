@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,17 +28,17 @@ import FMCore
 public enum StructureMapSourceListMode: String, FHIRPrimitiveType {
 	
 	/// Only process this rule for the first in the list.
-	case first = "first"
+	case first
 	
 	/// Process this rule for all but the first.
-	case not_first = "not_first"
+	case not_first
 	
 	/// Only process this rule for the last in the list.
-	case last = "last"
+	case last
 	
 	/// Process this rule for all but the last.
-	case not_last = "not_last"
+	case not_last
 	
 	/// Only process this rule is there is only item.
-	case only_one = "only_one"
+	case only_one
 }

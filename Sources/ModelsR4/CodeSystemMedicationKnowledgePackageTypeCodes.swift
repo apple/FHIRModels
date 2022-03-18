@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,68 +28,68 @@ import FMCore
 public enum MedicationKnowledgePackageTypeCodes: String, FHIRPrimitiveType {
 	
 	/// amp
-	case amp = "amp"
+	case amp
 	
 	/// bag
-	case bag = "bag"
+	case bag
 	
 	/// blstrpk
-	case blstrpk = "blstrpk"
+	case blstrpk
 	
 	/// bot
-	case bot = "bot"
+	case bot
 	
 	/// box
-	case box = "box"
+	case box
 	
 	/// can
-	case can = "can"
+	case can
 	
 	/// cart
-	case cart = "cart"
+	case cart
 	
 	/// disk
-	case disk = "disk"
+	case disk
 	
 	/// doset
-	case doset = "doset"
+	case doset
 	
 	/// jar
-	case jar = "jar"
+	case jar
 	
 	/// jug
-	case jug = "jug"
+	case jug
 	
 	/// minim
-	case minim = "minim"
+	case minim
 	
 	/// nebamp
-	case nebamp = "nebamp"
+	case nebamp
 	
 	/// ovul
-	case ovul = "ovul"
+	case ovul
 	
 	/// pch
-	case pch = "pch"
+	case pch
 	
 	/// pkt
-	case pkt = "pkt"
+	case pkt
 	
 	/// sash
-	case sash = "sash"
+	case sash
 	
 	/// strip
-	case strip = "strip"
+	case strip
 	
 	/// tin
-	case tin = "tin"
+	case tin
 	
 	/// tub
-	case tub = "tub"
+	case tub
 	
 	/// tube
-	case tube = "tube"
+	case tube
 	
 	/// vial
-	case vial = "vial"
+	case vial
 }

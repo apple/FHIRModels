@@ -2,8 +2,8 @@
 //  AllergyIntolerance.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/AllergyIntolerance)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AllergyIntolerance)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  Allergy or Intolerance (generally: Risk of adverse reaction to a substance).
  
- Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to
- a substance.
+ Risk of harmful or undesirable physiological response which is specific to an individual and associated with exposure
+ to a substance.
  */
 open class AllergyIntolerance: DomainResource {
 	
@@ -69,14 +69,11 @@ open class AllergyIntolerance: DomainResource {
 	/// One of `onset[x]`
 	public var onset: OnsetX?
 	
-	/// Date first version of the resource instance was recorded
+	/// Date allergy or intolerance was first recorded
 	public var recordedDate: FHIRPrimitive<DateTime>?
 	
-	/// Who recorded the sensitivity
-	public var recorder: Reference?
-	
-	/// Source of the information about the allergy
-	public var asserter: Reference?
+	/// Who or what participated in the activities related to the allergy or intolerance and how they were involved
+	public var participant: [AllergyIntoleranceParticipant]?
 	
 	/// Date(/time) of last known occurrence of a reaction
 	public var lastOccurrence: FHIRPrimitive<DateTime>?
@@ -95,33 +92,31 @@ open class AllergyIntolerance: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asserter: Reference? = nil,
-							category: [FHIRPrimitive<AllergyIntoleranceCategory>]? = nil,
-							clinicalStatus: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							criticality: FHIRPrimitive<AllergyIntoleranceCriticality>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastOccurrence: FHIRPrimitive<DateTime>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: OnsetX? = nil,
-							patient: Reference,
-							reaction: [AllergyIntoleranceReaction]? = nil,
-							recordedDate: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<AllergyIntoleranceType>? = nil,
-							verificationStatus: CodeableConcept? = nil)
-	{
+		category: [FHIRPrimitive<AllergyIntoleranceCategory>]? = nil,
+		clinicalStatus: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		criticality: FHIRPrimitive<AllergyIntoleranceCriticality>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastOccurrence: FHIRPrimitive<DateTime>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: OnsetX? = nil,
+		participant: [AllergyIntoleranceParticipant]? = nil,
+		patient: Reference,
+		reaction: [AllergyIntoleranceReaction]? = nil,
+		recordedDate: FHIRPrimitive<DateTime>? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<AllergyIntoleranceType>? = nil,
+		verificationStatus: CodeableConcept? = nil
+	) {
 		self.init(patient: patient)
-		self.asserter = asserter
 		self.category = category
 		self.clinicalStatus = clinicalStatus
 		self.code = code
@@ -138,9 +133,9 @@ open class AllergyIntolerance: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.note = note
 		self.onset = onset
+		self.participant = participant
 		self.reaction = reaction
 		self.recordedDate = recordedDate
-		self.recorder = recorder
 		self.text = text
 		self.type = type
 		self.verificationStatus = verificationStatus
@@ -149,7 +144,6 @@ open class AllergyIntolerance: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case asserter
 		case category; case _category
 		case clinicalStatus
 		case code
@@ -163,10 +157,10 @@ open class AllergyIntolerance: DomainResource {
 		case onsetPeriod
 		case onsetRange
 		case onsetString; case _onsetString
+		case participant
 		case patient
 		case reaction
 		case recordedDate; case _recordedDate
-		case recorder
 		case type; case _type
 		case verificationStatus
 	}
@@ -176,7 +170,6 @@ open class AllergyIntolerance: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.asserter = try Reference(from: _container, forKeyIfPresent: .asserter)
 		self.category = try [FHIRPrimitive<AllergyIntoleranceCategory>](from: _container, forKeyIfPresent: .category, auxiliaryKey: ._category)
 		self.clinicalStatus = try CodeableConcept(from: _container, forKeyIfPresent: .clinicalStatus)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
@@ -217,10 +210,10 @@ open class AllergyIntolerance: DomainResource {
 			_t_onset = .string(onsetString)
 		}
 		self.onset = _t_onset
+		self.participant = try [AllergyIntoleranceParticipant](from: _container, forKeyIfPresent: .participant)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.reaction = try [AllergyIntoleranceReaction](from: _container, forKeyIfPresent: .reaction)
 		self.recordedDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .recordedDate, auxiliaryKey: ._recordedDate)
-		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
 		self.type = try FHIRPrimitive<AllergyIntoleranceType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		self.verificationStatus = try CodeableConcept(from: _container, forKeyIfPresent: .verificationStatus)
 		try super.init(from: decoder)
@@ -231,7 +224,6 @@ open class AllergyIntolerance: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try asserter?.encode(on: &_container, forKey: .asserter)
 		try category?.encode(on: &_container, forKey: .category, auxiliaryKey: ._category)
 		try clinicalStatus?.encode(on: &_container, forKey: .clinicalStatus)
 		try code?.encode(on: &_container, forKey: .code)
@@ -254,10 +246,10 @@ open class AllergyIntolerance: DomainResource {
 				try _value.encode(on: &_container, forKey: .onsetString, auxiliaryKey: ._onsetString)
 			}
 		}
+		try participant?.encode(on: &_container, forKey: .participant)
 		try patient.encode(on: &_container, forKey: .patient)
 		try reaction?.encode(on: &_container, forKey: .reaction)
 		try recordedDate?.encode(on: &_container, forKey: .recordedDate, auxiliaryKey: ._recordedDate)
-		try recorder?.encode(on: &_container, forKey: .recorder)
 		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try verificationStatus?.encode(on: &_container, forKey: .verificationStatus)
 		try super.encode(to: encoder)
@@ -272,8 +264,7 @@ open class AllergyIntolerance: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return asserter == _other.asserter
-		    && category == _other.category
+		return category == _other.category
 		    && clinicalStatus == _other.clinicalStatus
 		    && code == _other.code
 		    && criticality == _other.criticality
@@ -282,17 +273,16 @@ open class AllergyIntolerance: DomainResource {
 		    && lastOccurrence == _other.lastOccurrence
 		    && note == _other.note
 		    && onset == _other.onset
+		    && participant == _other.participant
 		    && patient == _other.patient
 		    && reaction == _other.reaction
 		    && recordedDate == _other.recordedDate
-		    && recorder == _other.recorder
 		    && type == _other.type
 		    && verificationStatus == _other.verificationStatus
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(asserter)
 		hasher.combine(category)
 		hasher.combine(clinicalStatus)
 		hasher.combine(code)
@@ -302,12 +292,93 @@ open class AllergyIntolerance: DomainResource {
 		hasher.combine(lastOccurrence)
 		hasher.combine(note)
 		hasher.combine(onset)
+		hasher.combine(participant)
 		hasher.combine(patient)
 		hasher.combine(reaction)
 		hasher.combine(recordedDate)
-		hasher.combine(recorder)
 		hasher.combine(type)
 		hasher.combine(verificationStatus)
+	}
+}
+
+/**
+ Who or what participated in the activities related to the allergy or intolerance and how they were involved.
+ 
+ Indicates who or what participated in the activities related to the allergy or intolerance and how they were involved.
+ */
+open class AllergyIntoleranceParticipant: BackboneElement {
+	
+	/// Type of involvement
+	public var function: CodeableConcept?
+	
+	/// Who or what participated in the activities related to the allergy or intolerance
+	public var actor: Reference
+	
+	/// Designated initializer taking all required properties
+	public init(actor: Reference) {
+		self.actor = actor
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init(actor: actor)
+		self.`extension` = `extension`
+		self.function = function
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case actor
+		case function
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.actor = try Reference(from: _container, forKey: .actor)
+		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try actor.encode(on: &_container, forKey: .actor)
+		try function?.encode(on: &_container, forKey: .function)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? AllergyIntoleranceParticipant else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return actor == _other.actor
+		    && function == _other.function
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(actor)
+		hasher.combine(function)
 	}
 }
 
@@ -322,7 +393,7 @@ open class AllergyIntoleranceReaction: BackboneElement {
 	public var substance: CodeableConcept?
 	
 	/// Clinical symptoms/signs associated with the Event
-	public var manifestation: [CodeableConcept]
+	public var manifestation: [CodeableReference]
 	
 	/// Description of the event as a whole
 	public var description_fhir: FHIRPrimitive<FHIRString>?
@@ -341,24 +412,24 @@ open class AllergyIntoleranceReaction: BackboneElement {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(manifestation: [CodeableConcept]) {
+	public init(manifestation: [CodeableReference]) {
 		self.manifestation = manifestation
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							exposureRoute: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manifestation: [CodeableConcept],
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: FHIRPrimitive<DateTime>? = nil,
-							severity: FHIRPrimitive<AllergyIntoleranceSeverity>? = nil,
-							substance: CodeableConcept? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		exposureRoute: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manifestation: [CodeableReference],
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: FHIRPrimitive<DateTime>? = nil,
+		severity: FHIRPrimitive<AllergyIntoleranceSeverity>? = nil,
+		substance: CodeableConcept? = nil
+	) {
 		self.init(manifestation: manifestation)
 		self.description_fhir = description_fhir
 		self.exposureRoute = exposureRoute
@@ -390,7 +461,7 @@ open class AllergyIntoleranceReaction: BackboneElement {
 		// Decode all our properties
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.exposureRoute = try CodeableConcept(from: _container, forKeyIfPresent: .exposureRoute)
-		self.manifestation = try [CodeableConcept](from: _container, forKey: .manifestation)
+		self.manifestation = try [CodeableReference](from: _container, forKey: .manifestation)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.onset = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .onset, auxiliaryKey: ._onset)
 		self.severity = try FHIRPrimitive<AllergyIntoleranceSeverity>(from: _container, forKeyIfPresent: .severity, auxiliaryKey: ._severity)

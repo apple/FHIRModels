@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,32 +28,32 @@ import FMCore
 public enum FlagCategory: String, FHIRPrimitiveType {
 	
 	/// Flags related to the subject's dietary needs.
-	case diet = "diet"
+	case diet
 	
 	/// Flags related to the subject's medications.
-	case drug = "drug"
+	case drug
 	
 	/// Flags related to performing laboratory tests and related processes (e.g. phlebotomy).
-	case lab = "lab"
+	case lab
 	
 	/// Flags related to administrative and financial processes.
-	case admin = "admin"
+	case admin
 	
 	/// Flags related to coming into contact with the patient.
-	case contact = "contact"
+	case contact
 	
 	/// Flags related to the subject's clinical data.
-	case clinical = "clinical"
+	case clinical
 	
 	/// Flags related to behavior.
-	case behavioral = "behavioral"
+	case behavioral
 	
 	/// Flags related to research.
-	case research = "research"
+	case research
 	
 	/// Flags related to subject's advance directives.
 	case advanceDirective = "advance-directive"
 	
 	/// Flags related to safety precautions.
-	case safety = "safety"
+	case safety
 }

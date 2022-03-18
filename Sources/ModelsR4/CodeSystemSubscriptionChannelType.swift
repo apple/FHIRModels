@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,15 +33,15 @@ public enum SubscriptionChannelType: String, FHIRPrimitiveType {
 	
 	/// The channel is executed by sending a packet across a web socket connection maintained by the client. The URL
 	/// identifies the websocket, and the client binds to this URL.
-	case websocket = "websocket"
+	case websocket
 	
 	/// The channel is executed by sending an email to the email addressed in the URI (which must be a mailto:).
-	case email = "email"
+	case email
 	
 	/// The channel is executed by sending an SMS message to the phone number identified in the URL (tel:).
-	case sms = "sms"
+	case sms
 	
 	/// The channel is executed by sending a message (e.g. a Bundle with a MessageHeader resource etc.) to the
 	/// application identified in the URI.
-	case message = "message"
+	case message
 }

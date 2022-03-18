@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum AdditionalMaterialCodes: String, FHIRPrimitiveType {
 	
 	/// XRay
-	case xray = "xray"
+	case xray
 	
 	/// Image
-	case image = "image"
+	case image
 	
 	/// Email
-	case email = "email"
+	case email
 	
 	/// Model
-	case model = "model"
+	case model
 	
 	/// Document
-	case document = "document"
+	case document
 	
 	/// Other
-	case other = "other"
+	case other
 }

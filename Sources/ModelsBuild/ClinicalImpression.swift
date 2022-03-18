@@ -2,8 +2,8 @@
 //  ClinicalImpression.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ClinicalImpression)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ClinicalImpression)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ open class ClinicalImpression: DomainResource {
 	/// Business identifier
 	public var identifier: [Identifier]?
 	
-	/// Identifies the workflow status of the assessment.
-	public var status: FHIRPrimitive<EventStatus>
+	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -94,7 +94,7 @@ open class ClinicalImpression: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<EventStatus>, subject: Reference) {
+	public init(status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.status = status
 		self.subject = subject
 		super.init()
@@ -102,33 +102,33 @@ open class ClinicalImpression: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							finding: [ClinicalImpressionFinding]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							performer: Reference? = nil,
-							previous: Reference? = nil,
-							problem: [Reference]? = nil,
-							prognosisCodeableConcept: [CodeableConcept]? = nil,
-							prognosisReference: [Reference]? = nil,
-							`protocol`: [FHIRPrimitive<FHIRURI>]? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference,
-							summary: FHIRPrimitive<FHIRString>? = nil,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		finding: [ClinicalImpressionFinding]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		performer: Reference? = nil,
+		previous: Reference? = nil,
+		problem: [Reference]? = nil,
+		prognosisCodeableConcept: [CodeableConcept]? = nil,
+		prognosisReference: [Reference]? = nil,
+		`protocol`: [FHIRPrimitive<FHIRURI>]? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference,
+		summary: FHIRPrimitive<FHIRString>? = nil,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.contained = contained
 		self.date = date
@@ -211,7 +211,7 @@ open class ClinicalImpression: DomainResource {
 		self.prognosisCodeableConcept = try [CodeableConcept](from: _container, forKeyIfPresent: .prognosisCodeableConcept)
 		self.prognosisReference = try [Reference](from: _container, forKeyIfPresent: .prognosisReference)
 		self.`protocol` = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .`protocol`, auxiliaryKey: ._protocol)
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.summary = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .summary, auxiliaryKey: ._summary)
@@ -324,12 +324,12 @@ open class ClinicalImpressionFinding: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							basis: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: CodeableReference? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		basis: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: CodeableReference? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.basis = basis
 		self.`extension` = `extension`

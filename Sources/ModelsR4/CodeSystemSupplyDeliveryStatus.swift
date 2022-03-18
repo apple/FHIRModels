@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,10 +31,10 @@ public enum SupplyDeliveryStatus: String, FHIRPrimitiveType {
 	case inProgress = "in-progress"
 	
 	/// Supply has been delivered ("completed").
-	case completed = "completed"
+	case completed
 	
 	/// Delivery was not completed.
-	case abandoned = "abandoned"
+	case abandoned
 	
 	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it. (If real-world activity has occurred, the status should be "abandoned" rather than "entered-in-error".).

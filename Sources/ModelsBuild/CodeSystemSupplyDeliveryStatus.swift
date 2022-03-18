@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,16 +27,16 @@ import FMCore
  */
 public enum SupplyDeliveryStatus: String, FHIRPrimitiveType {
 	
-	/// Supply has been requested, but not delivered.
-	case inProgress = "in-progress"
+	/// Delivery was not completed.
+	case abandoned
 	
 	/// Supply has been delivered ("completed").
-	case completed = "completed"
-	
-	/// Delivery was not completed.
-	case abandoned = "abandoned"
+	case completed
 	
 	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it. (If real-world activity has occurred, the status should be "abandoned" rather than "entered-in-error".).
 	case enteredInError = "entered-in-error"
+	
+	/// Supply has been requested, but not delivered.
+	case inProgress = "in-progress"
 }

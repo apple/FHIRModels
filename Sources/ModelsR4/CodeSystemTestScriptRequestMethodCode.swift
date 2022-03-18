@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,23 +28,23 @@ import FMCore
 public enum TestScriptRequestMethodCode: String, FHIRPrimitiveType {
 	
 	/// HTTP DELETE operation.
-	case delete = "delete"
+	case delete
 	
 	/// HTTP GET operation.
-	case get = "get"
+	case get
 	
 	/// HTTP OPTIONS operation.
-	case options = "options"
+	case options
 	
 	/// HTTP PATCH operation.
-	case patch = "patch"
+	case patch
 	
 	/// HTTP POST operation.
-	case post = "post"
+	case post
 	
 	/// HTTP PUT operation.
-	case put = "put"
+	case put
 	
 	/// HTTP HEAD operation.
-	case head = "head"
+	case head
 }

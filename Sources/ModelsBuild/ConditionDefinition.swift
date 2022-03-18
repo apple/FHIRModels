@@ -2,8 +2,8 @@
 //  ConditionDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ConditionDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ConditionDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -125,43 +125,43 @@ open class ConditionDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							bodySite: CodeableConcept? = nil,
-							code: CodeableConcept,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							definition: [FHIRPrimitive<FHIRURI>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							hasBodySite: FHIRPrimitive<FHIRBool>? = nil,
-							hasSeverity: FHIRPrimitive<FHIRBool>? = nil,
-							hasStage: FHIRPrimitive<FHIRBool>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: [ConditionDefinitionMedication]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							observation: [ConditionDefinitionObservation]? = nil,
-							plan: [ConditionDefinitionPlan]? = nil,
-							precondition: [ConditionDefinitionPrecondition]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							questionnaire: [ConditionDefinitionQuestionnaire]? = nil,
-							severity: CodeableConcept? = nil,
-							stage: CodeableConcept? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							team: [Reference]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		bodySite: CodeableConcept? = nil,
+		code: CodeableConcept,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		definition: [FHIRPrimitive<FHIRURI>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		hasBodySite: FHIRPrimitive<FHIRBool>? = nil,
+		hasSeverity: FHIRPrimitive<FHIRBool>? = nil,
+		hasStage: FHIRPrimitive<FHIRBool>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: [ConditionDefinitionMedication]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		observation: [ConditionDefinitionObservation]? = nil,
+		plan: [ConditionDefinitionPlan]? = nil,
+		precondition: [ConditionDefinitionPrecondition]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		questionnaire: [ConditionDefinitionQuestionnaire]? = nil,
+		severity: CodeableConcept? = nil,
+		stage: CodeableConcept? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		team: [Reference]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(code: code, status: status)
 		self.bodySite = bodySite
 		self.contact = contact
@@ -394,12 +394,12 @@ open class ConditionDefinitionMedication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		category: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.category = category
 		self.code = code
@@ -473,12 +473,12 @@ open class ConditionDefinitionObservation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		category: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.category = category
 		self.code = code
@@ -553,12 +553,12 @@ open class ConditionDefinitionPlan: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: Reference,
-							role: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: Reference,
+		role: CodeableConcept? = nil
+	) {
 		self.init(reference: reference)
 		self.`extension` = `extension`
 		self.id = id
@@ -645,13 +645,13 @@ open class ConditionDefinitionPrecondition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<ConditionPreconditionType>,
-							value: ValueX? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<ConditionPreconditionType>,
+		value: ValueX? = nil
+	) {
 		self.init(code: code, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -752,12 +752,12 @@ open class ConditionDefinitionQuestionnaire: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							purpose: FHIRPrimitive<ConditionQuestionnairePurpose>,
-							reference: Reference)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		purpose: FHIRPrimitive<ConditionQuestionnairePurpose>,
+		reference: Reference
+	) {
 		self.init(purpose: purpose, reference: reference)
 		self.`extension` = `extension`
 		self.id = id

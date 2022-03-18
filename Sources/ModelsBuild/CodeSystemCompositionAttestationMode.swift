@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ import FMCore
  */
 public enum CompositionAttestationMode: String, FHIRPrimitiveType {
 	
-	/// The person authenticated the content in their personal capacity.
-	case personal = "personal"
-	
-	/// The person authenticated the content in their professional capacity.
-	case professional = "professional"
-	
 	/// The person authenticated the content and accepted legal responsibility for its content.
-	case legal = "legal"
+	case legal
 	
 	/// The organization authenticated the content as consistent with their policies and procedures.
-	case official = "official"
+	case official
+	
+	/// The person authenticated the content in their personal capacity.
+	case personal
+	
+	/// The person authenticated the content in their professional capacity.
+	case professional
 }

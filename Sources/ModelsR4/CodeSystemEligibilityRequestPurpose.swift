@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,11 +33,11 @@ public enum EligibilityRequestPurpose: String, FHIRPrimitiveType {
 	
 	/// The plan benefits and optionally benefits consumed  for the listed, or discovered if specified, converages are
 	/// requested.
-	case benefits = "benefits"
+	case benefits
 	
 	/// The insurer is requested to report on any coverages which they are aware of in addition to any specifed.
-	case discovery = "discovery"
+	case discovery
 	
 	/// A check that the specified coverages are in-force is requested.
-	case validation = "validation"
+	case validation
 }

@@ -2,8 +2,8 @@
 //  AdministrableProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,71 +20,83 @@
 import FMCore
 
 /**
- A pharmaceutical product described in terms of its composition and dose form.
+ A medicinal product in the final form, suitable for administration - after any mixing of multiple components.
+ 
+ A medicinal product in the final form which is suitable for administering to a patient (after any mixing of multiple
+ components, dissolution etc. has been performed).
  */
 open class AdministrableProductDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .administrableProductDefinition }
 	
-	/// An identifier for the pharmaceutical medicinal product
+	/// An identifier for the administrable product
 	public var identifier: [Identifier]?
 	
-	/// The product that this is a pharmaceutical product of
-	public var subject: [Reference]?
+	/// The status of this administrable product. Enables tracking the life-cycle of the content.
+	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// The administrable dose form, after necessary reconstitution
+	/// References a product from which one or more of the constituent parts of that product can be prepared and used as
+	/// described by this administrable product
+	public var formOf: [Reference]?
+	
+	/// The dose form of the final product after necessary reconstitution or processing
 	public var administrableDoseForm: CodeableConcept?
 	
-	/// Todo
+	/// The presentation type in which this item is given to a patient. e.g. for a spray - 'puff'
 	public var unitOfPresentation: CodeableConcept?
 	
-	/// The manufactured item(s) that this administrable product is produced from. Either a single item, or several that
-	/// are mixed before administration (e.g. a power item and a solution item). Note that these are not raw ingredients
+	/// Indicates the specific manufactured items that are part of the 'formOf' product that are used in the preparation
+	/// of this specific administrable form
 	public var producedFrom: [Reference]?
 	
-	/// The ingredients of this administrable pharmaceutical product
-	public var ingredient: [Reference]?
+	/// The ingredients of this administrable medicinal product. This is only needed if the ingredients are not
+	/// specified either using ManufacturedItemDefiniton, or using by incoming references from the Ingredient resource
+	public var ingredient: [CodeableConcept]?
 	
-	/// Accompanying device
-	public var device: [Reference]?
+	/// A device that is integral to the medicinal product, in effect being considered as an "ingredient" of the
+	/// medicinal product
+	public var device: Reference?
 	
-	/// Characteristics e.g. a products onset of action
+	/// Characteristics e.g. a product's onset of action
 	public var property: [AdministrableProductDefinitionProperty]?
 	
-	/// The path by which the pharmaceutical product is taken into or makes contact with the body
+	/// The path by which the product is taken into or makes contact with the body
 	public var routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration]
 	
 	/// Designated initializer taking all required properties
-	public init(routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration]) {
+	public init(routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration], status: FHIRPrimitive<PublicationStatus>) {
 		self.routeOfAdministration = routeOfAdministration
+		self.status = status
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							administrableDoseForm: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							device: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							producedFrom: [Reference]? = nil,
-							property: [AdministrableProductDefinitionProperty]? = nil,
-							routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration],
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							unitOfPresentation: CodeableConcept? = nil)
-	{
-		self.init(routeOfAdministration: routeOfAdministration)
+		administrableDoseForm: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		device: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		formOf: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		producedFrom: [Reference]? = nil,
+		property: [AdministrableProductDefinitionProperty]? = nil,
+		routeOfAdministration: [AdministrableProductDefinitionRouteOfAdministration],
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		unitOfPresentation: CodeableConcept? = nil
+	) {
+		self.init(routeOfAdministration: routeOfAdministration, status: status)
 		self.administrableDoseForm = administrableDoseForm
 		self.contained = contained
 		self.device = device
 		self.`extension` = `extension`
+		self.formOf = formOf
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
@@ -94,7 +106,6 @@ open class AdministrableProductDefinition: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.producedFrom = producedFrom
 		self.property = property
-		self.subject = subject
 		self.text = text
 		self.unitOfPresentation = unitOfPresentation
 	}
@@ -104,12 +115,13 @@ open class AdministrableProductDefinition: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case administrableDoseForm
 		case device
+		case formOf
 		case identifier
 		case ingredient
 		case producedFrom
 		case property
 		case routeOfAdministration
-		case subject
+		case status; case _status
 		case unitOfPresentation
 	}
 	
@@ -119,13 +131,14 @@ open class AdministrableProductDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.administrableDoseForm = try CodeableConcept(from: _container, forKeyIfPresent: .administrableDoseForm)
-		self.device = try [Reference](from: _container, forKeyIfPresent: .device)
+		self.device = try Reference(from: _container, forKeyIfPresent: .device)
+		self.formOf = try [Reference](from: _container, forKeyIfPresent: .formOf)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.ingredient = try [Reference](from: _container, forKeyIfPresent: .ingredient)
+		self.ingredient = try [CodeableConcept](from: _container, forKeyIfPresent: .ingredient)
 		self.producedFrom = try [Reference](from: _container, forKeyIfPresent: .producedFrom)
 		self.property = try [AdministrableProductDefinitionProperty](from: _container, forKeyIfPresent: .property)
 		self.routeOfAdministration = try [AdministrableProductDefinitionRouteOfAdministration](from: _container, forKey: .routeOfAdministration)
-		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
+		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.unitOfPresentation = try CodeableConcept(from: _container, forKeyIfPresent: .unitOfPresentation)
 		try super.init(from: decoder)
 	}
@@ -137,12 +150,13 @@ open class AdministrableProductDefinition: DomainResource {
 		// Encode all our properties
 		try administrableDoseForm?.encode(on: &_container, forKey: .administrableDoseForm)
 		try device?.encode(on: &_container, forKey: .device)
+		try formOf?.encode(on: &_container, forKey: .formOf)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
 		try producedFrom?.encode(on: &_container, forKey: .producedFrom)
 		try property?.encode(on: &_container, forKey: .property)
 		try routeOfAdministration.encode(on: &_container, forKey: .routeOfAdministration)
-		try subject?.encode(on: &_container, forKey: .subject)
+		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try unitOfPresentation?.encode(on: &_container, forKey: .unitOfPresentation)
 		try super.encode(to: encoder)
 	}
@@ -158,12 +172,13 @@ open class AdministrableProductDefinition: DomainResource {
 		}
 		return administrableDoseForm == _other.administrableDoseForm
 		    && device == _other.device
+		    && formOf == _other.formOf
 		    && identifier == _other.identifier
 		    && ingredient == _other.ingredient
 		    && producedFrom == _other.producedFrom
 		    && property == _other.property
 		    && routeOfAdministration == _other.routeOfAdministration
-		    && subject == _other.subject
+		    && status == _other.status
 		    && unitOfPresentation == _other.unitOfPresentation
 	}
 	
@@ -171,18 +186,19 @@ open class AdministrableProductDefinition: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(administrableDoseForm)
 		hasher.combine(device)
+		hasher.combine(formOf)
 		hasher.combine(identifier)
 		hasher.combine(ingredient)
 		hasher.combine(producedFrom)
 		hasher.combine(property)
 		hasher.combine(routeOfAdministration)
-		hasher.combine(subject)
+		hasher.combine(status)
 		hasher.combine(unitOfPresentation)
 	}
 }
 
 /**
- Characteristics e.g. a products onset of action.
+ Characteristics e.g. a product's onset of action.
  */
 open class AdministrableProductDefinitionProperty: BackboneElement {
 	
@@ -213,13 +229,13 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							status: CodeableConcept? = nil,
-							type: CodeableConcept,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: CodeableConcept? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -329,31 +345,30 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 }
 
 /**
- The path by which the pharmaceutical product is taken into or makes contact with the body.
+ The path by which the product is taken into or makes contact with the body.
+ 
+ The path by which the product is taken into or makes contact with the body. In some regions this is referred to as the
+ licenced or approved route. RouteOfAdministration cannot be used when the 'formOf' product already uses
+ MedicinalProductDefinition.route (and vice versa).
  */
 open class AdministrableProductDefinitionRouteOfAdministration: BackboneElement {
 	
 	/// Coded expression for the route
 	public var code: CodeableConcept
 	
-	/// The first dose (dose quantity) administered in humans can be specified, for a product under investigation, using
-	/// a numerical value and its unit of measurement
+	/// The first dose (dose quantity) administered can be specified for the product
 	public var firstDose: Quantity?
 	
-	/// The maximum single dose that can be administered as per the protocol of a clinical trial can be specified using
-	/// a numerical value and its unit of measurement
+	/// The maximum single dose that can be administered
 	public var maxSingleDose: Quantity?
 	
-	/// The maximum dose per day (maximum dose quantity to be administered in any one 24-h period) that can be
-	/// administered as per the protocol referenced in the clinical trial authorisation
+	/// The maximum dose quantity to be administered in any one 24-h period
 	public var maxDosePerDay: Quantity?
 	
-	/// The maximum dose per treatment period that can be administered as per the protocol referenced in the clinical
-	/// trial authorisation
+	/// The maximum dose per treatment period that can be administered
 	public var maxDosePerTreatmentPeriod: Ratio?
 	
-	/// The maximum treatment period during which an Investigational Medicinal Product can be administered as per the
-	/// protocol referenced in the clinical trial authorisation
+	/// The maximum treatment period during which the product can be administered
 	public var maxTreatmentPeriod: Duration?
 	
 	/// A species for which this route applies
@@ -367,17 +382,17 @@ open class AdministrableProductDefinitionRouteOfAdministration: BackboneElement 
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							firstDose: Quantity? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							maxDosePerDay: Quantity? = nil,
-							maxDosePerTreatmentPeriod: Ratio? = nil,
-							maxSingleDose: Quantity? = nil,
-							maxTreatmentPeriod: Duration? = nil,
-							modifierExtension: [Extension]? = nil,
-							targetSpecies: [AdministrableProductDefinitionRouteOfAdministrationTargetSpecies]? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		firstDose: Quantity? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		maxDosePerDay: Quantity? = nil,
+		maxDosePerTreatmentPeriod: Ratio? = nil,
+		maxSingleDose: Quantity? = nil,
+		maxTreatmentPeriod: Duration? = nil,
+		modifierExtension: [Extension]? = nil,
+		targetSpecies: [AdministrableProductDefinitionRouteOfAdministrationTargetSpecies]? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.firstDose = firstDose
@@ -481,12 +496,12 @@ open class AdministrableProductDefinitionRouteOfAdministrationTargetSpecies: Bac
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							withdrawalPeriod: [AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod]? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		withdrawalPeriod: [AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod]? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.id = id
@@ -546,7 +561,7 @@ open class AdministrableProductDefinitionRouteOfAdministrationTargetSpecies: Bac
  */
 open class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod: BackboneElement {
 	
-	/// Coded expression for the type of tissue for which the withdrawal period applues, e.g. meat, milk
+	/// The type of tissue for which the withdrawal period applies, e.g. meat, milk
 	public var tissue: CodeableConcept
 	
 	/// A value for the time
@@ -564,13 +579,13 @@ open class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithd
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							supportingInformation: FHIRPrimitive<FHIRString>? = nil,
-							tissue: CodeableConcept,
-							value: Quantity)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		supportingInformation: FHIRPrimitive<FHIRString>? = nil,
+		tissue: CodeableConcept,
+		value: Quantity
+	) {
 		self.init(tissue: tissue, value: value)
 		self.`extension` = `extension`
 		self.id = id

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -70,26 +70,26 @@ open class QuestionnaireResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							authored: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							partOf: [Reference]? = nil,
-							questionnaire: FHIRPrimitive<Canonical>? = nil,
-							source: Reference? = nil,
-							status: FHIRPrimitive<QuestionnaireResponseStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		authored: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		partOf: [Reference]? = nil,
+		questionnaire: FHIRPrimitive<Canonical>? = nil,
+		source: Reference? = nil,
+		status: FHIRPrimitive<QuestionnaireResponseStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(status: status)
 		self.author = author
 		self.authored = authored
@@ -233,15 +233,15 @@ open class QuestionnaireResponseItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answer: [QuestionnaireResponseItemAnswer]? = nil,
-							definition: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							linkId: FHIRPrimitive<FHIRString>,
-							modifierExtension: [Extension]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		answer: [QuestionnaireResponseItemAnswer]? = nil,
+		definition: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		linkId: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(linkId: linkId)
 		self.answer = answer
 		self.definition = definition
@@ -351,12 +351,12 @@ open class QuestionnaireResponseItemAnswer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: [QuestionnaireResponseItem]? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [QuestionnaireResponseItem]? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

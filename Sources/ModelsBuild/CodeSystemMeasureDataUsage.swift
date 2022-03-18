@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@ import FMCore
  */
 public enum MeasureDataUsage: String, FHIRPrimitiveType {
 	
-	/// The data is intended to be provided as additional information alongside the measure results.
-	case supplementalData = "supplemental-data"
-	
 	/// The data is intended to be used to calculate and apply a risk adjustment model for the measure.
 	case riskAdjustmentFactor = "risk-adjustment-factor"
+	
+	/// The data is intended to be provided as additional information alongside the measure results.
+	case supplementalData = "supplemental-data"
 }

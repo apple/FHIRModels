@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,45 +28,52 @@ import FMCore
 public enum ContributorSummaryStyle: String, FHIRPrimitiveType {
 	
 	/// Example: Jennifer Laskowski et al.
-	case a1full = "A1full"
+	case a1full
 	
 	/// Example: Laskowski J et al.
-	case a1init = "A1init"
+	case a1init
 	
 	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, et al.
-	case a3full = "A3full"
+	case a3full
 	
 	/// Example:  Laskowski J, Renner B, Pickering MC, et al.
-	case a3init = "A3init"
+	case a3init
 	
 	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, Natalie J. Serkova, Peter M. Smith-Jones,
 	/// Eric T. Clambey, et al.
-	case a6full = "A6full"
+	case a6full
 	
 	/// Example: Laskowski J, Renner B, Pickering MC, Serkova NJ, Smith-Jones PM, Clambey ET, et al.
-	case a6init = "A6init"
+	case a6init
 	
 	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, Natalie J. Serkova, Peter M. Smith-Jones,
 	/// Eric T. Clambey, Raphael A. Nemenoff, Joshua M. Thurman.
-	case aAllfull = "AAllfull"
-	
-	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, Natalie J. Serkova, Peter M. Smith-Jones,
-	/// Eric T. Clambey, Raphael A. Nemenoff, and Joshua M. Thurman.
-	case aAllfullwithand = "AAllfullwithand"
+	case aallfull
 	
 	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, Natalie J. Serkova, Peter M. Smith-Jones,
 	/// Eric T. Clambey, Raphael A. Nemenoff, & Joshua M. Thurman.
-	case aAllfullwithampersand = "AAllfullwithampersand"
+	case aallfullwithampersand
+	
+	/// Example: Jennifer Laskowski, Brandon Renner, Matthew C. Pickering, Natalie J. Serkova, Peter M. Smith-Jones,
+	/// Eric T. Clambey, Raphael A. Nemenoff, and Joshua M. Thurman.
+	case aallfullwithand
 	
 	/// Example: Laskowski J, Renner B, Pickering MC, Serkova NJ, Smith-Jones PM, Clambey ET, Nemenoff RA, Thurman JM.
-	case aAllinit = "AAllinit"
+	case aallinit
+	
+	/// Example: Laskowski J, Renner B, Pickering MC, Serkova NJ, Smith-Jones PM, Clambey ET, Nemenoff RA, & Thurman JM.
+	case aallinitwithampersand
 	
 	/// Example: Laskowski J, Renner B, Pickering MC, Serkova NJ, Smith-Jones PM, Clambey ET, Nemenoff RA, and Thurman
 	/// JM.
-	case aAllinitwithand = "AAllinitwithand"
+	case aallinitwithand
 	
-	/// Example: Laskowski J, Renner B, Pickering MC, Serkova NJ, Smith-Jones PM, Clambey ET, Nemenoff RA, & Thurman JM.
-	case aAllinitwithampersand = "AAllinitwithampersand"
+	/// Project design by Jennnifer Laskowski (JL), Experiment design by JL and Joshua M. Thurman (JMT), technical
+	/// advice and study design contribution by Matthew C. Pickering, experiments performed by JL, data collection and
+	/// analysis by JL, PET imaging and associated analyses by Natalie J. Serkova and Peter M. Smith-Jones, conceptual
+	/// and technical guidance by Eric T. Clambey (ETC) and Raphael A. Nemenoff (RAN), manuscript writing by JL and JMT,
+	/// manuscript revised critically by JL, Brandon Renner, ETC, and RAN.
+	case contrFullByContr = "contr-full-by-contr"
 	
 	/// Jennnifer Laskowski designed project; developed and performed experiments; collected and analyzed data; wrote
 	/// and revised manuscript. Brandon Renner performed critical review of manuscript. Matthew C. Pickering provided
@@ -74,25 +81,18 @@ public enum ContributorSummaryStyle: String, FHIRPrimitiveType {
 	/// imaging and associated analyses. Eric T. Clambey and Raphael A. Nemenoff provided conceptual and technical
 	/// guidance and critical review of manuscript. Joshua M. Thurman contributed to experimental design and wrote
 	/// manuscript.
-	case contrFullByPerson = "ContrFullByPerson"
+	case contrFullByPerson = "contr-full-by-person"
+	
+	/// Project design by JL, Experiment design by JL and JMT, technical advice and study design contribution by MCP,
+	/// experiments performed by JL, data collection and analysis by JL, PET imaging and associated analyses by NJS and
+	/// PMS-J, conceptual and technical guidance by ETC and RAN, manuscript writing by JL and JMT, manuscript revised
+	/// critically by JL, BR, ETC, and RAN.
+	case contrInitByContr = "contr-init-by-contr"
 	
 	/// J.L. designed project; developed and performed experiments; collected and analyzed data; wrote and revised
 	/// manuscript. B.R. performed critical review of manuscript. M.C.P. provided technical advice and contributed to
 	/// study design. N.J.S and P.M.S.-J. performed PET imaging and associated analyses. E.T.C. and R.A.N provided
 	/// conceptual and technical guidance and critical review of manuscript. J.M.T contributed to experimental design
 	/// and wrote manuscript.
-	case contrInitByPerson = "ContrInitByPerson"
-	
-	/// Project design by Jennnifer Laskowski (JL), Experiment design by JL and Joshua M. Thurman (JMT), technical
-	/// advice and study design contribution by Matthew C. Pickering, experiments performed by JL, data collection and
-	/// analysis by JL, PET imaging and associated analyses by Natalie J. Serkova and Peter M. Smith-Jones, conceptual
-	/// and technical guidance by Eric T. Clambey (ETC) and Raphael A. Nemenoff (RAN), manuscript writing by JL and JMT,
-	/// manuscript revised critically by JL, Brandon Renner, ETC, and RAN.
-	case contrFullByContr = "ContrFullByContr"
-	
-	/// Project design by JL, Experiment design by JL and JMT, technical advice and study design contribution by MCP,
-	/// experiments performed by JL, data collection and analysis by JL, PET imaging and associated analyses by NJS and
-	/// PMS-J, conceptual and technical guidance by ETC and RAN, manuscript writing by JL and JMT, manuscript revised
-	/// critically by JL, BR, ETC, and RAN.
-	case contrInitByContr = "ContrInitByContr"
+	case contrInitByPerson = "contr-init-by-person"
 }

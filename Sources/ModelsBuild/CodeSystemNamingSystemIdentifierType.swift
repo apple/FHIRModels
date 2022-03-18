@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,19 @@ import FMCore
 public enum NamingSystemIdentifierType: String, FHIRPrimitiveType {
 	
 	/// An ISO object identifier; e.g. 1.2.3.4.5.
-	case oid = "oid"
-	
-	/// A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11.
-	case uuid = "uuid"
-	
-	/// A uniform resource identifier (ideally a URL - uniform resource locator); e.g. http://unitsofmeasure.org.
-	case uri = "uri"
+	case oid
 	
 	/// Some other type of unique identifier; e.g. HL7-assigned reserved string such as LN for LOINC.
-	case other = "other"
+	case other
+	
+	/// A uniform resource identifier (ideally a URL - uniform resource locator); e.g. http://unitsofmeasure.org.
+	case uri
+	
+	/// A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11.
+	case uuid
+	
+	/// A short string published by HL7 for use in the V2 family of standsrds to idenfify a code system in the V12 coded
+	/// data types CWE, CNE, and CF. The code values are also published by HL7 at
+	/// http://www.hl7.org/Special/committees/vocab/table_0396/index.cfm
+	case v2csmnemonic
 }

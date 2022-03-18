@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -108,38 +108,38 @@ open class ChargeItemDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							applicability: [ChargeItemDefinitionApplicability]? = nil,
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							code: CodeableConcept? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effectivePeriod: Period? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instance: [Reference]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							partOf: [FHIRPrimitive<Canonical>]? = nil,
-							propertyGroup: [ChargeItemDefinitionPropertyGroup]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							replaces: [FHIRPrimitive<Canonical>]? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		applicability: [ChargeItemDefinitionApplicability]? = nil,
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		code: CodeableConcept? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effectivePeriod: Period? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instance: [Reference]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		partOf: [FHIRPrimitive<Canonical>]? = nil,
+		propertyGroup: [ChargeItemDefinitionPropertyGroup]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		replaces: [FHIRPrimitive<Canonical>]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status, url: url)
 		self.applicability = applicability
 		self.approvalDate = approvalDate
@@ -347,13 +347,13 @@ open class ChargeItemDefinitionApplicability: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.expression = expression
@@ -436,12 +436,12 @@ open class ChargeItemDefinitionPropertyGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							applicability: [ChargeItemDefinitionApplicability]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							priceComponent: [ChargeItemDefinitionPropertyGroupPriceComponent]? = nil)
-	{
+		applicability: [ChargeItemDefinitionApplicability]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		priceComponent: [ChargeItemDefinitionPropertyGroupPriceComponent]? = nil
+	) {
 		self.init()
 		self.applicability = applicability
 		self.`extension` = `extension`
@@ -527,14 +527,14 @@ open class ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Money? = nil,
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<InvoicePriceComponentType>)
-	{
+		amount: Money? = nil,
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<InvoicePriceComponentType>
+	) {
 		self.init(type: type)
 		self.amount = amount
 		self.code = code

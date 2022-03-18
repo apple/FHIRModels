@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum SupplyType: String, FHIRPrimitiveType {
 	
 	/// Supply is stored and requested from central supply.
-	case central = "central"
+	case central
 	
 	/// Supply is not onsite and must be requested from an outside vendor using a non-stock requisition.
-	case nonstock = "nonstock"
+	case nonstock
 }

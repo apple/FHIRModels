@@ -2,8 +2,8 @@
 //  SupplyDelivery.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SupplyDelivery)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SupplyDelivery)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -76,26 +76,26 @@ open class SupplyDelivery: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							destination: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							occurrence: OccurrenceX? = nil,
-							partOf: [Reference]? = nil,
-							patient: Reference? = nil,
-							receiver: [Reference]? = nil,
-							status: FHIRPrimitive<SupplyDeliveryStatus>? = nil,
-							suppliedItem: SupplyDeliverySuppliedItem? = nil,
-							supplier: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		destination: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		occurrence: OccurrenceX? = nil,
+		partOf: [Reference]? = nil,
+		patient: Reference? = nil,
+		receiver: [Reference]? = nil,
+		status: FHIRPrimitive<SupplyDeliveryStatus>? = nil,
+		suppliedItem: SupplyDeliverySuppliedItem? = nil,
+		supplier: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.basedOn = basedOn
 		self.contained = contained
@@ -267,12 +267,12 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,28 +29,28 @@ public enum AppointmentStatus: String, FHIRPrimitiveType {
 	
 	/// None of the participant(s) have finalized their acceptance of the appointment request, and the start/end time
 	/// might not be set yet.
-	case proposed = "proposed"
+	case proposed
 	
 	/// Some or all of the participant(s) have not finalized their acceptance of the appointment request.
-	case pending = "pending"
+	case pending
 	
 	/// All participant(s) have been considered and the appointment is confirmed to go ahead at the date/times
 	/// specified.
-	case booked = "booked"
+	case booked
 	
 	/// The patient/patients has/have arrived and is/are waiting to be seen.
-	case arrived = "arrived"
+	case arrived
 	
 	/// The planning stages of the appointment are now complete, the encounter resource will exist and will track
 	/// further status changes. Note that an encounter may exist before the appointment status is fulfilled for many
 	/// reasons.
-	case fulfilled = "fulfilled"
+	case fulfilled
 	
 	/// The appointment has been cancelled.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// Some or all of the participant(s) have not/did not appear for the appointment (usually the patient).
-	case noshow = "noshow"
+	case noshow
 	
 	/// This instance should not have been part of this patient's medical record.
 	case enteredInError = "entered-in-error"
@@ -62,5 +62,5 @@ public enum AppointmentStatus: String, FHIRPrimitiveType {
 	/// The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a slot/service is
 	/// available.
 	/// A specific time might or might not be pre-allocated.
-	case waitlist = "waitlist"
+	case waitlist
 }

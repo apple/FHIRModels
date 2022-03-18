@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,83 +29,83 @@ import FMCore
 public enum NHINPurposeOfUse: String, FHIRPrimitiveType {
 	
 	/// Treatment
-	case TREATMENT = "TREATMENT"
+	case TREATMENT
 	
 	/// Payment
-	case PAYMENT = "PAYMENT"
+	case PAYMENT
 	
 	/// Healthcare Operations
-	case OPERATIONS = "OPERATIONS"
+	case OPERATIONS
 	
 	/// System Administration
-	case SYSADMIN = "SYSADMIN"
+	case SYSADMIN
 	
 	/// Fraud detection
-	case FRAUD = "FRAUD"
+	case FRAUD
 	
 	/// Use or disclosure of Psychotherapy Notes
-	case PSYCHOTHERAPY = "PSYCHOTHERAPY"
+	case PSYCHOTHERAPY
 	
 	/// Use or disclosure by the covered entity for its own training programs
-	case TRAINING = "TRAINING"
+	case TRAINING
 	
 	/// Use or disclosure by the covered entity to defend itself in a legal action
-	case LEGAL = "LEGAL"
+	case LEGAL
 	
 	/// Marketing
-	case MARKETING = "MARKETING"
+	case MARKETING
 	
 	/// Use and disclosure for facility directories
-	case DIRECTORY = "DIRECTORY"
+	case DIRECTORY
 	
 	/// Disclose to a family member, other relative, or a close personal friend of the individual
-	case FAMILY = "FAMILY"
+	case FAMILY
 	
 	/// Uses and disclosures with the individual present.
-	case PRESENT = "PRESENT"
+	case PRESENT
 	
 	/// Permission cannot practicably be provided because of the individual's incapacity or an emergency.
-	case EMERGENCY = "EMERGENCY"
+	case EMERGENCY
 	
 	/// Use and disclosures for disaster relief purposes.
-	case DISASTER = "DISASTER"
+	case DISASTER
 	
 	/// Uses and disclosures for public health activities.
-	case PUBLICHEALTH = "PUBLICHEALTH"
+	case PUBLICHEALTH
 	
 	/// Disclosures about victims of abuse, neglect or domestic violence.
-	case ABUSE = "ABUSE"
+	case ABUSE
 	
 	/// Uses and disclosures for health oversight activities.
-	case OVERSIGHT = "OVERSIGHT"
+	case OVERSIGHT
 	
 	/// Disclosures for judicial and administrative proceedings.
-	case JUDICIAL = "JUDICIAL"
+	case JUDICIAL
 	
 	/// Disclosures for law enforcement purposes.
-	case LAW = "LAW"
+	case LAW
 	
 	/// Uses and disclosures about decedents.
-	case DECEASED = "DECEASED"
+	case DECEASED
 	
 	/// Uses and disclosures for cadaveric organ,  eye or tissue donation purposes
-	case DONATION = "DONATION"
+	case DONATION
 	
 	/// Uses and disclosures for research purposes.
-	case RESEARCH = "RESEARCH"
+	case RESEARCH
 	
 	/// Uses and disclosures to avert a serious threat to health or safety.
-	case THREAT = "THREAT"
+	case THREAT
 	
 	/// Uses and disclosures for specialized government functions.
-	case GOVERNMENT = "GOVERNMENT"
+	case GOVERNMENT
 	
 	/// Disclosures for workers' compensation.
-	case WORKERSCOMP = "WORKERSCOMP"
+	case WORKERSCOMP
 	
 	/// Disclosures for insurance or disability coverage determination
-	case COVERAGE = "COVERAGE"
+	case COVERAGE
 	
 	/// Request of the Individual
-	case REQUEST = "REQUEST"
+	case REQUEST
 }

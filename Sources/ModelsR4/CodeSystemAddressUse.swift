@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,17 +28,17 @@ import FMCore
 public enum AddressUse: String, FHIRPrimitiveType {
 	
 	/// A communication address at a home.
-	case home = "home"
+	case home
 	
 	/// An office address. First choice for business related contacts during business hours.
-	case work = "work"
+	case work
 	
 	/// A temporary address. The period can provide more detailed information.
-	case temp = "temp"
+	case temp
 	
 	/// This address is no longer in use (or was never correct but retained for records).
-	case old = "old"
+	case old
 	
 	/// An address to be used to send bills, invoices, receipts etc.
-	case billing = "billing"
+	case billing
 }

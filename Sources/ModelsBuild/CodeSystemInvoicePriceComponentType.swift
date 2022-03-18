@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum InvoicePriceComponentType: String, FHIRPrimitiveType {
 	
 	/// the amount is the base price used for calculating the total price before applying surcharges, discount or taxes.
-	case base = "base"
-	
-	/// the amount is a surcharge applied on the base price.
-	case surcharge = "surcharge"
+	case base
 	
 	/// the amount is a deduction applied on the base price.
-	case deduction = "deduction"
+	case deduction
 	
 	/// the amount is a discount applied on the base price.
-	case discount = "discount"
-	
-	/// the amount is the tax component of the total price.
-	case tax = "tax"
+	case discount
 	
 	/// the amount is of informational character, it has not been applied in the calculation of the total price.
-	case informational = "informational"
+	case informational
+	
+	/// the amount is a surcharge applied on the base price.
+	case surcharge
+	
+	/// the amount is the tax component of the total price.
+	case tax
 }

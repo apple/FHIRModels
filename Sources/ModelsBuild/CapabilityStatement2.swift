@@ -2,8 +2,8 @@
 //  CapabilityStatement2.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/CapabilityStatement2)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement2)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -118,39 +118,39 @@ open class CapabilityStatement2: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							fhirVersion: FHIRPrimitive<FHIRString>,
-							format: [FHIRPrimitive<FHIRString>],
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implementation: CapabilityStatement2Implementation? = nil,
-							implementationGuide: [FHIRPrimitive<Canonical>]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							imports: [FHIRPrimitive<Canonical>]? = nil,
-							instantiates: [FHIRPrimitive<Canonical>]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<CapabilityStatementKind>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							patchFormat: [FHIRPrimitive<FHIRString>]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							rest: [CapabilityStatement2Rest]? = nil,
-							software: CapabilityStatement2Software? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		fhirVersion: FHIRPrimitive<FHIRString>,
+		format: [FHIRPrimitive<FHIRString>],
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implementation: CapabilityStatement2Implementation? = nil,
+		implementationGuide: [FHIRPrimitive<Canonical>]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		imports: [FHIRPrimitive<Canonical>]? = nil,
+		instantiates: [FHIRPrimitive<Canonical>]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<CapabilityStatementKind>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		patchFormat: [FHIRPrimitive<FHIRString>]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		rest: [CapabilityStatement2Rest]? = nil,
+		software: CapabilityStatement2Software? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(date: date, fhirVersion: fhirVersion, format: format, kind: kind, status: status)
 		self.contact = contact
 		self.contained = contained
@@ -363,13 +363,13 @@ open class CapabilityStatement2Implementation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							custodian: Reference? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		custodian: Reference? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.custodian = custodian
 		self.`extension` = `extension`
@@ -444,6 +444,9 @@ open class CapabilityStatement2Rest: BackboneElement {
 	/// General description of implementation
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// Resource served on the REST interface
 	public var resource: [CapabilityStatement2RestResource]?
 	
@@ -467,21 +470,23 @@ open class CapabilityStatement2Rest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							compartment: [FHIRPrimitive<Canonical>]? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interaction: [CapabilityStatement2RestInteraction]? = nil,
-							mode: FHIRPrimitive<RestfulCapabilityMode>,
-							modifierExtension: [Extension]? = nil,
-							operation: [CapabilityStatement2RestResourceOperation]? = nil,
-							resource: [CapabilityStatement2RestResource]? = nil,
-							searchParam: [CapabilityStatement2RestResourceSearchParam]? = nil)
-	{
+		compartment: [FHIRPrimitive<Canonical>]? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interaction: [CapabilityStatement2RestInteraction]? = nil,
+		mode: FHIRPrimitive<RestfulCapabilityMode>,
+		modifierExtension: [Extension]? = nil,
+		operation: [CapabilityStatement2RestResourceOperation]? = nil,
+		resource: [CapabilityStatement2RestResource]? = nil,
+		searchParam: [CapabilityStatement2RestResourceSearchParam]? = nil
+	) {
 		self.init(mode: mode)
 		self.compartment = compartment
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.interaction = interaction
 		self.modifierExtension = modifierExtension
@@ -495,6 +500,7 @@ open class CapabilityStatement2Rest: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case compartment; case _compartment
 		case documentation; case _documentation
+		case feature
 		case interaction
 		case mode; case _mode
 		case operation
@@ -509,6 +515,7 @@ open class CapabilityStatement2Rest: BackboneElement {
 		// Decode all our properties
 		self.compartment = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .compartment, auxiliaryKey: ._compartment)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		self.interaction = try [CapabilityStatement2RestInteraction](from: _container, forKeyIfPresent: .interaction)
 		self.mode = try FHIRPrimitive<RestfulCapabilityMode>(from: _container, forKey: .mode, auxiliaryKey: ._mode)
 		self.operation = try [CapabilityStatement2RestResourceOperation](from: _container, forKeyIfPresent: .operation)
@@ -524,6 +531,7 @@ open class CapabilityStatement2Rest: BackboneElement {
 		// Encode all our properties
 		try compartment?.encode(on: &_container, forKey: .compartment, auxiliaryKey: ._compartment)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try interaction?.encode(on: &_container, forKey: .interaction)
 		try mode.encode(on: &_container, forKey: .mode, auxiliaryKey: ._mode)
 		try operation?.encode(on: &_container, forKey: .operation)
@@ -543,6 +551,7 @@ open class CapabilityStatement2Rest: BackboneElement {
 		}
 		return compartment == _other.compartment
 		    && documentation == _other.documentation
+		    && feature == _other.feature
 		    && interaction == _other.interaction
 		    && mode == _other.mode
 		    && operation == _other.operation
@@ -554,11 +563,93 @@ open class CapabilityStatement2Rest: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(compartment)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 		hasher.combine(interaction)
 		hasher.combine(mode)
 		hasher.combine(operation)
 		hasher.combine(resource)
 		hasher.combine(searchParam)
+	}
+}
+
+/**
+ Statement of support for a feature.
+ 
+ A statement that affirms support for a feature.
+ */
+open class CapabilityStatement2RestFeature: BackboneElement {
+	
+	/// Feature that is being reported
+	public var code: FHIRPrimitive<FHIRString>
+	
+	/// Value of the feature (true, false, or a code)
+	public var value: FHIRPrimitive<FHIRString>
+	
+	/// Designated initializer taking all required properties
+	public init(code: FHIRPrimitive<FHIRString>, value: FHIRPrimitive<FHIRString>) {
+		self.code = code
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
+		self.init(code: code, value: value)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code; case _code
+		case value; case _value
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKey: .code, auxiliaryKey: ._code)
+		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
+		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? CapabilityStatement2RestFeature else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(value)
 	}
 }
 
@@ -576,6 +667,9 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 	/// Anything special about operation behavior
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature in this context
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// Designated initializer taking all required properties
 	public init(code: FHIRPrimitive<FHIRRestfulInteractions>) {
 		self.code = code
@@ -584,15 +678,17 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRRestfulInteractions>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<FHIRRestfulInteractions>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
@@ -602,6 +698,7 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
 		case documentation; case _documentation
+		case feature
 	}
 	
 	/// Initializer for Decodable
@@ -611,6 +708,7 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 		// Decode all our properties
 		self.code = try FHIRPrimitive<FHIRRestfulInteractions>(from: _container, forKey: .code, auxiliaryKey: ._code)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		try super.init(from: decoder)
 	}
 	
@@ -621,6 +719,7 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try super.encode(to: encoder)
 	}
 	
@@ -635,12 +734,14 @@ open class CapabilityStatement2RestInteraction: BackboneElement {
 		}
 		return code == _other.code
 		    && documentation == _other.documentation
+		    && feature == _other.feature
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 	}
 }
 
@@ -663,6 +764,9 @@ open class CapabilityStatement2RestResource: BackboneElement {
 	/// Additional information about the use of the resource type
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature in this context
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// What operations are supported?
 	public var interaction: [CapabilityStatement2RestResourceInteraction]?
 	
@@ -680,20 +784,22 @@ open class CapabilityStatement2RestResource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interaction: [CapabilityStatement2RestResourceInteraction]? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: [CapabilityStatement2RestResourceOperation]? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							searchParam: [CapabilityStatement2RestResourceSearchParam]? = nil,
-							supportedProfile: [FHIRPrimitive<Canonical>]? = nil,
-							type: FHIRPrimitive<ResourceType>)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interaction: [CapabilityStatement2RestResourceInteraction]? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: [CapabilityStatement2RestResourceOperation]? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		searchParam: [CapabilityStatement2RestResourceSearchParam]? = nil,
+		supportedProfile: [FHIRPrimitive<Canonical>]? = nil,
+		type: FHIRPrimitive<ResourceType>
+	) {
 		self.init(type: type)
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.interaction = interaction
 		self.modifierExtension = modifierExtension
@@ -707,6 +813,7 @@ open class CapabilityStatement2RestResource: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case documentation; case _documentation
+		case feature
 		case interaction
 		case operation
 		case profile; case _profile
@@ -721,6 +828,7 @@ open class CapabilityStatement2RestResource: BackboneElement {
 		
 		// Decode all our properties
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		self.interaction = try [CapabilityStatement2RestResourceInteraction](from: _container, forKeyIfPresent: .interaction)
 		self.operation = try [CapabilityStatement2RestResourceOperation](from: _container, forKeyIfPresent: .operation)
 		self.profile = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .profile, auxiliaryKey: ._profile)
@@ -736,6 +844,7 @@ open class CapabilityStatement2RestResource: BackboneElement {
 		
 		// Encode all our properties
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try interaction?.encode(on: &_container, forKey: .interaction)
 		try operation?.encode(on: &_container, forKey: .operation)
 		try profile?.encode(on: &_container, forKey: .profile, auxiliaryKey: ._profile)
@@ -755,6 +864,7 @@ open class CapabilityStatement2RestResource: BackboneElement {
 			return false
 		}
 		return documentation == _other.documentation
+		    && feature == _other.feature
 		    && interaction == _other.interaction
 		    && operation == _other.operation
 		    && profile == _other.profile
@@ -766,6 +876,7 @@ open class CapabilityStatement2RestResource: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 		hasher.combine(interaction)
 		hasher.combine(operation)
 		hasher.combine(profile)
@@ -790,6 +901,9 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 	/// Anything special about operation behavior
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature in this context
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// Designated initializer taking all required properties
 	public init(code: FHIRPrimitive<FHIRRestfulInteractions>) {
 		self.code = code
@@ -798,15 +912,17 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRRestfulInteractions>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<FHIRRestfulInteractions>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
@@ -816,6 +932,7 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
 		case documentation; case _documentation
+		case feature
 	}
 	
 	/// Initializer for Decodable
@@ -825,6 +942,7 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 		// Decode all our properties
 		self.code = try FHIRPrimitive<FHIRRestfulInteractions>(from: _container, forKey: .code, auxiliaryKey: ._code)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		try super.init(from: decoder)
 	}
 	
@@ -835,6 +953,7 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try super.encode(to: encoder)
 	}
 	
@@ -849,12 +968,14 @@ open class CapabilityStatement2RestResourceInteraction: BackboneElement {
 		}
 		return code == _other.code
 		    && documentation == _other.documentation
+		    && feature == _other.feature
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 	}
 }
 
@@ -875,6 +996,9 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 	/// Specific details about operation behavior
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature in this context
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// Designated initializer taking all required properties
 	public init(definition: FHIRPrimitive<Canonical>, name: FHIRPrimitive<FHIRString>) {
 		self.definition = definition
@@ -884,16 +1008,18 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>)
-	{
+		definition: FHIRPrimitive<Canonical>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>
+	) {
 		self.init(definition: definition, name: name)
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
@@ -903,6 +1029,7 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case definition; case _definition
 		case documentation; case _documentation
+		case feature
 		case name; case _name
 	}
 	
@@ -913,6 +1040,7 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 		// Decode all our properties
 		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKey: .definition, auxiliaryKey: ._definition)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
 		try super.init(from: decoder)
 	}
@@ -924,6 +1052,7 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 		// Encode all our properties
 		try definition.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try super.encode(to: encoder)
 	}
@@ -939,6 +1068,7 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 		}
 		return definition == _other.definition
 		    && documentation == _other.documentation
+		    && feature == _other.feature
 		    && name == _other.name
 	}
 	
@@ -946,6 +1076,7 @@ open class CapabilityStatement2RestResourceOperation: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(definition)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 		hasher.combine(name)
 	}
 }
@@ -970,6 +1101,9 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 	/// Server-specific usage
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
+	/// Statement of support for a feature in this context
+	public var feature: [CapabilityStatement2RestFeature]?
+	
 	/// Designated initializer taking all required properties
 	public init(name: FHIRPrimitive<FHIRString>, type: FHIRPrimitive<SearchParamType>) {
 		self.name = name
@@ -979,18 +1113,20 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<SearchParamType>)
-	{
+		definition: FHIRPrimitive<Canonical>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		feature: [CapabilityStatement2RestFeature]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<SearchParamType>
+	) {
 		self.init(name: name, type: type)
 		self.definition = definition
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.feature = feature
 		self.id = id
 		self.modifierExtension = modifierExtension
 	}
@@ -1000,6 +1136,7 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case definition; case _definition
 		case documentation; case _documentation
+		case feature
 		case name; case _name
 		case type; case _type
 	}
@@ -1011,6 +1148,7 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 		// Decode all our properties
 		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.feature = try [CapabilityStatement2RestFeature](from: _container, forKeyIfPresent: .feature)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
 		self.type = try FHIRPrimitive<SearchParamType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
@@ -1023,6 +1161,7 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 		// Encode all our properties
 		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try feature?.encode(on: &_container, forKey: .feature)
 		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
@@ -1039,6 +1178,7 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 		}
 		return definition == _other.definition
 		    && documentation == _other.documentation
+		    && feature == _other.feature
 		    && name == _other.name
 		    && type == _other.type
 	}
@@ -1047,6 +1187,7 @@ open class CapabilityStatement2RestResourceSearchParam: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(definition)
 		hasher.combine(documentation)
+		hasher.combine(feature)
 		hasher.combine(name)
 		hasher.combine(type)
 	}
@@ -1077,13 +1218,13 @@ open class CapabilityStatement2Software: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							releaseDate: FHIRPrimitive<DateTime>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		releaseDate: FHIRPrimitive<DateTime>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.`extension` = `extension`
 		self.id = id

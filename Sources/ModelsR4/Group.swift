@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Group)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -69,25 +69,25 @@ open class Group: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							actual: FHIRPrimitive<FHIRBool>,
-							characteristic: [GroupCharacteristic]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingEntity: Reference? = nil,
-							member: [GroupMember]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							quantity: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<GroupType>)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		actual: FHIRPrimitive<FHIRBool>,
+		characteristic: [GroupCharacteristic]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingEntity: Reference? = nil,
+		member: [GroupMember]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		quantity: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<GroupType>
+	) {
 		self.init(actual: actual, type: type)
 		self.active = active
 		self.characteristic = characteristic
@@ -233,14 +233,14 @@ open class GroupCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							exclude: FHIRPrimitive<FHIRBool>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							value: ValueX)
-	{
+		code: CodeableConcept,
+		exclude: FHIRPrimitive<FHIRBool>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		value: ValueX
+	) {
 		self.init(code: code, exclude: exclude, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -382,13 +382,13 @@ open class GroupMember: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							entity: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							inactive: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil)
-	{
+		entity: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		inactive: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil
+	) {
 		self.init(entity: entity)
 		self.`extension` = `extension`
 		self.id = id

@@ -2,8 +2,8 @@
 //  Practitioner.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Practitioner)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Practitioner)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,6 +28,12 @@ open class Practitioner: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .practitioner }
 	
+	/// All possible types for "deceased[x]"
+	public enum DeceasedX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case dateTime(FHIRPrimitive<DateTime>)
+	}
+	
 	/// An identifier for the person as this agent
 	public var identifier: [Identifier]?
 	
@@ -39,6 +45,10 @@ open class Practitioner: DomainResource {
 	
 	/// A contact detail for the practitioner (that apply to all roles)
 	public var telecom: [ContactPoint]?
+	
+	/// Indicates if the practitioner is deceased or not
+	/// One of `deceased[x]`
+	public var deceased: DeceasedX?
 	
 	/// Address(es) of the practitioner that are not role specific (typically home address)
 	public var address: [Address]?
@@ -66,31 +76,33 @@ open class Practitioner: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							birthDate: FHIRPrimitive<FHIRDate>? = nil,
-							communication: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: [HumanName]? = nil,
-							photo: [Attachment]? = nil,
-							qualification: [PractitionerQualification]? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		birthDate: FHIRPrimitive<FHIRDate>? = nil,
+		communication: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		deceased: DeceasedX? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: [HumanName]? = nil,
+		photo: [Attachment]? = nil,
+		qualification: [PractitionerQualification]? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.active = active
 		self.address = address
 		self.birthDate = birthDate
 		self.communication = communication
 		self.contained = contained
+		self.deceased = deceased
 		self.`extension` = `extension`
 		self.gender = gender
 		self.id = id
@@ -113,6 +125,8 @@ open class Practitioner: DomainResource {
 		case address
 		case birthDate; case _birthDate
 		case communication
+		case deceasedBoolean; case _deceasedBoolean
+		case deceasedDateTime; case _deceasedDateTime
 		case gender; case _gender
 		case identifier
 		case name
@@ -130,6 +144,20 @@ open class Practitioner: DomainResource {
 		self.address = try [Address](from: _container, forKeyIfPresent: .address)
 		self.birthDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .birthDate, auxiliaryKey: ._birthDate)
 		self.communication = try [CodeableConcept](from: _container, forKeyIfPresent: .communication)
+		var _t_deceased: DeceasedX? = nil
+		if let deceasedBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .deceasedBoolean, auxiliaryKey: ._deceasedBoolean) {
+			if _t_deceased != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deceasedBoolean, in: _container, debugDescription: "More than one value provided for \"deceased\"")
+			}
+			_t_deceased = .boolean(deceasedBoolean)
+		}
+		if let deceasedDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .deceasedDateTime, auxiliaryKey: ._deceasedDateTime) {
+			if _t_deceased != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deceasedDateTime, in: _container, debugDescription: "More than one value provided for \"deceased\"")
+			}
+			_t_deceased = .dateTime(deceasedDateTime)
+		}
+		self.deceased = _t_deceased
 		self.gender = try FHIRPrimitive<AdministrativeGender>(from: _container, forKeyIfPresent: .gender, auxiliaryKey: ._gender)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.name = try [HumanName](from: _container, forKeyIfPresent: .name)
@@ -148,6 +176,14 @@ open class Practitioner: DomainResource {
 		try address?.encode(on: &_container, forKey: .address)
 		try birthDate?.encode(on: &_container, forKey: .birthDate, auxiliaryKey: ._birthDate)
 		try communication?.encode(on: &_container, forKey: .communication)
+		if let _enum = deceased {
+			switch _enum {
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .deceasedBoolean, auxiliaryKey: ._deceasedBoolean)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .deceasedDateTime, auxiliaryKey: ._deceasedDateTime)
+			}
+		}
 		try gender?.encode(on: &_container, forKey: .gender, auxiliaryKey: ._gender)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try name?.encode(on: &_container, forKey: .name)
@@ -170,6 +206,7 @@ open class Practitioner: DomainResource {
 		    && address == _other.address
 		    && birthDate == _other.birthDate
 		    && communication == _other.communication
+		    && deceased == _other.deceased
 		    && gender == _other.gender
 		    && identifier == _other.identifier
 		    && name == _other.name
@@ -184,6 +221,7 @@ open class Practitioner: DomainResource {
 		hasher.combine(address)
 		hasher.combine(birthDate)
 		hasher.combine(communication)
+		hasher.combine(deceased)
 		hasher.combine(gender)
 		hasher.combine(identifier)
 		hasher.combine(name)
@@ -198,7 +236,7 @@ open class Practitioner: DomainResource {
  
  The official certifications, training, and licenses that authorize or otherwise pertain to the provision of care by the
  practitioner.  For example, a medical license issued by a medical board authorizing the practitioner to practice
- medicine within a certian locality.
+ medicine within a certain locality.
  */
 open class PractitionerQualification: BackboneElement {
 	
@@ -222,14 +260,14 @@ open class PractitionerQualification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							issuer: Reference? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		issuer: Reference? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.id = id

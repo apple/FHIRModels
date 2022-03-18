@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DeviceDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -110,37 +110,37 @@ open class DeviceDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							capability: [DeviceDefinitionCapability]? = nil,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							deviceName: [DeviceDefinitionDeviceName]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							languageCode: [CodeableConcept]? = nil,
-							manufacturer: ManufacturerX? = nil,
-							material: [DeviceDefinitionMaterial]? = nil,
-							meta: Meta? = nil,
-							modelNumber: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onlineInformation: FHIRPrimitive<FHIRURI>? = nil,
-							owner: Reference? = nil,
-							parentDevice: Reference? = nil,
-							physicalCharacteristics: ProdCharacteristic? = nil,
-							property: [DeviceDefinitionProperty]? = nil,
-							quantity: Quantity? = nil,
-							safety: [CodeableConcept]? = nil,
-							shelfLifeStorage: [ProductShelfLife]? = nil,
-							specialization: [DeviceDefinitionSpecialization]? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							udiDeviceIdentifier: [DeviceDefinitionUdiDeviceIdentifier]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							version: [FHIRPrimitive<FHIRString>]? = nil)
-	{
+		capability: [DeviceDefinitionCapability]? = nil,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		deviceName: [DeviceDefinitionDeviceName]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		languageCode: [CodeableConcept]? = nil,
+		manufacturer: ManufacturerX? = nil,
+		material: [DeviceDefinitionMaterial]? = nil,
+		meta: Meta? = nil,
+		modelNumber: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onlineInformation: FHIRPrimitive<FHIRURI>? = nil,
+		owner: Reference? = nil,
+		parentDevice: Reference? = nil,
+		physicalCharacteristics: ProdCharacteristic? = nil,
+		property: [DeviceDefinitionProperty]? = nil,
+		quantity: Quantity? = nil,
+		safety: [CodeableConcept]? = nil,
+		shelfLifeStorage: [ProductShelfLife]? = nil,
+		specialization: [DeviceDefinitionSpecialization]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		udiDeviceIdentifier: [DeviceDefinitionUdiDeviceIdentifier]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		version: [FHIRPrimitive<FHIRString>]? = nil
+	) {
 		self.init()
 		self.capability = capability
 		self.contact = contact
@@ -361,12 +361,12 @@ open class DeviceDefinitionCapability: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		description_fhir: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -442,12 +442,12 @@ open class DeviceDefinitionDeviceName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<DeviceNameType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<DeviceNameType>
+	) {
 		self.init(name: name, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -523,13 +523,13 @@ open class DeviceDefinitionMaterial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allergenicIndicator: FHIRPrimitive<FHIRBool>? = nil,
-							alternate: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							substance: CodeableConcept)
-	{
+		allergenicIndicator: FHIRPrimitive<FHIRBool>? = nil,
+		alternate: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		substance: CodeableConcept
+	) {
 		self.init(substance: substance)
 		self.allergenicIndicator = allergenicIndicator
 		self.alternate = alternate
@@ -612,13 +612,13 @@ open class DeviceDefinitionProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							valueCode: [CodeableConcept]? = nil,
-							valueQuantity: [Quantity]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		valueCode: [CodeableConcept]? = nil,
+		valueQuantity: [Quantity]? = nil
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -699,12 +699,12 @@ open class DeviceDefinitionSpecialization: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							systemType: FHIRPrimitive<FHIRString>,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		systemType: FHIRPrimitive<FHIRString>,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(systemType: systemType)
 		self.`extension` = `extension`
 		self.id = id
@@ -788,13 +788,13 @@ open class DeviceDefinitionUdiDeviceIdentifier: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							deviceIdentifier: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							issuer: FHIRPrimitive<FHIRURI>,
-							jurisdiction: FHIRPrimitive<FHIRURI>,
-							modifierExtension: [Extension]? = nil)
-	{
+		deviceIdentifier: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		issuer: FHIRPrimitive<FHIRURI>,
+		jurisdiction: FHIRPrimitive<FHIRURI>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(deviceIdentifier: deviceIdentifier, issuer: issuer, jurisdiction: jurisdiction)
 		self.`extension` = `extension`
 		self.id = id

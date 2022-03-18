@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Goal)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -95,31 +95,31 @@ open class Goal: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							achievementStatus: CodeableConcept? = nil,
-							addresses: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: CodeableConcept,
-							expressedBy: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lifecycleStatus: FHIRPrimitive<GoalLifecycleStatus>,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							outcomeCode: [CodeableConcept]? = nil,
-							outcomeReference: [Reference]? = nil,
-							priority: CodeableConcept? = nil,
-							start: StartX? = nil,
-							statusDate: FHIRPrimitive<FHIRDate>? = nil,
-							statusReason: FHIRPrimitive<FHIRString>? = nil,
-							subject: Reference,
-							target: [GoalTarget]? = nil,
-							text: Narrative? = nil)
-	{
+		achievementStatus: CodeableConcept? = nil,
+		addresses: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: CodeableConcept,
+		expressedBy: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lifecycleStatus: FHIRPrimitive<GoalLifecycleStatus>,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		outcomeCode: [CodeableConcept]? = nil,
+		outcomeReference: [Reference]? = nil,
+		priority: CodeableConcept? = nil,
+		start: StartX? = nil,
+		statusDate: FHIRPrimitive<FHIRDate>? = nil,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
+		subject: Reference,
+		target: [GoalTarget]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(description_fhir: description_fhir, lifecycleStatus: lifecycleStatus, subject: subject)
 		self.achievementStatus = achievementStatus
 		self.addresses = addresses
@@ -324,13 +324,13 @@ open class GoalTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: DetailX? = nil,
-							due: DueX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measure: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		detail: DetailX? = nil,
+		due: DueX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measure: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.detail = detail
 		self.due = due

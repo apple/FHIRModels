@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,18 +34,18 @@ public enum ContractContentDerivationCodes: String, FHIRPrimitiveType {
 	/// is derived.  This derivative content may be used to register the basal content as it changes status in its
 	/// lifecycle.  For example, content registration may occur when the basal content is created, updated, inactive, or
 	/// deleted.
-	case registration = "registration"
+	case registration
 	
 	/// A content derivative that conveys sufficient information to locate and retrieve the content.
-	case retrieval = "retrieval"
+	case retrieval
 	
 	/// Content derivative that has less than full fidelity to the basal information source from which it was
 	/// 'transcribed'. It provides recipients with the full content representation they may require for compliance
 	/// purposes, and typically include a reference to or an attached unstructured representation for recipients needing
 	/// an exact copy of the legal agreement.
-	case statement = "statement"
+	case statement
 	
 	/// A Content Derivative that conveys sufficient information to determine the authorized entities with which the
 	/// content may be shared.
-	case shareable = "shareable"
+	case shareable
 }

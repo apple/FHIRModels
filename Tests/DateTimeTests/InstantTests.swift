@@ -87,26 +87,29 @@ class InstantTests: XCTestCase {
 		let string3 = "2017-12-09T07:30:51-02:00"
 		let instant3 = try! Instant(string3)
 		XCTAssertNotEqual(instant, instant3)
-		
-		// TODO: will be easier with https://github.pie.apple.com/Health/FHIRModels/issues/5
-		let instantDateComponents1 = DateComponents(timeZone: instant.timeZone,
-													year: instant.date.year,
-													month: Int(instant.date.month),
-													day: Int(instant.date.day),
-													hour: Int(instant.time.hour),
-													minute: Int(instant.time.minute),
-													second: Int(instant.time.second.description))
-		let instantDateComponents2 = DateComponents(timeZone: instant3.timeZone,
-													year: instant3.date.year,
-													month: Int(instant3.date.month),
-													day: Int(instant3.date.day),
-													hour: Int(instant3.time.hour),
-													minute: Int(instant3.time.minute),
-													second: Int(instant3.time.second.description))
-		XCTAssertNotEqual(instantDateComponents1, instantDateComponents2)
-		let date1 = Calendar(identifier: .gregorian).date(from: instantDateComponents1)
-		let date2 = Calendar(identifier: .gregorian).date(from: instantDateComponents2)
-		XCTAssertNotNil(date1)
-		XCTAssertEqual(date1, date2)
+        XCTAssertEqual(try instant.asNSDate(), try instant3.asNSDate())
 	}
+    
+    func testComparison() throws {
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T22:33:45Z", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T21:33:44-02:00", compares: .orderedAscending)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T23:33:45+01:00", compares: .orderedAscending)
+        
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T22:33:44Z", compares: .orderedSame)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T20:33:44-02:00", compares: .orderedSame)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T23:33:44+01:00", compares: .orderedSame)
+        
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T22:32:44Z", compares: .orderedDescending)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T23:32:44+02:00", compares: .orderedDescending)
+        try assertLeftToRight("2021-08-14T22:33:44Z", "2021-08-14T19:32:44-03:00", compares: .orderedDescending)
+    }
+    
+    // MARK: - Tools
+    
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+        let leftInstant = try Instant(left)
+        let rightInstant = try Instant(right)
+		XCTAssertEqual(try leftInstant.compare(rightInstant), compares, file: file, line: line)
+
+    }
 }

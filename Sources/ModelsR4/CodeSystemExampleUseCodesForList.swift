@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,30 +28,30 @@ import FMCore
 public enum ExampleUseCodesForList: String, FHIRPrimitiveType {
 	
 	/// A list of alerts for the patient.
-	case alerts = "alerts"
+	case alerts
 	
 	/// A list of part adverse reactions.
-	case adverserxns = "adverserxns"
+	case adverserxns
 	
 	/// A list of Allergies for the patient.
-	case allergies = "allergies"
+	case allergies
 	
 	/// A list of medication statements for the patient.
-	case medications = "medications"
+	case medications
 	
 	/// A list of problems that the patient is known of have (or have had in the past).
-	case problems = "problems"
+	case problems
 	
 	/// A list of items that constitute a set of work to be performed (typically this code would be specialized for more
 	/// specific uses, such as a ward round list).
-	case worklist = "worklist"
+	case worklist
 	
 	/// A list of items waiting for an event (perhaps a surgical patient waiting list).
-	case waiting = "waiting"
+	case waiting
 	
 	/// A set of protocols to be followed.
-	case protocols = "protocols"
+	case protocols
 	
 	/// A set of care plans that apply in a particular context of care.
-	case plans = "plans"
+	case plans
 }

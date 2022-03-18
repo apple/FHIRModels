@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,19 +28,19 @@ import FMCore
 public enum ConsentState: String, FHIRPrimitiveType {
 	
 	/// The consent is in development or awaiting use but is not yet intended to be acted upon.
-	case draft = "draft"
+	case draft
 	
 	/// The consent has been proposed but not yet agreed to by all parties. The negotiation stage.
-	case proposed = "proposed"
+	case proposed
 	
 	/// The consent is to be followed and enforced.
-	case active = "active"
+	case active
 	
 	/// The consent has been rejected by one or more of the parties.
-	case rejected = "rejected"
+	case rejected
 	
 	/// The consent is terminated or replaced.
-	case inactive = "inactive"
+	case inactive
 	
 	/// The consent was created wrongly (e.g. wrong patient) and should be ignored.
 	case enteredInError = "entered-in-error"

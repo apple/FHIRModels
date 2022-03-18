@@ -2,8 +2,8 @@
 //  Money.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Money)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Money)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,11 +37,11 @@ open class Money: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							currency: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							value: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		currency: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		value: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init()
 		self.currency = currency
 		self.`extension` = `extension`

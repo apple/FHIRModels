@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,13 +27,13 @@ import FMCore
  */
 public enum ResearchSubjectStateType: String, FHIRPrimitiveType {
 	
+	/// This is a status that can only have a single value at a given point in time.  The subject is either on-study or
+	/// off-study.
+	case enrollment = "Enrollment"
+	
 	/// One of a set of milestone events that once they have occurred remain true thereafter.  For example once a
 	/// subject has reached the "Signed Informed Consent" milestone they achieve a status of "Consented" that will be
 	/// true thereafter, even when they have left the study.  For a subject a number of these states can be
 	/// simulataneously true and should be recorded.
 	case milestone = "Milestone"
-	
-	/// This is a status that can only have a single value at a given point in time.  The subject is either on-study or
-	/// off-study.
-	case enrollment = "Enrollment"
 }

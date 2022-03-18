@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,30 +32,30 @@ public enum AdmitSource: String, FHIRPrimitiveType {
 	
 	/// The patient has been transferred from the emergency department within the hospital. This is typically used in
 	/// the transition to an inpatient encounter
-	case emd = "emd"
+	case emd
 	
 	/// The patient has been transferred from an outpatient department within the hospital.
-	case outp = "outp"
+	case outp
 	
 	/// The patient is a newborn and the encounter will track the baby related activities (as opposed to the Mothers
 	/// encounter - that may be associated using the newborn encounters partof property)
-	case born = "born"
+	case born
 	
 	/// The patient has been admitted due to a referred from a General Practitioner.
-	case gp = "gp"
+	case gp
 	
 	/// The patient has been admitted due to a referred from a Specialist (as opposed to a General Practitioner).
-	case mp = "mp"
+	case mp
 	
 	/// The patient has been transferred from a nursing home.
-	case nursing = "nursing"
+	case nursing
 	
 	/// The patient has been transferred from a psychiatric facility.
-	case psych = "psych"
+	case psych
 	
 	/// The patient has been transferred from a rehabilitation facility or clinic.
-	case rehab = "rehab"
+	case rehab
 	
 	/// The patient has been admitted from a source otherwise not specified here.
-	case other = "other"
+	case other
 }

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum RequestPriority: String, FHIRPrimitiveType {
 	
 	/// The request has normal priority.
-	case routine = "routine"
+	case routine
 	
 	/// The request should be actioned promptly - higher priority than routine.
-	case urgent = "urgent"
+	case urgent
 	
 	/// The request should be actioned as soon as possible - higher priority than urgent.
-	case asap = "asap"
+	case asap
 	
 	/// The request should be actioned immediately - highest possible priority.  E.g. an emergency.
-	case stat = "stat"
+	case stat
 }

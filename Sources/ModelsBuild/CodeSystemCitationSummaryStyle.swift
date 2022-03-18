@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,47 +27,50 @@ import FMCore
  */
 public enum CitationSummaryStyle: String, FHIRPrimitiveType {
 	
-	/// Citation style used by International Committee of Medical Journal Editors and maintained by US National Library
-	/// of Medicine.
-	case vancouver = "Vancouver"
+	/// Chemistry.
+	case acs
 	
 	/// Medicine.
-	case AMA11 = "AMA11"
-	
-	/// APA 7th edition (October 2019) used by Education, Psychology and Sciences.
-	case APA7 = "APA7"
+	case ama11
 	
 	/// APA 6th edition used by Education, Psychology and Sciences.
-	case APA6 = "APA6"
+	case apa6
+	
+	/// APA 7th edition (October 2019) used by Education, Psychology and Sciences.
+	case apa7
 	
 	/// Sociology.
-	case ASA6 = "ASA6"
+	case asa6
 	
-	/// MLA 8th edition used by the Humanities.
-	case MLA8 = "MLA8"
+	/// Used by Business, History and the Fine Arts.
+	case chicagoA17 = "chicago-a-17"
+	
+	/// Used by Business, History and the Fine Arts.
+	case chicagoB17 = "chicago-b-17"
 	
 	/// Used by Cochrane reviews, example: Huang, M, Tang T, Pang, P, Li, M, Ma R, Lu, J, et al. Treating COVID-19 with
 	/// Chloroquine. J Mol Cell Biol 2020; 12(4):322–5.
-	case cochrane = "Cochrane"
+	case cochrane
+	
+	/// Citation style to report human-readable and/or machine-readable access paths, example: Alper BS, Dehnbostel J,
+	/// Shahin K. 14-day mortality remdesivir vs placebo meta-analysis (ACTT-1, Wang et al, WHO SOLIDARITY).  Fast
+	/// Evidence Interoperability Resources (FEvIR) Platform, entry 55, version 4. Created 2020 Dec 17. Revised 2020 Dec
+	/// 21. Accessed 2021 Mar 13. Computable resource at: https://fevir.net/resources/Evidence/55.
+	case comppub
 	
 	/// Biology ecology.
-	case elsevierHarvard = "Elsevier-Harvard"
-	
-	/// Biology.
-	case nature = "Nature"
-	
-	/// Chemistry.
-	case ACS = "ACS"
-	
-	/// Used by Business, History and the Fine Arts.
-	case chicagoA17 = "ChicagoA17"
-	
-	/// Used by Business, History and the Fine Arts.
-	case chicagoB17 = "ChicagoB17"
+	case elsevierHarvard = "elsevier-harvard"
 	
 	/// IT, Engineering.
-	case IEEE = "IEEE"
+	case ieee
 	
-	/// Citation style to report human-readable and machine-readable access paths.
-	case compPub = "CompPub"
+	/// MLA 8th edition used by the Humanities.
+	case mla8
+	
+	/// Biology.
+	case nature
+	
+	/// Citation style used by International Committee of Medical Journal Editors and maintained by US National Library
+	/// of Medicine.
+	case vancouver
 }

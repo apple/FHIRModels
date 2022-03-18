@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ import FMCore
  */
 public enum CapabilityStatementKind: String, FHIRPrimitiveType {
 	
-	/// The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the
-	/// kind returned by /metadata for a FHIR server end-point.
-	case instance = "instance"
-	
 	/// The CapabilityStatement instance represents the capabilities of a system or piece of software, independent of a
 	/// particular installation.
-	case capability = "capability"
+	case capability
+	
+	/// The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the
+	/// kind returned by /metadata for a FHIR server end-point.
+	case instance
 	
 	/// The CapabilityStatement instance represents a set of requirements for other systems to meet; e.g. as part of an
 	/// implementation guide or 'request for proposal'.
-	case requirements = "requirements"
+	case requirements
 }

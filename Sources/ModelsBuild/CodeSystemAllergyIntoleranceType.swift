@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ public enum AllergyIntoleranceType: String, FHIRPrimitiveType {
 	
 	/// A propensity for hypersensitive reaction(s) to a substance.  These reactions are most typically type I
 	/// hypersensitivity, plus other "allergy-like" reactions, including pseudoallergy.
-	case allergy = "allergy"
+	case allergy
 	
-	/// A propensity for adverse reactions to a substance that is not judged to be allergic or "allergy-like".  These
+	/// A propensity for adverse reactions to a substance that is judged to be not allergic or "allergy-like".  These
 	/// reactions are typically (but not necessarily) non-immune.  They are to some degree idiosyncratic and/or patient-
 	/// specific (i.e. are not a reaction that is expected to occur with most or all patients given similar
 	/// circumstances).
-	case intolerance = "intolerance"
+	case intolerance
 }

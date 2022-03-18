@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,19 +32,19 @@ public enum GoalAchievementStatus: String, FHIRPrimitiveType {
 	case inProgress = "in-progress"
 	
 	/// The goal is being sought, and is progressing.
-	case improving = "improving"
+	case improving
 	
 	/// The goal is being sought, but is regressing.
-	case worsening = "worsening"
+	case worsening
 	
 	/// The goal is being sought, but the trend is flat.
 	case noChange = "no-change"
 	
 	/// The goal has been met.
-	case achieved = "achieved"
+	case achieved
 	
 	/// The goal has been met, but ongoing activity is needed to sustain the goal objective.
-	case sustaining = "sustaining"
+	case sustaining
 	
 	/// The goal has not been met and there might or might not have been progress towards target.
 	case notAchieved = "not-achieved"

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Appointment)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -103,37 +103,37 @@ open class Appointment: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							appointmentType: CodeableConcept? = nil,
-							basedOn: [Reference]? = nil,
-							cancelationReason: CodeableConcept? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							end: FHIRPrimitive<Instant>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							minutesDuration: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							participant: [AppointmentParticipant],
-							patientInstruction: FHIRPrimitive<FHIRString>? = nil,
-							priority: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							requestedPeriod: [Period]? = nil,
-							serviceCategory: [CodeableConcept]? = nil,
-							serviceType: [CodeableConcept]? = nil,
-							slot: [Reference]? = nil,
-							specialty: [CodeableConcept]? = nil,
-							start: FHIRPrimitive<Instant>? = nil,
-							status: FHIRPrimitive<AppointmentStatus>,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		appointmentType: CodeableConcept? = nil,
+		basedOn: [Reference]? = nil,
+		cancelationReason: CodeableConcept? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		end: FHIRPrimitive<Instant>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		minutesDuration: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		participant: [AppointmentParticipant],
+		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		requestedPeriod: [Period]? = nil,
+		serviceCategory: [CodeableConcept]? = nil,
+		serviceType: [CodeableConcept]? = nil,
+		slot: [Reference]? = nil,
+		specialty: [CodeableConcept]? = nil,
+		start: FHIRPrimitive<Instant>? = nil,
+		status: FHIRPrimitive<AppointmentStatus>,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(participant: participant, status: status)
 		self.appointmentType = appointmentType
 		self.basedOn = basedOn
@@ -343,15 +343,15 @@ open class AppointmentParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							required: FHIRPrimitive<ParticipantRequired>? = nil,
-							status: FHIRPrimitive<ParticipationStatus>,
-							type: [CodeableConcept]? = nil)
-	{
+		actor: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		required: FHIRPrimitive<ParticipantRequired>? = nil,
+		status: FHIRPrimitive<ParticipationStatus>,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init(status: status)
 		self.actor = actor
 		self.`extension` = `extension`

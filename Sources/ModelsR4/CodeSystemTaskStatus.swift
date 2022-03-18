@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,27 +28,27 @@ import FMCore
 public enum TaskStatus: String, FHIRPrimitiveType {
 	
 	/// The task is not yet ready to be acted upon.
-	case draft = "draft"
+	case draft
 	
 	/// The task is ready to be acted upon and action is sought.
-	case requested = "requested"
+	case requested
 	
 	/// A potential performer has claimed ownership of the task and is evaluating whether to perform it.
-	case received = "received"
+	case received
 	
 	/// The potential performer has agreed to execute the task but has not yet started work.
-	case accepted = "accepted"
+	case accepted
 	
 	/// The potential performer who claimed ownership of the task has decided not to execute it prior to performing any
 	/// action.
-	case rejected = "rejected"
+	case rejected
 	
 	/// The task is ready to be performed, but no action has yet been taken.  Used in place of
 	/// requested/received/accepted/rejected when request assignment and acceptance is a given.
-	case ready = "ready"
+	case ready
 	
 	/// The task was not completed.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// The task has been started but is not yet complete.
 	case inProgress = "in-progress"
@@ -57,10 +57,10 @@ public enum TaskStatus: String, FHIRPrimitiveType {
 	case onHold = "on-hold"
 	
 	/// The task was attempted but could not be completed due to some error.
-	case failed = "failed"
+	case failed
 	
 	/// The task has been completed.
-	case completed = "completed"
+	case completed
 	
 	/// The task should never have existed and is retained only because of the possibility it may have used.
 	case enteredInError = "entered-in-error"

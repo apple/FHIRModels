@@ -2,8 +2,8 @@
 //  BodyStructure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/BodyStructure)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/BodyStructure)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -38,11 +38,11 @@ open class BodyStructure: DomainResource {
 	/// Kind of Structure
 	public var morphology: CodeableConcept?
 	
-	/// Body site
-	public var location: CodeableConcept?
+	/// Included anatomic location(s)
+	public var includedStructure: [BodyStructureIncludedStructure]
 	
-	/// Body site modifier
-	public var locationQualifier: [CodeableConcept]?
+	/// Excluded anatomic locations(s)
+	public var excludedStructure: [BodyStructureExcludedStructure]?
 	
 	/// Text description
 	public var description_fhir: FHIRPrimitive<FHIRString>?
@@ -54,42 +54,42 @@ open class BodyStructure: DomainResource {
 	public var patient: Reference
 	
 	/// Designated initializer taking all required properties
-	public init(patient: Reference) {
+	public init(includedStructure: [BodyStructureIncludedStructure], patient: Reference) {
+		self.includedStructure = includedStructure
 		self.patient = patient
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							image: [Attachment]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: CodeableConcept? = nil,
-							locationQualifier: [CodeableConcept]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							morphology: CodeableConcept? = nil,
-							patient: Reference,
-							text: Narrative? = nil)
-	{
-		self.init(patient: patient)
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		excludedStructure: [BodyStructureExcludedStructure]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		image: [Attachment]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		includedStructure: [BodyStructureIncludedStructure],
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		morphology: CodeableConcept? = nil,
+		patient: Reference,
+		text: Narrative? = nil
+	) {
+		self.init(includedStructure: includedStructure, patient: patient)
 		self.active = active
 		self.contained = contained
 		self.description_fhir = description_fhir
+		self.excludedStructure = excludedStructure
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
 		self.image = image
 		self.implicitRules = implicitRules
 		self.language = language
-		self.location = location
-		self.locationQualifier = locationQualifier
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.morphology = morphology
@@ -101,10 +101,10 @@ open class BodyStructure: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case active; case _active
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case excludedStructure
 		case identifier
 		case image
-		case location
-		case locationQualifier
+		case includedStructure
 		case morphology
 		case patient
 	}
@@ -116,10 +116,10 @@ open class BodyStructure: DomainResource {
 		// Decode all our properties
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.excludedStructure = try [BodyStructureExcludedStructure](from: _container, forKeyIfPresent: .excludedStructure)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.image = try [Attachment](from: _container, forKeyIfPresent: .image)
-		self.location = try CodeableConcept(from: _container, forKeyIfPresent: .location)
-		self.locationQualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .locationQualifier)
+		self.includedStructure = try [BodyStructureIncludedStructure](from: _container, forKey: .includedStructure)
 		self.morphology = try CodeableConcept(from: _container, forKeyIfPresent: .morphology)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		try super.init(from: decoder)
@@ -132,10 +132,10 @@ open class BodyStructure: DomainResource {
 		// Encode all our properties
 		try active?.encode(on: &_container, forKey: .active, auxiliaryKey: ._active)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try excludedStructure?.encode(on: &_container, forKey: .excludedStructure)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try image?.encode(on: &_container, forKey: .image)
-		try location?.encode(on: &_container, forKey: .location)
-		try locationQualifier?.encode(on: &_container, forKey: .locationQualifier)
+		try includedStructure.encode(on: &_container, forKey: .includedStructure)
 		try morphology?.encode(on: &_container, forKey: .morphology)
 		try patient.encode(on: &_container, forKey: .patient)
 		try super.encode(to: encoder)
@@ -152,10 +152,10 @@ open class BodyStructure: DomainResource {
 		}
 		return active == _other.active
 		    && description_fhir == _other.description_fhir
+		    && excludedStructure == _other.excludedStructure
 		    && identifier == _other.identifier
 		    && image == _other.image
-		    && location == _other.location
-		    && locationQualifier == _other.locationQualifier
+		    && includedStructure == _other.includedStructure
 		    && morphology == _other.morphology
 		    && patient == _other.patient
 	}
@@ -164,11 +164,193 @@ open class BodyStructure: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(active)
 		hasher.combine(description_fhir)
+		hasher.combine(excludedStructure)
 		hasher.combine(identifier)
 		hasher.combine(image)
-		hasher.combine(location)
-		hasher.combine(locationQualifier)
+		hasher.combine(includedStructure)
 		hasher.combine(morphology)
 		hasher.combine(patient)
+	}
+}
+
+/**
+ Excluded anatomic locations(s).
+ 
+ The anatomical location(s) or region(s) not occupied or represented by the specimen, lesion, or body structure.
+ */
+open class BodyStructureExcludedStructure: BackboneElement {
+	
+	/// Code that represents the excluded structure
+	public var structure: CodeableConcept
+	
+	/// Code that represents the excluded structure laterality
+	public var laterality: CodeableConcept?
+	
+	/// Code that represents the excluded structure qualifier
+	public var qualifier: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	public init(structure: CodeableConcept) {
+		self.structure = structure
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		laterality: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		qualifier: [CodeableConcept]? = nil,
+		structure: CodeableConcept
+	) {
+		self.init(structure: structure)
+		self.`extension` = `extension`
+		self.id = id
+		self.laterality = laterality
+		self.modifierExtension = modifierExtension
+		self.qualifier = qualifier
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case laterality
+		case qualifier
+		case structure
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
+		self.qualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .qualifier)
+		self.structure = try CodeableConcept(from: _container, forKey: .structure)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try laterality?.encode(on: &_container, forKey: .laterality)
+		try qualifier?.encode(on: &_container, forKey: .qualifier)
+		try structure.encode(on: &_container, forKey: .structure)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? BodyStructureExcludedStructure else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return laterality == _other.laterality
+		    && qualifier == _other.qualifier
+		    && structure == _other.structure
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(laterality)
+		hasher.combine(qualifier)
+		hasher.combine(structure)
+	}
+}
+
+/**
+ Included anatomic location(s).
+ 
+ The anatomical location(s) or region(s) of the specimen, lesion, or body structure.
+ */
+open class BodyStructureIncludedStructure: BackboneElement {
+	
+	/// Code that represents the included structure
+	public var structure: CodeableConcept
+	
+	/// Code that represents the included structure laterality
+	public var laterality: CodeableConcept?
+	
+	/// Code that represents the included structure qualifier
+	public var qualifier: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	public init(structure: CodeableConcept) {
+		self.structure = structure
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		laterality: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		qualifier: [CodeableConcept]? = nil,
+		structure: CodeableConcept
+	) {
+		self.init(structure: structure)
+		self.`extension` = `extension`
+		self.id = id
+		self.laterality = laterality
+		self.modifierExtension = modifierExtension
+		self.qualifier = qualifier
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case laterality
+		case qualifier
+		case structure
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
+		self.qualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .qualifier)
+		self.structure = try CodeableConcept(from: _container, forKey: .structure)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try laterality?.encode(on: &_container, forKey: .laterality)
+		try qualifier?.encode(on: &_container, forKey: .qualifier)
+		try structure.encode(on: &_container, forKey: .structure)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? BodyStructureIncludedStructure else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return laterality == _other.laterality
+		    && qualifier == _other.qualifier
+		    && structure == _other.structure
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(laterality)
+		hasher.combine(qualifier)
+		hasher.combine(structure)
 	}
 }

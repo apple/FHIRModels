@@ -2,7 +2,7 @@
 //  FHIRTime.swift
 //  HealthSoftware
 //
-//  2020, Apple Inc.
+//  2021, Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -97,47 +97,47 @@ public struct FHIRTime: FHIRPrimitiveType {
 		// Hours
 		var scanLocation = scanner.scanLocation
 		guard let hourString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidHour(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		guard hourString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanLocation + hourString.count))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + hourString.count))
 		}
 		guard let hour = UInt8(hourString), hour <= 23 else {
-			throw FHIRDateParserError.invalidHour(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		scanLocation = scanner.scanLocation
 		guard scanner.scanString(":", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Minutes
 		scanLocation = scanner.scanLocation
 		guard let minuteString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidMinute(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidMinute(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		guard minuteString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanLocation + minuteString.count))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + minuteString.count))
 		}
 		guard let minute = UInt8(minuteString), minute <= 59 else {
-			throw FHIRDateParserError.invalidMinute(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidMinute(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		scanLocation = scanner.scanLocation
 		guard scanner.scanString(":", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Seconds
 		scanLocation = scanner.scanLocation
 		guard let fullSecondString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidSecond(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		guard fullSecondString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanLocation + fullSecondString.count))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + fullSecondString.count))
 		}
 		guard let scanSecondAlone = Int(fullSecondString), scanSecondAlone <= 60 else {
-			throw FHIRDateParserError.invalidSecond(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		let secondString: String
@@ -145,20 +145,20 @@ public struct FHIRTime: FHIRPrimitiveType {
 		if scanner.scanString(".", into: nil) {
 			scanLocation = scanner.scanLocation
 			guard let subSecondString = scanner.hs_scanCharacters(from: numbers) else {
-				throw FHIRDateParserError.invalidSecond(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+				throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 			}
 			secondString = "\(fullSecondString).\(subSecondString)"
 		} else {
 			secondString = fullSecondString
 		}
 		guard let second = Decimal(string: secondString), second <= 60.0 else {
-			throw FHIRDateParserError.invalidSecond(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// End
 		scanLocation = scanner.scanLocation
 		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		return (hour, minute, second, secondString)
@@ -198,7 +198,7 @@ extension FHIRTime: CustomStringConvertible {
 	static let secondsFormatter: NumberFormatter = {
 		let formatter = NumberFormatter()
 		formatter.allowsFloats = true
-        formatter.decimalSeparator = "."
+		formatter.decimalSeparator = "."
 		formatter.maximumIntegerDigits = 2
 		formatter.minimumIntegerDigits = 2
 		formatter.alwaysShowsDecimalSeparator = false
@@ -229,5 +229,21 @@ extension FHIRTime: Equatable {
 			return false
 		}
 		return true
+	}
+}
+
+extension FHIRTime: Comparable {
+	
+	public static func <(l: FHIRTime, r: FHIRTime) -> Bool {
+		if l.hour < r.hour {
+			return true
+		} else if l.hour == r.hour {
+			if l.minute < r.minute {
+				return true
+			} else if l.minute == r.minute {
+				return l.second < r.second
+			}
+		}
+		return false
 	}
 }

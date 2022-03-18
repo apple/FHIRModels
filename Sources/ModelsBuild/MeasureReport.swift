@@ -2,8 +2,8 @@
 //  MeasureReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MeasureReport)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MeasureReport)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,6 +42,12 @@ open class MeasureReport: DomainResource {
 	/// quality measure.
 	public var type: FHIRPrimitive<MeasureReportType>
 	
+	/// Indicates whether the data submitted in an data-exchange report represents a snapshot or incremental update. A
+	/// snapshot update replaces all previously submitted data for the receiver, whereas an incremental update
+	/// represents only updated and/or changed data and should be applied as a differential update to the existing
+	/// submitted data for the receiver.
+	public var dataUpdateType: FHIRPrimitive<SubmitDataUpdateType>?
+	
 	/// What measure was calculated
 	public var measure: FHIRPrimitive<Canonical>
 	
@@ -54,8 +60,14 @@ open class MeasureReport: DomainResource {
 	/// Who is reporting the data
 	public var reporter: Reference?
 	
+	/// What vendor prepared the data
+	public var reportingVendor: Reference?
+	
 	/// What period the report covers
 	public var period: Period
+	
+	/// What scoring method (e.g. proportion, ratio, continuous-variable)
+	public var scoring: CodeableConcept?
 	
 	/// increase | decrease
 	public var improvementNotation: CodeableConcept?
@@ -77,28 +89,32 @@ open class MeasureReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							evaluatedResource: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							group: [MeasureReportGroup]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							improvementNotation: CodeableConcept? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							measure: FHIRPrimitive<Canonical>,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period,
-							reporter: Reference? = nil,
-							status: FHIRPrimitive<MeasureReportStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<MeasureReportType>)
-	{
+		contained: [ResourceProxy]? = nil,
+		dataUpdateType: FHIRPrimitive<SubmitDataUpdateType>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		evaluatedResource: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		group: [MeasureReportGroup]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		improvementNotation: CodeableConcept? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		measure: FHIRPrimitive<Canonical>,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period,
+		reporter: Reference? = nil,
+		reportingVendor: Reference? = nil,
+		scoring: CodeableConcept? = nil,
+		status: FHIRPrimitive<MeasureReportStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<MeasureReportType>
+	) {
 		self.init(measure: measure, period: period, status: status, type: type)
 		self.contained = contained
+		self.dataUpdateType = dataUpdateType
 		self.date = date
 		self.evaluatedResource = evaluatedResource
 		self.`extension` = `extension`
@@ -111,6 +127,8 @@ open class MeasureReport: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.reporter = reporter
+		self.reportingVendor = reportingVendor
+		self.scoring = scoring
 		self.subject = subject
 		self.text = text
 	}
@@ -118,6 +136,7 @@ open class MeasureReport: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case dataUpdateType; case _dataUpdateType
 		case date; case _date
 		case evaluatedResource
 		case group
@@ -126,6 +145,8 @@ open class MeasureReport: DomainResource {
 		case measure; case _measure
 		case period
 		case reporter
+		case reportingVendor
+		case scoring
 		case status; case _status
 		case subject
 		case type; case _type
@@ -136,6 +157,7 @@ open class MeasureReport: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.dataUpdateType = try FHIRPrimitive<SubmitDataUpdateType>(from: _container, forKeyIfPresent: .dataUpdateType, auxiliaryKey: ._dataUpdateType)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.evaluatedResource = try [Reference](from: _container, forKeyIfPresent: .evaluatedResource)
 		self.group = try [MeasureReportGroup](from: _container, forKeyIfPresent: .group)
@@ -144,6 +166,8 @@ open class MeasureReport: DomainResource {
 		self.measure = try FHIRPrimitive<Canonical>(from: _container, forKey: .measure, auxiliaryKey: ._measure)
 		self.period = try Period(from: _container, forKey: .period)
 		self.reporter = try Reference(from: _container, forKeyIfPresent: .reporter)
+		self.reportingVendor = try Reference(from: _container, forKeyIfPresent: .reportingVendor)
+		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
 		self.status = try FHIRPrimitive<MeasureReportStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.type = try FHIRPrimitive<MeasureReportType>(from: _container, forKey: .type, auxiliaryKey: ._type)
@@ -155,6 +179,7 @@ open class MeasureReport: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try dataUpdateType?.encode(on: &_container, forKey: .dataUpdateType, auxiliaryKey: ._dataUpdateType)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try evaluatedResource?.encode(on: &_container, forKey: .evaluatedResource)
 		try group?.encode(on: &_container, forKey: .group)
@@ -163,6 +188,8 @@ open class MeasureReport: DomainResource {
 		try measure.encode(on: &_container, forKey: .measure, auxiliaryKey: ._measure)
 		try period.encode(on: &_container, forKey: .period)
 		try reporter?.encode(on: &_container, forKey: .reporter)
+		try reportingVendor?.encode(on: &_container, forKey: .reportingVendor)
+		try scoring?.encode(on: &_container, forKey: .scoring)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
@@ -178,7 +205,8 @@ open class MeasureReport: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return date == _other.date
+		return dataUpdateType == _other.dataUpdateType
+		    && date == _other.date
 		    && evaluatedResource == _other.evaluatedResource
 		    && group == _other.group
 		    && identifier == _other.identifier
@@ -186,6 +214,8 @@ open class MeasureReport: DomainResource {
 		    && measure == _other.measure
 		    && period == _other.period
 		    && reporter == _other.reporter
+		    && reportingVendor == _other.reportingVendor
+		    && scoring == _other.scoring
 		    && status == _other.status
 		    && subject == _other.subject
 		    && type == _other.type
@@ -193,6 +223,7 @@ open class MeasureReport: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(dataUpdateType)
 		hasher.combine(date)
 		hasher.combine(evaluatedResource)
 		hasher.combine(group)
@@ -201,6 +232,8 @@ open class MeasureReport: DomainResource {
 		hasher.combine(measure)
 		hasher.combine(period)
 		hasher.combine(reporter)
+		hasher.combine(reportingVendor)
+		hasher.combine(scoring)
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(type)
@@ -214,6 +247,16 @@ open class MeasureReport: DomainResource {
  */
 open class MeasureReportGroup: BackboneElement {
 	
+	/// All possible types for "measureScore[x]"
+	public enum MeasureScoreX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case dateTime(FHIRPrimitive<DateTime>)
+		case duration(Duration)
+		case period(Period)
+		case quantity(Quantity)
+		case range(Range)
+	}
+	
 	/// Meaning of the group
 	public var code: CodeableConcept?
 	
@@ -221,7 +264,8 @@ open class MeasureReportGroup: BackboneElement {
 	public var population: [MeasureReportGroupPopulation]?
 	
 	/// What score this group achieved
-	public var measureScore: Quantity?
+	/// One of `measureScore[x]`
+	public var measureScore: MeasureScoreX?
 	
 	/// Stratification results
 	public var stratifier: [MeasureReportGroupStratifier]?
@@ -233,14 +277,14 @@ open class MeasureReportGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measureScore: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [MeasureReportGroupPopulation]? = nil,
-							stratifier: [MeasureReportGroupStratifier]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measureScore: MeasureScoreX? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [MeasureReportGroupPopulation]? = nil,
+		stratifier: [MeasureReportGroupStratifier]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -255,7 +299,12 @@ open class MeasureReportGroup: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code
-		case measureScore
+		case measureScoreCodeableConcept
+		case measureScoreDateTime; case _measureScoreDateTime
+		case measureScoreDuration
+		case measureScorePeriod
+		case measureScoreQuantity
+		case measureScoreRange
 		case population
 		case stratifier
 	}
@@ -266,7 +315,44 @@ open class MeasureReportGroup: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.measureScore = try Quantity(from: _container, forKeyIfPresent: .measureScore)
+		var _t_measureScore: MeasureScoreX? = nil
+		if let measureScoreQuantity = try Quantity(from: _container, forKeyIfPresent: .measureScoreQuantity) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreQuantity, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .quantity(measureScoreQuantity)
+		}
+		if let measureScoreDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .measureScoreDateTime, auxiliaryKey: ._measureScoreDateTime) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreDateTime, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .dateTime(measureScoreDateTime)
+		}
+		if let measureScoreCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .measureScoreCodeableConcept) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreCodeableConcept, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .codeableConcept(measureScoreCodeableConcept)
+		}
+		if let measureScorePeriod = try Period(from: _container, forKeyIfPresent: .measureScorePeriod) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScorePeriod, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .period(measureScorePeriod)
+		}
+		if let measureScoreRange = try Range(from: _container, forKeyIfPresent: .measureScoreRange) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreRange, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .range(measureScoreRange)
+		}
+		if let measureScoreDuration = try Duration(from: _container, forKeyIfPresent: .measureScoreDuration) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreDuration, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .duration(measureScoreDuration)
+		}
+		self.measureScore = _t_measureScore
 		self.population = try [MeasureReportGroupPopulation](from: _container, forKeyIfPresent: .population)
 		self.stratifier = try [MeasureReportGroupStratifier](from: _container, forKeyIfPresent: .stratifier)
 		try super.init(from: decoder)
@@ -278,7 +364,22 @@ open class MeasureReportGroup: BackboneElement {
 		
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
-		try measureScore?.encode(on: &_container, forKey: .measureScore)
+		if let _enum = measureScore {
+			switch _enum {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreQuantity)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreDateTime, auxiliaryKey: ._measureScoreDateTime)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreCodeableConcept)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .measureScorePeriod)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreRange)
+			case .duration(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreDuration)
+			}
+		}
 		try population?.encode(on: &_container, forKey: .population)
 		try stratifier?.encode(on: &_container, forKey: .stratifier)
 		try super.encode(to: encoder)
@@ -332,13 +433,13 @@ open class MeasureReportGroupPopulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							count: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subjectResults: Reference? = nil)
-	{
+		code: CodeableConcept? = nil,
+		count: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subjectResults: Reference? = nil
+	) {
 		self.init()
 		self.code = code
 		self.count = count
@@ -421,12 +522,12 @@ open class MeasureReportGroupStratifier: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							stratum: [MeasureReportGroupStratifierStratum]? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		stratum: [MeasureReportGroupStratifierStratum]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -490,8 +591,28 @@ open class MeasureReportGroupStratifier: BackboneElement {
  */
 open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
+	/// All possible types for "measureScore[x]"
+	public enum MeasureScoreX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case dateTime(FHIRPrimitive<DateTime>)
+		case duration(Duration)
+		case period(Period)
+		case quantity(Quantity)
+		case range(Range)
+	}
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+		case reference(Reference)
+	}
+	
 	/// The stratum value, e.g. male
-	public var value: CodeableConcept?
+	/// One of `value[x]`
+	public var value: ValueX?
 	
 	/// Stratifier component values
 	public var component: [MeasureReportGroupStratifierStratumComponent]?
@@ -500,7 +621,8 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	public var population: [MeasureReportGroupStratifierStratumPopulation]?
 	
 	/// What score this stratum achieved
-	public var measureScore: Quantity?
+	/// One of `measureScore[x]`
+	public var measureScore: MeasureScoreX?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -509,14 +631,14 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							component: [MeasureReportGroupStratifierStratumComponent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measureScore: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [MeasureReportGroupStratifierStratumPopulation]? = nil,
-							value: CodeableConcept? = nil)
-	{
+		component: [MeasureReportGroupStratifierStratumComponent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measureScore: MeasureScoreX? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [MeasureReportGroupStratifierStratumPopulation]? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.component = component
 		self.`extension` = `extension`
@@ -531,9 +653,18 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case component
-		case measureScore
+		case measureScoreCodeableConcept
+		case measureScoreDateTime; case _measureScoreDateTime
+		case measureScoreDuration
+		case measureScorePeriod
+		case measureScoreQuantity
+		case measureScoreRange
 		case population
-		case value
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
+		case valueReference
 	}
 	
 	/// Initializer for Decodable
@@ -542,9 +673,77 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 		
 		// Decode all our properties
 		self.component = try [MeasureReportGroupStratifierStratumComponent](from: _container, forKeyIfPresent: .component)
-		self.measureScore = try Quantity(from: _container, forKeyIfPresent: .measureScore)
+		var _t_measureScore: MeasureScoreX? = nil
+		if let measureScoreQuantity = try Quantity(from: _container, forKeyIfPresent: .measureScoreQuantity) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreQuantity, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .quantity(measureScoreQuantity)
+		}
+		if let measureScoreDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .measureScoreDateTime, auxiliaryKey: ._measureScoreDateTime) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreDateTime, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .dateTime(measureScoreDateTime)
+		}
+		if let measureScoreCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .measureScoreCodeableConcept) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreCodeableConcept, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .codeableConcept(measureScoreCodeableConcept)
+		}
+		if let measureScorePeriod = try Period(from: _container, forKeyIfPresent: .measureScorePeriod) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScorePeriod, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .period(measureScorePeriod)
+		}
+		if let measureScoreRange = try Range(from: _container, forKeyIfPresent: .measureScoreRange) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreRange, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .range(measureScoreRange)
+		}
+		if let measureScoreDuration = try Duration(from: _container, forKeyIfPresent: .measureScoreDuration) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreDuration, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .duration(measureScoreDuration)
+		}
+		self.measureScore = _t_measureScore
 		self.population = try [MeasureReportGroupStratifierStratumPopulation](from: _container, forKeyIfPresent: .population)
-		self.value = try CodeableConcept(from: _container, forKeyIfPresent: .value)
+		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
+		}
+		self.value = _t_value
 		try super.init(from: decoder)
 	}
 	
@@ -554,9 +753,37 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 		
 		// Encode all our properties
 		try component?.encode(on: &_container, forKey: .component)
-		try measureScore?.encode(on: &_container, forKey: .measureScore)
+		if let _enum = measureScore {
+			switch _enum {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreQuantity)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreDateTime, auxiliaryKey: ._measureScoreDateTime)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreCodeableConcept)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .measureScorePeriod)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreRange)
+			case .duration(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreDuration)
+			}
+		}
 		try population?.encode(on: &_container, forKey: .population)
-		try value?.encode(on: &_container, forKey: .value)
+		if let _enum = value {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -591,14 +818,24 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
  */
 open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+		case reference(Reference)
+	}
+	
 	/// What stratifier component of the group
 	public var code: CodeableConcept
 	
 	/// The stratum component value, e.g. male
-	public var value: CodeableConcept
+	/// One of `value[x]`
+	public var value: ValueX
 	
 	/// Designated initializer taking all required properties
-	public init(code: CodeableConcept, value: CodeableConcept) {
+	public init(code: CodeableConcept, value: ValueX) {
 		self.code = code
 		self.value = value
 		super.init()
@@ -606,12 +843,12 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: CodeableConcept)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -622,16 +859,56 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code
-		case value
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
+		case valueReference
 	}
 	
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueReference) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueBoolean, CodingKeys.valueCodeableConcept, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueReference], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
-		self.value = try CodeableConcept(from: _container, forKey: .value)
+		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
+		}
+		self.value = _t_value!
 		try super.init(from: decoder)
 	}
 	
@@ -641,7 +918,20 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 		
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
-		try value.encode(on: &_container, forKey: .value)
+		
+			switch value {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
+			}
+		
 		try super.encode(to: encoder)
 	}
 	
@@ -689,13 +979,13 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							count: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subjectResults: Reference? = nil)
-	{
+		code: CodeableConcept? = nil,
+		count: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subjectResults: Reference? = nil
+	) {
 		self.init()
 		self.code = code
 		self.count = count

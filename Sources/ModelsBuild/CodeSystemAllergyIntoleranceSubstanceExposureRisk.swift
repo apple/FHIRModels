@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,11 +20,9 @@
 import FMCore
 
 /**
- The risk of an adverse reaction (allergy or intolerance) for this patient upon exposure to the substance (including
- pharmaceutical products).
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/allerg-intol-substance-exp-risk
- ValueSet: http://hl7.org/fhir/ValueSet/allerg-intol-substance-exp-risk
+ URL: http://hl7.org/fhir/allerg-intol-substance-exp-risk
  */
 public enum AllergyIntoleranceSubstanceExposureRisk: String, FHIRPrimitiveType {
 	

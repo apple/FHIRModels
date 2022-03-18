@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ import FMCore
 public enum SearchEntryMode: String, FHIRPrimitiveType {
 	
 	/// This resource matched the search specification.
-	case match = "match"
+	case match
 	
 	/// This resource is returned because it is referred to from another resource in the search set.
-	case include = "include"
+	case include
 	
 	/// An OperationOutcome that provides additional information about the processing of a search.
-	case outcome = "outcome"
+	case outcome
 }

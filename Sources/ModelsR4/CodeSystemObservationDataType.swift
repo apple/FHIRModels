@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,13 +34,13 @@ public enum ObservationDataType: String, FHIRPrimitiveType {
 	case codeableConcept = "CodeableConcept"
 	
 	/// A sequence of Unicode characters.
-	case string = "string"
+	case string
 	
 	/// true or false.
-	case boolean = "boolean"
+	case boolean
 	
 	/// A signed integer.
-	case integer = "integer"
+	case integer
 	
 	/// A set of values bounded by low and high.
 	case range = "Range"
@@ -52,10 +52,10 @@ public enum ObservationDataType: String, FHIRPrimitiveType {
 	case sampledData = "SampledData"
 	
 	/// A time during the day, in the format hh:mm:ss.
-	case time = "time"
+	case time
 	
 	/// A date, date-time or partial date (e.g. just year or year + month) as used in human communication.
-	case dateTime = "dateTime"
+	case dateTime
 	
 	/// A time range defined by start and end date/time.
 	case period = "Period"

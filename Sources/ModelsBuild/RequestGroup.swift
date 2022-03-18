@@ -2,8 +2,8 @@
 //  RequestGroup.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/RequestGroup)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RequestGroup)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -47,16 +47,14 @@ open class RequestGroup: DomainResource {
 	/// Composite request this is part of
 	public var groupIdentifier: Identifier?
 	
-	/// The current state of the request. For request groups, the status reflects the status of all the requests in the
-	/// group.
-	public var status: FHIRPrimitive<RequestStatus>
+	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Indicates the level of authority/intentionality associated with the request and where the request fits into the
-	/// workflow chain.
-	public var intent: FHIRPrimitive<RequestIntent>
+	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+	public var intent: FHIRPrimitive<FHIRString>
 	
-	/// Indicates how quickly the request should be addressed with respect to other requests.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// What's being requested/ordered
 	public var code: CodeableConcept?
@@ -76,6 +74,9 @@ open class RequestGroup: DomainResource {
 	/// Why the request group is needed
 	public var reason: [CodeableReference]?
 	
+	/// What goals
+	public var goal: [Reference]?
+	
 	/// Additional notes about the response
 	public var note: [Annotation]?
 	
@@ -83,7 +84,7 @@ open class RequestGroup: DomainResource {
 	public var action: [RequestGroupAction]?
 	
 	/// Designated initializer taking all required properties
-	public init(intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>) {
+	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>) {
 		self.intent = intent
 		self.status = status
 		super.init()
@@ -91,32 +92,33 @@ open class RequestGroup: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [RequestGroupAction]? = nil,
-							author: Reference? = nil,
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reason: [CodeableReference]? = nil,
-							replaces: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		action: [RequestGroupAction]? = nil,
+		author: Reference? = nil,
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		intent: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		reason: [CodeableReference]? = nil,
+		replaces: [Reference]? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, status: status)
 		self.action = action
 		self.author = author
@@ -126,6 +128,7 @@ open class RequestGroup: DomainResource {
 		self.contained = contained
 		self.encounter = encounter
 		self.`extension` = `extension`
+		self.goal = goal
 		self.groupIdentifier = groupIdentifier
 		self.id = id
 		self.identifier = identifier
@@ -152,6 +155,7 @@ open class RequestGroup: DomainResource {
 		case basedOn
 		case code
 		case encounter
+		case goal
 		case groupIdentifier
 		case identifier
 		case instantiatesCanonical; case _instantiatesCanonical
@@ -176,16 +180,17 @@ open class RequestGroup: DomainResource {
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
+		self.goal = try [Reference](from: _container, forKeyIfPresent: .goal)
 		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
-		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
 	}
@@ -201,6 +206,7 @@ open class RequestGroup: DomainResource {
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try code?.encode(on: &_container, forKey: .code)
 		try encounter?.encode(on: &_container, forKey: .encounter)
+		try goal?.encode(on: &_container, forKey: .goal)
 		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
@@ -230,6 +236,7 @@ open class RequestGroup: DomainResource {
 		    && basedOn == _other.basedOn
 		    && code == _other.code
 		    && encounter == _other.encounter
+		    && goal == _other.goal
 		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
 		    && instantiatesCanonical == _other.instantiatesCanonical
@@ -251,6 +258,7 @@ open class RequestGroup: DomainResource {
 		hasher.combine(basedOn)
 		hasher.combine(code)
 		hasher.combine(encounter)
+		hasher.combine(goal)
 		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
 		hasher.combine(instantiatesCanonical)
@@ -282,6 +290,9 @@ open class RequestGroupAction: BackboneElement {
 		case timing(Timing)
 	}
 	
+	/// Pointer to specific item from the PlanDefinition
+	public var linkId: FHIRPrimitive<FHIRString>?
+	
 	/// User-visible prefix for the action (e.g. 1. or A.)
 	public var prefix: FHIRPrimitive<FHIRString>?
 	
@@ -294,14 +305,17 @@ open class RequestGroupAction: BackboneElement {
 	/// Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system
 	public var textEquivalent: FHIRPrimitive<FHIRString>?
 	
-	/// Indicates how quickly the action should be addressed with respect to other actions.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// Code representing the meaning of the action or sub-actions
 	public var code: [CodeableConcept]?
 	
 	/// Supporting documentation for the intended performer of the action
 	public var documentation: [RelatedArtifact]?
+	
+	/// What goals
+	public var goal: [Reference]?
 	
 	/// Whether or not the action is applicable
 	public var condition: [RequestGroupActionCondition]?
@@ -313,8 +327,11 @@ open class RequestGroupAction: BackboneElement {
 	/// One of `timing[x]`
 	public var timing: TimingX?
 	
+	/// Where it should happen
+	public var location: CodeableReference?
+	
 	/// Who should perform the action
-	public var participant: [Reference]?
+	public var participant: [RequestGroupActionParticipant]?
 	
 	/// create | update | remove | fire-event
 	public var type: CodeableConcept?
@@ -347,29 +364,32 @@ open class RequestGroupAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [RequestGroupAction]? = nil,
-							cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
-							code: [CodeableConcept]? = nil,
-							condition: [RequestGroupActionCondition]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							documentation: [RelatedArtifact]? = nil,
-							`extension`: [Extension]? = nil,
-							groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							participant: [Reference]? = nil,
-							precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
-							prefix: FHIRPrimitive<FHIRString>? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							relatedAction: [RequestGroupActionRelatedAction]? = nil,
-							requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
-							resource: Reference? = nil,
-							selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
-							textEquivalent: FHIRPrimitive<FHIRString>? = nil,
-							timing: TimingX? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		action: [RequestGroupAction]? = nil,
+		cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
+		code: [CodeableConcept]? = nil,
+		condition: [RequestGroupActionCondition]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		documentation: [RelatedArtifact]? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
+		location: CodeableReference? = nil,
+		modifierExtension: [Extension]? = nil,
+		participant: [RequestGroupActionParticipant]? = nil,
+		precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
+		prefix: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		relatedAction: [RequestGroupActionRelatedAction]? = nil,
+		requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
+		resource: Reference? = nil,
+		selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
+		textEquivalent: FHIRPrimitive<FHIRString>? = nil,
+		timing: TimingX? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.action = action
 		self.cardinalityBehavior = cardinalityBehavior
@@ -378,8 +398,11 @@ open class RequestGroupAction: BackboneElement {
 		self.description_fhir = description_fhir
 		self.documentation = documentation
 		self.`extension` = `extension`
+		self.goal = goal
 		self.groupingBehavior = groupingBehavior
 		self.id = id
+		self.linkId = linkId
+		self.location = location
 		self.modifierExtension = modifierExtension
 		self.participant = participant
 		self.precheckBehavior = precheckBehavior
@@ -404,7 +427,10 @@ open class RequestGroupAction: BackboneElement {
 		case condition
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case documentation
+		case goal
 		case groupingBehavior; case _groupingBehavior
+		case linkId; case _linkId
+		case location
 		case participant
 		case precheckBehavior; case _precheckBehavior
 		case prefix; case _prefix
@@ -435,11 +461,14 @@ open class RequestGroupAction: BackboneElement {
 		self.condition = try [RequestGroupActionCondition](from: _container, forKeyIfPresent: .condition)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.documentation = try [RelatedArtifact](from: _container, forKeyIfPresent: .documentation)
+		self.goal = try [Reference](from: _container, forKeyIfPresent: .goal)
 		self.groupingBehavior = try FHIRPrimitive<ActionGroupingBehavior>(from: _container, forKeyIfPresent: .groupingBehavior, auxiliaryKey: ._groupingBehavior)
-		self.participant = try [Reference](from: _container, forKeyIfPresent: .participant)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
+		self.location = try CodeableReference(from: _container, forKeyIfPresent: .location)
+		self.participant = try [RequestGroupActionParticipant](from: _container, forKeyIfPresent: .participant)
 		self.precheckBehavior = try FHIRPrimitive<ActionPrecheckBehavior>(from: _container, forKeyIfPresent: .precheckBehavior, auxiliaryKey: ._precheckBehavior)
 		self.prefix = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .prefix, auxiliaryKey: ._prefix)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.relatedAction = try [RequestGroupActionRelatedAction](from: _container, forKeyIfPresent: .relatedAction)
 		self.requiredBehavior = try FHIRPrimitive<ActionRequiredBehavior>(from: _container, forKeyIfPresent: .requiredBehavior, auxiliaryKey: ._requiredBehavior)
 		self.resource = try Reference(from: _container, forKeyIfPresent: .resource)
@@ -499,7 +528,10 @@ open class RequestGroupAction: BackboneElement {
 		try condition?.encode(on: &_container, forKey: .condition)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try documentation?.encode(on: &_container, forKey: .documentation)
+		try goal?.encode(on: &_container, forKey: .goal)
 		try groupingBehavior?.encode(on: &_container, forKey: .groupingBehavior, auxiliaryKey: ._groupingBehavior)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
+		try location?.encode(on: &_container, forKey: .location)
 		try participant?.encode(on: &_container, forKey: .participant)
 		try precheckBehavior?.encode(on: &_container, forKey: .precheckBehavior, auxiliaryKey: ._precheckBehavior)
 		try prefix?.encode(on: &_container, forKey: .prefix, auxiliaryKey: ._prefix)
@@ -545,7 +577,10 @@ open class RequestGroupAction: BackboneElement {
 		    && condition == _other.condition
 		    && description_fhir == _other.description_fhir
 		    && documentation == _other.documentation
+		    && goal == _other.goal
 		    && groupingBehavior == _other.groupingBehavior
+		    && linkId == _other.linkId
+		    && location == _other.location
 		    && participant == _other.participant
 		    && precheckBehavior == _other.precheckBehavior
 		    && prefix == _other.prefix
@@ -568,7 +603,10 @@ open class RequestGroupAction: BackboneElement {
 		hasher.combine(condition)
 		hasher.combine(description_fhir)
 		hasher.combine(documentation)
+		hasher.combine(goal)
 		hasher.combine(groupingBehavior)
+		hasher.combine(linkId)
+		hasher.combine(location)
 		hasher.combine(participant)
 		hasher.combine(precheckBehavior)
 		hasher.combine(prefix)
@@ -605,12 +643,12 @@ open class RequestGroupActionCondition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: Expression? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							kind: FHIRPrimitive<ActionConditionKind>,
-							modifierExtension: [Extension]? = nil)
-	{
+		expression: Expression? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		kind: FHIRPrimitive<ActionConditionKind>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(kind: kind)
 		self.expression = expression
 		self.`extension` = `extension`
@@ -666,6 +704,117 @@ open class RequestGroupActionCondition: BackboneElement {
 }
 
 /**
+ Who should perform the action.
+ 
+ The participant that should perform or be responsible for this action.
+ */
+open class RequestGroupActionParticipant: BackboneElement {
+	
+	/// The type of participant in the action.
+	public var type: FHIRPrimitive<ActionParticipantType>?
+	
+	/// Who or what can participate
+	public var typeReference: Reference?
+	
+	/// E.g. Nurse, Surgeon, Parent, etc.
+	public var role: CodeableConcept?
+	
+	/// E.g. Author, Reviewer, Witness, etc.
+	public var function: CodeableConcept?
+	
+	/// Who/what is participating?
+	public var actor: Reference?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		actor: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept? = nil,
+		type: FHIRPrimitive<ActionParticipantType>? = nil,
+		typeReference: Reference? = nil
+	) {
+		self.init()
+		self.actor = actor
+		self.`extension` = `extension`
+		self.function = function
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.role = role
+		self.type = type
+		self.typeReference = typeReference
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case actor
+		case function
+		case role
+		case type; case _type
+		case typeReference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.actor = try Reference(from: _container, forKeyIfPresent: .actor)
+		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
+		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
+		self.type = try FHIRPrimitive<ActionParticipantType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
+		self.typeReference = try Reference(from: _container, forKeyIfPresent: .typeReference)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try actor?.encode(on: &_container, forKey: .actor)
+		try function?.encode(on: &_container, forKey: .function)
+		try role?.encode(on: &_container, forKey: .role)
+		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try typeReference?.encode(on: &_container, forKey: .typeReference)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? RequestGroupActionParticipant else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return actor == _other.actor
+		    && function == _other.function
+		    && role == _other.role
+		    && type == _other.type
+		    && typeReference == _other.typeReference
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(actor)
+		hasher.combine(function)
+		hasher.combine(role)
+		hasher.combine(type)
+		hasher.combine(typeReference)
+	}
+}
+
+/**
  Relationship to another action.
  
  A relationship to another action such as "before" or "30-60 minutes after start of".
@@ -679,7 +828,7 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 	}
 	
 	/// What action this is related to
-	public var actionId: FHIRPrimitive<FHIRString>
+	public var targetId: FHIRPrimitive<FHIRString>
 	
 	/// The relationship of this action to the related action.
 	public var relationship: FHIRPrimitive<ActionRelationshipType>
@@ -689,22 +838,22 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 	public var offset: OffsetX?
 	
 	/// Designated initializer taking all required properties
-	public init(actionId: FHIRPrimitive<FHIRString>, relationship: FHIRPrimitive<ActionRelationshipType>) {
-		self.actionId = actionId
+	public init(relationship: FHIRPrimitive<ActionRelationshipType>, targetId: FHIRPrimitive<FHIRString>) {
 		self.relationship = relationship
+		self.targetId = targetId
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							actionId: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							offset: OffsetX? = nil,
-							relationship: FHIRPrimitive<ActionRelationshipType>)
-	{
-		self.init(actionId: actionId, relationship: relationship)
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		offset: OffsetX? = nil,
+		relationship: FHIRPrimitive<ActionRelationshipType>,
+		targetId: FHIRPrimitive<FHIRString>
+	) {
+		self.init(relationship: relationship, targetId: targetId)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -714,10 +863,10 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case actionId; case _actionId
 		case offsetDuration
 		case offsetRange
 		case relationship; case _relationship
+		case targetId; case _targetId
 	}
 	
 	/// Initializer for Decodable
@@ -725,7 +874,6 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actionId = try FHIRPrimitive<FHIRString>(from: _container, forKey: .actionId, auxiliaryKey: ._actionId)
 		var _t_offset: OffsetX? = nil
 		if let offsetDuration = try Duration(from: _container, forKeyIfPresent: .offsetDuration) {
 			if _t_offset != nil {
@@ -741,6 +889,7 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 		}
 		self.offset = _t_offset
 		self.relationship = try FHIRPrimitive<ActionRelationshipType>(from: _container, forKey: .relationship, auxiliaryKey: ._relationship)
+		self.targetId = try FHIRPrimitive<FHIRString>(from: _container, forKey: .targetId, auxiliaryKey: ._targetId)
 		try super.init(from: decoder)
 	}
 	
@@ -749,7 +898,6 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try actionId.encode(on: &_container, forKey: .actionId, auxiliaryKey: ._actionId)
 		if let _enum = offset {
 			switch _enum {
 			case .duration(let _value):
@@ -759,6 +907,7 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 			}
 		}
 		try relationship.encode(on: &_container, forKey: .relationship, auxiliaryKey: ._relationship)
+		try targetId.encode(on: &_container, forKey: .targetId, auxiliaryKey: ._targetId)
 		try super.encode(to: encoder)
 	}
 	
@@ -771,15 +920,15 @@ open class RequestGroupActionRelatedAction: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return actionId == _other.actionId
-		    && offset == _other.offset
+		return offset == _other.offset
 		    && relationship == _other.relationship
+		    && targetId == _other.targetId
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(actionId)
 		hasher.combine(offset)
 		hasher.combine(relationship)
+		hasher.combine(targetId)
 	}
 }

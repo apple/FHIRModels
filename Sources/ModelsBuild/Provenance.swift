@@ -2,8 +2,8 @@
 //  Provenance.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Provenance)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Provenance)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ open class Provenance: DomainResource {
 	public var occurred: OccurredX?
 	
 	/// When the activity was recorded / updated
-	public var recorded: FHIRPrimitive<Instant>
+	public var recorded: FHIRPrimitive<Instant>?
 	
 	/// Policy or plan the activity was defined by
 	public var policy: [FHIRPrimitive<FHIRURI>]?
@@ -56,11 +56,20 @@ open class Provenance: DomainResource {
 	/// Where the activity occurred, if relevant
 	public var location: Reference?
 	
-	/// Reason the activity is occurring
-	public var reason: [CodeableConcept]?
+	/// Authorization (purposeOfUse) related to the event
+	public var authorization: [CodeableReference]?
 	
 	/// Activity that occurred
 	public var activity: CodeableConcept?
+	
+	/// Workflow authorization within which this event occurred
+	public var basedOn: [Reference]?
+	
+	/// The patient is the subject of the data created/updated (.target) by the activity
+	public var patient: Reference?
+	
+	/// Encounter within which this event occurred or which the event is tightly associated
+	public var encounter: Reference?
 	
 	/// Actor involved
 	public var agent: [ProvenanceAgent]
@@ -72,37 +81,42 @@ open class Provenance: DomainResource {
 	public var signature: [Signature]?
 	
 	/// Designated initializer taking all required properties
-	public init(agent: [ProvenanceAgent], recorded: FHIRPrimitive<Instant>, target: [Reference]) {
+	public init(agent: [ProvenanceAgent], target: [Reference]) {
 		self.agent = agent
-		self.recorded = recorded
 		self.target = target
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							activity: CodeableConcept? = nil,
-							agent: [ProvenanceAgent],
-							contained: [ResourceProxy]? = nil,
-							entity: [ProvenanceEntity]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							occurred: OccurredX? = nil,
-							policy: [FHIRPrimitive<FHIRURI>]? = nil,
-							reason: [CodeableConcept]? = nil,
-							recorded: FHIRPrimitive<Instant>,
-							signature: [Signature]? = nil,
-							target: [Reference],
-							text: Narrative? = nil)
-	{
-		self.init(agent: agent, recorded: recorded, target: target)
+		activity: CodeableConcept? = nil,
+		agent: [ProvenanceAgent],
+		authorization: [CodeableReference]? = nil,
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		entity: [ProvenanceEntity]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		occurred: OccurredX? = nil,
+		patient: Reference? = nil,
+		policy: [FHIRPrimitive<FHIRURI>]? = nil,
+		recorded: FHIRPrimitive<Instant>? = nil,
+		signature: [Signature]? = nil,
+		target: [Reference],
+		text: Narrative? = nil
+	) {
+		self.init(agent: agent, target: target)
 		self.activity = activity
+		self.authorization = authorization
+		self.basedOn = basedOn
 		self.contained = contained
+		self.encounter = encounter
 		self.entity = entity
 		self.`extension` = `extension`
 		self.id = id
@@ -112,8 +126,9 @@ open class Provenance: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.occurred = occurred
+		self.patient = patient
 		self.policy = policy
-		self.reason = reason
+		self.recorded = recorded
 		self.signature = signature
 		self.text = text
 	}
@@ -123,12 +138,15 @@ open class Provenance: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case activity
 		case agent
+		case authorization
+		case basedOn
+		case encounter
 		case entity
 		case location
 		case occurredDateTime; case _occurredDateTime
 		case occurredPeriod
+		case patient
 		case policy; case _policy
-		case reason
 		case recorded; case _recorded
 		case signature
 		case target
@@ -141,6 +159,9 @@ open class Provenance: DomainResource {
 		// Decode all our properties
 		self.activity = try CodeableConcept(from: _container, forKeyIfPresent: .activity)
 		self.agent = try [ProvenanceAgent](from: _container, forKey: .agent)
+		self.authorization = try [CodeableReference](from: _container, forKeyIfPresent: .authorization)
+		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
+		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.entity = try [ProvenanceEntity](from: _container, forKeyIfPresent: .entity)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		var _t_occurred: OccurredX? = nil
@@ -157,9 +178,9 @@ open class Provenance: DomainResource {
 			_t_occurred = .dateTime(occurredDateTime)
 		}
 		self.occurred = _t_occurred
+		self.patient = try Reference(from: _container, forKeyIfPresent: .patient)
 		self.policy = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .policy, auxiliaryKey: ._policy)
-		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
-		self.recorded = try FHIRPrimitive<Instant>(from: _container, forKey: .recorded, auxiliaryKey: ._recorded)
+		self.recorded = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .recorded, auxiliaryKey: ._recorded)
 		self.signature = try [Signature](from: _container, forKeyIfPresent: .signature)
 		self.target = try [Reference](from: _container, forKey: .target)
 		try super.init(from: decoder)
@@ -172,6 +193,9 @@ open class Provenance: DomainResource {
 		// Encode all our properties
 		try activity?.encode(on: &_container, forKey: .activity)
 		try agent.encode(on: &_container, forKey: .agent)
+		try authorization?.encode(on: &_container, forKey: .authorization)
+		try basedOn?.encode(on: &_container, forKey: .basedOn)
+		try encounter?.encode(on: &_container, forKey: .encounter)
 		try entity?.encode(on: &_container, forKey: .entity)
 		try location?.encode(on: &_container, forKey: .location)
 		if let _enum = occurred {
@@ -182,9 +206,9 @@ open class Provenance: DomainResource {
 				try _value.encode(on: &_container, forKey: .occurredDateTime, auxiliaryKey: ._occurredDateTime)
 			}
 		}
+		try patient?.encode(on: &_container, forKey: .patient)
 		try policy?.encode(on: &_container, forKey: .policy, auxiliaryKey: ._policy)
-		try reason?.encode(on: &_container, forKey: .reason)
-		try recorded.encode(on: &_container, forKey: .recorded, auxiliaryKey: ._recorded)
+		try recorded?.encode(on: &_container, forKey: .recorded, auxiliaryKey: ._recorded)
 		try signature?.encode(on: &_container, forKey: .signature)
 		try target.encode(on: &_container, forKey: .target)
 		try super.encode(to: encoder)
@@ -201,11 +225,14 @@ open class Provenance: DomainResource {
 		}
 		return activity == _other.activity
 		    && agent == _other.agent
+		    && authorization == _other.authorization
+		    && basedOn == _other.basedOn
+		    && encounter == _other.encounter
 		    && entity == _other.entity
 		    && location == _other.location
 		    && occurred == _other.occurred
+		    && patient == _other.patient
 		    && policy == _other.policy
-		    && reason == _other.reason
 		    && recorded == _other.recorded
 		    && signature == _other.signature
 		    && target == _other.target
@@ -215,11 +242,14 @@ open class Provenance: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(activity)
 		hasher.combine(agent)
+		hasher.combine(authorization)
+		hasher.combine(basedOn)
+		hasher.combine(encounter)
 		hasher.combine(entity)
 		hasher.combine(location)
 		hasher.combine(occurred)
+		hasher.combine(patient)
 		hasher.combine(policy)
-		hasher.combine(reason)
 		hasher.combine(recorded)
 		hasher.combine(signature)
 		hasher.combine(target)
@@ -240,10 +270,10 @@ open class ProvenanceAgent: BackboneElement {
 	/// What the agents role was
 	public var role: [CodeableConcept]?
 	
-	/// Who participated
+	/// The agent that participated in the event
 	public var who: Reference
 	
-	/// Who the agent is representing
+	/// The agent that delegated
 	public var onBehalfOf: Reference?
 	
 	/// Designated initializer taking all required properties
@@ -254,14 +284,14 @@ open class ProvenanceAgent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onBehalfOf: Reference? = nil,
-							role: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil,
-							who: Reference)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onBehalfOf: Reference? = nil,
+		role: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil,
+		who: Reference
+	) {
 		self.init(who: who)
 		self.`extension` = `extension`
 		self.id = id
@@ -351,13 +381,13 @@ open class ProvenanceEntity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							agent: [ProvenanceAgent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: FHIRPrimitive<ProvenanceEntityRole>,
-							what: Reference)
-	{
+		agent: [ProvenanceAgent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: FHIRPrimitive<ProvenanceEntityRole>,
+		what: Reference
+	) {
 		self.init(role: role, what: what)
 		self.agent = agent
 		self.`extension` = `extension`

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,18 +28,18 @@ import FMCore
 public enum RepositoryType: String, FHIRPrimitiveType {
 	
 	/// When URL is clicked, the resource can be seen directly (by webpage or by download link format).
-	case directlink = "directlink"
+	case directlink
 	
 	/// When the API method (e.g. [base_url]/[parameter]) related with the URL of the website is executed, the resource
 	/// can be seen directly (usually in JSON or XML format).
-	case openapi = "openapi"
+	case openapi
 	
 	/// When logged into the website, the resource can be seen.
-	case login = "login"
+	case login
 	
 	/// When logged in and  follow the API in the website related with URL, the resource can be seen.
-	case oauth = "oauth"
+	case oauth
 	
 	/// Some other complicated or particular way to get resource from URL.
-	case other = "other"
+	case other
 }

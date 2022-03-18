@@ -2,8 +2,8 @@
 //  ConceptMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ConceptMap)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ConceptMap)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ open class ConceptMap: DomainResource {
 	public var url: FHIRPrimitive<FHIRURI>?
 	
 	/// Additional identifier for the concept map
-	public var identifier: Identifier?
+	public var identifier: [Identifier]?
 	
 	/// Business version of the concept map
 	public var version: FHIRPrimitive<FHIRString>?
@@ -108,33 +108,33 @@ open class ConceptMap: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							group: [ConceptMapGroup]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							source: SourceX? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							target: TargetX? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		group: [ConceptMapGroup]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		source: SourceX? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		target: TargetX? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.contact = contact
 		self.contained = contained
@@ -199,7 +199,7 @@ open class ConceptMap: DomainResource {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.group = try [ConceptMapGroup](from: _container, forKeyIfPresent: .group)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
@@ -340,16 +340,10 @@ open class ConceptMap: DomainResource {
 open class ConceptMapGroup: BackboneElement {
 	
 	/// Source system where concepts to be mapped are defined
-	public var source: FHIRPrimitive<FHIRURI>?
-	
-	/// Specific version of the  code system
-	public var sourceVersion: FHIRPrimitive<FHIRString>?
+	public var source: FHIRPrimitive<Canonical>?
 	
 	/// Target system that the concepts are to be mapped to
-	public var target: FHIRPrimitive<FHIRURI>?
-	
-	/// Specific version of the  code system
-	public var targetVersion: FHIRPrimitive<FHIRString>?
+	public var target: FHIRPrimitive<Canonical>?
 	
 	/// Mappings for a concept from the source set
 	public var element: [ConceptMapGroupElement]
@@ -365,24 +359,20 @@ open class ConceptMapGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							element: [ConceptMapGroupElement],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: FHIRPrimitive<FHIRURI>? = nil,
-							sourceVersion: FHIRPrimitive<FHIRString>? = nil,
-							target: FHIRPrimitive<FHIRURI>? = nil,
-							targetVersion: FHIRPrimitive<FHIRString>? = nil,
-							unmapped: ConceptMapGroupUnmapped? = nil)
-	{
+		element: [ConceptMapGroupElement],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: FHIRPrimitive<Canonical>? = nil,
+		target: FHIRPrimitive<Canonical>? = nil,
+		unmapped: ConceptMapGroupUnmapped? = nil
+	) {
 		self.init(element: element)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.source = source
-		self.sourceVersion = sourceVersion
 		self.target = target
-		self.targetVersion = targetVersion
 		self.unmapped = unmapped
 	}
 	
@@ -391,9 +381,7 @@ open class ConceptMapGroup: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case element
 		case source; case _source
-		case sourceVersion; case _sourceVersion
 		case target; case _target
-		case targetVersion; case _targetVersion
 		case unmapped
 	}
 	
@@ -403,10 +391,8 @@ open class ConceptMapGroup: BackboneElement {
 		
 		// Decode all our properties
 		self.element = try [ConceptMapGroupElement](from: _container, forKey: .element)
-		self.source = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .source, auxiliaryKey: ._source)
-		self.sourceVersion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sourceVersion, auxiliaryKey: ._sourceVersion)
-		self.target = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .target, auxiliaryKey: ._target)
-		self.targetVersion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetVersion, auxiliaryKey: ._targetVersion)
+		self.source = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .source, auxiliaryKey: ._source)
+		self.target = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .target, auxiliaryKey: ._target)
 		self.unmapped = try ConceptMapGroupUnmapped(from: _container, forKeyIfPresent: .unmapped)
 		try super.init(from: decoder)
 	}
@@ -418,9 +404,7 @@ open class ConceptMapGroup: BackboneElement {
 		// Encode all our properties
 		try element.encode(on: &_container, forKey: .element)
 		try source?.encode(on: &_container, forKey: .source, auxiliaryKey: ._source)
-		try sourceVersion?.encode(on: &_container, forKey: .sourceVersion, auxiliaryKey: ._sourceVersion)
 		try target?.encode(on: &_container, forKey: .target, auxiliaryKey: ._target)
-		try targetVersion?.encode(on: &_container, forKey: .targetVersion, auxiliaryKey: ._targetVersion)
 		try unmapped?.encode(on: &_container, forKey: .unmapped)
 		try super.encode(to: encoder)
 	}
@@ -436,9 +420,7 @@ open class ConceptMapGroup: BackboneElement {
 		}
 		return element == _other.element
 		    && source == _other.source
-		    && sourceVersion == _other.sourceVersion
 		    && target == _other.target
-		    && targetVersion == _other.targetVersion
 		    && unmapped == _other.unmapped
 	}
 	
@@ -446,9 +428,7 @@ open class ConceptMapGroup: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(element)
 		hasher.combine(source)
-		hasher.combine(sourceVersion)
 		hasher.combine(target)
-		hasher.combine(targetVersion)
 		hasher.combine(unmapped)
 	}
 }
@@ -479,14 +459,14 @@ open class ConceptMapGroupElement: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							noMap: FHIRPrimitive<FHIRBool>? = nil,
-							target: [ConceptMapGroupElementTarget]? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		noMap: FHIRPrimitive<FHIRBool>? = nil,
+		target: [ConceptMapGroupElementTarget]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.display = display
@@ -567,9 +547,8 @@ open class ConceptMapGroupElementTarget: BackboneElement {
 	/// Display for the code
 	public var display: FHIRPrimitive<FHIRString>?
 	
-	/// The relationship between the source and target concepts. The relationship is read from source to target (e.g.
-	/// source-is-narrower-than-target).
-	public var relationship: FHIRPrimitive<ConceptMapRelationship>
+	/// related-to | equivalent | source-is-narrower-than-target | source-is-broader-than-target | not-related-to
+	public var relationship: FHIRPrimitive<FHIRString>
 	
 	/// Description of status/issues in mapping
 	public var comment: FHIRPrimitive<FHIRString>?
@@ -581,23 +560,23 @@ open class ConceptMapGroupElementTarget: BackboneElement {
 	public var product: [ConceptMapGroupElementTargetDependsOn]?
 	
 	/// Designated initializer taking all required properties
-	public init(relationship: FHIRPrimitive<ConceptMapRelationship>) {
+	public init(relationship: FHIRPrimitive<FHIRString>) {
 		self.relationship = relationship
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							dependsOn: [ConceptMapGroupElementTargetDependsOn]? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							product: [ConceptMapGroupElementTargetDependsOn]? = nil,
-							relationship: FHIRPrimitive<ConceptMapRelationship>)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		dependsOn: [ConceptMapGroupElementTargetDependsOn]? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		product: [ConceptMapGroupElementTargetDependsOn]? = nil,
+		relationship: FHIRPrimitive<FHIRString>
+	) {
 		self.init(relationship: relationship)
 		self.code = code
 		self.comment = comment
@@ -630,7 +609,7 @@ open class ConceptMapGroupElementTarget: BackboneElement {
 		self.dependsOn = try [ConceptMapGroupElementTargetDependsOn](from: _container, forKeyIfPresent: .dependsOn)
 		self.display = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .display, auxiliaryKey: ._display)
 		self.product = try [ConceptMapGroupElementTargetDependsOn](from: _container, forKeyIfPresent: .product)
-		self.relationship = try FHIRPrimitive<ConceptMapRelationship>(from: _container, forKey: .relationship, auxiliaryKey: ._relationship)
+		self.relationship = try FHIRPrimitive<FHIRString>(from: _container, forKey: .relationship, auxiliaryKey: ._relationship)
 		try super.init(from: decoder)
 	}
 	
@@ -705,14 +684,14 @@ open class ConceptMapGroupElementTargetDependsOn: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							property: FHIRPrimitive<FHIRURI>,
-							system: FHIRPrimitive<Canonical>? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		property: FHIRPrimitive<FHIRURI>,
+		system: FHIRPrimitive<Canonical>? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(property: property, value: value)
 		self.display = display
 		self.`extension` = `extension`
@@ -810,14 +789,14 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRString>? = nil,
-							display: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<ConceptMapGroupUnmappedMode>,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<Canonical>? = nil)
-	{
+		code: FHIRPrimitive<FHIRString>? = nil,
+		display: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<ConceptMapGroupUnmappedMode>,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init(mode: mode)
 		self.code = code
 		self.display = display

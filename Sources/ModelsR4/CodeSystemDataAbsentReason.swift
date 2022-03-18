@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import FMCore
 public enum DataAbsentReason: String, FHIRPrimitiveType {
 	
 	/// The value is expected to exist but is not known.
-	case unknown = "unknown"
+	case unknown
 	
 	/// The source was asked but does not know the value.
 	case askedUnknown = "asked-unknown"
@@ -43,19 +43,19 @@ public enum DataAbsentReason: String, FHIRPrimitiveType {
 	case askedDeclined = "asked-declined"
 	
 	/// The information is not available due to security, privacy or related reasons.
-	case masked = "masked"
+	case masked
 	
 	/// There is no proper value for this element (e.g. last menstrual period for a male).
 	case notApplicable = "not-applicable"
 	
 	/// The source system wasn't capable of supporting this element.
-	case unsupported = "unsupported"
+	case unsupported
 	
 	/// The content of the data is represented in the resource narrative.
 	case asText = "as-text"
 	
 	/// Some system or workflow process error means that the information is not available.
-	case error = "error"
+	case error
 	
 	/// The numeric value is undefined or unrepresentable due to a floating point processing error.
 	case notANumber = "not-a-number"

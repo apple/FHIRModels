@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductManufactured)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,22 +57,22 @@ open class MedicinalProductManufactured: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturedDoseForm: CodeableConcept,
-							manufacturer: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							otherCharacteristics: [CodeableConcept]? = nil,
-							physicalCharacteristics: ProdCharacteristic? = nil,
-							quantity: Quantity,
-							text: Narrative? = nil,
-							unitOfPresentation: CodeableConcept? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [Reference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manufacturedDoseForm: CodeableConcept,
+		manufacturer: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		otherCharacteristics: [CodeableConcept]? = nil,
+		physicalCharacteristics: ProdCharacteristic? = nil,
+		quantity: Quantity,
+		text: Narrative? = nil,
+		unitOfPresentation: CodeableConcept? = nil
+	) {
 		self.init(manufacturedDoseForm: manufacturedDoseForm, quantity: quantity)
 		self.contained = contained
 		self.`extension` = `extension`

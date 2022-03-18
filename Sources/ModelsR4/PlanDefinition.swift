@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/PlanDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -138,46 +138,46 @@ open class PlanDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [PlanDefinitionAction]? = nil,
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							author: [ContactDetail]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							editor: [ContactDetail]? = nil,
-							effectivePeriod: Period? = nil,
-							endorser: [ContactDetail]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							goal: [PlanDefinitionGoal]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							library: [FHIRPrimitive<Canonical>]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		action: [PlanDefinitionAction]? = nil,
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [PlanDefinitionGoal]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: SubjectX? = nil,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.action = action
 		self.approvalDate = approvalDate
@@ -552,37 +552,37 @@ open class PlanDefinitionAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [PlanDefinitionAction]? = nil,
-							cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
-							code: [CodeableConcept]? = nil,
-							condition: [PlanDefinitionActionCondition]? = nil,
-							definition: DefinitionX? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							documentation: [RelatedArtifact]? = nil,
-							dynamicValue: [PlanDefinitionActionDynamicValue]? = nil,
-							`extension`: [Extension]? = nil,
-							goalId: [FHIRPrimitive<FHIRString>]? = nil,
-							groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							input: [DataRequirement]? = nil,
-							modifierExtension: [Extension]? = nil,
-							output: [DataRequirement]? = nil,
-							participant: [PlanDefinitionActionParticipant]? = nil,
-							precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
-							prefix: FHIRPrimitive<FHIRString>? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reason: [CodeableConcept]? = nil,
-							relatedAction: [PlanDefinitionActionRelatedAction]? = nil,
-							requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
-							selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
-							subject: SubjectX? = nil,
-							textEquivalent: FHIRPrimitive<FHIRString>? = nil,
-							timing: TimingX? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							transform: FHIRPrimitive<Canonical>? = nil,
-							trigger: [TriggerDefinition]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		action: [PlanDefinitionAction]? = nil,
+		cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
+		code: [CodeableConcept]? = nil,
+		condition: [PlanDefinitionActionCondition]? = nil,
+		definition: DefinitionX? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		documentation: [RelatedArtifact]? = nil,
+		dynamicValue: [PlanDefinitionActionDynamicValue]? = nil,
+		`extension`: [Extension]? = nil,
+		goalId: [FHIRPrimitive<FHIRString>]? = nil,
+		groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		input: [DataRequirement]? = nil,
+		modifierExtension: [Extension]? = nil,
+		output: [DataRequirement]? = nil,
+		participant: [PlanDefinitionActionParticipant]? = nil,
+		precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
+		prefix: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reason: [CodeableConcept]? = nil,
+		relatedAction: [PlanDefinitionActionRelatedAction]? = nil,
+		requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
+		selectionBehavior: FHIRPrimitive<ActionSelectionBehavior>? = nil,
+		subject: SubjectX? = nil,
+		textEquivalent: FHIRPrimitive<FHIRString>? = nil,
+		timing: TimingX? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		transform: FHIRPrimitive<Canonical>? = nil,
+		trigger: [TriggerDefinition]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.action = action
 		self.cardinalityBehavior = cardinalityBehavior
@@ -908,12 +908,12 @@ open class PlanDefinitionActionCondition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: Expression? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							kind: FHIRPrimitive<ActionConditionKind>,
-							modifierExtension: [Extension]? = nil)
-	{
+		expression: Expression? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		kind: FHIRPrimitive<ActionConditionKind>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(kind: kind)
 		self.expression = expression
 		self.`extension` = `extension`
@@ -990,12 +990,12 @@ open class PlanDefinitionActionDynamicValue: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: Expression? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							path: FHIRPrimitive<FHIRString>? = nil)
-	{
+		expression: Expression? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.expression = expression
 		self.`extension` = `extension`
@@ -1072,12 +1072,12 @@ open class PlanDefinitionActionParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: CodeableConcept? = nil,
-							type: FHIRPrimitive<ActionParticipantType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept? = nil,
+		type: FHIRPrimitive<ActionParticipantType>
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1164,13 +1164,13 @@ open class PlanDefinitionActionRelatedAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actionId: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							offset: OffsetX? = nil,
-							relationship: FHIRPrimitive<ActionRelationshipType>)
-	{
+		actionId: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		offset: OffsetX? = nil,
+		relationship: FHIRPrimitive<ActionRelationshipType>
+	) {
 		self.init(actionId: actionId, relationship: relationship)
 		self.`extension` = `extension`
 		self.id = id
@@ -1288,17 +1288,17 @@ open class PlanDefinitionGoal: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							addresses: [CodeableConcept]? = nil,
-							category: CodeableConcept? = nil,
-							description_fhir: CodeableConcept,
-							documentation: [RelatedArtifact]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							priority: CodeableConcept? = nil,
-							start: CodeableConcept? = nil,
-							target: [PlanDefinitionGoalTarget]? = nil)
-	{
+		addresses: [CodeableConcept]? = nil,
+		category: CodeableConcept? = nil,
+		description_fhir: CodeableConcept,
+		documentation: [RelatedArtifact]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		priority: CodeableConcept? = nil,
+		start: CodeableConcept? = nil,
+		target: [PlanDefinitionGoalTarget]? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.addresses = addresses
 		self.category = category
@@ -1414,13 +1414,13 @@ open class PlanDefinitionGoalTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: DetailX? = nil,
-							due: Duration? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measure: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		detail: DetailX? = nil,
+		due: Duration? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measure: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.detail = detail
 		self.due = due

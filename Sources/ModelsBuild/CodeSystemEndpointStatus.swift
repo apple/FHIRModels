@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,21 +28,21 @@ import FMCore
 public enum EndpointStatus: String, FHIRPrimitiveType {
 	
 	/// This endpoint is expected to be active and can be used.
-	case active = "active"
-	
-	/// This endpoint is temporarily unavailable.
-	case suspended = "suspended"
-	
-	/// This endpoint has exceeded connectivity thresholds and is considered in an error state and should no longer be
-	/// attempted to connect to until corrective action is taken.
-	case error = "error"
-	
-	/// This endpoint is no longer to be used.
-	case off = "off"
+	case active
 	
 	/// This instance should not have been part of this patient's medical record.
 	case enteredInError = "entered-in-error"
 	
+	/// This endpoint has exceeded connectivity thresholds and is considered in an error state and should no longer be
+	/// attempted to connect to until corrective action is taken.
+	case error
+	
+	/// This endpoint is no longer to be used.
+	case off
+	
+	/// This endpoint is temporarily unavailable.
+	case suspended
+	
 	/// This endpoint is not intended for production usage.
-	case test = "test"
+	case test
 }

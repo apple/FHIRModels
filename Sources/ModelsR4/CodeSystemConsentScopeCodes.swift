@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum ConsentScopeCodes: String, FHIRPrimitiveType {
 	
 	/// Actions to be taken if they are no longer able to make decisions for themselves
-	case adr = "adr"
+	case adr
 	
 	/// Consent to participate in research protocol and information sharing required
-	case research = "research"
+	case research
 	
 	/// Agreement to collect, access, use or disclose (share) information
 	case patientPrivacy = "patient-privacy"
 	
 	/// Consent to undergo a specific treatment
-	case treatment = "treatment"
+	case treatment
 }

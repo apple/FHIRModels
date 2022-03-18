@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,13 +27,13 @@ import FMCore
  */
 public enum ResearchSubjectMilestone: String, FHIRPrimitiveType {
 	
-	/// A person has expressed an interest in being in a study but has not yet been through any assessment or consent
-	/// processes.
-	case signedUp = "SignedUp"
+	/// A subject has been allocated to an arm of the study.
+	case randomized = "Randomized"
 	
 	/// A potential subject has been screened for suitability.
 	case screened = "Screened"
 	
-	/// A subject has been allocated to an arm of the study.
-	case randomized = "Randomized"
+	/// A person has expressed an interest in being in a study but has not yet been through any assessment or consent
+	/// processes.
+	case signedUp = "SignedUp"
 }

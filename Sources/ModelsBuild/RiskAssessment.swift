@@ -2,8 +2,8 @@
 //  RiskAssessment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/RiskAssessment)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RiskAssessment)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -92,31 +92,31 @@ open class RiskAssessment: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: Reference? = nil,
-							basis: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							condition: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							method: CodeableConcept? = nil,
-							mitigation: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							parent: Reference? = nil,
-							performer: Reference? = nil,
-							prediction: [RiskAssessmentPrediction]? = nil,
-							reason: [CodeableReference]? = nil,
-							status: FHIRPrimitive<ObservationStatus>,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		basedOn: Reference? = nil,
+		basis: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		condition: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		method: CodeableConcept? = nil,
+		mitigation: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		parent: Reference? = nil,
+		performer: Reference? = nil,
+		prediction: [RiskAssessmentPrediction]? = nil,
+		reason: [CodeableReference]? = nil,
+		status: FHIRPrimitive<ObservationStatus>,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.basedOn = basedOn
 		self.basis = basis
@@ -326,16 +326,16 @@ open class RiskAssessmentPrediction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: CodeableConcept? = nil,
-							probability: ProbabilityX? = nil,
-							qualitativeRisk: CodeableConcept? = nil,
-							rationale: FHIRPrimitive<FHIRString>? = nil,
-							relativeRisk: FHIRPrimitive<FHIRDecimal>? = nil,
-							when: WhenX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: CodeableConcept? = nil,
+		probability: ProbabilityX? = nil,
+		qualitativeRisk: CodeableConcept? = nil,
+		rationale: FHIRPrimitive<FHIRString>? = nil,
+		relativeRisk: FHIRPrimitive<FHIRDecimal>? = nil,
+		when: WhenX? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

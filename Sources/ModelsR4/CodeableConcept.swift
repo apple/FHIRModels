@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CodeableConcept)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,11 +39,11 @@ open class CodeableConcept: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							coding: [Coding]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		coding: [Coding]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.coding = coding
 		self.`extension` = `extension`

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum EnableWhenBehavior: String, FHIRPrimitiveType {
 	
 	/// Enable the question when all the enableWhen criteria are satisfied.
-	case all = "all"
+	case all
 	
 	/// Enable the question when any of the enableWhen criteria are satisfied.
-	case any = "any"
+	case any
 }

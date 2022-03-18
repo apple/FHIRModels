@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -54,20 +54,20 @@ open class ImmunizationRecommendation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							patient: Reference,
-							recommendation: [ImmunizationRecommendationRecommendation],
-							text: Narrative? = nil)
-	{
+		authority: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		patient: Reference,
+		recommendation: [ImmunizationRecommendationRecommendation],
+		text: Narrative? = nil
+	) {
 		self.init(date: date, patient: patient, recommendation: recommendation)
 		self.authority = authority
 		self.contained = contained
@@ -206,22 +206,22 @@ open class ImmunizationRecommendationRecommendation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							contraindicatedVaccineCode: [CodeableConcept]? = nil,
-							dateCriterion: [ImmunizationRecommendationRecommendationDateCriterion]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							doseNumber: DoseNumberX? = nil,
-							`extension`: [Extension]? = nil,
-							forecastReason: [CodeableConcept]? = nil,
-							forecastStatus: CodeableConcept,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							series: FHIRPrimitive<FHIRString>? = nil,
-							seriesDoses: SeriesDosesX? = nil,
-							supportingImmunization: [Reference]? = nil,
-							supportingPatientInformation: [Reference]? = nil,
-							targetDisease: CodeableConcept? = nil,
-							vaccineCode: [CodeableConcept]? = nil)
-	{
+		contraindicatedVaccineCode: [CodeableConcept]? = nil,
+		dateCriterion: [ImmunizationRecommendationRecommendationDateCriterion]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		doseNumber: DoseNumberX? = nil,
+		`extension`: [Extension]? = nil,
+		forecastReason: [CodeableConcept]? = nil,
+		forecastStatus: CodeableConcept,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		series: FHIRPrimitive<FHIRString>? = nil,
+		seriesDoses: SeriesDosesX? = nil,
+		supportingImmunization: [Reference]? = nil,
+		supportingPatientInformation: [Reference]? = nil,
+		targetDisease: CodeableConcept? = nil,
+		vaccineCode: [CodeableConcept]? = nil
+	) {
 		self.init(forecastStatus: forecastStatus)
 		self.contraindicatedVaccineCode = contraindicatedVaccineCode
 		self.dateCriterion = dateCriterion
@@ -400,12 +400,12 @@ open class ImmunizationRecommendationRecommendationDateCriterion: BackboneElemen
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: FHIRPrimitive<DateTime>)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: FHIRPrimitive<DateTime>
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id

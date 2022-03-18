@@ -2,8 +2,8 @@
 //  ChargeItem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ChargeItem)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ChargeItem)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,12 +36,6 @@ open class ChargeItem: DomainResource {
 		case dateTime(FHIRPrimitive<DateTime>)
 		case period(Period)
 		case timing(Timing)
-	}
-	
-	/// All possible types for "product[x]"
-	public enum ProductX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case reference(Reference)
 	}
 	
 	/// Business Identifier for item
@@ -112,8 +106,7 @@ open class ChargeItem: DomainResource {
 	public var service: [Reference]?
 	
 	/// Product charged
-	/// One of `product[x]`
-	public var product: ProductX?
+	public var product: [CodeableReference]?
 	
 	/// Account to place this charge
 	public var account: [Reference]?
@@ -134,41 +127,41 @@ open class ChargeItem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: [Reference]? = nil,
-							bodysite: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							contained: [ResourceProxy]? = nil,
-							context: Reference? = nil,
-							costCenter: Reference? = nil,
-							definitionCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							definitionUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							enteredDate: FHIRPrimitive<DateTime>? = nil,
-							enterer: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							factorOverride: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							overrideReason: FHIRPrimitive<FHIRString>? = nil,
-							partOf: [Reference]? = nil,
-							performer: [ChargeItemPerformer]? = nil,
-							performingOrganization: Reference? = nil,
-							priceOverride: Money? = nil,
-							product: ProductX? = nil,
-							quantity: Quantity? = nil,
-							reason: [CodeableConcept]? = nil,
-							requestingOrganization: Reference? = nil,
-							service: [Reference]? = nil,
-							status: FHIRPrimitive<ChargeItemStatus>,
-							subject: Reference,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		account: [Reference]? = nil,
+		bodysite: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		contained: [ResourceProxy]? = nil,
+		context: Reference? = nil,
+		costCenter: Reference? = nil,
+		definitionCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		definitionUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		enteredDate: FHIRPrimitive<DateTime>? = nil,
+		enterer: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		factorOverride: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		overrideReason: FHIRPrimitive<FHIRString>? = nil,
+		partOf: [Reference]? = nil,
+		performer: [ChargeItemPerformer]? = nil,
+		performingOrganization: Reference? = nil,
+		priceOverride: Money? = nil,
+		product: [CodeableReference]? = nil,
+		quantity: Quantity? = nil,
+		reason: [CodeableConcept]? = nil,
+		requestingOrganization: Reference? = nil,
+		service: [Reference]? = nil,
+		status: FHIRPrimitive<ChargeItemStatus>,
+		subject: Reference,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, status: status, subject: subject)
 		self.account = account
 		self.bodysite = bodysite
@@ -226,8 +219,7 @@ open class ChargeItem: DomainResource {
 		case performer
 		case performingOrganization
 		case priceOverride
-		case productCodeableConcept
-		case productReference
+		case product
 		case quantity
 		case reason
 		case requestingOrganization
@@ -279,20 +271,7 @@ open class ChargeItem: DomainResource {
 		self.performer = try [ChargeItemPerformer](from: _container, forKeyIfPresent: .performer)
 		self.performingOrganization = try Reference(from: _container, forKeyIfPresent: .performingOrganization)
 		self.priceOverride = try Money(from: _container, forKeyIfPresent: .priceOverride)
-		var _t_product: ProductX? = nil
-		if let productReference = try Reference(from: _container, forKeyIfPresent: .productReference) {
-			if _t_product != nil {
-				throw DecodingError.dataCorruptedError(forKey: .productReference, in: _container, debugDescription: "More than one value provided for \"product\"")
-			}
-			_t_product = .reference(productReference)
-		}
-		if let productCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .productCodeableConcept) {
-			if _t_product != nil {
-				throw DecodingError.dataCorruptedError(forKey: .productCodeableConcept, in: _container, debugDescription: "More than one value provided for \"product\"")
-			}
-			_t_product = .codeableConcept(productCodeableConcept)
-		}
-		self.product = _t_product
+		self.product = try [CodeableReference](from: _container, forKeyIfPresent: .product)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
 		self.requestingOrganization = try Reference(from: _container, forKeyIfPresent: .requestingOrganization)
@@ -335,14 +314,7 @@ open class ChargeItem: DomainResource {
 		try performer?.encode(on: &_container, forKey: .performer)
 		try performingOrganization?.encode(on: &_container, forKey: .performingOrganization)
 		try priceOverride?.encode(on: &_container, forKey: .priceOverride)
-		if let _enum = product {
-			switch _enum {
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .productReference)
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .productCodeableConcept)
-			}
-		}
+		try product?.encode(on: &_container, forKey: .product)
 		try quantity?.encode(on: &_container, forKey: .quantity)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try requestingOrganization?.encode(on: &_container, forKey: .requestingOrganization)
@@ -442,12 +414,12 @@ open class ChargeItemPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

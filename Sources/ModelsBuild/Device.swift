@@ -2,8 +2,8 @@
 //  Device.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Device)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Device)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ open class Device: DomainResource {
 	public var displayName: FHIRPrimitive<FHIRString>?
 	
 	/// The reference to the definition for the device
-	public var definition: Reference?
+	public var definition: CodeableReference?
 	
 	/// Unique Device Identifier (UDI) Barcode string
 	public var udiCarrier: [DeviceUdiCarrier]?
@@ -47,8 +47,9 @@ open class Device: DomainResource {
 	/// discarded | obsolete | removed
 	public var statusReason: [CodeableConcept]?
 	
-	/// The distinct identification string
-	public var distinctIdentifier: FHIRPrimitive<FHIRString>?
+	/// An identifier that supports traceability to the biological entity that is the source of biological material in
+	/// the product
+	public var biologicalSource: Identifier?
 	
 	/// Name of device manufacturer
 	public var manufacturer: FHIRPrimitive<FHIRString>?
@@ -77,10 +78,6 @@ open class Device: DomainResource {
 	/// The kind or type of device
 	public var type: [CodeableConcept]?
 	
-	/// The capabilities supported on a  device, the standards to which the device conforms for a particular purpose,
-	/// and used for the communication
-	public var specialization: [DeviceSpecialization]?
-	
 	/// The actual design of the device or software version running on the device
 	public var version: [DeviceVersion]?
 	
@@ -88,13 +85,13 @@ open class Device: DomainResource {
 	public var property: [DeviceProperty]?
 	
 	/// Patient to whom Device is affixed
-	public var patient: Reference?
+	public var subject: Reference?
 	
 	/// The status of the device itself - whether it is switched on, or activated, etc
 	public var operationalStatus: DeviceOperationalStatus?
 	
-	/// The state of the usage or application of the device
-	public var associationStatus: DeviceAssociationStatus?
+	/// Current state of the device
+	public var associationState: [DeviceAssociationState]?
 	
 	/// Organization responsible for device
 	public var owner: Reference?
@@ -107,6 +104,13 @@ open class Device: DomainResource {
 	
 	/// Network address to contact device
 	public var url: FHIRPrimitive<FHIRURI>?
+	
+	/// Technical endpoints providing access to electronic services provided by the device
+	public var endpoint: [Reference]?
+	
+	/// An associated device, attached to, used with, communicating with or linking a previous or new device model to
+	/// the focal device
+	public var link: [DeviceLink]?
 	
 	/// Device notes and comments
 	public var note: [Annotation]?
@@ -124,58 +128,61 @@ open class Device: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							associationStatus: DeviceAssociationStatus? = nil,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							definition: Reference? = nil,
-							deviceName: [DeviceDeviceName]? = nil,
-							displayName: FHIRPrimitive<FHIRString>? = nil,
-							distinctIdentifier: FHIRPrimitive<FHIRString>? = nil,
-							expirationDate: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							lotNumber: FHIRPrimitive<FHIRString>? = nil,
-							manufactureDate: FHIRPrimitive<DateTime>? = nil,
-							manufacturer: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modelNumber: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							operationalStatus: DeviceOperationalStatus? = nil,
-							owner: Reference? = nil,
-							parent: Reference? = nil,
-							partNumber: FHIRPrimitive<FHIRString>? = nil,
-							patient: Reference? = nil,
-							property: [DeviceProperty]? = nil,
-							safety: [CodeableConcept]? = nil,
-							serialNumber: FHIRPrimitive<FHIRString>? = nil,
-							specialization: [DeviceSpecialization]? = nil,
-							status: FHIRPrimitive<FHIRDeviceStatus>? = nil,
-							statusReason: [CodeableConcept]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil,
-							udiCarrier: [DeviceUdiCarrier]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							version: [DeviceVersion]? = nil)
-	{
+		associationState: [DeviceAssociationState]? = nil,
+		biologicalSource: Identifier? = nil,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		definition: CodeableReference? = nil,
+		deviceName: [DeviceDeviceName]? = nil,
+		displayName: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [Reference]? = nil,
+		expirationDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		link: [DeviceLink]? = nil,
+		location: Reference? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		manufactureDate: FHIRPrimitive<DateTime>? = nil,
+		manufacturer: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modelNumber: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		operationalStatus: DeviceOperationalStatus? = nil,
+		owner: Reference? = nil,
+		parent: Reference? = nil,
+		partNumber: FHIRPrimitive<FHIRString>? = nil,
+		property: [DeviceProperty]? = nil,
+		safety: [CodeableConcept]? = nil,
+		serialNumber: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<FHIRDeviceStatus>? = nil,
+		statusReason: [CodeableConcept]? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil,
+		udiCarrier: [DeviceUdiCarrier]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		version: [DeviceVersion]? = nil
+	) {
 		self.init()
-		self.associationStatus = associationStatus
+		self.associationState = associationState
+		self.biologicalSource = biologicalSource
 		self.contact = contact
 		self.contained = contained
 		self.definition = definition
 		self.deviceName = deviceName
 		self.displayName = displayName
-		self.distinctIdentifier = distinctIdentifier
+		self.endpoint = endpoint
 		self.expirationDate = expirationDate
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
+		self.link = link
 		self.location = location
 		self.lotNumber = lotNumber
 		self.manufactureDate = manufactureDate
@@ -188,13 +195,12 @@ open class Device: DomainResource {
 		self.owner = owner
 		self.parent = parent
 		self.partNumber = partNumber
-		self.patient = patient
 		self.property = property
 		self.safety = safety
 		self.serialNumber = serialNumber
-		self.specialization = specialization
 		self.status = status
 		self.statusReason = statusReason
+		self.subject = subject
 		self.text = text
 		self.type = type
 		self.udiCarrier = udiCarrier
@@ -205,14 +211,16 @@ open class Device: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case associationStatus
+		case associationState
+		case biologicalSource
 		case contact
 		case definition
 		case deviceName
 		case displayName; case _displayName
-		case distinctIdentifier; case _distinctIdentifier
+		case endpoint
 		case expirationDate; case _expirationDate
 		case identifier
+		case link
 		case location
 		case lotNumber; case _lotNumber
 		case manufactureDate; case _manufactureDate
@@ -223,13 +231,12 @@ open class Device: DomainResource {
 		case owner
 		case parent
 		case partNumber; case _partNumber
-		case patient
 		case property
 		case safety
 		case serialNumber; case _serialNumber
-		case specialization
 		case status; case _status
 		case statusReason
+		case subject
 		case type
 		case udiCarrier
 		case url; case _url
@@ -241,14 +248,16 @@ open class Device: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.associationStatus = try DeviceAssociationStatus(from: _container, forKeyIfPresent: .associationStatus)
+		self.associationState = try [DeviceAssociationState](from: _container, forKeyIfPresent: .associationState)
+		self.biologicalSource = try Identifier(from: _container, forKeyIfPresent: .biologicalSource)
 		self.contact = try [ContactPoint](from: _container, forKeyIfPresent: .contact)
-		self.definition = try Reference(from: _container, forKeyIfPresent: .definition)
+		self.definition = try CodeableReference(from: _container, forKeyIfPresent: .definition)
 		self.deviceName = try [DeviceDeviceName](from: _container, forKeyIfPresent: .deviceName)
 		self.displayName = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .displayName, auxiliaryKey: ._displayName)
-		self.distinctIdentifier = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .distinctIdentifier, auxiliaryKey: ._distinctIdentifier)
+		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.link = try [DeviceLink](from: _container, forKeyIfPresent: .link)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
 		self.manufactureDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .manufactureDate, auxiliaryKey: ._manufactureDate)
@@ -259,13 +268,12 @@ open class Device: DomainResource {
 		self.owner = try Reference(from: _container, forKeyIfPresent: .owner)
 		self.parent = try Reference(from: _container, forKeyIfPresent: .parent)
 		self.partNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .partNumber, auxiliaryKey: ._partNumber)
-		self.patient = try Reference(from: _container, forKeyIfPresent: .patient)
 		self.property = try [DeviceProperty](from: _container, forKeyIfPresent: .property)
 		self.safety = try [CodeableConcept](from: _container, forKeyIfPresent: .safety)
 		self.serialNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .serialNumber, auxiliaryKey: ._serialNumber)
-		self.specialization = try [DeviceSpecialization](from: _container, forKeyIfPresent: .specialization)
 		self.status = try FHIRPrimitive<FHIRDeviceStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
+		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		self.udiCarrier = try [DeviceUdiCarrier](from: _container, forKeyIfPresent: .udiCarrier)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
@@ -278,14 +286,16 @@ open class Device: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try associationStatus?.encode(on: &_container, forKey: .associationStatus)
+		try associationState?.encode(on: &_container, forKey: .associationState)
+		try biologicalSource?.encode(on: &_container, forKey: .biologicalSource)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try definition?.encode(on: &_container, forKey: .definition)
 		try deviceName?.encode(on: &_container, forKey: .deviceName)
 		try displayName?.encode(on: &_container, forKey: .displayName, auxiliaryKey: ._displayName)
-		try distinctIdentifier?.encode(on: &_container, forKey: .distinctIdentifier, auxiliaryKey: ._distinctIdentifier)
+		try endpoint?.encode(on: &_container, forKey: .endpoint)
 		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try link?.encode(on: &_container, forKey: .link)
 		try location?.encode(on: &_container, forKey: .location)
 		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
 		try manufactureDate?.encode(on: &_container, forKey: .manufactureDate, auxiliaryKey: ._manufactureDate)
@@ -296,13 +306,12 @@ open class Device: DomainResource {
 		try owner?.encode(on: &_container, forKey: .owner)
 		try parent?.encode(on: &_container, forKey: .parent)
 		try partNumber?.encode(on: &_container, forKey: .partNumber, auxiliaryKey: ._partNumber)
-		try patient?.encode(on: &_container, forKey: .patient)
 		try property?.encode(on: &_container, forKey: .property)
 		try safety?.encode(on: &_container, forKey: .safety)
 		try serialNumber?.encode(on: &_container, forKey: .serialNumber, auxiliaryKey: ._serialNumber)
-		try specialization?.encode(on: &_container, forKey: .specialization)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
+		try subject?.encode(on: &_container, forKey: .subject)
 		try type?.encode(on: &_container, forKey: .type)
 		try udiCarrier?.encode(on: &_container, forKey: .udiCarrier)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
@@ -319,14 +328,16 @@ open class Device: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return associationStatus == _other.associationStatus
+		return associationState == _other.associationState
+		    && biologicalSource == _other.biologicalSource
 		    && contact == _other.contact
 		    && definition == _other.definition
 		    && deviceName == _other.deviceName
 		    && displayName == _other.displayName
-		    && distinctIdentifier == _other.distinctIdentifier
+		    && endpoint == _other.endpoint
 		    && expirationDate == _other.expirationDate
 		    && identifier == _other.identifier
+		    && link == _other.link
 		    && location == _other.location
 		    && lotNumber == _other.lotNumber
 		    && manufactureDate == _other.manufactureDate
@@ -337,13 +348,12 @@ open class Device: DomainResource {
 		    && owner == _other.owner
 		    && parent == _other.parent
 		    && partNumber == _other.partNumber
-		    && patient == _other.patient
 		    && property == _other.property
 		    && safety == _other.safety
 		    && serialNumber == _other.serialNumber
-		    && specialization == _other.specialization
 		    && status == _other.status
 		    && statusReason == _other.statusReason
+		    && subject == _other.subject
 		    && type == _other.type
 		    && udiCarrier == _other.udiCarrier
 		    && url == _other.url
@@ -352,14 +362,16 @@ open class Device: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(associationStatus)
+		hasher.combine(associationState)
+		hasher.combine(biologicalSource)
 		hasher.combine(contact)
 		hasher.combine(definition)
 		hasher.combine(deviceName)
 		hasher.combine(displayName)
-		hasher.combine(distinctIdentifier)
+		hasher.combine(endpoint)
 		hasher.combine(expirationDate)
 		hasher.combine(identifier)
+		hasher.combine(link)
 		hasher.combine(location)
 		hasher.combine(lotNumber)
 		hasher.combine(manufactureDate)
@@ -370,13 +382,12 @@ open class Device: DomainResource {
 		hasher.combine(owner)
 		hasher.combine(parent)
 		hasher.combine(partNumber)
-		hasher.combine(patient)
 		hasher.combine(property)
 		hasher.combine(safety)
 		hasher.combine(serialNumber)
-		hasher.combine(specialization)
 		hasher.combine(status)
 		hasher.combine(statusReason)
+		hasher.combine(subject)
 		hasher.combine(type)
 		hasher.combine(udiCarrier)
 		hasher.combine(url)
@@ -385,45 +396,50 @@ open class Device: DomainResource {
 }
 
 /**
- The state of the usage or application of the device.
+ Current state of the device.
  
- The state of the usage or application of the device - whether the device is implanted, or explanted, or attached to the
- patient.
+ The details about the device when it is affixed or inside of a patient.
  */
-open class DeviceAssociationStatus: BackboneElement {
+open class DeviceAssociationState: BackboneElement {
 	
-	/// implanted|explanted|attached
-	public var value: CodeableConcept?
+	/// Device useage state
+	public var status: CodeableConcept
 	
 	/// The reasons given for the current association status
-	public var reason: [CodeableConcept]?
+	public var statusReason: [CodeableConcept]?
+	
+	/// The individual associated with the device
+	public var humanSubject: Reference?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(status: CodeableConcept) {
+		self.status = status
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: [CodeableConcept]? = nil,
-							value: CodeableConcept? = nil)
-	{
-		self.init()
+		`extension`: [Extension]? = nil,
+		humanSubject: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: CodeableConcept,
+		statusReason: [CodeableConcept]? = nil
+	) {
+		self.init(status: status)
 		self.`extension` = `extension`
+		self.humanSubject = humanSubject
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.reason = reason
-		self.value = value
+		self.statusReason = statusReason
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case reason
-		case value
+		case humanSubject
+		case status
+		case statusReason
 	}
 	
 	/// Initializer for Decodable
@@ -431,8 +447,9 @@ open class DeviceAssociationStatus: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
-		self.value = try CodeableConcept(from: _container, forKeyIfPresent: .value)
+		self.humanSubject = try Reference(from: _container, forKeyIfPresent: .humanSubject)
+		self.status = try CodeableConcept(from: _container, forKey: .status)
+		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		try super.init(from: decoder)
 	}
 	
@@ -441,28 +458,31 @@ open class DeviceAssociationStatus: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try reason?.encode(on: &_container, forKey: .reason)
-		try value?.encode(on: &_container, forKey: .value)
+		try humanSubject?.encode(on: &_container, forKey: .humanSubject)
+		try status.encode(on: &_container, forKey: .status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? DeviceAssociationStatus else {
+		guard let _other = _other as? DeviceAssociationState else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return reason == _other.reason
-		    && value == _other.value
+		return humanSubject == _other.humanSubject
+		    && status == _other.status
+		    && statusReason == _other.statusReason
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(reason)
-		hasher.combine(value)
+		hasher.combine(humanSubject)
+		hasher.combine(status)
+		hasher.combine(statusReason)
 	}
 }
 
@@ -480,7 +500,7 @@ open class DeviceDeviceName: BackboneElement {
 	
 	/// The type of deviceName. Note that ManufactureDeviceName means that the name is the name as given by the
 	/// manufacturer, not the name of the manufacturer.
-	/// UDILabelName | UserFriendlyName | PatientReportedName | ManufactureDeviceName | ModelName.
+	/// RegisteredName | UserFriendlyName | PatientReportedName.
 	public var type: FHIRPrimitive<DeviceNameType>
 	
 	/// Designated initializer taking all required properties
@@ -492,12 +512,12 @@ open class DeviceDeviceName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<DeviceNameType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<DeviceNameType>
+	) {
 		self.init(name: name, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -552,35 +572,115 @@ open class DeviceDeviceName: BackboneElement {
 }
 
 /**
- The status of the device itself - whether it is switched on, or activated, etc.
+ An associated device, attached to, used with, communicating with or linking a previous or new device model to the focal
+ device.
  */
-open class DeviceOperationalStatus: BackboneElement {
+open class DeviceLink: BackboneElement {
 	
-	/// on |off | standby
-	public var value: CodeableConcept?
+	/// The type indicates the relationship of the related device to the device instance
+	public var relation: Coding
 	
-	/// The reasons given for the current operational status
-	public var reason: [CodeableConcept]?
+	/// A reference to the linked device
+	public var relatedDevice: CodeableReference
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(relatedDevice: CodeableReference, relation: Coding) {
+		self.relatedDevice = relatedDevice
+		self.relation = relation
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: [CodeableConcept]? = nil,
-							value: CodeableConcept? = nil)
-	{
-		self.init()
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		relatedDevice: CodeableReference,
+		relation: Coding
+	) {
+		self.init(relatedDevice: relatedDevice, relation: relation)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case relatedDevice
+		case relation
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.relatedDevice = try CodeableReference(from: _container, forKey: .relatedDevice)
+		self.relation = try Coding(from: _container, forKey: .relation)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try relatedDevice.encode(on: &_container, forKey: .relatedDevice)
+		try relation.encode(on: &_container, forKey: .relation)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? DeviceLink else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return relatedDevice == _other.relatedDevice
+		    && relation == _other.relation
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(relatedDevice)
+		hasher.combine(relation)
+	}
+}
+
+/**
+ The status of the device itself - whether it is switched on, or activated, etc.
+ */
+open class DeviceOperationalStatus: BackboneElement {
+	
+	/// on |off | standby
+	public var value: CodeableConcept
+	
+	/// The reasons given for the current operational status
+	public var reason: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	public init(value: CodeableConcept) {
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: [CodeableConcept]? = nil,
+		value: CodeableConcept
+	) {
+		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.reason = reason
-		self.value = value
 	}
 	
 	// MARK: - Codable
@@ -596,7 +696,7 @@ open class DeviceOperationalStatus: BackboneElement {
 		
 		// Decode all our properties
 		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
-		self.value = try CodeableConcept(from: _container, forKeyIfPresent: .value)
+		self.value = try CodeableConcept(from: _container, forKey: .value)
 		try super.init(from: decoder)
 	}
 	
@@ -606,7 +706,7 @@ open class DeviceOperationalStatus: BackboneElement {
 		
 		// Encode all our properties
 		try reason?.encode(on: &_container, forKey: .reason)
-		try value?.encode(on: &_container, forKey: .value)
+		try value.encode(on: &_container, forKey: .value)
 		try super.encode(to: encoder)
 	}
 	
@@ -635,14 +735,23 @@ open class DeviceOperationalStatus: BackboneElement {
  */
 open class DeviceProperty: BackboneElement {
 	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case attachment(Attachment)
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case integer(FHIRPrimitive<FHIRInteger>)
+		case quantity(Quantity)
+		case range(Range)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Code that specifies the property being represented
 	public var type: CodeableConcept
 	
-	/// Property value as a quantity
-	public var valueQuantity: [Quantity]?
-	
-	/// Property value as a code, e.g., NTP4 (synced to NTP)
-	public var valueCode: [CodeableConcept]?
+	/// Property value - as a code, quantity, boolean, string or attachmment
+	/// One of `value[x]`
+	public var value: ValueX?
 	
 	/// Designated initializer taking all required properties
 	public init(type: CodeableConcept) {
@@ -652,27 +761,30 @@ open class DeviceProperty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							valueCode: [CodeableConcept]? = nil,
-							valueQuantity: [Quantity]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
 		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.valueCode = valueCode
-		self.valueQuantity = valueQuantity
+		self.value = value
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case type
-		case valueCode
+		case valueAttachment
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueInteger; case _valueInteger
 		case valueQuantity
+		case valueRange
+		case valueString; case _valueString
 	}
 	
 	/// Initializer for Decodable
@@ -681,8 +793,50 @@ open class DeviceProperty: BackboneElement {
 		
 		// Decode all our properties
 		self.type = try CodeableConcept(from: _container, forKey: .type)
-		self.valueCode = try [CodeableConcept](from: _container, forKeyIfPresent: .valueCode)
-		self.valueQuantity = try [Quantity](from: _container, forKeyIfPresent: .valueQuantity)
+		var _t_value: ValueX? = nil
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueString, auxiliaryKey: ._valueString) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueString, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .string(valueString)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueInteger, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .integer(valueInteger)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueAttachment = try Attachment(from: _container, forKeyIfPresent: .valueAttachment) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAttachment, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .attachment(valueAttachment)
+		}
+		self.value = _t_value
 		try super.init(from: decoder)
 	}
 	
@@ -692,8 +846,24 @@ open class DeviceProperty: BackboneElement {
 		
 		// Encode all our properties
 		try type.encode(on: &_container, forKey: .type)
-		try valueCode?.encode(on: &_container, forKey: .valueCode)
-		try valueQuantity?.encode(on: &_container, forKey: .valueQuantity)
+		if let _enum = value {
+			switch _enum {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .valueString, auxiliaryKey: ._valueString)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .integer(let _value):
+				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .valueAttachment)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -707,103 +877,13 @@ open class DeviceProperty: BackboneElement {
 			return false
 		}
 		return type == _other.type
-		    && valueCode == _other.valueCode
-		    && valueQuantity == _other.valueQuantity
+		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(type)
-		hasher.combine(valueCode)
-		hasher.combine(valueQuantity)
-	}
-}
-
-/**
- The capabilities supported on a  device, the standards to which the device conforms for a particular purpose, and used
- for the communication.
- 
- The device function, including in some cases whether or not the functionality conforms to some standard. For example, a
- PHD blood pressure specialization indicates that the device conforms to the IEEE 11073-10407 Blood Pressure
- Specialization. This is NOT an alternate name or an additional descriptive name given by the manufacturer. That would
- be found in the deviceName element.
- In the PHD case, there are 11073 10101 nomenclature codes that define the specialization standards and that will be
- used, for example, in the PHD case for the specialization.systemType element. The specialization.version would be the
- version of the standard if the systemType referred to a standard.
- */
-open class DeviceSpecialization: BackboneElement {
-	
-	/// The standard that is used to operate and communicate
-	public var systemType: CodeableConcept
-	
-	/// The version of the standard that is used to operate and communicate
-	public var version: FHIRPrimitive<FHIRString>?
-	
-	/// Designated initializer taking all required properties
-	public init(systemType: CodeableConcept) {
-		self.systemType = systemType
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							systemType: CodeableConcept,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
-		self.init(systemType: systemType)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.version = version
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case systemType
-		case version; case _version
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.systemType = try CodeableConcept(from: _container, forKey: .systemType)
-		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try systemType.encode(on: &_container, forKey: .systemType)
-		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? DeviceSpecialization else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return systemType == _other.systemType
-		    && version == _other.version
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(systemType)
-		hasher.combine(version)
+		hasher.combine(value)
 	}
 }
 
@@ -817,10 +897,10 @@ open class DeviceSpecialization: BackboneElement {
 open class DeviceUdiCarrier: BackboneElement {
 	
 	/// Mandatory fixed portion of UDI
-	public var deviceIdentifier: FHIRPrimitive<FHIRString>?
+	public var deviceIdentifier: FHIRPrimitive<FHIRString>
 	
 	/// UDI Issuing Organization
-	public var issuer: FHIRPrimitive<FHIRURI>?
+	public var issuer: FHIRPrimitive<FHIRURI>
 	
 	/// Regional UDI authority
 	public var jurisdiction: FHIRPrimitive<FHIRURI>?
@@ -835,30 +915,30 @@ open class DeviceUdiCarrier: BackboneElement {
 	public var entryType: FHIRPrimitive<UDIEntryType>?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(deviceIdentifier: FHIRPrimitive<FHIRString>, issuer: FHIRPrimitive<FHIRURI>) {
+		self.deviceIdentifier = deviceIdentifier
+		self.issuer = issuer
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							carrierAIDC: FHIRPrimitive<Base64Binary>? = nil,
-							carrierHRF: FHIRPrimitive<FHIRString>? = nil,
-							deviceIdentifier: FHIRPrimitive<FHIRString>? = nil,
-							entryType: FHIRPrimitive<UDIEntryType>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							issuer: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: FHIRPrimitive<FHIRURI>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
-		self.init()
+		carrierAIDC: FHIRPrimitive<Base64Binary>? = nil,
+		carrierHRF: FHIRPrimitive<FHIRString>? = nil,
+		deviceIdentifier: FHIRPrimitive<FHIRString>,
+		entryType: FHIRPrimitive<UDIEntryType>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		issuer: FHIRPrimitive<FHIRURI>,
+		jurisdiction: FHIRPrimitive<FHIRURI>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init(deviceIdentifier: deviceIdentifier, issuer: issuer)
 		self.carrierAIDC = carrierAIDC
 		self.carrierHRF = carrierHRF
-		self.deviceIdentifier = deviceIdentifier
 		self.entryType = entryType
 		self.`extension` = `extension`
 		self.id = id
-		self.issuer = issuer
 		self.jurisdiction = jurisdiction
 		self.modifierExtension = modifierExtension
 	}
@@ -881,9 +961,9 @@ open class DeviceUdiCarrier: BackboneElement {
 		// Decode all our properties
 		self.carrierAIDC = try FHIRPrimitive<Base64Binary>(from: _container, forKeyIfPresent: .carrierAIDC, auxiliaryKey: ._carrierAIDC)
 		self.carrierHRF = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .carrierHRF, auxiliaryKey: ._carrierHRF)
-		self.deviceIdentifier = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .deviceIdentifier, auxiliaryKey: ._deviceIdentifier)
+		self.deviceIdentifier = try FHIRPrimitive<FHIRString>(from: _container, forKey: .deviceIdentifier, auxiliaryKey: ._deviceIdentifier)
 		self.entryType = try FHIRPrimitive<UDIEntryType>(from: _container, forKeyIfPresent: .entryType, auxiliaryKey: ._entryType)
-		self.issuer = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .issuer, auxiliaryKey: ._issuer)
+		self.issuer = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .issuer, auxiliaryKey: ._issuer)
 		self.jurisdiction = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .jurisdiction, auxiliaryKey: ._jurisdiction)
 		try super.init(from: decoder)
 	}
@@ -895,9 +975,9 @@ open class DeviceUdiCarrier: BackboneElement {
 		// Encode all our properties
 		try carrierAIDC?.encode(on: &_container, forKey: .carrierAIDC, auxiliaryKey: ._carrierAIDC)
 		try carrierHRF?.encode(on: &_container, forKey: .carrierHRF, auxiliaryKey: ._carrierHRF)
-		try deviceIdentifier?.encode(on: &_container, forKey: .deviceIdentifier, auxiliaryKey: ._deviceIdentifier)
+		try deviceIdentifier.encode(on: &_container, forKey: .deviceIdentifier, auxiliaryKey: ._deviceIdentifier)
 		try entryType?.encode(on: &_container, forKey: .entryType, auxiliaryKey: ._entryType)
-		try issuer?.encode(on: &_container, forKey: .issuer, auxiliaryKey: ._issuer)
+		try issuer.encode(on: &_container, forKey: .issuer, auxiliaryKey: ._issuer)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction, auxiliaryKey: ._jurisdiction)
 		try super.encode(to: encoder)
 	}
@@ -941,6 +1021,9 @@ open class DeviceVersion: BackboneElement {
 	/// The hardware or software module of the device to which the version applies
 	public var component: Identifier?
 	
+	/// The date the version was installed on the device
+	public var installDate: FHIRPrimitive<DateTime>?
+	
 	/// The version text
 	public var value: FHIRPrimitive<FHIRString>
 	
@@ -952,17 +1035,19 @@ open class DeviceVersion: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							component: Identifier? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil,
-							value: FHIRPrimitive<FHIRString>)
-	{
+		component: Identifier? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		installDate: FHIRPrimitive<DateTime>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil,
+		value: FHIRPrimitive<FHIRString>
+	) {
 		self.init(value: value)
 		self.component = component
 		self.`extension` = `extension`
 		self.id = id
+		self.installDate = installDate
 		self.modifierExtension = modifierExtension
 		self.type = type
 	}
@@ -971,6 +1056,7 @@ open class DeviceVersion: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case component
+		case installDate; case _installDate
 		case type
 		case value; case _value
 	}
@@ -981,6 +1067,7 @@ open class DeviceVersion: BackboneElement {
 		
 		// Decode all our properties
 		self.component = try Identifier(from: _container, forKeyIfPresent: .component)
+		self.installDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .installDate, auxiliaryKey: ._installDate)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
 		try super.init(from: decoder)
@@ -992,6 +1079,7 @@ open class DeviceVersion: BackboneElement {
 		
 		// Encode all our properties
 		try component?.encode(on: &_container, forKey: .component)
+		try installDate?.encode(on: &_container, forKey: .installDate, auxiliaryKey: ._installDate)
 		try type?.encode(on: &_container, forKey: .type)
 		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
 		try super.encode(to: encoder)
@@ -1007,6 +1095,7 @@ open class DeviceVersion: BackboneElement {
 			return false
 		}
 		return component == _other.component
+		    && installDate == _other.installDate
 		    && type == _other.type
 		    && value == _other.value
 	}
@@ -1014,6 +1103,7 @@ open class DeviceVersion: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(component)
+		hasher.combine(installDate)
 		hasher.combine(type)
 		hasher.combine(value)
 	}

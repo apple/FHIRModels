@@ -2,8 +2,8 @@
 //  EnrollmentRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/EnrollmentRequest)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/EnrollmentRequest)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -56,22 +56,22 @@ open class EnrollmentRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							candidate: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							coverage: Reference? = nil,
-							created: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							insurer: Reference? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							provider: Reference? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>? = nil,
-							text: Narrative? = nil)
-	{
+		candidate: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		coverage: Reference? = nil,
+		created: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		insurer: Reference? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		provider: Reference? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.candidate = candidate
 		self.contained = contained

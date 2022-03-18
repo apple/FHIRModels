@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductContraindication)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -58,22 +58,22 @@ open class MedicinalProductContraindication: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							comorbidity: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							disease: CodeableConcept? = nil,
-							diseaseStatus: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							otherTherapy: [MedicinalProductContraindicationOtherTherapy]? = nil,
-							population: [Population]? = nil,
-							subject: [Reference]? = nil,
-							text: Narrative? = nil,
-							therapeuticIndication: [Reference]? = nil)
-	{
+		comorbidity: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		disease: CodeableConcept? = nil,
+		diseaseStatus: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		otherTherapy: [MedicinalProductContraindicationOtherTherapy]? = nil,
+		population: [Population]? = nil,
+		subject: [Reference]? = nil,
+		text: Narrative? = nil,
+		therapeuticIndication: [Reference]? = nil
+	) {
 		self.init()
 		self.comorbidity = comorbidity
 		self.contained = contained
@@ -192,12 +192,12 @@ open class MedicinalProductContraindicationOtherTherapy: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							medication: MedicationX,
-							modifierExtension: [Extension]? = nil,
-							therapyRelationshipType: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		medication: MedicationX,
+		modifierExtension: [Extension]? = nil,
+		therapyRelationshipType: CodeableConcept
+	) {
 		self.init(medication: medication, therapyRelationshipType: therapyRelationshipType)
 		self.`extension` = `extension`
 		self.id = id

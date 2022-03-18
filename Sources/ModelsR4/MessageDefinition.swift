@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MessageDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -118,39 +118,39 @@ open class MessageDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							allowedResponse: [MessageDefinitionAllowedResponse]? = nil,
-							base: FHIRPrimitive<Canonical>? = nil,
-							category: FHIRPrimitive<MessageSignificanceCategory>? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							event: EventX,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							focus: [MessageDefinitionFocus]? = nil,
-							graph: [FHIRPrimitive<Canonical>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							parent: [FHIRPrimitive<Canonical>]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							replaces: [FHIRPrimitive<Canonical>]? = nil,
-							responseRequired: FHIRPrimitive<MessageheaderResponseRequest>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		allowedResponse: [MessageDefinitionAllowedResponse]? = nil,
+		base: FHIRPrimitive<Canonical>? = nil,
+		category: FHIRPrimitive<MessageSignificanceCategory>? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		event: EventX,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		focus: [MessageDefinitionFocus]? = nil,
+		graph: [FHIRPrimitive<Canonical>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		parent: [FHIRPrimitive<Canonical>]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		replaces: [FHIRPrimitive<Canonical>]? = nil,
+		responseRequired: FHIRPrimitive<MessageheaderResponseRequest>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(date: date, event: event, status: status)
 		self.allowedResponse = allowedResponse
 		self.base = base
@@ -387,12 +387,12 @@ open class MessageDefinitionAllowedResponse: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							message: FHIRPrimitive<Canonical>,
-							modifierExtension: [Extension]? = nil,
-							situation: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		message: FHIRPrimitive<Canonical>,
+		modifierExtension: [Extension]? = nil,
+		situation: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(message: message)
 		self.`extension` = `extension`
 		self.id = id
@@ -476,14 +476,14 @@ open class MessageDefinitionFocus: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<ResourceType>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRUnsignedInteger>,
-							modifierExtension: [Extension]? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil)
-	{
+		code: FHIRPrimitive<ResourceType>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRUnsignedInteger>,
+		modifierExtension: [Extension]? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init(code: code, min: min)
 		self.`extension` = `extension`
 		self.id = id

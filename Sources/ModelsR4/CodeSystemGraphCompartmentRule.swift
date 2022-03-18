@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,15 +28,15 @@ import FMCore
 public enum GraphCompartmentRule: String, FHIRPrimitiveType {
 	
 	/// The compartment must be identical (the same literal reference).
-	case identical = "identical"
+	case identical
 	
 	/// The compartment must be the same - the record must be about the same patient, but the reference may be
 	/// different.
-	case matching = "matching"
+	case matching
 	
 	/// The compartment must be different.
-	case different = "different"
+	case different
 	
 	/// The compartment rule is defined in the accompanying FHIRPath expression.
-	case custom = "custom"
+	case custom
 }

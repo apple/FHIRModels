@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,21 +27,21 @@ import FMCore
  */
 public enum HTTPVerb: String, FHIRPrimitiveType {
 	
+	/// HTTP DELETE Command.
+	case DELETE
+	
 	/// HTTP GET Command.
-	case GET = "GET"
+	case GET
 	
 	/// HTTP HEAD Command.
-	case HEAD = "HEAD"
-	
-	/// HTTP POST Command.
-	case POST = "POST"
-	
-	/// HTTP PUT Command.
-	case PUT = "PUT"
-	
-	/// HTTP DELETE Command.
-	case DELETE = "DELETE"
+	case HEAD
 	
 	/// HTTP PATCH Command.
-	case PATCH = "PATCH"
+	case PATCH
+	
+	/// HTTP POST Command.
+	case POST
+	
+	/// HTTP PUT Command.
+	case PUT
 }

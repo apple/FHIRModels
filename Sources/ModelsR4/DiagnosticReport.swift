@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DiagnosticReport)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -102,33 +102,33 @@ open class DiagnosticReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							conclusion: FHIRPrimitive<FHIRString>? = nil,
-							conclusionCode: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							imagingStudy: [Reference]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issued: FHIRPrimitive<Instant>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							media: [DiagnosticReportMedia]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							performer: [Reference]? = nil,
-							presentedForm: [Attachment]? = nil,
-							result: [Reference]? = nil,
-							resultsInterpreter: [Reference]? = nil,
-							specimen: [Reference]? = nil,
-							status: FHIRPrimitive<DiagnosticReportStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		conclusion: FHIRPrimitive<FHIRString>? = nil,
+		conclusionCode: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		imagingStudy: [Reference]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issued: FHIRPrimitive<Instant>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		media: [DiagnosticReportMedia]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		performer: [Reference]? = nil,
+		presentedForm: [Attachment]? = nil,
+		result: [Reference]? = nil,
+		resultsInterpreter: [Reference]? = nil,
+		specimen: [Reference]? = nil,
+		status: FHIRPrimitive<DiagnosticReportStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code, status: status)
 		self.basedOn = basedOn
 		self.category = category
@@ -326,12 +326,12 @@ open class DiagnosticReportMedia: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							link: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(link: link)
 		self.comment = comment
 		self.`extension` = `extension`

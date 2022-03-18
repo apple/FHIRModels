@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,59 +28,59 @@ import FMCore
 public enum QuestionnaireItemType: String, FHIRPrimitiveType {
 	
 	/// An item with no direct answer but should have at least one child item.
-	case group = "group"
+	case group
 	
 	/// Text for display that will not capture an answer or have child items.
-	case display = "display"
+	case display
 	
 	/// An item that defines a specific answer to be captured, and which may have child items. (the answer provided in
 	/// the QuestionnaireResponse should be of the defined datatype).
-	case question = "question"
+	case question
 	
 	/// Question with a yes/no answer (valueBoolean).
-	case boolean = "boolean"
+	case boolean
 	
 	/// Question with is a real number answer (valueDecimal).
-	case decimal = "decimal"
+	case decimal
 	
 	/// Question with an integer answer (valueInteger).
-	case integer = "integer"
+	case integer
 	
 	/// Question with a date answer (valueDate).
-	case date = "date"
+	case date
 	
 	/// Question with a date and time answer (valueDateTime).
-	case dateTime = "dateTime"
+	case dateTime
 	
 	/// Question with a time (hour:minute:second) answer independent of date. (valueTime).
-	case time = "time"
+	case time
 	
 	/// Question with a short (few words to short sentence) free-text entry answer (valueString).
-	case string = "string"
+	case string
 	
 	/// Question with a long (potentially multi-paragraph) free-text entry answer (valueString).
-	case text = "text"
+	case text
 	
 	/// Question with a URL (website, FTP site, etc.) answer (valueUri).
-	case url = "url"
+	case url
 	
 	/// Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or
 	/// via the valueset referenced in the answerValueSet property) as an answer (valueCoding).
-	case choice = "choice"
+	case choice
 	
 	/// Answer is a Coding drawn from a list of possible answers (as with the choice type) or a free-text entry in a
 	/// string (valueCoding or valueString).
 	case openChoice = "open-choice"
 	
 	/// Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).
-	case attachment = "attachment"
+	case attachment
 	
 	/// Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).
-	case reference = "reference"
+	case reference
 	
 	/// Question with a combination of a numeric value and unit, potentially with a comparator (<, >, etc.) as an
 	/// answer. (valueQuantity) There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that
 	/// can be used to define what unit should be captured (or the unit that has a ucum conversion from the provided
 	/// unit).
-	case quantity = "quantity"
+	case quantity
 }

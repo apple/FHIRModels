@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Subscription)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -63,22 +63,22 @@ open class Subscription: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							channel: SubscriptionChannel,
-							contact: [ContactPoint]? = nil,
-							contained: [ResourceProxy]? = nil,
-							criteria: FHIRPrimitive<FHIRString>,
-							end: FHIRPrimitive<Instant>? = nil,
-							error: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: FHIRPrimitive<FHIRString>,
-							status: FHIRPrimitive<SubscriptionStatus>,
-							text: Narrative? = nil)
-	{
+		channel: SubscriptionChannel,
+		contact: [ContactPoint]? = nil,
+		contained: [ResourceProxy]? = nil,
+		criteria: FHIRPrimitive<FHIRString>,
+		end: FHIRPrimitive<Instant>? = nil,
+		error: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<SubscriptionStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(channel: channel, criteria: criteria, reason: reason, status: status)
 		self.contact = contact
 		self.contained = contained
@@ -192,14 +192,14 @@ open class SubscriptionChannel: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							endpoint: FHIRPrimitive<FHIRURI>? = nil,
-							`extension`: [Extension]? = nil,
-							header: [FHIRPrimitive<FHIRString>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							payload: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<SubscriptionChannelType>)
-	{
+		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		`extension`: [Extension]? = nil,
+		header: [FHIRPrimitive<FHIRString>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		payload: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<SubscriptionChannelType>
+	) {
 		self.init(type: type)
 		self.endpoint = endpoint
 		self.`extension` = `extension`

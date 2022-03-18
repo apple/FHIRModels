@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum ActivityDefinitionCategory: String, FHIRPrimitiveType {
 	
 	/// The activity is intended to provide or is related to treatment of the patient.
-	case treatment = "treatment"
+	case treatment
 	
 	/// The activity is intended to provide or is related to education of the patient.
-	case education = "education"
+	case education
 	
 	/// The activity is intended to perform or is related to assessment of the patient.
-	case assessment = "assessment"
+	case assessment
 }

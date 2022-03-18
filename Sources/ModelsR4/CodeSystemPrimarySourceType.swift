@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public enum PrimarySourceType: String, FHIRPrimitiveType {
 	case licBoard = "lic-board"
 	
 	/// prim
-	case prim = "prim"
+	case prim
 	
 	/// contEd
 	case contEd = "cont-ed"
@@ -46,10 +46,10 @@ public enum PrimarySourceType: String, FHIRPrimitiveType {
 	case regAuth = "reg-auth"
 	
 	/// legal
-	case legal = "legal"
+	case legal
 	
 	/// issuer
-	case issuer = "issuer"
+	case issuer
 	
 	/// authSource
 	case authSource = "auth-source"

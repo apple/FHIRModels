@@ -2,8 +2,8 @@
 //  ObservationDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ObservationDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ObservationDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,12 +29,6 @@ open class ObservationDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .observationDefinition }
 	
-	/// All possible types for "subject[x]"
-	public enum SubjectX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case reference(Reference)
-	}
-	
 	/// Logical canonical URL to reference this ObservationDefinition (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
@@ -44,14 +38,11 @@ open class ObservationDefinition: DomainResource {
 	/// Business version of the ObservationDefinition
 	public var version: FHIRPrimitive<FHIRString>?
 	
-	/// Name for this ObservationDefinition (Human friendly)
+	/// Name for this ObservationDefinition (computer friendly)
+	public var name: FHIRPrimitive<FHIRString>?
+	
+	/// Name for this ObservationDefinition (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
-	
-	/// Based on FHIR definition of another observation
-	public var derivedFromCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Based on external definition
-	public var derivedFromUri: [FHIRPrimitive<FHIRURI>]?
 	
 	/// The current state of the ObservationDefinition.
 	public var status: FHIRPrimitive<PublicationStatus>
@@ -59,11 +50,7 @@ open class ObservationDefinition: DomainResource {
 	/// If for testing purposes, not real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
-	/// Type of subject for the defined observation
-	/// One of `subject[x]`
-	public var subject: SubjectX?
-	
-	/// Date status first applied
+	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// The name of the individual or organization that published the ObservationDefinition
@@ -96,6 +83,15 @@ open class ObservationDefinition: DomainResource {
 	/// The effective date range for the ObservationDefinition
 	public var effectivePeriod: Period?
 	
+	/// Based on FHIR definition of another observation
+	public var derivedFromCanonical: [FHIRPrimitive<Canonical>]?
+	
+	/// Based on external definition
+	public var derivedFromUri: [FHIRPrimitive<FHIRURI>]?
+	
+	/// Type of subject for the defined observation
+	public var subject: [CodeableConcept]?
+	
 	/// Desired kind of performer for such kind of observation
 	public var performerType: CodeableConcept?
 	
@@ -119,10 +115,10 @@ open class ObservationDefinition: DomainResource {
 	public var method: CodeableConcept?
 	
 	/// Kind of specimen used by this type of observation
-	public var specimen: Reference?
+	public var specimen: [Reference]?
 	
-	/// Measurement device
-	public var device: Reference?
+	/// Measurement device or model of device
+	public var device: [Reference]?
 	
 	/// The preferred name to be used when reporting the observation results
 	public var preferredReportName: FHIRPrimitive<FHIRString>?
@@ -130,20 +126,8 @@ open class ObservationDefinition: DomainResource {
 	/// Characteristics of quantitative results
 	public var quantitativeDetails: ObservationDefinitionQuantitativeDetails?
 	
-	/// Qualified range for continuous and ordinal observation results
-	public var qualifiedInterval: [ObservationDefinitionQualifiedInterval]?
-	
-	/// Value set of valid coded values for the observations conforming to this ObservationDefinition
-	public var validCodedValueSet: Reference?
-	
-	/// Value set of normal coded values for the observations conforming to this ObservationDefinition
-	public var normalCodedValueSet: Reference?
-	
-	/// Value set of abnormal coded values for the observations conforming to this ObservationDefinition
-	public var abnormalCodedValueSet: Reference?
-	
-	/// Value set of critical coded values for the observations conforming to this ObservationDefinition
-	public var criticalCodedValueSet: Reference?
+	/// Set of qualified values for observation results
+	public var qualifiedValue: [ObservationDefinitionQualifiedValue]?
 	
 	/// Definitions of related resources belonging to this kind of observation group
 	public var hasMember: [Reference]?
@@ -160,55 +144,51 @@ open class ObservationDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							abnormalCodedValueSet: Reference? = nil,
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							bodySite: CodeableConcept? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							component: [ObservationDefinitionComponent]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							criticalCodedValueSet: Reference? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							device: Reference? = nil,
-							effectivePeriod: Period? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							hasMember: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							meta: Meta? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							multipleResultsAllowed: FHIRPrimitive<FHIRBool>? = nil,
-							normalCodedValueSet: Reference? = nil,
-							performerType: CodeableConcept? = nil,
-							permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
-							preferredReportName: FHIRPrimitive<FHIRString>? = nil,
-							publisher: Reference? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							qualifiedInterval: [ObservationDefinitionQualifiedInterval]? = nil,
-							quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil,
-							specimen: Reference? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							validCodedValueSet: Reference? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		bodySite: CodeableConcept? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		component: [ObservationDefinitionComponent]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		device: [Reference]? = nil,
+		effectivePeriod: Period? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		hasMember: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		meta: Meta? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		multipleResultsAllowed: FHIRPrimitive<FHIRBool>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		performerType: CodeableConcept? = nil,
+		permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
+		preferredReportName: FHIRPrimitive<FHIRString>? = nil,
+		publisher: Reference? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		qualifiedValue: [ObservationDefinitionQualifiedValue]? = nil,
+		quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil,
+		specimen: [Reference]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: [CodeableConcept]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(code: code, status: status)
-		self.abnormalCodedValueSet = abnormalCodedValueSet
 		self.approvalDate = approvalDate
 		self.bodySite = bodySite
 		self.category = category
@@ -216,7 +196,6 @@ open class ObservationDefinition: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
-		self.criticalCodedValueSet = criticalCodedValueSet
 		self.date = date
 		self.derivedFromCanonical = derivedFromCanonical
 		self.derivedFromUri = derivedFromUri
@@ -236,13 +215,13 @@ open class ObservationDefinition: DomainResource {
 		self.method = method
 		self.modifierExtension = modifierExtension
 		self.multipleResultsAllowed = multipleResultsAllowed
-		self.normalCodedValueSet = normalCodedValueSet
+		self.name = name
 		self.performerType = performerType
 		self.permittedDataType = permittedDataType
 		self.preferredReportName = preferredReportName
 		self.publisher = publisher
 		self.purpose = purpose
-		self.qualifiedInterval = qualifiedInterval
+		self.qualifiedValue = qualifiedValue
 		self.quantitativeDetails = quantitativeDetails
 		self.specimen = specimen
 		self.subject = subject
@@ -250,14 +229,12 @@ open class ObservationDefinition: DomainResource {
 		self.title = title
 		self.url = url
 		self.useContext = useContext
-		self.validCodedValueSet = validCodedValueSet
 		self.version = version
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case abnormalCodedValueSet
 		case approvalDate; case _approvalDate
 		case bodySite
 		case category
@@ -265,7 +242,6 @@ open class ObservationDefinition: DomainResource {
 		case component
 		case contact
 		case copyright; case _copyright
-		case criticalCodedValueSet
 		case date; case _date
 		case derivedFromCanonical; case _derivedFromCanonical
 		case derivedFromUri; case _derivedFromUri
@@ -279,22 +255,20 @@ open class ObservationDefinition: DomainResource {
 		case lastReviewDate; case _lastReviewDate
 		case method
 		case multipleResultsAllowed; case _multipleResultsAllowed
-		case normalCodedValueSet
+		case name; case _name
 		case performerType
 		case permittedDataType; case _permittedDataType
 		case preferredReportName; case _preferredReportName
 		case publisher
 		case purpose; case _purpose
-		case qualifiedInterval
+		case qualifiedValue
 		case quantitativeDetails
 		case specimen
 		case status; case _status
-		case subjectCodeableConcept
-		case subjectReference
+		case subject
 		case title; case _title
 		case url; case _url
 		case useContext
-		case validCodedValueSet
 		case version; case _version
 	}
 	
@@ -303,7 +277,6 @@ open class ObservationDefinition: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.abnormalCodedValueSet = try Reference(from: _container, forKeyIfPresent: .abnormalCodedValueSet)
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
@@ -311,12 +284,11 @@ open class ObservationDefinition: DomainResource {
 		self.component = try [ObservationDefinitionComponent](from: _container, forKeyIfPresent: .component)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
-		self.criticalCodedValueSet = try Reference(from: _container, forKeyIfPresent: .criticalCodedValueSet)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.derivedFromCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		self.derivedFromUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.device = try Reference(from: _container, forKeyIfPresent: .device)
+		self.device = try [Reference](from: _container, forKeyIfPresent: .device)
 		self.effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.hasMember = try [Reference](from: _container, forKeyIfPresent: .hasMember)
@@ -325,34 +297,20 @@ open class ObservationDefinition: DomainResource {
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
 		self.multipleResultsAllowed = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .multipleResultsAllowed, auxiliaryKey: ._multipleResultsAllowed)
-		self.normalCodedValueSet = try Reference(from: _container, forKeyIfPresent: .normalCodedValueSet)
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.performerType = try CodeableConcept(from: _container, forKeyIfPresent: .performerType)
 		self.permittedDataType = try [FHIRPrimitive<ObservationDataType>](from: _container, forKeyIfPresent: .permittedDataType, auxiliaryKey: ._permittedDataType)
 		self.preferredReportName = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preferredReportName, auxiliaryKey: ._preferredReportName)
 		self.publisher = try Reference(from: _container, forKeyIfPresent: .publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
-		self.qualifiedInterval = try [ObservationDefinitionQualifiedInterval](from: _container, forKeyIfPresent: .qualifiedInterval)
+		self.qualifiedValue = try [ObservationDefinitionQualifiedValue](from: _container, forKeyIfPresent: .qualifiedValue)
 		self.quantitativeDetails = try ObservationDefinitionQuantitativeDetails(from: _container, forKeyIfPresent: .quantitativeDetails)
-		self.specimen = try Reference(from: _container, forKeyIfPresent: .specimen)
+		self.specimen = try [Reference](from: _container, forKeyIfPresent: .specimen)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		var _t_subject: SubjectX? = nil
-		if let subjectCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .subjectCodeableConcept) {
-			if _t_subject != nil {
-				throw DecodingError.dataCorruptedError(forKey: .subjectCodeableConcept, in: _container, debugDescription: "More than one value provided for \"subject\"")
-			}
-			_t_subject = .codeableConcept(subjectCodeableConcept)
-		}
-		if let subjectReference = try Reference(from: _container, forKeyIfPresent: .subjectReference) {
-			if _t_subject != nil {
-				throw DecodingError.dataCorruptedError(forKey: .subjectReference, in: _container, debugDescription: "More than one value provided for \"subject\"")
-			}
-			_t_subject = .reference(subjectReference)
-		}
-		self.subject = _t_subject
+		self.subject = try [CodeableConcept](from: _container, forKeyIfPresent: .subject)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
-		self.validCodedValueSet = try Reference(from: _container, forKeyIfPresent: .validCodedValueSet)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		try super.init(from: decoder)
 	}
@@ -362,7 +320,6 @@ open class ObservationDefinition: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try abnormalCodedValueSet?.encode(on: &_container, forKey: .abnormalCodedValueSet)
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
 		try category?.encode(on: &_container, forKey: .category)
@@ -370,7 +327,6 @@ open class ObservationDefinition: DomainResource {
 		try component?.encode(on: &_container, forKey: .component)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
-		try criticalCodedValueSet?.encode(on: &_container, forKey: .criticalCodedValueSet)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try derivedFromCanonical?.encode(on: &_container, forKey: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		try derivedFromUri?.encode(on: &_container, forKey: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
@@ -384,28 +340,20 @@ open class ObservationDefinition: DomainResource {
 		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		try method?.encode(on: &_container, forKey: .method)
 		try multipleResultsAllowed?.encode(on: &_container, forKey: .multipleResultsAllowed, auxiliaryKey: ._multipleResultsAllowed)
-		try normalCodedValueSet?.encode(on: &_container, forKey: .normalCodedValueSet)
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try performerType?.encode(on: &_container, forKey: .performerType)
 		try permittedDataType?.encode(on: &_container, forKey: .permittedDataType, auxiliaryKey: ._permittedDataType)
 		try preferredReportName?.encode(on: &_container, forKey: .preferredReportName, auxiliaryKey: ._preferredReportName)
 		try publisher?.encode(on: &_container, forKey: .publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
-		try qualifiedInterval?.encode(on: &_container, forKey: .qualifiedInterval)
+		try qualifiedValue?.encode(on: &_container, forKey: .qualifiedValue)
 		try quantitativeDetails?.encode(on: &_container, forKey: .quantitativeDetails)
 		try specimen?.encode(on: &_container, forKey: .specimen)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		if let _enum = subject {
-			switch _enum {
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .subjectCodeableConcept)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .subjectReference)
-			}
-		}
+		try subject?.encode(on: &_container, forKey: .subject)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
-		try validCodedValueSet?.encode(on: &_container, forKey: .validCodedValueSet)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		try super.encode(to: encoder)
 	}
@@ -419,15 +367,13 @@ open class ObservationDefinition: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return abnormalCodedValueSet == _other.abnormalCodedValueSet
-		    && approvalDate == _other.approvalDate
+		return approvalDate == _other.approvalDate
 		    && bodySite == _other.bodySite
 		    && category == _other.category
 		    && code == _other.code
 		    && component == _other.component
 		    && contact == _other.contact
 		    && copyright == _other.copyright
-		    && criticalCodedValueSet == _other.criticalCodedValueSet
 		    && date == _other.date
 		    && derivedFromCanonical == _other.derivedFromCanonical
 		    && derivedFromUri == _other.derivedFromUri
@@ -441,13 +387,13 @@ open class ObservationDefinition: DomainResource {
 		    && lastReviewDate == _other.lastReviewDate
 		    && method == _other.method
 		    && multipleResultsAllowed == _other.multipleResultsAllowed
-		    && normalCodedValueSet == _other.normalCodedValueSet
+		    && name == _other.name
 		    && performerType == _other.performerType
 		    && permittedDataType == _other.permittedDataType
 		    && preferredReportName == _other.preferredReportName
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
-		    && qualifiedInterval == _other.qualifiedInterval
+		    && qualifiedValue == _other.qualifiedValue
 		    && quantitativeDetails == _other.quantitativeDetails
 		    && specimen == _other.specimen
 		    && status == _other.status
@@ -455,13 +401,11 @@ open class ObservationDefinition: DomainResource {
 		    && title == _other.title
 		    && url == _other.url
 		    && useContext == _other.useContext
-		    && validCodedValueSet == _other.validCodedValueSet
 		    && version == _other.version
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(abnormalCodedValueSet)
 		hasher.combine(approvalDate)
 		hasher.combine(bodySite)
 		hasher.combine(category)
@@ -469,7 +413,6 @@ open class ObservationDefinition: DomainResource {
 		hasher.combine(component)
 		hasher.combine(contact)
 		hasher.combine(copyright)
-		hasher.combine(criticalCodedValueSet)
 		hasher.combine(date)
 		hasher.combine(derivedFromCanonical)
 		hasher.combine(derivedFromUri)
@@ -483,13 +426,13 @@ open class ObservationDefinition: DomainResource {
 		hasher.combine(lastReviewDate)
 		hasher.combine(method)
 		hasher.combine(multipleResultsAllowed)
-		hasher.combine(normalCodedValueSet)
+		hasher.combine(name)
 		hasher.combine(performerType)
 		hasher.combine(permittedDataType)
 		hasher.combine(preferredReportName)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
-		hasher.combine(qualifiedInterval)
+		hasher.combine(qualifiedValue)
 		hasher.combine(quantitativeDetails)
 		hasher.combine(specimen)
 		hasher.combine(status)
@@ -497,7 +440,6 @@ open class ObservationDefinition: DomainResource {
 		hasher.combine(title)
 		hasher.combine(url)
 		hasher.combine(useContext)
-		hasher.combine(validCodedValueSet)
 		hasher.combine(version)
 	}
 }
@@ -518,8 +460,8 @@ open class ObservationDefinitionComponent: BackboneElement {
 	/// Characteristics of quantitative results
 	public var quantitativeDetails: ObservationDefinitionQuantitativeDetails?
 	
-	/// Qualified range for continuous and ordinal observation results
-	public var qualifiedInterval: [ObservationDefinitionQualifiedInterval]?
+	/// Set of qualified values for observation results
+	public var qualifiedValue: [ObservationDefinitionQualifiedValue]?
 	
 	/// Designated initializer taking all required properties
 	public init(code: CodeableConcept) {
@@ -529,20 +471,20 @@ open class ObservationDefinitionComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
-							qualifiedInterval: [ObservationDefinitionQualifiedInterval]? = nil,
-							quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		permittedDataType: [FHIRPrimitive<ObservationDataType>]? = nil,
+		qualifiedValue: [ObservationDefinitionQualifiedValue]? = nil,
+		quantitativeDetails: ObservationDefinitionQuantitativeDetails? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.permittedDataType = permittedDataType
-		self.qualifiedInterval = qualifiedInterval
+		self.qualifiedValue = qualifiedValue
 		self.quantitativeDetails = quantitativeDetails
 	}
 	
@@ -551,7 +493,7 @@ open class ObservationDefinitionComponent: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case permittedDataType; case _permittedDataType
-		case qualifiedInterval
+		case qualifiedValue
 		case quantitativeDetails
 	}
 	
@@ -562,7 +504,7 @@ open class ObservationDefinitionComponent: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.permittedDataType = try [FHIRPrimitive<ObservationDataType>](from: _container, forKeyIfPresent: .permittedDataType, auxiliaryKey: ._permittedDataType)
-		self.qualifiedInterval = try [ObservationDefinitionQualifiedInterval](from: _container, forKeyIfPresent: .qualifiedInterval)
+		self.qualifiedValue = try [ObservationDefinitionQualifiedValue](from: _container, forKeyIfPresent: .qualifiedValue)
 		self.quantitativeDetails = try ObservationDefinitionQuantitativeDetails(from: _container, forKeyIfPresent: .quantitativeDetails)
 		try super.init(from: decoder)
 	}
@@ -574,7 +516,7 @@ open class ObservationDefinitionComponent: BackboneElement {
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
 		try permittedDataType?.encode(on: &_container, forKey: .permittedDataType, auxiliaryKey: ._permittedDataType)
-		try qualifiedInterval?.encode(on: &_container, forKey: .qualifiedInterval)
+		try qualifiedValue?.encode(on: &_container, forKey: .qualifiedValue)
 		try quantitativeDetails?.encode(on: &_container, forKey: .quantitativeDetails)
 		try super.encode(to: encoder)
 	}
@@ -590,7 +532,7 @@ open class ObservationDefinitionComponent: BackboneElement {
 		}
 		return code == _other.code
 		    && permittedDataType == _other.permittedDataType
-		    && qualifiedInterval == _other.qualifiedInterval
+		    && qualifiedValue == _other.qualifiedValue
 		    && quantitativeDetails == _other.quantitativeDetails
 	}
 	
@@ -598,43 +540,55 @@ open class ObservationDefinitionComponent: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(permittedDataType)
-		hasher.combine(qualifiedInterval)
+		hasher.combine(qualifiedValue)
 		hasher.combine(quantitativeDetails)
 	}
 }
 
 /**
- Qualified range for continuous and ordinal observation results.
+ Set of qualified values for observation results.
  
- Multiple  ranges of results qualified by different contexts for ordinal or continuous observations conforming to this
- ObservationDefinition.
+ A set of qualified values associated with a context and a set of conditions -  provides a range for quantitative and
+ ordinal observations and a collection of value sets for qualitative observations.
  */
-open class ObservationDefinitionQualifiedInterval: BackboneElement {
+open class ObservationDefinitionQualifiedValue: BackboneElement {
 	
-	/// The category of interval of values for continuous or ordinal observations conforming to this
-	/// ObservationDefinition.
-	public var category: FHIRPrimitive<ObservationRangeCategory>?
-	
-	/// The interval itself, for continuous or ordinal observations
-	public var range: Range?
-	
-	/// Range context qualifier
+	/// Context qualifier for the set of qualified values
 	public var context: CodeableConcept?
 	
-	/// Targetted population of the range
+	/// Targetted population for the set of qualified values
 	public var appliesTo: [CodeableConcept]?
 	
-	/// Sex of the population the range applies to.
+	/// The gender this  set of qualified values applies to.
 	public var gender: FHIRPrimitive<AdministrativeGender>?
 	
-	/// Applicable age range, if relevant
+	/// Applicable age range for the set of qualified values
 	public var age: Range?
 	
-	/// Applicable gestational age range, if relevant
+	/// Applicable gestational age range for the set of qualified values
 	public var gestationalAge: Range?
 	
-	/// Condition associated with the reference range
+	/// Condition associated with the set of qualified values
 	public var condition: FHIRPrimitive<FHIRString>?
+	
+	/// The category of range of values for continuous or ordinal observations that match the criteria of this set of
+	/// qualified values.
+	public var rangeCategory: FHIRPrimitive<ObservationRangeCategory>?
+	
+	/// The range for continuous or ordinal observations
+	public var range: Range?
+	
+	/// Value set of valid coded values as part of this set of qualified values
+	public var validCodedValueSet: FHIRPrimitive<Canonical>?
+	
+	/// Value set of normal coded values as part of this set of qualified values
+	public var normalCodedValueSet: FHIRPrimitive<Canonical>?
+	
+	/// Value set of abnormal coded values as part of this set of qualified values
+	public var abnormalCodedValueSet: FHIRPrimitive<Canonical>?
+	
+	/// Value set of critical coded values as part of this set of qualified values
+	public var criticalCodedValueSet: FHIRPrimitive<Canonical>?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -643,43 +597,55 @@ open class ObservationDefinitionQualifiedInterval: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							age: Range? = nil,
-							appliesTo: [CodeableConcept]? = nil,
-							category: FHIRPrimitive<ObservationRangeCategory>? = nil,
-							condition: FHIRPrimitive<FHIRString>? = nil,
-							context: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							gender: FHIRPrimitive<AdministrativeGender>? = nil,
-							gestationalAge: Range? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							range: Range? = nil)
-	{
+		abnormalCodedValueSet: FHIRPrimitive<Canonical>? = nil,
+		age: Range? = nil,
+		appliesTo: [CodeableConcept]? = nil,
+		condition: FHIRPrimitive<FHIRString>? = nil,
+		context: CodeableConcept? = nil,
+		criticalCodedValueSet: FHIRPrimitive<Canonical>? = nil,
+		`extension`: [Extension]? = nil,
+		gender: FHIRPrimitive<AdministrativeGender>? = nil,
+		gestationalAge: Range? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		normalCodedValueSet: FHIRPrimitive<Canonical>? = nil,
+		range: Range? = nil,
+		rangeCategory: FHIRPrimitive<ObservationRangeCategory>? = nil,
+		validCodedValueSet: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init()
+		self.abnormalCodedValueSet = abnormalCodedValueSet
 		self.age = age
 		self.appliesTo = appliesTo
-		self.category = category
 		self.condition = condition
 		self.context = context
+		self.criticalCodedValueSet = criticalCodedValueSet
 		self.`extension` = `extension`
 		self.gender = gender
 		self.gestationalAge = gestationalAge
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.normalCodedValueSet = normalCodedValueSet
 		self.range = range
+		self.rangeCategory = rangeCategory
+		self.validCodedValueSet = validCodedValueSet
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case abnormalCodedValueSet; case _abnormalCodedValueSet
 		case age
 		case appliesTo
-		case category; case _category
 		case condition; case _condition
 		case context
+		case criticalCodedValueSet; case _criticalCodedValueSet
 		case gender; case _gender
 		case gestationalAge
+		case normalCodedValueSet; case _normalCodedValueSet
 		case range
+		case rangeCategory; case _rangeCategory
+		case validCodedValueSet; case _validCodedValueSet
 	}
 	
 	/// Initializer for Decodable
@@ -687,14 +653,18 @@ open class ObservationDefinitionQualifiedInterval: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.abnormalCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .abnormalCodedValueSet, auxiliaryKey: ._abnormalCodedValueSet)
 		self.age = try Range(from: _container, forKeyIfPresent: .age)
 		self.appliesTo = try [CodeableConcept](from: _container, forKeyIfPresent: .appliesTo)
-		self.category = try FHIRPrimitive<ObservationRangeCategory>(from: _container, forKeyIfPresent: .category, auxiliaryKey: ._category)
 		self.condition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .condition, auxiliaryKey: ._condition)
 		self.context = try CodeableConcept(from: _container, forKeyIfPresent: .context)
+		self.criticalCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .criticalCodedValueSet, auxiliaryKey: ._criticalCodedValueSet)
 		self.gender = try FHIRPrimitive<AdministrativeGender>(from: _container, forKeyIfPresent: .gender, auxiliaryKey: ._gender)
 		self.gestationalAge = try Range(from: _container, forKeyIfPresent: .gestationalAge)
+		self.normalCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .normalCodedValueSet, auxiliaryKey: ._normalCodedValueSet)
 		self.range = try Range(from: _container, forKeyIfPresent: .range)
+		self.rangeCategory = try FHIRPrimitive<ObservationRangeCategory>(from: _container, forKeyIfPresent: .rangeCategory, auxiliaryKey: ._rangeCategory)
+		self.validCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .validCodedValueSet, auxiliaryKey: ._validCodedValueSet)
 		try super.init(from: decoder)
 	}
 	
@@ -703,63 +673,75 @@ open class ObservationDefinitionQualifiedInterval: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try abnormalCodedValueSet?.encode(on: &_container, forKey: .abnormalCodedValueSet, auxiliaryKey: ._abnormalCodedValueSet)
 		try age?.encode(on: &_container, forKey: .age)
 		try appliesTo?.encode(on: &_container, forKey: .appliesTo)
-		try category?.encode(on: &_container, forKey: .category, auxiliaryKey: ._category)
 		try condition?.encode(on: &_container, forKey: .condition, auxiliaryKey: ._condition)
 		try context?.encode(on: &_container, forKey: .context)
+		try criticalCodedValueSet?.encode(on: &_container, forKey: .criticalCodedValueSet, auxiliaryKey: ._criticalCodedValueSet)
 		try gender?.encode(on: &_container, forKey: .gender, auxiliaryKey: ._gender)
 		try gestationalAge?.encode(on: &_container, forKey: .gestationalAge)
+		try normalCodedValueSet?.encode(on: &_container, forKey: .normalCodedValueSet, auxiliaryKey: ._normalCodedValueSet)
 		try range?.encode(on: &_container, forKey: .range)
+		try rangeCategory?.encode(on: &_container, forKey: .rangeCategory, auxiliaryKey: ._rangeCategory)
+		try validCodedValueSet?.encode(on: &_container, forKey: .validCodedValueSet, auxiliaryKey: ._validCodedValueSet)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ObservationDefinitionQualifiedInterval else {
+		guard let _other = _other as? ObservationDefinitionQualifiedValue else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return age == _other.age
+		return abnormalCodedValueSet == _other.abnormalCodedValueSet
+		    && age == _other.age
 		    && appliesTo == _other.appliesTo
-		    && category == _other.category
 		    && condition == _other.condition
 		    && context == _other.context
+		    && criticalCodedValueSet == _other.criticalCodedValueSet
 		    && gender == _other.gender
 		    && gestationalAge == _other.gestationalAge
+		    && normalCodedValueSet == _other.normalCodedValueSet
 		    && range == _other.range
+		    && rangeCategory == _other.rangeCategory
+		    && validCodedValueSet == _other.validCodedValueSet
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(abnormalCodedValueSet)
 		hasher.combine(age)
 		hasher.combine(appliesTo)
-		hasher.combine(category)
 		hasher.combine(condition)
 		hasher.combine(context)
+		hasher.combine(criticalCodedValueSet)
 		hasher.combine(gender)
 		hasher.combine(gestationalAge)
+		hasher.combine(normalCodedValueSet)
 		hasher.combine(range)
+		hasher.combine(rangeCategory)
+		hasher.combine(validCodedValueSet)
 	}
 }
 
 /**
  Characteristics of quantitative results.
  
- Characteristics for quantitative results of this observation.
+ Characteristics for quantitative results of observations conforming to this ObservationDefinition.
  */
 open class ObservationDefinitionQuantitativeDetails: BackboneElement {
 	
-	/// Customary unit for quantitative results
-	public var customaryUnit: CodeableConcept?
-	
-	/// SI unit for quantitative results
+	/// Primary unit for quantitative results
 	public var unit: CodeableConcept?
 	
-	/// SI to Customary unit conversion factor
+	/// Customary (secondary) unit for quantitative results
+	public var customaryUnit: CodeableConcept?
+	
+	/// Primary to secondary unit conversion factor
 	public var conversionFactor: FHIRPrimitive<FHIRDecimal>?
 	
 	/// Decimal precision of observation quantitative results
@@ -772,14 +754,14 @@ open class ObservationDefinitionQuantitativeDetails: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							conversionFactor: FHIRPrimitive<FHIRDecimal>? = nil,
-							customaryUnit: CodeableConcept? = nil,
-							decimalPrecision: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							unit: CodeableConcept? = nil)
-	{
+		conversionFactor: FHIRPrimitive<FHIRDecimal>? = nil,
+		customaryUnit: CodeableConcept? = nil,
+		decimalPrecision: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		unit: CodeableConcept? = nil
+	) {
 		self.init()
 		self.conversionFactor = conversionFactor
 		self.customaryUnit = customaryUnit

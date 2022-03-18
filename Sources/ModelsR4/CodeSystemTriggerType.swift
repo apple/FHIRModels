@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public enum TriggerType: String, FHIRPrimitiveType {
 	
 	/// The trigger occurs at a specific time or periodically as described by a timing or schedule. A periodic event
 	/// cannot have any data elements, but may have a name assigned as a shorthand for the event.
-	case periodic = "periodic"
+	case periodic
 	
 	/// The trigger occurs whenever data of a particular type is changed in any way, either added, modified, or removed.
 	case dataChanged = "data-changed"

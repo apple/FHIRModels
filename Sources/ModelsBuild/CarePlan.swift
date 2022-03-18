@@ -2,8 +2,8 @@
 //  CarePlan.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/CarePlan)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CarePlan)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -47,14 +47,11 @@ open class CarePlan: DomainResource {
 	/// Part of referenced CarePlan
 	public var partOf: [Reference]?
 	
-	/// Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical
-	/// record.
-	public var status: FHIRPrimitive<RequestStatus>
+	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Indicates the level of authority/intentionality associated with the care plan and where the care plan fits into
-	/// the workflow chain.
-	/// Restricted to: ['proposal', 'plan', 'order', 'option', 'directive']
-	public var intent: FHIRPrimitive<RequestIntent>
+	/// proposal | plan | order | option | directive
+	public var intent: FHIRPrimitive<FHIRString>
 	
 	/// Type of plan
 	public var category: [CodeableConcept]?
@@ -102,7 +99,7 @@ open class CarePlan: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>, subject: Reference) {
+	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.intent = intent
 		self.status = status
 		self.subject = subject
@@ -111,38 +108,38 @@ open class CarePlan: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							activity: [CarePlanActivity]? = nil,
-							addresses: [CodeableReference]? = nil,
-							author: Reference? = nil,
-							basedOn: [Reference]? = nil,
-							careTeam: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							contributor: [Reference]? = nil,
-							created: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							goal: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							period: Period? = nil,
-							replaces: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		activity: [CarePlanActivity]? = nil,
+		addresses: [CodeableReference]? = nil,
+		author: Reference? = nil,
+		basedOn: [Reference]? = nil,
+		careTeam: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		contributor: [Reference]? = nil,
+		created: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		intent: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		period: Period? = nil,
+		replaces: [Reference]? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(intent: intent, status: status, subject: subject)
 		self.activity = activity
 		self.addresses = addresses
@@ -221,12 +218,12 @@ open class CarePlan: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
-		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
@@ -335,16 +332,16 @@ open class CarePlan: DomainResource {
 open class CarePlanActivity: BackboneElement {
 	
 	/// Results of the activity (concept, or Appointment, Encounter, Procedure, etc)
-	public var outcome: [CodeableReference]?
+	public var performedActivity: [CodeableReference]?
 	
 	/// Comments about the activity status/progress
 	public var progress: [Annotation]?
 	
-	/// Activity details defined in specific resource
-	public var reference: Reference?
+	/// Activity that is intended to be part of the care plan
+	public var plannedActivityReference: Reference?
 	
 	/// In-line definition of activity
-	public var detail: CarePlanActivityDetail?
+	public var plannedActivityDetail: CarePlanActivityPlannedActivityDetail?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -353,31 +350,31 @@ open class CarePlanActivity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: CarePlanActivityDetail? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: [CodeableReference]? = nil,
-							progress: [Annotation]? = nil,
-							reference: Reference? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		performedActivity: [CodeableReference]? = nil,
+		plannedActivityDetail: CarePlanActivityPlannedActivityDetail? = nil,
+		plannedActivityReference: Reference? = nil,
+		progress: [Annotation]? = nil
+	) {
 		self.init()
-		self.detail = detail
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.outcome = outcome
+		self.performedActivity = performedActivity
+		self.plannedActivityDetail = plannedActivityDetail
+		self.plannedActivityReference = plannedActivityReference
 		self.progress = progress
-		self.reference = reference
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case detail
-		case outcome
+		case performedActivity
+		case plannedActivityDetail
+		case plannedActivityReference
 		case progress
-		case reference
 	}
 	
 	/// Initializer for Decodable
@@ -385,10 +382,10 @@ open class CarePlanActivity: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.detail = try CarePlanActivityDetail(from: _container, forKeyIfPresent: .detail)
-		self.outcome = try [CodeableReference](from: _container, forKeyIfPresent: .outcome)
+		self.performedActivity = try [CodeableReference](from: _container, forKeyIfPresent: .performedActivity)
+		self.plannedActivityDetail = try CarePlanActivityPlannedActivityDetail(from: _container, forKeyIfPresent: .plannedActivityDetail)
+		self.plannedActivityReference = try Reference(from: _container, forKeyIfPresent: .plannedActivityReference)
 		self.progress = try [Annotation](from: _container, forKeyIfPresent: .progress)
-		self.reference = try Reference(from: _container, forKeyIfPresent: .reference)
 		try super.init(from: decoder)
 	}
 	
@@ -397,10 +394,10 @@ open class CarePlanActivity: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try detail?.encode(on: &_container, forKey: .detail)
-		try outcome?.encode(on: &_container, forKey: .outcome)
+		try performedActivity?.encode(on: &_container, forKey: .performedActivity)
+		try plannedActivityDetail?.encode(on: &_container, forKey: .plannedActivityDetail)
+		try plannedActivityReference?.encode(on: &_container, forKey: .plannedActivityReference)
 		try progress?.encode(on: &_container, forKey: .progress)
-		try reference?.encode(on: &_container, forKey: .reference)
 		try super.encode(to: encoder)
 	}
 	
@@ -413,18 +410,18 @@ open class CarePlanActivity: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return detail == _other.detail
-		    && outcome == _other.outcome
+		return performedActivity == _other.performedActivity
+		    && plannedActivityDetail == _other.plannedActivityDetail
+		    && plannedActivityReference == _other.plannedActivityReference
 		    && progress == _other.progress
-		    && reference == _other.reference
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(detail)
-		hasher.combine(outcome)
+		hasher.combine(performedActivity)
+		hasher.combine(plannedActivityDetail)
+		hasher.combine(plannedActivityReference)
 		hasher.combine(progress)
-		hasher.combine(reference)
 	}
 }
 
@@ -434,7 +431,7 @@ open class CarePlanActivity: BackboneElement {
  A simple summary of a planned activity suitable for a general care plan system (e.g. form driven) that doesn't know
  about specific resources such as procedure etc.
  */
-open class CarePlanActivityDetail: BackboneElement {
+open class CarePlanActivityPlannedActivityDetail: BackboneElement {
 	
 	/// All possible types for "product[x]"
 	public enum ProductX: Hashable {
@@ -521,27 +518,27 @@ open class CarePlanActivityDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							dailyAmount: Quantity? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							goal: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							kind: FHIRPrimitive<ResourceType>? = nil,
-							location: CodeableReference? = nil,
-							modifierExtension: [Extension]? = nil,
-							performer: [Reference]? = nil,
-							product: ProductX? = nil,
-							quantity: Quantity? = nil,
-							reason: [CodeableReference]? = nil,
-							reported: ReportedX? = nil,
-							scheduled: ScheduledX? = nil,
-							status: FHIRPrimitive<CarePlanActivityStatus>,
-							statusReason: CodeableConcept? = nil)
-	{
+		code: CodeableConcept? = nil,
+		dailyAmount: Quantity? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		kind: FHIRPrimitive<ResourceType>? = nil,
+		location: CodeableReference? = nil,
+		modifierExtension: [Extension]? = nil,
+		performer: [Reference]? = nil,
+		product: ProductX? = nil,
+		quantity: Quantity? = nil,
+		reason: [CodeableReference]? = nil,
+		reported: ReportedX? = nil,
+		scheduled: ScheduledX? = nil,
+		status: FHIRPrimitive<CarePlanActivityStatus>,
+		statusReason: CodeableConcept? = nil
+	) {
 		self.init(status: status)
 		self.code = code
 		self.dailyAmount = dailyAmount
@@ -711,7 +708,7 @@ open class CarePlanActivityDetail: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? CarePlanActivityDetail else {
+		guard let _other = _other as? CarePlanActivityPlannedActivityDetail else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {

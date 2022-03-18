@@ -2,8 +2,8 @@
 //  DetectedIssue.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -81,27 +81,27 @@ open class DetectedIssue: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: Reference? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							detail: FHIRPrimitive<FHIRString>? = nil,
-							evidence: [DetectedIssueEvidence]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identified: IdentifiedX? = nil,
-							identifier: [Identifier]? = nil,
-							implicated: [Reference]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							mitigation: [DetectedIssueMitigation]? = nil,
-							modifierExtension: [Extension]? = nil,
-							patient: Reference? = nil,
-							reference: FHIRPrimitive<FHIRURI>? = nil,
-							severity: FHIRPrimitive<DetectedIssueSeverity>? = nil,
-							status: FHIRPrimitive<ObservationStatus>,
-							text: Narrative? = nil)
-	{
+		author: Reference? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		detail: FHIRPrimitive<FHIRString>? = nil,
+		evidence: [DetectedIssueEvidence]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identified: IdentifiedX? = nil,
+		identifier: [Identifier]? = nil,
+		implicated: [Reference]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		mitigation: [DetectedIssueMitigation]? = nil,
+		modifierExtension: [Extension]? = nil,
+		patient: Reference? = nil,
+		reference: FHIRPrimitive<FHIRURI>? = nil,
+		severity: FHIRPrimitive<DetectedIssueSeverity>? = nil,
+		status: FHIRPrimitive<ObservationStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(status: status)
 		self.author = author
 		self.code = code
@@ -263,12 +263,12 @@ open class DetectedIssueEvidence: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							detail: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		detail: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.detail = detail
@@ -350,13 +350,13 @@ open class DetectedIssueMitigation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: CodeableConcept,
-							author: Reference? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: CodeableConcept,
+		author: Reference? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(action: action)
 		self.author = author
 		self.date = date

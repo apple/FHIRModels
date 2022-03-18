@@ -2,8 +2,8 @@
 //  ResearchSubject.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ open class ResearchSubject: DomainResource {
 	/// Business Identifier for research subject in a study
 	public var identifier: [Identifier]?
 	
-	/// The current state of the subject.
-	public var status: FHIRPrimitive<ResearchSubjectStatus>
+	/// The publication state of the resource (not of the subject).
+	public var status: FHIRPrimitive<PublicationStatus>
 	
 	/// Subject status
 	public var progress: [ResearchSubjectProgress]?
@@ -43,8 +43,8 @@ open class ResearchSubject: DomainResource {
 	/// Study subject is part of
 	public var study: Reference
 	
-	/// Who is part of study
-	public var individual: Reference
+	/// Who or what is part of study
+	public var subject: Reference
 	
 	/// What path should be followed
 	public var assignedArm: FHIRPrimitive<FHIRString>?
@@ -56,34 +56,34 @@ open class ResearchSubject: DomainResource {
 	public var consent: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(individual: Reference, status: FHIRPrimitive<ResearchSubjectStatus>, study: Reference) {
-		self.individual = individual
+	public init(status: FHIRPrimitive<PublicationStatus>, study: Reference, subject: Reference) {
 		self.status = status
 		self.study = study
+		self.subject = subject
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							actualArm: FHIRPrimitive<FHIRString>? = nil,
-							assignedArm: FHIRPrimitive<FHIRString>? = nil,
-							consent: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							individual: Reference,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							progress: [ResearchSubjectProgress]? = nil,
-							status: FHIRPrimitive<ResearchSubjectStatus>,
-							study: Reference,
-							text: Narrative? = nil)
-	{
-		self.init(individual: individual, status: status, study: study)
+		actualArm: FHIRPrimitive<FHIRString>? = nil,
+		assignedArm: FHIRPrimitive<FHIRString>? = nil,
+		consent: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		progress: [ResearchSubjectProgress]? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		study: Reference,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
+		self.init(status: status, study: study, subject: subject)
 		self.actualArm = actualArm
 		self.assignedArm = assignedArm
 		self.consent = consent
@@ -107,11 +107,11 @@ open class ResearchSubject: DomainResource {
 		case assignedArm; case _assignedArm
 		case consent
 		case identifier
-		case individual
 		case period
 		case progress
 		case status; case _status
 		case study
+		case subject
 	}
 	
 	/// Initializer for Decodable
@@ -123,11 +123,11 @@ open class ResearchSubject: DomainResource {
 		self.assignedArm = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assignedArm, auxiliaryKey: ._assignedArm)
 		self.consent = try Reference(from: _container, forKeyIfPresent: .consent)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.individual = try Reference(from: _container, forKey: .individual)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.progress = try [ResearchSubjectProgress](from: _container, forKeyIfPresent: .progress)
-		self.status = try FHIRPrimitive<ResearchSubjectStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.study = try Reference(from: _container, forKey: .study)
+		self.subject = try Reference(from: _container, forKey: .subject)
 		try super.init(from: decoder)
 	}
 	
@@ -140,11 +140,11 @@ open class ResearchSubject: DomainResource {
 		try assignedArm?.encode(on: &_container, forKey: .assignedArm, auxiliaryKey: ._assignedArm)
 		try consent?.encode(on: &_container, forKey: .consent)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try individual.encode(on: &_container, forKey: .individual)
 		try period?.encode(on: &_container, forKey: .period)
 		try progress?.encode(on: &_container, forKey: .progress)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try study.encode(on: &_container, forKey: .study)
+		try subject.encode(on: &_container, forKey: .subject)
 		try super.encode(to: encoder)
 	}
 	
@@ -161,11 +161,11 @@ open class ResearchSubject: DomainResource {
 		    && assignedArm == _other.assignedArm
 		    && consent == _other.consent
 		    && identifier == _other.identifier
-		    && individual == _other.individual
 		    && period == _other.period
 		    && progress == _other.progress
 		    && status == _other.status
 		    && study == _other.study
+		    && subject == _other.subject
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -174,11 +174,11 @@ open class ResearchSubject: DomainResource {
 		hasher.combine(assignedArm)
 		hasher.combine(consent)
 		hasher.combine(identifier)
-		hasher.combine(individual)
 		hasher.combine(period)
 		hasher.combine(progress)
 		hasher.combine(status)
 		hasher.combine(study)
+		hasher.combine(subject)
 	}
 }
 
@@ -189,12 +189,12 @@ open class ResearchSubject: DomainResource {
  */
 open class ResearchSubjectProgress: BackboneElement {
 	
-	/// Kind of state that is being described
+	/// state | milestone
 	public var type: CodeableConcept?
 	
 	/// candidate | eligible | follow-up | ineligible | not-registered | off-study | on-study | on-study-intervention |
 	/// on-study-observation | pending-on-study | potential-candidate | screening | withdrawn
-	public var state: CodeableConcept?
+	public var subjectState: CodeableConcept?
 	
 	/// SignedUp | Screened | Randomized
 	public var milestone: CodeableConcept?
@@ -203,42 +203,48 @@ open class ResearchSubjectProgress: BackboneElement {
 	public var reason: CodeableConcept?
 	
 	/// State change date
-	public var startDate: FHIRPrimitive<DateTime>
+	public var startDate: FHIRPrimitive<DateTime>?
+	
+	/// State change date
+	public var endDate: FHIRPrimitive<DateTime>?
 	
 	/// Designated initializer taking all required properties
-	public init(startDate: FHIRPrimitive<DateTime>) {
-		self.startDate = startDate
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							milestone: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							reason: CodeableConcept? = nil,
-							startDate: FHIRPrimitive<DateTime>,
-							state: CodeableConcept? = nil,
-							type: CodeableConcept? = nil)
-	{
-		self.init(startDate: startDate)
+		endDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		milestone: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		startDate: FHIRPrimitive<DateTime>? = nil,
+		subjectState: CodeableConcept? = nil,
+		type: CodeableConcept? = nil
+	) {
+		self.init()
+		self.endDate = endDate
 		self.`extension` = `extension`
 		self.id = id
 		self.milestone = milestone
 		self.modifierExtension = modifierExtension
 		self.reason = reason
-		self.state = state
+		self.startDate = startDate
+		self.subjectState = subjectState
 		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case endDate; case _endDate
 		case milestone
 		case reason
 		case startDate; case _startDate
-		case state
+		case subjectState
 		case type
 	}
 	
@@ -247,10 +253,11 @@ open class ResearchSubjectProgress: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.endDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .endDate, auxiliaryKey: ._endDate)
 		self.milestone = try CodeableConcept(from: _container, forKeyIfPresent: .milestone)
 		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
-		self.startDate = try FHIRPrimitive<DateTime>(from: _container, forKey: .startDate, auxiliaryKey: ._startDate)
-		self.state = try CodeableConcept(from: _container, forKeyIfPresent: .state)
+		self.startDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .startDate, auxiliaryKey: ._startDate)
+		self.subjectState = try CodeableConcept(from: _container, forKeyIfPresent: .subjectState)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -260,10 +267,11 @@ open class ResearchSubjectProgress: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try endDate?.encode(on: &_container, forKey: .endDate, auxiliaryKey: ._endDate)
 		try milestone?.encode(on: &_container, forKey: .milestone)
 		try reason?.encode(on: &_container, forKey: .reason)
-		try startDate.encode(on: &_container, forKey: .startDate, auxiliaryKey: ._startDate)
-		try state?.encode(on: &_container, forKey: .state)
+		try startDate?.encode(on: &_container, forKey: .startDate, auxiliaryKey: ._startDate)
+		try subjectState?.encode(on: &_container, forKey: .subjectState)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -277,19 +285,21 @@ open class ResearchSubjectProgress: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return milestone == _other.milestone
+		return endDate == _other.endDate
+		    && milestone == _other.milestone
 		    && reason == _other.reason
 		    && startDate == _other.startDate
-		    && state == _other.state
+		    && subjectState == _other.subjectState
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(endDate)
 		hasher.combine(milestone)
 		hasher.combine(reason)
 		hasher.combine(startDate)
-		hasher.combine(state)
+		hasher.combine(subjectState)
 		hasher.combine(type)
 	}
 }

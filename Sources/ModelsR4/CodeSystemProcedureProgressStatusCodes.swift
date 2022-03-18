@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ public enum ProcedureProgressStatusCodes: String, FHIRPrimitiveType {
 	case inOperatingRoom = "in-operating-room"
 	
 	/// The patient is prepared for a procedure.
-	case prepared = "prepared"
+	case prepared
 	
 	/// The patient is under anesthesia.
 	case anesthesiaInduced = "anesthesia-induced"

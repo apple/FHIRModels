@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,11 +42,11 @@ public enum FilterOperator: String, FHIRPrimitiveType {
 	case isNotA = "is-not-a"
 	
 	/// The specified property of the code  matches the regex specified in the provided value.
-	case regex = "regex"
+	case regex
 	
 	/// The specified property of the code is in the set of codes or concepts specified in the provided value (comma
 	/// separated list).
-	case `in` = "in"
+	case `in`
 	
 	/// The specified property of the code is not in the set of codes or concepts specified in the provided value (comma
 	/// separated list).
@@ -54,9 +54,9 @@ public enum FilterOperator: String, FHIRPrimitiveType {
 	
 	/// Includes all concept ids that have a transitive is-a relationship from the concept Id provided as the value,
 	/// including the provided concept itself (i.e. include ancestor codes and self).
-	case generalizes = "generalizes"
+	case generalizes
 	
 	/// The specified property of the code has at least one value (if the specified value is true; if the specified
 	/// value is false, then matches when the specified property of the code has no values).
-	case exists = "exists"
+	case exists
 }

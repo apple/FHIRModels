@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Media)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -109,37 +109,37 @@ open class Media: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							bodySite: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							content: Attachment,
-							created: CreatedX? = nil,
-							device: Reference? = nil,
-							deviceName: FHIRPrimitive<FHIRString>? = nil,
-							duration: FHIRPrimitive<FHIRDecimal>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							frames: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							height: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issued: FHIRPrimitive<Instant>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modality: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							`operator`: Reference? = nil,
-							partOf: [Reference]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							view: CodeableConcept? = nil,
-							width: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		bodySite: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		content: Attachment,
+		created: CreatedX? = nil,
+		device: Reference? = nil,
+		deviceName: FHIRPrimitive<FHIRString>? = nil,
+		duration: FHIRPrimitive<FHIRDecimal>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		frames: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		height: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issued: FHIRPrimitive<Instant>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modality: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		`operator`: Reference? = nil,
+		partOf: [Reference]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		status: FHIRPrimitive<EventStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		view: CodeableConcept? = nil,
+		width: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init(content: content, status: status)
 		self.basedOn = basedOn
 		self.bodySite = bodySite

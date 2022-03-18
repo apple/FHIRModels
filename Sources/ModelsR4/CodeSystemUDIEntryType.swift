@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum UDIEntryType: String, FHIRPrimitiveType {
 	
 	/// a barcodescanner captured the data from the device label.
-	case barcode = "barcode"
+	case barcode
 	
 	/// An RFID chip reader captured the data from the device label.
-	case rfid = "rfid"
+	case rfid
 	
 	/// The data was read from the label by a person and manually entered. (e.g.  via a keyboard).
-	case manual = "manual"
+	case manual
 	
 	/// The data originated from a patient's implant card and was read by an operator.
-	case card = "card"
+	case card
 	
 	/// The data originated from a patient source and was not directly scanned or read from a label or card.
 	case selfReported = "self-reported"
 	
 	/// The method of data capture has not been determined.
-	case unknown = "unknown"
+	case unknown
 }

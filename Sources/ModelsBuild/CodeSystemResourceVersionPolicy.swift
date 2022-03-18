@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public enum ResourceVersionPolicy: String, FHIRPrimitiveType {
 	case noVersion = "no-version"
 	
 	/// VersionId meta-property is supported (server) or used (client).
-	case versioned = "versioned"
+	case versioned
 	
 	/// VersionId must be correct for updates (server) or will be specified (If-match header) for updates (client).
 	case versionedUpdate = "versioned-update"

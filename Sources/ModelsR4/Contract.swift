@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Contract)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -148,48 +148,48 @@ open class Contract: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							applies: Period? = nil,
-							author: Reference? = nil,
-							authority: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							contentDefinition: ContractContentDefinition? = nil,
-							contentDerivative: CodeableConcept? = nil,
-							domain: [Reference]? = nil,
-							expirationType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							friendly: [ContractFriendly]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: Reference? = nil,
-							instantiatesUri: FHIRPrimitive<FHIRURI>? = nil,
-							issued: FHIRPrimitive<DateTime>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							legal: [ContractLegal]? = nil,
-							legalState: CodeableConcept? = nil,
-							legallyBinding: LegallyBindingX? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							relevantHistory: [Reference]? = nil,
-							rule: [ContractRule]? = nil,
-							scope: CodeableConcept? = nil,
-							signer: [ContractSigner]? = nil,
-							site: [Reference]? = nil,
-							status: FHIRPrimitive<ContractResourceStatusCodes>? = nil,
-							subType: [CodeableConcept]? = nil,
-							subject: [Reference]? = nil,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							supportingInfo: [Reference]? = nil,
-							term: [ContractTerm]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: TopicX? = nil,
-							type: CodeableConcept? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		applies: Period? = nil,
+		author: Reference? = nil,
+		authority: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		contentDefinition: ContractContentDefinition? = nil,
+		contentDerivative: CodeableConcept? = nil,
+		domain: [Reference]? = nil,
+		expirationType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		friendly: [ContractFriendly]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: Reference? = nil,
+		instantiatesUri: FHIRPrimitive<FHIRURI>? = nil,
+		issued: FHIRPrimitive<DateTime>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		legal: [ContractLegal]? = nil,
+		legalState: CodeableConcept? = nil,
+		legallyBinding: LegallyBindingX? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		relevantHistory: [Reference]? = nil,
+		rule: [ContractRule]? = nil,
+		scope: CodeableConcept? = nil,
+		signer: [ContractSigner]? = nil,
+		site: [Reference]? = nil,
+		status: FHIRPrimitive<ContractResourceStatusCodes>? = nil,
+		subType: [CodeableConcept]? = nil,
+		subject: [Reference]? = nil,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		supportingInfo: [Reference]? = nil,
+		term: [ContractTerm]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: TopicX? = nil,
+		type: CodeableConcept? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.alias = alias
 		self.applies = applies
@@ -513,16 +513,16 @@ open class ContractContentDefinition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							publicationDate: FHIRPrimitive<DateTime>? = nil,
-							publicationStatus: FHIRPrimitive<ContractResourcePublicationStatusCodes>,
-							publisher: Reference? = nil,
-							subType: CodeableConcept? = nil,
-							type: CodeableConcept)
-	{
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		publicationDate: FHIRPrimitive<DateTime>? = nil,
+		publicationStatus: FHIRPrimitive<ContractResourcePublicationStatusCodes>,
+		publisher: Reference? = nil,
+		subType: CodeableConcept? = nil,
+		type: CodeableConcept
+	) {
 		self.init(publicationStatus: publicationStatus, type: type)
 		self.copyright = copyright
 		self.`extension` = `extension`
@@ -628,11 +628,11 @@ open class ContractFriendly: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id
@@ -732,11 +732,11 @@ open class ContractLegal: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id
@@ -836,11 +836,11 @@ open class ContractRule: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							content: ContentX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		content: ContentX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id
@@ -943,13 +943,13 @@ open class ContractSigner: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							party: Reference,
-							signature: [Signature],
-							type: Coding)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		party: Reference,
+		signature: [Signature],
+		type: Coding
+	) {
 		self.init(party: party, signature: signature, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1066,22 +1066,22 @@ open class ContractTerm: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: [ContractTermAction]? = nil,
-							applies: Period? = nil,
-							asset: [ContractTermAsset]? = nil,
-							`extension`: [Extension]? = nil,
-							group: [ContractTerm]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							issued: FHIRPrimitive<DateTime>? = nil,
-							modifierExtension: [Extension]? = nil,
-							offer: ContractTermOffer,
-							securityLabel: [ContractTermSecurityLabel]? = nil,
-							subType: CodeableConcept? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							topic: TopicX? = nil,
-							type: CodeableConcept? = nil)
-	{
+		action: [ContractTermAction]? = nil,
+		applies: Period? = nil,
+		asset: [ContractTermAsset]? = nil,
+		`extension`: [Extension]? = nil,
+		group: [ContractTerm]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		issued: FHIRPrimitive<DateTime>? = nil,
+		modifierExtension: [Extension]? = nil,
+		offer: ContractTermOffer,
+		securityLabel: [ContractTermSecurityLabel]? = nil,
+		subType: CodeableConcept? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		topic: TopicX? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(offer: offer)
 		self.action = action
 		self.applies = applies
@@ -1306,31 +1306,31 @@ open class ContractTermAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							context: Reference? = nil,
-							contextLinkId: [FHIRPrimitive<FHIRString>]? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							intent: CodeableConcept,
-							linkId: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							performer: Reference? = nil,
-							performerLinkId: [FHIRPrimitive<FHIRString>]? = nil,
-							performerRole: CodeableConcept? = nil,
-							performerType: [CodeableConcept]? = nil,
-							reason: [FHIRPrimitive<FHIRString>]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonLinkId: [FHIRPrimitive<FHIRString>]? = nil,
-							reasonReference: [Reference]? = nil,
-							requester: [Reference]? = nil,
-							requesterLinkId: [FHIRPrimitive<FHIRString>]? = nil,
-							securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
-							status: CodeableConcept,
-							subject: [ContractTermActionSubject]? = nil,
-							type: CodeableConcept)
-	{
+		context: Reference? = nil,
+		contextLinkId: [FHIRPrimitive<FHIRString>]? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		intent: CodeableConcept,
+		linkId: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		performer: Reference? = nil,
+		performerLinkId: [FHIRPrimitive<FHIRString>]? = nil,
+		performerRole: CodeableConcept? = nil,
+		performerType: [CodeableConcept]? = nil,
+		reason: [FHIRPrimitive<FHIRString>]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonLinkId: [FHIRPrimitive<FHIRString>]? = nil,
+		reasonReference: [Reference]? = nil,
+		requester: [Reference]? = nil,
+		requesterLinkId: [FHIRPrimitive<FHIRString>]? = nil,
+		securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
+		status: CodeableConcept,
+		subject: [ContractTermActionSubject]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(intent: intent, status: status, type: type)
 		self.context = context
 		self.contextLinkId = contextLinkId
@@ -1546,12 +1546,12 @@ open class ContractTermActionSubject: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: [Reference],
-							role: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: [Reference],
+		role: CodeableConcept? = nil
+	) {
 		self.init(reference: reference)
 		self.`extension` = `extension`
 		self.id = id
@@ -1663,25 +1663,25 @@ open class ContractTermAsset: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answer: [ContractTermOfferAnswer]? = nil,
-							condition: FHIRPrimitive<FHIRString>? = nil,
-							context: [ContractTermAssetContext]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							linkId: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: [Period]? = nil,
-							periodType: [CodeableConcept]? = nil,
-							relationship: Coding? = nil,
-							scope: CodeableConcept? = nil,
-							securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
-							subtype: [CodeableConcept]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							type: [CodeableConcept]? = nil,
-							typeReference: [Reference]? = nil,
-							usePeriod: [Period]? = nil,
-							valuedItem: [ContractTermAssetValuedItem]? = nil)
-	{
+		answer: [ContractTermOfferAnswer]? = nil,
+		condition: FHIRPrimitive<FHIRString>? = nil,
+		context: [ContractTermAssetContext]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		linkId: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: [Period]? = nil,
+		periodType: [CodeableConcept]? = nil,
+		relationship: Coding? = nil,
+		scope: CodeableConcept? = nil,
+		securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
+		subtype: [CodeableConcept]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		type: [CodeableConcept]? = nil,
+		typeReference: [Reference]? = nil,
+		usePeriod: [Period]? = nil,
+		valuedItem: [ContractTermAssetValuedItem]? = nil
+	) {
 		self.init()
 		self.answer = answer
 		self.condition = condition
@@ -1836,13 +1836,13 @@ open class ContractTermAssetContext: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: Reference? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: Reference? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -1965,24 +1965,24 @@ open class ContractTermAssetValuedItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							effectiveTime: FHIRPrimitive<DateTime>? = nil,
-							entity: EntityX? = nil,
-							`extension`: [Extension]? = nil,
-							factor: FHIRPrimitive<FHIRDecimal>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							linkId: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							net: Money? = nil,
-							payment: FHIRPrimitive<FHIRString>? = nil,
-							paymentDate: FHIRPrimitive<DateTime>? = nil,
-							points: FHIRPrimitive<FHIRDecimal>? = nil,
-							quantity: Quantity? = nil,
-							recipient: Reference? = nil,
-							responsible: Reference? = nil,
-							securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
-							unitPrice: Money? = nil)
-	{
+		effectiveTime: FHIRPrimitive<DateTime>? = nil,
+		entity: EntityX? = nil,
+		`extension`: [Extension]? = nil,
+		factor: FHIRPrimitive<FHIRDecimal>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		linkId: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		net: Money? = nil,
+		payment: FHIRPrimitive<FHIRString>? = nil,
+		paymentDate: FHIRPrimitive<DateTime>? = nil,
+		points: FHIRPrimitive<FHIRDecimal>? = nil,
+		quantity: Quantity? = nil,
+		recipient: Reference? = nil,
+		responsible: Reference? = nil,
+		securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init()
 		self.effectiveTime = effectiveTime
 		self.entity = entity
@@ -2175,20 +2175,20 @@ open class ContractTermOffer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							answer: [ContractTermOfferAnswer]? = nil,
-							decision: CodeableConcept? = nil,
-							decisionMode: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							linkId: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							party: [ContractTermOfferParty]? = nil,
-							securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							topic: Reference? = nil,
-							type: CodeableConcept? = nil)
-	{
+		answer: [ContractTermOfferAnswer]? = nil,
+		decision: CodeableConcept? = nil,
+		decisionMode: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		linkId: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		party: [ContractTermOfferParty]? = nil,
+		securityLabelNumber: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		topic: Reference? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.answer = answer
 		self.decision = decision
@@ -2325,11 +2325,11 @@ open class ContractTermOfferAnswer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -2514,12 +2514,12 @@ open class ContractTermOfferParty: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: [Reference],
-							role: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: [Reference],
+		role: CodeableConcept
+	) {
 		self.init(reference: reference, role: role)
 		self.`extension` = `extension`
 		self.id = id
@@ -2601,14 +2601,14 @@ open class ContractTermSecurityLabel: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: [Coding]? = nil,
-							classification: Coding,
-							control: [Coding]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							number: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil)
-	{
+		category: [Coding]? = nil,
+		classification: Coding,
+		control: [Coding]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		number: [FHIRPrimitive<FHIRUnsignedInteger>]? = nil
+	) {
 		self.init(classification: classification)
 		self.category = category
 		self.control = control

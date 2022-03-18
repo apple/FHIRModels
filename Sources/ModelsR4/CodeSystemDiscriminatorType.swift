@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum DiscriminatorType: String, FHIRPrimitiveType {
 	
 	/// The slices have different values in the nominated element.
-	case value = "value"
+	case value
 	
 	/// The slices are differentiated by the presence or absence of the nominated element.
-	case exists = "exists"
+	case exists
 	
 	/// The slices have different values in the nominated element, as determined by testing them against the applicable
 	/// ElementDefinition.pattern[x].
-	case pattern = "pattern"
+	case pattern
 	
 	/// The slices are differentiated by type of the nominated element.
-	case type = "type"
+	case type
 	
 	/// The slices are differentiated by conformance of the nominated element to a specified profile. Note that if the
 	/// path specifies .resolve() then the profile is the target profile on the reference. In this case, validation by
 	/// the possible profiles is required to differentiate the slices.
-	case profile = "profile"
+	case profile
 }

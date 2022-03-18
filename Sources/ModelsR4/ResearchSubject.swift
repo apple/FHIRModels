@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -62,23 +62,23 @@ open class ResearchSubject: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actualArm: FHIRPrimitive<FHIRString>? = nil,
-							assignedArm: FHIRPrimitive<FHIRString>? = nil,
-							consent: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							individual: Reference,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							status: FHIRPrimitive<ResearchSubjectStatus>,
-							study: Reference,
-							text: Narrative? = nil)
-	{
+		actualArm: FHIRPrimitive<FHIRString>? = nil,
+		assignedArm: FHIRPrimitive<FHIRString>? = nil,
+		consent: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		individual: Reference,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		status: FHIRPrimitive<ResearchSubjectStatus>,
+		study: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(individual: individual, status: status, study: study)
 		self.actualArm = actualArm
 		self.assignedArm = assignedArm

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public enum MeasurePopulationType: String, FHIRPrimitiveType {
 	/// it is the target process, condition, event, or outcome. Numerator criteria are the processes or outcomes
 	/// expected for each patient, or event defined in the denominator. A numerator statement describes the clinical
 	/// action that satisfies the conditions of the measure.
-	case numerator = "numerator"
+	case numerator
 	
 	/// Numerator exclusion criteria define patients or events to be removed from the numerator. Numerator exclusions
 	/// are used in proportion and ratio measures to help narrow the numerator (for inverted measures).
@@ -45,7 +45,7 @@ public enum MeasurePopulationType: String, FHIRPrimitiveType {
 	/// The lower portion of a fraction used to calculate a rate, proportion, or ratio. The denominator can be the same
 	/// as the initial population, or a subset of the initial population to further constrain the population for the
 	/// purpose of the measure.
-	case denominator = "denominator"
+	case denominator
 	
 	/// Denominator exclusion criteria define patients or events that should be removed from the denominator before
 	/// determining if numerator criteria are met. Denominator exclusions are used in proportion and ratio measures to

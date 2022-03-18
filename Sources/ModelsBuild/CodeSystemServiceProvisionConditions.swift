@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum ServiceProvisionConditions: String, FHIRPrimitiveType {
 	
-	/// This service is available for no patient cost.
-	case free = "free"
+	/// Fees apply for this service.
+	case cost
 	
 	/// There are discounts available on this service for qualifying patients.
-	case disc = "disc"
+	case disc
 	
-	/// Fees apply for this service.
-	case cost = "cost"
+	/// This service is available for no patient cost.
+	case free
 }

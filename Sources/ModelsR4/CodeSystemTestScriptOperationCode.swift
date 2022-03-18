@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,98 +28,98 @@ import FMCore
 public enum TestScriptOperationCode: String, FHIRPrimitiveType {
 	
 	/// Read the current state of the resource.
-	case read = "read"
+	case read
 	
 	/// Read the state of a specific version of the resource.
-	case vread = "vread"
+	case vread
 	
 	/// Update an existing resource by its id.
-	case update = "update"
+	case update
 	
 	/// Update an existing resource by its id (or create it if it is new).
-	case updateCreate = "updateCreate"
+	case updateCreate
 	
 	/// Patch an existing resource by its id.
-	case patch = "patch"
+	case patch
 	
 	/// Delete a resource.
-	case delete = "delete"
+	case delete
 	
 	/// Conditionally delete a single resource based on search parameters.
-	case deleteCondSingle = "deleteCondSingle"
+	case deleteCondSingle
 	
 	/// Conditionally delete one or more resources based on search parameters.
-	case deleteCondMultiple = "deleteCondMultiple"
+	case deleteCondMultiple
 	
 	/// Retrieve the change history for a particular resource or resource type.
-	case history = "history"
+	case history
 	
 	/// Create a new resource with a server assigned id.
-	case create = "create"
+	case create
 	
 	/// Search based on some filter criteria.
-	case search = "search"
+	case search
 	
 	/// Update, create or delete a set of resources as independent actions.
-	case batch = "batch"
+	case batch
 	
 	/// Update, create or delete a set of resources as a single transaction.
-	case transaction = "transaction"
+	case transaction
 	
 	/// Get a capability statement for the system.
-	case capabilities = "capabilities"
+	case capabilities
 	
 	/// Realizes an ActivityDefinition in a specific context
-	case apply = "apply"
+	case apply
 	
 	/// Closure Table Maintenance
-	case closure = "closure"
+	case closure
 	
 	/// Finding Codes based on supplied properties
 	case findMatches = "find-matches"
 	
 	/// Compare two systems CapabilityStatements
-	case conforms = "conforms"
+	case conforms
 	
 	/// Aggregates and returns the parameters and data requirements for a resource and all its dependencies as a single
 	/// module definition
 	case dataRequirements = "data-requirements"
 	
 	/// Generate a Document
-	case document = "document"
+	case document
 	
 	/// Request clinical decision support guidance based on a specific decision support module
-	case evaluate = "evaluate"
+	case evaluate
 	
 	/// Invoke an eMeasure and obtain the results
 	case evaluateMeasure = "evaluate-measure"
 	
 	/// Return all the related information as described in the Encounter or Patient
-	case everything = "everything"
+	case everything
 	
 	/// Value Set Expansion
-	case expand = "expand"
+	case expand
 	
 	/// Find a functional list
-	case find = "find"
+	case find
 	
 	/// Invoke a GraphQL query
-	case graphql = "graphql"
+	case graphql
 	
 	/// Test if a server implements a client's required operations
-	case implements = "implements"
+	case implements
 	
 	/// Last N Observations Query
-	case lastn = "lastn"
+	case lastn
 	
 	/// Concept Look Up and Decomposition
-	case lookup = "lookup"
+	case lookup
 	
 	/// Find patient matches using MPI based logic
-	case match = "match"
+	case match
 	
 	/// Access a list of profiles, tags, and security labels
-	case meta = "meta"
+	case meta
 	
 	/// Add profiles, tags, and security labels to a resource
 	case metaAdd = "meta-add"
@@ -128,37 +128,37 @@ public enum TestScriptOperationCode: String, FHIRPrimitiveType {
 	case metaDelete = "meta-delete"
 	
 	/// Populate Questionnaire
-	case populate = "populate"
+	case populate
 	
 	/// Generate HTML for Questionnaire
-	case populatehtml = "populatehtml"
+	case populatehtml
 	
 	/// Generate a link to a Questionnaire completion webpage
-	case populatelink = "populatelink"
+	case populatelink
 	
 	/// Process a message according to the defined event
 	case processMessage = "process-message"
 	
 	/// Build Questionnaire
-	case questionnaire = "questionnaire"
+	case questionnaire
 	
 	/// Observation Statistics
-	case stats = "stats"
+	case stats
 	
 	/// Fetch a subset of the CapabilityStatement resource
-	case subset = "subset"
+	case subset
 	
 	/// CodeSystem Subsumption Testing
-	case subsumes = "subsumes"
+	case subsumes
 	
 	/// Model Instance Transformation
-	case transform = "transform"
+	case transform
 	
 	/// Concept Translation
-	case translate = "translate"
+	case translate
 	
 	/// Validate a resource
-	case validate = "validate"
+	case validate
 	
 	/// ValueSet based Validation
 	case validateCode = "validate-code"

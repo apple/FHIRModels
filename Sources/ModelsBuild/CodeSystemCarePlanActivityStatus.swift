@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,31 +27,31 @@ import FMCore
  */
 public enum CarePlanActivityStatus: String, FHIRPrimitiveType {
 	
-	/// Care plan activity is planned but no action has yet been taken.
-	case notStarted = "not-started"
+	/// The planned care plan activity has been withdrawn.
+	case cancelled
 	
-	/// Appointment or other booking has occurred but activity has not yet begun.
-	case scheduled = "scheduled"
+	/// Care plan activity has been completed (more or less) as planned.
+	case completed
+	
+	/// Care plan activity was entered in error and voided.
+	case enteredInError = "entered-in-error"
 	
 	/// Care plan activity has been started but is not yet complete.
 	case inProgress = "in-progress"
 	
+	/// Care plan activity is planned but no action has yet been taken.
+	case notStarted = "not-started"
+	
 	/// Care plan activity was started but has temporarily ceased with an expectation of resumption at a future time.
 	case onHold = "on-hold"
 	
-	/// Care plan activity has been completed (more or less) as planned.
-	case completed = "completed"
-	
-	/// The planned care plan activity has been withdrawn.
-	case cancelled = "cancelled"
+	/// Appointment or other booking has occurred but activity has not yet begun.
+	case scheduled
 	
 	/// The planned care plan activity has been ended prior to completion after the activity was started.
-	case stopped = "stopped"
+	case stopped
 	
 	/// The current state of the care plan activity is not known.  Note: This concept is not to be used for "other" -
 	/// one of the listed statuses is presumed to apply, but the authoring/source system does not know which one.
-	case unknown = "unknown"
-	
-	/// Care plan activity was entered in error and voided.
-	case enteredInError = "entered-in-error"
+	case unknown
 }

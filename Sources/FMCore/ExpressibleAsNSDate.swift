@@ -27,3 +27,12 @@ public enum DateExpressionError: Error {
 	case unableToExpressAsDate(DateComponents)
 	case unableToConstructFromDate(Date, DateComponents)
 }
+
+extension ExpressibleAsNSDate {
+	
+	public func compare(_ other: ExpressibleAsNSDate) throws -> ComparisonResult {
+		let selfDate = try asNSDate()
+		let otherDate = try other.asNSDate()
+		return selfDate.compare(otherDate)
+	}
+}

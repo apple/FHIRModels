@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SubstancePolymer)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -51,21 +51,21 @@ open class SubstancePolymer: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							`class`: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							copolymerConnectivity: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							geometry: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modification: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							monomerSet: [SubstancePolymerMonomerSet]? = nil,
-							`repeat`: [SubstancePolymerRepeat]? = nil,
-							text: Narrative? = nil)
-	{
+		`class`: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		copolymerConnectivity: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		geometry: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modification: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		monomerSet: [SubstancePolymerMonomerSet]? = nil,
+		`repeat`: [SubstancePolymerRepeat]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.`class` = `class`
 		self.contained = contained
@@ -168,12 +168,12 @@ open class SubstancePolymerMonomerSet: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							ratioType: CodeableConcept? = nil,
-							startingMaterial: [SubstancePolymerMonomerSetStartingMaterial]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		ratioType: CodeableConcept? = nil,
+		startingMaterial: [SubstancePolymerMonomerSetStartingMaterial]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -253,14 +253,14 @@ open class SubstancePolymerMonomerSetStartingMaterial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isDefining: FHIRPrimitive<FHIRBool>? = nil,
-							material: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		amount: SubstanceAmount? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isDefining: FHIRPrimitive<FHIRBool>? = nil,
+		material: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.`extension` = `extension`
@@ -352,14 +352,14 @@ open class SubstancePolymerRepeat: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							averageMolecularFormula: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							numberOfUnits: FHIRPrimitive<FHIRInteger>? = nil,
-							repeatUnit: [SubstancePolymerRepeatRepeatUnit]? = nil,
-							repeatUnitAmountType: CodeableConcept? = nil)
-	{
+		averageMolecularFormula: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfUnits: FHIRPrimitive<FHIRInteger>? = nil,
+		repeatUnit: [SubstancePolymerRepeatRepeatUnit]? = nil,
+		repeatUnitAmountType: CodeableConcept? = nil
+	) {
 		self.init()
 		self.averageMolecularFormula = averageMolecularFormula
 		self.`extension` = `extension`
@@ -454,15 +454,15 @@ open class SubstancePolymerRepeatRepeatUnit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
-							degreeOfPolymerisation: [SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							orientationOfPolymerisation: CodeableConcept? = nil,
-							repeatUnit: FHIRPrimitive<FHIRString>? = nil,
-							structuralRepresentation: [SubstancePolymerRepeatRepeatUnitStructuralRepresentation]? = nil)
-	{
+		amount: SubstanceAmount? = nil,
+		degreeOfPolymerisation: [SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		orientationOfPolymerisation: CodeableConcept? = nil,
+		repeatUnit: FHIRPrimitive<FHIRString>? = nil,
+		structuralRepresentation: [SubstancePolymerRepeatRepeatUnitStructuralRepresentation]? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.degreeOfPolymerisation = degreeOfPolymerisation
@@ -554,12 +554,12 @@ open class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation: BackboneEleme
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: SubstanceAmount? = nil,
-							degree: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: SubstanceAmount? = nil,
+		degree: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.degree = degree
@@ -636,13 +636,13 @@ open class SubstancePolymerRepeatRepeatUnitStructuralRepresentation: BackboneEle
 	
 	/// Convenience initializer
 	public convenience init(
-							attachment: Attachment? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							representation: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		attachment: Attachment? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		representation: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.attachment = attachment
 		self.`extension` = `extension`

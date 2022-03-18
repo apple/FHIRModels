@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,25 +27,20 @@ import FMCore
  */
 public enum DeviceNameType: String, FHIRPrimitiveType {
 	
-	/// UDI Label name.
-	case udiLabelName = "udi-label-name"
-	
-	/// The 'user friendly name' typically is the name of the device on the package it came in or some combination of
-	/// that name with the model number, serial number, or other attribute that makes the name easy to understand for
-	/// the user of that device. It is often exposed in communicating devices transport protocols. It is provided to
-	/// help users identify the device when reported in discovery operations.
-	case userFriendlyName = "user-friendly-name"
-	
-	/// A name as provided by a patient of the device, for example "knee implant", when documenting, e.g., self-reported
-	/// device.
+	/// the term used by the patient associated with the device when describing the device, for example 'knee implant',
+	/// when documented as a self-reported device.
 	case patientReportedName = "patient-reported-name"
 	
-	/// The formal name as provided by the manufacturer of the device.
-	case manufacturerName = "manufacturer-name"
+	/// The term assigned to a medical device by the entity who registers or submits information about it to a
+	/// jurisdiction or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned
+	/// by the labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be
+	/// synonymous with proprietary name or trade name of the device.
+	case registeredName = "registered-name"
 	
-	/// The name of the model. The manufacturer-name or user-friendly-name may include that as a component.
-	case modelName = "model-name"
-	
-	/// other.
-	case other = "other"
+	/// The term that generically describes the device by a name as assigned by the manufacturer that is recognized by
+	/// lay person.  This common or generic name may be printed on the package it came in or some combination of that
+	/// name with the model number, serial number, or other attribute that makes the name easy to understand for the
+	/// user of that device. It is often exposed in communicating devices transport protocols. It is provided to help
+	/// users identify the device when reported in discovery operations.
+	case userFriendlyName = "user-friendly-name"
 }

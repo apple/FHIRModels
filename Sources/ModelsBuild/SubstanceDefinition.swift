@@ -2,8 +2,8 @@
 //  SubstanceDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubstanceDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SubstanceDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,47 +27,50 @@ open class SubstanceDefinition: DomainResource {
 	override open class var resourceType: ResourceType { return .substanceDefinition }
 	
 	/// Identifier by which this substance is known
-	public var identifier: Identifier?
+	public var identifier: [Identifier]?
 	
-	/// A business level identifier of the substance
+	/// A business level version identifier of the substance
 	public var version: FHIRPrimitive<FHIRString>?
 	
-	/// Status of substance within the catalogue e.g. approved
+	/// Status of substance within the catalogue e.g. active, retired
 	public var status: CodeableConcept?
 	
-	/// High level categorization, e.g. polymer or nucleic acid, or food, chemical, biological
-	public var category: CodeableConcept?
-	
-	/// A lower level classification than category, such as the general types of polymer (linear or branch chain) or
-	/// type of impurity (process related or contaminant)
+	/// A categorization, high level e.g. polymer or nucleic acid, or food, chemical, biological, or lower e.g. polymer
+	/// linear or branch chain, or type of impurity
 	public var classification: [CodeableConcept]?
 	
-	/// If the substance applies to only human or veterinary use
+	/// If the substance applies to human or veterinary use
 	public var domain: CodeableConcept?
+	
+	/// The quality standard, established benchmark, to which substance complies (e.g. USP/NF, BP)
+	public var grade: [CodeableConcept]?
 	
 	/// Textual description of the substance
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Supporting literature
-	public var source: [Reference]?
+	public var informationSource: [Reference]?
 	
-	/// Textual comment about this record of a substance
+	/// Textual comment about the substance's catalogue or registry record
 	public var note: [Annotation]?
 	
-	/// A company that makes this substance
+	/// The entity that creates, makes, produces or fabricates the substance
 	public var manufacturer: [Reference]?
 	
-	/// A company that supplies this substance
+	/// An entity that is the source for the substance. It may be different from the manufacturer
 	public var supplier: [Reference]?
 	
 	/// Moiety, for structural modifications
 	public var moiety: [SubstanceDefinitionMoiety]?
 	
-	/// General specifications for this substance, including how it is related to other substances
+	/// General specifications for this substance
 	public var property: [SubstanceDefinitionProperty]?
 	
 	/// General information detailing this substance
 	public var referenceInformation: Reference?
+	
+	/// The molecular weight or weight range
+	public var molecularWeight: [SubstanceDefinitionMolecularWeight]?
 	
 	/// Structural information
 	public var structure: SubstanceDefinitionStructure?
@@ -78,10 +81,7 @@ open class SubstanceDefinition: DomainResource {
 	/// Names applicable to this substance
 	public var name: [SubstanceDefinitionName]?
 	
-	/// The molecular weight or weight range (for proteins, polymers or nucleic acids)
-	public var molecularWeight: [SubstanceDefinitionStructureIsotopeMolecularWeight]?
-	
-	/// A link between this substance and another, with details of the relationship
+	/// A link between this substance and another
 	public var relationship: [SubstanceDefinitionRelationship]?
 	
 	/// Data items specific to nucleic acids
@@ -93,8 +93,8 @@ open class SubstanceDefinition: DomainResource {
 	/// Data items specific to proteins
 	public var protein: Reference?
 	
-	/// Material or taxonomic/anatomical source for the substance
-	public var sourceMaterial: Reference?
+	/// Material or taxonomic/anatomical source
+	public var sourceMaterial: SubstanceDefinitionSourceMaterial?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -103,49 +103,50 @@ open class SubstanceDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							classification: [CodeableConcept]? = nil,
-							code: [SubstanceDefinitionFHIRString]? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							domain: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							moiety: [SubstanceDefinitionMoiety]? = nil,
-							molecularWeight: [SubstanceDefinitionStructureIsotopeMolecularWeight]? = nil,
-							name: [SubstanceDefinitionName]? = nil,
-							note: [Annotation]? = nil,
-							nucleicAcid: Reference? = nil,
-							polymer: Reference? = nil,
-							property: [SubstanceDefinitionProperty]? = nil,
-							protein: Reference? = nil,
-							referenceInformation: Reference? = nil,
-							relationship: [SubstanceDefinitionRelationship]? = nil,
-							source: [Reference]? = nil,
-							sourceMaterial: Reference? = nil,
-							status: CodeableConcept? = nil,
-							structure: SubstanceDefinitionStructure? = nil,
-							supplier: [Reference]? = nil,
-							text: Narrative? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		classification: [CodeableConcept]? = nil,
+		code: [SubstanceDefinitionFHIRString]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		domain: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		grade: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		informationSource: [Reference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		moiety: [SubstanceDefinitionMoiety]? = nil,
+		molecularWeight: [SubstanceDefinitionMolecularWeight]? = nil,
+		name: [SubstanceDefinitionName]? = nil,
+		note: [Annotation]? = nil,
+		nucleicAcid: Reference? = nil,
+		polymer: Reference? = nil,
+		property: [SubstanceDefinitionProperty]? = nil,
+		protein: Reference? = nil,
+		referenceInformation: Reference? = nil,
+		relationship: [SubstanceDefinitionRelationship]? = nil,
+		sourceMaterial: SubstanceDefinitionSourceMaterial? = nil,
+		status: CodeableConcept? = nil,
+		structure: SubstanceDefinitionStructure? = nil,
+		supplier: [Reference]? = nil,
+		text: Narrative? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
-		self.category = category
 		self.classification = classification
 		self.code = code
 		self.contained = contained
 		self.description_fhir = description_fhir
 		self.domain = domain
 		self.`extension` = `extension`
+		self.grade = grade
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.informationSource = informationSource
 		self.language = language
 		self.manufacturer = manufacturer
 		self.meta = meta
@@ -160,7 +161,6 @@ open class SubstanceDefinition: DomainResource {
 		self.protein = protein
 		self.referenceInformation = referenceInformation
 		self.relationship = relationship
-		self.source = source
 		self.sourceMaterial = sourceMaterial
 		self.status = status
 		self.structure = structure
@@ -172,12 +172,13 @@ open class SubstanceDefinition: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case category
 		case classification
 		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case domain
+		case grade
 		case identifier
+		case informationSource
 		case manufacturer
 		case moiety
 		case molecularWeight
@@ -189,7 +190,6 @@ open class SubstanceDefinition: DomainResource {
 		case protein
 		case referenceInformation
 		case relationship
-		case source
 		case sourceMaterial
 		case status
 		case structure
@@ -202,15 +202,16 @@ open class SubstanceDefinition: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
 		self.classification = try [CodeableConcept](from: _container, forKeyIfPresent: .classification)
 		self.code = try [SubstanceDefinitionFHIRString](from: _container, forKeyIfPresent: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.domain = try CodeableConcept(from: _container, forKeyIfPresent: .domain)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.grade = try [CodeableConcept](from: _container, forKeyIfPresent: .grade)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.informationSource = try [Reference](from: _container, forKeyIfPresent: .informationSource)
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
 		self.moiety = try [SubstanceDefinitionMoiety](from: _container, forKeyIfPresent: .moiety)
-		self.molecularWeight = try [SubstanceDefinitionStructureIsotopeMolecularWeight](from: _container, forKeyIfPresent: .molecularWeight)
+		self.molecularWeight = try [SubstanceDefinitionMolecularWeight](from: _container, forKeyIfPresent: .molecularWeight)
 		self.name = try [SubstanceDefinitionName](from: _container, forKeyIfPresent: .name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.nucleicAcid = try Reference(from: _container, forKeyIfPresent: .nucleicAcid)
@@ -219,8 +220,7 @@ open class SubstanceDefinition: DomainResource {
 		self.protein = try Reference(from: _container, forKeyIfPresent: .protein)
 		self.referenceInformation = try Reference(from: _container, forKeyIfPresent: .referenceInformation)
 		self.relationship = try [SubstanceDefinitionRelationship](from: _container, forKeyIfPresent: .relationship)
-		self.source = try [Reference](from: _container, forKeyIfPresent: .source)
-		self.sourceMaterial = try Reference(from: _container, forKeyIfPresent: .sourceMaterial)
+		self.sourceMaterial = try SubstanceDefinitionSourceMaterial(from: _container, forKeyIfPresent: .sourceMaterial)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.structure = try SubstanceDefinitionStructure(from: _container, forKeyIfPresent: .structure)
 		self.supplier = try [Reference](from: _container, forKeyIfPresent: .supplier)
@@ -233,12 +233,13 @@ open class SubstanceDefinition: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try category?.encode(on: &_container, forKey: .category)
 		try classification?.encode(on: &_container, forKey: .classification)
 		try code?.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try domain?.encode(on: &_container, forKey: .domain)
+		try grade?.encode(on: &_container, forKey: .grade)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try informationSource?.encode(on: &_container, forKey: .informationSource)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
 		try moiety?.encode(on: &_container, forKey: .moiety)
 		try molecularWeight?.encode(on: &_container, forKey: .molecularWeight)
@@ -250,7 +251,6 @@ open class SubstanceDefinition: DomainResource {
 		try protein?.encode(on: &_container, forKey: .protein)
 		try referenceInformation?.encode(on: &_container, forKey: .referenceInformation)
 		try relationship?.encode(on: &_container, forKey: .relationship)
-		try source?.encode(on: &_container, forKey: .source)
 		try sourceMaterial?.encode(on: &_container, forKey: .sourceMaterial)
 		try status?.encode(on: &_container, forKey: .status)
 		try structure?.encode(on: &_container, forKey: .structure)
@@ -268,12 +268,13 @@ open class SubstanceDefinition: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return category == _other.category
-		    && classification == _other.classification
+		return classification == _other.classification
 		    && code == _other.code
 		    && description_fhir == _other.description_fhir
 		    && domain == _other.domain
+		    && grade == _other.grade
 		    && identifier == _other.identifier
+		    && informationSource == _other.informationSource
 		    && manufacturer == _other.manufacturer
 		    && moiety == _other.moiety
 		    && molecularWeight == _other.molecularWeight
@@ -285,7 +286,6 @@ open class SubstanceDefinition: DomainResource {
 		    && protein == _other.protein
 		    && referenceInformation == _other.referenceInformation
 		    && relationship == _other.relationship
-		    && source == _other.source
 		    && sourceMaterial == _other.sourceMaterial
 		    && status == _other.status
 		    && structure == _other.structure
@@ -295,12 +295,13 @@ open class SubstanceDefinition: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(category)
 		hasher.combine(classification)
 		hasher.combine(code)
 		hasher.combine(description_fhir)
 		hasher.combine(domain)
+		hasher.combine(grade)
 		hasher.combine(identifier)
+		hasher.combine(informationSource)
 		hasher.combine(manufacturer)
 		hasher.combine(moiety)
 		hasher.combine(molecularWeight)
@@ -312,7 +313,6 @@ open class SubstanceDefinition: DomainResource {
 		hasher.combine(protein)
 		hasher.combine(referenceInformation)
 		hasher.combine(relationship)
-		hasher.combine(source)
 		hasher.combine(sourceMaterial)
 		hasher.combine(status)
 		hasher.combine(structure)
@@ -332,10 +332,10 @@ open class SubstanceDefinitionFHIRString: BackboneElement {
 	/// Status of the code assignment, for example 'provisional', 'approved'
 	public var status: CodeableConcept?
 	
-	/// The date at which the code status is changed as part of the terminology maintenance
+	/// The date at which the code status was changed
 	public var statusDate: FHIRPrimitive<DateTime>?
 	
-	/// Any comment can be provided in this field, if necessary
+	/// Any comment can be provided in this field
 	public var note: [Annotation]?
 	
 	/// Supporting literature
@@ -348,15 +348,15 @@ open class SubstanceDefinitionFHIRString: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							source: [Reference]? = nil,
-							status: CodeableConcept? = nil,
-							statusDate: FHIRPrimitive<DateTime>? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		source: [Reference]? = nil,
+		status: CodeableConcept? = nil,
+		statusDate: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -456,7 +456,7 @@ open class SubstanceDefinitionMoiety: BackboneElement {
 	/// Optical activity type
 	public var opticalActivity: CodeableConcept?
 	
-	/// Molecular formula for this moiety of this substance, typically using the Hill system
+	/// Molecular formula for this moiety (e.g. with the Hill system)
 	public var molecularFormula: FHIRPrimitive<FHIRString>?
 	
 	/// Quantitative value for this moiety
@@ -473,18 +473,18 @@ open class SubstanceDefinitionMoiety: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							amountType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularFormula: FHIRPrimitive<FHIRString>? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							opticalActivity: CodeableConcept? = nil,
-							role: CodeableConcept? = nil,
-							stereochemistry: CodeableConcept? = nil)
-	{
+		amount: AmountX? = nil,
+		amountType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		molecularFormula: FHIRPrimitive<FHIRString>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		opticalActivity: CodeableConcept? = nil,
+		role: CodeableConcept? = nil,
+		stereochemistry: CodeableConcept? = nil
+	) {
 		self.init()
 		self.amount = amount
 		self.amountType = amountType
@@ -598,6 +598,97 @@ open class SubstanceDefinitionMoiety: BackboneElement {
 }
 
 /**
+ The molecular weight or weight range.
+ 
+ The molecular weight or weight range (for proteins, polymers or nucleic acids).
+ */
+open class SubstanceDefinitionMolecularWeight: BackboneElement {
+	
+	/// The method by which the weight was determined
+	public var method: CodeableConcept?
+	
+	/// Type of molecular weight e.g. exact, average, weight average
+	public var type: CodeableConcept?
+	
+	/// Used to capture quantitative values for a variety of elements
+	public var amount: Quantity
+	
+	/// Designated initializer taking all required properties
+	public init(amount: Quantity) {
+		self.amount = amount
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		amount: Quantity,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
+		self.init(amount: amount)
+		self.`extension` = `extension`
+		self.id = id
+		self.method = method
+		self.modifierExtension = modifierExtension
+		self.type = type
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case amount
+		case method
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.amount = try Quantity(from: _container, forKey: .amount)
+		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try amount.encode(on: &_container, forKey: .amount)
+		try method?.encode(on: &_container, forKey: .method)
+		try type?.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? SubstanceDefinitionMolecularWeight else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return amount == _other.amount
+		    && method == _other.method
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(amount)
+		hasher.combine(method)
+		hasher.combine(type)
+	}
+}
+
+/**
  Names applicable to this substance.
  */
 open class SubstanceDefinitionName: BackboneElement {
@@ -605,10 +696,10 @@ open class SubstanceDefinitionName: BackboneElement {
 	/// The actual name
 	public var name: FHIRPrimitive<FHIRString>
 	
-	/// Name type, for example 'systematic',  'scientific, 'brand'
+	/// Name type e.g. 'systematic',  'scientific, 'brand'
 	public var type: CodeableConcept?
 	
-	/// The status of the name, for example 'current', 'proposed'
+	/// The status of the name e.g. 'current', 'proposed'
 	public var status: CodeableConcept?
 	
 	/// If this is the preferred name for this substance
@@ -617,8 +708,7 @@ open class SubstanceDefinitionName: BackboneElement {
 	/// Human language that the name is written in
 	public var language: [CodeableConcept]?
 	
-	/// The use context of this name for example if there is a different name a drug active ingredient as opposed to a
-	/// food colour additive
+	/// The use context of this name e.g. as an active ingredient or as a food colour additive
 	public var domain: [CodeableConcept]?
 	
 	/// The jurisdiction where this name applies
@@ -644,21 +734,21 @@ open class SubstanceDefinitionName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							domain: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							official: [SubstanceDefinitionNameOfficial]? = nil,
-							preferred: FHIRPrimitive<FHIRBool>? = nil,
-							source: [Reference]? = nil,
-							status: CodeableConcept? = nil,
-							synonym: [SubstanceDefinitionName]? = nil,
-							translation: [SubstanceDefinitionName]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		domain: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		official: [SubstanceDefinitionNameOfficial]? = nil,
+		preferred: FHIRPrimitive<FHIRBool>? = nil,
+		source: [Reference]? = nil,
+		status: CodeableConcept? = nil,
+		synonym: [SubstanceDefinitionName]? = nil,
+		translation: [SubstanceDefinitionName]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(name: name)
 		self.domain = domain
 		self.`extension` = `extension`
@@ -775,7 +865,7 @@ open class SubstanceDefinitionNameOfficial: BackboneElement {
 	/// Which authority uses this official name
 	public var authority: CodeableConcept?
 	
-	/// The status of the official name, for example 'provisional', 'approved'
+	/// The status of the official name, for example 'draft', 'active'
 	public var status: CodeableConcept?
 	
 	/// Date of official name change
@@ -788,13 +878,13 @@ open class SubstanceDefinitionNameOfficial: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: CodeableConcept? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							status: CodeableConcept? = nil)
-	{
+		authority: CodeableConcept? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: CodeableConcept? = nil
+	) {
 		self.init()
 		self.authority = authority
 		self.date = date
@@ -857,81 +947,56 @@ open class SubstanceDefinitionNameOfficial: BackboneElement {
 }
 
 /**
- General specifications for this substance, including how it is related to other substances.
+ General specifications for this substance.
  */
 open class SubstanceDefinitionProperty: BackboneElement {
 	
-	/// All possible types for "amount[x]"
-	public enum AmountX: Hashable {
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case attachment(Attachment)
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case date(FHIRPrimitive<FHIRDate>)
 		case quantity(Quantity)
-		case string(FHIRPrimitive<FHIRString>)
 	}
 	
-	/// A category for this property, e.g. Physical, Chemical, Enzymatic
-	public var category: CodeableConcept?
+	/// A code expressing the type of property
+	public var type: CodeableConcept
 	
-	/// Property type e.g. viscosity, pH, isoelectric point
-	public var code: CodeableConcept?
-	
-	/// Parameters that were used in the measurement of a property (e.g. for viscosity: measured at 20C with a pH of
-	/// 7.1)
-	public var parameters: FHIRPrimitive<FHIRString>?
-	
-	/// A substance upon which a defining property depends (e.g. for solubility: in water, in alcohol)
-	public var definingSubstance: CodeableReference?
-	
-	/// Quantitative value for this property
-	/// One of `amount[x]`
-	public var amount: AmountX?
-	
-	/// Range of typical values
-	public var referenceRange: Range?
-	
-	/// Supporting literature
-	public var source: [Reference]?
+	/// A value for the property
+	/// One of `value[x]`
+	public var value: ValueX?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(type: CodeableConcept) {
+		self.type = type
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							category: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							definingSubstance: CodeableReference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							parameters: FHIRPrimitive<FHIRString>? = nil,
-							referenceRange: Range? = nil,
-							source: [Reference]? = nil)
-	{
-		self.init()
-		self.amount = amount
-		self.category = category
-		self.code = code
-		self.definingSubstance = definingSubstance
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
+		self.init(type: type)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.parameters = parameters
-		self.referenceRange = referenceRange
-		self.source = source
+		self.value = value
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case amountQuantity
-		case amountString; case _amountString
-		case category
-		case code
-		case definingSubstance
-		case parameters; case _parameters
-		case referenceRange
-		case source
+		case type
+		case valueAttachment
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueDate; case _valueDate
+		case valueQuantity
 	}
 	
 	/// Initializer for Decodable
@@ -939,26 +1004,39 @@ open class SubstanceDefinitionProperty: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		var _t_amount: AmountX? = nil
-		if let amountQuantity = try Quantity(from: _container, forKeyIfPresent: .amountQuantity) {
-			if _t_amount != nil {
-				throw DecodingError.dataCorruptedError(forKey: .amountQuantity, in: _container, debugDescription: "More than one value provided for \"amount\"")
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
-			_t_amount = .quantity(amountQuantity)
+			_t_value = .codeableConcept(valueCodeableConcept)
 		}
-		if let amountString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .amountString, auxiliaryKey: ._amountString) {
-			if _t_amount != nil {
-				throw DecodingError.dataCorruptedError(forKey: .amountString, in: _container, debugDescription: "More than one value provided for \"amount\"")
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
-			_t_amount = .string(amountString)
+			_t_value = .quantity(valueQuantity)
 		}
-		self.amount = _t_amount
-		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
-		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.definingSubstance = try CodeableReference(from: _container, forKeyIfPresent: .definingSubstance)
-		self.parameters = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .parameters, auxiliaryKey: ._parameters)
-		self.referenceRange = try Range(from: _container, forKeyIfPresent: .referenceRange)
-		self.source = try [Reference](from: _container, forKeyIfPresent: .source)
+		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDate, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .date(valueDate)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueAttachment = try Attachment(from: _container, forKeyIfPresent: .valueAttachment) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAttachment, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .attachment(valueAttachment)
+		}
+		self.value = _t_value
 		try super.init(from: decoder)
 	}
 	
@@ -967,20 +1045,21 @@ open class SubstanceDefinitionProperty: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		if let _enum = amount {
+		try type.encode(on: &_container, forKey: .type)
+		if let _enum = value {
 			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .amountQuantity)
-			case .string(let _value):
-				try _value.encode(on: &_container, forKey: .amountString, auxiliaryKey: ._amountString)
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .date(let _value):
+				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .valueAttachment)
 			}
 		}
-		try category?.encode(on: &_container, forKey: .category)
-		try code?.encode(on: &_container, forKey: .code)
-		try definingSubstance?.encode(on: &_container, forKey: .definingSubstance)
-		try parameters?.encode(on: &_container, forKey: .parameters, auxiliaryKey: ._parameters)
-		try referenceRange?.encode(on: &_container, forKey: .referenceRange)
-		try source?.encode(on: &_container, forKey: .source)
 		try super.encode(to: encoder)
 	}
 	
@@ -993,28 +1072,20 @@ open class SubstanceDefinitionProperty: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return amount == _other.amount
-		    && category == _other.category
-		    && code == _other.code
-		    && definingSubstance == _other.definingSubstance
-		    && parameters == _other.parameters
-		    && referenceRange == _other.referenceRange
-		    && source == _other.source
+		return type == _other.type
+		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(amount)
-		hasher.combine(category)
-		hasher.combine(code)
-		hasher.combine(definingSubstance)
-		hasher.combine(parameters)
-		hasher.combine(referenceRange)
-		hasher.combine(source)
+		hasher.combine(type)
+		hasher.combine(value)
 	}
 }
 
 /**
+ A link between this substance and another.
+ 
  A link between this substance and another, with details of the relationship.
  */
 open class SubstanceDefinitionRelationship: BackboneElement {
@@ -1022,7 +1093,6 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 	/// All possible types for "amount[x]"
 	public enum AmountX: Hashable {
 		case quantity(Quantity)
-		case range(Range)
 		case ratio(Ratio)
 		case string(FHIRPrimitive<FHIRString>)
 	}
@@ -1033,19 +1103,19 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 		case reference(Reference)
 	}
 	
-	/// A pointer to another substance, as a resource or just a representational code
+	/// A pointer to another substance, as a resource or a representational code
 	/// One of `substanceDefinition[x]`
 	public var substanceDefinition: SubstanceDefinitionX?
 	
-	/// For example "salt to parent", "active moiety", "starting material", "polymorph"
-	public var type: CodeableConcept?
+	/// For example "salt to parent", "active moiety"
+	public var type: CodeableConcept
 	
 	/// For example where an enzyme strongly bonds with a particular substance, this is a defining relationship for that
-	/// enzyme, out of several possible substance relationships
+	/// enzyme, out of several possible relationships
 	public var isDefining: FHIRPrimitive<FHIRBool>?
 	
-	/// A numeric factor for the relationship, for instance to express that the salt of a substance has some percentage
-	/// of the active substance in relation to some other
+	/// A numeric factor for the relationship, e.g. that a substance salt has some percentage of active substance in
+	/// relation to some other
 	/// One of `amount[x]`
 	public var amount: AmountX?
 	
@@ -1059,24 +1129,25 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 	public var source: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(type: CodeableConcept) {
+		self.type = type
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: AmountX? = nil,
-							amountRatioHighLimit: Ratio? = nil,
-							amountType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isDefining: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: [Reference]? = nil,
-							substanceDefinition: SubstanceDefinitionX? = nil,
-							type: CodeableConcept? = nil)
-	{
-		self.init()
+		amount: AmountX? = nil,
+		amountRatioHighLimit: Ratio? = nil,
+		amountType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isDefining: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: [Reference]? = nil,
+		substanceDefinition: SubstanceDefinitionX? = nil,
+		type: CodeableConcept
+	) {
+		self.init(type: type)
 		self.amount = amount
 		self.amountRatioHighLimit = amountRatioHighLimit
 		self.amountType = amountType
@@ -1086,14 +1157,12 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.source = source
 		self.substanceDefinition = substanceDefinition
-		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case amountQuantity
-		case amountRange
 		case amountRatio
 		case amountRatioHighLimit
 		case amountString; case _amountString
@@ -1116,12 +1185,6 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .amountQuantity, in: _container, debugDescription: "More than one value provided for \"amount\"")
 			}
 			_t_amount = .quantity(amountQuantity)
-		}
-		if let amountRange = try Range(from: _container, forKeyIfPresent: .amountRange) {
-			if _t_amount != nil {
-				throw DecodingError.dataCorruptedError(forKey: .amountRange, in: _container, debugDescription: "More than one value provided for \"amount\"")
-			}
-			_t_amount = .range(amountRange)
 		}
 		if let amountRatio = try Ratio(from: _container, forKeyIfPresent: .amountRatio) {
 			if _t_amount != nil {
@@ -1154,7 +1217,7 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 			_t_substanceDefinition = .codeableConcept(substanceDefinitionCodeableConcept)
 		}
 		self.substanceDefinition = _t_substanceDefinition
-		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -1167,8 +1230,6 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 			switch _enum {
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .amountQuantity)
-			case .range(let _value):
-				try _value.encode(on: &_container, forKey: .amountRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .amountRatio)
 			case .string(let _value):
@@ -1187,7 +1248,7 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 				try _value.encode(on: &_container, forKey: .substanceDefinitionCodeableConcept)
 			}
 		}
-		try type?.encode(on: &_container, forKey: .type)
+		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -1222,6 +1283,117 @@ open class SubstanceDefinitionRelationship: BackboneElement {
 }
 
 /**
+ Material or taxonomic/anatomical source.
+ 
+ Material or taxonomic/anatomical source for the substance.
+ */
+open class SubstanceDefinitionSourceMaterial: BackboneElement {
+	
+	/// Classification of the origin of the raw material. e.g. cat hair is an Animal source type
+	public var type: CodeableConcept?
+	
+	/// The genus of an organism e.g. the Latin epithet of the plant/animal scientific name
+	public var genus: CodeableConcept?
+	
+	/// The species of an organism e.g. the Latin epithet of the species of the plant/animal
+	public var species: CodeableConcept?
+	
+	/// An anatomical origin of the source material within an organism
+	public var part: CodeableConcept?
+	
+	/// The country or countries where the material is harvested
+	public var countryOfOrigin: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		countryOfOrigin: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		genus: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		part: CodeableConcept? = nil,
+		species: CodeableConcept? = nil,
+		type: CodeableConcept? = nil
+	) {
+		self.init()
+		self.countryOfOrigin = countryOfOrigin
+		self.`extension` = `extension`
+		self.genus = genus
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.part = part
+		self.species = species
+		self.type = type
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case countryOfOrigin
+		case genus
+		case part
+		case species
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.countryOfOrigin = try [CodeableConcept](from: _container, forKeyIfPresent: .countryOfOrigin)
+		self.genus = try CodeableConcept(from: _container, forKeyIfPresent: .genus)
+		self.part = try CodeableConcept(from: _container, forKeyIfPresent: .part)
+		self.species = try CodeableConcept(from: _container, forKeyIfPresent: .species)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try countryOfOrigin?.encode(on: &_container, forKey: .countryOfOrigin)
+		try genus?.encode(on: &_container, forKey: .genus)
+		try part?.encode(on: &_container, forKey: .part)
+		try species?.encode(on: &_container, forKey: .species)
+		try type?.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? SubstanceDefinitionSourceMaterial else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return countryOfOrigin == _other.countryOfOrigin
+		    && genus == _other.genus
+		    && part == _other.part
+		    && species == _other.species
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(countryOfOrigin)
+		hasher.combine(genus)
+		hasher.combine(part)
+		hasher.combine(species)
+		hasher.combine(type)
+	}
+}
+
+/**
  Structural information.
  */
 open class SubstanceDefinitionStructure: BackboneElement {
@@ -1232,24 +1404,19 @@ open class SubstanceDefinitionStructure: BackboneElement {
 	/// Optical activity type
 	public var opticalActivity: CodeableConcept?
 	
-	/// Molecular formula of this substance, typically using the Hill system
+	/// Molecular formula (e.g. using the Hill system)
 	public var molecularFormula: FHIRPrimitive<FHIRString>?
 	
-	/// Specified per moiety according to the Hill system, i.e. first C, then H, then alphabetical, each moiety
-	/// separated by a dot
+	/// Specified per moiety according to the Hill system
 	public var molecularFormulaByMoiety: FHIRPrimitive<FHIRString>?
 	
-	/// Applicable for single substances that contain a radionuclide or a non-natural isotopic ratio
-	public var isotope: [SubstanceDefinitionStructureIsotope]?
+	/// The molecular weight or weight range
+	public var molecularWeight: SubstanceDefinitionMolecularWeight?
 	
-	/// The molecular weight or weight range (for proteins, polymers or nucleic acids)
-	public var molecularWeight: SubstanceDefinitionStructureIsotopeMolecularWeight?
-	
-	/// The method used to elucidate the structure or characterization of the drug substance. Examples: X-ray, HPLC,
-	/// NMR, Peptide mapping, Ligand binding assay
+	/// The method used to find the structure e.g. X-ray, NMR
 	public var technique: [CodeableConcept]?
 	
-	/// Supporting literature about the source of information
+	/// Source of information for the structure
 	public var sourceDocument: [Reference]?
 	
 	/// A depiction of the structure or characterization of the substance
@@ -1262,23 +1429,21 @@ open class SubstanceDefinitionStructure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isotope: [SubstanceDefinitionStructureIsotope]? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularFormula: FHIRPrimitive<FHIRString>? = nil,
-							molecularFormulaByMoiety: FHIRPrimitive<FHIRString>? = nil,
-							molecularWeight: SubstanceDefinitionStructureIsotopeMolecularWeight? = nil,
-							opticalActivity: CodeableConcept? = nil,
-							representation: [SubstanceDefinitionStructureRepresentation]? = nil,
-							sourceDocument: [Reference]? = nil,
-							stereochemistry: CodeableConcept? = nil,
-							technique: [CodeableConcept]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		molecularFormula: FHIRPrimitive<FHIRString>? = nil,
+		molecularFormulaByMoiety: FHIRPrimitive<FHIRString>? = nil,
+		molecularWeight: SubstanceDefinitionMolecularWeight? = nil,
+		opticalActivity: CodeableConcept? = nil,
+		representation: [SubstanceDefinitionStructureRepresentation]? = nil,
+		sourceDocument: [Reference]? = nil,
+		stereochemistry: CodeableConcept? = nil,
+		technique: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
-		self.isotope = isotope
 		self.modifierExtension = modifierExtension
 		self.molecularFormula = molecularFormula
 		self.molecularFormulaByMoiety = molecularFormulaByMoiety
@@ -1293,7 +1458,6 @@ open class SubstanceDefinitionStructure: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case isotope
 		case molecularFormula; case _molecularFormula
 		case molecularFormulaByMoiety; case _molecularFormulaByMoiety
 		case molecularWeight
@@ -1309,10 +1473,9 @@ open class SubstanceDefinitionStructure: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.isotope = try [SubstanceDefinitionStructureIsotope](from: _container, forKeyIfPresent: .isotope)
 		self.molecularFormula = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .molecularFormula, auxiliaryKey: ._molecularFormula)
 		self.molecularFormulaByMoiety = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .molecularFormulaByMoiety, auxiliaryKey: ._molecularFormulaByMoiety)
-		self.molecularWeight = try SubstanceDefinitionStructureIsotopeMolecularWeight(from: _container, forKeyIfPresent: .molecularWeight)
+		self.molecularWeight = try SubstanceDefinitionMolecularWeight(from: _container, forKeyIfPresent: .molecularWeight)
 		self.opticalActivity = try CodeableConcept(from: _container, forKeyIfPresent: .opticalActivity)
 		self.representation = try [SubstanceDefinitionStructureRepresentation](from: _container, forKeyIfPresent: .representation)
 		self.sourceDocument = try [Reference](from: _container, forKeyIfPresent: .sourceDocument)
@@ -1326,7 +1489,6 @@ open class SubstanceDefinitionStructure: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try isotope?.encode(on: &_container, forKey: .isotope)
 		try molecularFormula?.encode(on: &_container, forKey: .molecularFormula, auxiliaryKey: ._molecularFormula)
 		try molecularFormulaByMoiety?.encode(on: &_container, forKey: .molecularFormulaByMoiety, auxiliaryKey: ._molecularFormulaByMoiety)
 		try molecularWeight?.encode(on: &_container, forKey: .molecularWeight)
@@ -1347,8 +1509,7 @@ open class SubstanceDefinitionStructure: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return isotope == _other.isotope
-		    && molecularFormula == _other.molecularFormula
+		return molecularFormula == _other.molecularFormula
 		    && molecularFormulaByMoiety == _other.molecularFormulaByMoiety
 		    && molecularWeight == _other.molecularWeight
 		    && opticalActivity == _other.opticalActivity
@@ -1360,7 +1521,6 @@ open class SubstanceDefinitionStructure: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(isotope)
 		hasher.combine(molecularFormula)
 		hasher.combine(molecularFormulaByMoiety)
 		hasher.combine(molecularWeight)
@@ -1373,223 +1533,20 @@ open class SubstanceDefinitionStructure: BackboneElement {
 }
 
 /**
- Applicable for single substances that contain a radionuclide or a non-natural isotopic ratio.
- */
-open class SubstanceDefinitionStructureIsotope: BackboneElement {
-	
-	/// Substance identifier for each non-natural or radioisotope
-	public var identifier: Identifier?
-	
-	/// Substance name for each non-natural or radioisotope
-	public var name: CodeableConcept?
-	
-	/// The type of isotopic substitution present in a single substance
-	public var substitution: CodeableConcept?
-	
-	/// Half life - for a non-natural nuclide
-	public var halfLife: Quantity?
-	
-	/// The molecular weight or weight range (for proteins, polymers or nucleic acids)
-	public var molecularWeight: SubstanceDefinitionStructureIsotopeMolecularWeight?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							`extension`: [Extension]? = nil,
-							halfLife: Quantity? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							molecularWeight: SubstanceDefinitionStructureIsotopeMolecularWeight? = nil,
-							name: CodeableConcept? = nil,
-							substitution: CodeableConcept? = nil)
-	{
-		self.init()
-		self.`extension` = `extension`
-		self.halfLife = halfLife
-		self.id = id
-		self.identifier = identifier
-		self.modifierExtension = modifierExtension
-		self.molecularWeight = molecularWeight
-		self.name = name
-		self.substitution = substitution
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case halfLife
-		case identifier
-		case molecularWeight
-		case name
-		case substitution
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.halfLife = try Quantity(from: _container, forKeyIfPresent: .halfLife)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
-		self.molecularWeight = try SubstanceDefinitionStructureIsotopeMolecularWeight(from: _container, forKeyIfPresent: .molecularWeight)
-		self.name = try CodeableConcept(from: _container, forKeyIfPresent: .name)
-		self.substitution = try CodeableConcept(from: _container, forKeyIfPresent: .substitution)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try halfLife?.encode(on: &_container, forKey: .halfLife)
-		try identifier?.encode(on: &_container, forKey: .identifier)
-		try molecularWeight?.encode(on: &_container, forKey: .molecularWeight)
-		try name?.encode(on: &_container, forKey: .name)
-		try substitution?.encode(on: &_container, forKey: .substitution)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? SubstanceDefinitionStructureIsotope else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return halfLife == _other.halfLife
-		    && identifier == _other.identifier
-		    && molecularWeight == _other.molecularWeight
-		    && name == _other.name
-		    && substitution == _other.substitution
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(halfLife)
-		hasher.combine(identifier)
-		hasher.combine(molecularWeight)
-		hasher.combine(name)
-		hasher.combine(substitution)
-	}
-}
-
-/**
- The molecular weight or weight range (for proteins, polymers or nucleic acids).
- */
-open class SubstanceDefinitionStructureIsotopeMolecularWeight: BackboneElement {
-	
-	/// The method by which the molecular weight was determined
-	public var method: CodeableConcept?
-	
-	/// Type of molecular weight such as exact, average (also known as. number average), weight average
-	public var type: CodeableConcept?
-	
-	/// Used to capture quantitative values for a variety of elements. If only limits are given, the arithmetic mean
-	/// would be the average. If only a single definite value for a given element is given, it would be captured in this
-	/// field
-	public var amount: Quantity?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							amount: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
-		self.init()
-		self.amount = amount
-		self.`extension` = `extension`
-		self.id = id
-		self.method = method
-		self.modifierExtension = modifierExtension
-		self.type = type
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case amount
-		case method
-		case type
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
-		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
-		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try amount?.encode(on: &_container, forKey: .amount)
-		try method?.encode(on: &_container, forKey: .method)
-		try type?.encode(on: &_container, forKey: .type)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? SubstanceDefinitionStructureIsotopeMolecularWeight else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return amount == _other.amount
-		    && method == _other.method
-		    && type == _other.type
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(amount)
-		hasher.combine(method)
-		hasher.combine(type)
-	}
-}
-
-/**
  A depiction of the structure or characterization of the substance.
  */
 open class SubstanceDefinitionStructureRepresentation: BackboneElement {
 	
-	/// The kind of structural representation (e.g. full, partial) or the technique used to derive the analytical
-	/// characterization of the substance (e.g. x-ray, HPLC, NMR, peptide mapping, ligand binding assay, etc.)
+	/// The kind of structural representation (e.g. full, partial)
 	public var type: CodeableConcept?
 	
 	/// The structural representation or characterization as a text string in a standard format
 	public var representation: FHIRPrimitive<FHIRString>?
 	
-	/// The format of the representation e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF. The logical content type
-	/// rather than the physical file format of a document
+	/// The format of the representation e.g. InChI, SMILES, MOLFILE (note: not the physical file format)
 	public var format: CodeableConcept?
 	
-	/// An attached file with the structural representation or characterization e.g. a molecular structure graphic of
-	/// the substance, a JCAMP or AnIML file
+	/// An attachment with the structural representation e.g. a structure graphic or AnIML file
 	public var document: Reference?
 	
 	/// Designated initializer taking all required properties
@@ -1599,14 +1556,14 @@ open class SubstanceDefinitionStructureRepresentation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							document: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							format: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							representation: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		document: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		format: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		representation: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.document = document
 		self.`extension` = `extension`

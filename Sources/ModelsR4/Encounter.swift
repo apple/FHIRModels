@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Encounter)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -107,38 +107,38 @@ open class Encounter: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: [Reference]? = nil,
-							appointment: [Reference]? = nil,
-							basedOn: [Reference]? = nil,
-							`class`: Coding,
-							classHistory: [EncounterClassHistory]? = nil,
-							contained: [ResourceProxy]? = nil,
-							diagnosis: [EncounterDiagnosis]? = nil,
-							episodeOfCare: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							hospitalization: EncounterHospitalization? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							length: Duration? = nil,
-							location: [EncounterLocation]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							partOf: Reference? = nil,
-							participant: [EncounterParticipant]? = nil,
-							period: Period? = nil,
-							priority: CodeableConcept? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							serviceProvider: Reference? = nil,
-							serviceType: CodeableConcept? = nil,
-							status: FHIRPrimitive<EncounterStatus>,
-							statusHistory: [EncounterStatusHistory]? = nil,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		account: [Reference]? = nil,
+		appointment: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
+		`class`: Coding,
+		classHistory: [EncounterClassHistory]? = nil,
+		contained: [ResourceProxy]? = nil,
+		diagnosis: [EncounterDiagnosis]? = nil,
+		episodeOfCare: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		hospitalization: EncounterHospitalization? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		length: Duration? = nil,
+		location: [EncounterLocation]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		partOf: Reference? = nil,
+		participant: [EncounterParticipant]? = nil,
+		period: Period? = nil,
+		priority: CodeableConcept? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		serviceProvider: Reference? = nil,
+		serviceType: CodeableConcept? = nil,
+		status: FHIRPrimitive<EncounterStatus>,
+		statusHistory: [EncounterStatusHistory]? = nil,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init(class: `class`, status: status)
 		self.account = account
 		self.appointment = appointment
@@ -349,12 +349,12 @@ open class EncounterClassHistory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`class`: Coding,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period)
-	{
+		`class`: Coding,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period
+	) {
 		self.init(class: `class`, period: period)
 		self.`extension` = `extension`
 		self.id = id
@@ -430,13 +430,13 @@ open class EncounterDiagnosis: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							condition: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							use: CodeableConcept? = nil)
-	{
+		condition: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		use: CodeableConcept? = nil
+	) {
 		self.init(condition: condition)
 		self.`extension` = `extension`
 		self.id = id
@@ -537,19 +537,19 @@ open class EncounterHospitalization: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							admitSource: CodeableConcept? = nil,
-							destination: Reference? = nil,
-							dietPreference: [CodeableConcept]? = nil,
-							dischargeDisposition: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							origin: Reference? = nil,
-							preAdmissionIdentifier: Identifier? = nil,
-							reAdmission: CodeableConcept? = nil,
-							specialArrangement: [CodeableConcept]? = nil,
-							specialCourtesy: [CodeableConcept]? = nil)
-	{
+		admitSource: CodeableConcept? = nil,
+		destination: Reference? = nil,
+		dietPreference: [CodeableConcept]? = nil,
+		dischargeDisposition: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		origin: Reference? = nil,
+		preAdmissionIdentifier: Identifier? = nil,
+		reAdmission: CodeableConcept? = nil,
+		specialArrangement: [CodeableConcept]? = nil,
+		specialCourtesy: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.admitSource = admitSource
 		self.destination = destination
@@ -675,14 +675,14 @@ open class EncounterLocation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							physicalType: CodeableConcept? = nil,
-							status: FHIRPrimitive<EncounterLocationStatus>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		physicalType: CodeableConcept? = nil,
+		status: FHIRPrimitive<EncounterLocationStatus>? = nil
+	) {
 		self.init(location: location)
 		self.`extension` = `extension`
 		self.id = id
@@ -772,13 +772,13 @@ open class EncounterParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							individual: Reference? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		individual: Reference? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -863,12 +863,12 @@ open class EncounterStatusHistory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period,
-							status: FHIRPrimitive<EncounterStatus>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period,
+		status: FHIRPrimitive<EncounterStatus>
+	) {
 		self.init(period: period, status: status)
 		self.`extension` = `extension`
 		self.id = id

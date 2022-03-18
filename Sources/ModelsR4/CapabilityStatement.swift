@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -121,41 +121,41 @@ open class CapabilityStatement: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							document: [CapabilityStatementDocument]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							fhirVersion: FHIRPrimitive<FHIRString>,
-							format: [FHIRPrimitive<FHIRString>],
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implementation: CapabilityStatementImplementation? = nil,
-							implementationGuide: [FHIRPrimitive<Canonical>]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							imports: [FHIRPrimitive<Canonical>]? = nil,
-							instantiates: [FHIRPrimitive<Canonical>]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							kind: FHIRPrimitive<CapabilityStatementKind>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							messaging: [CapabilityStatementMessaging]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							patchFormat: [FHIRPrimitive<FHIRString>]? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							rest: [CapabilityStatementRest]? = nil,
-							software: CapabilityStatementSoftware? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		document: [CapabilityStatementDocument]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		fhirVersion: FHIRPrimitive<FHIRString>,
+		format: [FHIRPrimitive<FHIRString>],
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implementation: CapabilityStatementImplementation? = nil,
+		implementationGuide: [FHIRPrimitive<Canonical>]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		imports: [FHIRPrimitive<Canonical>]? = nil,
+		instantiates: [FHIRPrimitive<Canonical>]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		kind: FHIRPrimitive<CapabilityStatementKind>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		messaging: [CapabilityStatementMessaging]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		patchFormat: [FHIRPrimitive<FHIRString>]? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		rest: [CapabilityStatementRest]? = nil,
+		software: CapabilityStatementSoftware? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(date: date, fhirVersion: fhirVersion, format: format, kind: kind, status: status)
 		self.contact = contact
 		self.contained = contained
@@ -380,13 +380,13 @@ open class CapabilityStatementDocument: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<DocumentMode>,
-							modifierExtension: [Extension]? = nil,
-							profile: FHIRPrimitive<Canonical>)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<DocumentMode>,
+		modifierExtension: [Extension]? = nil,
+		profile: FHIRPrimitive<Canonical>
+	) {
 		self.init(mode: mode, profile: profile)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -471,13 +471,13 @@ open class CapabilityStatementImplementation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							custodian: Reference? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		custodian: Reference? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init(description_fhir: description_fhir)
 		self.custodian = custodian
 		self.`extension` = `extension`
@@ -564,14 +564,14 @@ open class CapabilityStatementMessaging: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							endpoint: [CapabilityStatementMessagingEndpoint]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reliableCache: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							supportedMessage: [CapabilityStatementMessagingSupportedMessage]? = nil)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [CapabilityStatementMessagingEndpoint]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reliableCache: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		supportedMessage: [CapabilityStatementMessagingSupportedMessage]? = nil
+	) {
 		self.init()
 		self.documentation = documentation
 		self.endpoint = endpoint
@@ -661,12 +661,12 @@ open class CapabilityStatementMessagingEndpoint: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							`protocol`: Coding)
-	{
+		address: FHIRPrimitive<FHIRURI>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		`protocol`: Coding
+	) {
 		self.init(address: address, protocol: `protocol`)
 		self.`extension` = `extension`
 		self.id = id
@@ -742,12 +742,12 @@ open class CapabilityStatementMessagingSupportedMessage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<EventCapabilityMode>,
-							modifierExtension: [Extension]? = nil)
-	{
+		definition: FHIRPrimitive<Canonical>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<EventCapabilityMode>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(definition: definition, mode: mode)
 		self.`extension` = `extension`
 		self.id = id
@@ -841,18 +841,18 @@ open class CapabilityStatementRest: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							compartment: [FHIRPrimitive<Canonical>]? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interaction: [CapabilityStatementRestInteraction]? = nil,
-							mode: FHIRPrimitive<RestfulCapabilityMode>,
-							modifierExtension: [Extension]? = nil,
-							operation: [CapabilityStatementRestResourceOperation]? = nil,
-							resource: [CapabilityStatementRestResource]? = nil,
-							searchParam: [CapabilityStatementRestResourceSearchParam]? = nil,
-							security: CapabilityStatementRestSecurity? = nil)
-	{
+		compartment: [FHIRPrimitive<Canonical>]? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interaction: [CapabilityStatementRestInteraction]? = nil,
+		mode: FHIRPrimitive<RestfulCapabilityMode>,
+		modifierExtension: [Extension]? = nil,
+		operation: [CapabilityStatementRestResourceOperation]? = nil,
+		resource: [CapabilityStatementRestResource]? = nil,
+		searchParam: [CapabilityStatementRestResourceSearchParam]? = nil,
+		security: CapabilityStatementRestSecurity? = nil
+	) {
 		self.init(mode: mode)
 		self.compartment = compartment
 		self.documentation = documentation
@@ -965,12 +965,12 @@ open class CapabilityStatementRestInteraction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRRestfulInteractions>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<FHIRRestfulInteractions>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -1094,27 +1094,27 @@ open class CapabilityStatementRestResource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							conditionalCreate: FHIRPrimitive<FHIRBool>? = nil,
-							conditionalDelete: FHIRPrimitive<ConditionalDeleteStatus>? = nil,
-							conditionalRead: FHIRPrimitive<ConditionalReadStatus>? = nil,
-							conditionalUpdate: FHIRPrimitive<FHIRBool>? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interaction: [CapabilityStatementRestResourceInteraction]? = nil,
-							modifierExtension: [Extension]? = nil,
-							operation: [CapabilityStatementRestResourceOperation]? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							readHistory: FHIRPrimitive<FHIRBool>? = nil,
-							referencePolicy: [FHIRPrimitive<ReferenceHandlingPolicy>]? = nil,
-							searchInclude: [FHIRPrimitive<FHIRString>]? = nil,
-							searchParam: [CapabilityStatementRestResourceSearchParam]? = nil,
-							searchRevInclude: [FHIRPrimitive<FHIRString>]? = nil,
-							supportedProfile: [FHIRPrimitive<Canonical>]? = nil,
-							type: FHIRPrimitive<ResourceType>,
-							updateCreate: FHIRPrimitive<FHIRBool>? = nil,
-							versioning: FHIRPrimitive<ResourceVersionPolicy>? = nil)
-	{
+		conditionalCreate: FHIRPrimitive<FHIRBool>? = nil,
+		conditionalDelete: FHIRPrimitive<ConditionalDeleteStatus>? = nil,
+		conditionalRead: FHIRPrimitive<ConditionalReadStatus>? = nil,
+		conditionalUpdate: FHIRPrimitive<FHIRBool>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interaction: [CapabilityStatementRestResourceInteraction]? = nil,
+		modifierExtension: [Extension]? = nil,
+		operation: [CapabilityStatementRestResourceOperation]? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		readHistory: FHIRPrimitive<FHIRBool>? = nil,
+		referencePolicy: [FHIRPrimitive<ReferenceHandlingPolicy>]? = nil,
+		searchInclude: [FHIRPrimitive<FHIRString>]? = nil,
+		searchParam: [CapabilityStatementRestResourceSearchParam]? = nil,
+		searchRevInclude: [FHIRPrimitive<FHIRString>]? = nil,
+		supportedProfile: [FHIRPrimitive<Canonical>]? = nil,
+		type: FHIRPrimitive<ResourceType>,
+		updateCreate: FHIRPrimitive<FHIRBool>? = nil,
+		versioning: FHIRPrimitive<ResourceVersionPolicy>? = nil
+	) {
 		self.init(type: type)
 		self.conditionalCreate = conditionalCreate
 		self.conditionalDelete = conditionalDelete
@@ -1282,12 +1282,12 @@ open class CapabilityStatementRestResourceInteraction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<FHIRRestfulInteractions>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: FHIRPrimitive<FHIRRestfulInteractions>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(code: code)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -1368,13 +1368,13 @@ open class CapabilityStatementRestResourceOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>)
-	{
+		definition: FHIRPrimitive<Canonical>,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>
+	) {
 		self.init(definition: definition, name: name)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -1463,14 +1463,14 @@ open class CapabilityStatementRestResourceSearchParam: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<SearchParamType>)
-	{
+		definition: FHIRPrimitive<Canonical>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<SearchParamType>
+	) {
 		self.init(name: name, type: type)
 		self.definition = definition
 		self.documentation = documentation
@@ -1559,13 +1559,13 @@ open class CapabilityStatementRestSecurity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cors: FHIRPrimitive<FHIRBool>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							service: [CodeableConcept]? = nil)
-	{
+		cors: FHIRPrimitive<FHIRBool>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		service: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.cors = cors
 		self.description_fhir = description_fhir
@@ -1652,13 +1652,13 @@ open class CapabilityStatementSoftware: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							releaseDate: FHIRPrimitive<DateTime>? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		releaseDate: FHIRPrimitive<DateTime>? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.`extension` = `extension`
 		self.id = id

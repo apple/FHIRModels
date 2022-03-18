@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public enum ConsentPolicyRuleCodes: String, FHIRPrimitiveType {
 	
 	/// 45 CFR part 46 §46.116 General requirements for informed consent; and §46.117 Documentation of informed consent.
 	/// https://www.gpo.gov/fdsys/pkg/FR-2017-01-19/pdf/2017-01058.pdf
-	case cric = "cric"
+	case cric
 	
 	/// The consent to the performance of a medical or surgical procedure by a physician licensed to practice medicine
 	/// and surgery, a licensed advanced practice nurse, or a licensed physician assistant executed by a married person
@@ -113,7 +113,7 @@ public enum ConsentPolicyRuleCodes: String, FHIRPrimitiveType {
 	/// http://www.health.ny.gov/professionals/protocols_and_guidelines/surgical_and_invasive_procedure/nyssipp_faq.htm
 	/// Note: HHC 100B-1 Form is available at
 	/// http://www.downstate.edu/emergency_medicine/documents/Consent_CT_with_contrast.pdf
-	case nyssipp = "nyssipp"
+	case nyssipp
 	
 	/// VA Form 10-0484 Revocation for Release of Individually-Identifiable Health Information enables a veteran to
 	/// revoke authorization for the VA to release specified copies of individually-identifiable health information with
@@ -179,7 +179,7 @@ public enum ConsentPolicyRuleCodes: String, FHIRPrimitiveType {
 	/// disclosers and recipients to comply with 42 C.F.R. Part 2, and HIPAA 45 C.F.R. parts 160 and 164. It includes
 	/// patient notice of the refrain policy not to disclose without consent, and revocation rights.
 	/// https://www.ncsacw.samhsa.gov/files/SI_ConsentForReleaseAndExchange.PDF
-	case squaxin = "squaxin"
+	case squaxin
 	
 	/// LSP (National Exchange Point) requires that providers, hospitals and pharmacy obtain explicit permission [opt-
 	/// in] from healthcare consumers to submit and retrieve all or only some of a subject of care’s health information
@@ -202,7 +202,7 @@ public enum ConsentPolicyRuleCodes: String, FHIRPrimitiveType {
 	case nihHipaa = "nih-hipaa"
 	
 	/// see http://ctep.cancer.gov/protocolDevelopment/docs/Informed_Consent_Template.docx
-	case nci = "nci"
+	case nci
 	
 	/// Global Rare Disease Patient Registry and Data Repository (GRDR) consent is an agreement of a healthcare consumer
 	/// to permit collection, access, use and disclosure of de-identified rare disease information and collection of
@@ -221,5 +221,5 @@ public enum ConsentPolicyRuleCodes: String, FHIRPrimitiveType {
 	/// and genetic information in controlled-access databases, and to allow other researchers to use deidentified
 	/// information from those databases.
 	/// http://www.commonaccord.org/index.php?action=doc&file=Wx/org/genomicsandhealth/REWG/Demo/Roberta_Robinson_US
-	case ga4gh = "ga4gh"
+	case ga4gh
 }

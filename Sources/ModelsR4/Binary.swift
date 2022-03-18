@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Binary)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -46,14 +46,14 @@ open class Binary: Resource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contentType: FHIRPrimitive<FHIRString>,
-							data: FHIRPrimitive<Base64Binary>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							securityContext: Reference? = nil)
-	{
+		contentType: FHIRPrimitive<FHIRString>,
+		data: FHIRPrimitive<Base64Binary>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		securityContext: Reference? = nil
+	) {
 		self.init(contentType: contentType)
 		self.data = data
 		self.id = id

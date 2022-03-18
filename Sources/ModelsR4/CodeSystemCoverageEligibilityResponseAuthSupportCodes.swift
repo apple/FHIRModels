@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,26 +28,26 @@ import FMCore
 public enum CoverageEligibilityResponseAuthSupportCodes: String, FHIRPrimitiveType {
 	
 	/// A request or authorization for laboratory diagnostic tests.
-	case laborder = "laborder"
+	case laborder
 	
 	/// A report on laboratory diagnostic test(s).
-	case labreport = "labreport"
+	case labreport
 	
 	/// A request or authorization for diagnostic imaging.
-	case diagnosticimageorder = "diagnosticimageorder"
+	case diagnosticimageorder
 	
 	/// A report on diagnostic image(s).
-	case diagnosticimagereport = "diagnosticimagereport"
+	case diagnosticimagereport
 	
 	/// A report from a licensed professional regarding the siutation, condition or proposed treatment.
-	case professionalreport = "professionalreport"
+	case professionalreport
 	
 	/// A formal accident report as would be filed with police or a simlar official body.
-	case accidentreport = "accidentreport"
+	case accidentreport
 	
 	/// A physical model of the affected area.
-	case model = "model"
+	case model
 	
 	/// A photograph of the affected area.
-	case picture = "picture"
+	case picture
 }

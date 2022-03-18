@@ -2,8 +2,8 @@
 //  MedicinalProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,12 @@
 import FMCore
 
 /**
- Detailed definition of a medicinal product, typically for uses other than direct patient care (e.g. regulatory use).
+ Detailed definition of a medicinal product.
+ 
+ A medicinal product, being a substance or combination of substances that is intended to treat, prevent or diagnose a
+ disease, or to restore, correct or modify physiological functions by exerting a pharmacological, immunological or
+ metabolic action. This resource is intended to define and detail such products and their properties, for uses other
+ than direct patient care (e.g. regulatory use, or drug catalogs).
  */
 open class MedicinalProductDefinition: DomainResource {
 	
@@ -35,11 +40,10 @@ open class MedicinalProductDefinition: DomainResource {
 	/// If this medicine applies to human or veterinary uses
 	public var domain: CodeableConcept?
 	
-	/// A business level identifier of the product
+	/// A business identifier relating to a specific version of the product
 	public var version: FHIRPrimitive<FHIRString>?
 	
-	/// The status within the lifecycle of this product. A high level status, this is not intended to duplicate details
-	/// carried elswhere such as legal status, or authorization status
+	/// The status within the lifecycle of this product record
 	public var status: CodeableConcept?
 	
 	/// The date at which the given status became applicable
@@ -51,9 +55,10 @@ open class MedicinalProductDefinition: DomainResource {
 	/// The dose form for a single part product, or combined form of a multiple part product
 	public var combinedPharmaceuticalDoseForm: CodeableConcept?
 	
-	/// General combined description of indication(s) for this product, for use when a structured set is not available.
-	/// See also the ClinicalUseIssue resource, which can be used for more structured indications, and can be made to
-	/// reference to this resource
+	/// The path by which the product is taken into or makes contact with the body
+	public var route: [CodeableConcept]?
+	
+	/// Description of indication(s) for this product, used when structured indications are not required
 	public var indication: FHIRPrimitive<FHIRString>?
 	
 	/// The legal status of supply of the medicinal product as classified by the regulator
@@ -66,37 +71,28 @@ open class MedicinalProductDefinition: DomainResource {
 	public var specialMeasures: [CodeableConcept]?
 	
 	/// If authorised for use in children
-	public var paediatricUseIndicator: CodeableConcept?
+	public var pediatricUseIndicator: CodeableConcept?
 	
 	/// Allows the product to be classified by various systems
 	public var classification: [CodeableConcept]?
 	
-	/// Allows the key product features to be recorded, such as "suger free", "modified release", "parallel import"
-	public var characteristic: [CodeableConcept]?
-	
-	/// Marketing status of the medicinal product, in contrast to marketing authorizaton
+	/// Marketing status of the medicinal product, in contrast to marketing authorization
 	public var marketingStatus: [MarketingStatus]?
 	
-	/// Pharmaceutical aspects of product
-	public var pharmaceuticalProduct: [Reference]?
+	/// Package type for the product
+	public var packagedMedicinalProduct: [CodeableConcept]?
 	
-	/// Package representation for the product
-	public var packagedMedicinalProduct: [Reference]?
+	/// The ingredients of this medicinal product - when not detailed in other resources
+	public var ingredient: [CodeableConcept]?
 	
-	/// The ingredients of this medicinal product - when not specified elsewhere. This is only needed if the ingredients
-	/// are not specified by the pharmaceuticalProduct or packagedMedicinalProduct references above. In cases where
-	/// those levels of detail are not used, the ingredients may be specified directly here
-	public var ingredient: [Reference]?
+	/// Any component of the drug product which is not the chemical entity defined as the drug substance, or an
+	/// excipient in the drug product
+	public var impurity: [CodeableReference]?
 	
-	/// Any component of the drug product which is not the chemical entity defined as the drug substance or an excipient
-	/// in the drug product. This includes process-related impurities and contaminants, product-related impurities
-	/// including degradation products
-	public var impurity: [Reference]?
-	
-	/// Supporting documentation, typically for regulatory submission
+	/// Additional documentation about the medicinal product
 	public var attachedDocument: [Reference]?
 	
-	/// A master file for to the medicinal product (e.g. Pharmacovigilance System Master File)
+	/// A master file for the medicinal product (e.g. Pharmacovigilance System Master File)
 	public var masterFile: [Reference]?
 	
 	/// A product specific contact, person (in a role), or an organization
@@ -105,14 +101,20 @@ open class MedicinalProductDefinition: DomainResource {
 	/// Clinical trials or studies that this product is involved in
 	public var clinicalTrial: [Reference]?
 	
+	/// A code that this product is known by, within some formal terminology
+	public var code: [Coding]?
+	
 	/// The product's name, including full name and possibly coded parts
 	public var name: [MedicinalProductDefinitionName]
 	
 	/// Reference to another product, e.g. for linking authorised to investigational product
 	public var crossReference: [MedicinalProductDefinitionCrossReference]?
 	
-	/// An operation applied to the product, for manufacturing or adminsitrative purpose
-	public var manufacturingBusinessOperation: [MedicinalProductDefinitionManufacturingBusinessOperation]?
+	/// A manufacturing or administrative process for the medicinal product
+	public var operation: [MedicinalProductDefinitionOperation]?
+	
+	/// Key product features such as "sugar free", "modified release"
+	public var characteristic: [MedicinalProductDefinitionCharacteristic]?
 	
 	/// Designated initializer taking all required properties
 	public init(name: [MedicinalProductDefinitionName]) {
@@ -122,48 +124,50 @@ open class MedicinalProductDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							additionalMonitoringIndicator: CodeableConcept? = nil,
-							attachedDocument: [Reference]? = nil,
-							characteristic: [CodeableConcept]? = nil,
-							classification: [CodeableConcept]? = nil,
-							clinicalTrial: [Reference]? = nil,
-							combinedPharmaceuticalDoseForm: CodeableConcept? = nil,
-							contact: [MedicinalProductDefinitionContact]? = nil,
-							contained: [ResourceProxy]? = nil,
-							crossReference: [MedicinalProductDefinitionCrossReference]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							domain: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							impurity: [Reference]? = nil,
-							indication: FHIRPrimitive<FHIRString>? = nil,
-							ingredient: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							legalStatusOfSupply: CodeableConcept? = nil,
-							manufacturingBusinessOperation: [MedicinalProductDefinitionManufacturingBusinessOperation]? = nil,
-							marketingStatus: [MarketingStatus]? = nil,
-							masterFile: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: [MedicinalProductDefinitionName],
-							packagedMedicinalProduct: [Reference]? = nil,
-							paediatricUseIndicator: CodeableConcept? = nil,
-							pharmaceuticalProduct: [Reference]? = nil,
-							specialMeasures: [CodeableConcept]? = nil,
-							status: CodeableConcept? = nil,
-							statusDate: FHIRPrimitive<DateTime>? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		additionalMonitoringIndicator: CodeableConcept? = nil,
+		attachedDocument: [Reference]? = nil,
+		characteristic: [MedicinalProductDefinitionCharacteristic]? = nil,
+		classification: [CodeableConcept]? = nil,
+		clinicalTrial: [Reference]? = nil,
+		code: [Coding]? = nil,
+		combinedPharmaceuticalDoseForm: CodeableConcept? = nil,
+		contact: [MedicinalProductDefinitionContact]? = nil,
+		contained: [ResourceProxy]? = nil,
+		crossReference: [MedicinalProductDefinitionCrossReference]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		domain: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		impurity: [CodeableReference]? = nil,
+		indication: FHIRPrimitive<FHIRString>? = nil,
+		ingredient: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		legalStatusOfSupply: CodeableConcept? = nil,
+		marketingStatus: [MarketingStatus]? = nil,
+		masterFile: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: [MedicinalProductDefinitionName],
+		operation: [MedicinalProductDefinitionOperation]? = nil,
+		packagedMedicinalProduct: [CodeableConcept]? = nil,
+		pediatricUseIndicator: CodeableConcept? = nil,
+		route: [CodeableConcept]? = nil,
+		specialMeasures: [CodeableConcept]? = nil,
+		status: CodeableConcept? = nil,
+		statusDate: FHIRPrimitive<DateTime>? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(name: name)
 		self.additionalMonitoringIndicator = additionalMonitoringIndicator
 		self.attachedDocument = attachedDocument
 		self.characteristic = characteristic
 		self.classification = classification
 		self.clinicalTrial = clinicalTrial
+		self.code = code
 		self.combinedPharmaceuticalDoseForm = combinedPharmaceuticalDoseForm
 		self.contact = contact
 		self.contained = contained
@@ -179,14 +183,14 @@ open class MedicinalProductDefinition: DomainResource {
 		self.ingredient = ingredient
 		self.language = language
 		self.legalStatusOfSupply = legalStatusOfSupply
-		self.manufacturingBusinessOperation = manufacturingBusinessOperation
 		self.marketingStatus = marketingStatus
 		self.masterFile = masterFile
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.operation = operation
 		self.packagedMedicinalProduct = packagedMedicinalProduct
-		self.paediatricUseIndicator = paediatricUseIndicator
-		self.pharmaceuticalProduct = pharmaceuticalProduct
+		self.pediatricUseIndicator = pediatricUseIndicator
+		self.route = route
 		self.specialMeasures = specialMeasures
 		self.status = status
 		self.statusDate = statusDate
@@ -203,6 +207,7 @@ open class MedicinalProductDefinition: DomainResource {
 		case characteristic
 		case classification
 		case clinicalTrial
+		case code
 		case combinedPharmaceuticalDoseForm
 		case contact
 		case crossReference
@@ -213,13 +218,13 @@ open class MedicinalProductDefinition: DomainResource {
 		case indication; case _indication
 		case ingredient
 		case legalStatusOfSupply
-		case manufacturingBusinessOperation
 		case marketingStatus
 		case masterFile
 		case name
+		case operation
 		case packagedMedicinalProduct
-		case paediatricUseIndicator
-		case pharmaceuticalProduct
+		case pediatricUseIndicator
+		case route
 		case specialMeasures
 		case status
 		case statusDate; case _statusDate
@@ -234,26 +239,27 @@ open class MedicinalProductDefinition: DomainResource {
 		// Decode all our properties
 		self.additionalMonitoringIndicator = try CodeableConcept(from: _container, forKeyIfPresent: .additionalMonitoringIndicator)
 		self.attachedDocument = try [Reference](from: _container, forKeyIfPresent: .attachedDocument)
-		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
+		self.characteristic = try [MedicinalProductDefinitionCharacteristic](from: _container, forKeyIfPresent: .characteristic)
 		self.classification = try [CodeableConcept](from: _container, forKeyIfPresent: .classification)
 		self.clinicalTrial = try [Reference](from: _container, forKeyIfPresent: .clinicalTrial)
+		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.combinedPharmaceuticalDoseForm = try CodeableConcept(from: _container, forKeyIfPresent: .combinedPharmaceuticalDoseForm)
 		self.contact = try [MedicinalProductDefinitionContact](from: _container, forKeyIfPresent: .contact)
 		self.crossReference = try [MedicinalProductDefinitionCrossReference](from: _container, forKeyIfPresent: .crossReference)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.domain = try CodeableConcept(from: _container, forKeyIfPresent: .domain)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.impurity = try [Reference](from: _container, forKeyIfPresent: .impurity)
+		self.impurity = try [CodeableReference](from: _container, forKeyIfPresent: .impurity)
 		self.indication = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .indication, auxiliaryKey: ._indication)
-		self.ingredient = try [Reference](from: _container, forKeyIfPresent: .ingredient)
+		self.ingredient = try [CodeableConcept](from: _container, forKeyIfPresent: .ingredient)
 		self.legalStatusOfSupply = try CodeableConcept(from: _container, forKeyIfPresent: .legalStatusOfSupply)
-		self.manufacturingBusinessOperation = try [MedicinalProductDefinitionManufacturingBusinessOperation](from: _container, forKeyIfPresent: .manufacturingBusinessOperation)
 		self.marketingStatus = try [MarketingStatus](from: _container, forKeyIfPresent: .marketingStatus)
 		self.masterFile = try [Reference](from: _container, forKeyIfPresent: .masterFile)
 		self.name = try [MedicinalProductDefinitionName](from: _container, forKey: .name)
-		self.packagedMedicinalProduct = try [Reference](from: _container, forKeyIfPresent: .packagedMedicinalProduct)
-		self.paediatricUseIndicator = try CodeableConcept(from: _container, forKeyIfPresent: .paediatricUseIndicator)
-		self.pharmaceuticalProduct = try [Reference](from: _container, forKeyIfPresent: .pharmaceuticalProduct)
+		self.operation = try [MedicinalProductDefinitionOperation](from: _container, forKeyIfPresent: .operation)
+		self.packagedMedicinalProduct = try [CodeableConcept](from: _container, forKeyIfPresent: .packagedMedicinalProduct)
+		self.pediatricUseIndicator = try CodeableConcept(from: _container, forKeyIfPresent: .pediatricUseIndicator)
+		self.route = try [CodeableConcept](from: _container, forKeyIfPresent: .route)
 		self.specialMeasures = try [CodeableConcept](from: _container, forKeyIfPresent: .specialMeasures)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.statusDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .statusDate, auxiliaryKey: ._statusDate)
@@ -272,6 +278,7 @@ open class MedicinalProductDefinition: DomainResource {
 		try characteristic?.encode(on: &_container, forKey: .characteristic)
 		try classification?.encode(on: &_container, forKey: .classification)
 		try clinicalTrial?.encode(on: &_container, forKey: .clinicalTrial)
+		try code?.encode(on: &_container, forKey: .code)
 		try combinedPharmaceuticalDoseForm?.encode(on: &_container, forKey: .combinedPharmaceuticalDoseForm)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try crossReference?.encode(on: &_container, forKey: .crossReference)
@@ -282,13 +289,13 @@ open class MedicinalProductDefinition: DomainResource {
 		try indication?.encode(on: &_container, forKey: .indication, auxiliaryKey: ._indication)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
 		try legalStatusOfSupply?.encode(on: &_container, forKey: .legalStatusOfSupply)
-		try manufacturingBusinessOperation?.encode(on: &_container, forKey: .manufacturingBusinessOperation)
 		try marketingStatus?.encode(on: &_container, forKey: .marketingStatus)
 		try masterFile?.encode(on: &_container, forKey: .masterFile)
 		try name.encode(on: &_container, forKey: .name)
+		try operation?.encode(on: &_container, forKey: .operation)
 		try packagedMedicinalProduct?.encode(on: &_container, forKey: .packagedMedicinalProduct)
-		try paediatricUseIndicator?.encode(on: &_container, forKey: .paediatricUseIndicator)
-		try pharmaceuticalProduct?.encode(on: &_container, forKey: .pharmaceuticalProduct)
+		try pediatricUseIndicator?.encode(on: &_container, forKey: .pediatricUseIndicator)
+		try route?.encode(on: &_container, forKey: .route)
 		try specialMeasures?.encode(on: &_container, forKey: .specialMeasures)
 		try status?.encode(on: &_container, forKey: .status)
 		try statusDate?.encode(on: &_container, forKey: .statusDate, auxiliaryKey: ._statusDate)
@@ -311,6 +318,7 @@ open class MedicinalProductDefinition: DomainResource {
 		    && characteristic == _other.characteristic
 		    && classification == _other.classification
 		    && clinicalTrial == _other.clinicalTrial
+		    && code == _other.code
 		    && combinedPharmaceuticalDoseForm == _other.combinedPharmaceuticalDoseForm
 		    && contact == _other.contact
 		    && crossReference == _other.crossReference
@@ -321,13 +329,13 @@ open class MedicinalProductDefinition: DomainResource {
 		    && indication == _other.indication
 		    && ingredient == _other.ingredient
 		    && legalStatusOfSupply == _other.legalStatusOfSupply
-		    && manufacturingBusinessOperation == _other.manufacturingBusinessOperation
 		    && marketingStatus == _other.marketingStatus
 		    && masterFile == _other.masterFile
 		    && name == _other.name
+		    && operation == _other.operation
 		    && packagedMedicinalProduct == _other.packagedMedicinalProduct
-		    && paediatricUseIndicator == _other.paediatricUseIndicator
-		    && pharmaceuticalProduct == _other.pharmaceuticalProduct
+		    && pediatricUseIndicator == _other.pediatricUseIndicator
+		    && route == _other.route
 		    && specialMeasures == _other.specialMeasures
 		    && status == _other.status
 		    && statusDate == _other.statusDate
@@ -342,6 +350,7 @@ open class MedicinalProductDefinition: DomainResource {
 		hasher.combine(characteristic)
 		hasher.combine(classification)
 		hasher.combine(clinicalTrial)
+		hasher.combine(code)
 		hasher.combine(combinedPharmaceuticalDoseForm)
 		hasher.combine(contact)
 		hasher.combine(crossReference)
@@ -352,13 +361,13 @@ open class MedicinalProductDefinition: DomainResource {
 		hasher.combine(indication)
 		hasher.combine(ingredient)
 		hasher.combine(legalStatusOfSupply)
-		hasher.combine(manufacturingBusinessOperation)
 		hasher.combine(marketingStatus)
 		hasher.combine(masterFile)
 		hasher.combine(name)
+		hasher.combine(operation)
 		hasher.combine(packagedMedicinalProduct)
-		hasher.combine(paediatricUseIndicator)
-		hasher.combine(pharmaceuticalProduct)
+		hasher.combine(pediatricUseIndicator)
+		hasher.combine(route)
 		hasher.combine(specialMeasures)
 		hasher.combine(status)
 		hasher.combine(statusDate)
@@ -368,11 +377,150 @@ open class MedicinalProductDefinition: DomainResource {
 }
 
 /**
+ Key product features such as "sugar free", "modified release".
+ 
+ Allows the key product features to be recorded, such as "sugar free", "modified release", "parallel import".
+ */
+open class MedicinalProductDefinitionCharacteristic: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case attachment(Attachment)
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case date(FHIRPrimitive<FHIRDate>)
+		case quantity(Quantity)
+	}
+	
+	/// A code expressing the type of characteristic
+	public var type: CodeableConcept
+	
+	/// A value for the characteristic
+	/// One of `value[x]`
+	public var value: ValueX?
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableConcept) {
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
+		self.init(type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case type
+		case valueAttachment
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueDate; case _valueDate
+		case valueQuantity
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDate, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .date(valueDate)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueAttachment = try Attachment(from: _container, forKeyIfPresent: .valueAttachment) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAttachment, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .attachment(valueAttachment)
+		}
+		self.value = _t_value
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try type.encode(on: &_container, forKey: .type)
+		if let _enum = value {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .date(let _value):
+				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .valueAttachment)
+			}
+		}
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicinalProductDefinitionCharacteristic else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return type == _other.type
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(type)
+		hasher.combine(value)
+	}
+}
+
+/**
  A product specific contact, person (in a role), or an organization.
  */
 open class MedicinalProductDefinitionContact: BackboneElement {
 	
-	/// Allows the contact to be classified, for example QPPV, Pharmacovigilence Enquiry Information
+	/// Allows the contact to be classified, for example QPPV, Pharmacovigilance Enquiry Information
 	public var type: CodeableConcept?
 	
 	/// A product specific contact, person (in a role), or an organization
@@ -386,12 +534,12 @@ open class MedicinalProductDefinitionContact: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		contact: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(contact: contact)
 		self.`extension` = `extension`
 		self.id = id
@@ -448,14 +596,15 @@ open class MedicinalProductDefinitionContact: BackboneElement {
 
 /**
  Reference to another product, e.g. for linking authorised to investigational product.
+ 
+ Reference to another product, e.g. for linking authorised to investigational product, or a virtual product.
  */
 open class MedicinalProductDefinitionCrossReference: BackboneElement {
 	
 	/// Reference to another product, e.g. for linking authorised to investigational product
 	public var product: CodeableReference
 	
-	/// The type of relationship, for instance branded to generic, product to development product (investigational),
-	/// parallel import version
+	/// The type of relationship, for instance branded to generic or virtual to actual product
 	public var type: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
@@ -466,12 +615,12 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							product: CodeableReference,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		product: CodeableReference,
+		type: CodeableConcept? = nil
+	) {
 		self.init(product: product)
 		self.`extension` = `extension`
 		self.id = id
@@ -527,118 +676,6 @@ open class MedicinalProductDefinitionCrossReference: BackboneElement {
 }
 
 /**
- An operation applied to the product, for manufacturing or adminsitrative purpose.
- */
-open class MedicinalProductDefinitionManufacturingBusinessOperation: BackboneElement {
-	
-	/// The type of manufacturing operation e.g. manufacturing itself, re-packaging. This may be a subtype of some other
-	/// wider scope of authorized operation, referenced by the authorization attribute
-	public var type: CodeableReference?
-	
-	/// Date range of applicability
-	public var effectiveDate: Period?
-	
-	/// The manufacturer or establishment associated with the process
-	public var manufacturer: [Reference]?
-	
-	/// An authorization for this process, either as a logical reference, holding just an identifier, or a full
-	/// refererence to a resource that captures the details. The authorization mayu possibly apply to several products
-	/// or a wider scope of process of which this is a part
-	public var authorization: Reference?
-	
-	/// To indicate if this proces is commercially confidential
-	public var confidentialityIndicator: CodeableConcept?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							authorization: Reference? = nil,
-							confidentialityIndicator: CodeableConcept? = nil,
-							effectiveDate: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: [Reference]? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableReference? = nil)
-	{
-		self.init()
-		self.authorization = authorization
-		self.confidentialityIndicator = confidentialityIndicator
-		self.effectiveDate = effectiveDate
-		self.`extension` = `extension`
-		self.id = id
-		self.manufacturer = manufacturer
-		self.modifierExtension = modifierExtension
-		self.type = type
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case authorization
-		case confidentialityIndicator
-		case effectiveDate
-		case manufacturer
-		case type
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.authorization = try Reference(from: _container, forKeyIfPresent: .authorization)
-		self.confidentialityIndicator = try CodeableConcept(from: _container, forKeyIfPresent: .confidentialityIndicator)
-		self.effectiveDate = try Period(from: _container, forKeyIfPresent: .effectiveDate)
-		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
-		self.type = try CodeableReference(from: _container, forKeyIfPresent: .type)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try authorization?.encode(on: &_container, forKey: .authorization)
-		try confidentialityIndicator?.encode(on: &_container, forKey: .confidentialityIndicator)
-		try effectiveDate?.encode(on: &_container, forKey: .effectiveDate)
-		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
-		try type?.encode(on: &_container, forKey: .type)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicinalProductDefinitionManufacturingBusinessOperation else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return authorization == _other.authorization
-		    && confidentialityIndicator == _other.confidentialityIndicator
-		    && effectiveDate == _other.effectiveDate
-		    && manufacturer == _other.manufacturer
-		    && type == _other.type
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(authorization)
-		hasher.combine(confidentialityIndicator)
-		hasher.combine(effectiveDate)
-		hasher.combine(manufacturer)
-		hasher.combine(type)
-	}
-}
-
-/**
  The product's name, including full name and possibly coded parts.
  */
 open class MedicinalProductDefinitionName: BackboneElement {
@@ -652,7 +689,7 @@ open class MedicinalProductDefinitionName: BackboneElement {
 	/// Coding words or phrases of the name
 	public var namePart: [MedicinalProductDefinitionNameNamePart]?
 	
-	/// Country where the name applies
+	/// Country and jurisdiction where the name applies
 	public var countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]?
 	
 	/// Designated initializer taking all required properties
@@ -663,14 +700,14 @@ open class MedicinalProductDefinitionName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							namePart: [MedicinalProductDefinitionNameNamePart]? = nil,
-							productName: FHIRPrimitive<FHIRString>,
-							type: CodeableConcept? = nil)
-	{
+		countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		namePart: [MedicinalProductDefinitionNameNamePart]? = nil,
+		productName: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept? = nil
+	) {
 		self.init(productName: productName)
 		self.countryLanguage = countryLanguage
 		self.`extension` = `extension`
@@ -738,7 +775,9 @@ open class MedicinalProductDefinitionName: BackboneElement {
 }
 
 /**
- Country where the name applies.
+ Country and jurisdiction where the name applies.
+ 
+ Country and jurisdiction where the name applies, and associated language.
  */
 open class MedicinalProductDefinitionNameCountryLanguage: BackboneElement {
 	
@@ -760,13 +799,13 @@ open class MedicinalProductDefinitionNameCountryLanguage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							country: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							jurisdiction: CodeableConcept? = nil,
-							language: CodeableConcept,
-							modifierExtension: [Extension]? = nil)
-	{
+		country: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		jurisdiction: CodeableConcept? = nil,
+		language: CodeableConcept,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(country: country, language: language)
 		self.`extension` = `extension`
 		self.id = id
@@ -834,7 +873,7 @@ open class MedicinalProductDefinitionNameNamePart: BackboneElement {
 	/// A fragment of a product name
 	public var part: FHIRPrimitive<FHIRString>
 	
-	/// Idenifying type for this part of the name (e.g. strength part)
+	/// Identifying type for this part of the name (e.g. strength part)
 	public var type: CodeableConcept
 	
 	/// Designated initializer taking all required properties
@@ -846,12 +885,12 @@ open class MedicinalProductDefinitionNameNamePart: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							part: FHIRPrimitive<FHIRString>,
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		part: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept
+	) {
 		self.init(part: part, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -901,6 +940,107 @@ open class MedicinalProductDefinitionNameNamePart: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(part)
+		hasher.combine(type)
+	}
+}
+
+/**
+ A manufacturing or administrative process for the medicinal product.
+ 
+ A manufacturing or administrative process or step associated with (or performed on) the medicinal product.
+ */
+open class MedicinalProductDefinitionOperation: BackboneElement {
+	
+	/// The type of manufacturing operation e.g. manufacturing itself, re-packaging
+	public var type: CodeableReference?
+	
+	/// Date range of applicability
+	public var effectiveDate: Period?
+	
+	/// The organization responsible for the particular process, e.g. the manufacturer or importer
+	public var organization: [Reference]?
+	
+	/// Specifies whether this process is considered proprietary or confidential
+	public var confidentialityIndicator: CodeableConcept?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		confidentialityIndicator: CodeableConcept? = nil,
+		effectiveDate: Period? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		organization: [Reference]? = nil,
+		type: CodeableReference? = nil
+	) {
+		self.init()
+		self.confidentialityIndicator = confidentialityIndicator
+		self.effectiveDate = effectiveDate
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.organization = organization
+		self.type = type
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case confidentialityIndicator
+		case effectiveDate
+		case organization
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.confidentialityIndicator = try CodeableConcept(from: _container, forKeyIfPresent: .confidentialityIndicator)
+		self.effectiveDate = try Period(from: _container, forKeyIfPresent: .effectiveDate)
+		self.organization = try [Reference](from: _container, forKeyIfPresent: .organization)
+		self.type = try CodeableReference(from: _container, forKeyIfPresent: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try confidentialityIndicator?.encode(on: &_container, forKey: .confidentialityIndicator)
+		try effectiveDate?.encode(on: &_container, forKey: .effectiveDate)
+		try organization?.encode(on: &_container, forKey: .organization)
+		try type?.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicinalProductDefinitionOperation else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return confidentialityIndicator == _other.confidentialityIndicator
+		    && effectiveDate == _other.effectiveDate
+		    && organization == _other.organization
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(confidentialityIndicator)
+		hasher.combine(effectiveDate)
+		hasher.combine(organization)
 		hasher.combine(type)
 	}
 }

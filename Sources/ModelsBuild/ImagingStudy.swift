@@ -2,8 +2,8 @@
 //  ImagingStudy.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ImagingStudy)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ImagingStudy)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,11 +34,12 @@ open class ImagingStudy: DomainResource {
 	/// Identifiers for the whole study
 	public var identifier: [Identifier]?
 	
-	/// The current state of the ImagingStudy.
+	/// The current state of the ImagingStudy resource. This is not the status of any ServiceRequest or Task resources
+	/// associated with the ImagingStudy.
 	public var status: FHIRPrimitive<ImagingStudyStatus>
 	
 	/// All of the distinct values for series' modalities
-	public var modality: [Coding]?
+	public var modality: [CodeableConcept]?
 	
 	/// Who or what is the subject of the study
 	public var subject: Reference
@@ -68,7 +69,7 @@ open class ImagingStudy: DomainResource {
 	public var numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// The performed procedure or code
-	public var procedure: [ImagingStudyProcedure]?
+	public var procedure: [CodeableReference]?
 	
 	/// Where ImagingStudy occurred
 	public var location: Reference?
@@ -94,33 +95,33 @@ open class ImagingStudy: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							encounter: Reference? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							interpreter: [Reference]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modality: [Coding]? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							numberOfSeries: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							procedure: [ImagingStudyProcedure]? = nil,
-							reason: [CodeableReference]? = nil,
-							referrer: Reference? = nil,
-							series: [ImagingStudySeries]? = nil,
-							started: FHIRPrimitive<DateTime>? = nil,
-							status: FHIRPrimitive<ImagingStudyStatus>,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		interpreter: [Reference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modality: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		numberOfSeries: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		procedure: [CodeableReference]? = nil,
+		reason: [CodeableReference]? = nil,
+		referrer: Reference? = nil,
+		series: [ImagingStudySeries]? = nil,
+		started: FHIRPrimitive<DateTime>? = nil,
+		status: FHIRPrimitive<ImagingStudyStatus>,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.basedOn = basedOn
 		self.contained = contained
@@ -183,11 +184,11 @@ open class ImagingStudy: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.interpreter = try [Reference](from: _container, forKeyIfPresent: .interpreter)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
-		self.modality = try [Coding](from: _container, forKeyIfPresent: .modality)
+		self.modality = try [CodeableConcept](from: _container, forKeyIfPresent: .modality)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.numberOfInstances = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfInstances, auxiliaryKey: ._numberOfInstances)
 		self.numberOfSeries = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfSeries, auxiliaryKey: ._numberOfSeries)
-		self.procedure = try [ImagingStudyProcedure](from: _container, forKeyIfPresent: .procedure)
+		self.procedure = try [CodeableReference](from: _container, forKeyIfPresent: .procedure)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.referrer = try Reference(from: _container, forKeyIfPresent: .referrer)
 		self.series = try [ImagingStudySeries](from: _container, forKeyIfPresent: .series)
@@ -276,110 +277,6 @@ open class ImagingStudy: DomainResource {
 }
 
 /**
- The performed procedure or code.
- 
- The procedure or code from which this ImagingStudy was part of.
- */
-open class ImagingStudyProcedure: BackboneElement {
-	
-	/// All possible types for "value[x]"
-	public enum ValueX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case reference(Reference)
-	}
-	
-	/// The performed Procedure
-	/// One of `value[x]`
-	public var value: ValueX
-	
-	/// Designated initializer taking all required properties
-	public init(value: ValueX) {
-		self.value = value
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
-		self.init(value: value)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case valueCodeableConcept
-		case valueReference
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueReference) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueCodeableConcept, CodingKeys.valueReference], debugDescription: "Must have at least one value for \"value\" but have none"))
-		}
-		
-		// Decode all our properties
-		var _t_value: ValueX? = nil
-		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .reference(valueReference)
-		}
-		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .codeableConcept(valueCodeableConcept)
-		}
-		self.value = _t_value!
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		
-			switch value {
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .valueReference)
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
-			}
-		
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ImagingStudyProcedure else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return value == _other.value
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(value)
-	}
-}
-
-/**
  Each study has one or more series of instances.
  
  Each study has one or more series of images or other content.
@@ -393,7 +290,7 @@ open class ImagingStudySeries: BackboneElement {
 	public var number: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// The modality used for this series
-	public var modality: Coding
+	public var modality: CodeableConcept
 	
 	/// A short human readable summary of the series
 	public var description_fhir: FHIRPrimitive<FHIRString>?
@@ -405,10 +302,10 @@ open class ImagingStudySeries: BackboneElement {
 	public var endpoint: [Reference]?
 	
 	/// Body part examined
-	public var bodySite: Coding?
+	public var bodySite: CodeableReference?
 	
 	/// Body part laterality
-	public var laterality: Coding?
+	public var laterality: CodeableConcept?
 	
 	/// Specimen imaged
 	public var specimen: [Reference]?
@@ -423,7 +320,7 @@ open class ImagingStudySeries: BackboneElement {
 	public var instance: [ImagingStudySeriesInstance]?
 	
 	/// Designated initializer taking all required properties
-	public init(modality: Coding, uid: FHIRPrimitive<FHIRString>) {
+	public init(modality: CodeableConcept, uid: FHIRPrimitive<FHIRString>) {
 		self.modality = modality
 		self.uid = uid
 		super.init()
@@ -431,22 +328,22 @@ open class ImagingStudySeries: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							bodySite: Coding? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instance: [ImagingStudySeriesInstance]? = nil,
-							laterality: Coding? = nil,
-							modality: Coding,
-							modifierExtension: [Extension]? = nil,
-							number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							performer: [ImagingStudySeriesPerformer]? = nil,
-							specimen: [Reference]? = nil,
-							started: FHIRPrimitive<DateTime>? = nil,
-							uid: FHIRPrimitive<FHIRString>)
-	{
+		bodySite: CodeableReference? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instance: [ImagingStudySeriesInstance]? = nil,
+		laterality: CodeableConcept? = nil,
+		modality: CodeableConcept,
+		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		performer: [ImagingStudySeriesPerformer]? = nil,
+		specimen: [Reference]? = nil,
+		started: FHIRPrimitive<DateTime>? = nil,
+		uid: FHIRPrimitive<FHIRString>
+	) {
 		self.init(modality: modality, uid: uid)
 		self.bodySite = bodySite
 		self.description_fhir = description_fhir
@@ -485,12 +382,12 @@ open class ImagingStudySeries: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.bodySite = try Coding(from: _container, forKeyIfPresent: .bodySite)
+		self.bodySite = try CodeableReference(from: _container, forKeyIfPresent: .bodySite)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.instance = try [ImagingStudySeriesInstance](from: _container, forKeyIfPresent: .instance)
-		self.laterality = try Coding(from: _container, forKeyIfPresent: .laterality)
-		self.modality = try Coding(from: _container, forKey: .modality)
+		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
+		self.modality = try CodeableConcept(from: _container, forKey: .modality)
 		self.number = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
 		self.numberOfInstances = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfInstances, auxiliaryKey: ._numberOfInstances)
 		self.performer = try [ImagingStudySeriesPerformer](from: _container, forKeyIfPresent: .performer)
@@ -588,14 +485,14 @@ open class ImagingStudySeriesInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							sopClass: Coding,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							uid: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		sopClass: Coding,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		uid: FHIRPrimitive<FHIRString>
+	) {
 		self.init(sopClass: sopClass, uid: uid)
 		self.`extension` = `extension`
 		self.id = id
@@ -682,12 +579,12 @@ open class ImagingStudySeriesPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

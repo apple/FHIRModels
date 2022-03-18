@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Procedure)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -132,43 +132,43 @@ open class Procedure: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							asserter: Reference? = nil,
-							basedOn: [Reference]? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							category: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							complication: [CodeableConcept]? = nil,
-							complicationDetail: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							focalDevice: [ProcedureFocalDevice]? = nil,
-							followUp: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							outcome: CodeableConcept? = nil,
-							partOf: [Reference]? = nil,
-							performed: PerformedX? = nil,
-							performer: [ProcedurePerformer]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							recorder: Reference? = nil,
-							report: [Reference]? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference,
-							text: Narrative? = nil,
-							usedCode: [CodeableConcept]? = nil,
-							usedReference: [Reference]? = nil)
-	{
+		asserter: Reference? = nil,
+		basedOn: [Reference]? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		category: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		complication: [CodeableConcept]? = nil,
+		complicationDetail: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		focalDevice: [ProcedureFocalDevice]? = nil,
+		followUp: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		outcome: CodeableConcept? = nil,
+		partOf: [Reference]? = nil,
+		performed: PerformedX? = nil,
+		performer: [ProcedurePerformer]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		recorder: Reference? = nil,
+		report: [Reference]? = nil,
+		status: FHIRPrimitive<EventStatus>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference,
+		text: Narrative? = nil,
+		usedCode: [CodeableConcept]? = nil,
+		usedReference: [Reference]? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.asserter = asserter
 		self.basedOn = basedOn
@@ -453,12 +453,12 @@ open class ProcedureFocalDevice: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manipulated: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manipulated: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(manipulated: manipulated)
 		self.action = action
 		self.`extension` = `extension`
@@ -537,13 +537,13 @@ open class ProcedurePerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onBehalfOf: Reference? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onBehalfOf: Reference? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

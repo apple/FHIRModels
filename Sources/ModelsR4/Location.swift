@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Location)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -89,32 +89,32 @@ open class Location: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: Address? = nil,
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							hoursOfOperation: [LocationHoursOfOperation]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							mode: FHIRPrimitive<LocationMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							operationalStatus: Coding? = nil,
-							partOf: Reference? = nil,
-							physicalType: CodeableConcept? = nil,
-							position: LocationPosition? = nil,
-							status: FHIRPrimitive<LocationStatus>? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		address: Address? = nil,
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		hoursOfOperation: [LocationHoursOfOperation]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		mode: FHIRPrimitive<LocationMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		operationalStatus: Coding? = nil,
+		partOf: Reference? = nil,
+		physicalType: CodeableConcept? = nil,
+		position: LocationPosition? = nil,
+		status: FHIRPrimitive<LocationStatus>? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.address = address
 		self.alias = alias
@@ -289,14 +289,14 @@ open class LocationHoursOfOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allDay: FHIRPrimitive<FHIRBool>? = nil,
-							closingTime: FHIRPrimitive<FHIRTime>? = nil,
-							daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							openingTime: FHIRPrimitive<FHIRTime>? = nil)
-	{
+		allDay: FHIRPrimitive<FHIRBool>? = nil,
+		closingTime: FHIRPrimitive<FHIRTime>? = nil,
+		daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		openingTime: FHIRPrimitive<FHIRTime>? = nil
+	) {
 		self.init()
 		self.allDay = allDay
 		self.closingTime = closingTime
@@ -390,13 +390,13 @@ open class LocationPosition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							altitude: FHIRPrimitive<FHIRDecimal>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							latitude: FHIRPrimitive<FHIRDecimal>,
-							longitude: FHIRPrimitive<FHIRDecimal>,
-							modifierExtension: [Extension]? = nil)
-	{
+		altitude: FHIRPrimitive<FHIRDecimal>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		latitude: FHIRPrimitive<FHIRDecimal>,
+		longitude: FHIRPrimitive<FHIRDecimal>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(latitude: latitude, longitude: longitude)
 		self.altitude = altitude
 		self.`extension` = `extension`

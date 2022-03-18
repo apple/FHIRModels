@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import FMCore
 public enum ResearchStudyStatus: String, FHIRPrimitiveType {
 	
 	/// Study is opened for accrual.
-	case active = "active"
+	case active
 	
 	/// Study is completed prematurely and will not resume; patients are no longer examined nor treated.
 	case administrativelyCompleted = "administratively-completed"
 	
 	/// Protocol is approved by the review board.
-	case approved = "approved"
+	case approved
 	
 	/// Study is closed for accrual; patients can be examined and treated.
 	case closedToAccrual = "closed-to-accrual"
@@ -44,13 +44,12 @@ public enum ResearchStudyStatus: String, FHIRPrimitiveType {
 	/// study.
 	case closedToAccrualAndIntervention = "closed-to-accrual-and-intervention"
 	
-	/// Study is closed to accrual and intervention, i.e. the study is closed to enrollment, all study subjects have
-	/// completed treatment
-	/// or intervention but are still being followed according to the primary objective of the study.
-	case completed = "completed"
+	/// The study closed according to the study plan.  There will be no further treatments, interventions  or data
+	/// collection.
+	case completed
 	
 	/// Protocol was disapproved by the review board.
-	case disapproved = "disapproved"
+	case disapproved
 	
 	/// Protocol is submitted to the review board for approval.
 	case inReview = "in-review"
@@ -63,5 +62,5 @@ public enum ResearchStudyStatus: String, FHIRPrimitiveType {
 	case temporarilyClosedToAccrualAndIntervention = "temporarily-closed-to-accrual-and-intervention"
 	
 	/// Protocol was withdrawn by the lead organization.
-	case withdrawn = "withdrawn"
+	case withdrawn
 }

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,16 +39,16 @@ public enum MedicationAdministrationStatusCodes: String, FHIRPrimitiveType {
 	case onHold = "on-hold"
 	
 	/// All actions that are implied by the administration have occurred.
-	case completed = "completed"
+	case completed
 	
 	/// The administration was entered in error and therefore nullified.
 	case enteredInError = "entered-in-error"
 	
 	/// Actions implied by the administration have been permanently halted, before all of them occurred.
-	case stopped = "stopped"
+	case stopped
 	
 	/// The authoring system does not know which of the status values currently applies for this request. Note: This
 	/// concept is not to be used for 'other' - one of the listed statuses is presumed to apply, it's just not known
 	/// which one.
-	case unknown = "unknown"
+	case unknown
 }

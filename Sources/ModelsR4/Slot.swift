@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Slot)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,26 +72,26 @@ open class Slot: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							appointmentType: CodeableConcept? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							end: FHIRPrimitive<Instant>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							overbooked: FHIRPrimitive<FHIRBool>? = nil,
-							schedule: Reference,
-							serviceCategory: [CodeableConcept]? = nil,
-							serviceType: [CodeableConcept]? = nil,
-							specialty: [CodeableConcept]? = nil,
-							start: FHIRPrimitive<Instant>,
-							status: FHIRPrimitive<SlotStatus>,
-							text: Narrative? = nil)
-	{
+		appointmentType: CodeableConcept? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		end: FHIRPrimitive<Instant>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		overbooked: FHIRPrimitive<FHIRBool>? = nil,
+		schedule: Reference,
+		serviceCategory: [CodeableConcept]? = nil,
+		serviceType: [CodeableConcept]? = nil,
+		specialty: [CodeableConcept]? = nil,
+		start: FHIRPrimitive<Instant>,
+		status: FHIRPrimitive<SlotStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(end: end, schedule: schedule, start: start, status: status)
 		self.appointmentType = appointmentType
 		self.comment = comment

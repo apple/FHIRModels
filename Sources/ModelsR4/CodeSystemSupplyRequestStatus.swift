@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum SupplyRequestStatus: String, FHIRPrimitiveType {
 	
 	/// The request has been created but is not yet complete or ready for action.
-	case draft = "draft"
+	case draft
 	
 	/// The request is ready to be acted upon.
-	case active = "active"
+	case active
 	
 	/// The authorization/request to act has been temporarily withdrawn but is expected to resume in the future.
-	case suspended = "suspended"
+	case suspended
 	
 	/// The authorization/request to act has been terminated prior to the full completion of the intended actions.  No
 	/// further activity should occur.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// Activity against the request has been sufficiently completed to the satisfaction of the requester.
-	case completed = "completed"
+	case completed
 	
 	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it.  (If real-world activity has occurred, the status should be "cancelled" rather than "entered-in-error".).
@@ -50,5 +50,5 @@ public enum SupplyRequestStatus: String, FHIRPrimitiveType {
 	/// The authoring/source system does not know which of the status values currently applies for this observation.
 	/// Note: This concept is not to be used for "other" - one of the listed statuses is presumed to apply, but the
 	/// authoring/source system does not know which.
-	case unknown = "unknown"
+	case unknown
 }

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,17 +29,17 @@ public enum RequestIntent: String, FHIRPrimitiveType {
 	
 	/// The request is a suggestion made by someone/something that does not have an intention to ensure it occurs and
 	/// without providing an authorization to act.
-	case proposal = "proposal"
+	case proposal
 	
 	/// The request represents an intention to ensure something occurs without providing an authorization for others to
 	/// act.
-	case plan = "plan"
+	case plan
 	
 	/// The request represents a legally binding instruction authored by a Patient or RelatedPerson.
-	case directive = "directive"
+	case directive
 	
 	/// The request represents a request/demand and authorization for action by a Practitioner.
-	case order = "order"
+	case order
 	
 	/// The request represents an original authorization for action.
 	case originalOrder = "original-order"
@@ -59,5 +59,5 @@ public enum RequestIntent: String, FHIRPrimitiveType {
 	/// The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or
 	/// other constraints among a set of requests.  Refer to [[[RequestGroup]]] for additional information on how this
 	/// status is used.
-	case option = "option"
+	case option
 }

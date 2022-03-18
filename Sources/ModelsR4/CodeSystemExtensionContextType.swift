@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ import FMCore
 public enum ExtensionContextType: String, FHIRPrimitiveType {
 	
 	/// The context is all elements that match the FHIRPath query found in the expression.
-	case fhirpath = "fhirpath"
+	case fhirpath
 	
 	/// The context is any element that has an ElementDefinition.id that matches that found in the expression. This
 	/// includes ElementDefinition Ids that have slicing identifiers. The full path for the element is
 	/// [url]#[elementid]. If there is no #, the Element id is one defined in the base specification.
-	case element = "element"
+	case element
 	
 	/// The context is a particular extension from a particular StructureDefinition, and the expression is just a uri
 	/// that identifies the extension.
-	case `extension` = "extension"
+	case `extension`
 }

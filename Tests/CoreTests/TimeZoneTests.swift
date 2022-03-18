@@ -72,7 +72,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
 			} catch FHIRDateParserError.invalidTimeZonePrefix(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidTimeZonePrefix but threw \(error)")
@@ -89,7 +89,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
 			} catch FHIRDateParserError.invalidTimeZoneHour(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidTimeZoneHour but threw \(error)")
@@ -110,7 +110,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
 			} catch FHIRDateParserError.invalidTimeZoneMinute(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidTimeZoneMinute but threw \(error)")
@@ -133,7 +133,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
 			} catch FHIRDateParserError.invalidSeparator(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.invalidSeparator but threw \(error)")
@@ -150,7 +150,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
 			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRParserErrorPosition(string: string, location: location)
+				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
 				XCTAssertEqual(position, expectedPosition)
 			} catch {
 				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")

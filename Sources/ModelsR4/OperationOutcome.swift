@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/OperationOutcome)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,16 +39,16 @@ open class OperationOutcome: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							issue: [OperationOutcomeIssue],
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issue: [OperationOutcomeIssue],
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(issue: issue)
 		self.contained = contained
 		self.`extension` = `extension`
@@ -137,16 +137,16 @@ open class OperationOutcomeIssue: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: FHIRPrimitive<IssueType>,
-							details: CodeableConcept? = nil,
-							diagnostics: FHIRPrimitive<FHIRString>? = nil,
-							expression: [FHIRPrimitive<FHIRString>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							location: [FHIRPrimitive<FHIRString>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							severity: FHIRPrimitive<IssueSeverity>)
-	{
+		code: FHIRPrimitive<IssueType>,
+		details: CodeableConcept? = nil,
+		diagnostics: FHIRPrimitive<FHIRString>? = nil,
+		expression: [FHIRPrimitive<FHIRString>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		location: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		severity: FHIRPrimitive<IssueSeverity>
+	) {
 		self.init(code: code, severity: severity)
 		self.details = details
 		self.diagnostics = diagnostics

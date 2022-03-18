@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/ParameterDefinition)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,16 +57,16 @@ open class ParameterDefinition: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRInteger>? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							profile: FHIRPrimitive<Canonical>? = nil,
-							type: FHIRPrimitive<FHIRString>,
-							use: FHIRPrimitive<OperationParameterUse>)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRInteger>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		profile: FHIRPrimitive<Canonical>? = nil,
+		type: FHIRPrimitive<FHIRString>,
+		use: FHIRPrimitive<OperationParameterUse>
+	) {
 		self.init(type: type, use: use)
 		self.documentation = documentation
 		self.`extension` = `extension`

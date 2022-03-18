@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -114,34 +114,34 @@ open class MedicationAdministration: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							context: Reference? = nil,
-							device: [Reference]? = nil,
-							dosage: MedicationAdministrationDosage? = nil,
-							effective: EffectiveX,
-							eventHistory: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiates: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: MedicationX,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							performer: [MedicationAdministrationPerformer]? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							request: Reference? = nil,
-							status: FHIRPrimitive<MedicationAdministrationStatusCodes>,
-							statusReason: [CodeableConcept]? = nil,
-							subject: Reference,
-							supportingInformation: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		category: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		context: Reference? = nil,
+		device: [Reference]? = nil,
+		dosage: MedicationAdministrationDosage? = nil,
+		effective: EffectiveX,
+		eventHistory: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiates: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: MedicationX,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		performer: [MedicationAdministrationPerformer]? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		request: Reference? = nil,
+		status: FHIRPrimitive<MedicationAdministrationStatusCodes>,
+		statusReason: [CodeableConcept]? = nil,
+		subject: Reference,
+		supportingInformation: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(effective: effective, medication: medication, status: status, subject: subject)
 		self.category = category
 		self.contained = contained
@@ -389,16 +389,16 @@ open class MedicationAdministrationDosage: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							dose: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							rate: RateX? = nil,
-							route: CodeableConcept? = nil,
-							site: CodeableConcept? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil)
-	{
+		dose: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		rate: RateX? = nil,
+		route: CodeableConcept? = nil,
+		site: CodeableConcept? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.dose = dose
 		self.`extension` = `extension`
@@ -520,12 +520,12 @@ open class MedicationAdministrationPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

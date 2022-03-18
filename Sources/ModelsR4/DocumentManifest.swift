@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/DocumentManifest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -73,27 +73,27 @@ open class DocumentManifest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							content: [Reference],
-							created: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							masterIdentifier: Identifier? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							recipient: [Reference]? = nil,
-							related: [DocumentManifestRelated]? = nil,
-							source: FHIRPrimitive<FHIRURI>? = nil,
-							status: FHIRPrimitive<DocumentReferenceStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil)
-	{
+		author: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		content: [Reference],
+		created: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		masterIdentifier: Identifier? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		recipient: [Reference]? = nil,
+		related: [DocumentManifestRelated]? = nil,
+		source: FHIRPrimitive<FHIRURI>? = nil,
+		status: FHIRPrimitive<DocumentReferenceStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(content: content, status: status)
 		self.author = author
 		self.contained = contained
@@ -232,12 +232,12 @@ open class DocumentManifestRelated: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							ref: Reference? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		ref: Reference? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

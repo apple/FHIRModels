@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Parameters)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,12 +39,12 @@ open class Parameters: Resource {
 	
 	/// Convenience initializer
 	public convenience init(
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							parameter: [ParametersParameter]? = nil)
-	{
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		parameter: [ParametersParameter]? = nil
+	) {
 		self.init()
 		self.id = id
 		self.implicitRules = implicitRules
@@ -177,14 +177,14 @@ open class ParametersParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							part: [ParametersParameter]? = nil,
-							resource: ResourceProxy? = nil,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		part: [ParametersParameter]? = nil,
+		resource: ResourceProxy? = nil,
+		value: ValueX? = nil
+	) {
 		self.init(name: name)
 		self.`extension` = `extension`
 		self.id = id

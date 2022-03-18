@@ -2,8 +2,8 @@
 //  Immunization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Immunization)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Immunization)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,12 +29,6 @@ open class Immunization: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .immunization }
 	
-	/// All possible types for "informationSource[x]"
-	public enum InformationSourceX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case reference(Reference)
-	}
-	
 	/// All possible types for "occurrence[x]"
 	public enum OccurrenceX: Hashable {
 		case dateTime(FHIRPrimitive<DateTime>)
@@ -53,9 +47,8 @@ open class Immunization: DomainResource {
 	/// Authority that the immunization event is based on
 	public var basedOn: [Reference]?
 	
-	/// Indicates the current status of the immunization event.
-	/// Restricted to: ['completed', 'entered-in-error', 'not-done']
-	public var status: FHIRPrimitive<EventStatus>
+	/// completed | entered-in-error | not-done
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -89,8 +82,7 @@ open class Immunization: DomainResource {
 	public var primarySource: FHIRPrimitive<FHIRBool>?
 	
 	/// Indicates the source of a  reported record
-	/// One of `informationSource[x]`
-	public var informationSource: InformationSourceX?
+	public var informationSource: CodeableReference?
 	
 	/// Where immunization occurred
 	public var location: Reference?
@@ -135,7 +127,7 @@ open class Immunization: DomainResource {
 	public var protocolApplied: [ImmunizationProtocolApplied]?
 	
 	/// Designated initializer taking all required properties
-	public init(occurrence: OccurrenceX, patient: Reference, status: FHIRPrimitive<EventStatus>, vaccineCode: CodeableConcept) {
+	public init(occurrence: OccurrenceX, patient: Reference, status: FHIRPrimitive<FHIRString>, vaccineCode: CodeableConcept) {
 		self.occurrence = occurrence
 		self.patient = patient
 		self.status = status
@@ -145,45 +137,45 @@ open class Immunization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							doseQuantity: Quantity? = nil,
-							education: [ImmunizationEducation]? = nil,
-							encounter: Reference? = nil,
-							expirationDate: FHIRPrimitive<FHIRDate>? = nil,
-							`extension`: [Extension]? = nil,
-							fundingSource: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							informationSource: InformationSourceX? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							isSubpotent: FHIRPrimitive<FHIRBool>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							lotNumber: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX,
-							patient: Reference,
-							performer: [ImmunizationPerformer]? = nil,
-							primarySource: FHIRPrimitive<FHIRBool>? = nil,
-							programEligibility: [CodeableConcept]? = nil,
-							protocolApplied: [ImmunizationProtocolApplied]? = nil,
-							reaction: [ImmunizationReaction]? = nil,
-							reason: [CodeableReference]? = nil,
-							recorded: FHIRPrimitive<DateTime>? = nil,
-							route: CodeableConcept? = nil,
-							site: CodeableConcept? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subpotentReason: [CodeableConcept]? = nil,
-							text: Narrative? = nil,
-							vaccineCode: CodeableConcept)
-	{
+		basedOn: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		doseQuantity: Quantity? = nil,
+		education: [ImmunizationEducation]? = nil,
+		encounter: Reference? = nil,
+		expirationDate: FHIRPrimitive<FHIRDate>? = nil,
+		`extension`: [Extension]? = nil,
+		fundingSource: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		informationSource: CodeableReference? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		isSubpotent: FHIRPrimitive<FHIRBool>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX,
+		patient: Reference,
+		performer: [ImmunizationPerformer]? = nil,
+		primarySource: FHIRPrimitive<FHIRBool>? = nil,
+		programEligibility: [CodeableConcept]? = nil,
+		protocolApplied: [ImmunizationProtocolApplied]? = nil,
+		reaction: [ImmunizationReaction]? = nil,
+		reason: [CodeableReference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		route: CodeableConcept? = nil,
+		site: CodeableConcept? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: CodeableConcept? = nil,
+		subpotentReason: [CodeableConcept]? = nil,
+		text: Narrative? = nil,
+		vaccineCode: CodeableConcept
+	) {
 		self.init(occurrence: occurrence, patient: patient, status: status, vaccineCode: vaccineCode)
 		self.basedOn = basedOn
 		self.contained = contained
@@ -231,8 +223,7 @@ open class Immunization: DomainResource {
 		case expirationDate; case _expirationDate
 		case fundingSource
 		case identifier
-		case informationSourceCodeableConcept
-		case informationSourceReference
+		case informationSource
 		case instantiatesCanonical; case _instantiatesCanonical
 		case instantiatesUri; case _instantiatesUri
 		case isSubpotent; case _isSubpotent
@@ -275,20 +266,7 @@ open class Immunization: DomainResource {
 		self.expirationDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
 		self.fundingSource = try CodeableConcept(from: _container, forKeyIfPresent: .fundingSource)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		var _t_informationSource: InformationSourceX? = nil
-		if let informationSourceCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .informationSourceCodeableConcept) {
-			if _t_informationSource != nil {
-				throw DecodingError.dataCorruptedError(forKey: .informationSourceCodeableConcept, in: _container, debugDescription: "More than one value provided for \"informationSource\"")
-			}
-			_t_informationSource = .codeableConcept(informationSourceCodeableConcept)
-		}
-		if let informationSourceReference = try Reference(from: _container, forKeyIfPresent: .informationSourceReference) {
-			if _t_informationSource != nil {
-				throw DecodingError.dataCorruptedError(forKey: .informationSourceReference, in: _container, debugDescription: "More than one value provided for \"informationSource\"")
-			}
-			_t_informationSource = .reference(informationSourceReference)
-		}
-		self.informationSource = _t_informationSource
+		self.informationSource = try CodeableReference(from: _container, forKeyIfPresent: .informationSource)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.isSubpotent = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isSubpotent, auxiliaryKey: ._isSubpotent)
@@ -320,7 +298,7 @@ open class Immunization: DomainResource {
 		self.recorded = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .recorded, auxiliaryKey: ._recorded)
 		self.route = try CodeableConcept(from: _container, forKeyIfPresent: .route)
 		self.site = try CodeableConcept(from: _container, forKeyIfPresent: .site)
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subpotentReason = try [CodeableConcept](from: _container, forKeyIfPresent: .subpotentReason)
 		self.vaccineCode = try CodeableConcept(from: _container, forKey: .vaccineCode)
@@ -339,14 +317,7 @@ open class Immunization: DomainResource {
 		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
 		try fundingSource?.encode(on: &_container, forKey: .fundingSource)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		if let _enum = informationSource {
-			switch _enum {
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .informationSourceCodeableConcept)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .informationSourceReference)
-			}
-		}
+		try informationSource?.encode(on: &_container, forKey: .informationSource)
 		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try isSubpotent?.encode(on: &_container, forKey: .isSubpotent, auxiliaryKey: ._isSubpotent)
@@ -481,14 +452,14 @@ open class ImmunizationEducation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentType: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							presentationDate: FHIRPrimitive<DateTime>? = nil,
-							publicationDate: FHIRPrimitive<DateTime>? = nil,
-							reference: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		documentType: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		presentationDate: FHIRPrimitive<DateTime>? = nil,
+		publicationDate: FHIRPrimitive<DateTime>? = nil,
+		reference: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init()
 		self.documentType = documentType
 		self.`extension` = `extension`
@@ -577,12 +548,12 @@ open class ImmunizationPerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function
@@ -667,15 +638,15 @@ open class ImmunizationProtocolApplied: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authority: Reference? = nil,
-							doseNumber: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							series: FHIRPrimitive<FHIRString>? = nil,
-							seriesDoses: FHIRPrimitive<FHIRString>? = nil,
-							targetDisease: [CodeableConcept]? = nil)
-	{
+		authority: Reference? = nil,
+		doseNumber: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		series: FHIRPrimitive<FHIRString>? = nil,
+		seriesDoses: FHIRPrimitive<FHIRString>? = nil,
+		targetDisease: [CodeableConcept]? = nil
+	) {
 		self.init(doseNumber: doseNumber)
 		self.authority = authority
 		self.`extension` = `extension`
@@ -759,7 +730,7 @@ open class ImmunizationReaction: BackboneElement {
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// Additional information on reaction
-	public var detail: Reference?
+	public var manifestation: CodeableReference?
 	
 	/// Indicates self-reported reaction
 	public var reported: FHIRPrimitive<FHIRBool>?
@@ -771,18 +742,18 @@ open class ImmunizationReaction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							date: FHIRPrimitive<DateTime>? = nil,
-							detail: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reported: FHIRPrimitive<FHIRBool>? = nil)
-	{
+		date: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manifestation: CodeableReference? = nil,
+		modifierExtension: [Extension]? = nil,
+		reported: FHIRPrimitive<FHIRBool>? = nil
+	) {
 		self.init()
 		self.date = date
-		self.detail = detail
 		self.`extension` = `extension`
 		self.id = id
+		self.manifestation = manifestation
 		self.modifierExtension = modifierExtension
 		self.reported = reported
 	}
@@ -791,7 +762,7 @@ open class ImmunizationReaction: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case date; case _date
-		case detail
+		case manifestation
 		case reported; case _reported
 	}
 	
@@ -801,7 +772,7 @@ open class ImmunizationReaction: BackboneElement {
 		
 		// Decode all our properties
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
-		self.detail = try Reference(from: _container, forKeyIfPresent: .detail)
+		self.manifestation = try CodeableReference(from: _container, forKeyIfPresent: .manifestation)
 		self.reported = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .reported, auxiliaryKey: ._reported)
 		try super.init(from: decoder)
 	}
@@ -812,7 +783,7 @@ open class ImmunizationReaction: BackboneElement {
 		
 		// Encode all our properties
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
-		try detail?.encode(on: &_container, forKey: .detail)
+		try manifestation?.encode(on: &_container, forKey: .manifestation)
 		try reported?.encode(on: &_container, forKey: .reported, auxiliaryKey: ._reported)
 		try super.encode(to: encoder)
 	}
@@ -827,14 +798,14 @@ open class ImmunizationReaction: BackboneElement {
 			return false
 		}
 		return date == _other.date
-		    && detail == _other.detail
+		    && manifestation == _other.manifestation
 		    && reported == _other.reported
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(date)
-		hasher.combine(detail)
+		hasher.combine(manifestation)
 		hasher.combine(reported)
 	}
 }

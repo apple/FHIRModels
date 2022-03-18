@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MeasureReport)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -77,26 +77,26 @@ open class MeasureReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							evaluatedResource: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							group: [MeasureReportGroup]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							improvementNotation: CodeableConcept? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							measure: FHIRPrimitive<Canonical>,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period,
-							reporter: Reference? = nil,
-							status: FHIRPrimitive<MeasureReportStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<MeasureReportType>)
-	{
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		evaluatedResource: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		group: [MeasureReportGroup]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		improvementNotation: CodeableConcept? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		measure: FHIRPrimitive<Canonical>,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period,
+		reporter: Reference? = nil,
+		status: FHIRPrimitive<MeasureReportStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<MeasureReportType>
+	) {
 		self.init(measure: measure, period: period, status: status, type: type)
 		self.contained = contained
 		self.date = date
@@ -233,14 +233,14 @@ open class MeasureReportGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measureScore: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [MeasureReportGroupPopulation]? = nil,
-							stratifier: [MeasureReportGroupStratifier]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measureScore: Quantity? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [MeasureReportGroupPopulation]? = nil,
+		stratifier: [MeasureReportGroupStratifier]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -332,13 +332,13 @@ open class MeasureReportGroupPopulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							count: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subjectResults: Reference? = nil)
-	{
+		code: CodeableConcept? = nil,
+		count: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subjectResults: Reference? = nil
+	) {
 		self.init()
 		self.code = code
 		self.count = count
@@ -421,12 +421,12 @@ open class MeasureReportGroupStratifier: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							stratum: [MeasureReportGroupStratifierStratum]? = nil)
-	{
+		code: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		stratum: [MeasureReportGroupStratifierStratum]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`
@@ -509,14 +509,14 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							component: [MeasureReportGroupStratifierStratumComponent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measureScore: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [MeasureReportGroupStratifierStratumPopulation]? = nil,
-							value: CodeableConcept? = nil)
-	{
+		component: [MeasureReportGroupStratifierStratumComponent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measureScore: Quantity? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [MeasureReportGroupStratifierStratumPopulation]? = nil,
+		value: CodeableConcept? = nil
+	) {
 		self.init()
 		self.component = component
 		self.`extension` = `extension`
@@ -606,12 +606,12 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: CodeableConcept)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: CodeableConcept
+	) {
 		self.init(code: code, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -689,13 +689,13 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							count: FHIRPrimitive<FHIRInteger>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							subjectResults: Reference? = nil)
-	{
+		code: CodeableConcept? = nil,
+		count: FHIRPrimitive<FHIRInteger>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subjectResults: Reference? = nil
+	) {
 		self.init()
 		self.code = code
 		self.count = count

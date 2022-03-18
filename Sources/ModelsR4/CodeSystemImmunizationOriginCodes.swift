@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,19 +30,19 @@ import FMCore
 public enum ImmunizationOriginCodes: String, FHIRPrimitiveType {
 	
 	/// The data for the immunization event originated with another provider.
-	case provider = "provider"
+	case provider
 	
 	/// The data for the immunization event originated with a written record for the patient.
-	case record = "record"
+	case record
 	
 	/// The data for the immunization event originated from the recollection of the patient or parent/guardian of the
 	/// patient.
-	case recall = "recall"
+	case recall
 	
 	/// The data for the immunization event originated with a school record for the patient.
-	case school = "school"
+	case school
 	
 	/// The data for the immunization event originated with an immunization information system (IIS) or registry
 	/// operating within the jurisdiction.
-	case jurisdiction = "jurisdiction"
+	case jurisdiction
 }

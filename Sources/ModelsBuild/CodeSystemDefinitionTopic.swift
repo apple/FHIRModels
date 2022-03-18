@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum DefinitionTopic: String, FHIRPrimitiveType {
 	
-	/// The definition is related to treatment of the patient.
-	case treatment = "treatment"
+	/// The definition is related to assessment of the patient.
+	case assessment
 	
 	/// The definition is related to education of the patient.
-	case education = "education"
+	case education
 	
-	/// The definition is related to assessment of the patient.
-	case assessment = "assessment"
+	/// The definition is related to treatment of the patient.
+	case treatment
 }

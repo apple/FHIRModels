@@ -2,8 +2,8 @@
 //  AppointmentResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/AppointmentResponse)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AppointmentResponse)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ open class AppointmentResponse: DomainResource {
 	/// Role of participant in the appointment
 	public var participantType: [CodeableConcept]?
 	
-	/// Person, Location, HealthcareService, or Device
+	/// Person(s), Location, HealthcareService, or Device
 	public var actor: Reference?
 	
 	/// Participation status of the participant. When the status is declined or tentative if the start/end times are
@@ -62,23 +62,23 @@ open class AppointmentResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference? = nil,
-							appointment: Reference,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							end: FHIRPrimitive<Instant>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							participantStatus: FHIRPrimitive<ParticipationStatus>,
-							participantType: [CodeableConcept]? = nil,
-							start: FHIRPrimitive<Instant>? = nil,
-							text: Narrative? = nil)
-	{
+		actor: Reference? = nil,
+		appointment: Reference,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		end: FHIRPrimitive<Instant>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		participantStatus: FHIRPrimitive<ParticipationStatus>,
+		participantType: [CodeableConcept]? = nil,
+		start: FHIRPrimitive<Instant>? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(appointment: appointment, participantStatus: participantStatus)
 		self.actor = actor
 		self.comment = comment

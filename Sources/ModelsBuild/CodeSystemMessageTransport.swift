@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum MessageTransport: String, FHIRPrimitiveType {
 	
-	/// The application sends or receives messages using HTTP POST (may be over http: or https:).
-	case http = "http"
-	
 	/// The application sends or receives messages using File Transfer Protocol.
-	case ftp = "ftp"
+	case ftp
+	
+	/// The application sends or receives messages using HTTP POST (may be over http: or https:).
+	case http
 	
 	/// The application sends or receives messages using HL7's Minimal Lower Level Protocol.
-	case mllp = "mllp"
+	case mllp
 }

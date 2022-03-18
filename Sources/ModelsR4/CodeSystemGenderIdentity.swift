@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,13 +36,13 @@ public enum GenderIdentity: String, FHIRPrimitiveType {
 	case nonBinary = "non-binary"
 	
 	/// the patient identifies as male
-	case male = "male"
+	case male
 	
 	/// the patient identifies as female
-	case female = "female"
+	case female
 	
 	/// other gender identity
-	case other = "other"
+	case other
 	
 	/// the patient does not wish to disclose his gender identity
 	case nonDisclose = "non-disclose"

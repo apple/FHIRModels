@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum ExpansionParameterSource: String, FHIRPrimitiveType {
 	
 	/// The parameter was supplied by the client in the $expand request.
-	case input = "input"
+	case input
 	
 	/// The parameter was added by the expansion engine on the server.
-	case server = "server"
+	case server
 	
 	/// The parameter was added from one the code systems used in the $expand operation.
-	case codesystem = "codesystem"
+	case codesystem
 }

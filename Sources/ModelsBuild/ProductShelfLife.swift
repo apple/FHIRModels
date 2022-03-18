@@ -2,8 +2,8 @@
 //  ProductShelfLife.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ProductShelfLife)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ProductShelfLife)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ open class ProductShelfLife: BackboneType {
 	
 	/// All possible types for "period[x]"
 	public enum PeriodX: Hashable {
-		case quantity(Quantity)
+		case duration(Duration)
 		case string(FHIRPrimitive<FHIRString>)
 	}
 	
@@ -53,13 +53,13 @@ open class ProductShelfLife: BackboneType {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: PeriodX? = nil,
-							specialPrecautionsForStorage: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: PeriodX? = nil,
+		specialPrecautionsForStorage: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -72,7 +72,7 @@ open class ProductShelfLife: BackboneType {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case periodQuantity
+		case periodDuration
 		case periodString; case _periodString
 		case specialPrecautionsForStorage
 		case type
@@ -84,11 +84,11 @@ open class ProductShelfLife: BackboneType {
 		
 		// Decode all our properties
 		var _t_period: PeriodX? = nil
-		if let periodQuantity = try Quantity(from: _container, forKeyIfPresent: .periodQuantity) {
+		if let periodDuration = try Duration(from: _container, forKeyIfPresent: .periodDuration) {
 			if _t_period != nil {
-				throw DecodingError.dataCorruptedError(forKey: .periodQuantity, in: _container, debugDescription: "More than one value provided for \"period\"")
+				throw DecodingError.dataCorruptedError(forKey: .periodDuration, in: _container, debugDescription: "More than one value provided for \"period\"")
 			}
-			_t_period = .quantity(periodQuantity)
+			_t_period = .duration(periodDuration)
 		}
 		if let periodString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .periodString, auxiliaryKey: ._periodString) {
 			if _t_period != nil {
@@ -109,8 +109,8 @@ open class ProductShelfLife: BackboneType {
 		// Encode all our properties
 		if let _enum = period {
 			switch _enum {
-			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .periodQuantity)
+			case .duration(let _value):
+				try _value.encode(on: &_container, forKey: .periodDuration)
 			case .string(let _value):
 				try _value.encode(on: &_container, forKey: .periodString, auxiliaryKey: ._periodString)
 			}

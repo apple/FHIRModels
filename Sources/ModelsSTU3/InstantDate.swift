@@ -2,7 +2,7 @@
 //  InstantDate.swift
 //  HealthSoftware
 //
-//  2020, Apple Inc.
+//  2021, Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,31 +72,31 @@ public struct InstantDate: FHIRPrimitiveType {
 		// Year
 		var scanLocation = scanner.scanLocation
 		guard let scanned = scanner.hs_scanCharacters(from: numbers), scanned.count == 4, let year = Int(scanned), year > 0 else {
-			throw FHIRDateParserError.invalidYear(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidYear(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Month
 		guard scanner.scanString("-", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
 		}
 		scanLocation = scanner.scanLocation
 		guard let scannedMonth = scanner.hs_scanCharacters(from: numbers), scannedMonth.count == 2, let month = UInt8(scannedMonth), (1...12).contains(month) else {
-			throw FHIRDateParserError.invalidMonth(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidMonth(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Day
 		guard scanner.scanString("-", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
 		}
 		scanLocation = scanner.scanLocation
 		guard let scannedDay = scanner.hs_scanCharacters(from: numbers), scannedDay.count == 2, let day = UInt8(scannedDay), (1...31).contains(day) else {
-			throw FHIRDateParserError.invalidDay(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidDay(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Finish
 		scanLocation = scanner.scanLocation
 		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		return (year, month, day)
@@ -177,6 +177,48 @@ extension InstantDate: Equatable {
 			return false
 		}
 		return true
+	}
+}
+
+extension InstantDate: Comparable {
+	
+	public static func <(l: InstantDate, r: InstantDate) -> Bool {
+		if l.year < r.year {
+			return true
+		} else if l.year == r.year {
+			if l.month < r.month {
+				return true
+			} else if l.month == r.month {
+				return l.day < r.day
+			}
+		}
+		return false
+	}
+	
+	public static func <(l: InstantDate, r: FHIRDate) -> Bool {
+		if l.year < r.year {
+			return true
+		} else if l.year == r.year {
+			if l.month < r.month ?? 0 {
+				return true
+			} else if l.month == r.month {
+				return l.day < r.day ?? 0
+			}
+		}
+		return false
+	}
+	
+	public static func <(l: FHIRDate, r: InstantDate) -> Bool {
+		if l.year < r.year {
+			return true
+		} else if l.year == r.year {
+			if l.month ?? 0 < r.month {
+				return true
+			} else if l.month == r.month {
+				return l.day ?? 0 < r.day
+			}
+		}
+		return false
 	}
 }
 

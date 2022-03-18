@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,19 +28,19 @@ import FMCore
 public enum DeviceUseStatementStatus: String, FHIRPrimitiveType {
 	
 	/// The device is still being used.
-	case active = "active"
+	case active
 	
 	/// The device is no longer being used.
-	case completed = "completed"
+	case completed
 	
 	/// The statement was recorded incorrectly.
 	case enteredInError = "entered-in-error"
 	
 	/// The device may be used at some time in the future.
-	case intended = "intended"
+	case intended
 	
 	/// Actions implied by the statement have been permanently halted, before all of them occurred.
-	case stopped = "stopped"
+	case stopped
 	
 	/// Actions implied by the statement have been temporarily halted, but are expected to continue later. May also be
 	/// called "suspended".

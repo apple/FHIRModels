@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CatalogEntry)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -77,28 +77,28 @@ open class CatalogEntry: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							additionalCharacteristic: [CodeableConcept]? = nil,
-							additionalClassification: [CodeableConcept]? = nil,
-							additionalIdentifier: [Identifier]? = nil,
-							classification: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastUpdated: FHIRPrimitive<DateTime>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							orderable: FHIRPrimitive<FHIRBool>,
-							referencedItem: Reference,
-							relatedEntry: [CatalogEntryRelatedEntry]? = nil,
-							status: FHIRPrimitive<PublicationStatus>? = nil,
-							text: Narrative? = nil,
-							type: CodeableConcept? = nil,
-							validTo: FHIRPrimitive<DateTime>? = nil,
-							validityPeriod: Period? = nil)
-	{
+		additionalCharacteristic: [CodeableConcept]? = nil,
+		additionalClassification: [CodeableConcept]? = nil,
+		additionalIdentifier: [Identifier]? = nil,
+		classification: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastUpdated: FHIRPrimitive<DateTime>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		orderable: FHIRPrimitive<FHIRBool>,
+		referencedItem: Reference,
+		relatedEntry: [CatalogEntryRelatedEntry]? = nil,
+		status: FHIRPrimitive<PublicationStatus>? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept? = nil,
+		validTo: FHIRPrimitive<DateTime>? = nil,
+		validityPeriod: Period? = nil
+	) {
 		self.init(orderable: orderable, referencedItem: referencedItem)
 		self.additionalCharacteristic = additionalCharacteristic
 		self.additionalClassification = additionalClassification
@@ -246,12 +246,12 @@ open class CatalogEntryRelatedEntry: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: Reference,
-							modifierExtension: [Extension]? = nil,
-							relationtype: FHIRPrimitive<CatalogEntryRelationType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: Reference,
+		modifierExtension: [Extension]? = nil,
+		relationtype: FHIRPrimitive<CatalogEntryRelationType>
+	) {
 		self.init(item: item, relationtype: relationtype)
 		self.`extension` = `extension`
 		self.id = id

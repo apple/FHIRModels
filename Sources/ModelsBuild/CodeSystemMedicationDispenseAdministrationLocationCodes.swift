@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,21 +20,21 @@
 import FMCore
 
 /**
- MedicationDispense Administration Location Codes
+ None
  
  URL: http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-admin-location
  ValueSet: http://hl7.org/fhir/ValueSet/medicationdispense-admin-location
  */
 public enum MedicationDispenseAdministrationLocationCodes: String, FHIRPrimitiveType {
 	
+	/// Includes dispenses for medications to be administered or consumed by the patient in their home (this would
+	/// include long term care or nursing homes, hospices, etc.).
+	case community
+	
 	/// Includes dispenses for medications to be administered or consumed in an inpatient or acute care setting.
-	case inpatient = "inpatient"
+	case inpatient
 	
 	/// Includes dispenses for medications to be administered or consumed in an outpatient setting (for example,
 	/// Emergency Department, Outpatient Clinic, Outpatient Surgery, Doctor's office).
-	case outpatient = "outpatient"
-	
-	/// Includes dispenses for medications to be administered or consumed by the patient in their home (this would
-	/// include long term care or nursing homes, hospices, etc.).
-	case community = "community"
+	case outpatient
 }

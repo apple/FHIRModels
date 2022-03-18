@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,25 +27,25 @@ import FMCore
  */
 public enum AdverseEventCategory: String, FHIRPrimitiveType {
 	
-	/// The adverse event pertains to an event involving the wrong patient, who was not the intended subject.
-	case wrongPatient = "wrong-patient"
+	/// The adverse event pertains to a device.
+	case device
 	
-	/// The adverse event pertains to a procedure mishap.
-	case procedureMishap = "procedure-mishap"
+	/// The adverse event pertains to a hospital acquired infection.
+	case hospitalAquiredInfection = "hospital-aquired-infection"
 	
 	/// The adverse event pertains to a medication mishap, such as wrong dose, route, rate, or duration of
 	/// administration.
 	case medicationMishap = "medication-mishap"
 	
-	/// The adverse event pertains to a device.
-	case device = "device"
+	/// The adverse event pertains to a procedure mishap.
+	case procedureMishap = "procedure-mishap"
 	
 	/// The adverse event pertains to an unsafe physical environment.
 	case unsafePhysicalEnvironment = "unsafe-physical-environment"
 	
-	/// The adverse event pertains to a hospital acquired infection.
-	case hospitalAquiredInfection = "hospital-aquired-infection"
-	
 	/// The adverse event pertains to the wrong body site.
 	case wrongBodySite = "wrong-body-site"
+	
+	/// The adverse event pertains to an event involving the wrong patient, who was not the intended subject.
+	case wrongPatient = "wrong-patient"
 }

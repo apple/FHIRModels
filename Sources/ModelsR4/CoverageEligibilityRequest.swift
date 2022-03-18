@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityRequest)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -93,29 +93,29 @@ open class CoverageEligibilityRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>,
-							enterer: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							facility: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							insurance: [CoverageEligibilityRequestInsurance]? = nil,
-							insurer: Reference,
-							item: [CoverageEligibilityRequestItem]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							patient: Reference,
-							priority: CodeableConcept? = nil,
-							provider: Reference? = nil,
-							purpose: [FHIRPrimitive<EligibilityRequestPurpose>],
-							serviced: ServicedX? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							supportingInfo: [CoverageEligibilityRequestSupportingInfo]? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>,
+		enterer: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		facility: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		insurance: [CoverageEligibilityRequestInsurance]? = nil,
+		insurer: Reference,
+		item: [CoverageEligibilityRequestItem]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		patient: Reference,
+		priority: CodeableConcept? = nil,
+		provider: Reference? = nil,
+		purpose: [FHIRPrimitive<EligibilityRequestPurpose>],
+		serviced: ServicedX? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		supportingInfo: [CoverageEligibilityRequestSupportingInfo]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(created: created, insurer: insurer, patient: patient, purpose: purpose, status: status)
 		self.contained = contained
 		self.enterer = enterer
@@ -288,13 +288,13 @@ open class CoverageEligibilityRequestInsurance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							businessArrangement: FHIRPrimitive<FHIRString>? = nil,
-							coverage: Reference,
-							`extension`: [Extension]? = nil,
-							focal: FHIRPrimitive<FHIRBool>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		businessArrangement: FHIRPrimitive<FHIRString>? = nil,
+		coverage: Reference,
+		`extension`: [Extension]? = nil,
+		focal: FHIRPrimitive<FHIRBool>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(coverage: coverage)
 		self.businessArrangement = businessArrangement
 		self.`extension` = `extension`
@@ -400,20 +400,20 @@ open class CoverageEligibilityRequestItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: CodeableConcept? = nil,
-							detail: [Reference]? = nil,
-							diagnosis: [CoverageEligibilityRequestItemDiagnosis]? = nil,
-							`extension`: [Extension]? = nil,
-							facility: Reference? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifier: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							productOrService: CodeableConcept? = nil,
-							provider: Reference? = nil,
-							quantity: Quantity? = nil,
-							supportingInfoSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-							unitPrice: Money? = nil)
-	{
+		category: CodeableConcept? = nil,
+		detail: [Reference]? = nil,
+		diagnosis: [CoverageEligibilityRequestItemDiagnosis]? = nil,
+		`extension`: [Extension]? = nil,
+		facility: Reference? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifier: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		productOrService: CodeableConcept? = nil,
+		provider: Reference? = nil,
+		quantity: Quantity? = nil,
+		supportingInfoSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		unitPrice: Money? = nil
+	) {
 		self.init()
 		self.category = category
 		self.detail = detail
@@ -541,11 +541,11 @@ open class CoverageEligibilityRequestItemDiagnosis: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							diagnosis: DiagnosisX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		diagnosis: DiagnosisX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.diagnosis = diagnosis
 		self.`extension` = `extension`
@@ -642,13 +642,13 @@ open class CoverageEligibilityRequestSupportingInfo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							appliesToAll: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							information: Reference,
-							modifierExtension: [Extension]? = nil,
-							sequence: FHIRPrimitive<FHIRPositiveInteger>)
-	{
+		appliesToAll: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		information: Reference,
+		modifierExtension: [Extension]? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>
+	) {
 		self.init(information: information, sequence: sequence)
 		self.appliesToAll = appliesToAll
 		self.`extension` = `extension`

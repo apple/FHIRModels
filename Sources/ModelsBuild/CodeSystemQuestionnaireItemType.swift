@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,60 +27,55 @@ import FMCore
  */
 public enum QuestionnaireItemType: String, FHIRPrimitiveType {
 	
-	/// An item with no direct answer but should have at least one child item.
-	case group = "group"
-	
-	/// Text for display that will not capture an answer or have child items.
-	case display = "display"
-	
-	/// An item that defines a specific answer to be captured, and which may have child items. (the answer provided in
-	/// the QuestionnaireResponse should be of the defined datatype).
-	case question = "question"
+	/// Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).
+	case attachment
 	
 	/// Question with a yes/no answer (valueBoolean).
-	case boolean = "boolean"
+	case boolean
 	
-	/// Question with is a real number answer (valueDecimal).
-	case decimal = "decimal"
-	
-	/// Question with an integer answer (valueInteger).
-	case integer = "integer"
+	/// Question with a Coding - generally drawn from a list of possible answers (valueCoding)
+	case coding
 	
 	/// Question with a date answer (valueDate).
-	case date = "date"
+	case date
 	
 	/// Question with a date and time answer (valueDateTime).
-	case dateTime = "dateTime"
+	case dateTime
 	
-	/// Question with a time (hour:minute:second) answer independent of date. (valueTime).
-	case time = "time"
+	/// Question with is a real number answer (valueDecimal).
+	case decimal
 	
-	/// Question with a short (few words to short sentence) free-text entry answer (valueString).
-	case string = "string"
+	/// Text for display that will not capture an answer or have child items.
+	case display
 	
-	/// Question with a long (potentially multi-paragraph) free-text entry answer (valueString).
-	case text = "text"
+	/// An item with no direct answer but should have at least one child item.
+	case group
 	
-	/// Question with a URL (website, FTP site, etc.) answer (valueUri).
-	case url = "url"
-	
-	/// Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or
-	/// via the valueset referenced in the answerValueSet property) as an answer (valueCoding).
-	case choice = "choice"
-	
-	/// Answer is a Coding drawn from a list of possible answers (as with the choice type) or a free-text entry in a
-	/// string (valueCoding or valueString).
-	case openChoice = "open-choice"
-	
-	/// Question with binary content such as an image, PDF, etc. as an answer (valueAttachment).
-	case attachment = "attachment"
-	
-	/// Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).
-	case reference = "reference"
+	/// Question with an integer answer (valueInteger).
+	case integer
 	
 	/// Question with a combination of a numeric value and unit, potentially with a comparator (<, >, etc.) as an
 	/// answer. (valueQuantity) There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that
 	/// can be used to define what unit should be captured (or the unit that has a ucum conversion from the provided
 	/// unit).
-	case quantity = "quantity"
+	case quantity
+	
+	/// An item that defines a specific answer to be captured, and which may have child items. (the answer provided in
+	/// the QuestionnaireResponse should be of the defined datatype).
+	case question
+	
+	/// Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).
+	case reference
+	
+	/// Question with a short (few words to short sentence) free-text entry answer (valueString).
+	case string
+	
+	/// Question with a long (potentially multi-paragraph) free-text entry answer (valueString).
+	case text
+	
+	/// Question with a time (hour:minute:second) answer independent of date. (valueTime).
+	case time
+	
+	/// Question with a URL (website, FTP site, etc.) answer (valueUri).
+	case url
 }

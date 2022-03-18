@@ -2,8 +2,8 @@
 //  TriggerDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -59,14 +59,14 @@ open class TriggerDefinition: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							condition: Expression? = nil,
-							data: [DataRequirement]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							timing: TimingX? = nil,
-							type: FHIRPrimitive<TriggerType>)
-	{
+		condition: Expression? = nil,
+		data: [DataRequirement]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		timing: TimingX? = nil,
+		type: FHIRPrimitive<TriggerType>
+	) {
 		self.init(type: type)
 		self.condition = condition
 		self.data = data

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,17 +29,17 @@ public enum PerformerRoleCodes: String, FHIRPrimitiveType {
 	
 	/// An entity or an entity's delegatee who is the grantee in an agreement such as a consent for services, advanced
 	/// directive, or a privacy consent directive in accordance with jurisdictional, organizational, or patient policy.
-	case consenter = "consenter"
+	case consenter
 	
 	/// An entity which accepts certain rights or authority from a grantor.
-	case grantee = "grantee"
+	case grantee
 	
 	/// An entity which agrees to confer certain rights or authority to a grantee.
-	case grantor = "grantor"
+	case grantor
 	
 	/// A party to whom some right or authority is granted by a delegator.
-	case delegatee = "delegatee"
+	case delegatee
 	
 	/// A party that grants all or some portion its right or authority to another party.
-	case delegator = "delegator"
+	case delegator
 }

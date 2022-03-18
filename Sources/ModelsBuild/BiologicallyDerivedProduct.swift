@@ -2,8 +2,8 @@
 //  BiologicallyDerivedProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,17 +20,15 @@
 import FMCore
 
 /**
- A material substance originating from a biological entity.
+ This resource reflects an instance of a biologically derived product.
  
- A material substance originating from a biological entity intended to be transplanted or infused
+ This resource reflects an instance of a biologically derived product. A material substance originating from a
+ biological entity intended to be transplanted or infused
  into another (possibly the same) biological entity.
  */
 open class BiologicallyDerivedProduct: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .biologicallyDerivedProduct }
-	
-	/// External ids for this item
-	public var identifier: [Identifier]?
 	
 	/// Broad category of this product.
 	public var productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>?
@@ -38,29 +36,39 @@ open class BiologicallyDerivedProduct: DomainResource {
 	/// What this biologically derived product is
 	public var productCode: CodeableConcept?
 	
-	/// Whether the product is currently available.
-	public var status: FHIRPrimitive<BiologicallyDerivedProductStatus>?
+	/// BiologicallyDerivedProduct parent
+	public var parent: [Reference]?
 	
 	/// Procedure request
 	public var request: [Reference]?
 	
-	/// The amount of this biologically derived product
-	public var quantity: FHIRPrimitive<FHIRInteger>?
+	/// External ids for this item
+	public var identifier: [Identifier]?
 	
-	/// BiologicallyDerivedProduct parent
-	public var parent: [Reference]?
+	/// An identifier that supports traceability to the biological entity that is the source of biological material in
+	/// the product
+	public var biologicalSource: Identifier?
+	
+	/// Processing facility
+	public var processingFacility: [Reference]?
+	
+	/// Description of division
+	public var division: FHIRPrimitive<FHIRString>?
+	
+	/// Whether the product is currently available.
+	public var status: FHIRPrimitive<BiologicallyDerivedProductStatus>?
+	
+	/// Date of expiration
+	public var expirationDate: FHIRPrimitive<DateTime>?
 	
 	/// How this product was collected
 	public var collection: BiologicallyDerivedProductCollection?
 	
-	/// Any processing of the product during collection
-	public var processing: [BiologicallyDerivedProductProcessing]?
+	/// Product storage temp requirements
+	public var storageTempRequirements: Range?
 	
-	/// Any manipulation of product post-collection
-	public var manipulation: BiologicallyDerivedProductManipulation?
-	
-	/// Product storage
-	public var storage: [BiologicallyDerivedProductStorage]?
+	/// A property that is specific to this BiologicallyDerviedProduct instance
+	public var property: [BiologicallyDerivedProductProperty]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -69,62 +77,68 @@ open class BiologicallyDerivedProduct: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							collection: BiologicallyDerivedProductCollection? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manipulation: BiologicallyDerivedProductManipulation? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							parent: [Reference]? = nil,
-							processing: [BiologicallyDerivedProductProcessing]? = nil,
-							productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>? = nil,
-							productCode: CodeableConcept? = nil,
-							quantity: FHIRPrimitive<FHIRInteger>? = nil,
-							request: [Reference]? = nil,
-							status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
-							storage: [BiologicallyDerivedProductStorage]? = nil,
-							text: Narrative? = nil)
-	{
+		biologicalSource: Identifier? = nil,
+		collection: BiologicallyDerivedProductCollection? = nil,
+		contained: [ResourceProxy]? = nil,
+		division: FHIRPrimitive<FHIRString>? = nil,
+		expirationDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		parent: [Reference]? = nil,
+		processingFacility: [Reference]? = nil,
+		productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>? = nil,
+		productCode: CodeableConcept? = nil,
+		property: [BiologicallyDerivedProductProperty]? = nil,
+		request: [Reference]? = nil,
+		status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
+		storageTempRequirements: Range? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
+		self.biologicalSource = biologicalSource
 		self.collection = collection
 		self.contained = contained
+		self.division = division
+		self.expirationDate = expirationDate
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
-		self.manipulation = manipulation
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.parent = parent
-		self.processing = processing
+		self.processingFacility = processingFacility
 		self.productCategory = productCategory
 		self.productCode = productCode
-		self.quantity = quantity
+		self.property = property
 		self.request = request
 		self.status = status
-		self.storage = storage
+		self.storageTempRequirements = storageTempRequirements
 		self.text = text
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case biologicalSource
 		case collection
+		case division; case _division
+		case expirationDate; case _expirationDate
 		case identifier
-		case manipulation
 		case parent
-		case processing
+		case processingFacility
 		case productCategory; case _productCategory
 		case productCode
-		case quantity; case _quantity
+		case property
 		case request
 		case status; case _status
-		case storage
+		case storageTempRequirements
 	}
 	
 	/// Initializer for Decodable
@@ -132,17 +146,19 @@ open class BiologicallyDerivedProduct: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.biologicalSource = try Identifier(from: _container, forKeyIfPresent: .biologicalSource)
 		self.collection = try BiologicallyDerivedProductCollection(from: _container, forKeyIfPresent: .collection)
+		self.division = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .division, auxiliaryKey: ._division)
+		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.manipulation = try BiologicallyDerivedProductManipulation(from: _container, forKeyIfPresent: .manipulation)
 		self.parent = try [Reference](from: _container, forKeyIfPresent: .parent)
-		self.processing = try [BiologicallyDerivedProductProcessing](from: _container, forKeyIfPresent: .processing)
+		self.processingFacility = try [Reference](from: _container, forKeyIfPresent: .processingFacility)
 		self.productCategory = try FHIRPrimitive<BiologicallyDerivedProductCategory>(from: _container, forKeyIfPresent: .productCategory, auxiliaryKey: ._productCategory)
 		self.productCode = try CodeableConcept(from: _container, forKeyIfPresent: .productCode)
-		self.quantity = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .quantity, auxiliaryKey: ._quantity)
+		self.property = try [BiologicallyDerivedProductProperty](from: _container, forKeyIfPresent: .property)
 		self.request = try [Reference](from: _container, forKeyIfPresent: .request)
 		self.status = try FHIRPrimitive<BiologicallyDerivedProductStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
-		self.storage = try [BiologicallyDerivedProductStorage](from: _container, forKeyIfPresent: .storage)
+		self.storageTempRequirements = try Range(from: _container, forKeyIfPresent: .storageTempRequirements)
 		try super.init(from: decoder)
 	}
 	
@@ -151,17 +167,19 @@ open class BiologicallyDerivedProduct: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try biologicalSource?.encode(on: &_container, forKey: .biologicalSource)
 		try collection?.encode(on: &_container, forKey: .collection)
+		try division?.encode(on: &_container, forKey: .division, auxiliaryKey: ._division)
+		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try manipulation?.encode(on: &_container, forKey: .manipulation)
 		try parent?.encode(on: &_container, forKey: .parent)
-		try processing?.encode(on: &_container, forKey: .processing)
+		try processingFacility?.encode(on: &_container, forKey: .processingFacility)
 		try productCategory?.encode(on: &_container, forKey: .productCategory, auxiliaryKey: ._productCategory)
 		try productCode?.encode(on: &_container, forKey: .productCode)
-		try quantity?.encode(on: &_container, forKey: .quantity, auxiliaryKey: ._quantity)
+		try property?.encode(on: &_container, forKey: .property)
 		try request?.encode(on: &_container, forKey: .request)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try storage?.encode(on: &_container, forKey: .storage)
+		try storageTempRequirements?.encode(on: &_container, forKey: .storageTempRequirements)
 		try super.encode(to: encoder)
 	}
 	
@@ -174,32 +192,36 @@ open class BiologicallyDerivedProduct: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return collection == _other.collection
+		return biologicalSource == _other.biologicalSource
+		    && collection == _other.collection
+		    && division == _other.division
+		    && expirationDate == _other.expirationDate
 		    && identifier == _other.identifier
-		    && manipulation == _other.manipulation
 		    && parent == _other.parent
-		    && processing == _other.processing
+		    && processingFacility == _other.processingFacility
 		    && productCategory == _other.productCategory
 		    && productCode == _other.productCode
-		    && quantity == _other.quantity
+		    && property == _other.property
 		    && request == _other.request
 		    && status == _other.status
-		    && storage == _other.storage
+		    && storageTempRequirements == _other.storageTempRequirements
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(biologicalSource)
 		hasher.combine(collection)
+		hasher.combine(division)
+		hasher.combine(expirationDate)
 		hasher.combine(identifier)
-		hasher.combine(manipulation)
 		hasher.combine(parent)
-		hasher.combine(processing)
+		hasher.combine(processingFacility)
 		hasher.combine(productCategory)
 		hasher.combine(productCode)
-		hasher.combine(quantity)
+		hasher.combine(property)
 		hasher.combine(request)
 		hasher.combine(status)
-		hasher.combine(storage)
+		hasher.combine(storageTempRequirements)
 	}
 }
 
@@ -231,13 +253,13 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							collected: CollectedX? = nil,
-							collector: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: Reference? = nil)
-	{
+		collected: CollectedX? = nil,
+		collector: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: Reference? = nil
+	) {
 		self.init()
 		self.collected = collected
 		self.collector = collector
@@ -321,75 +343,133 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 }
 
 /**
- Any manipulation of product post-collection.
- 
- Any manipulation of product post-collection that is intended to alter the product.  For example a buffy-coat enrichment
- or CD8 reduction of Peripheral Blood Stem Cells to make it more suitable for infusion.
+ A property that is specific to this BiologicallyDerviedProduct instance.
  */
-open class BiologicallyDerivedProductManipulation: BackboneElement {
+open class BiologicallyDerivedProductProperty: BackboneElement {
 	
-	/// All possible types for "time[x]"
-	public enum TimeX: Hashable {
-		case dateTime(FHIRPrimitive<DateTime>)
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case attachment(Attachment)
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case integer(FHIRPrimitive<FHIRInteger>)
 		case period(Period)
+		case quantity(Quantity)
+		case range(Range)
+		case ratio(Ratio)
+		case string(FHIRPrimitive<FHIRString>)
 	}
 	
-	/// Description of manipulation
-	public var description_fhir: FHIRPrimitive<FHIRString>?
+	/// Code that specifies the property
+	public var type: CodeableConcept
 	
-	/// Time of manipulation
-	/// One of `time[x]`
-	public var time: TimeX?
+	/// Property values
+	/// One of `value[x]`
+	public var value: ValueX
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(type: CodeableConcept, value: ValueX) {
+		self.type = type
+		self.value = value
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							time: TimeX? = nil)
-	{
-		self.init()
-		self.description_fhir = description_fhir
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX
+	) {
+		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.time = time
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case description_fhir = "description"; case _description_fhir = "_description"
-		case timeDateTime; case _timeDateTime
-		case timePeriod
+		case type
+		case valueAttachment
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueInteger; case _valueInteger
+		case valuePeriod
+		case valueQuantity
+		case valueRange
+		case valueRatio
+		case valueString; case _valueString
 	}
 	
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueString) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAttachment, CodingKeys.valueBoolean, CodingKeys.valueCodeableConcept, CodingKeys.valueInteger, CodingKeys.valuePeriod, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueString], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
 		// Decode all our properties
-		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		var _t_time: TimeX? = nil
-		if let timeDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .timeDateTime, auxiliaryKey: ._timeDateTime) {
-			if _t_time != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timeDateTime, in: _container, debugDescription: "More than one value provided for \"time\"")
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_value: ValueX? = nil
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
-			_t_time = .dateTime(timeDateTime)
+			_t_value = .boolean(valueBoolean)
 		}
-		if let timePeriod = try Period(from: _container, forKeyIfPresent: .timePeriod) {
-			if _t_time != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timePeriod, in: _container, debugDescription: "More than one value provided for \"time\"")
+		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueInteger, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
-			_t_time = .period(timePeriod)
+			_t_value = .integer(valueInteger)
 		}
-		self.time = _t_time
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valuePeriod = try Period(from: _container, forKeyIfPresent: .valuePeriod) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valuePeriod, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .period(valuePeriod)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueRatio = try Ratio(from: _container, forKeyIfPresent: .valueRatio) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRatio, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .ratio(valueRatio)
+		}
+		if let valueString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueString, auxiliaryKey: ._valueString) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueString, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .string(valueString)
+		}
+		if let valueAttachment = try Attachment(from: _container, forKeyIfPresent: .valueAttachment) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAttachment, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .attachment(valueAttachment)
+		}
+		self.value = _t_value!
 		try super.init(from: decoder)
 	}
 	
@@ -398,263 +478,48 @@ open class BiologicallyDerivedProductManipulation: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		if let _enum = time {
-			switch _enum {
-			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .timeDateTime, auxiliaryKey: ._timeDateTime)
+		try type.encode(on: &_container, forKey: .type)
+		
+			switch value {
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .integer(let _value):
+				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .timePeriod)
+				try _value.encode(on: &_container, forKey: .valuePeriod)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .ratio(let _value):
+				try _value.encode(on: &_container, forKey: .valueRatio)
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .valueString, auxiliaryKey: ._valueString)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .valueAttachment)
 			}
-		}
+		
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? BiologicallyDerivedProductManipulation else {
+		guard let _other = _other as? BiologicallyDerivedProductProperty else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return description_fhir == _other.description_fhir
-		    && time == _other.time
+		return type == _other.type
+		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(description_fhir)
-		hasher.combine(time)
-	}
-}
-
-/**
- Any processing of the product during collection.
- 
- Any processing of the product during collection that does not change the fundamental nature of the product. For example
- adding anti-coagulants during the collection of Peripheral Blood Stem Cells.
- */
-open class BiologicallyDerivedProductProcessing: BackboneElement {
-	
-	/// All possible types for "time[x]"
-	public enum TimeX: Hashable {
-		case dateTime(FHIRPrimitive<DateTime>)
-		case period(Period)
-	}
-	
-	/// Description of of processing
-	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
-	/// Procesing code
-	public var procedure: CodeableConcept?
-	
-	/// Substance added during processing
-	public var additive: Reference?
-	
-	/// Time of processing
-	/// One of `time[x]`
-	public var time: TimeX?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							additive: Reference? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							procedure: CodeableConcept? = nil,
-							time: TimeX? = nil)
-	{
-		self.init()
-		self.additive = additive
-		self.description_fhir = description_fhir
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.procedure = procedure
-		self.time = time
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case additive
-		case description_fhir = "description"; case _description_fhir = "_description"
-		case procedure
-		case timeDateTime; case _timeDateTime
-		case timePeriod
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.additive = try Reference(from: _container, forKeyIfPresent: .additive)
-		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.procedure = try CodeableConcept(from: _container, forKeyIfPresent: .procedure)
-		var _t_time: TimeX? = nil
-		if let timeDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .timeDateTime, auxiliaryKey: ._timeDateTime) {
-			if _t_time != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timeDateTime, in: _container, debugDescription: "More than one value provided for \"time\"")
-			}
-			_t_time = .dateTime(timeDateTime)
-		}
-		if let timePeriod = try Period(from: _container, forKeyIfPresent: .timePeriod) {
-			if _t_time != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timePeriod, in: _container, debugDescription: "More than one value provided for \"time\"")
-			}
-			_t_time = .period(timePeriod)
-		}
-		self.time = _t_time
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try additive?.encode(on: &_container, forKey: .additive)
-		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try procedure?.encode(on: &_container, forKey: .procedure)
-		if let _enum = time {
-			switch _enum {
-			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .timeDateTime, auxiliaryKey: ._timeDateTime)
-			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .timePeriod)
-			}
-		}
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? BiologicallyDerivedProductProcessing else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return additive == _other.additive
-		    && description_fhir == _other.description_fhir
-		    && procedure == _other.procedure
-		    && time == _other.time
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(additive)
-		hasher.combine(description_fhir)
-		hasher.combine(procedure)
-		hasher.combine(time)
-	}
-}
-
-/**
- Product storage.
- */
-open class BiologicallyDerivedProductStorage: BackboneElement {
-	
-	/// Description of storage
-	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
-	/// Storage temperature
-	public var temperature: FHIRPrimitive<FHIRDecimal>?
-	
-	/// Temperature scale used.
-	public var scale: FHIRPrimitive<BiologicallyDerivedProductStorageScale>?
-	
-	/// Storage timeperiod
-	public var duration: Period?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							duration: Period? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							scale: FHIRPrimitive<BiologicallyDerivedProductStorageScale>? = nil,
-							temperature: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
-		self.init()
-		self.description_fhir = description_fhir
-		self.duration = duration
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.scale = scale
-		self.temperature = temperature
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case description_fhir = "description"; case _description_fhir = "_description"
-		case duration
-		case scale; case _scale
-		case temperature; case _temperature
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.duration = try Period(from: _container, forKeyIfPresent: .duration)
-		self.scale = try FHIRPrimitive<BiologicallyDerivedProductStorageScale>(from: _container, forKeyIfPresent: .scale, auxiliaryKey: ._scale)
-		self.temperature = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .temperature, auxiliaryKey: ._temperature)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try duration?.encode(on: &_container, forKey: .duration)
-		try scale?.encode(on: &_container, forKey: .scale, auxiliaryKey: ._scale)
-		try temperature?.encode(on: &_container, forKey: .temperature, auxiliaryKey: ._temperature)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? BiologicallyDerivedProductStorage else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return description_fhir == _other.description_fhir
-		    && duration == _other.duration
-		    && scale == _other.scale
-		    && temperature == _other.temperature
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(description_fhir)
-		hasher.combine(duration)
-		hasher.combine(scale)
-		hasher.combine(temperature)
+		hasher.combine(type)
+		hasher.combine(value)
 	}
 }

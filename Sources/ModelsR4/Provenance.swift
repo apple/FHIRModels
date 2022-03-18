@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Provenance)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -81,25 +81,25 @@ open class Provenance: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							activity: CodeableConcept? = nil,
-							agent: [ProvenanceAgent],
-							contained: [ResourceProxy]? = nil,
-							entity: [ProvenanceEntity]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							occurred: OccurredX? = nil,
-							policy: [FHIRPrimitive<FHIRURI>]? = nil,
-							reason: [CodeableConcept]? = nil,
-							recorded: FHIRPrimitive<Instant>,
-							signature: [Signature]? = nil,
-							target: [Reference],
-							text: Narrative? = nil)
-	{
+		activity: CodeableConcept? = nil,
+		agent: [ProvenanceAgent],
+		contained: [ResourceProxy]? = nil,
+		entity: [ProvenanceEntity]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		occurred: OccurredX? = nil,
+		policy: [FHIRPrimitive<FHIRURI>]? = nil,
+		reason: [CodeableConcept]? = nil,
+		recorded: FHIRPrimitive<Instant>,
+		signature: [Signature]? = nil,
+		target: [Reference],
+		text: Narrative? = nil
+	) {
 		self.init(agent: agent, recorded: recorded, target: target)
 		self.activity = activity
 		self.contained = contained
@@ -254,14 +254,14 @@ open class ProvenanceAgent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onBehalfOf: Reference? = nil,
-							role: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil,
-							who: Reference)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onBehalfOf: Reference? = nil,
+		role: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil,
+		who: Reference
+	) {
 		self.init(who: who)
 		self.`extension` = `extension`
 		self.id = id
@@ -351,13 +351,13 @@ open class ProvenanceEntity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							agent: [ProvenanceAgent]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: FHIRPrimitive<ProvenanceEntityRole>,
-							what: Reference)
-	{
+		agent: [ProvenanceAgent]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: FHIRPrimitive<ProvenanceEntityRole>,
+		what: Reference
+	) {
 		self.init(role: role, what: what)
 		self.agent = agent
 		self.`extension` = `extension`

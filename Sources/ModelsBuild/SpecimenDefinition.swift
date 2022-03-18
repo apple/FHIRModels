@@ -2,8 +2,8 @@
 //  SpecimenDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -118,40 +118,40 @@ open class SpecimenDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							collection: [CodeableConcept]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							effectivePeriod: Period? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							patientPreparation: [CodeableConcept]? = nil,
-							publisher: Reference? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							text: Narrative? = nil,
-							timeAspect: FHIRPrimitive<FHIRString>? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							typeCollected: CodeableConcept? = nil,
-							typeTested: [SpecimenDefinitionTypeTested]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		collection: [CodeableConcept]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		effectivePeriod: Period? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		patientPreparation: [CodeableConcept]? = nil,
+		publisher: Reference? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: SubjectX? = nil,
+		text: Narrative? = nil,
+		timeAspect: FHIRPrimitive<FHIRString>? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		typeCollected: CodeableConcept? = nil,
+		typeTested: [SpecimenDefinitionTypeTested]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
 		self.collection = collection
@@ -415,20 +415,20 @@ open class SpecimenDefinitionTypeTested: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							container: SpecimenDefinitionTypeTestedContainer? = nil,
-							`extension`: [Extension]? = nil,
-							handling: [SpecimenDefinitionTypeTestedHandling]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isDerived: FHIRPrimitive<FHIRBool>? = nil,
-							modifierExtension: [Extension]? = nil,
-							preference: FHIRPrimitive<SpecimenContainedPreference>,
-							rejectionCriterion: [CodeableConcept]? = nil,
-							requirement: FHIRPrimitive<FHIRString>? = nil,
-							retentionTime: Duration? = nil,
-							singleUse: FHIRPrimitive<FHIRBool>? = nil,
-							testingDestination: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil)
-	{
+		container: SpecimenDefinitionTypeTestedContainer? = nil,
+		`extension`: [Extension]? = nil,
+		handling: [SpecimenDefinitionTypeTestedHandling]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isDerived: FHIRPrimitive<FHIRBool>? = nil,
+		modifierExtension: [Extension]? = nil,
+		preference: FHIRPrimitive<SpecimenContainedPreference>,
+		rejectionCriterion: [CodeableConcept]? = nil,
+		requirement: FHIRPrimitive<FHIRString>? = nil,
+		retentionTime: Duration? = nil,
+		singleUse: FHIRPrimitive<FHIRBool>? = nil,
+		testingDestination: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(preference: preference)
 		self.container = container
 		self.`extension` = `extension`
@@ -574,18 +574,18 @@ open class SpecimenDefinitionTypeTestedContainer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additive: [SpecimenDefinitionTypeTestedContainerAdditive]? = nil,
-							cap: CodeableConcept? = nil,
-							capacity: Quantity? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							material: CodeableConcept? = nil,
-							minimumVolume: MinimumVolumeX? = nil,
-							modifierExtension: [Extension]? = nil,
-							preparation: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		additive: [SpecimenDefinitionTypeTestedContainerAdditive]? = nil,
+		cap: CodeableConcept? = nil,
+		capacity: Quantity? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		material: CodeableConcept? = nil,
+		minimumVolume: MinimumVolumeX? = nil,
+		modifierExtension: [Extension]? = nil,
+		preparation: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.additive = additive
 		self.cap = cap
@@ -724,11 +724,11 @@ open class SpecimenDefinitionTypeTestedContainerAdditive: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							additive: AdditiveX,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		additive: AdditiveX,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(additive: additive)
 		self.`extension` = `extension`
 		self.id = id
@@ -830,14 +830,14 @@ open class SpecimenDefinitionTypeTestedHandling: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instruction: FHIRPrimitive<FHIRString>? = nil,
-							maxDuration: Duration? = nil,
-							modifierExtension: [Extension]? = nil,
-							temperatureQualifier: CodeableConcept? = nil,
-							temperatureRange: Range? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instruction: FHIRPrimitive<FHIRString>? = nil,
+		maxDuration: Duration? = nil,
+		modifierExtension: [Extension]? = nil,
+		temperatureQualifier: CodeableConcept? = nil,
+		temperatureRange: Range? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

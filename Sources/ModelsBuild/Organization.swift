@@ -2,8 +2,8 @@
 //  Organization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Organization)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Organization)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,17 +45,17 @@ open class Organization: DomainResource {
 	/// A list of alternate names that the organization is known as, or was known as in the past
 	public var alias: [FHIRPrimitive<FHIRString>]?
 	
-	/// A contact detail for the organization
+	/// Official contact details for the Organization
+	public var contact: [ExtendedContactDetail]?
+	
+	/// Deprecated - use contact.telecom
 	public var telecom: [ContactPoint]?
 	
-	/// An address for the organization
+	/// Deprecated - use contact.address
 	public var address: [Address]?
 	
 	/// The organization of which this organization forms a part
 	public var partOf: Reference?
-	
-	/// Contact for the organization for a certain purpose
-	public var contact: [OrganizationContact]?
 	
 	/// Technical endpoints providing access to services operated for the organization
 	public var endpoint: [Reference]?
@@ -67,25 +67,25 @@ open class Organization: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							active: FHIRPrimitive<FHIRBool>? = nil,
-							address: [Address]? = nil,
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							contact: [OrganizationContact]? = nil,
-							contained: [ResourceProxy]? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							partOf: Reference? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		active: FHIRPrimitive<FHIRBool>? = nil,
+		address: [Address]? = nil,
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		contact: [ExtendedContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		partOf: Reference? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.active = active
 		self.address = address
@@ -130,7 +130,7 @@ open class Organization: DomainResource {
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.address = try [Address](from: _container, forKeyIfPresent: .address)
 		self.alias = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .alias, auxiliaryKey: ._alias)
-		self.contact = try [OrganizationContact](from: _container, forKeyIfPresent: .contact)
+		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
@@ -191,104 +191,5 @@ open class Organization: DomainResource {
 		hasher.combine(partOf)
 		hasher.combine(telecom)
 		hasher.combine(type)
-	}
-}
-
-/**
- Contact for the organization for a certain purpose.
- */
-open class OrganizationContact: BackboneElement {
-	
-	/// The type of contact
-	public var purpose: CodeableConcept?
-	
-	/// A name associated with the contact
-	public var name: HumanName?
-	
-	/// Contact details (telephone, email, etc.)  for a contact
-	public var telecom: [ContactPoint]?
-	
-	/// Visiting or postal addresses for the contact
-	public var address: Address?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							address: Address? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: HumanName? = nil,
-							purpose: CodeableConcept? = nil,
-							telecom: [ContactPoint]? = nil)
-	{
-		self.init()
-		self.address = address
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.name = name
-		self.purpose = purpose
-		self.telecom = telecom
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case address
-		case name
-		case purpose
-		case telecom
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.address = try Address(from: _container, forKeyIfPresent: .address)
-		self.name = try HumanName(from: _container, forKeyIfPresent: .name)
-		self.purpose = try CodeableConcept(from: _container, forKeyIfPresent: .purpose)
-		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try address?.encode(on: &_container, forKey: .address)
-		try name?.encode(on: &_container, forKey: .name)
-		try purpose?.encode(on: &_container, forKey: .purpose)
-		try telecom?.encode(on: &_container, forKey: .telecom)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? OrganizationContact else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return address == _other.address
-		    && name == _other.name
-		    && purpose == _other.purpose
-		    && telecom == _other.telecom
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(address)
-		hasher.combine(name)
-		hasher.combine(purpose)
-		hasher.combine(telecom)
 	}
 }

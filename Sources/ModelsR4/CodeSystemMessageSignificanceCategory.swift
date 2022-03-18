@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ public enum MessageSignificanceCategory: String, FHIRPrimitiveType {
 	
 	/// The message represents/requests a change that should not be processed more than once; e.g., making a booking for
 	/// an appointment.
-	case consequence = "consequence"
+	case consequence
 	
 	/// The message represents a response to query for current information. Retrospective processing is wrong and/or
 	/// wasteful.
-	case currency = "currency"
+	case currency
 	
 	/// The content is not necessarily intended to be current, and it can be reprocessed, though there may be version
 	/// issues created by processing old notifications.
-	case notification = "notification"
+	case notification
 }

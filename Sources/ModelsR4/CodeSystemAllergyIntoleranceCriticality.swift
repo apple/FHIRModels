@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ public enum AllergyIntoleranceCriticality: String, FHIRPrimitiveType {
 	
 	/// Worst case result of a future exposure is not assessed to be life-threatening or having high potential for organ
 	/// system failure.
-	case low = "low"
+	case low
 	
 	/// Worst case result of a future exposure is assessed to be life-threatening or having high potential for organ
 	/// system failure.
-	case high = "high"
+	case high
 	
 	/// Unable to assess the worst case result of a future exposure.
 	case unableToAssess = "unable-to-assess"

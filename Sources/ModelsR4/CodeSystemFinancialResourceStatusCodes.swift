@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import FMCore
 public enum FinancialResourceStatusCodes: String, FHIRPrimitiveType {
 	
 	/// The instance is currently in-force.
-	case active = "active"
+	case active
 	
 	/// The instance is withdrawn, rescinded or reversed.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// A new instance the contents of which is not complete.
-	case draft = "draft"
+	case draft
 	
 	/// The instance was entered in error.
 	case enteredInError = "entered-in-error"

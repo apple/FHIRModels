@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,74 +28,74 @@ import FMCore
 public enum HL7Workgroup: String, FHIRPrimitiveType {
 	
 	/// Community Based Collaborative Care (http://www.hl7.org/Special/committees/cbcc/index.cfm).
-	case cbcc = "cbcc"
+	case cbcc
 	
 	/// Clinical Decision Support (http://www.hl7.org/Special/committees/dss/index.cfm).
-	case cds = "cds"
+	case cds
 	
 	/// Clinical Quality Information (http://www.hl7.org/Special/committees/cqi/index.cfm).
-	case cqi = "cqi"
+	case cqi
 	
 	/// Clinical Genomics (http://www.hl7.org/Special/committees/clingenomics/index.cfm).
-	case cg = "cg"
+	case cg
 	
 	/// Health Care Devices (http://www.hl7.org/Special/committees/healthcaredevices/index.cfm).
-	case dev = "dev"
+	case dev
 	
 	/// Electronic Health Records (http://www.hl7.org/special/committees/ehr/index.cfm).
-	case ehr = "ehr"
+	case ehr
 	
 	/// FHIR Infrastructure (http://www.hl7.org/Special/committees/fiwg/index.cfm).
-	case fhir = "fhir"
+	case fhir
 	
 	/// Financial Management (http://www.hl7.org/Special/committees/fm/index.cfm).
-	case fm = "fm"
+	case fm
 	
 	/// Health Standards Integration (http://www.hl7.org/Special/committees/hsi/index.cfm).
-	case hsi = "hsi"
+	case hsi
 	
 	/// Imaging Integration (http://www.hl7.org/Special/committees/imagemgt/index.cfm).
-	case ii = "ii"
+	case ii
 	
 	/// Infrastructure And Messaging (http://www.hl7.org/special/committees/inm/index.cfm).
-	case inm = "inm"
+	case inm
 	
 	/// Implementable Technology Specifications (http://www.hl7.org/special/committees/xml/index.cfm).
-	case its = "its"
+	case its
 	
 	/// Modeling and Methodology (http://www.hl7.org/Special/committees/mnm/index.cfm).
-	case mnm = "mnm"
+	case mnm
 	
 	/// Orders and Observations (http://www.hl7.org/Special/committees/orders/index.cfm).
-	case oo = "oo"
+	case oo
 	
 	/// Patient Administration (http://www.hl7.org/Special/committees/pafm/index.cfm).
-	case pa = "pa"
+	case pa
 	
 	/// Patient Care (http://www.hl7.org/Special/committees/patientcare/index.cfm).
-	case pc = "pc"
+	case pc
 	
 	/// Public Health and Emergency Response (http://www.hl7.org/Special/committees/pher/index.cfm).
-	case pher = "pher"
+	case pher
 	
 	/// Pharmacy (http://www.hl7.org/Special/committees/medication/index.cfm).
-	case phx = "phx"
+	case phx
 	
 	/// Biomedical Research and Regulation (http://www.hl7.org/Special/committees/rcrim/index.cfm).
-	case brr = "brr"
+	case brr
 	
 	/// Structured Documents (http://www.hl7.org/Special/committees/structure/index.cfm).
-	case sd = "sd"
+	case sd
 	
 	/// Security (http://www.hl7.org/Special/committees/secure/index.cfm).
-	case sec = "sec"
+	case sec
 	
 	/// US Realm Taskforce (http://www.hl7.org/Special/committees/usrealm/index.cfm).
-	case us = "us"
+	case us
 	
 	/// Vocabulary (http://www.hl7.org/Special/committees/Vocab/index.cfm).
-	case vocab = "vocab"
+	case vocab
 	
 	/// Application Implementation and Design (http://www.hl7.org/Special/committees/java/index.cfm).
-	case aid = "aid"
+	case aid
 }

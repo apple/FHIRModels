@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,13 +34,13 @@ public enum StandardsStatus: String, FHIRPrimitiveType {
 	/// level should only be implemented by the brave or desperate and is very much "use at your own risk". The content
 	/// that is Draft that will usually be elevated to Trial Use once review and correction is complete after it has
 	/// been subjected to ballot.
-	case draft = "draft"
+	case draft
 	
 	/// This content has been subject to review and production implementation in a wide variety of environments. The
 	/// content is considered to be stable and has been 'locked', subjecting it to FHIR Inter-version Compatibility
 	/// Rules. While changes are possible, they are expected to be infrequent and are tightly constrained. Compatibility
 	/// Rules.
-	case normative = "normative"
+	case normative
 	
 	/// This content has been well reviewed and is considered by the authors to be ready for use in production systems.
 	/// It has been subjected to ballot and approved as an official standard. However, it has not yet seen widespread
@@ -54,13 +54,13 @@ public enum StandardsStatus: String, FHIRPrimitiveType {
 	/// This portion of the specification is provided for implementer assistance, and does not make rules that
 	/// implementers are required to follow. Typical examples of this content in the FHIR specification are tables of
 	/// contents, registries, examples, and implementer advice.
-	case informative = "informative"
+	case informative
 	
 	/// This portion of the specification is provided for implementer assistance, and does not make rules that
 	/// implementers are required to follow. Typical examples of this content in the FHIR specification are tables of
 	/// contents, registries, examples, and implementer advice.
-	case deprecated = "deprecated"
+	case deprecated
 	
 	/// This is content that is managed outside the FHIR Specification, but included for implementer convenience.
-	case external = "external"
+	case external
 }

@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/AppointmentResponse)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -62,23 +62,23 @@ open class AppointmentResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference? = nil,
-							appointment: Reference,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							end: FHIRPrimitive<Instant>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							participantStatus: FHIRPrimitive<ParticipationStatus>,
-							participantType: [CodeableConcept]? = nil,
-							start: FHIRPrimitive<Instant>? = nil,
-							text: Narrative? = nil)
-	{
+		actor: Reference? = nil,
+		appointment: Reference,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		contained: [ResourceProxy]? = nil,
+		end: FHIRPrimitive<Instant>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		participantStatus: FHIRPrimitive<ParticipationStatus>,
+		participantType: [CodeableConcept]? = nil,
+		start: FHIRPrimitive<Instant>? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(appointment: appointment, participantStatus: participantStatus)
 		self.actor = actor
 		self.comment = comment

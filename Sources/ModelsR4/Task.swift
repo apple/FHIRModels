@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Task)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -128,46 +128,46 @@ open class Task: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							basedOn: [Reference]? = nil,
-							businessStatus: CodeableConcept? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							encounter: Reference? = nil,
-							executionPeriod: Period? = nil,
-							`extension`: [Extension]? = nil,
-							focus: Reference? = nil,
-							`for`: Reference? = nil,
-							groupIdentifier: Identifier? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							input: [TaskInput]? = nil,
-							instantiatesCanonical: FHIRPrimitive<Canonical>? = nil,
-							instantiatesUri: FHIRPrimitive<FHIRURI>? = nil,
-							insurance: [Reference]? = nil,
-							intent: FHIRPrimitive<FHIRString>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastModified: FHIRPrimitive<DateTime>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							output: [TaskOutput]? = nil,
-							owner: Reference? = nil,
-							partOf: [Reference]? = nil,
-							performerType: [CodeableConcept]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							reasonCode: CodeableConcept? = nil,
-							reasonReference: Reference? = nil,
-							relevantHistory: [Reference]? = nil,
-							requester: Reference? = nil,
-							restriction: TaskRestriction? = nil,
-							status: FHIRPrimitive<TaskStatus>,
-							statusReason: CodeableConcept? = nil,
-							text: Narrative? = nil)
-	{
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		businessStatus: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
+		executionPeriod: Period? = nil,
+		`extension`: [Extension]? = nil,
+		focus: Reference? = nil,
+		`for`: Reference? = nil,
+		groupIdentifier: Identifier? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		input: [TaskInput]? = nil,
+		instantiatesCanonical: FHIRPrimitive<Canonical>? = nil,
+		instantiatesUri: FHIRPrimitive<FHIRURI>? = nil,
+		insurance: [Reference]? = nil,
+		intent: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastModified: FHIRPrimitive<DateTime>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		output: [TaskOutput]? = nil,
+		owner: Reference? = nil,
+		partOf: [Reference]? = nil,
+		performerType: [CodeableConcept]? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		reasonCode: CodeableConcept? = nil,
+		reasonReference: Reference? = nil,
+		relevantHistory: [Reference]? = nil,
+		requester: Reference? = nil,
+		restriction: TaskRestriction? = nil,
+		status: FHIRPrimitive<TaskStatus>,
+		statusReason: CodeableConcept? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(intent: intent, status: status)
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
@@ -477,12 +477,12 @@ open class TaskInput: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX
+	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -1071,12 +1071,12 @@ open class TaskOutput: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX
+	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -1612,13 +1612,13 @@ open class TaskRestriction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period? = nil,
-							recipient: [Reference]? = nil,
-							repetitions: FHIRPrimitive<FHIRPositiveInteger>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
+		recipient: [Reference]? = nil,
+		repetitions: FHIRPrimitive<FHIRPositiveInteger>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

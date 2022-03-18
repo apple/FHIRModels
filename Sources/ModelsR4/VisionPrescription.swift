@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/VisionPrescription)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -65,23 +65,23 @@ open class VisionPrescription: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>,
-							dateWritten: FHIRPrimitive<DateTime>,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lensSpecification: [VisionPrescriptionLensSpecification],
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							patient: Reference,
-							prescriber: Reference,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>,
+		dateWritten: FHIRPrimitive<DateTime>,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lensSpecification: [VisionPrescriptionLensSpecification],
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		patient: Reference,
+		prescriber: Reference,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		text: Narrative? = nil
+	) {
 		self.init(created: created, dateWritten: dateWritten, lensSpecification: lensSpecification, patient: patient, prescriber: prescriber, status: status)
 		self.contained = contained
 		self.encounter = encounter
@@ -231,24 +231,24 @@ open class VisionPrescriptionLensSpecification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							add: FHIRPrimitive<FHIRDecimal>? = nil,
-							axis: FHIRPrimitive<FHIRInteger>? = nil,
-							backCurve: FHIRPrimitive<FHIRDecimal>? = nil,
-							brand: FHIRPrimitive<FHIRString>? = nil,
-							color: FHIRPrimitive<FHIRString>? = nil,
-							cylinder: FHIRPrimitive<FHIRDecimal>? = nil,
-							diameter: FHIRPrimitive<FHIRDecimal>? = nil,
-							duration: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							eye: FHIRPrimitive<VisionEyes>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							power: FHIRPrimitive<FHIRDecimal>? = nil,
-							prism: [VisionPrescriptionLensSpecificationPrism]? = nil,
-							product: CodeableConcept,
-							sphere: FHIRPrimitive<FHIRDecimal>? = nil)
-	{
+		add: FHIRPrimitive<FHIRDecimal>? = nil,
+		axis: FHIRPrimitive<FHIRInteger>? = nil,
+		backCurve: FHIRPrimitive<FHIRDecimal>? = nil,
+		brand: FHIRPrimitive<FHIRString>? = nil,
+		color: FHIRPrimitive<FHIRString>? = nil,
+		cylinder: FHIRPrimitive<FHIRDecimal>? = nil,
+		diameter: FHIRPrimitive<FHIRDecimal>? = nil,
+		duration: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		eye: FHIRPrimitive<VisionEyes>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		power: FHIRPrimitive<FHIRDecimal>? = nil,
+		prism: [VisionPrescriptionLensSpecificationPrism]? = nil,
+		product: CodeableConcept,
+		sphere: FHIRPrimitive<FHIRDecimal>? = nil
+	) {
 		self.init(eye: eye, product: product)
 		self.add = add
 		self.axis = axis
@@ -396,12 +396,12 @@ open class VisionPrescriptionLensSpecificationPrism: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: FHIRPrimitive<FHIRDecimal>,
-							base: FHIRPrimitive<VisionBase>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		amount: FHIRPrimitive<FHIRDecimal>,
+		base: FHIRPrimitive<VisionBase>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(amount: amount, base: base)
 		self.`extension` = `extension`
 		self.id = id

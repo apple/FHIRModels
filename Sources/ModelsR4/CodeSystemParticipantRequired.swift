@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import FMCore
 public enum ParticipantRequired: String, FHIRPrimitiveType {
 	
 	/// The participant is required to attend the appointment.
-	case required = "required"
+	case required
 	
 	/// The participant may optionally attend the appointment.
-	case optional = "optional"
+	case optional
 	
 	/// The participant is excluded from the appointment, and might not be informed of the appointment taking place.
 	/// (Appointment is about them, not for them - such as 2 doctors discussing results about a patient's test).

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public enum ExpansionProcessingRule: String, FHIRPrimitiveType {
 	case allCodes = "all-codes"
 	
 	/// The expanion (when in UI mode) lists the groups, and then any codes that have not been included in a group.
-	case ungrouped = "ungrouped"
+	case ungrouped
 	
 	/// The expansion (when in UI mode) only includes the defined groups.
 	case groupsOnly = "groups-only"

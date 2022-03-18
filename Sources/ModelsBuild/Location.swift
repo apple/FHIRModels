@@ -2,8 +2,8 @@
 //  Location.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Location)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Location)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -55,7 +55,10 @@ open class Location: DomainResource {
 	/// Type of function performed
 	public var type: [CodeableConcept]?
 	
-	/// Contact details of the location
+	/// Official contact details for the location
+	public var contact: [ExtendedContactDetail]?
+	
+	/// Deprecated - use contact.telecom
 	public var telecom: [ContactPoint]?
 	
 	/// Physical location
@@ -89,36 +92,38 @@ open class Location: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: Address? = nil,
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							endpoint: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							hoursOfOperation: [LocationHoursOfOperation]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							mode: FHIRPrimitive<LocationMode>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							operationalStatus: Coding? = nil,
-							partOf: Reference? = nil,
-							physicalType: CodeableConcept? = nil,
-							position: LocationPosition? = nil,
-							status: FHIRPrimitive<LocationStatus>? = nil,
-							telecom: [ContactPoint]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		address: Address? = nil,
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
+		contact: [ExtendedContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		endpoint: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		hoursOfOperation: [LocationHoursOfOperation]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		mode: FHIRPrimitive<LocationMode>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		operationalStatus: Coding? = nil,
+		partOf: Reference? = nil,
+		physicalType: CodeableConcept? = nil,
+		position: LocationPosition? = nil,
+		status: FHIRPrimitive<LocationStatus>? = nil,
+		telecom: [ContactPoint]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
 		self.address = address
 		self.alias = alias
 		self.availabilityExceptions = availabilityExceptions
+		self.contact = contact
 		self.contained = contained
 		self.description_fhir = description_fhir
 		self.endpoint = endpoint
@@ -149,6 +154,7 @@ open class Location: DomainResource {
 		case address
 		case alias; case _alias
 		case availabilityExceptions; case _availabilityExceptions
+		case contact
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case endpoint
 		case hoursOfOperation
@@ -173,6 +179,7 @@ open class Location: DomainResource {
 		self.address = try Address(from: _container, forKeyIfPresent: .address)
 		self.alias = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .alias, auxiliaryKey: ._alias)
 		self.availabilityExceptions = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .availabilityExceptions, auxiliaryKey: ._availabilityExceptions)
+		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.hoursOfOperation = try [LocationHoursOfOperation](from: _container, forKeyIfPresent: .hoursOfOperation)
@@ -198,6 +205,7 @@ open class Location: DomainResource {
 		try address?.encode(on: &_container, forKey: .address)
 		try alias?.encode(on: &_container, forKey: .alias, auxiliaryKey: ._alias)
 		try availabilityExceptions?.encode(on: &_container, forKey: .availabilityExceptions, auxiliaryKey: ._availabilityExceptions)
+		try contact?.encode(on: &_container, forKey: .contact)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try endpoint?.encode(on: &_container, forKey: .endpoint)
 		try hoursOfOperation?.encode(on: &_container, forKey: .hoursOfOperation)
@@ -227,6 +235,7 @@ open class Location: DomainResource {
 		return address == _other.address
 		    && alias == _other.alias
 		    && availabilityExceptions == _other.availabilityExceptions
+		    && contact == _other.contact
 		    && description_fhir == _other.description_fhir
 		    && endpoint == _other.endpoint
 		    && hoursOfOperation == _other.hoursOfOperation
@@ -248,6 +257,7 @@ open class Location: DomainResource {
 		hasher.combine(address)
 		hasher.combine(alias)
 		hasher.combine(availabilityExceptions)
+		hasher.combine(contact)
 		hasher.combine(description_fhir)
 		hasher.combine(endpoint)
 		hasher.combine(hoursOfOperation)
@@ -273,7 +283,7 @@ open class LocationHoursOfOperation: BackboneElement {
 	/// Indicates which days of the week are available between the start and end Times.
 	public var daysOfWeek: [FHIRPrimitive<DaysOfWeek>]?
 	
-	/// The Location is open all day
+	/// Always available? i.e. 24 hour service
 	public var allDay: FHIRPrimitive<FHIRBool>?
 	
 	/// Time that the Location opens
@@ -289,14 +299,14 @@ open class LocationHoursOfOperation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allDay: FHIRPrimitive<FHIRBool>? = nil,
-							closingTime: FHIRPrimitive<FHIRTime>? = nil,
-							daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							openingTime: FHIRPrimitive<FHIRTime>? = nil)
-	{
+		allDay: FHIRPrimitive<FHIRBool>? = nil,
+		closingTime: FHIRPrimitive<FHIRTime>? = nil,
+		daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		openingTime: FHIRPrimitive<FHIRTime>? = nil
+	) {
 		self.init()
 		self.allDay = allDay
 		self.closingTime = closingTime
@@ -390,13 +400,13 @@ open class LocationPosition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							altitude: FHIRPrimitive<FHIRDecimal>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							latitude: FHIRPrimitive<FHIRDecimal>,
-							longitude: FHIRPrimitive<FHIRDecimal>,
-							modifierExtension: [Extension]? = nil)
-	{
+		altitude: FHIRPrimitive<FHIRDecimal>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		latitude: FHIRPrimitive<FHIRDecimal>,
+		longitude: FHIRPrimitive<FHIRDecimal>,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(latitude: latitude, longitude: longitude)
 		self.altitude = altitude
 		self.`extension` = `extension`

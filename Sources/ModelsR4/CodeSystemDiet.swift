@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import FMCore
 public enum Diet: String, FHIRPrimitiveType {
 	
 	/// Food without meat, poultry or seafood.
-	case vegetarian = "vegetarian"
+	case vegetarian
 	
 	/// Excludes dairy products.
 	case dairyFree = "dairy-free"
@@ -41,11 +41,11 @@ public enum Diet: String, FHIRPrimitiveType {
 	case glutenFree = "gluten-free"
 	
 	/// Food without meat, poultry, seafood, eggs, dairy products and other animal-derived substances.
-	case vegan = "vegan"
+	case vegan
 	
 	/// Foods that conform to Islamic law.
-	case halal = "halal"
+	case halal
 	
 	/// Foods that conform to Jewish dietary law.
-	case kosher = "kosher"
+	case kosher
 }

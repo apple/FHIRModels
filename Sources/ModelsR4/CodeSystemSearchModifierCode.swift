@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,26 +28,26 @@ import FMCore
 public enum SearchModifierCode: String, FHIRPrimitiveType {
 	
 	/// The search parameter returns resources that have a value or not.
-	case missing = "missing"
+	case missing
 	
 	/// The search parameter returns resources that have a value that exactly matches the supplied parameter (the whole
 	/// string, including casing and accents).
-	case exact = "exact"
+	case exact
 	
 	/// The search parameter returns resources that include the supplied parameter value anywhere within the field being
 	/// searched.
-	case contains = "contains"
+	case contains
 	
 	/// The search parameter returns resources that do not contain a match.
-	case not = "not"
+	case not
 	
 	/// The search parameter is processed as a string that searches text associated with the code/value - either
 	/// CodeableConcept.text, Coding.display, or Identifier.type.text.
-	case text = "text"
+	case text
 	
 	/// The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests
 	/// whether the coding is in the specified value set.
-	case `in` = "in"
+	case `in`
 	
 	/// The search parameter is a URI (relative or absolute) that identifies a value set, and the search parameter tests
 	/// whether the coding is not in the specified value set.
@@ -55,20 +55,20 @@ public enum SearchModifierCode: String, FHIRPrimitiveType {
 	
 	/// The search parameter tests whether the value in a resource is subsumed by the specified value (is-a, or
 	/// hierarchical relationships).
-	case below = "below"
+	case below
 	
 	/// The search parameter tests whether the value in a resource subsumes the specified value (is-a, or hierarchical
 	/// relationships).
-	case above = "above"
+	case above
 	
 	/// The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not
 	/// actually :type, but :Patient etc.).
-	case type = "type"
+	case type
 	
 	/// The search parameter applies to the identifier on the resource, not the reference.
-	case identifier = "identifier"
+	case identifier
 	
 	/// The search parameter has the format system|code|value, where the system and code refer to an
 	/// Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.
-	case ofType = "ofType"
+	case ofType
 }

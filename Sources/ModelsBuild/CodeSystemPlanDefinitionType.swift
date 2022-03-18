@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,13 +27,6 @@ import FMCore
  */
 public enum PlanDefinitionType: String, FHIRPrimitiveType {
 	
-	/// A pre-defined and approved group of orders related to a particular clinical condition (e.g. hypertension
-	/// treatment and monitoring) or stage of care (e.g. hospital admission to Coronary Care Unit). An order set is used
-	/// as a checklist for the clinician when managing a patient with a specific condition. It is a structured
-	/// collection of orders relevant to that condition and presented to the clinician in a computerized provider order
-	/// entry (CPOE) system.
-	case orderSet = "order-set"
-	
 	/// Defines a desired/typical sequence of clinical activities including preconditions, triggers and temporal
 	/// relationships.
 	case clinicalProtocol = "clinical-protocol"
@@ -42,6 +35,13 @@ public enum PlanDefinitionType: String, FHIRPrimitiveType {
 	/// computable definition of actions that should be taken whenever some condition is met in response to a particular
 	/// event or events.
 	case ecaRule = "eca-rule"
+	
+	/// A pre-defined and approved group of orders related to a particular clinical condition (e.g. hypertension
+	/// treatment and monitoring) or stage of care (e.g. hospital admission to Coronary Care Unit). An order set is used
+	/// as a checklist for the clinician when managing a patient with a specific condition. It is a structured
+	/// collection of orders relevant to that condition and presented to the clinician in a computerized provider order
+	/// entry (CPOE) system.
+	case orderSet = "order-set"
 	
 	/// Defines the steps for a group of one or more systems in an event flow process along with the step constraints,
 	/// sequence, pre-conditions and decision points to complete a particular objective.

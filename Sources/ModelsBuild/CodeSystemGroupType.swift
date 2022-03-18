@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,21 +27,21 @@ import FMCore
  */
 public enum GroupType: String, FHIRPrimitiveType {
 	
-	/// Group contains "person" Patient resources.
-	case person = "person"
-	
 	/// Group contains "animal" Patient resources.
-	case animal = "animal"
-	
-	/// Group contains healthcare practitioner resources (Practitioner or PractitionerRole).
-	case practitioner = "practitioner"
+	case animal
 	
 	/// Group contains Device resources.
-	case device = "device"
+	case device
 	
 	/// Group contains Medication resources.
-	case medication = "medication"
+	case medication
+	
+	/// Group contains "person" Patient resources.
+	case person
+	
+	/// Group contains healthcare practitioner resources (Practitioner or PractitionerRole).
+	case practitioner
 	
 	/// Group contains Substance resources.
-	case substance = "substance"
+	case substance
 }

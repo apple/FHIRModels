@@ -2,8 +2,8 @@
 //  NutritionIntake.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/NutritionIntake)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/NutritionIntake)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,9 +60,8 @@ open class NutritionIntake: DomainResource {
 	/// Part of referenced event
 	public var partOf: [Reference]?
 	
-	/// A code representing the patient or other source's judgment about the state of the intake that this assertion is
-	/// about.  Generally, this will be active or completed.
-	public var status: FHIRPrimitive<EventStatus>
+	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: [CodeableConcept]?
@@ -109,7 +108,7 @@ open class NutritionIntake: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(consumedItem: [NutritionIntakeConsumedItem], status: FHIRPrimitive<EventStatus>, subject: Reference) {
+	public init(consumedItem: [NutritionIntakeConsumedItem], status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.consumedItem = consumedItem
 		self.status = status
 		self.subject = subject
@@ -118,35 +117,35 @@ open class NutritionIntake: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							consumedItem: [NutritionIntakeConsumedItem],
-							contained: [ResourceProxy]? = nil,
-							derivedFrom: [Reference]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredientLabel: [NutritionIntakeIngredientLabel]? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							partOf: [Reference]? = nil,
-							performer: [NutritionIntakePerformer]? = nil,
-							reason: [CodeableReference]? = nil,
-							recorded: FHIRPrimitive<DateTime>? = nil,
-							reported: ReportedX? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: [CodeableConcept]? = nil,
-							subject: Reference,
-							text: Narrative? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		consumedItem: [NutritionIntakeConsumedItem],
+		contained: [ResourceProxy]? = nil,
+		derivedFrom: [Reference]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredientLabel: [NutritionIntakeIngredientLabel]? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		partOf: [Reference]? = nil,
+		performer: [NutritionIntakePerformer]? = nil,
+		reason: [CodeableReference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		reported: ReportedX? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: [CodeableConcept]? = nil,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(consumedItem: consumedItem, status: status, subject: subject)
 		self.basedOn = basedOn
 		self.code = code
@@ -250,7 +249,7 @@ open class NutritionIntake: DomainResource {
 			_t_reported = .reference(reportedReference)
 		}
 		self.reported = _t_reported
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		try super.init(from: decoder)
@@ -389,17 +388,17 @@ open class NutritionIntakeConsumedItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Quantity? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							notConsumed: FHIRPrimitive<FHIRBool>? = nil,
-							notConsumedReason: CodeableConcept? = nil,
-							nutritionProduct: CodeableReference,
-							rate: Quantity? = nil,
-							schedule: Timing? = nil,
-							type: CodeableConcept)
-	{
+		amount: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		notConsumed: FHIRPrimitive<FHIRBool>? = nil,
+		notConsumedReason: CodeableConcept? = nil,
+		nutritionProduct: CodeableReference,
+		rate: Quantity? = nil,
+		schedule: Timing? = nil,
+		type: CodeableConcept
+	) {
 		self.init(nutritionProduct: nutritionProduct, type: type)
 		self.amount = amount
 		self.`extension` = `extension`
@@ -505,12 +504,12 @@ open class NutritionIntakeIngredientLabel: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Quantity,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							nutrient: CodeableReference)
-	{
+		amount: Quantity,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		nutrient: CodeableReference
+	) {
 		self.init(amount: amount, nutrient: nutrient)
 		self.`extension` = `extension`
 		self.id = id
@@ -585,12 +584,12 @@ open class NutritionIntakePerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum TestReportResult: String, FHIRPrimitiveType {
 	
 	/// All test operations successfully passed all asserts.
-	case pass = "pass"
+	case pass
 	
 	/// One or more test operations failed one or more asserts.
-	case fail = "fail"
+	case fail
 	
 	/// One or more test operations is pending execution completion.
-	case pending = "pending"
+	case pending
 }

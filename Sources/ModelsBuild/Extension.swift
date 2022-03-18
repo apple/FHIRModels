@@ -2,8 +2,8 @@
 //  Extension.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Extension)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Extension)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ open class Extension: DataType {
 		case canonical(FHIRPrimitive<Canonical>)
 		case code(FHIRPrimitive<FHIRString>)
 		case codeableConcept(CodeableConcept)
+		case codeableReference(CodeableReference)
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
@@ -66,6 +67,7 @@ open class Extension: DataType {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case ratioRange(RatioRange)
 		case reference(Reference)
 		case relatedArtifact(RelatedArtifact)
 		case sampledData(SampledData)
@@ -96,11 +98,11 @@ open class Extension: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>,
+		value: ValueX? = nil
+	) {
 		self.init(url: url)
 		self.`extension` = `extension`
 		self.id = id
@@ -120,6 +122,7 @@ open class Extension: DataType {
 		case valueCanonical; case _valueCanonical
 		case valueCode; case _valueCode
 		case valueCodeableConcept
+		case valueCodeableReference
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
@@ -149,6 +152,7 @@ open class Extension: DataType {
 		case valueQuantity
 		case valueRange
 		case valueRatio
+		case valueRatioRange
 		case valueReference
 		case valueRelatedArtifact
 		case valueSampledData
@@ -321,6 +325,12 @@ open class Extension: DataType {
 			}
 			_t_value = .codeableConcept(valueCodeableConcept)
 		}
+		if let valueCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .valueCodeableReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableReference(valueCodeableReference)
+		}
 		if let valueCoding = try Coding(from: _container, forKeyIfPresent: .valueCoding) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueCoding, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -392,6 +402,12 @@ open class Extension: DataType {
 				throw DecodingError.dataCorruptedError(forKey: .valueRatio, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .ratio(valueRatio)
+		}
+		if let valueRatioRange = try RatioRange(from: _container, forKeyIfPresent: .valueRatioRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRatioRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .ratioRange(valueRatioRange)
 		}
 		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
 			if _t_value != nil {
@@ -539,6 +555,8 @@ open class Extension: DataType {
 				try _value.encode(on: &_container, forKey: .valueAttachment)
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .codeableReference(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableReference)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .valueCoding)
 			case .contactPoint(let _value):
@@ -563,6 +581,8 @@ open class Extension: DataType {
 				try _value.encode(on: &_container, forKey: .valueRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .valueRatio)
+			case .ratioRange(let _value):
+				try _value.encode(on: &_container, forKey: .valueRatioRange)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .valueReference)
 			case .sampledData(let _value):

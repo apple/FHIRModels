@@ -2,8 +2,8 @@
 //  Procedure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Procedure)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Procedure)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,12 @@
 import FMCore
 
 /**
- An action that is being or was performed on a patient.
+ An action that is being or was performed on an individual or entity.
  
- An action that is or was performed on or for a patient. This can be a physical intervention like an operation, or less
- invasive like long term services, counseling, or hypnotherapy.
+ An action that is or was performed on or for a patient, practitioner, device, organization, or location. For example,
+ this can be a physical intervention on a patient like an operation, or less invasive like long term services,
+ counseling, or hypnotherapy.  This can be a quality or safety inspection for a location, organization, or device.  This
+ can be an accreditation procedure on a practitioner for licensing.
  */
 open class Procedure: DomainResource {
 	
@@ -60,8 +62,8 @@ open class Procedure: DomainResource {
 	/// Part of referenced event
 	public var partOf: [Reference]?
 	
-	/// A code specifying the state of the procedure. Generally, this will be the in-progress or completed state.
-	public var status: FHIRPrimitive<EventStatus>
+	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -72,7 +74,7 @@ open class Procedure: DomainResource {
 	/// Identification of the procedure
 	public var code: CodeableConcept?
 	
-	/// Who the procedure was performed on
+	/// Individual or entity the procedure was performed on
 	public var subject: Reference
 	
 	/// The Encounter during which this Procedure was created
@@ -128,8 +130,11 @@ open class Procedure: DomainResource {
 	/// Items used during procedure
 	public var used: [CodeableReference]?
 	
+	/// Extra information relevant to the procedure
+	public var supportingInfo: [Reference]?
+	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<EventStatus>, subject: Reference) {
+	public init(status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.status = status
 		self.subject = subject
 		super.init()
@@ -137,42 +142,43 @@ open class Procedure: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							bodySite: [CodeableConcept]? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							complication: [CodeableConcept]? = nil,
-							complicationDetail: [Reference]? = nil,
-							contained: [ResourceProxy]? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							focalDevice: [ProcedureFocalDevice]? = nil,
-							followUp: [CodeableConcept]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							occurrence: OccurrenceX? = nil,
-							outcome: CodeableConcept? = nil,
-							partOf: [Reference]? = nil,
-							performer: [ProcedurePerformer]? = nil,
-							reason: [CodeableReference]? = nil,
-							recorded: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							report: [Reference]? = nil,
-							reported: ReportedX? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							statusReason: CodeableConcept? = nil,
-							subject: Reference,
-							text: Narrative? = nil,
-							used: [CodeableReference]? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		bodySite: [CodeableConcept]? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		complication: [CodeableConcept]? = nil,
+		complicationDetail: [Reference]? = nil,
+		contained: [ResourceProxy]? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		focalDevice: [ProcedureFocalDevice]? = nil,
+		followUp: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		occurrence: OccurrenceX? = nil,
+		outcome: CodeableConcept? = nil,
+		partOf: [Reference]? = nil,
+		performer: [ProcedurePerformer]? = nil,
+		reason: [CodeableReference]? = nil,
+		recorded: FHIRPrimitive<DateTime>? = nil,
+		recorder: Reference? = nil,
+		report: [Reference]? = nil,
+		reported: ReportedX? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		statusReason: CodeableConcept? = nil,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil,
+		used: [CodeableReference]? = nil
+	) {
 		self.init(status: status, subject: subject)
 		self.basedOn = basedOn
 		self.bodySite = bodySite
@@ -205,6 +211,7 @@ open class Procedure: DomainResource {
 		self.report = report
 		self.reported = reported
 		self.statusReason = statusReason
+		self.supportingInfo = supportingInfo
 		self.text = text
 		self.used = used
 	}
@@ -244,6 +251,7 @@ open class Procedure: DomainResource {
 		case status; case _status
 		case statusReason
 		case subject
+		case supportingInfo
 		case used
 	}
 	
@@ -325,9 +333,10 @@ open class Procedure: DomainResource {
 			_t_reported = .reference(reportedReference)
 		}
 		self.reported = _t_reported
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
+		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		self.used = try [CodeableReference](from: _container, forKeyIfPresent: .used)
 		try super.init(from: decoder)
 	}
@@ -385,6 +394,7 @@ open class Procedure: DomainResource {
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try subject.encode(on: &_container, forKey: .subject)
+		try supportingInfo?.encode(on: &_container, forKey: .supportingInfo)
 		try used?.encode(on: &_container, forKey: .used)
 		try super.encode(to: encoder)
 	}
@@ -424,6 +434,7 @@ open class Procedure: DomainResource {
 		    && status == _other.status
 		    && statusReason == _other.statusReason
 		    && subject == _other.subject
+		    && supportingInfo == _other.supportingInfo
 		    && used == _other.used
 	}
 	
@@ -455,6 +466,7 @@ open class Procedure: DomainResource {
 		hasher.combine(status)
 		hasher.combine(statusReason)
 		hasher.combine(subject)
+		hasher.combine(supportingInfo)
 		hasher.combine(used)
 	}
 }
@@ -481,12 +493,12 @@ open class ProcedureFocalDevice: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							manipulated: Reference,
-							modifierExtension: [Extension]? = nil)
-	{
+		action: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		manipulated: Reference,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(manipulated: manipulated)
 		self.action = action
 		self.`extension` = `extension`
@@ -565,13 +577,13 @@ open class ProcedurePerformer: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							onBehalfOf: Reference? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		onBehalfOf: Reference? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function

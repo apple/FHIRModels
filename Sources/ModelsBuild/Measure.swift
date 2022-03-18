@@ -2,8 +2,8 @@
 //  Measure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Measure)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Measure)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -65,6 +65,9 @@ open class Measure: DomainResource {
 	/// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
 	/// One of `subject[x]`
 	public var subject: SubjectX?
+	
+	/// Population basis
+	public var basis: FHIRPrimitive<FHIRString>?
 	
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
@@ -129,6 +132,9 @@ open class Measure: DomainResource {
 	/// proportion | ratio | continuous-variable | cohort
 	public var scoring: CodeableConcept?
 	
+	/// What units?
+	public var scoringUnit: CodeableConcept?
+	
 	/// opportunity | all-or-nothing | linear | weighted
 	public var compositeScoring: CodeableConcept?
 	
@@ -170,59 +176,62 @@ open class Measure: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-							author: [ContactDetail]? = nil,
-							clinicalRecommendationStatement: FHIRPrimitive<FHIRString>? = nil,
-							compositeScoring: CodeableConcept? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							definition: [FHIRPrimitive<FHIRString>]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							disclaimer: FHIRPrimitive<FHIRString>? = nil,
-							editor: [ContactDetail]? = nil,
-							effectivePeriod: Period? = nil,
-							endorser: [ContactDetail]? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							group: [MeasureGroup]? = nil,
-							guidance: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							improvementNotation: CodeableConcept? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
-							library: [FHIRPrimitive<Canonical>]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							rateAggregation: FHIRPrimitive<FHIRString>? = nil,
-							rationale: FHIRPrimitive<FHIRString>? = nil,
-							relatedArtifact: [RelatedArtifact]? = nil,
-							reviewer: [ContactDetail]? = nil,
-							riskAdjustment: FHIRPrimitive<FHIRString>? = nil,
-							scoring: CodeableConcept? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							subject: SubjectX? = nil,
-							subtitle: FHIRPrimitive<FHIRString>? = nil,
-							supplementalData: [MeasureSupplementalData]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							topic: [CodeableConcept]? = nil,
-							type: [CodeableConcept]? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil,
-							usage: FHIRPrimitive<FHIRString>? = nil,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
+		basis: FHIRPrimitive<FHIRString>? = nil,
+		clinicalRecommendationStatement: FHIRPrimitive<FHIRString>? = nil,
+		compositeScoring: CodeableConcept? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		definition: [FHIRPrimitive<FHIRString>]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		disclaimer: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		group: [MeasureGroup]? = nil,
+		guidance: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		improvementNotation: CodeableConcept? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		rateAggregation: FHIRPrimitive<FHIRString>? = nil,
+		rationale: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
+		riskAdjustment: FHIRPrimitive<FHIRString>? = nil,
+		scoring: CodeableConcept? = nil,
+		scoringUnit: CodeableConcept? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		subject: SubjectX? = nil,
+		subtitle: FHIRPrimitive<FHIRString>? = nil,
+		supplementalData: [MeasureSupplementalData]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
+		type: [CodeableConcept]? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil,
+		usage: FHIRPrimitive<FHIRString>? = nil,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
 		self.author = author
+		self.basis = basis
 		self.clinicalRecommendationStatement = clinicalRecommendationStatement
 		self.compositeScoring = compositeScoring
 		self.contact = contact
@@ -258,6 +267,7 @@ open class Measure: DomainResource {
 		self.reviewer = reviewer
 		self.riskAdjustment = riskAdjustment
 		self.scoring = scoring
+		self.scoringUnit = scoringUnit
 		self.subject = subject
 		self.subtitle = subtitle
 		self.supplementalData = supplementalData
@@ -276,6 +286,7 @@ open class Measure: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case approvalDate; case _approvalDate
 		case author
+		case basis; case _basis
 		case clinicalRecommendationStatement; case _clinicalRecommendationStatement
 		case compositeScoring
 		case contact
@@ -304,6 +315,7 @@ open class Measure: DomainResource {
 		case reviewer
 		case riskAdjustment; case _riskAdjustment
 		case scoring
+		case scoringUnit
 		case status; case _status
 		case subjectCodeableConcept
 		case subjectReference
@@ -325,6 +337,7 @@ open class Measure: DomainResource {
 		// Decode all our properties
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
+		self.basis = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
 		self.clinicalRecommendationStatement = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .clinicalRecommendationStatement, auxiliaryKey: ._clinicalRecommendationStatement)
 		self.compositeScoring = try CodeableConcept(from: _container, forKeyIfPresent: .compositeScoring)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
@@ -353,6 +366,7 @@ open class Measure: DomainResource {
 		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.riskAdjustment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .riskAdjustment, auxiliaryKey: ._riskAdjustment)
 		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
+		self.scoringUnit = try CodeableConcept(from: _container, forKeyIfPresent: .scoringUnit)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		var _t_subject: SubjectX? = nil
 		if let subjectCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .subjectCodeableConcept) {
@@ -387,6 +401,7 @@ open class Measure: DomainResource {
 		// Encode all our properties
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
 		try author?.encode(on: &_container, forKey: .author)
+		try basis?.encode(on: &_container, forKey: .basis, auxiliaryKey: ._basis)
 		try clinicalRecommendationStatement?.encode(on: &_container, forKey: .clinicalRecommendationStatement, auxiliaryKey: ._clinicalRecommendationStatement)
 		try compositeScoring?.encode(on: &_container, forKey: .compositeScoring)
 		try contact?.encode(on: &_container, forKey: .contact)
@@ -415,6 +430,7 @@ open class Measure: DomainResource {
 		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try riskAdjustment?.encode(on: &_container, forKey: .riskAdjustment, auxiliaryKey: ._riskAdjustment)
 		try scoring?.encode(on: &_container, forKey: .scoring)
+		try scoringUnit?.encode(on: &_container, forKey: .scoringUnit)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		if let _enum = subject {
 			switch _enum {
@@ -447,6 +463,7 @@ open class Measure: DomainResource {
 		}
 		return approvalDate == _other.approvalDate
 		    && author == _other.author
+		    && basis == _other.basis
 		    && clinicalRecommendationStatement == _other.clinicalRecommendationStatement
 		    && compositeScoring == _other.compositeScoring
 		    && contact == _other.contact
@@ -475,6 +492,7 @@ open class Measure: DomainResource {
 		    && reviewer == _other.reviewer
 		    && riskAdjustment == _other.riskAdjustment
 		    && scoring == _other.scoring
+		    && scoringUnit == _other.scoringUnit
 		    && status == _other.status
 		    && subject == _other.subject
 		    && subtitle == _other.subtitle
@@ -492,6 +510,7 @@ open class Measure: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(approvalDate)
 		hasher.combine(author)
+		hasher.combine(basis)
 		hasher.combine(clinicalRecommendationStatement)
 		hasher.combine(compositeScoring)
 		hasher.combine(contact)
@@ -520,6 +539,7 @@ open class Measure: DomainResource {
 		hasher.combine(reviewer)
 		hasher.combine(riskAdjustment)
 		hasher.combine(scoring)
+		hasher.combine(scoringUnit)
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(subtitle)
@@ -547,6 +567,21 @@ open class MeasureGroup: BackboneElement {
 	/// Summary description
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
+	/// process | outcome | structure | patient-reported-outcome | composite
+	public var type: [CodeableConcept]?
+	
+	/// Population basis
+	public var basis: FHIRPrimitive<FHIRString>?
+	
+	/// proportion | ratio | continuous-variable | cohort
+	public var scoring: CodeableConcept?
+	
+	/// What units?
+	public var scoringUnit: CodeableConcept?
+	
+	/// increase | decrease
+	public var improvementNotation: CodeableConcept?
+	
 	/// Population criteria
 	public var population: [MeasureGroupPopulation]?
 	
@@ -560,31 +595,46 @@ open class MeasureGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							population: [MeasureGroupPopulation]? = nil,
-							stratifier: [MeasureGroupStratifier]? = nil)
-	{
+		basis: FHIRPrimitive<FHIRString>? = nil,
+		code: CodeableConcept? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		improvementNotation: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		population: [MeasureGroupPopulation]? = nil,
+		scoring: CodeableConcept? = nil,
+		scoringUnit: CodeableConcept? = nil,
+		stratifier: [MeasureGroupStratifier]? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init()
+		self.basis = basis
 		self.code = code
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
+		self.improvementNotation = improvementNotation
 		self.modifierExtension = modifierExtension
 		self.population = population
+		self.scoring = scoring
+		self.scoringUnit = scoringUnit
 		self.stratifier = stratifier
+		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case basis; case _basis
 		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case improvementNotation
 		case population
+		case scoring
+		case scoringUnit
 		case stratifier
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -592,10 +642,15 @@ open class MeasureGroup: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.basis = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.improvementNotation = try CodeableConcept(from: _container, forKeyIfPresent: .improvementNotation)
 		self.population = try [MeasureGroupPopulation](from: _container, forKeyIfPresent: .population)
+		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
+		self.scoringUnit = try CodeableConcept(from: _container, forKeyIfPresent: .scoringUnit)
 		self.stratifier = try [MeasureGroupStratifier](from: _container, forKeyIfPresent: .stratifier)
+		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -604,10 +659,15 @@ open class MeasureGroup: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try basis?.encode(on: &_container, forKey: .basis, auxiliaryKey: ._basis)
 		try code?.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try improvementNotation?.encode(on: &_container, forKey: .improvementNotation)
 		try population?.encode(on: &_container, forKey: .population)
+		try scoring?.encode(on: &_container, forKey: .scoring)
+		try scoringUnit?.encode(on: &_container, forKey: .scoringUnit)
 		try stratifier?.encode(on: &_container, forKey: .stratifier)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -620,18 +680,28 @@ open class MeasureGroup: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return code == _other.code
+		return basis == _other.basis
+		    && code == _other.code
 		    && description_fhir == _other.description_fhir
+		    && improvementNotation == _other.improvementNotation
 		    && population == _other.population
+		    && scoring == _other.scoring
+		    && scoringUnit == _other.scoringUnit
 		    && stratifier == _other.stratifier
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(basis)
 		hasher.combine(code)
 		hasher.combine(description_fhir)
+		hasher.combine(improvementNotation)
 		hasher.combine(population)
+		hasher.combine(scoring)
+		hasher.combine(scoringUnit)
 		hasher.combine(stratifier)
+		hasher.combine(type)
 	}
 }
 
@@ -652,6 +722,12 @@ open class MeasureGroupPopulation: BackboneElement {
 	/// The criteria that defines this population
 	public var criteria: Expression
 	
+	/// Which population
+	public var inputPopulationId: FHIRPrimitive<FHIRString>?
+	
+	/// Aggregation method for a measure score (e.g. sum, average, median, minimum, maximum, count)
+	public var aggregateMethod: CodeableConcept?
+	
 	/// Designated initializer taking all required properties
 	public init(criteria: Expression) {
 		self.criteria = criteria
@@ -660,27 +736,33 @@ open class MeasureGroupPopulation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							criteria: Expression,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		aggregateMethod: CodeableConcept? = nil,
+		code: CodeableConcept? = nil,
+		criteria: Expression,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		inputPopulationId: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(criteria: criteria)
+		self.aggregateMethod = aggregateMethod
 		self.code = code
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
+		self.inputPopulationId = inputPopulationId
 		self.modifierExtension = modifierExtension
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case aggregateMethod
 		case code
 		case criteria
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case inputPopulationId; case _inputPopulationId
 	}
 	
 	/// Initializer for Decodable
@@ -688,9 +770,11 @@ open class MeasureGroupPopulation: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.aggregateMethod = try CodeableConcept(from: _container, forKeyIfPresent: .aggregateMethod)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.criteria = try Expression(from: _container, forKey: .criteria)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.inputPopulationId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .inputPopulationId, auxiliaryKey: ._inputPopulationId)
 		try super.init(from: decoder)
 	}
 	
@@ -699,9 +783,11 @@ open class MeasureGroupPopulation: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try aggregateMethod?.encode(on: &_container, forKey: .aggregateMethod)
 		try code?.encode(on: &_container, forKey: .code)
 		try criteria.encode(on: &_container, forKey: .criteria)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try inputPopulationId?.encode(on: &_container, forKey: .inputPopulationId, auxiliaryKey: ._inputPopulationId)
 		try super.encode(to: encoder)
 	}
 	
@@ -714,16 +800,20 @@ open class MeasureGroupPopulation: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return code == _other.code
+		return aggregateMethod == _other.aggregateMethod
+		    && code == _other.code
 		    && criteria == _other.criteria
 		    && description_fhir == _other.description_fhir
+		    && inputPopulationId == _other.inputPopulationId
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(aggregateMethod)
 		hasher.combine(code)
 		hasher.combine(criteria)
 		hasher.combine(description_fhir)
+		hasher.combine(inputPopulationId)
 	}
 }
 
@@ -754,14 +844,14 @@ open class MeasureGroupStratifier: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							component: [MeasureGroupStratifierComponent]? = nil,
-							criteria: Expression? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		component: [MeasureGroupStratifierComponent]? = nil,
+		criteria: Expression? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.code = code
 		self.component = component
@@ -854,13 +944,13 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							criteria: Expression,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		criteria: Expression,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(criteria: criteria)
 		self.code = code
 		self.description_fhir = description_fhir
@@ -949,14 +1039,14 @@ open class MeasureSupplementalData: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							criteria: Expression,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							usage: [CodeableConcept]? = nil)
-	{
+		code: CodeableConcept? = nil,
+		criteria: Expression,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		usage: [CodeableConcept]? = nil
+	) {
 		self.init(criteria: criteria)
 		self.code = code
 		self.description_fhir = description_fhir

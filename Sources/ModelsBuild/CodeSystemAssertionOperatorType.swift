@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,36 +27,36 @@ import FMCore
  */
 public enum AssertionOperatorType: String, FHIRPrimitiveType {
 	
-	/// Default value. Equals comparison.
-	case equals = "equals"
-	
-	/// Not equals comparison.
-	case notEquals = "notEquals"
-	
 	/// Compare value within a known set of values.
-	case `in` = "in"
-	
-	/// Compare value not within a known set of values.
-	case notIn = "notIn"
-	
-	/// Compare value to be greater than a known value.
-	case greaterThan = "greaterThan"
-	
-	/// Compare value to be less than a known value.
-	case lessThan = "lessThan"
-	
-	/// Compare value is empty.
-	case empty = "empty"
-	
-	/// Compare value is not empty.
-	case notEmpty = "notEmpty"
+	case `in`
 	
 	/// Compare value string contains a known value.
-	case contains = "contains"
+	case contains
 	
-	/// Compare value string does not contain a known value.
-	case notContains = "notContains"
+	/// Compare value is empty.
+	case empty
+	
+	/// Default value. Equals comparison.
+	case equals
 	
 	/// Evaluate the FHIRPath expression as a boolean condition.
-	case eval = "eval"
+	case eval
+	
+	/// Compare value to be greater than a known value.
+	case greaterThan
+	
+	/// Compare value to be less than a known value.
+	case lessThan
+	
+	/// Compare value string does not contain a known value.
+	case notContains
+	
+	/// Compare value is not empty.
+	case notEmpty
+	
+	/// Not equals comparison.
+	case notEquals
+	
+	/// Compare value not within a known set of values.
+	case notIn
 }

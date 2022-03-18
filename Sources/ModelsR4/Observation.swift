@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Observation)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -134,39 +134,39 @@ open class Observation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							bodySite: CodeableConcept? = nil,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							component: [ObservationComponent]? = nil,
-							contained: [ResourceProxy]? = nil,
-							dataAbsentReason: CodeableConcept? = nil,
-							derivedFrom: [Reference]? = nil,
-							device: Reference? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							focus: [Reference]? = nil,
-							hasMember: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							interpretation: [CodeableConcept]? = nil,
-							issued: FHIRPrimitive<Instant>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							method: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							performer: [Reference]? = nil,
-							referenceRange: [ObservationReferenceRange]? = nil,
-							specimen: Reference? = nil,
-							status: FHIRPrimitive<ObservationStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil,
-							value: ValueX? = nil)
-	{
+		basedOn: [Reference]? = nil,
+		bodySite: CodeableConcept? = nil,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		component: [ObservationComponent]? = nil,
+		contained: [ResourceProxy]? = nil,
+		dataAbsentReason: CodeableConcept? = nil,
+		derivedFrom: [Reference]? = nil,
+		device: Reference? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		focus: [Reference]? = nil,
+		hasMember: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		interpretation: [CodeableConcept]? = nil,
+		issued: FHIRPrimitive<Instant>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		method: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		performer: [Reference]? = nil,
+		referenceRange: [ObservationReferenceRange]? = nil,
+		specimen: Reference? = nil,
+		status: FHIRPrimitive<ObservationStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil,
+		value: ValueX? = nil
+	) {
 		self.init(code: code, status: status)
 		self.basedOn = basedOn
 		self.bodySite = bodySite
@@ -546,15 +546,15 @@ open class ObservationComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							dataAbsentReason: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							interpretation: [CodeableConcept]? = nil,
-							modifierExtension: [Extension]? = nil,
-							referenceRange: [ObservationReferenceRange]? = nil,
-							value: ValueX? = nil)
-	{
+		code: CodeableConcept,
+		dataAbsentReason: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		interpretation: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		referenceRange: [ObservationReferenceRange]? = nil,
+		value: ValueX? = nil
+	) {
 		self.init(code: code)
 		self.dataAbsentReason = dataAbsentReason
 		self.`extension` = `extension`
@@ -763,16 +763,16 @@ open class ObservationReferenceRange: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							age: Range? = nil,
-							appliesTo: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							high: Quantity? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							low: Quantity? = nil,
-							modifierExtension: [Extension]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		age: Range? = nil,
+		appliesTo: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		high: Quantity? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		low: Quantity? = nil,
+		modifierExtension: [Extension]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.age = age
 		self.appliesTo = appliesTo

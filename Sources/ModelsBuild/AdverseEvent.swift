@@ -2,8 +2,8 @@
 //  AdverseEvent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/AdverseEvent)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AdverseEvent)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,12 +40,11 @@ open class AdverseEvent: DomainResource {
 	/// Business identifier for the event
 	public var identifier: [Identifier]?
 	
-	/// The current state of the adverse event or potential adverse event.
-	/// Restricted to: ['in-progress', 'completed', 'entered-in-error', 'unknown']
-	public var status: FHIRPrimitive<EventStatus>
+	/// in-progress | completed | entered-in-error | unknown
+	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Whether the event actually happened, or just had the potential to. Note that this is independent of whether
-	/// anyone was affected or harmed or how severely.
+	/// Whether the event actually happened or was a near miss. Note that this is independent of whether anyone was
+	/// affected or harmed or how severely.
 	public var actuality: FHIRPrimitive<AdverseEventActuality>
 	
 	/// wrong-patient | procedure-mishap | medication-mishap | device | unsafe-physical-environment | hospital-aquired-
@@ -81,13 +80,16 @@ open class AdverseEvent: DomainResource {
 	public var seriousness: CodeableConcept?
 	
 	/// Type of outcome from the adverse event
-	public var outcome: CodeableConcept?
+	public var outcome: [CodeableConcept]?
 	
 	/// Who recorded the adverse event
 	public var recorder: Reference?
 	
 	/// Who was involved in the adverse event or the potential adverse event and what they did
 	public var participant: [AdverseEventParticipant]?
+	
+	/// Considered likely or probable or anticipated in the research study
+	public var expectedInResearchStudy: FHIRPrimitive<FHIRBool>?
 	
 	/// The suspected agent causing the adverse event
 	public var suspectEntity: [AdverseEventSuspectEntity]?
@@ -108,7 +110,7 @@ open class AdverseEvent: DomainResource {
 	public var study: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(actuality: FHIRPrimitive<AdverseEventActuality>, status: FHIRPrimitive<EventStatus>, subject: Reference) {
+	public init(actuality: FHIRPrimitive<AdverseEventActuality>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
 		self.actuality = actuality
 		self.status = status
 		self.subject = subject
@@ -117,37 +119,38 @@ open class AdverseEvent: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							actuality: FHIRPrimitive<AdverseEventActuality>,
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							contributingFactor: [AdverseEventContributingFactor]? = nil,
-							detected: FHIRPrimitive<DateTime>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							meta: Meta? = nil,
-							mitigatingAction: [AdverseEventMitigatingAction]? = nil,
-							modifierExtension: [Extension]? = nil,
-							occurrence: OccurrenceX? = nil,
-							outcome: CodeableConcept? = nil,
-							participant: [AdverseEventParticipant]? = nil,
-							preventiveAction: [AdverseEventPreventiveAction]? = nil,
-							recordedDate: FHIRPrimitive<DateTime>? = nil,
-							recorder: Reference? = nil,
-							resultingCondition: [Reference]? = nil,
-							seriousness: CodeableConcept? = nil,
-							status: FHIRPrimitive<EventStatus>,
-							study: [Reference]? = nil,
-							subject: Reference,
-							supportingInfo: [AdverseEventSupportingInfo]? = nil,
-							suspectEntity: [AdverseEventSuspectEntity]? = nil,
-							text: Narrative? = nil)
-	{
+		actuality: FHIRPrimitive<AdverseEventActuality>,
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		contributingFactor: [AdverseEventContributingFactor]? = nil,
+		detected: FHIRPrimitive<DateTime>? = nil,
+		encounter: Reference? = nil,
+		expectedInResearchStudy: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		meta: Meta? = nil,
+		mitigatingAction: [AdverseEventMitigatingAction]? = nil,
+		modifierExtension: [Extension]? = nil,
+		occurrence: OccurrenceX? = nil,
+		outcome: [CodeableConcept]? = nil,
+		participant: [AdverseEventParticipant]? = nil,
+		preventiveAction: [AdverseEventPreventiveAction]? = nil,
+		recordedDate: FHIRPrimitive<DateTime>? = nil,
+		recorder: Reference? = nil,
+		resultingCondition: [Reference]? = nil,
+		seriousness: CodeableConcept? = nil,
+		status: FHIRPrimitive<FHIRString>,
+		study: [Reference]? = nil,
+		subject: Reference,
+		supportingInfo: [AdverseEventSupportingInfo]? = nil,
+		suspectEntity: [AdverseEventSuspectEntity]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(actuality: actuality, status: status, subject: subject)
 		self.category = category
 		self.code = code
@@ -155,6 +158,7 @@ open class AdverseEvent: DomainResource {
 		self.contributingFactor = contributingFactor
 		self.detected = detected
 		self.encounter = encounter
+		self.expectedInResearchStudy = expectedInResearchStudy
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
@@ -187,6 +191,7 @@ open class AdverseEvent: DomainResource {
 		case contributingFactor
 		case detected; case _detected
 		case encounter
+		case expectedInResearchStudy; case _expectedInResearchStudy
 		case identifier
 		case location
 		case mitigatingAction
@@ -218,6 +223,7 @@ open class AdverseEvent: DomainResource {
 		self.contributingFactor = try [AdverseEventContributingFactor](from: _container, forKeyIfPresent: .contributingFactor)
 		self.detected = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .detected, auxiliaryKey: ._detected)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
+		self.expectedInResearchStudy = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .expectedInResearchStudy, auxiliaryKey: ._expectedInResearchStudy)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.mitigatingAction = try [AdverseEventMitigatingAction](from: _container, forKeyIfPresent: .mitigatingAction)
@@ -241,14 +247,14 @@ open class AdverseEvent: DomainResource {
 			_t_occurrence = .timing(occurrenceTiming)
 		}
 		self.occurrence = _t_occurrence
-		self.outcome = try CodeableConcept(from: _container, forKeyIfPresent: .outcome)
+		self.outcome = try [CodeableConcept](from: _container, forKeyIfPresent: .outcome)
 		self.participant = try [AdverseEventParticipant](from: _container, forKeyIfPresent: .participant)
 		self.preventiveAction = try [AdverseEventPreventiveAction](from: _container, forKeyIfPresent: .preventiveAction)
 		self.recordedDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .recordedDate, auxiliaryKey: ._recordedDate)
 		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
 		self.resultingCondition = try [Reference](from: _container, forKeyIfPresent: .resultingCondition)
 		self.seriousness = try CodeableConcept(from: _container, forKeyIfPresent: .seriousness)
-		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.study = try [Reference](from: _container, forKeyIfPresent: .study)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [AdverseEventSupportingInfo](from: _container, forKeyIfPresent: .supportingInfo)
@@ -267,6 +273,7 @@ open class AdverseEvent: DomainResource {
 		try contributingFactor?.encode(on: &_container, forKey: .contributingFactor)
 		try detected?.encode(on: &_container, forKey: .detected, auxiliaryKey: ._detected)
 		try encounter?.encode(on: &_container, forKey: .encounter)
+		try expectedInResearchStudy?.encode(on: &_container, forKey: .expectedInResearchStudy, auxiliaryKey: ._expectedInResearchStudy)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try location?.encode(on: &_container, forKey: .location)
 		try mitigatingAction?.encode(on: &_container, forKey: .mitigatingAction)
@@ -310,6 +317,7 @@ open class AdverseEvent: DomainResource {
 		    && contributingFactor == _other.contributingFactor
 		    && detected == _other.detected
 		    && encounter == _other.encounter
+		    && expectedInResearchStudy == _other.expectedInResearchStudy
 		    && identifier == _other.identifier
 		    && location == _other.location
 		    && mitigatingAction == _other.mitigatingAction
@@ -336,6 +344,7 @@ open class AdverseEvent: DomainResource {
 		hasher.combine(contributingFactor)
 		hasher.combine(detected)
 		hasher.combine(encounter)
+		hasher.combine(expectedInResearchStudy)
 		hasher.combine(identifier)
 		hasher.combine(location)
 		hasher.combine(mitigatingAction)
@@ -380,11 +389,11 @@ open class AdverseEventContributingFactor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
@@ -484,11 +493,11 @@ open class AdverseEventMitigatingAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
@@ -584,12 +593,12 @@ open class AdverseEventParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							actor: Reference,
-							`extension`: [Extension]? = nil,
-							function: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function
@@ -667,11 +676,11 @@ open class AdverseEventPreventiveAction: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
@@ -769,11 +778,11 @@ open class AdverseEventSupportingInfo: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							item: ItemX,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: ItemX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
@@ -876,12 +885,12 @@ open class AdverseEventSuspectEntity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							causality: AdverseEventSuspectEntityCausality? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instance: InstanceX,
-							modifierExtension: [Extension]? = nil)
-	{
+		causality: AdverseEventSuspectEntityCausality? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instance: InstanceX,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(instance: instance)
 		self.causality = causality
 		self.`extension` = `extension`
@@ -983,13 +992,13 @@ open class AdverseEventSuspectEntityCausality: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							assessmentMethod: CodeableConcept? = nil,
-							author: Reference? = nil,
-							entityRelatedness: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		assessmentMethod: CodeableConcept? = nil,
+		author: Reference? = nil,
+		entityRelatedness: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.assessmentMethod = assessmentMethod
 		self.author = author

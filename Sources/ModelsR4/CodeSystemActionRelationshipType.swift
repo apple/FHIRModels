@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public enum ActionRelationshipType: String, FHIRPrimitiveType {
 	case beforeStart = "before-start"
 	
 	/// The action must be performed before the related action.
-	case before = "before"
+	case before
 	
 	/// The action must be performed before the end of the related action.
 	case beforeEnd = "before-end"
@@ -40,7 +40,7 @@ public enum ActionRelationshipType: String, FHIRPrimitiveType {
 	case concurrentWithStart = "concurrent-with-start"
 	
 	/// The action must be performed concurrent with the related action.
-	case concurrent = "concurrent"
+	case concurrent
 	
 	/// The action must be performed concurrent with the end of the related action.
 	case concurrentWithEnd = "concurrent-with-end"
@@ -49,7 +49,7 @@ public enum ActionRelationshipType: String, FHIRPrimitiveType {
 	case afterStart = "after-start"
 	
 	/// The action must be performed after the related action.
-	case after = "after"
+	case after
 	
 	/// The action must be performed after the end of the related action.
 	case afterEnd = "after-end"

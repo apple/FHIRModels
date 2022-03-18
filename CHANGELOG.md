@@ -3,6 +3,14 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+## 0.4.0
+
+- BREAKING CHANGES: fix duplicate code system names resulting in https://github.com/apple/FHIRModels/issues/11
+- BREAKING CHANGES: regenerate R4 models to resolve https://github.com/apple/FHIRModels/issues/15
+- Update _build_ models to 4.6.0-048af26
+- Enhancement: make dates & times conform to `Comparable` and `ExpressibleAsNSDate`
+- Fix an issue where times with milliseconds were not proper ISO formatted in certain locales
+
 ### 0.3.2
 
 - Fix time formatting in certain locales: https://github.com/apple/FHIRModels/issues/7

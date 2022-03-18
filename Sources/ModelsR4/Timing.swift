@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Timing)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,13 +45,13 @@ open class Timing: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							event: [FHIRPrimitive<DateTime>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							`repeat`: TimingRepeat? = nil)
-	{
+		code: CodeableConcept? = nil,
+		event: [FHIRPrimitive<DateTime>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		`repeat`: TimingRepeat? = nil
+	) {
 		self.init()
 		self.code = code
 		self.event = event
@@ -180,24 +180,24 @@ open class TimingRepeat: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							bounds: BoundsX? = nil,
-							count: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							countMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							dayOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-							duration: FHIRPrimitive<FHIRDecimal>? = nil,
-							durationMax: FHIRPrimitive<FHIRDecimal>? = nil,
-							durationUnit: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							frequency: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							frequencyMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							offset: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							period: FHIRPrimitive<FHIRDecimal>? = nil,
-							periodMax: FHIRPrimitive<FHIRDecimal>? = nil,
-							periodUnit: FHIRPrimitive<FHIRString>? = nil,
-							timeOfDay: [FHIRPrimitive<FHIRTime>]? = nil,
-							when: [FHIRPrimitive<FHIRString>]? = nil)
-	{
+		bounds: BoundsX? = nil,
+		count: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		countMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		dayOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
+		duration: FHIRPrimitive<FHIRDecimal>? = nil,
+		durationMax: FHIRPrimitive<FHIRDecimal>? = nil,
+		durationUnit: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		frequency: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		frequencyMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		offset: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		period: FHIRPrimitive<FHIRDecimal>? = nil,
+		periodMax: FHIRPrimitive<FHIRDecimal>? = nil,
+		periodUnit: FHIRPrimitive<FHIRString>? = nil,
+		timeOfDay: [FHIRPrimitive<FHIRTime>]? = nil,
+		when: [FHIRPrimitive<FHIRString>]? = nil
+	) {
 		self.init()
 		self.bounds = bounds
 		self.count = count

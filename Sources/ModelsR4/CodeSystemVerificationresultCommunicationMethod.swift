@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,14 +31,14 @@ import FMCore
 public enum VerificationresultCommunicationMethod: String, FHIRPrimitiveType {
 	
 	/// The information is submitted/retrieved manually (e.g. by phone, fax, paper-based)
-	case manual = "manual"
+	case manual
 	
 	/// The information is submitted/retrieved via a portal
-	case portal = "portal"
+	case portal
 	
 	/// The information is retrieved (i.e. pulled) from a source (e.g. over an API)
-	case pull = "pull"
+	case pull
 	
 	/// The information is sent (i.e. pushed) from a source (e.g. over an API, asynchronously, secure messaging)
-	case push = "push"
+	case push
 }

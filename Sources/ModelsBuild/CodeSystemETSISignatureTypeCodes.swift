@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,15 +29,18 @@ import FMCore
  */
 public enum ETSISignatureTypeCodes: String, FHIRPrimitiveType {
 	
+	/// indicates that the signer has created the signed data object (but not necessarily approved, nor sent it).
+	case proofOfCreation = "ProofOfCreation"
+	
+	/// indicates that the TSP providing that indication has delivered a signed data object in a local store accessible
+	/// to the recipient of the signed data object.
+	case proofOfDelivery = "ProofOfDelivery"
+	
 	/// indicates that the signer recognizes to have created, approved and sent the signed data object.
 	case proofOfOrigin = "ProofOfOrigin"
 	
 	/// indicates that signer recognizes to have received the content of the signed data object.
 	case proofOfReceipt = "ProofOfReceipt"
-	
-	/// indicates that the TSP providing that indication has delivered a signed data object in a local store accessible
-	/// to the recipient of the signed data object.
-	case proofOfDelivery = "ProofOfDelivery"
 	
 	/// indicates that the entity providing that indication has sent the signed data object (but not necessarily created
 	/// it).
@@ -45,7 +48,4 @@ public enum ETSISignatureTypeCodes: String, FHIRPrimitiveType {
 	
 	/// indicates that the signer has approved the content of the signed data object.
 	case proofOfapproval = "ProofOfapproval"
-	
-	/// indicates that the signer has created the signed data object (but not necessarily approved, nor sent it).
-	case proofOfCreation = "ProofOfCreation"
 }

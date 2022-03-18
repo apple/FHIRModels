@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import FMCore
 public enum GuidanceResponseStatus: String, FHIRPrimitiveType {
 	
 	/// The request was processed successfully.
-	case success = "success"
+	case success
 	
 	/// The request was processed successfully, but more data may result in a more complete evaluation.
 	case dataRequested = "data-requested"
@@ -40,7 +40,7 @@ public enum GuidanceResponseStatus: String, FHIRPrimitiveType {
 	case inProgress = "in-progress"
 	
 	/// The request was not processed successfully.
-	case failure = "failure"
+	case failure
 	
 	/// The response was entered in error.
 	case enteredInError = "entered-in-error"

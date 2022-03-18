@@ -2,8 +2,8 @@
 //  PaymentReconciliation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -84,30 +84,30 @@ open class PaymentReconciliation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							created: FHIRPrimitive<DateTime>,
-							detail: [PaymentReconciliationDetail]? = nil,
-							disposition: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							formCode: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: FHIRPrimitive<ClaimProcessingCodes>? = nil,
-							paymentAmount: Money,
-							paymentDate: FHIRPrimitive<FHIRDate>,
-							paymentIdentifier: Identifier? = nil,
-							paymentIssuer: Reference? = nil,
-							period: Period? = nil,
-							processNote: [PaymentReconciliationProcessNote]? = nil,
-							request: Reference? = nil,
-							requestor: Reference? = nil,
-							status: FHIRPrimitive<FinancialResourceStatusCodes>,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		created: FHIRPrimitive<DateTime>,
+		detail: [PaymentReconciliationDetail]? = nil,
+		disposition: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		formCode: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: FHIRPrimitive<ClaimProcessingCodes>? = nil,
+		paymentAmount: Money,
+		paymentDate: FHIRPrimitive<FHIRDate>,
+		paymentIdentifier: Identifier? = nil,
+		paymentIssuer: Reference? = nil,
+		period: Period? = nil,
+		processNote: [PaymentReconciliationProcessNote]? = nil,
+		request: Reference? = nil,
+		requestor: Reference? = nil,
+		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		text: Narrative? = nil
+	) {
 		self.init(created: created, paymentAmount: paymentAmount, paymentDate: paymentDate, status: status)
 		self.contained = contained
 		self.detail = detail
@@ -287,20 +287,20 @@ open class PaymentReconciliationDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							amount: Money? = nil,
-							date: FHIRPrimitive<FHIRDate>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							payee: Reference? = nil,
-							predecessor: Identifier? = nil,
-							request: Reference? = nil,
-							response: Reference? = nil,
-							responsible: Reference? = nil,
-							submitter: Reference? = nil,
-							type: CodeableConcept)
-	{
+		amount: Money? = nil,
+		date: FHIRPrimitive<FHIRDate>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		payee: Reference? = nil,
+		predecessor: Identifier? = nil,
+		request: Reference? = nil,
+		response: Reference? = nil,
+		responsible: Reference? = nil,
+		submitter: Reference? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.amount = amount
 		self.date = date
@@ -423,12 +423,12 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							text: FHIRPrimitive<FHIRString>? = nil,
-							type: FHIRPrimitive<NoteType>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		text: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<NoteType>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

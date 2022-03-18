@@ -2,8 +2,8 @@
 //  SupplyRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SupplyRequest)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SupplyRequest)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,11 +41,14 @@ open class SupplyRequest: DomainResource {
 	/// Status of the supply request.
 	public var status: FHIRPrimitive<SupplyRequestStatus>?
 	
+	/// What other request is fulfilled by this supply request
+	public var basedOn: [Reference]?
+	
 	/// The kind of supply (central, non-stock, etc.)
 	public var category: CodeableConcept?
 	
-	/// Indicates how quickly this SupplyRequest should be addressed with respect to other requests.
-	public var priority: FHIRPrimitive<RequestPriority>?
+	/// routine | urgent | asap | stat
+	public var priority: FHIRPrimitive<FHIRString>?
 	
 	/// Medication, Substance, or Device requested to be supplied
 	public var item: CodeableReference
@@ -87,31 +90,33 @@ open class SupplyRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							authoredOn: FHIRPrimitive<DateTime>? = nil,
-							category: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							deliverFrom: Reference? = nil,
-							deliverTo: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							item: CodeableReference,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							occurrence: OccurrenceX? = nil,
-							parameter: [SupplyRequestParameter]? = nil,
-							priority: FHIRPrimitive<RequestPriority>? = nil,
-							quantity: Quantity,
-							reason: [CodeableReference]? = nil,
-							requester: Reference? = nil,
-							status: FHIRPrimitive<SupplyRequestStatus>? = nil,
-							supplier: [Reference]? = nil,
-							text: Narrative? = nil)
-	{
+		authoredOn: FHIRPrimitive<DateTime>? = nil,
+		basedOn: [Reference]? = nil,
+		category: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		deliverFrom: Reference? = nil,
+		deliverTo: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		item: CodeableReference,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		occurrence: OccurrenceX? = nil,
+		parameter: [SupplyRequestParameter]? = nil,
+		priority: FHIRPrimitive<FHIRString>? = nil,
+		quantity: Quantity,
+		reason: [CodeableReference]? = nil,
+		requester: Reference? = nil,
+		status: FHIRPrimitive<SupplyRequestStatus>? = nil,
+		supplier: [Reference]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(item: item, quantity: quantity)
 		self.authoredOn = authoredOn
+		self.basedOn = basedOn
 		self.category = category
 		self.contained = contained
 		self.deliverFrom = deliverFrom
@@ -137,6 +142,7 @@ open class SupplyRequest: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case authoredOn; case _authoredOn
+		case basedOn
 		case category
 		case deliverFrom
 		case deliverTo
@@ -160,6 +166,7 @@ open class SupplyRequest: DomainResource {
 		
 		// Decode all our properties
 		self.authoredOn = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authoredOn, auxiliaryKey: ._authoredOn)
+		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
 		self.deliverFrom = try Reference(from: _container, forKeyIfPresent: .deliverFrom)
 		self.deliverTo = try Reference(from: _container, forKeyIfPresent: .deliverTo)
@@ -186,7 +193,7 @@ open class SupplyRequest: DomainResource {
 		}
 		self.occurrence = _t_occurrence
 		self.parameter = try [SupplyRequestParameter](from: _container, forKeyIfPresent: .parameter)
-		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.quantity = try Quantity(from: _container, forKey: .quantity)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
@@ -201,6 +208,7 @@ open class SupplyRequest: DomainResource {
 		
 		// Encode all our properties
 		try authoredOn?.encode(on: &_container, forKey: .authoredOn, auxiliaryKey: ._authoredOn)
+		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
 		try deliverFrom?.encode(on: &_container, forKey: .deliverFrom)
 		try deliverTo?.encode(on: &_container, forKey: .deliverTo)
@@ -236,6 +244,7 @@ open class SupplyRequest: DomainResource {
 			return false
 		}
 		return authoredOn == _other.authoredOn
+		    && basedOn == _other.basedOn
 		    && category == _other.category
 		    && deliverFrom == _other.deliverFrom
 		    && deliverTo == _other.deliverTo
@@ -254,6 +263,7 @@ open class SupplyRequest: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(authoredOn)
+		hasher.combine(basedOn)
 		hasher.combine(category)
 		hasher.combine(deliverFrom)
 		hasher.combine(deliverTo)
@@ -299,12 +309,12 @@ open class SupplyRequestParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX? = nil)
-	{
+		code: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.code = code
 		self.`extension` = `extension`

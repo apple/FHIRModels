@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,19 +28,19 @@ import FMCore
 public enum DeviceDefinitionParameterGroup: String, FHIRPrimitiveType {
 	
 	/// Haemodynamic Parameter Group - MDC_PGRP_HEMO.
-	case haemodynamic = "haemodynamic"
+	case haemodynamic
 	
 	/// ECG Parameter Group - MDC_PGRP_ECG.
-	case ecg = "ecg"
+	case ecg
 	
 	/// Respiratory Parameter Group - MDC_PGRP_RESP.
-	case respiratory = "respiratory"
+	case respiratory
 	
 	/// Ventilation Parameter Group - MDC_PGRP_VENT.
-	case ventilation = "ventilation"
+	case ventilation
 	
 	/// Neurological Parameter Group - MDC_PGRP_NEURO.
-	case neurological = "neurological"
+	case neurological
 	
 	/// Drug Delivery Parameter Group - MDC_PGRP_DRUG.
 	case drugDelivery = "drug-delivery"
@@ -52,5 +52,5 @@ public enum DeviceDefinitionParameterGroup: String, FHIRPrimitiveType {
 	case bloodChemistry = "blood-chemistry"
 	
 	/// Miscellaneous Parameter Group - MDC_PGRP_MISC.
-	case miscellaneous = "miscellaneous"
+	case miscellaneous
 }

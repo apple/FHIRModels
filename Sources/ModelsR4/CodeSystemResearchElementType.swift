@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum ResearchElementType: String, FHIRPrimitiveType {
 	
 	/// The element defines the population that forms the basis for research.
-	case population = "population"
+	case population
 	
 	/// The element defines an exposure within the population that is being researched.
-	case exposure = "exposure"
+	case exposure
 	
 	/// The element defines an outcome within the population that is being researched.
-	case outcome = "outcome"
+	case outcome
 }

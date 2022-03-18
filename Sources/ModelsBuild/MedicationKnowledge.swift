@@ -2,8 +2,8 @@
 //  MedicationKnowledge.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,32 +34,25 @@ open class MedicationKnowledge: DomainResource {
 	/// Code that identifies this medication
 	public var code: CodeableConcept?
 	
-	/// active | inactive | entered-in-error
-	public var status: FHIRPrimitive<FHIRString>?
+	/// A code to indicate if the medication referred to by this MedicationKnowledge is in active use within the drug
+	/// database or inventory system. The status refers to the validity about the information of the medication and not
+	/// to its medicinal properties.
+	public var status: FHIRPrimitive<MedicationKnowledgeStatusCodes>?
 	
 	/// Creator or owner of the knowledge or information about the medication
 	public var author: Reference?
 	
-	/// Manufacturer of the item
-	public var manufacturer: Reference?
+	/// Codes that identify the different jurisdictions for which the information of this resource was created
+	public var intendedJurisdiction: [CodeableConcept]?
 	
-	/// powder | tablets | capsule +
-	public var doseForm: CodeableConcept?
-	
-	/// Amount of drug in package
-	public var amount: Quantity?
-	
-	/// Additional names for a medication
-	public var synonym: [FHIRPrimitive<FHIRString>]?
+	/// A name associated with the medication being described
+	public var name: [FHIRPrimitive<FHIRString>]?
 	
 	/// Associated or related medication information
 	public var relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]?
 	
-	/// A medication resource that is associated with this medication
+	/// The set of medication resources that are associated with this medication
 	public var associatedMedication: [Reference]?
-	
-	/// A definition resource that is associated with this medication
-	public var associatedDefinition: Reference?
 	
 	/// Category of the medication or product
 	public var productType: [CodeableConcept]?
@@ -67,17 +60,8 @@ open class MedicationKnowledge: DomainResource {
 	/// Associated documentation about the medication
 	public var monograph: [MedicationKnowledgeMonograph]?
 	
-	/// Active or inactive ingredient
-	public var ingredient: [MedicationKnowledgeIngredient]?
-	
-	/// A device associated with the medication (for example, a drug coated catheter or a drug impregnated dressing)
-	public var device: [Reference]?
-	
 	/// The instructions for preparing the medication
 	public var preparationInstruction: FHIRPrimitive<FHIRString>?
-	
-	/// The intended or approved route of administration
-	public var intendedRoute: [CodeableConcept]?
 	
 	/// The pricing of the medication
 	public var cost: [MedicationKnowledgeCost]?
@@ -85,8 +69,8 @@ open class MedicationKnowledge: DomainResource {
 	/// Program under which a medication is reviewed
 	public var monitoringProgram: [MedicationKnowledgeMonitoringProgram]?
 	
-	/// Guidelines or protocols for administration of the medication
-	public var administrationGuideline: [MedicationKnowledgeAdministrationGuideline]?
+	/// Guidelines or protocols for administration of the medication for an indication
+	public var indicationGuideline: [MedicationKnowledgeIndicationGuideline]?
 	
 	/// Categorization of the medication within a formulary or classification system
 	public var medicineClassification: [MedicationKnowledgeMedicineClassification]?
@@ -94,17 +78,17 @@ open class MedicationKnowledge: DomainResource {
 	/// Details about packaged medications
 	public var packaging: [MedicationKnowledgePackaging]?
 	
-	/// Specifies descriptive properties of the medicine
-	public var drugCharacteristic: [MedicationKnowledgeDrugCharacteristic]?
-	
 	/// Potential clinical issue with or between medication(s)
 	public var clinicalUseIssue: [Reference]?
+	
+	/// How the medication should be stored
+	public var storageGuideline: [MedicationKnowledgeStorageGuideline]?
 	
 	/// Regulatory information about a medication
 	public var regulatory: [MedicationKnowledgeRegulatory]?
 	
-	/// The time course of drug absorption, distribution, metabolism and excretion of a medication from the body
-	public var kineticCharacteristic: [MedicationKnowledgeKineticCharacteristic]?
+	/// Minimal definition information about the medication
+	public var definitional: MedicationKnowledgeDefinitional?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -113,107 +97,89 @@ open class MedicationKnowledge: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							administrationGuideline: [MedicationKnowledgeAdministrationGuideline]? = nil,
-							amount: Quantity? = nil,
-							associatedDefinition: Reference? = nil,
-							associatedMedication: [Reference]? = nil,
-							author: Reference? = nil,
-							clinicalUseIssue: [Reference]? = nil,
-							code: CodeableConcept? = nil,
-							contained: [ResourceProxy]? = nil,
-							cost: [MedicationKnowledgeCost]? = nil,
-							device: [Reference]? = nil,
-							doseForm: CodeableConcept? = nil,
-							drugCharacteristic: [MedicationKnowledgeDrugCharacteristic]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [MedicationKnowledgeIngredient]? = nil,
-							intendedRoute: [CodeableConcept]? = nil,
-							kineticCharacteristic: [MedicationKnowledgeKineticCharacteristic]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: Reference? = nil,
-							medicineClassification: [MedicationKnowledgeMedicineClassification]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							monitoringProgram: [MedicationKnowledgeMonitoringProgram]? = nil,
-							monograph: [MedicationKnowledgeMonograph]? = nil,
-							packaging: [MedicationKnowledgePackaging]? = nil,
-							preparationInstruction: FHIRPrimitive<FHIRString>? = nil,
-							productType: [CodeableConcept]? = nil,
-							regulatory: [MedicationKnowledgeRegulatory]? = nil,
-							relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]? = nil,
-							status: FHIRPrimitive<FHIRString>? = nil,
-							synonym: [FHIRPrimitive<FHIRString>]? = nil,
-							text: Narrative? = nil)
-	{
+		associatedMedication: [Reference]? = nil,
+		author: Reference? = nil,
+		clinicalUseIssue: [Reference]? = nil,
+		code: CodeableConcept? = nil,
+		contained: [ResourceProxy]? = nil,
+		cost: [MedicationKnowledgeCost]? = nil,
+		definitional: MedicationKnowledgeDefinitional? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		indicationGuideline: [MedicationKnowledgeIndicationGuideline]? = nil,
+		intendedJurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medicineClassification: [MedicationKnowledgeMedicineClassification]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		monitoringProgram: [MedicationKnowledgeMonitoringProgram]? = nil,
+		monograph: [MedicationKnowledgeMonograph]? = nil,
+		name: [FHIRPrimitive<FHIRString>]? = nil,
+		packaging: [MedicationKnowledgePackaging]? = nil,
+		preparationInstruction: FHIRPrimitive<FHIRString>? = nil,
+		productType: [CodeableConcept]? = nil,
+		regulatory: [MedicationKnowledgeRegulatory]? = nil,
+		relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]? = nil,
+		status: FHIRPrimitive<MedicationKnowledgeStatusCodes>? = nil,
+		storageGuideline: [MedicationKnowledgeStorageGuideline]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
-		self.administrationGuideline = administrationGuideline
-		self.amount = amount
-		self.associatedDefinition = associatedDefinition
 		self.associatedMedication = associatedMedication
 		self.author = author
 		self.clinicalUseIssue = clinicalUseIssue
 		self.code = code
 		self.contained = contained
 		self.cost = cost
-		self.device = device
-		self.doseForm = doseForm
-		self.drugCharacteristic = drugCharacteristic
+		self.definitional = definitional
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.ingredient = ingredient
-		self.intendedRoute = intendedRoute
-		self.kineticCharacteristic = kineticCharacteristic
+		self.indicationGuideline = indicationGuideline
+		self.intendedJurisdiction = intendedJurisdiction
 		self.language = language
-		self.manufacturer = manufacturer
 		self.medicineClassification = medicineClassification
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.monitoringProgram = monitoringProgram
 		self.monograph = monograph
+		self.name = name
 		self.packaging = packaging
 		self.preparationInstruction = preparationInstruction
 		self.productType = productType
 		self.regulatory = regulatory
 		self.relatedMedicationKnowledge = relatedMedicationKnowledge
 		self.status = status
-		self.synonym = synonym
+		self.storageGuideline = storageGuideline
 		self.text = text
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case administrationGuideline
-		case amount
-		case associatedDefinition
 		case associatedMedication
 		case author
 		case clinicalUseIssue
 		case code
 		case cost
-		case device
-		case doseForm
-		case drugCharacteristic
+		case definitional
 		case identifier
-		case ingredient
-		case intendedRoute
-		case kineticCharacteristic
-		case manufacturer
+		case indicationGuideline
+		case intendedJurisdiction
 		case medicineClassification
 		case monitoringProgram
 		case monograph
+		case name; case _name
 		case packaging
 		case preparationInstruction; case _preparationInstruction
 		case productType
 		case regulatory
 		case relatedMedicationKnowledge
 		case status; case _status
-		case synonym; case _synonym
+		case storageGuideline
 	}
 	
 	/// Initializer for Decodable
@@ -221,32 +187,26 @@ open class MedicationKnowledge: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.administrationGuideline = try [MedicationKnowledgeAdministrationGuideline](from: _container, forKeyIfPresent: .administrationGuideline)
-		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
-		self.associatedDefinition = try Reference(from: _container, forKeyIfPresent: .associatedDefinition)
 		self.associatedMedication = try [Reference](from: _container, forKeyIfPresent: .associatedMedication)
 		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.clinicalUseIssue = try [Reference](from: _container, forKeyIfPresent: .clinicalUseIssue)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.cost = try [MedicationKnowledgeCost](from: _container, forKeyIfPresent: .cost)
-		self.device = try [Reference](from: _container, forKeyIfPresent: .device)
-		self.doseForm = try CodeableConcept(from: _container, forKeyIfPresent: .doseForm)
-		self.drugCharacteristic = try [MedicationKnowledgeDrugCharacteristic](from: _container, forKeyIfPresent: .drugCharacteristic)
+		self.definitional = try MedicationKnowledgeDefinitional(from: _container, forKeyIfPresent: .definitional)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.ingredient = try [MedicationKnowledgeIngredient](from: _container, forKeyIfPresent: .ingredient)
-		self.intendedRoute = try [CodeableConcept](from: _container, forKeyIfPresent: .intendedRoute)
-		self.kineticCharacteristic = try [MedicationKnowledgeKineticCharacteristic](from: _container, forKeyIfPresent: .kineticCharacteristic)
-		self.manufacturer = try Reference(from: _container, forKeyIfPresent: .manufacturer)
+		self.indicationGuideline = try [MedicationKnowledgeIndicationGuideline](from: _container, forKeyIfPresent: .indicationGuideline)
+		self.intendedJurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .intendedJurisdiction)
 		self.medicineClassification = try [MedicationKnowledgeMedicineClassification](from: _container, forKeyIfPresent: .medicineClassification)
 		self.monitoringProgram = try [MedicationKnowledgeMonitoringProgram](from: _container, forKeyIfPresent: .monitoringProgram)
 		self.monograph = try [MedicationKnowledgeMonograph](from: _container, forKeyIfPresent: .monograph)
+		self.name = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.packaging = try [MedicationKnowledgePackaging](from: _container, forKeyIfPresent: .packaging)
 		self.preparationInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preparationInstruction, auxiliaryKey: ._preparationInstruction)
 		self.productType = try [CodeableConcept](from: _container, forKeyIfPresent: .productType)
 		self.regulatory = try [MedicationKnowledgeRegulatory](from: _container, forKeyIfPresent: .regulatory)
 		self.relatedMedicationKnowledge = try [MedicationKnowledgeRelatedMedicationKnowledge](from: _container, forKeyIfPresent: .relatedMedicationKnowledge)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
-		self.synonym = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .synonym, auxiliaryKey: ._synonym)
+		self.status = try FHIRPrimitive<MedicationKnowledgeStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.storageGuideline = try [MedicationKnowledgeStorageGuideline](from: _container, forKeyIfPresent: .storageGuideline)
 		try super.init(from: decoder)
 	}
 	
@@ -255,32 +215,26 @@ open class MedicationKnowledge: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try administrationGuideline?.encode(on: &_container, forKey: .administrationGuideline)
-		try amount?.encode(on: &_container, forKey: .amount)
-		try associatedDefinition?.encode(on: &_container, forKey: .associatedDefinition)
 		try associatedMedication?.encode(on: &_container, forKey: .associatedMedication)
 		try author?.encode(on: &_container, forKey: .author)
 		try clinicalUseIssue?.encode(on: &_container, forKey: .clinicalUseIssue)
 		try code?.encode(on: &_container, forKey: .code)
 		try cost?.encode(on: &_container, forKey: .cost)
-		try device?.encode(on: &_container, forKey: .device)
-		try doseForm?.encode(on: &_container, forKey: .doseForm)
-		try drugCharacteristic?.encode(on: &_container, forKey: .drugCharacteristic)
+		try definitional?.encode(on: &_container, forKey: .definitional)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try ingredient?.encode(on: &_container, forKey: .ingredient)
-		try intendedRoute?.encode(on: &_container, forKey: .intendedRoute)
-		try kineticCharacteristic?.encode(on: &_container, forKey: .kineticCharacteristic)
-		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
+		try indicationGuideline?.encode(on: &_container, forKey: .indicationGuideline)
+		try intendedJurisdiction?.encode(on: &_container, forKey: .intendedJurisdiction)
 		try medicineClassification?.encode(on: &_container, forKey: .medicineClassification)
 		try monitoringProgram?.encode(on: &_container, forKey: .monitoringProgram)
 		try monograph?.encode(on: &_container, forKey: .monograph)
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try packaging?.encode(on: &_container, forKey: .packaging)
 		try preparationInstruction?.encode(on: &_container, forKey: .preparationInstruction, auxiliaryKey: ._preparationInstruction)
 		try productType?.encode(on: &_container, forKey: .productType)
 		try regulatory?.encode(on: &_container, forKey: .regulatory)
 		try relatedMedicationKnowledge?.encode(on: &_container, forKey: .relatedMedicationKnowledge)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try synonym?.encode(on: &_container, forKey: .synonym, auxiliaryKey: ._synonym)
+		try storageGuideline?.encode(on: &_container, forKey: .storageGuideline)
 		try super.encode(to: encoder)
 	}
 	
@@ -293,342 +247,50 @@ open class MedicationKnowledge: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return administrationGuideline == _other.administrationGuideline
-		    && amount == _other.amount
-		    && associatedDefinition == _other.associatedDefinition
-		    && associatedMedication == _other.associatedMedication
+		return associatedMedication == _other.associatedMedication
 		    && author == _other.author
 		    && clinicalUseIssue == _other.clinicalUseIssue
 		    && code == _other.code
 		    && cost == _other.cost
-		    && device == _other.device
-		    && doseForm == _other.doseForm
-		    && drugCharacteristic == _other.drugCharacteristic
+		    && definitional == _other.definitional
 		    && identifier == _other.identifier
-		    && ingredient == _other.ingredient
-		    && intendedRoute == _other.intendedRoute
-		    && kineticCharacteristic == _other.kineticCharacteristic
-		    && manufacturer == _other.manufacturer
+		    && indicationGuideline == _other.indicationGuideline
+		    && intendedJurisdiction == _other.intendedJurisdiction
 		    && medicineClassification == _other.medicineClassification
 		    && monitoringProgram == _other.monitoringProgram
 		    && monograph == _other.monograph
+		    && name == _other.name
 		    && packaging == _other.packaging
 		    && preparationInstruction == _other.preparationInstruction
 		    && productType == _other.productType
 		    && regulatory == _other.regulatory
 		    && relatedMedicationKnowledge == _other.relatedMedicationKnowledge
 		    && status == _other.status
-		    && synonym == _other.synonym
+		    && storageGuideline == _other.storageGuideline
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(administrationGuideline)
-		hasher.combine(amount)
-		hasher.combine(associatedDefinition)
 		hasher.combine(associatedMedication)
 		hasher.combine(author)
 		hasher.combine(clinicalUseIssue)
 		hasher.combine(code)
 		hasher.combine(cost)
-		hasher.combine(device)
-		hasher.combine(doseForm)
-		hasher.combine(drugCharacteristic)
+		hasher.combine(definitional)
 		hasher.combine(identifier)
-		hasher.combine(ingredient)
-		hasher.combine(intendedRoute)
-		hasher.combine(kineticCharacteristic)
-		hasher.combine(manufacturer)
+		hasher.combine(indicationGuideline)
+		hasher.combine(intendedJurisdiction)
 		hasher.combine(medicineClassification)
 		hasher.combine(monitoringProgram)
 		hasher.combine(monograph)
+		hasher.combine(name)
 		hasher.combine(packaging)
 		hasher.combine(preparationInstruction)
 		hasher.combine(productType)
 		hasher.combine(regulatory)
 		hasher.combine(relatedMedicationKnowledge)
 		hasher.combine(status)
-		hasher.combine(synonym)
-	}
-}
-
-/**
- Guidelines or protocols for administration of the medication.
- 
- Guidelines or protocols that are applicable for the administration of the medication.
- */
-open class MedicationKnowledgeAdministrationGuideline: BackboneElement {
-	
-	/// Dosage for the medication for the specific guidelines
-	public var dosage: [MedicationKnowledgeAdministrationGuidelineDosage]?
-	
-	/// Indication for use that apply to the specific administration guidelines
-	public var indication: CodeableReference?
-	
-	/// Characteristics of the patient that are relevant to the administration guidelines
-	public var patientCharacteristic: [MedicationKnowledgeAdministrationGuidelinePatientCharacteristic]?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							dosage: [MedicationKnowledgeAdministrationGuidelineDosage]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							indication: CodeableReference? = nil,
-							modifierExtension: [Extension]? = nil,
-							patientCharacteristic: [MedicationKnowledgeAdministrationGuidelinePatientCharacteristic]? = nil)
-	{
-		self.init()
-		self.dosage = dosage
-		self.`extension` = `extension`
-		self.id = id
-		self.indication = indication
-		self.modifierExtension = modifierExtension
-		self.patientCharacteristic = patientCharacteristic
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case dosage
-		case indication
-		case patientCharacteristic
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.dosage = try [MedicationKnowledgeAdministrationGuidelineDosage](from: _container, forKeyIfPresent: .dosage)
-		self.indication = try CodeableReference(from: _container, forKeyIfPresent: .indication)
-		self.patientCharacteristic = try [MedicationKnowledgeAdministrationGuidelinePatientCharacteristic](from: _container, forKeyIfPresent: .patientCharacteristic)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try dosage?.encode(on: &_container, forKey: .dosage)
-		try indication?.encode(on: &_container, forKey: .indication)
-		try patientCharacteristic?.encode(on: &_container, forKey: .patientCharacteristic)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeAdministrationGuideline else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return dosage == _other.dosage
-		    && indication == _other.indication
-		    && patientCharacteristic == _other.patientCharacteristic
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(dosage)
-		hasher.combine(indication)
-		hasher.combine(patientCharacteristic)
-	}
-}
-
-/**
- Dosage for the medication for the specific guidelines.
- */
-open class MedicationKnowledgeAdministrationGuidelineDosage: BackboneElement {
-	
-	/// Category of dosage for a medication
-	public var type: CodeableConcept
-	
-	/// Dosage for the medication for the specific guidelines
-	public var dosage: [Dosage]
-	
-	/// Designated initializer taking all required properties
-	public init(dosage: [Dosage], type: CodeableConcept) {
-		self.dosage = dosage
-		self.type = type
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							dosage: [Dosage],
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
-		self.init(dosage: dosage, type: type)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case dosage
-		case type
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.dosage = try [Dosage](from: _container, forKey: .dosage)
-		self.type = try CodeableConcept(from: _container, forKey: .type)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try dosage.encode(on: &_container, forKey: .dosage)
-		try type.encode(on: &_container, forKey: .type)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeAdministrationGuidelineDosage else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return dosage == _other.dosage
-		    && type == _other.type
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(dosage)
-		hasher.combine(type)
-	}
-}
-
-/**
- Characteristics of the patient that are relevant to the administration guidelines.
- 
- Characteristics of the patient that are relevant to the administration guidelines (for example, height, weight, gender,
- etc.).
- */
-open class MedicationKnowledgeAdministrationGuidelinePatientCharacteristic: BackboneElement {
-	
-	/// All possible types for "value[x]"
-	public enum ValueX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case quantity(Quantity)
-	}
-	
-	/// Categorization of specific characteristic that is relevant to the administration guideline
-	public var type: CodeableConcept
-	
-	/// The specific characteristic
-	/// One of `value[x]`
-	public var value: ValueX?
-	
-	/// Designated initializer taking all required properties
-	public init(type: CodeableConcept) {
-		self.type = type
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept,
-							value: ValueX? = nil)
-	{
-		self.init(type: type)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.value = value
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case type
-		case valueCodeableConcept
-		case valueQuantity
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.type = try CodeableConcept(from: _container, forKey: .type)
-		var _t_value: ValueX? = nil
-		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .codeableConcept(valueCodeableConcept)
-		}
-		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .quantity(valueQuantity)
-		}
-		self.value = _t_value
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try type.encode(on: &_container, forKey: .type)
-		if let _enum = value {
-			switch _enum {
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
-			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .valueQuantity)
-			}
-		}
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeAdministrationGuidelinePatientCharacteristic else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return type == _other.type
-		    && value == _other.value
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(type)
-		hasher.combine(value)
+		hasher.combine(storageGuideline)
 	}
 }
 
@@ -667,14 +329,14 @@ open class MedicationKnowledgeCost: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cost: CostX,
-							effectiveDate: [Period]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept)
-	{
+		cost: CostX,
+		effectiveDate: [Period]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept
+	) {
 		self.init(cost: cost, type: type)
 		self.effectiveDate = effectiveDate
 		self.`extension` = `extension`
@@ -767,11 +429,123 @@ open class MedicationKnowledgeCost: BackboneElement {
 }
 
 /**
+ Minimal definition information about the medication.
+ 
+ Along with the link to a Medicinal Product Definition resource, this information provides common definitional elements
+ that are needed to understand the specific medication that is being described.
+ */
+open class MedicationKnowledgeDefinitional: BackboneElement {
+	
+	/// Definitional resources that provide more information about this medication
+	public var definition: [Reference]?
+	
+	/// powder | tablets | capsule +
+	public var doseForm: CodeableConcept?
+	
+	/// The intended or approved route of administration
+	public var intendedRoute: [CodeableConcept]?
+	
+	/// Active or inactive ingredient
+	public var ingredient: [MedicationKnowledgeDefinitionalIngredient]?
+	
+	/// Specifies descriptive properties of the medicine
+	public var drugCharacteristic: [MedicationKnowledgeDefinitionalDrugCharacteristic]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		definition: [Reference]? = nil,
+		doseForm: CodeableConcept? = nil,
+		drugCharacteristic: [MedicationKnowledgeDefinitionalDrugCharacteristic]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		ingredient: [MedicationKnowledgeDefinitionalIngredient]? = nil,
+		intendedRoute: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.definition = definition
+		self.doseForm = doseForm
+		self.drugCharacteristic = drugCharacteristic
+		self.`extension` = `extension`
+		self.id = id
+		self.ingredient = ingredient
+		self.intendedRoute = intendedRoute
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case definition
+		case doseForm
+		case drugCharacteristic
+		case ingredient
+		case intendedRoute
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.definition = try [Reference](from: _container, forKeyIfPresent: .definition)
+		self.doseForm = try CodeableConcept(from: _container, forKeyIfPresent: .doseForm)
+		self.drugCharacteristic = try [MedicationKnowledgeDefinitionalDrugCharacteristic](from: _container, forKeyIfPresent: .drugCharacteristic)
+		self.ingredient = try [MedicationKnowledgeDefinitionalIngredient](from: _container, forKeyIfPresent: .ingredient)
+		self.intendedRoute = try [CodeableConcept](from: _container, forKeyIfPresent: .intendedRoute)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try definition?.encode(on: &_container, forKey: .definition)
+		try doseForm?.encode(on: &_container, forKey: .doseForm)
+		try drugCharacteristic?.encode(on: &_container, forKey: .drugCharacteristic)
+		try ingredient?.encode(on: &_container, forKey: .ingredient)
+		try intendedRoute?.encode(on: &_container, forKey: .intendedRoute)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeDefinitional else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return definition == _other.definition
+		    && doseForm == _other.doseForm
+		    && drugCharacteristic == _other.drugCharacteristic
+		    && ingredient == _other.ingredient
+		    && intendedRoute == _other.intendedRoute
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(definition)
+		hasher.combine(doseForm)
+		hasher.combine(drugCharacteristic)
+		hasher.combine(ingredient)
+		hasher.combine(intendedRoute)
+	}
+}
+
+/**
  Specifies descriptive properties of the medicine.
  
  Specifies descriptive properties of the medicine, such as color, shape, imprints, etc.
  */
-open class MedicationKnowledgeDrugCharacteristic: BackboneElement {
+open class MedicationKnowledgeDefinitionalDrugCharacteristic: BackboneElement {
 	
 	/// All possible types for "value[x]"
 	public enum ValueX: Hashable {
@@ -796,12 +570,12 @@ open class MedicationKnowledgeDrugCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil,
-							value: ValueX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept? = nil,
+		value: ValueX? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -888,7 +662,7 @@ open class MedicationKnowledgeDrugCharacteristic: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeDrugCharacteristic else {
+		guard let _other = _other as? MedicationKnowledgeDefinitionalDrugCharacteristic else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
@@ -910,7 +684,7 @@ open class MedicationKnowledgeDrugCharacteristic: BackboneElement {
  
  Identifies a particular constituent of interest in the product.
  */
-open class MedicationKnowledgeIngredient: BackboneElement {
+open class MedicationKnowledgeDefinitionalIngredient: BackboneElement {
 	
 	/// All possible types for "strength[x]"
 	public enum StrengthX: Hashable {
@@ -919,11 +693,11 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 		case ratio(Ratio)
 	}
 	
-	/// Medication(s) or MedicinalProductIngredient(s) contained in the medication
+	/// Substances contained in the medication
 	public var item: CodeableReference
 	
-	/// Active ingredient indicator
-	public var isActive: FHIRPrimitive<FHIRBool>?
+	/// A code that defines the type of ingredient, active, base, etc.
+	public var type: CodeableConcept?
 	
 	/// Quantity of ingredient present
 	/// One of `strength[x]`
@@ -937,29 +711,29 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isActive: FHIRPrimitive<FHIRBool>? = nil,
-							item: CodeableReference,
-							modifierExtension: [Extension]? = nil,
-							strength: StrengthX? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		item: CodeableReference,
+		modifierExtension: [Extension]? = nil,
+		strength: StrengthX? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
-		self.isActive = isActive
 		self.modifierExtension = modifierExtension
 		self.strength = strength
+		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case isActive; case _isActive
 		case item
 		case strengthCodeableConcept
 		case strengthQuantity
 		case strengthRatio
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -967,7 +741,6 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.isActive = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isActive, auxiliaryKey: ._isActive)
 		self.item = try CodeableReference(from: _container, forKey: .item)
 		var _t_strength: StrengthX? = nil
 		if let strengthRatio = try Ratio(from: _container, forKeyIfPresent: .strengthRatio) {
@@ -989,6 +762,7 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 			_t_strength = .quantity(strengthQuantity)
 		}
 		self.strength = _t_strength
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -997,7 +771,6 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try isActive?.encode(on: &_container, forKey: .isActive, auxiliaryKey: ._isActive)
 		try item.encode(on: &_container, forKey: .item)
 		if let _enum = strength {
 			switch _enum {
@@ -1009,48 +782,44 @@ open class MedicationKnowledgeIngredient: BackboneElement {
 				try _value.encode(on: &_container, forKey: .strengthQuantity)
 			}
 		}
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeIngredient else {
+		guard let _other = _other as? MedicationKnowledgeDefinitionalIngredient else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return isActive == _other.isActive
-		    && item == _other.item
+		return item == _other.item
 		    && strength == _other.strength
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(isActive)
 		hasher.combine(item)
 		hasher.combine(strength)
+		hasher.combine(type)
 	}
 }
 
 /**
- The time course of drug absorption, distribution, metabolism and excretion of a medication from the body.
+ Guidelines or protocols for administration of the medication for an indication.
+ 
+ Guidelines or protocols that are applicable for the administration of the medication based on indication.
  */
-open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
+open class MedicationKnowledgeIndicationGuideline: BackboneElement {
 	
-	/// All possible types for "value[x]"
-	public enum ValueX: Hashable {
-		case duration(Duration)
-		case quantity(Quantity)
-	}
+	/// Indication for use that applies to the specific administration guideline
+	public var indication: [CodeableReference]?
 	
-	/// Code specifying the type of kinetics
-	public var type: CodeableConcept?
-	
-	/// Description of the characteristic
-	/// One of `value[x]`
-	public var value: ValueX?
+	/// Guidelines for dosage of the medication
+	public var dosingGuideline: [MedicationKnowledgeIndicationGuidelineDosingGuideline]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -1059,26 +828,25 @@ open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept? = nil,
-							value: ValueX? = nil)
-	{
+		dosingGuideline: [MedicationKnowledgeIndicationGuidelineDosingGuideline]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		indication: [CodeableReference]? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
+		self.dosingGuideline = dosingGuideline
 		self.`extension` = `extension`
 		self.id = id
+		self.indication = indication
 		self.modifierExtension = modifierExtension
-		self.type = type
-		self.value = value
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case type
-		case valueDuration
-		case valueQuantity
+		case dosingGuideline
+		case indication
 	}
 	
 	/// Initializer for Decodable
@@ -1086,19 +854,297 @@ open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		self.dosingGuideline = try [MedicationKnowledgeIndicationGuidelineDosingGuideline](from: _container, forKeyIfPresent: .dosingGuideline)
+		self.indication = try [CodeableReference](from: _container, forKeyIfPresent: .indication)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try dosingGuideline?.encode(on: &_container, forKey: .dosingGuideline)
+		try indication?.encode(on: &_container, forKey: .indication)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeIndicationGuideline else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return dosingGuideline == _other.dosingGuideline
+		    && indication == _other.indication
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(dosingGuideline)
+		hasher.combine(indication)
+	}
+}
+
+/**
+ Guidelines for dosage of the medication.
+ 
+ The guidelines for the dosage of the medication for the indication.
+ */
+open class MedicationKnowledgeIndicationGuidelineDosingGuideline: BackboneElement {
+	
+	/// Intention of the treatment
+	public var treatmentIntent: CodeableConcept?
+	
+	/// Dosage for the medication for the specific guidelines
+	public var dosage: [MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage]?
+	
+	/// Type of treatment the guideline applies to
+	public var administrationTreatment: CodeableConcept?
+	
+	/// Characteristics of the patient that are relevant to the administration guidelines
+	public var patientCharacteristic: [MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		administrationTreatment: CodeableConcept? = nil,
+		dosage: [MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		patientCharacteristic: [MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic]? = nil,
+		treatmentIntent: CodeableConcept? = nil
+	) {
+		self.init()
+		self.administrationTreatment = administrationTreatment
+		self.dosage = dosage
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.patientCharacteristic = patientCharacteristic
+		self.treatmentIntent = treatmentIntent
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case administrationTreatment
+		case dosage
+		case patientCharacteristic
+		case treatmentIntent
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.administrationTreatment = try CodeableConcept(from: _container, forKeyIfPresent: .administrationTreatment)
+		self.dosage = try [MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage](from: _container, forKeyIfPresent: .dosage)
+		self.patientCharacteristic = try [MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic](from: _container, forKeyIfPresent: .patientCharacteristic)
+		self.treatmentIntent = try CodeableConcept(from: _container, forKeyIfPresent: .treatmentIntent)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try administrationTreatment?.encode(on: &_container, forKey: .administrationTreatment)
+		try dosage?.encode(on: &_container, forKey: .dosage)
+		try patientCharacteristic?.encode(on: &_container, forKey: .patientCharacteristic)
+		try treatmentIntent?.encode(on: &_container, forKey: .treatmentIntent)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeIndicationGuidelineDosingGuideline else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return administrationTreatment == _other.administrationTreatment
+		    && dosage == _other.dosage
+		    && patientCharacteristic == _other.patientCharacteristic
+		    && treatmentIntent == _other.treatmentIntent
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(administrationTreatment)
+		hasher.combine(dosage)
+		hasher.combine(patientCharacteristic)
+		hasher.combine(treatmentIntent)
+	}
+}
+
+/**
+ Dosage for the medication for the specific guidelines.
+ */
+open class MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage: BackboneElement {
+	
+	/// Category of dosage for a medication
+	public var type: CodeableConcept
+	
+	/// Dosage for the medication for the specific guidelines
+	public var dosage: [Dosage]
+	
+	/// Designated initializer taking all required properties
+	public init(dosage: [Dosage], type: CodeableConcept) {
+		self.dosage = dosage
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		dosage: [Dosage],
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
+		self.init(dosage: dosage, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case dosage
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.dosage = try [Dosage](from: _container, forKey: .dosage)
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try dosage.encode(on: &_container, forKey: .dosage)
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return dosage == _other.dosage
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(dosage)
+		hasher.combine(type)
+	}
+}
+
+/**
+ Characteristics of the patient that are relevant to the administration guidelines.
+ 
+ Characteristics of the patient that are relevant to the administration guidelines (for example, height, weight, gender,
+ etc.).
+ */
+open class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+	}
+	
+	/// Categorization of specific characteristic that is relevant to the administration guideline
+	public var type: CodeableConcept
+	
+	/// The specific characteristic
+	/// One of `value[x]`
+	public var value: ValueX?
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableConcept) {
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX? = nil
+	) {
+		self.init(type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case type
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.type = try CodeableConcept(from: _container, forKey: .type)
 		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
 		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
 		}
-		if let valueDuration = try Duration(from: _container, forKeyIfPresent: .valueDuration) {
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
 			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueDuration, in: _container, debugDescription: "More than one value provided for \"value\"")
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
-			_t_value = .duration(valueDuration)
+			_t_value = .range(valueRange)
 		}
 		self.value = _t_value
 		try super.init(from: decoder)
@@ -1109,13 +1155,15 @@ open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try type?.encode(on: &_container, forKey: .type)
+		try type.encode(on: &_container, forKey: .type)
 		if let _enum = value {
 			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
-			case .duration(let _value):
-				try _value.encode(on: &_container, forKey: .valueDuration)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
 			}
 		}
 		try super.encode(to: encoder)
@@ -1124,7 +1172,7 @@ open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationKnowledgeKineticCharacteristic else {
+		guard let _other = _other as? MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
@@ -1146,9 +1194,19 @@ open class MedicationKnowledgeKineticCharacteristic: BackboneElement {
  */
 open class MedicationKnowledgeMedicineClassification: BackboneElement {
 	
+	/// All possible types for "source[x]"
+	public enum SourceX: Hashable {
+		case string(FHIRPrimitive<FHIRString>)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
 	/// The type of category for the medication (for example, therapeutic classification, therapeutic sub-
 	/// classification)
 	public var type: CodeableConcept
+	
+	/// The source of the classification
+	/// One of `source[x]`
+	public var source: SourceX?
 	
 	/// Specific category assigned to the medication
 	public var classification: [CodeableConcept]?
@@ -1161,23 +1219,27 @@ open class MedicationKnowledgeMedicineClassification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							classification: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		classification: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: SourceX? = nil,
+		type: CodeableConcept
+	) {
 		self.init(type: type)
 		self.classification = classification
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.source = source
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case classification
+		case sourceString; case _sourceString
+		case sourceUri; case _sourceUri
 		case type
 	}
 	
@@ -1187,6 +1249,20 @@ open class MedicationKnowledgeMedicineClassification: BackboneElement {
 		
 		// Decode all our properties
 		self.classification = try [CodeableConcept](from: _container, forKeyIfPresent: .classification)
+		var _t_source: SourceX? = nil
+		if let sourceString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sourceString, auxiliaryKey: ._sourceString) {
+			if _t_source != nil {
+				throw DecodingError.dataCorruptedError(forKey: .sourceString, in: _container, debugDescription: "More than one value provided for \"source\"")
+			}
+			_t_source = .string(sourceString)
+		}
+		if let sourceUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .sourceUri, auxiliaryKey: ._sourceUri) {
+			if _t_source != nil {
+				throw DecodingError.dataCorruptedError(forKey: .sourceUri, in: _container, debugDescription: "More than one value provided for \"source\"")
+			}
+			_t_source = .uri(sourceUri)
+		}
+		self.source = _t_source
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
 	}
@@ -1197,6 +1273,14 @@ open class MedicationKnowledgeMedicineClassification: BackboneElement {
 		
 		// Encode all our properties
 		try classification?.encode(on: &_container, forKey: .classification)
+		if let _enum = source {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .sourceString, auxiliaryKey: ._sourceString)
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .sourceUri, auxiliaryKey: ._sourceUri)
+			}
+		}
 		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -1211,12 +1295,14 @@ open class MedicationKnowledgeMedicineClassification: BackboneElement {
 			return false
 		}
 		return classification == _other.classification
+		    && source == _other.source
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(classification)
+		hasher.combine(source)
 		hasher.combine(type)
 	}
 }
@@ -1241,12 +1327,12 @@ open class MedicationKnowledgeMonitoringProgram: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -1320,12 +1406,12 @@ open class MedicationKnowledgeMonograph: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							source: Reference? = nil,
-							type: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		source: Reference? = nil,
+		type: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
@@ -1388,26 +1474,11 @@ open class MedicationKnowledgeMonograph: BackboneElement {
  */
 open class MedicationKnowledgePackaging: BackboneElement {
 	
-	/// Business identifier of the packaged medication
-	public var identifier: Identifier?
-	
 	/// Cost of the packaged medication
-	public var cost: MedicationKnowledgeCost?
+	public var cost: [MedicationKnowledgeCost]?
 	
-	/// A code that defines the specific type of packaging that the medication can be found in
-	public var type: CodeableConcept?
-	
-	/// The number of product units the package would contain if fully loaded
-	public var quantity: Quantity?
-	
-	/// The device used to administer the medication (e.g. scoop, applicator, syringe)
-	public var device: Reference?
-	
-	/// Material type of the package item
-	public var material: CodeableConcept?
-	
-	/// Allows packages within packages
-	public var packaging: [MedicationKnowledgePackaging]?
+	/// The packaged medication that is being priced
+	public var packagedProduct: Reference?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -1416,40 +1487,25 @@ open class MedicationKnowledgePackaging: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cost: MedicationKnowledgeCost? = nil,
-							device: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							material: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							packaging: [MedicationKnowledgePackaging]? = nil,
-							quantity: Quantity? = nil,
-							type: CodeableConcept? = nil)
-	{
+		cost: [MedicationKnowledgeCost]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		packagedProduct: Reference? = nil
+	) {
 		self.init()
 		self.cost = cost
-		self.device = device
 		self.`extension` = `extension`
 		self.id = id
-		self.identifier = identifier
-		self.material = material
 		self.modifierExtension = modifierExtension
-		self.packaging = packaging
-		self.quantity = quantity
-		self.type = type
+		self.packagedProduct = packagedProduct
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case cost
-		case device
-		case identifier
-		case material
-		case packaging
-		case quantity
-		case type
+		case packagedProduct
 	}
 	
 	/// Initializer for Decodable
@@ -1457,13 +1513,8 @@ open class MedicationKnowledgePackaging: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.cost = try MedicationKnowledgeCost(from: _container, forKeyIfPresent: .cost)
-		self.device = try Reference(from: _container, forKeyIfPresent: .device)
-		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
-		self.material = try CodeableConcept(from: _container, forKeyIfPresent: .material)
-		self.packaging = try [MedicationKnowledgePackaging](from: _container, forKeyIfPresent: .packaging)
-		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
-		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		self.cost = try [MedicationKnowledgeCost](from: _container, forKeyIfPresent: .cost)
+		self.packagedProduct = try Reference(from: _container, forKeyIfPresent: .packagedProduct)
 		try super.init(from: decoder)
 	}
 	
@@ -1473,12 +1524,7 @@ open class MedicationKnowledgePackaging: BackboneElement {
 		
 		// Encode all our properties
 		try cost?.encode(on: &_container, forKey: .cost)
-		try device?.encode(on: &_container, forKey: .device)
-		try identifier?.encode(on: &_container, forKey: .identifier)
-		try material?.encode(on: &_container, forKey: .material)
-		try packaging?.encode(on: &_container, forKey: .packaging)
-		try quantity?.encode(on: &_container, forKey: .quantity)
-		try type?.encode(on: &_container, forKey: .type)
+		try packagedProduct?.encode(on: &_container, forKey: .packagedProduct)
 		try super.encode(to: encoder)
 	}
 	
@@ -1492,23 +1538,13 @@ open class MedicationKnowledgePackaging: BackboneElement {
 			return false
 		}
 		return cost == _other.cost
-		    && device == _other.device
-		    && identifier == _other.identifier
-		    && material == _other.material
-		    && packaging == _other.packaging
-		    && quantity == _other.quantity
-		    && type == _other.type
+		    && packagedProduct == _other.packagedProduct
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(cost)
-		hasher.combine(device)
-		hasher.combine(identifier)
-		hasher.combine(material)
-		hasher.combine(packaging)
-		hasher.combine(quantity)
-		hasher.combine(type)
+		hasher.combine(packagedProduct)
 	}
 }
 
@@ -1537,14 +1573,14 @@ open class MedicationKnowledgeRegulatory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							maxDispense: MedicationKnowledgeRegulatoryMaxDispense? = nil,
-							modifierExtension: [Extension]? = nil,
-							regulatoryAuthority: Reference,
-							schedule: [CodeableConcept]? = nil,
-							substitution: [MedicationKnowledgeRegulatorySubstitution]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		maxDispense: MedicationKnowledgeRegulatoryMaxDispense? = nil,
+		modifierExtension: [Extension]? = nil,
+		regulatoryAuthority: Reference,
+		schedule: [CodeableConcept]? = nil,
+		substitution: [MedicationKnowledgeRegulatorySubstitution]? = nil
+	) {
 		self.init(regulatoryAuthority: regulatoryAuthority)
 		self.`extension` = `extension`
 		self.id = id
@@ -1630,12 +1666,12 @@ open class MedicationKnowledgeRegulatoryMaxDispense: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Duration? = nil,
-							quantity: Quantity)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Duration? = nil,
+		quantity: Quantity
+	) {
 		self.init(quantity: quantity)
 		self.`extension` = `extension`
 		self.id = id
@@ -1710,12 +1746,12 @@ open class MedicationKnowledgeRegulatorySubstitution: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							allowed: FHIRPrimitive<FHIRBool>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: CodeableConcept)
-	{
+		allowed: FHIRPrimitive<FHIRBool>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept
+	) {
 		self.init(allowed: allowed, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1793,12 +1829,12 @@ open class MedicationKnowledgeRelatedMedicationKnowledge: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							reference: [Reference],
-							type: CodeableConcept)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: [Reference],
+		type: CodeableConcept
+	) {
 		self.init(reference: reference, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -1849,5 +1885,232 @@ open class MedicationKnowledgeRelatedMedicationKnowledge: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(reference)
 		hasher.combine(type)
+	}
+}
+
+/**
+ How the medication should be stored.
+ 
+ Information on how the medication should be stored, for example, refrigeration temperatures and length of stability at
+ a given temperature.
+ */
+open class MedicationKnowledgeStorageGuideline: BackboneElement {
+	
+	/// Reference to additional information
+	public var reference: FHIRPrimitive<FHIRURI>?
+	
+	/// Additional storage notes
+	public var note: [Annotation]?
+	
+	/// Duration remains stable
+	public var stabilityDuration: Duration?
+	
+	/// Setting or value of environment for adequate storage
+	public var environmentalSetting: [MedicationKnowledgeStorageGuidelineEnvironmentalSetting]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		environmentalSetting: [MedicationKnowledgeStorageGuidelineEnvironmentalSetting]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		reference: FHIRPrimitive<FHIRURI>? = nil,
+		stabilityDuration: Duration? = nil
+	) {
+		self.init()
+		self.environmentalSetting = environmentalSetting
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.note = note
+		self.reference = reference
+		self.stabilityDuration = stabilityDuration
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case environmentalSetting
+		case note
+		case reference; case _reference
+		case stabilityDuration
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.environmentalSetting = try [MedicationKnowledgeStorageGuidelineEnvironmentalSetting](from: _container, forKeyIfPresent: .environmentalSetting)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
+		self.reference = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
+		self.stabilityDuration = try Duration(from: _container, forKeyIfPresent: .stabilityDuration)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try environmentalSetting?.encode(on: &_container, forKey: .environmentalSetting)
+		try note?.encode(on: &_container, forKey: .note)
+		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
+		try stabilityDuration?.encode(on: &_container, forKey: .stabilityDuration)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeStorageGuideline else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return environmentalSetting == _other.environmentalSetting
+		    && note == _other.note
+		    && reference == _other.reference
+		    && stabilityDuration == _other.stabilityDuration
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(environmentalSetting)
+		hasher.combine(note)
+		hasher.combine(reference)
+		hasher.combine(stabilityDuration)
+	}
+}
+
+/**
+ Setting or value of environment for adequate storage.
+ 
+ Describes a setting/value on the environment for the adequate storage of the medication and other substances.
+ Environment settings may involve temperature, humidity, or exposure to light.
+ */
+open class MedicationKnowledgeStorageGuidelineEnvironmentalSetting: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+	}
+	
+	/// Categorization of the setting
+	public var type: CodeableConcept
+	
+	/// Value of the setting
+	/// One of `value[x]`
+	public var value: ValueX
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableConcept, value: ValueX) {
+		self.type = type
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		value: ValueX
+	) {
+		self.init(type: type, value: value)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case type
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueCodeableConcept, CodingKeys.valueQuantity, CodingKeys.valueRange], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
+		// Decode all our properties
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_value: ValueX? = nil
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		self.value = _t_value!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try type.encode(on: &_container, forKey: .type)
+		
+			switch value {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationKnowledgeStorageGuidelineEnvironmentalSetting else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return type == _other.type
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(type)
+		hasher.combine(value)
 	}
 }

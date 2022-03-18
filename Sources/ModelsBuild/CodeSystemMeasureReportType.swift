@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,17 +27,17 @@ import FMCore
  */
 public enum MeasureReportType: String, FHIRPrimitiveType {
 	
+	/// A data collection report that contains data-of-interest for the measure.
+	case dataCollection = "data-collection"
+	
 	/// An individual report that provides information on the performance for a given measure with respect to a single
 	/// subject.
-	case individual = "individual"
+	case individual
 	
 	/// A subject list report that includes a listing of subjects that satisfied each population criteria in the
 	/// measure.
 	case subjectList = "subject-list"
 	
 	/// A summary report that returns the number of members in each population criteria for the measure.
-	case summary = "summary"
-	
-	/// A data collection report that contains data-of-interest for the measure.
-	case dataCollection = "data-collection"
+	case summary
 }

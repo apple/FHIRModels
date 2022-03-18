@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum Use: String, FHIRPrimitiveType {
 	
 	/// The treatment is complete and this represents a Claim for the services.
-	case claim = "claim"
+	case claim
 	
 	/// The treatment is proposed and this represents a Pre-authorization for the services.
-	case preauthorization = "preauthorization"
+	case preauthorization
 	
 	/// The treatment is proposed and this represents a Pre-determination for the services.
-	case predetermination = "predetermination"
+	case predetermination
 }

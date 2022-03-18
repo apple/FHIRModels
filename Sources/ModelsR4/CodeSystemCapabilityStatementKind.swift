@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ public enum CapabilityStatementKind: String, FHIRPrimitiveType {
 	
 	/// The CapabilityStatement instance represents the present capabilities of a specific system instance.  This is the
 	/// kind returned by /metadata for a FHIR server end-point.
-	case instance = "instance"
+	case instance
 	
 	/// The CapabilityStatement instance represents the capabilities of a system or piece of software, independent of a
 	/// particular installation.
-	case capability = "capability"
+	case capability
 	
 	/// The CapabilityStatement instance represents a set of requirements for other systems to meet; e.g. as part of an
 	/// implementation guide or 'request for proposal'.
-	case requirements = "requirements"
+	case requirements
 }

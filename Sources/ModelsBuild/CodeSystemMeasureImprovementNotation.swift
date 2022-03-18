@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import FMCore
  */
 public enum MeasureImprovementNotation: String, FHIRPrimitiveType {
 	
+	/// Improvement is indicated as a decrease in the score or measurement (e.g. Lower score indicates better quality).
+	case decrease
+	
 	/// Improvement is indicated as an increase in the score or measurement (e.g. Higher score indicates better
 	/// quality).
-	case increase = "increase"
-	
-	/// Improvement is indicated as a decrease in the score or measurement (e.g. Lower score indicates better quality).
-	case decrease = "decrease"
+	case increase
 }

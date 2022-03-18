@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Annotation)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -50,12 +50,12 @@ open class Annotation: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: AuthorX? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							text: FHIRPrimitive<FHIRString>,
-							time: FHIRPrimitive<DateTime>? = nil)
-	{
+		author: AuthorX? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		text: FHIRPrimitive<FHIRString>,
+		time: FHIRPrimitive<DateTime>? = nil
+	) {
 		self.init(text: text)
 		self.author = author
 		self.`extension` = `extension`

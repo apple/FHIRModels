@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Attachment)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,17 +57,17 @@ open class Attachment: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							contentType: FHIRPrimitive<FHIRString>? = nil,
-							creation: FHIRPrimitive<DateTime>? = nil,
-							data: FHIRPrimitive<Base64Binary>? = nil,
-							`extension`: [Extension]? = nil,
-							hash: FHIRPrimitive<Base64Binary>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							size: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>? = nil)
-	{
+		contentType: FHIRPrimitive<FHIRString>? = nil,
+		creation: FHIRPrimitive<DateTime>? = nil,
+		data: FHIRPrimitive<Base64Binary>? = nil,
+		`extension`: [Extension]? = nil,
+		hash: FHIRPrimitive<Base64Binary>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		size: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>? = nil
+	) {
 		self.init()
 		self.contentType = contentType
 		self.creation = creation

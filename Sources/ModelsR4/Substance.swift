@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/Substance)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -55,22 +55,22 @@ open class Substance: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							category: [CodeableConcept]? = nil,
-							code: CodeableConcept,
-							contained: [ResourceProxy]? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							ingredient: [SubstanceIngredient]? = nil,
-							instance: [SubstanceInstance]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							status: FHIRPrimitive<FHIRSubstanceStatus>? = nil,
-							text: Narrative? = nil)
-	{
+		category: [CodeableConcept]? = nil,
+		code: CodeableConcept,
+		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		ingredient: [SubstanceIngredient]? = nil,
+		instance: [SubstanceInstance]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		status: FHIRPrimitive<FHIRSubstanceStatus>? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(code: code)
 		self.category = category
 		self.contained = contained
@@ -188,12 +188,12 @@ open class SubstanceIngredient: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Ratio? = nil,
-							substance: SubstanceX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Ratio? = nil,
+		substance: SubstanceX
+	) {
 		self.init(substance: substance)
 		self.`extension` = `extension`
 		self.id = id
@@ -297,13 +297,13 @@ open class SubstanceInstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							expiry: FHIRPrimitive<DateTime>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							modifierExtension: [Extension]? = nil,
-							quantity: Quantity? = nil)
-	{
+		expiry: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil
+	) {
 		self.init()
 		self.expiry = expiry
 		self.`extension` = `extension`

@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import FMCore
 public enum SpecialArrangements: String, FHIRPrimitiveType {
 	
 	/// The patient requires a wheelchair to be made available for the encounter.
-	case wheel = "wheel"
+	case wheel
 	
 	/// An additional bed made available for a person accompanying the patient, for example a parent accompanying a
 	/// child.
@@ -37,13 +37,13 @@ public enum SpecialArrangements: String, FHIRPrimitiveType {
 	
 	/// The patient is not fluent in the local language and requires an interpreter to be available. Refer to the
 	/// Patient.Language property for the type of interpreter required.
-	case int = "int"
+	case int
 	
 	/// A person who accompanies a patient to provide assistive services necessary for the patient's care during the
 	/// encounter.
-	case att = "att"
+	case att
 	
 	/// The patient has a guide dog and the location used for the encounter should be able to support the presence of
 	/// the service animal.
-	case dog = "dog"
+	case dog
 }

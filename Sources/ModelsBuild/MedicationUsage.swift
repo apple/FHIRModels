@@ -2,8 +2,8 @@
 //  MedicationUsage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/MedicationUsage)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationUsage)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ import FMCore
  less precise.  As stated earlier, the Medication Usage information may come from the patient's memory, from a
  prescription bottle or from a list of medications the patient, clinician or other party maintains.  Medication
  administration is more formal and is not missing detailed information.
+ 
+ The MedicationUsage resource was previously called MedicationStatement.
  */
 open class MedicationUsage: DomainResource {
 	
@@ -51,18 +53,8 @@ open class MedicationUsage: DomainResource {
 	/// External identifier
 	public var identifier: [Identifier]?
 	
-	/// Fulfils plan, proposal or order
-	public var basedOn: [Reference]?
-	
-	/// Part of referenced event
-	public var partOf: [Reference]?
-	
-	/// A code representing the patient or other source's judgment about the state of the medication used that this
-	/// usage is about.  Generally, this will be active or completed.
+	/// A code representing the status of recording the medication usage.
 	public var status: FHIRPrimitive<MedicationUsageStatusCodes>
-	
-	/// Reason for current status
-	public var statusReason: [CodeableConcept]?
 	
 	/// Type of medication usage
 	public var category: [CodeableConcept]?
@@ -84,7 +76,7 @@ open class MedicationUsage: DomainResource {
 	public var dateAsserted: FHIRPrimitive<DateTime>?
 	
 	/// Person or organization that provided the information about the taking of this medication
-	public var informationSource: Reference?
+	public var informationSource: [Reference]?
 	
 	/// Link to information used to derive the MedicationUsage
 	public var derivedFrom: [Reference]?
@@ -101,8 +93,8 @@ open class MedicationUsage: DomainResource {
 	/// Details of how medication is/was taken or should be taken
 	public var dosage: [Dosage]?
 	
-	/// Indicates if the medication is being consumed or administered as prescribed
-	public var takenAsOrdered: FHIRPrimitive<FHIRBool>?
+	/// Indicates if the medication is being consumed or administered as instructed
+	public var adherence: MedicationUsageAdherence?
 	
 	/// Designated initializer taking all required properties
 	public init(medication: CodeableReference, status: FHIRPrimitive<MedicationUsageStatusCodes>, subject: Reference) {
@@ -114,35 +106,32 @@ open class MedicationUsage: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							basedOn: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							dateAsserted: FHIRPrimitive<DateTime>? = nil,
-							derivedFrom: [Reference]? = nil,
-							dosage: [Dosage]? = nil,
-							effective: EffectiveX? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							informationSource: Reference? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							medication: CodeableReference,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							reason: [CodeableReference]? = nil,
-							renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<MedicationUsageStatusCodes>,
-							statusReason: [CodeableConcept]? = nil,
-							subject: Reference,
-							takenAsOrdered: FHIRPrimitive<FHIRBool>? = nil,
-							text: Narrative? = nil)
-	{
+		adherence: MedicationUsageAdherence? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		dateAsserted: FHIRPrimitive<DateTime>? = nil,
+		derivedFrom: [Reference]? = nil,
+		dosage: [Dosage]? = nil,
+		effective: EffectiveX? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		informationSource: [Reference]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		medication: CodeableReference,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		reason: [CodeableReference]? = nil,
+		renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<MedicationUsageStatusCodes>,
+		subject: Reference,
+		text: Narrative? = nil
+	) {
 		self.init(medication: medication, status: status, subject: subject)
-		self.basedOn = basedOn
+		self.adherence = adherence
 		self.category = category
 		self.contained = contained
 		self.dateAsserted = dateAsserted
@@ -159,18 +148,15 @@ open class MedicationUsage: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
-		self.partOf = partOf
 		self.reason = reason
 		self.renderedDosageInstruction = renderedDosageInstruction
-		self.statusReason = statusReason
-		self.takenAsOrdered = takenAsOrdered
 		self.text = text
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case basedOn
+		case adherence
 		case category
 		case dateAsserted; case _dateAsserted
 		case derivedFrom
@@ -182,13 +168,10 @@ open class MedicationUsage: DomainResource {
 		case informationSource
 		case medication
 		case note
-		case partOf
 		case reason
 		case renderedDosageInstruction; case _renderedDosageInstruction
 		case status; case _status
-		case statusReason
 		case subject
-		case takenAsOrdered; case _takenAsOrdered
 	}
 	
 	/// Initializer for Decodable
@@ -196,7 +179,7 @@ open class MedicationUsage: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
+		self.adherence = try MedicationUsageAdherence(from: _container, forKeyIfPresent: .adherence)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.dateAsserted = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .dateAsserted, auxiliaryKey: ._dateAsserted)
 		self.derivedFrom = try [Reference](from: _container, forKeyIfPresent: .derivedFrom)
@@ -217,16 +200,13 @@ open class MedicationUsage: DomainResource {
 		self.effective = _t_effective
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.informationSource = try Reference(from: _container, forKeyIfPresent: .informationSource)
+		self.informationSource = try [Reference](from: _container, forKeyIfPresent: .informationSource)
 		self.medication = try CodeableReference(from: _container, forKey: .medication)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.renderedDosageInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		self.status = try FHIRPrimitive<MedicationUsageStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
-		self.takenAsOrdered = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .takenAsOrdered, auxiliaryKey: ._takenAsOrdered)
 		try super.init(from: decoder)
 	}
 	
@@ -235,7 +215,7 @@ open class MedicationUsage: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try basedOn?.encode(on: &_container, forKey: .basedOn)
+		try adherence?.encode(on: &_container, forKey: .adherence)
 		try category?.encode(on: &_container, forKey: .category)
 		try dateAsserted?.encode(on: &_container, forKey: .dateAsserted, auxiliaryKey: ._dateAsserted)
 		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom)
@@ -253,13 +233,10 @@ open class MedicationUsage: DomainResource {
 		try informationSource?.encode(on: &_container, forKey: .informationSource)
 		try medication.encode(on: &_container, forKey: .medication)
 		try note?.encode(on: &_container, forKey: .note)
-		try partOf?.encode(on: &_container, forKey: .partOf)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try renderedDosageInstruction?.encode(on: &_container, forKey: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try subject.encode(on: &_container, forKey: .subject)
-		try takenAsOrdered?.encode(on: &_container, forKey: .takenAsOrdered, auxiliaryKey: ._takenAsOrdered)
 		try super.encode(to: encoder)
 	}
 	
@@ -272,7 +249,7 @@ open class MedicationUsage: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return basedOn == _other.basedOn
+		return adherence == _other.adherence
 		    && category == _other.category
 		    && dateAsserted == _other.dateAsserted
 		    && derivedFrom == _other.derivedFrom
@@ -283,18 +260,15 @@ open class MedicationUsage: DomainResource {
 		    && informationSource == _other.informationSource
 		    && medication == _other.medication
 		    && note == _other.note
-		    && partOf == _other.partOf
 		    && reason == _other.reason
 		    && renderedDosageInstruction == _other.renderedDosageInstruction
 		    && status == _other.status
-		    && statusReason == _other.statusReason
 		    && subject == _other.subject
-		    && takenAsOrdered == _other.takenAsOrdered
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(basedOn)
+		hasher.combine(adherence)
 		hasher.combine(category)
 		hasher.combine(dateAsserted)
 		hasher.combine(derivedFrom)
@@ -305,12 +279,88 @@ open class MedicationUsage: DomainResource {
 		hasher.combine(informationSource)
 		hasher.combine(medication)
 		hasher.combine(note)
-		hasher.combine(partOf)
 		hasher.combine(reason)
 		hasher.combine(renderedDosageInstruction)
 		hasher.combine(status)
-		hasher.combine(statusReason)
 		hasher.combine(subject)
-		hasher.combine(takenAsOrdered)
+	}
+}
+
+/**
+ Indicates if the medication is being consumed or administered as instructed.
+ */
+open class MedicationUsageAdherence: BackboneElement {
+	
+	/// Type of adherence
+	public var code: CodeableConcept
+	
+	/// Details of the reason for the current use of the medication
+	public var reason: CodeableConcept?
+	
+	/// Designated initializer taking all required properties
+	public init(code: CodeableConcept) {
+		self.code = code
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil
+	) {
+		self.init(code: code)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reason = reason
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case reason
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code)
+		try reason?.encode(on: &_container, forKey: .reason)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationUsageAdherence else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && reason == _other.reason
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(reason)
 	}
 }

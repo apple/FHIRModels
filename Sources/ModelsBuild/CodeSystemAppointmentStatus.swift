@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,40 +27,40 @@ import FMCore
  */
 public enum AppointmentStatus: String, FHIRPrimitiveType {
 	
-	/// None of the participant(s) have finalized their acceptance of the appointment request, and the start/end time
-	/// might not be set yet.
-	case proposed = "proposed"
-	
-	/// Some or all of the participant(s) have not finalized their acceptance of the appointment request.
-	case pending = "pending"
+	/// The patient/patients has/have arrived and is/are waiting to be seen.
+	case arrived
 	
 	/// All participant(s) have been considered and the appointment is confirmed to go ahead at the date/times
 	/// specified.
-	case booked = "booked"
-	
-	/// The patient/patients has/have arrived and is/are waiting to be seen.
-	case arrived = "arrived"
-	
-	/// The planning stages of the appointment are now complete, the encounter resource will exist and will track
-	/// further status changes. Note that an encounter may exist before the appointment status is fulfilled for many
-	/// reasons.
-	case fulfilled = "fulfilled"
+	case booked
 	
 	/// The appointment has been cancelled.
-	case cancelled = "cancelled"
-	
-	/// Some or all of the participant(s) have not/did not appear for the appointment (usually the patient).
-	case noshow = "noshow"
-	
-	/// This instance should not have been part of this patient's medical record.
-	case enteredInError = "entered-in-error"
+	case cancelled
 	
 	/// When checked in, all pre-encounter administrative work is complete, and the encounter may begin. (where multiple
 	/// patients are involved, they are all present).
 	case checkedIn = "checked-in"
 	
+	/// This instance should not have been part of this patient's medical record.
+	case enteredInError = "entered-in-error"
+	
+	/// The planning stages of the appointment are now complete, the encounter resource will exist and will track
+	/// further status changes. Note that an encounter may exist before the appointment status is fulfilled for many
+	/// reasons.
+	case fulfilled
+	
+	/// Some or all of the participant(s) have not/did not appear for the appointment (usually the patient).
+	case noshow
+	
+	/// Some or all of the participant(s) have not finalized their acceptance of the appointment request.
+	case pending
+	
+	/// None of the participant(s) have finalized their acceptance of the appointment request, and the start/end time
+	/// might not be set yet.
+	case proposed
+	
 	/// The appointment has been placed on a waitlist, to be scheduled/confirmed in the future when a slot/service is
 	/// available.
 	/// A specific time might or might not be pre-allocated.
-	case waitlist = "waitlist"
+	case waitlist
 }

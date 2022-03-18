@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,22 +27,22 @@ import FMCore
  */
 public enum MeasureType: String, FHIRPrimitiveType {
 	
-	/// A measure which focuses on a process which leads to a certain outcome, meaning that a scientific basis exists
-	/// for believing that the process, when executed well, will increase the probability of achieving a desired
-	/// outcome.
-	case process = "process"
+	/// A measure that combines multiple component measures in to a single quality measure.
+	case composite
 	
 	/// A measure that indicates the result of the performance (or non-performance) of a function or process.
-	case outcome = "outcome"
-	
-	/// A measure that focuses on a health care provider's capacity, systems, and processes to provide high-quality
-	/// care.
-	case structure = "structure"
+	case outcome
 	
 	/// A measure that focuses on patient-reported information such as patient engagement or patient experience
 	/// measures.
 	case patientReportedOutcome = "patient-reported-outcome"
 	
-	/// A measure that combines multiple component measures in to a single quality measure.
-	case composite = "composite"
+	/// A measure which focuses on a process which leads to a certain outcome, meaning that a scientific basis exists
+	/// for believing that the process, when executed well, will increase the probability of achieving a desired
+	/// outcome.
+	case process
+	
+	/// A measure that focuses on a health care provider's capacity, systems, and processes to provide high-quality
+	/// care.
+	case structure
 }

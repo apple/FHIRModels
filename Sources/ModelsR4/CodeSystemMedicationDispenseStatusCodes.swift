@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,32 +29,32 @@ public enum MedicationDispenseStatusCodes: String, FHIRPrimitiveType {
 	
 	/// The core event has not started yet, but some staging activities have begun (e.g. initial compounding or
 	/// packaging of medication). Preparation stages may be tracked for billing purposes.
-	case preparation = "preparation"
+	case preparation
 	
 	/// The dispensed product is ready for pickup.
 	case inProgress = "in-progress"
 	
 	/// The dispensed product was not and will never be picked up by the patient.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// The dispense process is paused while waiting for an external event to reactivate the dispense.  For example, new
 	/// stock has arrived or the prescriber has called.
 	case onHold = "on-hold"
 	
 	/// The dispensed product has been picked up.
-	case completed = "completed"
+	case completed
 	
 	/// The dispense was entered in error and therefore nullified.
 	case enteredInError = "entered-in-error"
 	
 	/// Actions implied by the dispense have been permanently halted, before all of them occurred.
-	case stopped = "stopped"
+	case stopped
 	
 	/// The dispense was declined and not performed.
-	case declined = "declined"
+	case declined
 	
 	/// The authoring system does not know which of the status values applies for this medication dispense.  Note: this
 	/// concept is not to be used for other - one of the listed statuses is presumed to apply, it's just now known which
 	/// one.
-	case unknown = "unknown"
+	case unknown
 }

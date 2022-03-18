@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import FMCore
 public enum EvidenceVariableType: String, FHIRPrimitiveType {
 	
 	/// The variable is dichotomous, such as present or absent.
-	case dichotomous = "dichotomous"
+	case dichotomous
 	
 	/// The variable is a continuous result such as a quantity.
-	case continuous = "continuous"
+	case continuous
 	
 	/// The variable is described narratively rather than quantitatively.
-	case descriptive = "descriptive"
+	case descriptive
 }

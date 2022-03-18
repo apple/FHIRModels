@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@
 import FMCore
 
 /**
- Example codes indicating the change that happened to the device during the procedure.  Note that these are in no way
- complete and might not even be appropriate for some uses.
+ Example value set for Procedure Device Action code (what happened to a device during a procedure.
  
  URL: http://hl7.org/fhir/device-action
  */
 public enum ProcedureDeviceActionCodes: String, FHIRPrimitiveType {
 	
-	/// The device was implanted in the patient during the procedure.
-	case implanted = "implanted"
-	
 	/// The device was explanted from the patient during the procedure.
-	case explanted = "explanted"
+	case explanted
+	
+	/// The device was implanted in the patient during the procedure.
+	case implanted
 	
 	/// The device remains in the patient, but its location, settings, or functionality was changed.
-	case manipulated = "manipulated"
+	case manipulated
 }

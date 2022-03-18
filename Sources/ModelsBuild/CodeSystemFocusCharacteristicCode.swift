@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,27 +28,27 @@ import FMCore
 public enum FocusCharacteristicCode: String, FHIRPrimitiveType {
 	
 	/// Used to reference a specific article.
-	case citation = "citation"
+	case citation
 	
 	/// Used to denote a focus on clinical outcomes, ie evidence variable in role of outcome (measured variable) as
 	/// observed is considered a "clinical outcome" (patient-important outcome such as mortality, symptoms, function or
 	/// quality of life).
 	case clinicalOutcomesObserved = "clinical-outcomes-observed"
 	
-	/// The population of interest.
-	case population = "population"
+	/// The comparator (intervention or control state) of interest.
+	case comparator
 	
 	/// The exposure of interest, such as an intervention.
-	case exposure = "exposure"
-	
-	/// The comparator (intervention or control state) of interest.
-	case comparator = "comparator"
-	
-	/// the outcome of interest.
-	case outcome = "outcome"
+	case exposure
 	
 	/// Any medication exposures. A subset of exposures or interventions that are medications.
 	case medicationExposures = "medication-exposures"
+	
+	/// the outcome of interest.
+	case outcome
+	
+	/// The population of interest.
+	case population
 	
 	/// Type of research study, such as randomized trial or case-control study.
 	case studyType = "study-type"

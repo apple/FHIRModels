@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/AuditEvent)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -73,26 +73,26 @@ open class AuditEvent: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							action: FHIRPrimitive<AuditEventAction>? = nil,
-							agent: [AuditEventAgent],
-							contained: [ResourceProxy]? = nil,
-							entity: [AuditEventEntity]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcome: FHIRPrimitive<FHIRString>? = nil,
-							outcomeDesc: FHIRPrimitive<FHIRString>? = nil,
-							period: Period? = nil,
-							purposeOfEvent: [CodeableConcept]? = nil,
-							recorded: FHIRPrimitive<Instant>,
-							source: AuditEventSource,
-							subtype: [Coding]? = nil,
-							text: Narrative? = nil,
-							type: Coding)
-	{
+		action: FHIRPrimitive<AuditEventAction>? = nil,
+		agent: [AuditEventAgent],
+		contained: [ResourceProxy]? = nil,
+		entity: [AuditEventEntity]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcome: FHIRPrimitive<FHIRString>? = nil,
+		outcomeDesc: FHIRPrimitive<FHIRString>? = nil,
+		period: Period? = nil,
+		purposeOfEvent: [CodeableConcept]? = nil,
+		recorded: FHIRPrimitive<Instant>,
+		source: AuditEventSource,
+		subtype: [Coding]? = nil,
+		text: Narrative? = nil,
+		type: Coding
+	) {
 		self.init(agent: agent, recorded: recorded, source: source, type: type)
 		self.action = action
 		self.contained = contained
@@ -251,21 +251,21 @@ open class AuditEventAgent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							altId: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							location: Reference? = nil,
-							media: Coding? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							network: AuditEventAgentNetwork? = nil,
-							policy: [FHIRPrimitive<FHIRURI>]? = nil,
-							purposeOfUse: [CodeableConcept]? = nil,
-							requestor: FHIRPrimitive<FHIRBool>,
-							role: [CodeableConcept]? = nil,
-							type: CodeableConcept? = nil,
-							who: Reference? = nil)
-	{
+		altId: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
+		media: Coding? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		network: AuditEventAgentNetwork? = nil,
+		policy: [FHIRPrimitive<FHIRURI>]? = nil,
+		purposeOfUse: [CodeableConcept]? = nil,
+		requestor: FHIRPrimitive<FHIRBool>,
+		role: [CodeableConcept]? = nil,
+		type: CodeableConcept? = nil,
+		who: Reference? = nil
+	) {
 		self.init(requestor: requestor)
 		self.altId = altId
 		self.`extension` = `extension`
@@ -394,12 +394,12 @@ open class AuditEventAgentNetwork: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							address: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<FHIRString>? = nil)
-	{
+		address: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.address = address
 		self.`extension` = `extension`
@@ -496,19 +496,19 @@ open class AuditEventEntity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							detail: [AuditEventEntityDetail]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							lifecycle: Coding? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							query: FHIRPrimitive<Base64Binary>? = nil,
-							role: Coding? = nil,
-							securityLabel: [Coding]? = nil,
-							type: Coding? = nil,
-							what: Reference? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		detail: [AuditEventEntityDetail]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		lifecycle: Coding? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		query: FHIRPrimitive<Base64Binary>? = nil,
+		role: Coding? = nil,
+		securityLabel: [Coding]? = nil,
+		type: Coding? = nil,
+		what: Reference? = nil
+	) {
 		self.init()
 		self.description_fhir = description_fhir
 		self.detail = detail
@@ -635,12 +635,12 @@ open class AuditEventEntityDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<FHIRString>,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<FHIRString>,
+		value: ValueX
+	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -744,13 +744,13 @@ open class AuditEventSource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							observer: Reference,
-							site: FHIRPrimitive<FHIRString>? = nil,
-							type: [Coding]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		observer: Reference,
+		site: FHIRPrimitive<FHIRString>? = nil,
+		type: [Coding]? = nil
+	) {
 		self.init(observer: observer)
 		self.`extension` = `extension`
 		self.id = id

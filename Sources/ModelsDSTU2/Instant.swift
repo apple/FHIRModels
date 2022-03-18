@@ -27,6 +27,13 @@ import FMCore
  human-reported times - for those, use date or dateTime (which can be as precise as instant, but is not required to be).
  Instant is a more constrained dateTime.
  
+ A caveat on `Comparable` and `Equatable`:
+ 
+ - When using `Equatable`, the instances are compared directly, meaning all properties must be identical
+     - Use `==` to compare whether two instances are identical
+     - Use `a.compare(b) == .orderedSame` to compare whether two instances represent the exact same date & time
+ - When using `Comparable`, the instances are converted to an absolute time respecting their timezone
+ 
  http://hl7.org/fhir/datatypes.html#instant
  */
 public struct Instant: FHIRPrimitiveType {
@@ -76,19 +83,19 @@ public struct Instant: FHIRPrimitiveType {
 		// Date, Time & TimeZone
 		let date = try InstantDate.parse(from: scanner, expectAtEnd: false)
 		guard scanner.scanString("T", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
+			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
 		}
 		
 		let scanLocation = scanner.scanLocation
 		let time = try FHIRTime.parse(from: scanner, expectAtEnd: false)
 		let (secondsFromGMT, timeZoneString) = try TimeZone.hs_parseComponents(from: scanner, expectAtEnd: true)
 		guard let timeZone = TimeZone(secondsFromGMT: secondsFromGMT) else {    // we should never hit this since `TimeZone.hs_parseComponents` takes care of validation
-			throw FHIRDateParserError.invalidTimeZoneHour(FHIRParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.invalidTimeZoneHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
 		}
 		
 		// Done
 		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
+			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
 		}
 		
 		return (date, time, timeZone, timeZoneString)
@@ -167,5 +174,35 @@ extension Instant: Equatable {
 			return false
 		}
 		return true
+	}
+}
+
+extension Instant: Comparable {
+	
+	public static func <(l: Instant, r: Instant) -> Bool {
+		do {
+			return try l.compare(r) == .orderedAscending
+		} catch {
+			print("Instant comparison \(String(describing: l)) < \(String(describing: r)) raised \(String(describing: error))")
+			return false
+		}
+	}
+	
+	public static func <(l: Instant, r: DateTime) -> Bool {
+		do {
+			return try l.compare(r) == .orderedAscending
+		} catch {
+			print("Instant comparison \(String(describing: l)) < \(String(describing: r)) raised \(String(describing: error))")
+			return false
+		}
+	}
+	
+	public static func <(l: DateTime, r: Instant) -> Bool {
+		do {
+			return try l.compare(r) == .orderedAscending
+		} catch {
+			print("Instant comparison \(String(describing: l)) < \(String(describing: r)) raised \(String(describing: error))")
+			return false
+		}
 	}
 }

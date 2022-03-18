@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/CarePlan)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -111,38 +111,38 @@ open class CarePlan: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							activity: [CarePlanActivity]? = nil,
-							addresses: [Reference]? = nil,
-							author: Reference? = nil,
-							basedOn: [Reference]? = nil,
-							careTeam: [Reference]? = nil,
-							category: [CodeableConcept]? = nil,
-							contained: [ResourceProxy]? = nil,
-							contributor: [Reference]? = nil,
-							created: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							encounter: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							goal: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							intent: FHIRPrimitive<RequestIntent>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							partOf: [Reference]? = nil,
-							period: Period? = nil,
-							replaces: [Reference]? = nil,
-							status: FHIRPrimitive<RequestStatus>,
-							subject: Reference,
-							supportingInfo: [Reference]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil)
-	{
+		activity: [CarePlanActivity]? = nil,
+		addresses: [Reference]? = nil,
+		author: Reference? = nil,
+		basedOn: [Reference]? = nil,
+		careTeam: [Reference]? = nil,
+		category: [CodeableConcept]? = nil,
+		contained: [ResourceProxy]? = nil,
+		contributor: [Reference]? = nil,
+		created: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		intent: FHIRPrimitive<RequestIntent>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		partOf: [Reference]? = nil,
+		period: Period? = nil,
+		replaces: [Reference]? = nil,
+		status: FHIRPrimitive<RequestStatus>,
+		subject: Reference,
+		supportingInfo: [Reference]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(intent: intent, status: status, subject: subject)
 		self.activity = activity
 		self.addresses = addresses
@@ -356,15 +356,15 @@ open class CarePlanActivity: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							detail: CarePlanActivityDetail? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							outcomeCodeableConcept: [CodeableConcept]? = nil,
-							outcomeReference: [Reference]? = nil,
-							progress: [Annotation]? = nil,
-							reference: Reference? = nil)
-	{
+		detail: CarePlanActivityDetail? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		outcomeCodeableConcept: [CodeableConcept]? = nil,
+		outcomeReference: [Reference]? = nil,
+		progress: [Annotation]? = nil,
+		reference: Reference? = nil
+	) {
 		self.init()
 		self.detail = detail
 		self.`extension` = `extension`
@@ -524,27 +524,27 @@ open class CarePlanActivityDetail: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept? = nil,
-							dailyAmount: Quantity? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							goal: [Reference]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							kind: FHIRPrimitive<ResourceType>? = nil,
-							location: Reference? = nil,
-							modifierExtension: [Extension]? = nil,
-							performer: [Reference]? = nil,
-							product: ProductX? = nil,
-							quantity: Quantity? = nil,
-							reasonCode: [CodeableConcept]? = nil,
-							reasonReference: [Reference]? = nil,
-							scheduled: ScheduledX? = nil,
-							status: FHIRPrimitive<CarePlanActivityStatus>,
-							statusReason: CodeableConcept? = nil)
-	{
+		code: CodeableConcept? = nil,
+		dailyAmount: Quantity? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		goal: [Reference]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		kind: FHIRPrimitive<ResourceType>? = nil,
+		location: Reference? = nil,
+		modifierExtension: [Extension]? = nil,
+		performer: [Reference]? = nil,
+		product: ProductX? = nil,
+		quantity: Quantity? = nil,
+		reasonCode: [CodeableConcept]? = nil,
+		reasonReference: [Reference]? = nil,
+		scheduled: ScheduledX? = nil,
+		status: FHIRPrimitive<CarePlanActivityStatus>,
+		statusReason: CodeableConcept? = nil
+	) {
 		self.init(status: status)
 		self.code = code
 		self.dailyAmount = dailyAmount

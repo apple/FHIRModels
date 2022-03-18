@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,39 +27,39 @@ import FMCore
  */
 public enum ContainerCap: String, FHIRPrimitiveType {
 	
-	/// red cap.
-	case red = "red"
+	/// black cap.
+	case black
 	
-	/// yellow cap.
-	case yellow = "yellow"
+	/// brown cap.
+	case brown
 	
 	/// dark yellow cap.
 	case darkYellow = "dark-yellow"
 	
+	/// green cap.
+	case green
+	
 	/// grey cap.
-	case grey = "grey"
+	case grey
+	
+	/// lavender cap.
+	case lavender
 	
 	/// light blue cap.
 	case lightBlue = "light-blue"
 	
-	/// black cap.
-	case black = "black"
-	
-	/// green cap.
-	case green = "green"
-	
 	/// light green cap.
 	case lightGreen = "light-green"
 	
-	/// lavender cap.
-	case lavender = "lavender"
+	/// pink cap.
+	case pink
 	
-	/// brown cap.
-	case brown = "brown"
+	/// red cap.
+	case red
 	
 	/// white cap.
-	case white = "white"
+	case white
 	
-	/// pink cap.
-	case pink = "pink"
+	/// yellow cap.
+	case yellow
 }

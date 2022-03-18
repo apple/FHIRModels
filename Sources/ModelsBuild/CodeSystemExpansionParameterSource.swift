@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@
 import FMCore
 
 /**
- Declares what the source of a parameter is.
+ None
  
- URL: http://terminology.hl7.org/CodeSystem/expansion-parameter-source
- ValueSet: http://hl7.org/fhir/ValueSet/expansion-parameter-source
+ URL: http://hl7.org/fhir/expansion-parameter-source
  */
 public enum ExpansionParameterSource: String, FHIRPrimitiveType {
 	
+	/// The parameter was added from one the code systems used in the $expand operation.
+	case codesystem
+	
 	/// The parameter was supplied by the client in the $expand request.
-	case input = "input"
+	case input
 	
 	/// The parameter was added by the expansion engine on the server.
-	case server = "server"
-	
-	/// The parameter was added from one the code systems used in the $expand operation.
-	case codesystem = "codesystem"
+	case server
 }

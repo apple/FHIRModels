@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,75 +20,75 @@
 import FMCore
 
 /**
- Materials used or needed to feed the patient.
+ Materials used or needed to feed the patient. These values are provided as a suggestive example.
  
  URL: http://hl7.org/fhir/feeding-device
  */
 public enum FeedingDeviceCodes: String, FHIRPrimitiveType {
 	
-	/// Standard nipple definition:
-	case standardNipple = "standard-nipple"
-	
-	/// Preemie nipple definition:
-	case preemieNipple = "preemie-nipple"
-	
-	/// Orthodontic nipple definition:
-	case orthoNipple = "ortho-nipple"
-	
-	/// Slow flow nipple definition:
-	case slofloNipple = "sloflo-nipple"
-	
-	/// Middle flow nipple definition:
-	case midfloNipple = "midflo-nipple"
-	
-	/// Enlarged, cross-cut nipple definition:
-	case bigcutNipple = "bigcut-nipple"
-	
-	/// Haberman bottle definition:
-	case habermanBottle = "haberman-bottle"
-	
-	/// Sippy cup with valve definition:
-	case sippyValve = "sippy-valve"
-	
-	/// Sippy cup without valve definition:
-	case sippyNoValve = "sippy-no-valve"
-	
-	/// Provale Cup definition:
-	case provaleCup = "provale-cup"
-	
-	/// Glass with lid/sippy cup definition:
-	case glassLid = "glass-lid"
-	
-	/// Double handhold on glass/cup definition:
-	case handholdCup = "handhold-cup"
-	
-	/// Rubber matting under tray definition:
-	case rubberMat = "rubber-mat"
-	
-	/// Straw definition:
-	case straw = "straw"
-	
-	/// Nose cup definition:
-	case noseCup = "nose-cup"
-	
-	/// Scoop plate definition:
-	case scoopPlate = "scoop-plate"
-	
-	/// Hand wrap utensil holder definition:
-	case utensilHolder = "utensil-holder"
-	
-	/// Foam handle utensils definition:
-	case foamHandle = "foam-handle"
-	
 	/// Angled utensils definition:
 	case angledUtensil = "angled-utensil"
-	
-	/// Spout cup definition:
-	case spoutCup = "spout-cup"
 	
 	/// Automated feeding devices definition:
 	case autofeedingDevice = "autofeeding-device"
 	
+	/// Enlarged, cross-cut nipple definition:
+	case bigcutNipple = "bigcut-nipple"
+	
+	/// Foam handle utensils definition:
+	case foamHandle = "foam-handle"
+	
+	/// Glass with lid/sippy cup definition:
+	case glassLid = "glass-lid"
+	
+	/// Haberman bottle definition:
+	case habermanBottle = "haberman-bottle"
+	
+	/// Double handhold on glass/cup definition:
+	case handholdCup = "handhold-cup"
+	
+	/// Middle flow nipple definition:
+	case midfloNipple = "midflo-nipple"
+	
+	/// Nose cup definition:
+	case noseCup = "nose-cup"
+	
+	/// Orthodontic nipple definition:
+	case orthoNipple = "ortho-nipple"
+	
+	/// Preemie nipple definition:
+	case preemieNipple = "preemie-nipple"
+	
+	/// Provale Cup definition:
+	case provaleCup = "provale-cup"
+	
 	/// Rocker knife definition:
 	case rockerKnife = "rocker-knife"
+	
+	/// Rubber matting under tray definition:
+	case rubberMat = "rubber-mat"
+	
+	/// Scoop plate definition:
+	case scoopPlate = "scoop-plate"
+	
+	/// Sippy cup without valve definition:
+	case sippyNoValve = "sippy-no-valve"
+	
+	/// Sippy cup with valve definition:
+	case sippyValve = "sippy-valve"
+	
+	/// Slow flow nipple definition:
+	case slofloNipple = "sloflo-nipple"
+	
+	/// Spout cup definition:
+	case spoutCup = "spout-cup"
+	
+	/// Standard nipple definition:
+	case standardNipple = "standard-nipple"
+	
+	/// Straw definition:
+	case straw
+	
+	/// Hand wrap utensil holder definition:
+	case utensilHolder = "utensil-holder"
 }

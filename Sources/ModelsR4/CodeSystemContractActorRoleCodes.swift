@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ public enum ContractActorRoleCodes: String, FHIRPrimitiveType {
 	
 	/// Someone who provides health care related services to people or animals including both clinical and support
 	/// services.
-	case practitioner = "practitioner"
+	case practitioner
 	
 	/// A receiver, human or animal, of health care related goods and services.
-	case patient = "patient"
+	case patient
 }

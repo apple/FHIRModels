@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum AdverseEventOutcome: String, FHIRPrimitiveType {
 	
 	/// resolved
-	case resolved = "resolved"
+	case resolved
 	
 	/// recovering
-	case recovering = "recovering"
+	case recovering
 	
 	/// ongoing
-	case ongoing = "ongoing"
+	case ongoing
 	
 	/// resolvedWithSequelae
-	case resolvedWithSequelae = "resolvedWithSequelae"
+	case resolvedWithSequelae
 	
 	/// fatal
-	case fatal = "fatal"
+	case fatal
 	
 	/// unknown
-	case unknown = "unknown"
+	case unknown
 }

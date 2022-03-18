@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,19 +27,19 @@ import FMCore
  */
 public enum XPathUsageType: String, FHIRPrimitiveType {
 	
-	/// The search parameter is derived directly from the selected nodes based on the type definitions.
-	case normal = "normal"
-	
-	/// The search parameter is derived by a phonetic transform from the selected nodes.
-	case phonetic = "phonetic"
-	
-	/// The search parameter is based on a spatial transform of the selected nodes.
-	case nearby = "nearby"
-	
 	/// The search parameter is based on a spatial transform of the selected nodes, using physical distance from the
 	/// middle.
-	case distance = "distance"
+	case distance
+	
+	/// The search parameter is based on a spatial transform of the selected nodes.
+	case nearby
+	
+	/// The search parameter is derived directly from the selected nodes based on the type definitions.
+	case normal
 	
 	/// The interpretation of the xpath statement is unknown (and can't be automated).
-	case other = "other"
+	case other
+	
+	/// The search parameter is derived by a phonetic transform from the selected nodes.
+	case phonetic
 }

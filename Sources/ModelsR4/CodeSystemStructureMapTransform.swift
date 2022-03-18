@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,58 +28,58 @@ import FMCore
 public enum StructureMapTransform: String, FHIRPrimitiveType {
 	
 	/// create(type : string) - type is passed through to the application on the standard API, and must be known by it.
-	case create = "create"
+	case create
 	
 	/// copy(source).
-	case copy = "copy"
+	case copy
 	
 	/// truncate(source, length) - source must be stringy type.
-	case truncate = "truncate"
+	case truncate
 	
 	/// escape(source, fmt1, fmt2) - change source from one kind of escaping to another (plain, java, xml, json). note
 	/// that this is for when the string itself is escaped.
-	case escape = "escape"
+	case escape
 	
 	/// cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one
 	/// and only one target type known.
-	case cast = "cast"
+	case cast
 	
 	/// append(source...) - source is element or string.
-	case append = "append"
+	case append
 	
 	/// translate(source, uri_of_map) - use the translate operation.
-	case translate = "translate"
+	case translate
 	
 	/// reference(source : object) - return a string that references the provided tree properly.
-	case reference = "reference"
+	case reference
 	
 	/// Perform a date operation. *Parameters to be documented*.
-	case dateOp = "dateOp"
+	case dateOp
 	
 	/// Generate a random UUID (in lowercase). No Parameters.
-	case uuid = "uuid"
+	case uuid
 	
 	/// Return the appropriate string to put in a reference that refers to the resource provided as a parameter.
-	case pointer = "pointer"
+	case pointer
 	
 	/// Execute the supplied FHIRPath expression and use the value returned by that.
-	case evaluate = "evaluate"
+	case evaluate
 	
 	/// Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).
-	case cc = "cc"
+	case cc
 	
 	/// Create a Coding. Parameters = (system. Code[, display]).
 	case C = "c"
 	
 	/// Create a quantity. Parameters = (text) or (value, unit, [system, code]) where text is the natural representation
 	/// e.g. [comparator]value[space]unit.
-	case qty = "qty"
+	case qty
 	
 	/// Create an identifier. Parameters = (system, value[, type]) where type is a code from the identifier type value
 	/// set.
-	case id = "id"
+	case id
 	
 	/// Create a contact details. Parameters = (value) or (system, value). If no system is provided, the system should
 	/// be inferred from the content of the value.
-	case cp = "cp"
+	case cp
 }

@@ -2,8 +2,8 @@
 //  FamilyMemberHistory.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -118,33 +118,33 @@ open class FamilyMemberHistory: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							age: AgeX? = nil,
-							born: BornX? = nil,
-							condition: [FamilyMemberHistoryCondition]? = nil,
-							contained: [ResourceProxy]? = nil,
-							dataAbsentReason: CodeableConcept? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							deceased: DeceasedX? = nil,
-							estimatedAge: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-							instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							note: [Annotation]? = nil,
-							patient: Reference,
-							procedure: [FamilyMemberHistoryProcedure]? = nil,
-							reason: [CodeableReference]? = nil,
-							relationship: CodeableConcept,
-							sex: CodeableConcept? = nil,
-							status: FHIRPrimitive<FamilyHistoryStatus>,
-							text: Narrative? = nil)
-	{
+		age: AgeX? = nil,
+		born: BornX? = nil,
+		condition: [FamilyMemberHistoryCondition]? = nil,
+		contained: [ResourceProxy]? = nil,
+		dataAbsentReason: CodeableConcept? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		deceased: DeceasedX? = nil,
+		estimatedAge: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
+		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		note: [Annotation]? = nil,
+		patient: Reference,
+		procedure: [FamilyMemberHistoryProcedure]? = nil,
+		reason: [CodeableReference]? = nil,
+		relationship: CodeableConcept,
+		sex: CodeableConcept? = nil,
+		status: FHIRPrimitive<FamilyHistoryStatus>,
+		text: Narrative? = nil
+	) {
 		self.init(patient: patient, relationship: relationship, status: status)
 		self.age = age
 		self.born = born
@@ -447,15 +447,15 @@ open class FamilyMemberHistoryCondition: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							contributedToDeath: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							onset: OnsetX? = nil,
-							outcome: CodeableConcept? = nil)
-	{
+		code: CodeableConcept,
+		contributedToDeath: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		onset: OnsetX? = nil,
+		outcome: CodeableConcept? = nil
+	) {
 		self.init(code: code)
 		self.contributedToDeath = contributedToDeath
 		self.`extension` = `extension`
@@ -609,15 +609,15 @@ open class FamilyMemberHistoryProcedure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							contributedToDeath: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							note: [Annotation]? = nil,
-							outcome: CodeableConcept? = nil,
-							performed: PerformedX? = nil)
-	{
+		code: CodeableConcept,
+		contributedToDeath: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
+		outcome: CodeableConcept? = nil,
+		performed: PerformedX? = nil
+	) {
 		self.init(code: code)
 		self.contributedToDeath = contributedToDeath
 		self.`extension` = `extension`

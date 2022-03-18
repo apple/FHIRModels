@@ -2,8 +2,8 @@
 //  SubstanceSourceMaterial.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/SubstanceSourceMaterial)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SubstanceSourceMaterial)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -93,28 +93,28 @@ open class SubstanceSourceMaterial: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							countryOfOrigin: [CodeableConcept]? = nil,
-							developmentStage: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							fractionDescription: [SubstanceSourceMaterialFractionDescription]? = nil,
-							geographicalLocation: [FHIRPrimitive<FHIRString>]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							organism: SubstanceSourceMaterialOrganism? = nil,
-							organismId: Identifier? = nil,
-							organismName: FHIRPrimitive<FHIRString>? = nil,
-							parentSubstanceId: [Identifier]? = nil,
-							parentSubstanceName: [FHIRPrimitive<FHIRString>]? = nil,
-							partDescription: [SubstanceSourceMaterialPartDescription]? = nil,
-							sourceMaterialClass: CodeableConcept? = nil,
-							sourceMaterialState: CodeableConcept? = nil,
-							sourceMaterialType: CodeableConcept? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		countryOfOrigin: [CodeableConcept]? = nil,
+		developmentStage: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		fractionDescription: [SubstanceSourceMaterialFractionDescription]? = nil,
+		geographicalLocation: [FHIRPrimitive<FHIRString>]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		organism: SubstanceSourceMaterialOrganism? = nil,
+		organismId: Identifier? = nil,
+		organismName: FHIRPrimitive<FHIRString>? = nil,
+		parentSubstanceId: [Identifier]? = nil,
+		parentSubstanceName: [FHIRPrimitive<FHIRString>]? = nil,
+		partDescription: [SubstanceSourceMaterialPartDescription]? = nil,
+		sourceMaterialClass: CodeableConcept? = nil,
+		sourceMaterialState: CodeableConcept? = nil,
+		sourceMaterialType: CodeableConcept? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.contained = contained
 		self.countryOfOrigin = countryOfOrigin
@@ -265,12 +265,12 @@ open class SubstanceSourceMaterialFractionDescription: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							fraction: FHIRPrimitive<FHIRString>? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							materialType: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		fraction: FHIRPrimitive<FHIRString>? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		materialType: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.fraction = fraction
@@ -367,18 +367,18 @@ open class SubstanceSourceMaterialOrganism: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							author: [SubstanceSourceMaterialOrganismAuthor]? = nil,
-							`extension`: [Extension]? = nil,
-							family: CodeableConcept? = nil,
-							genus: CodeableConcept? = nil,
-							hybrid: SubstanceSourceMaterialOrganismHybrid? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							intraspecificDescription: FHIRPrimitive<FHIRString>? = nil,
-							intraspecificType: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							organismGeneral: SubstanceSourceMaterialOrganismOrganismGeneral? = nil,
-							species: CodeableConcept? = nil)
-	{
+		author: [SubstanceSourceMaterialOrganismAuthor]? = nil,
+		`extension`: [Extension]? = nil,
+		family: CodeableConcept? = nil,
+		genus: CodeableConcept? = nil,
+		hybrid: SubstanceSourceMaterialOrganismHybrid? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		intraspecificDescription: FHIRPrimitive<FHIRString>? = nil,
+		intraspecificType: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		organismGeneral: SubstanceSourceMaterialOrganismOrganismGeneral? = nil,
+		species: CodeableConcept? = nil
+	) {
 		self.init()
 		self.author = author
 		self.`extension` = `extension`
@@ -492,12 +492,12 @@ open class SubstanceSourceMaterialOrganismAuthor: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							authorDescription: FHIRPrimitive<FHIRString>? = nil,
-							authorType: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		authorDescription: FHIRPrimitive<FHIRString>? = nil,
+		authorType: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init()
 		self.authorDescription = authorDescription
 		self.authorType = authorType
@@ -584,15 +584,15 @@ open class SubstanceSourceMaterialOrganismHybrid: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							hybridType: CodeableConcept? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							maternalOrganismId: FHIRPrimitive<FHIRString>? = nil,
-							maternalOrganismName: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							paternalOrganismId: FHIRPrimitive<FHIRString>? = nil,
-							paternalOrganismName: FHIRPrimitive<FHIRString>? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		hybridType: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		maternalOrganismId: FHIRPrimitive<FHIRString>? = nil,
+		maternalOrganismName: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		paternalOrganismId: FHIRPrimitive<FHIRString>? = nil,
+		paternalOrganismName: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.hybridType = hybridType
@@ -690,14 +690,14 @@ open class SubstanceSourceMaterialOrganismOrganismGeneral: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`class`: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							kingdom: CodeableConcept? = nil,
-							modifierExtension: [Extension]? = nil,
-							order: CodeableConcept? = nil,
-							phylum: CodeableConcept? = nil)
-	{
+		`class`: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		kingdom: CodeableConcept? = nil,
+		modifierExtension: [Extension]? = nil,
+		order: CodeableConcept? = nil,
+		phylum: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`class` = `class`
 		self.`extension` = `extension`
@@ -784,12 +784,12 @@ open class SubstanceSourceMaterialPartDescription: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							part: CodeableConcept? = nil,
-							partLocation: CodeableConcept? = nil)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		part: CodeableConcept? = nil,
+		partLocation: CodeableConcept? = nil
+	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id

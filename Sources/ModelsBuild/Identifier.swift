@@ -2,8 +2,8 @@
 //  Identifier.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/Identifier)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Identifier)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -51,15 +51,15 @@ open class Identifier: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
-							assigner: Reference? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							period: Period? = nil,
-							system: FHIRPrimitive<FHIRURI>? = nil,
-							type: CodeableConcept? = nil,
-							use: FHIRPrimitive<IdentifierUse>? = nil,
-							value: FHIRPrimitive<FHIRString>? = nil)
-	{
+		assigner: Reference? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		period: Period? = nil,
+		system: FHIRPrimitive<FHIRURI>? = nil,
+		type: CodeableConcept? = nil,
+		use: FHIRPrimitive<IdentifierUse>? = nil,
+		value: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.assigner = assigner
 		self.`extension` = `extension`

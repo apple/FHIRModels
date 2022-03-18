@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SubstanceProtein)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -58,19 +58,19 @@ open class SubstanceProtein: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							disulfideLinkage: [FHIRPrimitive<FHIRString>]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							numberOfSubunits: FHIRPrimitive<FHIRInteger>? = nil,
-							sequenceType: CodeableConcept? = nil,
-							subunit: [SubstanceProteinSubunit]? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		disulfideLinkage: [FHIRPrimitive<FHIRString>]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfSubunits: FHIRPrimitive<FHIRInteger>? = nil,
+		sequenceType: CodeableConcept? = nil,
+		subunit: [SubstanceProteinSubunit]? = nil,
+		text: Narrative? = nil
+	) {
 		self.init()
 		self.contained = contained
 		self.disulfideLinkage = disulfideLinkage
@@ -193,18 +193,18 @@ open class SubstanceProteinSubunit: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							cTerminalModification: FHIRPrimitive<FHIRString>? = nil,
-							cTerminalModificationId: Identifier? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							length: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							nTerminalModification: FHIRPrimitive<FHIRString>? = nil,
-							nTerminalModificationId: Identifier? = nil,
-							sequence: FHIRPrimitive<FHIRString>? = nil,
-							sequenceAttachment: Attachment? = nil,
-							subunit: FHIRPrimitive<FHIRInteger>? = nil)
-	{
+		cTerminalModification: FHIRPrimitive<FHIRString>? = nil,
+		cTerminalModificationId: Identifier? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		length: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		nTerminalModification: FHIRPrimitive<FHIRString>? = nil,
+		nTerminalModificationId: Identifier? = nil,
+		sequence: FHIRPrimitive<FHIRString>? = nil,
+		sequenceAttachment: Attachment? = nil,
+		subunit: FHIRPrimitive<FHIRInteger>? = nil
+	) {
 		self.init()
 		self.cTerminalModification = cTerminalModification
 		self.cTerminalModificationId = cTerminalModificationId

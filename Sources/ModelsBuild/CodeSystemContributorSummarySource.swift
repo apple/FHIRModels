@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ import FMCore
  */
 public enum ContributorSummarySource: String, FHIRPrimitiveType {
 	
-	/// Data copied by machine from publisher data.
-	case publisherData = "publisherData"
-	
 	/// Data copied by human from article text.
-	case articleCopy = "articleCopy"
+	case articleCopy = "article-copy"
 	
 	/// Data copied by machine from citation manager data.
-	case citationManager = "citationManager"
+	case citationManager = "citation-manager"
 	
 	/// Custom format (may be described in text note).
-	case custom = "custom"
+	case custom
+	
+	/// Data copied by machine from publisher data.
+	case publisherData = "publisher-data"
 }

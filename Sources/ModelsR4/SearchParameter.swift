@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/SearchParameter)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -120,41 +120,41 @@ open class SearchParameter: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							base: [FHIRPrimitive<ResourceType>],
-							chain: [FHIRPrimitive<FHIRString>]? = nil,
-							code: FHIRPrimitive<FHIRString>,
-							comparator: [FHIRPrimitive<SearchComparator>]? = nil,
-							component: [SearchParameterComponent]? = nil,
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							derivedFrom: FHIRPrimitive<Canonical>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifier: [FHIRPrimitive<SearchModifierCode>]? = nil,
-							modifierExtension: [Extension]? = nil,
-							multipleAnd: FHIRPrimitive<FHIRBool>? = nil,
-							multipleOr: FHIRPrimitive<FHIRBool>? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							target: [FHIRPrimitive<ResourceType>]? = nil,
-							text: Narrative? = nil,
-							type: FHIRPrimitive<SearchParamType>,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil,
-							xpath: FHIRPrimitive<FHIRString>? = nil,
-							xpathUsage: FHIRPrimitive<XPathUsageType>? = nil)
-	{
+		base: [FHIRPrimitive<ResourceType>],
+		chain: [FHIRPrimitive<FHIRString>]? = nil,
+		code: FHIRPrimitive<FHIRString>,
+		comparator: [FHIRPrimitive<SearchComparator>]? = nil,
+		component: [SearchParameterComponent]? = nil,
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		derivedFrom: FHIRPrimitive<Canonical>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifier: [FHIRPrimitive<SearchModifierCode>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		multipleAnd: FHIRPrimitive<FHIRBool>? = nil,
+		multipleOr: FHIRPrimitive<FHIRBool>? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		target: [FHIRPrimitive<ResourceType>]? = nil,
+		text: Narrative? = nil,
+		type: FHIRPrimitive<SearchParamType>,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil,
+		xpath: FHIRPrimitive<FHIRString>? = nil,
+		xpathUsage: FHIRPrimitive<XPathUsageType>? = nil
+	) {
 		self.init(base: base, code: code, description_fhir: description_fhir, name: name, status: status, type: type, url: url)
 		self.chain = chain
 		self.comparator = comparator
@@ -374,12 +374,12 @@ open class SearchParameterComponent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							definition: FHIRPrimitive<Canonical>,
-							expression: FHIRPrimitive<FHIRString>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil)
-	{
+		definition: FHIRPrimitive<Canonical>,
+		expression: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
 		self.init(definition: definition, expression: expression)
 		self.`extension` = `extension`
 		self.id = id

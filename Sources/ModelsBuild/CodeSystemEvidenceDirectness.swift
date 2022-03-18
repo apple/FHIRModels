@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,15 +27,19 @@ import FMCore
  */
 public enum EvidenceDirectness: String, FHIRPrimitiveType {
 	
-	/// Low level of directness.
-	case low = "low"
+	/// Exact matching quality between observed and intended variable, so no concern for indirectness in evidence
+	/// interpretation.
+	case exact
 	
-	/// Moderate level of directness.
-	case moderate = "moderate"
+	/// High matching quality between observed and intended variable, so little concern for indirectness in evidence
+	/// interpretation.
+	case high
 	
-	/// High level of directness.
-	case high = "high"
+	/// Low matching quality between observed and intended variable, so very serious concern for indirectness in
+	/// evidence interpretation.
+	case low
 	
-	/// Exact directness.
-	case exact = "exact"
+	/// Moderate matching quality between observed and intended variable, so serious concern for indirectness in
+	/// evidence interpretation.
+	case moderate
 }

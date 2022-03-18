@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,26 +30,26 @@ public enum EpisodeOfCareStatus: String, FHIRPrimitiveType {
 	/// This episode of care is planned to start at the date specified in the period.start. During this status, an
 	/// organization may perform assessments to determine if the patient is eligible to receive services, or be
 	/// organizing to make resources available to provide care services.
-	case planned = "planned"
+	case planned
 	
 	/// This episode has been placed on a waitlist, pending the episode being made active (or cancelled).
-	case waitlist = "waitlist"
+	case waitlist
 	
 	/// This episode of care is current.
-	case active = "active"
+	case active
 	
 	/// This episode of care is on hold; the organization has limited responsibility for the patient (such as while on
 	/// respite).
-	case onhold = "onhold"
+	case onhold
 	
 	/// This episode of care is finished and the organization is not expecting to be providing further care to the
 	/// patient. Can also be known as "closed", "completed" or other similar terms.
-	case finished = "finished"
+	case finished
 	
 	/// The episode of care was cancelled, or withdrawn from service, often selected during the planned stage as the
 	/// patient may have gone elsewhere, or the circumstances have changed and the organization is unable to provide the
 	/// care. It indicates that services terminated outside the planned/expected workflow.
-	case cancelled = "cancelled"
+	case cancelled
 	
 	/// This instance should not have been part of this patient's medical record.
 	case enteredInError = "entered-in-error"

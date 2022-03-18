@@ -2,8 +2,8 @@
 //  ElementDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ open class ElementDefinition: BackboneType {
 		case canonical(FHIRPrimitive<Canonical>)
 		case code(FHIRPrimitive<FHIRString>)
 		case codeableConcept(CodeableConcept)
+		case codeableReference(CodeableReference)
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
@@ -66,6 +67,7 @@ open class ElementDefinition: BackboneType {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case ratioRange(RatioRange)
 		case reference(Reference)
 		case relatedArtifact(RelatedArtifact)
 		case sampledData(SampledData)
@@ -92,6 +94,7 @@ open class ElementDefinition: BackboneType {
 		case canonical(FHIRPrimitive<Canonical>)
 		case code(FHIRPrimitive<FHIRString>)
 		case codeableConcept(CodeableConcept)
+		case codeableReference(CodeableReference)
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
@@ -121,6 +124,7 @@ open class ElementDefinition: BackboneType {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case ratioRange(RatioRange)
 		case reference(Reference)
 		case relatedArtifact(RelatedArtifact)
 		case sampledData(SampledData)
@@ -175,6 +179,7 @@ open class ElementDefinition: BackboneType {
 		case canonical(FHIRPrimitive<Canonical>)
 		case code(FHIRPrimitive<FHIRString>)
 		case codeableConcept(CodeableConcept)
+		case codeableReference(CodeableReference)
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
@@ -204,6 +209,7 @@ open class ElementDefinition: BackboneType {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case ratioRange(RatioRange)
 		case reference(Reference)
 		case relatedArtifact(RelatedArtifact)
 		case sampledData(SampledData)
@@ -334,44 +340,44 @@ open class ElementDefinition: BackboneType {
 	
 	/// Convenience initializer
 	public convenience init(
-							alias: [FHIRPrimitive<FHIRString>]? = nil,
-							base: ElementDefinitionBase? = nil,
-							binding: ElementDefinitionBinding? = nil,
-							code: [Coding]? = nil,
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							condition: [FHIRPrimitive<FHIRString>]? = nil,
-							constraint: [ElementDefinitionConstraint]? = nil,
-							contentReference: FHIRPrimitive<FHIRURI>? = nil,
-							defaultValue: DefaultValueX? = nil,
-							definition: FHIRPrimitive<FHIRString>? = nil,
-							example: [ElementDefinitionExample]? = nil,
-							`extension`: [Extension]? = nil,
-							fixed: FixedX? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							isModifier: FHIRPrimitive<FHIRBool>? = nil,
-							isModifierReason: FHIRPrimitive<FHIRString>? = nil,
-							isSummary: FHIRPrimitive<FHIRBool>? = nil,
-							label: FHIRPrimitive<FHIRString>? = nil,
-							mapping: [ElementDefinitionMapping]? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							maxLength: FHIRPrimitive<FHIRInteger>? = nil,
-							maxValue: MaxValueX? = nil,
-							meaningWhenMissing: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-							minValue: MinValueX? = nil,
-							modifierExtension: [Extension]? = nil,
-							mustSupport: FHIRPrimitive<FHIRBool>? = nil,
-							orderMeaning: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>,
-							pattern: PatternX? = nil,
-							representation: [FHIRPrimitive<PropertyRepresentation>]? = nil,
-							requirements: FHIRPrimitive<FHIRString>? = nil,
-							short: FHIRPrimitive<FHIRString>? = nil,
-							sliceIsConstraining: FHIRPrimitive<FHIRBool>? = nil,
-							sliceName: FHIRPrimitive<FHIRString>? = nil,
-							slicing: ElementDefinitionSlicing? = nil,
-							type: [ElementDefinitionType]? = nil)
-	{
+		alias: [FHIRPrimitive<FHIRString>]? = nil,
+		base: ElementDefinitionBase? = nil,
+		binding: ElementDefinitionBinding? = nil,
+		code: [Coding]? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		condition: [FHIRPrimitive<FHIRString>]? = nil,
+		constraint: [ElementDefinitionConstraint]? = nil,
+		contentReference: FHIRPrimitive<FHIRURI>? = nil,
+		defaultValue: DefaultValueX? = nil,
+		definition: FHIRPrimitive<FHIRString>? = nil,
+		example: [ElementDefinitionExample]? = nil,
+		`extension`: [Extension]? = nil,
+		fixed: FixedX? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		isModifier: FHIRPrimitive<FHIRBool>? = nil,
+		isModifierReason: FHIRPrimitive<FHIRString>? = nil,
+		isSummary: FHIRPrimitive<FHIRBool>? = nil,
+		label: FHIRPrimitive<FHIRString>? = nil,
+		mapping: [ElementDefinitionMapping]? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		maxLength: FHIRPrimitive<FHIRInteger>? = nil,
+		maxValue: MaxValueX? = nil,
+		meaningWhenMissing: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		minValue: MinValueX? = nil,
+		modifierExtension: [Extension]? = nil,
+		mustSupport: FHIRPrimitive<FHIRBool>? = nil,
+		orderMeaning: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>,
+		pattern: PatternX? = nil,
+		representation: [FHIRPrimitive<PropertyRepresentation>]? = nil,
+		requirements: FHIRPrimitive<FHIRString>? = nil,
+		short: FHIRPrimitive<FHIRString>? = nil,
+		sliceIsConstraining: FHIRPrimitive<FHIRBool>? = nil,
+		sliceName: FHIRPrimitive<FHIRString>? = nil,
+		slicing: ElementDefinitionSlicing? = nil,
+		type: [ElementDefinitionType]? = nil
+	) {
 		self.init(path: path)
 		self.alias = alias
 		self.base = base
@@ -431,6 +437,7 @@ open class ElementDefinition: BackboneType {
 		case defaultValueCanonical; case _defaultValueCanonical
 		case defaultValueCode; case _defaultValueCode
 		case defaultValueCodeableConcept
+		case defaultValueCodeableReference
 		case defaultValueCoding
 		case defaultValueContactDetail
 		case defaultValueContactPoint
@@ -460,6 +467,7 @@ open class ElementDefinition: BackboneType {
 		case defaultValueQuantity
 		case defaultValueRange
 		case defaultValueRatio
+		case defaultValueRatioRange
 		case defaultValueReference
 		case defaultValueRelatedArtifact
 		case defaultValueSampledData
@@ -484,6 +492,7 @@ open class ElementDefinition: BackboneType {
 		case fixedCanonical; case _fixedCanonical
 		case fixedCode; case _fixedCode
 		case fixedCodeableConcept
+		case fixedCodeableReference
 		case fixedCoding
 		case fixedContactDetail
 		case fixedContactPoint
@@ -513,6 +522,7 @@ open class ElementDefinition: BackboneType {
 		case fixedQuantity
 		case fixedRange
 		case fixedRatio
+		case fixedRatioRange
 		case fixedReference
 		case fixedRelatedArtifact
 		case fixedSampledData
@@ -567,6 +577,7 @@ open class ElementDefinition: BackboneType {
 		case patternCanonical; case _patternCanonical
 		case patternCode; case _patternCode
 		case patternCodeableConcept
+		case patternCodeableReference
 		case patternCoding
 		case patternContactDetail
 		case patternContactPoint
@@ -596,6 +607,7 @@ open class ElementDefinition: BackboneType {
 		case patternQuantity
 		case patternRange
 		case patternRatio
+		case patternRatioRange
 		case patternReference
 		case patternRelatedArtifact
 		case patternSampledData
@@ -782,6 +794,12 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_defaultValue = .codeableConcept(defaultValueCodeableConcept)
 		}
+		if let defaultValueCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .defaultValueCodeableReference) {
+			if _t_defaultValue != nil {
+				throw DecodingError.dataCorruptedError(forKey: .defaultValueCodeableReference, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
+			}
+			_t_defaultValue = .codeableReference(defaultValueCodeableReference)
+		}
 		if let defaultValueCoding = try Coding(from: _container, forKeyIfPresent: .defaultValueCoding) {
 			if _t_defaultValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueCoding, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
@@ -853,6 +871,12 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueRatio, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
 			}
 			_t_defaultValue = .ratio(defaultValueRatio)
+		}
+		if let defaultValueRatioRange = try RatioRange(from: _container, forKeyIfPresent: .defaultValueRatioRange) {
+			if _t_defaultValue != nil {
+				throw DecodingError.dataCorruptedError(forKey: .defaultValueRatioRange, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
+			}
+			_t_defaultValue = .ratioRange(defaultValueRatioRange)
 		}
 		if let defaultValueReference = try Reference(from: _container, forKeyIfPresent: .defaultValueReference) {
 			if _t_defaultValue != nil {
@@ -1092,6 +1116,12 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_fixed = .codeableConcept(fixedCodeableConcept)
 		}
+		if let fixedCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .fixedCodeableReference) {
+			if _t_fixed != nil {
+				throw DecodingError.dataCorruptedError(forKey: .fixedCodeableReference, in: _container, debugDescription: "More than one value provided for \"fixed\"")
+			}
+			_t_fixed = .codeableReference(fixedCodeableReference)
+		}
 		if let fixedCoding = try Coding(from: _container, forKeyIfPresent: .fixedCoding) {
 			if _t_fixed != nil {
 				throw DecodingError.dataCorruptedError(forKey: .fixedCoding, in: _container, debugDescription: "More than one value provided for \"fixed\"")
@@ -1163,6 +1193,12 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .fixedRatio, in: _container, debugDescription: "More than one value provided for \"fixed\"")
 			}
 			_t_fixed = .ratio(fixedRatio)
+		}
+		if let fixedRatioRange = try RatioRange(from: _container, forKeyIfPresent: .fixedRatioRange) {
+			if _t_fixed != nil {
+				throw DecodingError.dataCorruptedError(forKey: .fixedRatioRange, in: _container, debugDescription: "More than one value provided for \"fixed\"")
+			}
+			_t_fixed = .ratioRange(fixedRatioRange)
 		}
 		if let fixedReference = try Reference(from: _container, forKeyIfPresent: .fixedReference) {
 			if _t_fixed != nil {
@@ -1536,6 +1572,12 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_pattern = .codeableConcept(patternCodeableConcept)
 		}
+		if let patternCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .patternCodeableReference) {
+			if _t_pattern != nil {
+				throw DecodingError.dataCorruptedError(forKey: .patternCodeableReference, in: _container, debugDescription: "More than one value provided for \"pattern\"")
+			}
+			_t_pattern = .codeableReference(patternCodeableReference)
+		}
 		if let patternCoding = try Coding(from: _container, forKeyIfPresent: .patternCoding) {
 			if _t_pattern != nil {
 				throw DecodingError.dataCorruptedError(forKey: .patternCoding, in: _container, debugDescription: "More than one value provided for \"pattern\"")
@@ -1607,6 +1649,12 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .patternRatio, in: _container, debugDescription: "More than one value provided for \"pattern\"")
 			}
 			_t_pattern = .ratio(patternRatio)
+		}
+		if let patternRatioRange = try RatioRange(from: _container, forKeyIfPresent: .patternRatioRange) {
+			if _t_pattern != nil {
+				throw DecodingError.dataCorruptedError(forKey: .patternRatioRange, in: _container, debugDescription: "More than one value provided for \"pattern\"")
+			}
+			_t_pattern = .ratioRange(patternRatioRange)
 		}
 		if let patternReference = try Reference(from: _container, forKeyIfPresent: .patternReference) {
 			if _t_pattern != nil {
@@ -1768,6 +1816,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .defaultValueAttachment)
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueCodeableConcept)
+			case .codeableReference(let _value):
+				try _value.encode(on: &_container, forKey: .defaultValueCodeableReference)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueCoding)
 			case .contactPoint(let _value):
@@ -1792,6 +1842,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .defaultValueRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueRatio)
+			case .ratioRange(let _value):
+				try _value.encode(on: &_container, forKey: .defaultValueRatioRange)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueReference)
 			case .sampledData(let _value):
@@ -1876,6 +1928,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .fixedAttachment)
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .fixedCodeableConcept)
+			case .codeableReference(let _value):
+				try _value.encode(on: &_container, forKey: .fixedCodeableReference)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .fixedCoding)
 			case .contactPoint(let _value):
@@ -1900,6 +1954,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .fixedRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .fixedRatio)
+			case .ratioRange(let _value):
+				try _value.encode(on: &_container, forKey: .fixedRatioRange)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .fixedReference)
 			case .sampledData(let _value):
@@ -2042,6 +2098,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .patternAttachment)
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .patternCodeableConcept)
+			case .codeableReference(let _value):
+				try _value.encode(on: &_container, forKey: .patternCodeableReference)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .patternCoding)
 			case .contactPoint(let _value):
@@ -2066,6 +2124,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .patternRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .patternRatio)
+			case .ratioRange(let _value):
+				try _value.encode(on: &_container, forKey: .patternRatioRange)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .patternReference)
 			case .sampledData(let _value):
@@ -2220,12 +2280,12 @@ open class ElementDefinitionBase: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>,
-							min: FHIRPrimitive<FHIRUnsignedInteger>,
-							path: FHIRPrimitive<FHIRString>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>,
+		min: FHIRPrimitive<FHIRUnsignedInteger>,
+		path: FHIRPrimitive<FHIRString>
+	) {
 		self.init(max: max, min: min, path: path)
 		self.`extension` = `extension`
 		self.id = id
@@ -2309,12 +2369,12 @@ open class ElementDefinitionBinding: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							strength: FHIRPrimitive<BindingStrength>,
-							valueSet: FHIRPrimitive<Canonical>? = nil)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		strength: FHIRPrimitive<BindingStrength>,
+		valueSet: FHIRPrimitive<Canonical>? = nil
+	) {
 		self.init(strength: strength)
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
@@ -2413,16 +2473,16 @@ open class ElementDefinitionConstraint: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							expression: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							human: FHIRPrimitive<FHIRString>,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							key: FHIRPrimitive<FHIRString>,
-							requirements: FHIRPrimitive<FHIRString>? = nil,
-							severity: FHIRPrimitive<ConstraintSeverity>,
-							source: FHIRPrimitive<Canonical>? = nil,
-							xpath: FHIRPrimitive<FHIRString>? = nil)
-	{
+		expression: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		human: FHIRPrimitive<FHIRString>,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: FHIRPrimitive<FHIRString>,
+		requirements: FHIRPrimitive<FHIRString>? = nil,
+		severity: FHIRPrimitive<ConstraintSeverity>,
+		source: FHIRPrimitive<Canonical>? = nil,
+		xpath: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(human: human, key: key, severity: severity)
 		self.expression = expression
 		self.`extension` = `extension`
@@ -2522,6 +2582,7 @@ open class ElementDefinitionExample: Element {
 		case canonical(FHIRPrimitive<Canonical>)
 		case code(FHIRPrimitive<FHIRString>)
 		case codeableConcept(CodeableConcept)
+		case codeableReference(CodeableReference)
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
@@ -2551,6 +2612,7 @@ open class ElementDefinitionExample: Element {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case ratioRange(RatioRange)
 		case reference(Reference)
 		case relatedArtifact(RelatedArtifact)
 		case sampledData(SampledData)
@@ -2582,11 +2644,11 @@ open class ElementDefinitionExample: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							label: FHIRPrimitive<FHIRString>,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		label: FHIRPrimitive<FHIRString>,
+		value: ValueX
+	) {
 		self.init(label: label, value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -2605,6 +2667,7 @@ open class ElementDefinitionExample: Element {
 		case valueCanonical; case _valueCanonical
 		case valueCode; case _valueCode
 		case valueCodeableConcept
+		case valueCodeableReference
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
@@ -2634,6 +2697,7 @@ open class ElementDefinitionExample: Element {
 		case valueQuantity
 		case valueRange
 		case valueRatio
+		case valueRatioRange
 		case valueReference
 		case valueRelatedArtifact
 		case valueSampledData
@@ -2654,8 +2718,8 @@ open class ElementDefinitionExample: Element {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueContributor) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueContributor, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueContributor) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueContributor, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -2811,6 +2875,12 @@ open class ElementDefinitionExample: Element {
 			}
 			_t_value = .codeableConcept(valueCodeableConcept)
 		}
+		if let valueCodeableReference = try CodeableReference(from: _container, forKeyIfPresent: .valueCodeableReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableReference(valueCodeableReference)
+		}
 		if let valueCoding = try Coding(from: _container, forKeyIfPresent: .valueCoding) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueCoding, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -2882,6 +2952,12 @@ open class ElementDefinitionExample: Element {
 				throw DecodingError.dataCorruptedError(forKey: .valueRatio, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .ratio(valueRatio)
+		}
+		if let valueRatioRange = try RatioRange(from: _container, forKeyIfPresent: .valueRatioRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRatioRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .ratioRange(valueRatioRange)
 		}
 		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
 			if _t_value != nil {
@@ -3029,6 +3105,8 @@ open class ElementDefinitionExample: Element {
 				try _value.encode(on: &_container, forKey: .valueAttachment)
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .codeableReference(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableReference)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .valueCoding)
 			case .contactPoint(let _value):
@@ -3053,6 +3131,8 @@ open class ElementDefinitionExample: Element {
 				try _value.encode(on: &_container, forKey: .valueRange)
 			case .ratio(let _value):
 				try _value.encode(on: &_container, forKey: .valueRatio)
+			case .ratioRange(let _value):
+				try _value.encode(on: &_container, forKey: .valueRatioRange)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .valueReference)
 			case .sampledData(let _value):
@@ -3134,13 +3214,13 @@ open class ElementDefinitionMapping: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							comment: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identity: FHIRPrimitive<FHIRString>,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							map: FHIRPrimitive<FHIRString>)
-	{
+		comment: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identity: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		map: FHIRPrimitive<FHIRString>
+	) {
 		self.init(identity: identity, map: map)
 		self.comment = comment
 		self.`extension` = `extension`
@@ -3237,13 +3317,13 @@ open class ElementDefinitionSlicing: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							discriminator: [ElementDefinitionSlicingDiscriminator]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							ordered: FHIRPrimitive<FHIRBool>? = nil,
-							rules: FHIRPrimitive<SlicingRules>)
-	{
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		discriminator: [ElementDefinitionSlicingDiscriminator]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		ordered: FHIRPrimitive<FHIRBool>? = nil,
+		rules: FHIRPrimitive<SlicingRules>
+	) {
 		self.init(rules: rules)
 		self.description_fhir = description_fhir
 		self.discriminator = discriminator
@@ -3333,11 +3413,11 @@ open class ElementDefinitionSlicingDiscriminator: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							path: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<DiscriminatorType>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<DiscriminatorType>
+	) {
 		self.init(path: path, type: type)
 		self.`extension` = `extension`
 		self.id = id
@@ -3421,14 +3501,14 @@ open class ElementDefinitionType: Element {
 	
 	/// Convenience initializer
 	public convenience init(
-							aggregation: [FHIRPrimitive<AggregationMode>]? = nil,
-							code: FHIRPrimitive<FHIRURI>,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							profile: [FHIRPrimitive<Canonical>]? = nil,
-							targetProfile: [FHIRPrimitive<Canonical>]? = nil,
-							versioning: FHIRPrimitive<ReferenceVersionRules>? = nil)
-	{
+		aggregation: [FHIRPrimitive<AggregationMode>]? = nil,
+		code: FHIRPrimitive<FHIRURI>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		profile: [FHIRPrimitive<Canonical>]? = nil,
+		targetProfile: [FHIRPrimitive<Canonical>]? = nil,
+		versioning: FHIRPrimitive<ReferenceVersionRules>? = nil
+	) {
 		self.init(code: code)
 		self.aggregation = aggregation
 		self.`extension` = `extension`

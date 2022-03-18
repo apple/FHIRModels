@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,17 +27,17 @@ import FMCore
  */
 public enum NarrativeStatus: String, FHIRPrimitiveType {
 	
-	/// The contents of the narrative are entirely generated from the core elements in the content.
-	case generated = "generated"
+	/// The contents of the narrative may contain additional information not found in the structured data. Note that
+	/// there is no computable way to determine what the extra information is, other than by human inspection.
+	case additional
+	
+	/// The contents of the narrative are some equivalent of "No human-readable text provided in this case".
+	case empty
 	
 	/// The contents of the narrative are entirely generated from the core elements in the content and some of the
 	/// content is generated from extensions. The narrative SHALL reflect the impact of all modifier extensions.
-	case extensions = "extensions"
+	case extensions
 	
-	/// The contents of the narrative may contain additional information not found in the structured data. Note that
-	/// there is no computable way to determine what the extra information is, other than by human inspection.
-	case additional = "additional"
-	
-	/// The contents of the narrative are some equivalent of "No human-readable text provided in this case".
-	case empty = "empty"
+	/// The contents of the narrative are entirely generated from the core elements in the content.
+	case generated
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,30 +27,11 @@ import FMCore
  */
 public enum SmartCapabilities: String, FHIRPrimitiveType {
 	
-	/// support for SMART’s EHR Launch mode.
-	case launchEhr = "launch-ehr"
-	
-	/// support for SMART’s Standalone Launch mode.
-	case launchStandalone = "launch-standalone"
-	
-	/// support for SMART’s public client profile (no client authentication).
-	case clientPublic = "client-public"
-	
 	/// support for SMART’s confidential client profile (symmetric client secret authentication).
 	case clientConfidentialSymmetric = "client-confidential-symmetric"
 	
-	/// support for SMART’s OpenID Connect profile.
-	case ssoOpenidConnect = "sso-openid-connect"
-	
-	/// support for “need patient banner” launch context (conveyed via need_patient_banner token parameter).
-	case contextPassthroughBanner = "context-passthrough-banner"
-	
-	/// support for “SMART style URL” launch context (conveyed via smart_style_url token parameter).
-	case contextPassthroughStyle = "context-passthrough-style"
-	
-	/// support for patient-level launch context (requested by launch/patient scope, conveyed via patient token
-	/// parameter).
-	case contextEhrPatient = "context-ehr-patient"
+	/// support for SMART’s public client profile (no client authentication).
+	case clientPublic = "client-public"
 	
 	/// support for encounter-level launch context (requested by launch/encounter scope, conveyed via encounter token
 	/// parameter).
@@ -58,11 +39,27 @@ public enum SmartCapabilities: String, FHIRPrimitiveType {
 	
 	/// support for patient-level launch context (requested by launch/patient scope, conveyed via patient token
 	/// parameter).
-	case contextStandalonePatient = "context-standalone-patient"
+	case contextEhrPatient = "context-ehr-patient"
+	
+	/// support for “need patient banner” launch context (conveyed via need_patient_banner token parameter).
+	case contextPassthroughBanner = "context-passthrough-banner"
+	
+	/// support for “SMART style URL” launch context (conveyed via smart_style_url token parameter).
+	case contextPassthroughStyle = "context-passthrough-style"
 	
 	/// support for encounter-level launch context (requested by launch/encounter scope, conveyed via encounter token
 	/// parameter).
 	case contextStandaloneEncounter = "context-standalone-encounter"
+	
+	/// support for patient-level launch context (requested by launch/patient scope, conveyed via patient token
+	/// parameter).
+	case contextStandalonePatient = "context-standalone-patient"
+	
+	/// support for SMART’s EHR Launch mode.
+	case launchEhr = "launch-ehr"
+	
+	/// support for SMART’s Standalone Launch mode.
+	case launchStandalone = "launch-standalone"
 	
 	/// support for refresh tokens (requested by offline_access scope).
 	case permissionOffline = "permission-offline"
@@ -72,4 +69,7 @@ public enum SmartCapabilities: String, FHIRPrimitiveType {
 	
 	/// support for user-level scopes (e.g. user/Appointment.read).
 	case permissionUser = "permission-user"
+	
+	/// support for SMART’s OpenID Connect profile.
+	case ssoOpenidConnect = "sso-openid-connect"
 }

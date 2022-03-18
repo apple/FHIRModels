@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,16 +27,16 @@ import FMCore
  */
 public enum FamilyHistoryStatus: String, FHIRPrimitiveType {
 	
-	/// Some health information is known and captured, but not complete - see notes for details.
-	case partial = "partial"
-	
 	/// All available related health information is captured as of the date (and possibly time) when the family member
 	/// history was taken.
-	case completed = "completed"
+	case completed
 	
 	/// This instance should not have been part of this patient's medical record.
 	case enteredInError = "entered-in-error"
 	
 	/// Health information for this family member is unavailable/unknown.
 	case healthUnknown = "health-unknown"
+	
+	/// Some health information is known and captured, but not complete - see notes for details.
+	case partial
 }

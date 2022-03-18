@@ -2,8 +2,8 @@
 //  StructureMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/StructureMap)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/StructureMap)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -94,33 +94,33 @@ open class StructureMap: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contact: [ContactDetail]? = nil,
-							contained: [ResourceProxy]? = nil,
-							copyright: FHIRPrimitive<FHIRString>? = nil,
-							date: FHIRPrimitive<DateTime>? = nil,
-							description_fhir: FHIRPrimitive<FHIRString>? = nil,
-							experimental: FHIRPrimitive<FHIRBool>? = nil,
-							`extension`: [Extension]? = nil,
-							group: [StructureMapGroup],
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							`import`: [FHIRPrimitive<Canonical>]? = nil,
-							jurisdiction: [CodeableConcept]? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							publisher: FHIRPrimitive<FHIRString>? = nil,
-							purpose: FHIRPrimitive<FHIRString>? = nil,
-							status: FHIRPrimitive<PublicationStatus>,
-							structure: [StructureMapStructure]? = nil,
-							text: Narrative? = nil,
-							title: FHIRPrimitive<FHIRString>? = nil,
-							url: FHIRPrimitive<FHIRURI>,
-							useContext: [UsageContext]? = nil,
-							version: FHIRPrimitive<FHIRString>? = nil)
-	{
+		contact: [ContactDetail]? = nil,
+		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		experimental: FHIRPrimitive<FHIRBool>? = nil,
+		`extension`: [Extension]? = nil,
+		group: [StructureMapGroup],
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		`import`: [FHIRPrimitive<Canonical>]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<PublicationStatus>,
+		structure: [StructureMapStructure]? = nil,
+		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		url: FHIRPrimitive<FHIRURI>,
+		useContext: [UsageContext]? = nil,
+		version: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(group: group, name: name, status: status, url: url)
 		self.contact = contact
 		self.contained = contained
@@ -307,16 +307,16 @@ open class StructureMapGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							extends: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							input: [StructureMapGroupInput],
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							rule: [StructureMapGroupRule]? = nil,
-							typeMode: FHIRPrimitive<StructureMapGroupTypeMode>? = nil)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		extends: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		input: [StructureMapGroupInput],
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		rule: [StructureMapGroupRule]? = nil,
+		typeMode: FHIRPrimitive<StructureMapGroupTypeMode>? = nil
+	) {
 		self.init(input: input, name: name)
 		self.documentation = documentation
 		self.extends = extends
@@ -422,14 +422,14 @@ open class StructureMapGroupInput: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<StructureMapInputMode>,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							type: FHIRPrimitive<FHIRString>? = nil)
-	{
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<StructureMapInputMode>,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(mode: mode, name: name)
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -526,16 +526,16 @@ open class StructureMapGroupRule: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							dependent: [StructureMapGroupRuleDependent]? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>? = nil,
-							rule: [StructureMapGroupRule]? = nil,
-							source: [StructureMapGroupRuleSource],
-							target: [StructureMapGroupRuleTarget]? = nil)
-	{
+		dependent: [StructureMapGroupRuleDependent]? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		rule: [StructureMapGroupRule]? = nil,
+		source: [StructureMapGroupRuleSource],
+		target: [StructureMapGroupRuleTarget]? = nil
+	) {
 		self.init(source: source)
 		self.dependent = dependent
 		self.documentation = documentation
@@ -622,25 +622,25 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 	/// Name of a rule or group to apply
 	public var name: FHIRPrimitive<FHIRString>
 	
-	/// Variable to pass to the rule or group
-	public var variable: [FHIRPrimitive<FHIRString>]
+	/// Parameter to pass to the rule or group
+	public var parameter: [StructureMapGroupRuleTargetParameter]
 	
 	/// Designated initializer taking all required properties
-	public init(name: FHIRPrimitive<FHIRString>, variable: [FHIRPrimitive<FHIRString>]) {
+	public init(name: FHIRPrimitive<FHIRString>, parameter: [StructureMapGroupRuleTargetParameter]) {
 		self.name = name
-		self.variable = variable
+		self.parameter = parameter
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							name: FHIRPrimitive<FHIRString>,
-							variable: [FHIRPrimitive<FHIRString>])
-	{
-		self.init(name: name, variable: variable)
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>,
+		parameter: [StructureMapGroupRuleTargetParameter]
+	) {
+		self.init(name: name, parameter: parameter)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -650,7 +650,7 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case name; case _name
-		case variable; case _variable
+		case parameter
 	}
 	
 	/// Initializer for Decodable
@@ -659,7 +659,7 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 		
 		// Decode all our properties
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
-		self.variable = try [FHIRPrimitive<FHIRString>](from: _container, forKey: .variable, auxiliaryKey: ._variable)
+		self.parameter = try [StructureMapGroupRuleTargetParameter](from: _container, forKey: .parameter)
 		try super.init(from: decoder)
 	}
 	
@@ -669,7 +669,7 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 		
 		// Encode all our properties
 		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
-		try variable.encode(on: &_container, forKey: .variable, auxiliaryKey: ._variable)
+		try parameter.encode(on: &_container, forKey: .parameter)
 		try super.encode(to: encoder)
 	}
 	
@@ -683,13 +683,13 @@ open class StructureMapGroupRuleDependent: BackboneElement {
 			return false
 		}
 		return name == _other.name
-		    && variable == _other.variable
+		    && parameter == _other.parameter
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(name)
-		hasher.combine(variable)
+		hasher.combine(parameter)
 	}
 }
 
@@ -697,61 +697,6 @@ open class StructureMapGroupRuleDependent: BackboneElement {
  Source inputs to the mapping.
  */
 open class StructureMapGroupRuleSource: BackboneElement {
-	
-	/// All possible types for "defaultValue[x]"
-	public enum DefaultValueX: Hashable {
-		case address(Address)
-		case age(Age)
-		case annotation(Annotation)
-		case attachment(Attachment)
-		case base64Binary(FHIRPrimitive<Base64Binary>)
-		case boolean(FHIRPrimitive<FHIRBool>)
-		case canonical(FHIRPrimitive<Canonical>)
-		case code(FHIRPrimitive<FHIRString>)
-		case codeableConcept(CodeableConcept)
-		case coding(Coding)
-		case contactDetail(ContactDetail)
-		case contactPoint(ContactPoint)
-		case contributor(Contributor)
-		case count(Count)
-		case dataRequirement(DataRequirement)
-		case date(FHIRPrimitive<FHIRDate>)
-		case dateTime(FHIRPrimitive<DateTime>)
-		case decimal(FHIRPrimitive<FHIRDecimal>)
-		case distance(Distance)
-		case dosage(Dosage)
-		case duration(Duration)
-		case expression(Expression)
-		case humanName(HumanName)
-		case id(FHIRPrimitive<FHIRString>)
-		case identifier(Identifier)
-		case instant(FHIRPrimitive<Instant>)
-		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
-		case markdown(FHIRPrimitive<FHIRString>)
-		case meta(Meta)
-		case money(Money)
-		case oid(FHIRPrimitive<FHIRURI>)
-		case parameterDefinition(ParameterDefinition)
-		case period(Period)
-		case positiveInt(FHIRPrimitive<FHIRPositiveInteger>)
-		case quantity(Quantity)
-		case range(Range)
-		case ratio(Ratio)
-		case reference(Reference)
-		case relatedArtifact(RelatedArtifact)
-		case sampledData(SampledData)
-		case signature(Signature)
-		case string(FHIRPrimitive<FHIRString>)
-		case time(FHIRPrimitive<FHIRTime>)
-		case timing(Timing)
-		case triggerDefinition(TriggerDefinition)
-		case unsignedInt(FHIRPrimitive<FHIRUnsignedInteger>)
-		case uri(FHIRPrimitive<FHIRURI>)
-		case url(FHIRPrimitive<FHIRURI>)
-		case usageContext(UsageContext)
-		case uuid(FHIRPrimitive<FHIRURI>)
-	}
 	
 	/// Type or variable this rule applies to
 	public var context: FHIRPrimitive<FHIRString>
@@ -766,8 +711,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 	public var type: FHIRPrimitive<FHIRString>?
 	
 	/// Default value if no value exists
-	/// One of `defaultValue[x]`
-	public var defaultValue: DefaultValueX?
+	public var defaultValue: FHIRPrimitive<FHIRString>?
 	
 	/// Optional field for this source
 	public var element: FHIRPrimitive<FHIRString>?
@@ -795,21 +739,21 @@ open class StructureMapGroupRuleSource: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							check: FHIRPrimitive<FHIRString>? = nil,
-							condition: FHIRPrimitive<FHIRString>? = nil,
-							context: FHIRPrimitive<FHIRString>,
-							defaultValue: DefaultValueX? = nil,
-							element: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							listMode: FHIRPrimitive<StructureMapSourceListMode>? = nil,
-							logMessage: FHIRPrimitive<FHIRString>? = nil,
-							max: FHIRPrimitive<FHIRString>? = nil,
-							min: FHIRPrimitive<FHIRInteger>? = nil,
-							modifierExtension: [Extension]? = nil,
-							type: FHIRPrimitive<FHIRString>? = nil,
-							variable: FHIRPrimitive<FHIRString>? = nil)
-	{
+		check: FHIRPrimitive<FHIRString>? = nil,
+		condition: FHIRPrimitive<FHIRString>? = nil,
+		context: FHIRPrimitive<FHIRString>,
+		defaultValue: FHIRPrimitive<FHIRString>? = nil,
+		element: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		listMode: FHIRPrimitive<StructureMapSourceListMode>? = nil,
+		logMessage: FHIRPrimitive<FHIRString>? = nil,
+		max: FHIRPrimitive<FHIRString>? = nil,
+		min: FHIRPrimitive<FHIRInteger>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: FHIRPrimitive<FHIRString>? = nil,
+		variable: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init(context: context)
 		self.check = check
 		self.condition = condition
@@ -832,57 +776,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 		case check; case _check
 		case condition; case _condition
 		case context; case _context
-		case defaultValueAddress
-		case defaultValueAge
-		case defaultValueAnnotation
-		case defaultValueAttachment
-		case defaultValueBase64Binary; case _defaultValueBase64Binary
-		case defaultValueBoolean; case _defaultValueBoolean
-		case defaultValueCanonical; case _defaultValueCanonical
-		case defaultValueCode; case _defaultValueCode
-		case defaultValueCodeableConcept
-		case defaultValueCoding
-		case defaultValueContactDetail
-		case defaultValueContactPoint
-		case defaultValueContributor
-		case defaultValueCount
-		case defaultValueDataRequirement
-		case defaultValueDate; case _defaultValueDate
-		case defaultValueDateTime; case _defaultValueDateTime
-		case defaultValueDecimal; case _defaultValueDecimal
-		case defaultValueDistance
-		case defaultValueDosage
-		case defaultValueDuration
-		case defaultValueExpression
-		case defaultValueHumanName
-		case defaultValueId; case _defaultValueId
-		case defaultValueIdentifier
-		case defaultValueInstant; case _defaultValueInstant
-		case defaultValueInteger; case _defaultValueInteger
-		case defaultValueInteger64; case _defaultValueInteger64
-		case defaultValueMarkdown; case _defaultValueMarkdown
-		case defaultValueMeta
-		case defaultValueMoney
-		case defaultValueOid; case _defaultValueOid
-		case defaultValueParameterDefinition
-		case defaultValuePeriod
-		case defaultValuePositiveInt; case _defaultValuePositiveInt
-		case defaultValueQuantity
-		case defaultValueRange
-		case defaultValueRatio
-		case defaultValueReference
-		case defaultValueRelatedArtifact
-		case defaultValueSampledData
-		case defaultValueSignature
-		case defaultValueString; case _defaultValueString
-		case defaultValueTime; case _defaultValueTime
-		case defaultValueTiming
-		case defaultValueTriggerDefinition
-		case defaultValueUnsignedInt; case _defaultValueUnsignedInt
-		case defaultValueUri; case _defaultValueUri
-		case defaultValueUrl; case _defaultValueUrl
-		case defaultValueUsageContext
-		case defaultValueUuid; case _defaultValueUuid
+		case defaultValue; case _defaultValue
 		case element; case _element
 		case listMode; case _listMode
 		case logMessage; case _logMessage
@@ -900,314 +794,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 		self.check = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .check, auxiliaryKey: ._check)
 		self.condition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .condition, auxiliaryKey: ._condition)
 		self.context = try FHIRPrimitive<FHIRString>(from: _container, forKey: .context, auxiliaryKey: ._context)
-		var _t_defaultValue: DefaultValueX? = nil
-		if let defaultValueBase64Binary = try FHIRPrimitive<Base64Binary>(from: _container, forKeyIfPresent: .defaultValueBase64Binary, auxiliaryKey: ._defaultValueBase64Binary) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueBase64Binary, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .base64Binary(defaultValueBase64Binary)
-		}
-		if let defaultValueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .defaultValueBoolean, auxiliaryKey: ._defaultValueBoolean) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueBoolean, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .boolean(defaultValueBoolean)
-		}
-		if let defaultValueCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .defaultValueCanonical, auxiliaryKey: ._defaultValueCanonical) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueCanonical, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .canonical(defaultValueCanonical)
-		}
-		if let defaultValueCode = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .defaultValueCode, auxiliaryKey: ._defaultValueCode) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueCode, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .code(defaultValueCode)
-		}
-		if let defaultValueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .defaultValueDate, auxiliaryKey: ._defaultValueDate) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDate, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .date(defaultValueDate)
-		}
-		if let defaultValueDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .defaultValueDateTime, auxiliaryKey: ._defaultValueDateTime) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDateTime, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .dateTime(defaultValueDateTime)
-		}
-		if let defaultValueDecimal = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .defaultValueDecimal, auxiliaryKey: ._defaultValueDecimal) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDecimal, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .decimal(defaultValueDecimal)
-		}
-		if let defaultValueId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .defaultValueId, auxiliaryKey: ._defaultValueId) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueId, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .id(defaultValueId)
-		}
-		if let defaultValueInstant = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .defaultValueInstant, auxiliaryKey: ._defaultValueInstant) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueInstant, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .instant(defaultValueInstant)
-		}
-		if let defaultValueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .defaultValueInteger, auxiliaryKey: ._defaultValueInteger) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueInteger, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .integer(defaultValueInteger)
-		}
-		if let defaultValueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .defaultValueInteger64, auxiliaryKey: ._defaultValueInteger64) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueInteger64, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .integer64(defaultValueInteger64)
-		}
-		if let defaultValueMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .defaultValueMarkdown, auxiliaryKey: ._defaultValueMarkdown) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueMarkdown, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .markdown(defaultValueMarkdown)
-		}
-		if let defaultValueOid = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .defaultValueOid, auxiliaryKey: ._defaultValueOid) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueOid, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .oid(defaultValueOid)
-		}
-		if let defaultValuePositiveInt = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .defaultValuePositiveInt, auxiliaryKey: ._defaultValuePositiveInt) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValuePositiveInt, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .positiveInt(defaultValuePositiveInt)
-		}
-		if let defaultValueString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .defaultValueString, auxiliaryKey: ._defaultValueString) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueString, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .string(defaultValueString)
-		}
-		if let defaultValueTime = try FHIRPrimitive<FHIRTime>(from: _container, forKeyIfPresent: .defaultValueTime, auxiliaryKey: ._defaultValueTime) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueTime, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .time(defaultValueTime)
-		}
-		if let defaultValueUnsignedInt = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .defaultValueUnsignedInt, auxiliaryKey: ._defaultValueUnsignedInt) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueUnsignedInt, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .unsignedInt(defaultValueUnsignedInt)
-		}
-		if let defaultValueUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .defaultValueUri, auxiliaryKey: ._defaultValueUri) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueUri, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .uri(defaultValueUri)
-		}
-		if let defaultValueUrl = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .defaultValueUrl, auxiliaryKey: ._defaultValueUrl) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueUrl, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .url(defaultValueUrl)
-		}
-		if let defaultValueUuid = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .defaultValueUuid, auxiliaryKey: ._defaultValueUuid) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueUuid, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .uuid(defaultValueUuid)
-		}
-		if let defaultValueAddress = try Address(from: _container, forKeyIfPresent: .defaultValueAddress) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueAddress, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .address(defaultValueAddress)
-		}
-		if let defaultValueAge = try Age(from: _container, forKeyIfPresent: .defaultValueAge) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueAge, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .age(defaultValueAge)
-		}
-		if let defaultValueAnnotation = try Annotation(from: _container, forKeyIfPresent: .defaultValueAnnotation) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueAnnotation, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .annotation(defaultValueAnnotation)
-		}
-		if let defaultValueAttachment = try Attachment(from: _container, forKeyIfPresent: .defaultValueAttachment) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueAttachment, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .attachment(defaultValueAttachment)
-		}
-		if let defaultValueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .defaultValueCodeableConcept) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .codeableConcept(defaultValueCodeableConcept)
-		}
-		if let defaultValueCoding = try Coding(from: _container, forKeyIfPresent: .defaultValueCoding) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueCoding, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .coding(defaultValueCoding)
-		}
-		if let defaultValueContactPoint = try ContactPoint(from: _container, forKeyIfPresent: .defaultValueContactPoint) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueContactPoint, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .contactPoint(defaultValueContactPoint)
-		}
-		if let defaultValueCount = try Count(from: _container, forKeyIfPresent: .defaultValueCount) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueCount, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .count(defaultValueCount)
-		}
-		if let defaultValueDistance = try Distance(from: _container, forKeyIfPresent: .defaultValueDistance) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDistance, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .distance(defaultValueDistance)
-		}
-		if let defaultValueDuration = try Duration(from: _container, forKeyIfPresent: .defaultValueDuration) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDuration, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .duration(defaultValueDuration)
-		}
-		if let defaultValueHumanName = try HumanName(from: _container, forKeyIfPresent: .defaultValueHumanName) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueHumanName, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .humanName(defaultValueHumanName)
-		}
-		if let defaultValueIdentifier = try Identifier(from: _container, forKeyIfPresent: .defaultValueIdentifier) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueIdentifier, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .identifier(defaultValueIdentifier)
-		}
-		if let defaultValueMoney = try Money(from: _container, forKeyIfPresent: .defaultValueMoney) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueMoney, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .money(defaultValueMoney)
-		}
-		if let defaultValuePeriod = try Period(from: _container, forKeyIfPresent: .defaultValuePeriod) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValuePeriod, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .period(defaultValuePeriod)
-		}
-		if let defaultValueQuantity = try Quantity(from: _container, forKeyIfPresent: .defaultValueQuantity) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueQuantity, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .quantity(defaultValueQuantity)
-		}
-		if let defaultValueRange = try Range(from: _container, forKeyIfPresent: .defaultValueRange) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueRange, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .range(defaultValueRange)
-		}
-		if let defaultValueRatio = try Ratio(from: _container, forKeyIfPresent: .defaultValueRatio) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueRatio, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .ratio(defaultValueRatio)
-		}
-		if let defaultValueReference = try Reference(from: _container, forKeyIfPresent: .defaultValueReference) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueReference, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .reference(defaultValueReference)
-		}
-		if let defaultValueSampledData = try SampledData(from: _container, forKeyIfPresent: .defaultValueSampledData) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueSampledData, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .sampledData(defaultValueSampledData)
-		}
-		if let defaultValueSignature = try Signature(from: _container, forKeyIfPresent: .defaultValueSignature) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueSignature, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .signature(defaultValueSignature)
-		}
-		if let defaultValueTiming = try Timing(from: _container, forKeyIfPresent: .defaultValueTiming) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueTiming, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .timing(defaultValueTiming)
-		}
-		if let defaultValueContactDetail = try ContactDetail(from: _container, forKeyIfPresent: .defaultValueContactDetail) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueContactDetail, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .contactDetail(defaultValueContactDetail)
-		}
-		if let defaultValueContributor = try Contributor(from: _container, forKeyIfPresent: .defaultValueContributor) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueContributor, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .contributor(defaultValueContributor)
-		}
-		if let defaultValueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .defaultValueDataRequirement) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDataRequirement, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .dataRequirement(defaultValueDataRequirement)
-		}
-		if let defaultValueExpression = try Expression(from: _container, forKeyIfPresent: .defaultValueExpression) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueExpression, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .expression(defaultValueExpression)
-		}
-		if let defaultValueParameterDefinition = try ParameterDefinition(from: _container, forKeyIfPresent: .defaultValueParameterDefinition) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueParameterDefinition, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .parameterDefinition(defaultValueParameterDefinition)
-		}
-		if let defaultValueRelatedArtifact = try RelatedArtifact(from: _container, forKeyIfPresent: .defaultValueRelatedArtifact) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueRelatedArtifact, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .relatedArtifact(defaultValueRelatedArtifact)
-		}
-		if let defaultValueTriggerDefinition = try TriggerDefinition(from: _container, forKeyIfPresent: .defaultValueTriggerDefinition) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueTriggerDefinition, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .triggerDefinition(defaultValueTriggerDefinition)
-		}
-		if let defaultValueUsageContext = try UsageContext(from: _container, forKeyIfPresent: .defaultValueUsageContext) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueUsageContext, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .usageContext(defaultValueUsageContext)
-		}
-		if let defaultValueDosage = try Dosage(from: _container, forKeyIfPresent: .defaultValueDosage) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueDosage, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .dosage(defaultValueDosage)
-		}
-		if let defaultValueMeta = try Meta(from: _container, forKeyIfPresent: .defaultValueMeta) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueMeta, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .meta(defaultValueMeta)
-		}
-		self.defaultValue = _t_defaultValue
+		self.defaultValue = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .defaultValue, auxiliaryKey: ._defaultValue)
 		self.element = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .element, auxiliaryKey: ._element)
 		self.listMode = try FHIRPrimitive<StructureMapSourceListMode>(from: _container, forKeyIfPresent: .listMode, auxiliaryKey: ._listMode)
 		self.logMessage = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .logMessage, auxiliaryKey: ._logMessage)
@@ -1226,112 +813,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 		try check?.encode(on: &_container, forKey: .check, auxiliaryKey: ._check)
 		try condition?.encode(on: &_container, forKey: .condition, auxiliaryKey: ._condition)
 		try context.encode(on: &_container, forKey: .context, auxiliaryKey: ._context)
-		if let _enum = defaultValue {
-			switch _enum {
-			case .base64Binary(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueBase64Binary, auxiliaryKey: ._defaultValueBase64Binary)
-			case .boolean(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueBoolean, auxiliaryKey: ._defaultValueBoolean)
-			case .canonical(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueCanonical, auxiliaryKey: ._defaultValueCanonical)
-			case .code(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueCode, auxiliaryKey: ._defaultValueCode)
-			case .date(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDate, auxiliaryKey: ._defaultValueDate)
-			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDateTime, auxiliaryKey: ._defaultValueDateTime)
-			case .decimal(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDecimal, auxiliaryKey: ._defaultValueDecimal)
-			case .id(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueId, auxiliaryKey: ._defaultValueId)
-			case .instant(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueInstant, auxiliaryKey: ._defaultValueInstant)
-			case .integer(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueInteger, auxiliaryKey: ._defaultValueInteger)
-			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueInteger64, auxiliaryKey: ._defaultValueInteger64)
-			case .markdown(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueMarkdown, auxiliaryKey: ._defaultValueMarkdown)
-			case .oid(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueOid, auxiliaryKey: ._defaultValueOid)
-			case .positiveInt(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValuePositiveInt, auxiliaryKey: ._defaultValuePositiveInt)
-			case .string(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueString, auxiliaryKey: ._defaultValueString)
-			case .time(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueTime, auxiliaryKey: ._defaultValueTime)
-			case .unsignedInt(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueUnsignedInt, auxiliaryKey: ._defaultValueUnsignedInt)
-			case .uri(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueUri, auxiliaryKey: ._defaultValueUri)
-			case .url(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueUrl, auxiliaryKey: ._defaultValueUrl)
-			case .uuid(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueUuid, auxiliaryKey: ._defaultValueUuid)
-			case .address(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueAddress)
-			case .age(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueAge)
-			case .annotation(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueAnnotation)
-			case .attachment(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueAttachment)
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueCodeableConcept)
-			case .coding(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueCoding)
-			case .contactPoint(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueContactPoint)
-			case .count(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueCount)
-			case .distance(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDistance)
-			case .duration(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDuration)
-			case .humanName(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueHumanName)
-			case .identifier(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueIdentifier)
-			case .money(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueMoney)
-			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValuePeriod)
-			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueQuantity)
-			case .range(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueRange)
-			case .ratio(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueRatio)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueReference)
-			case .sampledData(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueSampledData)
-			case .signature(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueSignature)
-			case .timing(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueTiming)
-			case .contactDetail(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueContributor)
-			case .dataRequirement(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDataRequirement)
-			case .expression(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueExpression)
-			case .parameterDefinition(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueParameterDefinition)
-			case .relatedArtifact(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueRelatedArtifact)
-			case .triggerDefinition(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueTriggerDefinition)
-			case .usageContext(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueUsageContext)
-			case .dosage(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueDosage)
-			case .meta(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueMeta)
-			}
-		}
+		try defaultValue?.encode(on: &_container, forKey: .defaultValue, auxiliaryKey: ._defaultValue)
 		try element?.encode(on: &_container, forKey: .element, auxiliaryKey: ._element)
 		try listMode?.encode(on: &_container, forKey: .listMode, auxiliaryKey: ._listMode)
 		try logMessage?.encode(on: &_container, forKey: .logMessage, auxiliaryKey: ._logMessage)
@@ -1385,11 +867,8 @@ open class StructureMapGroupRuleSource: BackboneElement {
  */
 open class StructureMapGroupRuleTarget: BackboneElement {
 	
-	/// Type or variable this rule applies to
+	/// Variable this rule applies to
 	public var context: FHIRPrimitive<FHIRString>?
-	
-	/// How to interpret the context.
-	public var contextType: FHIRPrimitive<StructureMapContextType>?
 	
 	/// Field to create in the context
 	public var element: FHIRPrimitive<FHIRString>?
@@ -1416,21 +895,19 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							context: FHIRPrimitive<FHIRString>? = nil,
-							contextType: FHIRPrimitive<StructureMapContextType>? = nil,
-							element: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							listMode: [FHIRPrimitive<StructureMapTargetListMode>]? = nil,
-							listRuleId: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							parameter: [StructureMapGroupRuleTargetParameter]? = nil,
-							transform: FHIRPrimitive<StructureMapTransform>? = nil,
-							variable: FHIRPrimitive<FHIRString>? = nil)
-	{
+		context: FHIRPrimitive<FHIRString>? = nil,
+		element: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		listMode: [FHIRPrimitive<StructureMapTargetListMode>]? = nil,
+		listRuleId: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		parameter: [StructureMapGroupRuleTargetParameter]? = nil,
+		transform: FHIRPrimitive<StructureMapTransform>? = nil,
+		variable: FHIRPrimitive<FHIRString>? = nil
+	) {
 		self.init()
 		self.context = context
-		self.contextType = contextType
 		self.element = element
 		self.`extension` = `extension`
 		self.id = id
@@ -1446,7 +923,6 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case context; case _context
-		case contextType; case _contextType
 		case element; case _element
 		case listMode; case _listMode
 		case listRuleId; case _listRuleId
@@ -1461,7 +937,6 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 		
 		// Decode all our properties
 		self.context = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .context, auxiliaryKey: ._context)
-		self.contextType = try FHIRPrimitive<StructureMapContextType>(from: _container, forKeyIfPresent: .contextType, auxiliaryKey: ._contextType)
 		self.element = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .element, auxiliaryKey: ._element)
 		self.listMode = try [FHIRPrimitive<StructureMapTargetListMode>](from: _container, forKeyIfPresent: .listMode, auxiliaryKey: ._listMode)
 		self.listRuleId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .listRuleId, auxiliaryKey: ._listRuleId)
@@ -1477,7 +952,6 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 		
 		// Encode all our properties
 		try context?.encode(on: &_container, forKey: .context, auxiliaryKey: ._context)
-		try contextType?.encode(on: &_container, forKey: .contextType, auxiliaryKey: ._contextType)
 		try element?.encode(on: &_container, forKey: .element, auxiliaryKey: ._element)
 		try listMode?.encode(on: &_container, forKey: .listMode, auxiliaryKey: ._listMode)
 		try listRuleId?.encode(on: &_container, forKey: .listRuleId, auxiliaryKey: ._listRuleId)
@@ -1497,7 +971,6 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 			return false
 		}
 		return context == _other.context
-		    && contextType == _other.contextType
 		    && element == _other.element
 		    && listMode == _other.listMode
 		    && listRuleId == _other.listRuleId
@@ -1509,7 +982,6 @@ open class StructureMapGroupRuleTarget: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(context)
-		hasher.combine(contextType)
 		hasher.combine(element)
 		hasher.combine(listMode)
 		hasher.combine(listRuleId)
@@ -1527,10 +999,13 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 	/// All possible types for "value[x]"
 	public enum ValueX: Hashable {
 		case boolean(FHIRPrimitive<FHIRBool>)
+		case date(FHIRPrimitive<FHIRDate>)
+		case dateTime(FHIRPrimitive<DateTime>)
 		case decimal(FHIRPrimitive<FHIRDecimal>)
 		case id(FHIRPrimitive<FHIRString>)
 		case integer(FHIRPrimitive<FHIRInteger>)
 		case string(FHIRPrimitive<FHIRString>)
+		case time(FHIRPrimitive<FHIRTime>)
 	}
 	
 	/// Parameter value - variable or literal
@@ -1545,11 +1020,11 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							value: ValueX)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
 		self.init(value: value)
 		self.`extension` = `extension`
 		self.id = id
@@ -1560,10 +1035,13 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case valueBoolean; case _valueBoolean
+		case valueDate; case _valueDate
+		case valueDateTime; case _valueDateTime
 		case valueDecimal; case _valueDecimal
 		case valueId; case _valueId
 		case valueInteger; case _valueInteger
 		case valueString; case _valueString
+		case valueTime; case _valueTime
 	}
 	
 	/// Initializer for Decodable
@@ -1571,8 +1049,8 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueString) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueBoolean, CodingKeys.valueDecimal, CodingKeys.valueId, CodingKeys.valueInteger, CodingKeys.valueString], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueBoolean, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueId, CodingKeys.valueInteger, CodingKeys.valueString, CodingKeys.valueTime], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -1607,6 +1085,24 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 			}
 			_t_value = .decimal(valueDecimal)
 		}
+		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDate, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .date(valueDate)
+		}
+		if let valueTime = try FHIRPrimitive<FHIRTime>(from: _container, forKeyIfPresent: .valueTime, auxiliaryKey: ._valueTime) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueTime, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .time(valueTime)
+		}
+		if let valueDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .valueDateTime, auxiliaryKey: ._valueDateTime) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDateTime, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .dateTime(valueDateTime)
+		}
 		self.value = _t_value!
 		try super.init(from: decoder)
 	}
@@ -1628,6 +1124,12 @@ open class StructureMapGroupRuleTargetParameter: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .decimal(let _value):
 				try _value.encode(on: &_container, forKey: .valueDecimal, auxiliaryKey: ._valueDecimal)
+			case .date(let _value):
+				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
+			case .time(let _value):
+				try _value.encode(on: &_container, forKey: .valueTime, auxiliaryKey: ._valueTime)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .valueDateTime, auxiliaryKey: ._valueDateTime)
 			}
 		
 		try super.encode(to: encoder)
@@ -1680,14 +1182,14 @@ open class StructureMapStructure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							alias: FHIRPrimitive<FHIRString>? = nil,
-							documentation: FHIRPrimitive<FHIRString>? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							mode: FHIRPrimitive<StructureMapModelMode>,
-							modifierExtension: [Extension]? = nil,
-							url: FHIRPrimitive<Canonical>)
-	{
+		alias: FHIRPrimitive<FHIRString>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		mode: FHIRPrimitive<StructureMapModelMode>,
+		modifierExtension: [Extension]? = nil,
+		url: FHIRPrimitive<Canonical>
+	) {
 		self.init(mode: mode, url: url)
 		self.alias = alias
 		self.documentation = documentation

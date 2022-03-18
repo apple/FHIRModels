@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/MedicinalProductIngredient)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -52,21 +52,21 @@ open class MedicinalProductIngredient: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							allergenicIndicator: FHIRPrimitive<FHIRBool>? = nil,
-							contained: [ResourceProxy]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: Identifier? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							manufacturer: [Reference]? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							role: CodeableConcept,
-							specifiedSubstance: [MedicinalProductIngredientSpecifiedSubstance]? = nil,
-							substance: MedicinalProductIngredientSubstance? = nil,
-							text: Narrative? = nil)
-	{
+		allergenicIndicator: FHIRPrimitive<FHIRBool>? = nil,
+		contained: [ResourceProxy]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: Identifier? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		manufacturer: [Reference]? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept,
+		specifiedSubstance: [MedicinalProductIngredientSpecifiedSubstance]? = nil,
+		substance: MedicinalProductIngredientSubstance? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(role: role)
 		self.allergenicIndicator = allergenicIndicator
 		self.contained = contained
@@ -176,14 +176,14 @@ open class MedicinalProductIngredientSpecifiedSubstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							confidentiality: CodeableConcept? = nil,
-							`extension`: [Extension]? = nil,
-							group: CodeableConcept,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							strength: [MedicinalProductIngredientSpecifiedSubstanceStrength]? = nil)
-	{
+		code: CodeableConcept,
+		confidentiality: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		group: CodeableConcept,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		strength: [MedicinalProductIngredientSpecifiedSubstanceStrength]? = nil
+	) {
 		self.init(code: code, group: group)
 		self.confidentiality = confidentiality
 		self.`extension` = `extension`
@@ -286,17 +286,17 @@ open class MedicinalProductIngredientSpecifiedSubstanceStrength: BackboneElement
 	
 	/// Convenience initializer
 	public convenience init(
-							concentration: Ratio? = nil,
-							concentrationLowLimit: Ratio? = nil,
-							country: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measurementPoint: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							presentation: Ratio,
-							presentationLowLimit: Ratio? = nil,
-							referenceStrength: [MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength]? = nil)
-	{
+		concentration: Ratio? = nil,
+		concentrationLowLimit: Ratio? = nil,
+		country: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measurementPoint: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		presentation: Ratio,
+		presentationLowLimit: Ratio? = nil,
+		referenceStrength: [MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength]? = nil
+	) {
 		self.init(presentation: presentation)
 		self.concentration = concentration
 		self.concentrationLowLimit = concentrationLowLimit
@@ -409,15 +409,15 @@ open class MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrength
 	
 	/// Convenience initializer
 	public convenience init(
-							country: [CodeableConcept]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							measurementPoint: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							strength: Ratio,
-							strengthLowLimit: Ratio? = nil,
-							substance: CodeableConcept? = nil)
-	{
+		country: [CodeableConcept]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		measurementPoint: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		strength: Ratio,
+		strengthLowLimit: Ratio? = nil,
+		substance: CodeableConcept? = nil
+	) {
 		self.init(strength: strength)
 		self.country = country
 		self.`extension` = `extension`
@@ -509,12 +509,12 @@ open class MedicinalProductIngredientSubstance: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							code: CodeableConcept,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							strength: [MedicinalProductIngredientSpecifiedSubstanceStrength]? = nil)
-	{
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		strength: [MedicinalProductIngredientSpecifiedSubstanceStrength]? = nil
+	) {
 		self.init(code: code)
 		self.`extension` = `extension`
 		self.id = id

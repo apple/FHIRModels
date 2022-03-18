@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,16 +28,16 @@ import FMCore
 public enum TestReportStatus: String, FHIRPrimitiveType {
 	
 	/// All test operations have completed.
-	case completed = "completed"
+	case completed
 	
 	/// A test operations is currently executing.
 	case inProgress = "in-progress"
 	
 	/// A test operation is waiting for an external client request.
-	case waiting = "waiting"
+	case waiting
 	
 	/// The test script execution was manually stopped.
-	case stopped = "stopped"
+	case stopped
 	
 	/// This test report was entered or created in error.
 	case enteredInError = "entered-in-error"

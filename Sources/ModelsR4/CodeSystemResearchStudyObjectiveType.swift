@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ public enum ResearchStudyObjectiveType: String, FHIRPrimitiveType {
 	
 	/// The main question to be answered, and the one that drives any statistical planning for the study—e.g.,
 	/// calculation of the sample size to provide the appropriate power for statistical testing.
-	case primary = "primary"
+	case primary
 	
 	/// Question to be answered in the study that is of lesser importance than the primary objective.
-	case secondary = "secondary"
+	case secondary
 	
 	/// Exploratory questions to be answered in the study.
-	case exploratory = "exploratory"
+	case exploratory
 }

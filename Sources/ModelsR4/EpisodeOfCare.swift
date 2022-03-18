@@ -3,7 +3,7 @@
 //  HealthSoftware
 //
 //  Generated from FHIR 4.0.1-9346c8cc45 (http://hl7.org/fhir/StructureDefinition/EpisodeOfCare)
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -75,27 +75,27 @@ open class EpisodeOfCare: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							account: [Reference]? = nil,
-							careManager: Reference? = nil,
-							contained: [ResourceProxy]? = nil,
-							diagnosis: [EpisodeOfCareDiagnosis]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							managingOrganization: Reference? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							patient: Reference,
-							period: Period? = nil,
-							referralRequest: [Reference]? = nil,
-							status: FHIRPrimitive<EpisodeOfCareStatus>,
-							statusHistory: [EpisodeOfCareStatusHistory]? = nil,
-							team: [Reference]? = nil,
-							text: Narrative? = nil,
-							type: [CodeableConcept]? = nil)
-	{
+		account: [Reference]? = nil,
+		careManager: Reference? = nil,
+		contained: [ResourceProxy]? = nil,
+		diagnosis: [EpisodeOfCareDiagnosis]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		managingOrganization: Reference? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		patient: Reference,
+		period: Period? = nil,
+		referralRequest: [Reference]? = nil,
+		status: FHIRPrimitive<EpisodeOfCareStatus>,
+		statusHistory: [EpisodeOfCareStatusHistory]? = nil,
+		team: [Reference]? = nil,
+		text: Narrative? = nil,
+		type: [CodeableConcept]? = nil
+	) {
 		self.init(patient: patient, status: status)
 		self.account = account
 		self.careManager = careManager
@@ -236,13 +236,13 @@ open class EpisodeOfCareDiagnosis: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							condition: Reference,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-							role: CodeableConcept? = nil)
-	{
+		condition: Reference,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		role: CodeableConcept? = nil
+	) {
 		self.init(condition: condition)
 		self.`extension` = `extension`
 		self.id = id
@@ -326,12 +326,12 @@ open class EpisodeOfCareStatusHistory: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							modifierExtension: [Extension]? = nil,
-							period: Period,
-							status: FHIRPrimitive<EpisodeOfCareStatus>)
-	{
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		period: Period,
+		status: FHIRPrimitive<EpisodeOfCareStatus>
+	) {
 		self.init(period: period, status: status)
 		self.`extension` = `extension`
 		self.id = id

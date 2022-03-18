@@ -2,8 +2,8 @@
 //  GuidanceResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.5.0-a621ed4bdc (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
-//  Copyright 2020 Apple Inc.
+//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -93,29 +93,29 @@ open class GuidanceResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-							contained: [ResourceProxy]? = nil,
-							dataRequirement: [DataRequirement]? = nil,
-							encounter: Reference? = nil,
-							evaluationMessage: [Reference]? = nil,
-							`extension`: [Extension]? = nil,
-							id: FHIRPrimitive<FHIRString>? = nil,
-							identifier: [Identifier]? = nil,
-							implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-							language: FHIRPrimitive<FHIRString>? = nil,
-							meta: Meta? = nil,
-							modifierExtension: [Extension]? = nil,
-							module: ModuleX,
-							note: [Annotation]? = nil,
-							occurrenceDateTime: FHIRPrimitive<DateTime>? = nil,
-							outputParameters: Reference? = nil,
-							performer: Reference? = nil,
-							reason: [CodeableReference]? = nil,
-							requestIdentifier: Identifier? = nil,
-							result: Reference? = nil,
-							status: FHIRPrimitive<GuidanceResponseStatus>,
-							subject: Reference? = nil,
-							text: Narrative? = nil)
-	{
+		contained: [ResourceProxy]? = nil,
+		dataRequirement: [DataRequirement]? = nil,
+		encounter: Reference? = nil,
+		evaluationMessage: [Reference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		language: FHIRPrimitive<FHIRString>? = nil,
+		meta: Meta? = nil,
+		modifierExtension: [Extension]? = nil,
+		module: ModuleX,
+		note: [Annotation]? = nil,
+		occurrenceDateTime: FHIRPrimitive<DateTime>? = nil,
+		outputParameters: Reference? = nil,
+		performer: Reference? = nil,
+		reason: [CodeableReference]? = nil,
+		requestIdentifier: Identifier? = nil,
+		result: Reference? = nil,
+		status: FHIRPrimitive<GuidanceResponseStatus>,
+		subject: Reference? = nil,
+		text: Narrative? = nil
+	) {
 		self.init(module: module, status: status)
 		self.contained = contained
 		self.dataRequirement = dataRequirement

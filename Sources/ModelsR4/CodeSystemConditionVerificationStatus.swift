@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,20 +28,20 @@ import FMCore
 public enum ConditionVerificationStatus: String, FHIRPrimitiveType {
 	
 	/// There is not sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition.
-	case unconfirmed = "unconfirmed"
+	case unconfirmed
 	
 	/// This is a tentative diagnosis - still a candidate that is under consideration.
-	case provisional = "provisional"
+	case provisional
 	
 	/// One of a set of potential (and typically mutually exclusive) diagnoses asserted to further guide the diagnostic
 	/// process and preliminary treatment.
-	case differential = "differential"
+	case differential
 	
 	/// There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition.
-	case confirmed = "confirmed"
+	case confirmed
 	
 	/// This condition has been ruled out by diagnostic and clinical evidence.
-	case refuted = "refuted"
+	case refuted
 	
 	/// The statement was entered in error and is not valid.
 	case enteredInError = "entered-in-error"

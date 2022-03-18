@@ -3,7 +3,7 @@
 //  HealthRecords
 //
 //  Generated from FHIR 4.0.1-9346c8cc45
-//  Copyright 2020 Apple Inc.
+//  Copyright 2022 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ import FMCore
 public enum ExampleOnsetTypeReasonCodes: String, FHIRPrimitiveType {
 	
 	/// Date of last examination.
-	case lxm = "lxm"
+	case lxm
 	
 	/// Date when symptoms were first noticed.
-	case sym = "sym"
+	case sym
 	
 	/// Start date of last menstruation.
-	case lmn = "lmn"
+	case lmn
 }
