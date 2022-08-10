@@ -26,7 +26,7 @@ open class SubstancePolymer: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .substancePolymer }
 	
-	/// A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition identifier
+	/// A business identifier for this polymer, but typically this is handled by a SubstanceDefinition identifier
 	public var identifier: Identifier?
 	
 	/// Overall type of the polymer

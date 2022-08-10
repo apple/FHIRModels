@@ -31,7 +31,7 @@ open class SubscriptionStatus: DomainResource {
 	/// The status of the subscription, which marks the server state for managing the subscription.
 	public var status: FHIRPrimitive<SubscriptionStatusCodes>?
 	
-	/// The type of event being conveyed with this notificaiton.
+	/// The type of event being conveyed with this notification.
 	public var type: FHIRPrimitive<SubscriptionNotificationType>
 	
 	/// Events since the Subscription was created
