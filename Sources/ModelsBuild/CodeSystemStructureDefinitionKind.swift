@@ -39,10 +39,10 @@ public enum StructureDefinitionKind: String, FHIRPrimitiveType {
 	/// extension definitions. Only the base specification can define primitive types.
 	case primitiveType = "primitive-type"
 	
-	/// A 'resource' - a directed acyclic graph of elements that aggregrates other types into an identifiable entity.
+	/// A 'resource' - a directed acyclic graph of elements that aggregates other types into an identifiable entity.
 	/// The base FHIR resources are defined by the FHIR specification itself but other 'resources' can be defined in
-	/// additional specifications (though these will not be recognised as 'resources' by the FHIR specification (i.e.
+	/// additional specifications (though these will not be recognized as 'resources' by the FHIR specification (i.e.
 	/// they do not get end-points etc, or act as the targets of references in FHIR defined resources - though other
-	/// specificatiosn can treat them this way).
+	/// specifications can treat them this way).
 	case resource
 }

@@ -90,7 +90,7 @@ public enum MedicationDispenseStatusReasonCodes: String, FHIRPrimitiveType {
 	case sddi
 	
 	/// Another short-term co-occurring therapy fulfills the same purpose as this therapy. This therapy will be resumed
-	/// when the co-occuring therapy is complete.
+	/// when the co-occurring therapy is complete.
 	case sdupther
 	
 	/// The patient is believed to have an intolerance to a substance that is part of the therapy and the therapy is

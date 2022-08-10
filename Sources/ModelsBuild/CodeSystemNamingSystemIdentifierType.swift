@@ -39,7 +39,7 @@ public enum NamingSystemIdentifierType: String, FHIRPrimitiveType {
 	/// A universally unique identifier of the form a5afddf4-e880-459b-876e-e4591b0acc11.
 	case uuid
 	
-	/// A short string published by HL7 for use in the V2 family of standsrds to idenfify a code system in the V12 coded
+	/// A short string published by HL7 for use in the V2 family of standards to identify a code system in the V12 coded
 	/// data types CWE, CNE, and CF. The code values are also published by HL7 at
 	/// http://www.hl7.org/Special/committees/vocab/table_0396/index.cfm
 	case v2csmnemonic

@@ -59,7 +59,7 @@ public enum ResourceSecurityCategory: String, FHIRPrimitiveType {
 	case notClassified = "not-classified"
 	
 	/// These Resources make up the bulk of FHIR and therefore are the most commonly understood. These Resources contain
-	/// highly sesitive health information, or are closely linked to highly sensitive health information. These
+	/// highly sensitive health information, or are closely linked to highly sensitive health information. These
 	/// Resources will often use the security labels to differentiate various confidentiality levels within this broad
 	/// group of Patient Sensitive data. Access to these Resources often requires a declared Purpose Of Use. Access to
 	/// these Resources is often controlled by a Privacy Consent.

@@ -31,7 +31,7 @@ public enum ConceptProperties: String, FHIRPrimitiveType {
 	/// will be 'code'. The meaning of 'child' is defined by the hierarchyMeaning attribute
 	case child
 	
-	/// A strng that provides additional detail pertinent to the use or understanding of the concept
+	/// A string that provides additional detail pertinent to the use or understanding of the concept
 	case comment
 	
 	/// The date at which a concept was deprecated. Concepts that are deprecated but not inactive can still be used, but

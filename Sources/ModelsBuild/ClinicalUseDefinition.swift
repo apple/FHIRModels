@@ -215,10 +215,10 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	/// The status of the disease or symptom for the contraindication
 	public var diseaseStatus: CodeableReference?
 	
-	/// A comorbidity (concurrent condition) or coinfection
+	/// A comorbidity (concurrent condition) or confection
 	public var comorbidity: [CodeableReference]?
 	
-	/// The indication which this is a contraidication for
+	/// The indication which this is a contraindication for
 	public var indication: [Reference]?
 	
 	/// Information about the use of the medicinal product in relation to other therapies described as part of the

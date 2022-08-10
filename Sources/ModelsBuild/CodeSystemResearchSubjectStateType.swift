@@ -34,6 +34,6 @@ public enum ResearchSubjectStateType: String, FHIRPrimitiveType {
 	/// One of a set of milestone events that once they have occurred remain true thereafter.  For example once a
 	/// subject has reached the "Signed Informed Consent" milestone they achieve a status of "Consented" that will be
 	/// true thereafter, even when they have left the study.  For a subject a number of these states can be
-	/// simulataneously true and should be recorded.
+	/// simultaneously true and should be recorded.
 	case milestone = "Milestone"
 }

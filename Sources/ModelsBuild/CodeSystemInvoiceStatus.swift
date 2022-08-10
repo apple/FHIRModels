@@ -27,7 +27,7 @@ import FMCore
  */
 public enum InvoiceStatus: String, FHIRPrimitiveType {
 	
-	/// the invoice has been balaced / completely paid.
+	/// the invoice has been balanced / completely paid.
 	case balanced
 	
 	/// the invoice was cancelled.

@@ -33,12 +33,12 @@ public enum ProductContactType: String, FHIRPrimitiveType {
 	/// Pharmacovigilance Enquiry Information
 	case pVEnquiries = "PVEnquiries"
 	
-	/// Person/Company authorised for Communication between MAH and Authorities after Authorisation
+	/// Person/Company authorized for Communication between MAH and Authorities after Authorization
 	case procedureContactAfter = "ProcedureContactAfter"
 	
-	/// Person/Company authorised for Communication on behalf of the Applicant during the Procedure
+	/// Person/Company authorized for Communication on behalf of the Applicant during the Procedure
 	case procedureContactDuring = "ProcedureContactDuring"
 	
-	/// Proposed Marketing Authorisation Holder/Person
+	/// Proposed Marketing Authorization Holder/Person
 	case proposedMAH = "ProposedMAH"
 }

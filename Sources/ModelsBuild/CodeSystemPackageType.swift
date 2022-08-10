@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- A high level categorisation of a package.
+ A high level categorization of a package.
  
  URL: http://hl7.org/fhir/package-type
  ValueSet: http://hl7.org/fhir/ValueSet/package-type

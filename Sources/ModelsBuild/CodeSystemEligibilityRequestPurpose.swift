@@ -27,15 +27,15 @@ import FMCore
  */
 public enum EligibilityRequestPurpose: String, FHIRPrimitiveType {
 	
-	/// The prior authorization requirements for the listed, or discovered if specified, converages for the categories
-	/// of service and/or specifed biling codes are requested.
+	/// The prior authorization requirements for the listed, or discovered if specified, coverages for the categories
+	/// of service and/or specified billing codes are requested.
 	case authRequirements = "auth-requirements"
 	
-	/// The plan benefits and optionally benefits consumed  for the listed, or discovered if specified, converages are
+	/// The plan benefits and optionally benefits consumed for the listed, or discovered if specified, coverages are
 	/// requested.
 	case benefits
 	
-	/// The insurer is requested to report on any coverages which they are aware of in addition to any specifed.
+	/// The insurer is requested to report on any coverages which they are aware of in addition to any specified.
 	case discovery
 	
 	/// A check that the specified coverages are in-force is requested.

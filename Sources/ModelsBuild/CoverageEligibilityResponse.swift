@@ -34,7 +34,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		case period(Period)
 	}
 	
-	/// Business Identifier for coverage eligiblity request
+	/// Business Identifier for coverage eligibility request
 	public var identifier: [Identifier]?
 	
 	/// The status of the resource instance.
