@@ -67,7 +67,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 	/// Product storage temp requirements
 	public var storageTempRequirements: Range?
 	
-	/// A property that is specific to this BiologicallyDerviedProduct instance
+	/// A property that is specific to this BiologicallyDerivedProduct instance
 	public var property: [BiologicallyDerivedProductProperty]?
 	
 	/// Designated initializer taking all required properties
