@@ -50,7 +50,7 @@ open class AdministrableProductDefinition: DomainResource {
 	public var producedFrom: [Reference]?
 	
 	/// The ingredients of this administrable medicinal product. This is only needed if the ingredients are not
-	/// specified either using ManufacturedItemDefiniton, or using by incoming references from the Ingredient resource
+	/// specified either using ManufacturedItemDefinition, or using by incoming references from the Ingredient resource
 	public var ingredient: [CodeableConcept]?
 	
 	/// A device that is integral to the medicinal product, in effect being considered as an "ingredient" of the
