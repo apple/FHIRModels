@@ -198,7 +198,7 @@ open class Practitioner: DomainResource {
  
  The official certifications, training, and licenses that authorize or otherwise pertain to the provision of care by the
  practitioner.  For example, a medical license issued by a medical board authorizing the practitioner to practice
- medicine within a certian locality.
+ medicine within a certain locality.
  */
 open class PractitionerQualification: BackboneElement {
 	

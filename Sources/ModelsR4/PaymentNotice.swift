@@ -29,7 +29,7 @@ open class PaymentNotice: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .paymentNotice }
 	
-	/// Business Identifier for the payment noctice
+	/// Business Identifier for the payment notice
 	public var identifier: [Identifier]?
 	
 	/// The status of the resource instance.

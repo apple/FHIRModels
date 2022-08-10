@@ -23,7 +23,7 @@ import FMCore
  A definition of a set of people that apply to some clinically related context, for example people contraindicated for a
  certain medication.
  
- A populatioof people with some set of grouping criteria.
+ A population of people with some set of grouping criteria.
  */
 open class Population: BackboneElement {
 	
