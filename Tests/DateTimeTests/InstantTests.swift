@@ -17,7 +17,7 @@
 //  limitations under the License.
 
 import FMCore
-import ModelsR4
+import ModelsR5
 import XCTest
 
 class InstantTests: XCTestCase {

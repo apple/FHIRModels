@@ -3,6 +3,11 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+## 0.5.0
+
+- Add R5 release
+- Add R4B release
+
 ## 0.4.0
 
 - BREAKING CHANGES: fix duplicate code system names resulting in https://github.com/apple/FHIRModels/issues/11

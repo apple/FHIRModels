@@ -17,7 +17,7 @@
 //  limitations under the License.
 
 import FMCore
-@testable import ModelsR4
+@testable import ModelsR5
 import XCTest
 
 class DateTimeTests: XCTestCase {
