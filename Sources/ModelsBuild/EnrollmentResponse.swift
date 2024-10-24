@@ -2,8 +2,8 @@
 //  EnrollmentResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/EnrollmentResponse)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EnrollmentResponse)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ open class EnrollmentResponse: DomainResource {
 	public var request: Reference?
 	
 	/// Processing status: error, complete.
-	public var outcome: FHIRPrimitive<EnrollmentOutcomeCodes>?
+	public var outcome: FHIRPrimitive<EnrollmentOutcome>?
 	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -70,7 +70,7 @@ open class EnrollmentResponse: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		organization: Reference? = nil,
-		outcome: FHIRPrimitive<EnrollmentOutcomeCodes>? = nil,
+		outcome: FHIRPrimitive<EnrollmentOutcome>? = nil,
 		request: Reference? = nil,
 		requestProvider: Reference? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>? = nil,
@@ -117,7 +117,7 @@ open class EnrollmentResponse: DomainResource {
 		self.disposition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.organization = try Reference(from: _container, forKeyIfPresent: .organization)
-		self.outcome = try FHIRPrimitive<EnrollmentOutcomeCodes>(from: _container, forKeyIfPresent: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<EnrollmentOutcome>(from: _container, forKeyIfPresent: .outcome, auxiliaryKey: ._outcome)
 		self.request = try Reference(from: _container, forKeyIfPresent: .request)
 		self.requestProvider = try Reference(from: _container, forKeyIfPresent: .requestProvider)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)

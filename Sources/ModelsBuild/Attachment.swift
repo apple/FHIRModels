@@ -2,8 +2,8 @@
 //  Attachment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Attachment)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Attachment)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ open class Attachment: DataType {
 	public var url: FHIRPrimitive<FHIRURI>?
 	
 	/// Number of bytes of content (if url provided)
-	public var size: FHIRPrimitive<FHIRInteger64>?
+	public var size: FHIRInteger64?
 	
 	/// Hash of the data (sha-1, base64ed)
 	public var hash: FHIRPrimitive<Base64Binary>?
@@ -83,7 +83,7 @@ open class Attachment: DataType {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		pages: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-		size: FHIRPrimitive<FHIRInteger64>? = nil,
+		size: FHIRInteger64? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		width: FHIRPrimitive<FHIRPositiveInteger>? = nil
@@ -118,7 +118,7 @@ open class Attachment: DataType {
 		case height; case _height
 		case language; case _language
 		case pages; case _pages
-		case size; case _size
+		case size
 		case title; case _title
 		case url; case _url
 		case width; case _width
@@ -138,7 +138,7 @@ open class Attachment: DataType {
 		self.height = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .height, auxiliaryKey: ._height)
 		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .language, auxiliaryKey: ._language)
 		self.pages = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .pages, auxiliaryKey: ._pages)
-		self.size = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .size, auxiliaryKey: ._size)
+		self.size = try FHIRInteger64(from: _container, forKeyIfPresent: .size)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.width = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .width, auxiliaryKey: ._width)
@@ -159,7 +159,7 @@ open class Attachment: DataType {
 		try height?.encode(on: &_container, forKey: .height, auxiliaryKey: ._height)
 		try language?.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
 		try pages?.encode(on: &_container, forKey: .pages, auxiliaryKey: ._pages)
-		try size?.encode(on: &_container, forKey: .size, auxiliaryKey: ._size)
+		try size?.encode(on: &_container, forKey: .size)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try width?.encode(on: &_container, forKey: .width, auxiliaryKey: ._width)

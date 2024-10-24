@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,8 +33,9 @@ public enum StructureMapTransform: String, FHIRPrimitiveType {
 	/// append(source...) - source is element or string.
 	case append
 	
-	/// cast(source, type?) - case source from one type to another. target type can be left as implicit if there is one
-	/// and only one target type known.
+	/// cast(source, type?) - cast (convert) source from one type to another. Target type can be left as implicit if
+	/// there is one and only one target type known. The default namespace for the type is 'FHIR' (see [FHIRPath type
+	/// specifiers](http://hl7.org/fhirpath/N1/#is-type-specifier))
 	case cast
 	
 	/// Create a CodeableConcept. Parameters = (text) or (system. Code[, display]).

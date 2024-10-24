@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,13 +28,16 @@ import FMCore
 public enum BiologicallyDerivedProductCategory: String, FHIRPrimitiveType {
 	
 	/// Biological agent of unspecified type.
-	case biologicalAgent
+	case biologicalAgent = "biological-agent"
 	
 	/// Collection of cells.
 	case cells
 	
 	/// Body fluid.
 	case fluid
+	
+	/// A product derived from a human donor intended for clinical application in a human recipient.
+	case mpho
 	
 	/// A collection of tissues joined in a structural unit to serve a common function.
 	case organ

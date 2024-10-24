@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,8 +36,23 @@ public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	/// Create a new resource with a server assigned id.
 	case create
 	
+	/// Create a new resource with a server assigned id if an equivalent resource does not already exist.
+	case createConditional = "create-conditional"
+	
 	/// Delete a resource.
 	case delete
+	
+	/// Delete one or more resources based on some identification criteria.
+	case deleteConditionalMultiple = "delete-conditional-multiple"
+	
+	/// Delete a single resource based on some identification criteria.
+	case deleteConditionalSingle = "delete-conditional-single"
+	
+	/// Delete all historical versions of a resource.
+	case deleteHistory = "delete-history"
+	
+	/// Delete a specific version of a resource.
+	case deleteHistoryVersion = "delete-history-version"
 	
 	/// Retrieve the change history for a particular resource, type of resource, or the entire system.
 	case history
@@ -57,11 +72,17 @@ public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	/// Update an existing resource by posting a set of changes to it.
 	case patch
 	
+	/// Update an existing resource, based on some identification criteria, by posting a set of changes to it.
+	case patchConditional = "patch-conditional"
+	
 	/// Read the current state of the resource.
 	case read
 	
 	/// Search a resource type or all resources based on some filter criteria.
 	case search
+	
+	/// Search resources in a compartment based on some filter criteria.
+	case searchCompartment = "search-compartment"
 	
 	/// Search all resources based on some filter criteria.
 	case searchSystem = "search-system"
@@ -74,6 +95,9 @@ public enum FHIRRestfulInteractions: String, FHIRPrimitiveType {
 	
 	/// Update an existing resource by its id (or create it if it is new).
 	case update
+	
+	/// Update an existing resource based on some identification criteria (or create it if it is new).
+	case updateConditional = "update-conditional"
 	
 	/// Read the state of a specific version of the resource.
 	case vread

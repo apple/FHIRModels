@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public enum ListMode: String, FHIRPrimitiveType {
 	/// This list was prepared as a snapshot. It should not be assumed to be current.
 	case snapshot
 	
-	/// This list is the master list, maintained in an ongoing fashion with regular updates as the real world list it is
+	/// This list is the master list, maintained in an ongoing fashion with regular updates as the real-world list it is
 	/// tracking changes.
 	case working
 }

@@ -2,8 +2,8 @@
 //  AuditEvent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AuditEvent)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AuditEvent)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,11 +35,11 @@ open class AuditEvent: DomainResource {
 		case period(Period)
 	}
 	
-	/// Type/identifier of event
-	public var category: [CodeableConcept]?
+	/// High level categorization of audit event
+	public var type: CodeableConcept
 	
 	/// Specific type of event
-	public var code: CodeableConcept
+	public var subtype: [CodeableConcept]?
 	
 	/// Indicator for type of action performed during the event that generated the audit.
 	public var action: FHIRPrimitive<AuditEventAction>?
@@ -79,11 +79,11 @@ open class AuditEvent: DomainResource {
 	public var entity: [AuditEventEntity]?
 	
 	/// Designated initializer taking all required properties
-	public init(agent: [AuditEventAgent], code: CodeableConcept, recorded: FHIRPrimitive<Instant>, source: AuditEventSource) {
+	public init(agent: [AuditEventAgent], recorded: FHIRPrimitive<Instant>, source: AuditEventSource, type: CodeableConcept) {
 		self.agent = agent
-		self.code = code
 		self.recorded = recorded
 		self.source = source
+		self.type = type
 		super.init()
 	}
 	
@@ -93,8 +93,6 @@ open class AuditEvent: DomainResource {
 		agent: [AuditEventAgent],
 		authorization: [CodeableConcept]? = nil,
 		basedOn: [Reference]? = nil,
-		category: [CodeableConcept]? = nil,
-		code: CodeableConcept,
 		contained: [ResourceProxy]? = nil,
 		encounter: Reference? = nil,
 		entity: [AuditEventEntity]? = nil,
@@ -110,13 +108,14 @@ open class AuditEvent: DomainResource {
 		recorded: FHIRPrimitive<Instant>,
 		severity: FHIRPrimitive<AuditEventSeverity>? = nil,
 		source: AuditEventSource,
-		text: Narrative? = nil
+		subtype: [CodeableConcept]? = nil,
+		text: Narrative? = nil,
+		type: CodeableConcept
 	) {
-		self.init(agent: agent, code: code, recorded: recorded, source: source)
+		self.init(agent: agent, recorded: recorded, source: source, type: type)
 		self.action = action
 		self.authorization = authorization
 		self.basedOn = basedOn
-		self.category = category
 		self.contained = contained
 		self.encounter = encounter
 		self.entity = entity
@@ -130,6 +129,7 @@ open class AuditEvent: DomainResource {
 		self.outcome = outcome
 		self.patient = patient
 		self.severity = severity
+		self.subtype = subtype
 		self.text = text
 	}
 	
@@ -140,8 +140,6 @@ open class AuditEvent: DomainResource {
 		case agent
 		case authorization
 		case basedOn
-		case category
-		case code
 		case encounter
 		case entity
 		case occurredDateTime; case _occurredDateTime
@@ -151,6 +149,8 @@ open class AuditEvent: DomainResource {
 		case recorded; case _recorded
 		case severity; case _severity
 		case source
+		case subtype
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -162,8 +162,6 @@ open class AuditEvent: DomainResource {
 		self.agent = try [AuditEventAgent](from: _container, forKey: .agent)
 		self.authorization = try [CodeableConcept](from: _container, forKeyIfPresent: .authorization)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
-		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
-		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.entity = try [AuditEventEntity](from: _container, forKeyIfPresent: .entity)
 		var _t_occurred: OccurredX? = nil
@@ -185,6 +183,8 @@ open class AuditEvent: DomainResource {
 		self.recorded = try FHIRPrimitive<Instant>(from: _container, forKey: .recorded, auxiliaryKey: ._recorded)
 		self.severity = try FHIRPrimitive<AuditEventSeverity>(from: _container, forKeyIfPresent: .severity, auxiliaryKey: ._severity)
 		self.source = try AuditEventSource(from: _container, forKey: .source)
+		self.subtype = try [CodeableConcept](from: _container, forKeyIfPresent: .subtype)
+		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -197,8 +197,6 @@ open class AuditEvent: DomainResource {
 		try agent.encode(on: &_container, forKey: .agent)
 		try authorization?.encode(on: &_container, forKey: .authorization)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
-		try category?.encode(on: &_container, forKey: .category)
-		try code.encode(on: &_container, forKey: .code)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try entity?.encode(on: &_container, forKey: .entity)
 		if let _enum = occurred {
@@ -214,6 +212,8 @@ open class AuditEvent: DomainResource {
 		try recorded.encode(on: &_container, forKey: .recorded, auxiliaryKey: ._recorded)
 		try severity?.encode(on: &_container, forKey: .severity, auxiliaryKey: ._severity)
 		try source.encode(on: &_container, forKey: .source)
+		try subtype?.encode(on: &_container, forKey: .subtype)
+		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -230,8 +230,6 @@ open class AuditEvent: DomainResource {
 		    && agent == _other.agent
 		    && authorization == _other.authorization
 		    && basedOn == _other.basedOn
-		    && category == _other.category
-		    && code == _other.code
 		    && encounter == _other.encounter
 		    && entity == _other.entity
 		    && occurred == _other.occurred
@@ -240,6 +238,8 @@ open class AuditEvent: DomainResource {
 		    && recorded == _other.recorded
 		    && severity == _other.severity
 		    && source == _other.source
+		    && subtype == _other.subtype
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -248,8 +248,6 @@ open class AuditEvent: DomainResource {
 		hasher.combine(agent)
 		hasher.combine(authorization)
 		hasher.combine(basedOn)
-		hasher.combine(category)
-		hasher.combine(code)
 		hasher.combine(encounter)
 		hasher.combine(entity)
 		hasher.combine(occurred)
@@ -258,6 +256,8 @@ open class AuditEvent: DomainResource {
 		hasher.combine(recorded)
 		hasher.combine(severity)
 		hasher.combine(source)
+		hasher.combine(subtype)
+		hasher.combine(type)
 	}
 }
 
@@ -583,7 +583,7 @@ open class AuditEventEntityDetail: BackboneElement {
 		case time(FHIRPrimitive<FHIRTime>)
 	}
 	
-	/// Name of the property
+	/// The name of the extra detail property
 	public var type: CodeableConcept
 	
 	/// Property value

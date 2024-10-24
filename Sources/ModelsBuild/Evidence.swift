@@ -2,8 +2,8 @@
 //  Evidence.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Evidence)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Evidence)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,10 +25,6 @@ import FMCore
  The Evidence Resource provides a machine-interpretable expression of an evidence concept including the evidence
  variables (e.g., population, exposures/interventions, comparators, outcomes, measured variables, confounding
  variables), the statistics, and the certainty of this evidence.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class Evidence: DomainResource {
 	
@@ -40,6 +36,12 @@ open class Evidence: DomainResource {
 		case reference(Reference)
 	}
 	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Canonical identifier for this evidence, represented as a globally unique URI
 	public var url: FHIRPrimitive<FHIRURI>?
 	
@@ -48,6 +50,10 @@ open class Evidence: DomainResource {
 	
 	/// Business version of this summary
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this summary (machine friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -68,16 +74,13 @@ open class Evidence: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// The context that the content is intended to support
-	public var useContext: [UsageContext]?
-	
 	/// When the summary was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// When the summary was last reviewed
+	/// When the summary was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -94,6 +97,18 @@ open class Evidence: DomainResource {
 	
 	/// Who endorsed the content
 	public var endorser: [ContactDetail]?
+	
+	/// The context that the content is intended to support
+	public var useContext: [UsageContext]?
+	
+	/// Why this Evidence is defined
+	public var purpose: FHIRPrimitive<FHIRString>?
+	
+	/// Use and/or publishing restrictions
+	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
 	/// Link or citation to artifact associated with the summary
 	public var relatedArtifact: [RelatedArtifact]?
@@ -113,8 +128,8 @@ open class Evidence: DomainResource {
 	/// The method to combine studies
 	public var synthesisType: CodeableConcept?
 	
-	/// The type of study that produced this evidence
-	public var studyType: CodeableConcept?
+	/// The design of the study that produced this evidence
+	public var studyDesign: [CodeableConcept]?
 	
 	/// Values and parameters for a single statistic
 	public var statistic: [EvidenceStatistic]?
@@ -138,6 +153,8 @@ open class Evidence: DomainResource {
 		citeAs: CiteAsX? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		editor: [ContactDetail]? = nil,
@@ -154,18 +171,20 @@ open class Evidence: DomainResource {
 		name: FHIRPrimitive<FHIRString>? = nil,
 		note: [Annotation]? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>? = nil,
 		relatedArtifact: [RelatedArtifact]? = nil,
 		reviewer: [ContactDetail]? = nil,
 		statistic: [EvidenceStatistic]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
-		studyType: CodeableConcept? = nil,
+		studyDesign: [CodeableConcept]? = nil,
 		synthesisType: CodeableConcept? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
 		variableDefinition: [EvidenceVariableDefinition],
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status, variableDefinition: variableDefinition)
 		self.approvalDate = approvalDate
@@ -175,6 +194,8 @@ open class Evidence: DomainResource {
 		self.citeAs = citeAs
 		self.contact = contact
 		self.contained = contained
+		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.description_fhir = description_fhir
 		self.editor = editor
@@ -191,16 +212,18 @@ open class Evidence: DomainResource {
 		self.name = name
 		self.note = note
 		self.publisher = publisher
+		self.purpose = purpose
 		self.relatedArtifact = relatedArtifact
 		self.reviewer = reviewer
 		self.statistic = statistic
-		self.studyType = studyType
+		self.studyDesign = studyDesign
 		self.synthesisType = synthesisType
 		self.text = text
 		self.title = title
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -213,6 +236,8 @@ open class Evidence: DomainResource {
 		case citeAsMarkdown; case _citeAsMarkdown
 		case citeAsReference
 		case contact
+		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case editor
@@ -223,17 +248,20 @@ open class Evidence: DomainResource {
 		case name; case _name
 		case note
 		case publisher; case _publisher
+		case purpose; case _purpose
 		case relatedArtifact
 		case reviewer
 		case statistic
 		case status; case _status
-		case studyType
+		case studyDesign
 		case synthesisType
 		case title; case _title
 		case url; case _url
 		case useContext
 		case variableDefinition
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -260,6 +288,8 @@ open class Evidence: DomainResource {
 		}
 		self.citeAs = _t_citeAs
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
+		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
@@ -270,17 +300,32 @@ open class Evidence: DomainResource {
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
+		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
 		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
 		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.statistic = try [EvidenceStatistic](from: _container, forKeyIfPresent: .statistic)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.studyType = try CodeableConcept(from: _container, forKeyIfPresent: .studyType)
+		self.studyDesign = try [CodeableConcept](from: _container, forKeyIfPresent: .studyDesign)
 		self.synthesisType = try CodeableConcept(from: _container, forKeyIfPresent: .synthesisType)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.variableDefinition = try [EvidenceVariableDefinition](from: _container, forKey: .variableDefinition)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -302,6 +347,8 @@ open class Evidence: DomainResource {
 			}
 		}
 		try contact?.encode(on: &_container, forKey: .contact)
+		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try editor?.encode(on: &_container, forKey: .editor)
@@ -312,17 +359,26 @@ open class Evidence: DomainResource {
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try note?.encode(on: &_container, forKey: .note)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
+		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
 		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
 		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try statistic?.encode(on: &_container, forKey: .statistic)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try studyType?.encode(on: &_container, forKey: .studyType)
+		try studyDesign?.encode(on: &_container, forKey: .studyDesign)
 		try synthesisType?.encode(on: &_container, forKey: .synthesisType)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try variableDefinition.encode(on: &_container, forKey: .variableDefinition)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -341,6 +397,8 @@ open class Evidence: DomainResource {
 		    && certainty == _other.certainty
 		    && citeAs == _other.citeAs
 		    && contact == _other.contact
+		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && editor == _other.editor
@@ -351,17 +409,19 @@ open class Evidence: DomainResource {
 		    && name == _other.name
 		    && note == _other.note
 		    && publisher == _other.publisher
+		    && purpose == _other.purpose
 		    && relatedArtifact == _other.relatedArtifact
 		    && reviewer == _other.reviewer
 		    && statistic == _other.statistic
 		    && status == _other.status
-		    && studyType == _other.studyType
+		    && studyDesign == _other.studyDesign
 		    && synthesisType == _other.synthesisType
 		    && title == _other.title
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && variableDefinition == _other.variableDefinition
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -372,6 +432,8 @@ open class Evidence: DomainResource {
 		hasher.combine(certainty)
 		hasher.combine(citeAs)
 		hasher.combine(contact)
+		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(editor)
@@ -382,17 +444,19 @@ open class Evidence: DomainResource {
 		hasher.combine(name)
 		hasher.combine(note)
 		hasher.combine(publisher)
+		hasher.combine(purpose)
 		hasher.combine(relatedArtifact)
 		hasher.combine(reviewer)
 		hasher.combine(statistic)
 		hasher.combine(status)
-		hasher.combine(studyType)
+		hasher.combine(studyDesign)
 		hasher.combine(synthesisType)
 		hasher.combine(title)
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(variableDefinition)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -815,17 +879,31 @@ open class EvidenceStatisticAttributeEstimate: BackboneElement {
  */
 open class EvidenceStatisticModelCharacteristic: BackboneElement {
 	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+	}
+	
 	/// Model specification
 	public var code: CodeableConcept
 	
-	/// Numerical value to complete model specification
-	public var value: Quantity?
+	/// The specific value (when paired with code)
+	/// One of `value[x]`
+	public var value: ValueX?
+	
+	/// The plan for analysis
+	public var intended: FHIRPrimitive<FHIRBool>?
+	
+	/// The analysis that was applied
+	public var applied: FHIRPrimitive<FHIRBool>?
 	
 	/// A variable adjusted for in the adjusted analysis
 	public var variable: [EvidenceStatisticModelCharacteristicVariable]?
 	
 	/// An attribute of the statistic used as a model characteristic
-	public var attributeEstimate: [EvidenceStatisticAttributeEstimate]?
+	public var attribute: [EvidenceStatisticAttributeEstimate]?
 	
 	/// Designated initializer taking all required properties
 	public init(code: CodeableConcept) {
@@ -835,18 +913,22 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		attributeEstimate: [EvidenceStatisticAttributeEstimate]? = nil,
+		applied: FHIRPrimitive<FHIRBool>? = nil,
+		attribute: [EvidenceStatisticAttributeEstimate]? = nil,
 		code: CodeableConcept,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		intended: FHIRPrimitive<FHIRBool>? = nil,
 		modifierExtension: [Extension]? = nil,
-		value: Quantity? = nil,
+		value: ValueX? = nil,
 		variable: [EvidenceStatisticModelCharacteristicVariable]? = nil
 	) {
 		self.init(code: code)
-		self.attributeEstimate = attributeEstimate
+		self.applied = applied
+		self.attribute = attribute
 		self.`extension` = `extension`
 		self.id = id
+		self.intended = intended
 		self.modifierExtension = modifierExtension
 		self.value = value
 		self.variable = variable
@@ -855,9 +937,13 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case attributeEstimate
+		case applied; case _applied
+		case attribute
 		case code
-		case value
+		case intended; case _intended
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
 		case variable
 	}
 	
@@ -866,9 +952,30 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.attributeEstimate = try [EvidenceStatisticAttributeEstimate](from: _container, forKeyIfPresent: .attributeEstimate)
+		self.applied = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .applied, auxiliaryKey: ._applied)
+		self.attribute = try [EvidenceStatisticAttributeEstimate](from: _container, forKeyIfPresent: .attribute)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
-		self.value = try Quantity(from: _container, forKeyIfPresent: .value)
+		self.intended = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .intended, auxiliaryKey: ._intended)
+		var _t_value: ValueX? = nil
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		self.value = _t_value
 		self.variable = try [EvidenceStatisticModelCharacteristicVariable](from: _container, forKeyIfPresent: .variable)
 		try super.init(from: decoder)
 	}
@@ -878,9 +985,20 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try attributeEstimate?.encode(on: &_container, forKey: .attributeEstimate)
+		try applied?.encode(on: &_container, forKey: .applied, auxiliaryKey: ._applied)
+		try attribute?.encode(on: &_container, forKey: .attribute)
 		try code.encode(on: &_container, forKey: .code)
-		try value?.encode(on: &_container, forKey: .value)
+		try intended?.encode(on: &_container, forKey: .intended, auxiliaryKey: ._intended)
+		if let _enum = value {
+			switch _enum {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			}
+		}
 		try variable?.encode(on: &_container, forKey: .variable)
 		try super.encode(to: encoder)
 	}
@@ -894,16 +1012,20 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return attributeEstimate == _other.attributeEstimate
+		return applied == _other.applied
+		    && attribute == _other.attribute
 		    && code == _other.code
+		    && intended == _other.intended
 		    && value == _other.value
 		    && variable == _other.variable
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(attributeEstimate)
+		hasher.combine(applied)
+		hasher.combine(attribute)
 		hasher.combine(code)
+		hasher.combine(intended)
 		hasher.combine(value)
 		hasher.combine(variable)
 	}
@@ -1138,8 +1260,14 @@ open class EvidenceVariableDefinition: BackboneElement {
 	/// Footnotes and/or explanatory notes
 	public var note: [Annotation]?
 	
-	/// population | subpopulation | exposure | referenceExposure | measuredVariable | confounder
-	public var variableRole: CodeableConcept
+	/// Classification of the role of the variable.
+	public var variableRole: FHIRPrimitive<VariableRole>
+	
+	/// subgroup | variable-A | variable-B | variable-AB | confounder | collider | mediator | effect-modifier
+	public var roleSubtype: CodeableConcept?
+	
+	/// The reference value used for comparison
+	public var comparatorCategory: FHIRPrimitive<FHIRString>?
 	
 	/// Definition of the actual variable related to the statistic(s)
 	public var observed: Reference?
@@ -1151,13 +1279,14 @@ open class EvidenceVariableDefinition: BackboneElement {
 	public var directnessMatch: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(variableRole: CodeableConcept) {
+	public init(variableRole: FHIRPrimitive<VariableRole>) {
 		self.variableRole = variableRole
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		comparatorCategory: FHIRPrimitive<FHIRString>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		directnessMatch: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
@@ -1166,9 +1295,11 @@ open class EvidenceVariableDefinition: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		observed: Reference? = nil,
-		variableRole: CodeableConcept
+		roleSubtype: CodeableConcept? = nil,
+		variableRole: FHIRPrimitive<VariableRole>
 	) {
 		self.init(variableRole: variableRole)
+		self.comparatorCategory = comparatorCategory
 		self.description_fhir = description_fhir
 		self.directnessMatch = directnessMatch
 		self.`extension` = `extension`
@@ -1177,17 +1308,20 @@ open class EvidenceVariableDefinition: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.note = note
 		self.observed = observed
+		self.roleSubtype = roleSubtype
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case comparatorCategory; case _comparatorCategory
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case directnessMatch
 		case intended
 		case note
 		case observed
-		case variableRole
+		case roleSubtype
+		case variableRole; case _variableRole
 	}
 	
 	/// Initializer for Decodable
@@ -1195,12 +1329,14 @@ open class EvidenceVariableDefinition: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.comparatorCategory = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comparatorCategory, auxiliaryKey: ._comparatorCategory)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.directnessMatch = try CodeableConcept(from: _container, forKeyIfPresent: .directnessMatch)
 		self.intended = try Reference(from: _container, forKeyIfPresent: .intended)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.observed = try Reference(from: _container, forKeyIfPresent: .observed)
-		self.variableRole = try CodeableConcept(from: _container, forKey: .variableRole)
+		self.roleSubtype = try CodeableConcept(from: _container, forKeyIfPresent: .roleSubtype)
+		self.variableRole = try FHIRPrimitive<VariableRole>(from: _container, forKey: .variableRole, auxiliaryKey: ._variableRole)
 		try super.init(from: decoder)
 	}
 	
@@ -1209,12 +1345,14 @@ open class EvidenceVariableDefinition: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try comparatorCategory?.encode(on: &_container, forKey: .comparatorCategory, auxiliaryKey: ._comparatorCategory)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try directnessMatch?.encode(on: &_container, forKey: .directnessMatch)
 		try intended?.encode(on: &_container, forKey: .intended)
 		try note?.encode(on: &_container, forKey: .note)
 		try observed?.encode(on: &_container, forKey: .observed)
-		try variableRole.encode(on: &_container, forKey: .variableRole)
+		try roleSubtype?.encode(on: &_container, forKey: .roleSubtype)
+		try variableRole.encode(on: &_container, forKey: .variableRole, auxiliaryKey: ._variableRole)
 		try super.encode(to: encoder)
 	}
 	
@@ -1227,21 +1365,25 @@ open class EvidenceVariableDefinition: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return description_fhir == _other.description_fhir
+		return comparatorCategory == _other.comparatorCategory
+		    && description_fhir == _other.description_fhir
 		    && directnessMatch == _other.directnessMatch
 		    && intended == _other.intended
 		    && note == _other.note
 		    && observed == _other.observed
+		    && roleSubtype == _other.roleSubtype
 		    && variableRole == _other.variableRole
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(comparatorCategory)
 		hasher.combine(description_fhir)
 		hasher.combine(directnessMatch)
 		hasher.combine(intended)
 		hasher.combine(note)
 		hasher.combine(observed)
+		hasher.combine(roleSubtype)
 		hasher.combine(variableRole)
 	}
 }

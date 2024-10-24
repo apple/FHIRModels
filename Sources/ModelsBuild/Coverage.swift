@@ -2,8 +2,8 @@
 //  Coverage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Coverage)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Coverage)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,11 +29,17 @@ open class Coverage: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .coverage }
 	
-	/// Business Identifier for the coverage
+	/// Business identifier(s) for this coverage
 	public var identifier: [Identifier]?
 	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// The nature of the coverage be it insurance, or cash payment such as self-pay.
+	public var kind: FHIRPrimitive<Kind>
+	
+	/// Self-pay parties and responsibility
+	public var paymentBy: [CoveragePaymentBy]?
 	
 	/// Coverage category such as medical or accident
 	public var type: CodeableConcept?
@@ -45,7 +51,7 @@ open class Coverage: DomainResource {
 	public var subscriber: Reference?
 	
 	/// ID assigned to the subscriber
-	public var subscriberId: Identifier?
+	public var subscriberId: [Identifier]?
 	
 	/// Plan beneficiary
 	public var beneficiary: Reference
@@ -60,7 +66,7 @@ open class Coverage: DomainResource {
 	public var period: Period?
 	
 	/// Issuer of the policy
-	public var payor: [Reference]
+	public var insurer: Reference?
 	
 	/// Additional coverage classifications
 	public var `class`: [CoverageClass]?
@@ -80,10 +86,13 @@ open class Coverage: DomainResource {
 	/// Contract details
 	public var contract: [Reference]?
 	
+	/// Insurance plan details
+	public var insurancePlan: Reference?
+	
 	/// Designated initializer taking all required properties
-	public init(beneficiary: Reference, payor: [Reference], status: FHIRPrimitive<FinancialResourceStatusCodes>) {
+	public init(beneficiary: Reference, kind: FHIRPrimitive<Kind>, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
 		self.beneficiary = beneficiary
-		self.payor = payor
+		self.kind = kind
 		self.status = status
 		super.init()
 	}
@@ -100,23 +109,26 @@ open class Coverage: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		insurancePlan: Reference? = nil,
+		insurer: Reference? = nil,
+		kind: FHIRPrimitive<Kind>,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		network: FHIRPrimitive<FHIRString>? = nil,
 		order: FHIRPrimitive<FHIRPositiveInteger>? = nil,
-		payor: [Reference],
+		paymentBy: [CoveragePaymentBy]? = nil,
 		period: Period? = nil,
 		policyHolder: Reference? = nil,
 		relationship: CodeableConcept? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
 		subrogation: FHIRPrimitive<FHIRBool>? = nil,
 		subscriber: Reference? = nil,
-		subscriberId: Identifier? = nil,
+		subscriberId: [Identifier]? = nil,
 		text: Narrative? = nil,
 		type: CodeableConcept? = nil
 	) {
-		self.init(beneficiary: beneficiary, payor: payor, status: status)
+		self.init(beneficiary: beneficiary, kind: kind, status: status)
 		self.`class` = `class`
 		self.contained = contained
 		self.contract = contract
@@ -126,11 +138,14 @@ open class Coverage: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.insurancePlan = insurancePlan
+		self.insurer = insurer
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.network = network
 		self.order = order
+		self.paymentBy = paymentBy
 		self.period = period
 		self.policyHolder = policyHolder
 		self.relationship = relationship
@@ -150,9 +165,12 @@ open class Coverage: DomainResource {
 		case costToBeneficiary
 		case dependent; case _dependent
 		case identifier
+		case insurancePlan
+		case insurer
+		case kind; case _kind
 		case network; case _network
 		case order; case _order
-		case payor
+		case paymentBy
 		case period
 		case policyHolder
 		case relationship
@@ -174,16 +192,19 @@ open class Coverage: DomainResource {
 		self.costToBeneficiary = try [CoverageCostToBeneficiary](from: _container, forKeyIfPresent: .costToBeneficiary)
 		self.dependent = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .dependent, auxiliaryKey: ._dependent)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.insurancePlan = try Reference(from: _container, forKeyIfPresent: .insurancePlan)
+		self.insurer = try Reference(from: _container, forKeyIfPresent: .insurer)
+		self.kind = try FHIRPrimitive<Kind>(from: _container, forKey: .kind, auxiliaryKey: ._kind)
 		self.network = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .network, auxiliaryKey: ._network)
 		self.order = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .order, auxiliaryKey: ._order)
-		self.payor = try [Reference](from: _container, forKey: .payor)
+		self.paymentBy = try [CoveragePaymentBy](from: _container, forKeyIfPresent: .paymentBy)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.policyHolder = try Reference(from: _container, forKeyIfPresent: .policyHolder)
 		self.relationship = try CodeableConcept(from: _container, forKeyIfPresent: .relationship)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subrogation = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .subrogation, auxiliaryKey: ._subrogation)
 		self.subscriber = try Reference(from: _container, forKeyIfPresent: .subscriber)
-		self.subscriberId = try Identifier(from: _container, forKeyIfPresent: .subscriberId)
+		self.subscriberId = try [Identifier](from: _container, forKeyIfPresent: .subscriberId)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -199,9 +220,12 @@ open class Coverage: DomainResource {
 		try costToBeneficiary?.encode(on: &_container, forKey: .costToBeneficiary)
 		try dependent?.encode(on: &_container, forKey: .dependent, auxiliaryKey: ._dependent)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try insurancePlan?.encode(on: &_container, forKey: .insurancePlan)
+		try insurer?.encode(on: &_container, forKey: .insurer)
+		try kind.encode(on: &_container, forKey: .kind, auxiliaryKey: ._kind)
 		try network?.encode(on: &_container, forKey: .network, auxiliaryKey: ._network)
 		try order?.encode(on: &_container, forKey: .order, auxiliaryKey: ._order)
-		try payor.encode(on: &_container, forKey: .payor)
+		try paymentBy?.encode(on: &_container, forKey: .paymentBy)
 		try period?.encode(on: &_container, forKey: .period)
 		try policyHolder?.encode(on: &_container, forKey: .policyHolder)
 		try relationship?.encode(on: &_container, forKey: .relationship)
@@ -228,9 +252,12 @@ open class Coverage: DomainResource {
 		    && costToBeneficiary == _other.costToBeneficiary
 		    && dependent == _other.dependent
 		    && identifier == _other.identifier
+		    && insurancePlan == _other.insurancePlan
+		    && insurer == _other.insurer
+		    && kind == _other.kind
 		    && network == _other.network
 		    && order == _other.order
-		    && payor == _other.payor
+		    && paymentBy == _other.paymentBy
 		    && period == _other.period
 		    && policyHolder == _other.policyHolder
 		    && relationship == _other.relationship
@@ -249,9 +276,12 @@ open class Coverage: DomainResource {
 		hasher.combine(costToBeneficiary)
 		hasher.combine(dependent)
 		hasher.combine(identifier)
+		hasher.combine(insurancePlan)
+		hasher.combine(insurer)
+		hasher.combine(kind)
 		hasher.combine(network)
 		hasher.combine(order)
-		hasher.combine(payor)
+		hasher.combine(paymentBy)
 		hasher.combine(period)
 		hasher.combine(policyHolder)
 		hasher.combine(relationship)
@@ -274,13 +304,13 @@ open class CoverageClass: BackboneElement {
 	public var type: CodeableConcept
 	
 	/// Value associated with the type
-	public var value: FHIRPrimitive<FHIRString>
+	public var value: Identifier
 	
 	/// Human readable description of the type and value
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
-	public init(type: CodeableConcept, value: FHIRPrimitive<FHIRString>) {
+	public init(type: CodeableConcept, value: Identifier) {
 		self.type = type
 		self.value = value
 		super.init()
@@ -293,7 +323,7 @@ open class CoverageClass: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		type: CodeableConcept,
-		value: FHIRPrimitive<FHIRString>
+		value: Identifier
 	) {
 		self.init(type: type, value: value)
 		self.`extension` = `extension`
@@ -307,7 +337,7 @@ open class CoverageClass: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case name; case _name
 		case type
-		case value; case _value
+		case value
 	}
 	
 	/// Initializer for Decodable
@@ -317,7 +347,7 @@ open class CoverageClass: BackboneElement {
 		// Decode all our properties
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
-		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
+		self.value = try Identifier(from: _container, forKey: .value)
 		try super.init(from: decoder)
 	}
 	
@@ -328,7 +358,7 @@ open class CoverageClass: BackboneElement {
 		// Encode all our properties
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try type.encode(on: &_container, forKey: .type)
-		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
+		try value.encode(on: &_container, forKey: .value)
 		try super.encode(to: encoder)
 	}
 	
@@ -371,41 +401,65 @@ open class CoverageCostToBeneficiary: BackboneElement {
 	/// Cost category
 	public var type: CodeableConcept?
 	
+	/// Benefit classification
+	public var category: CodeableConcept?
+	
+	/// In or out of network
+	public var network: CodeableConcept?
+	
+	/// Individual or family
+	public var unit: CodeableConcept?
+	
+	/// Annual or lifetime
+	public var term: CodeableConcept?
+	
 	/// The amount or percentage due from the beneficiary
 	/// One of `value[x]`
-	public var value: ValueX
+	public var value: ValueX?
 	
 	/// Exceptions for patient payments
 	public var exception: [CoverageCostToBeneficiaryException]?
 	
 	/// Designated initializer taking all required properties
-	public init(value: ValueX) {
-		self.value = value
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		category: CodeableConcept? = nil,
 		exception: [CoverageCostToBeneficiaryException]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
+		network: CodeableConcept? = nil,
+		term: CodeableConcept? = nil,
 		type: CodeableConcept? = nil,
-		value: ValueX
+		unit: CodeableConcept? = nil,
+		value: ValueX? = nil
 	) {
-		self.init(value: value)
+		self.init()
+		self.category = category
 		self.exception = exception
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.network = network
+		self.term = term
 		self.type = type
+		self.unit = unit
+		self.value = value
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case category
 		case exception
+		case network
+		case term
 		case type
+		case unit
 		case valueMoney
 		case valueQuantity
 	}
@@ -414,14 +468,13 @@ open class CoverageCostToBeneficiary: BackboneElement {
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueQuantity) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueMoney, CodingKeys.valueQuantity], debugDescription: "Must have at least one value for \"value\" but have none"))
-		}
-		
 		// Decode all our properties
+		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
 		self.exception = try [CoverageCostToBeneficiaryException](from: _container, forKeyIfPresent: .exception)
+		self.network = try CodeableConcept(from: _container, forKeyIfPresent: .network)
+		self.term = try CodeableConcept(from: _container, forKeyIfPresent: .term)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		self.unit = try CodeableConcept(from: _container, forKeyIfPresent: .unit)
 		var _t_value: ValueX? = nil
 		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
 			if _t_value != nil {
@@ -435,7 +488,7 @@ open class CoverageCostToBeneficiary: BackboneElement {
 			}
 			_t_value = .money(valueMoney)
 		}
-		self.value = _t_value!
+		self.value = _t_value
 		try super.init(from: decoder)
 	}
 	
@@ -444,16 +497,20 @@ open class CoverageCostToBeneficiary: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try category?.encode(on: &_container, forKey: .category)
 		try exception?.encode(on: &_container, forKey: .exception)
+		try network?.encode(on: &_container, forKey: .network)
+		try term?.encode(on: &_container, forKey: .term)
 		try type?.encode(on: &_container, forKey: .type)
-		
-			switch value {
+		try unit?.encode(on: &_container, forKey: .unit)
+		if let _enum = value {
+			switch _enum {
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
 			case .money(let _value):
 				try _value.encode(on: &_container, forKey: .valueMoney)
 			}
-		
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -466,15 +523,23 @@ open class CoverageCostToBeneficiary: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return exception == _other.exception
+		return category == _other.category
+		    && exception == _other.exception
+		    && network == _other.network
+		    && term == _other.term
 		    && type == _other.type
+		    && unit == _other.unit
 		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(category)
 		hasher.combine(exception)
+		hasher.combine(network)
+		hasher.combine(term)
 		hasher.combine(type)
+		hasher.combine(unit)
 		hasher.combine(value)
 	}
 }
@@ -557,5 +622,86 @@ open class CoverageCostToBeneficiaryException: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(period)
 		hasher.combine(type)
+	}
+}
+
+/**
+ Self-pay parties and responsibility.
+ 
+ Link to the paying party and optionally what specifically they will be responsible to pay.
+ */
+open class CoveragePaymentBy: BackboneElement {
+	
+	/// Parties performing self-payment
+	public var party: Reference
+	
+	/// Party's responsibility
+	public var responsibility: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	public init(party: Reference) {
+		self.party = party
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		party: Reference,
+		responsibility: FHIRPrimitive<FHIRString>? = nil
+	) {
+		self.init(party: party)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.responsibility = responsibility
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case party
+		case responsibility; case _responsibility
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.party = try Reference(from: _container, forKey: .party)
+		self.responsibility = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .responsibility, auxiliaryKey: ._responsibility)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try party.encode(on: &_container, forKey: .party)
+		try responsibility?.encode(on: &_container, forKey: .responsibility, auxiliaryKey: ._responsibility)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? CoveragePaymentBy else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return party == _other.party
+		    && responsibility == _other.responsibility
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(party)
+		hasher.combine(responsibility)
 	}
 }

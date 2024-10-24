@@ -2,8 +2,8 @@
 //  DeviceRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DeviceRequest)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceRequest)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ open class DeviceRequest: DomainResource {
 	public var basedOn: [Reference]?
 	
 	/// What request replaces
-	public var priorRequest: [Reference]?
+	public var replaces: [Reference]?
 	
 	/// Identifier of composite request
 	public var groupIdentifier: Identifier?
@@ -91,14 +91,17 @@ open class DeviceRequest: DomainResource {
 	/// Who/what submitted the device request
 	public var requester: Reference?
 	
-	/// Filler role
-	public var performerType: CodeableConcept?
-	
 	/// Requested Filler
-	public var performer: Reference?
+	public var performer: CodeableReference?
 	
 	/// Coded/Linked Reason for request
 	public var reason: [CodeableReference]?
+	
+	/// PRN status of request
+	public var asNeeded: FHIRPrimitive<FHIRBool>?
+	
+	/// Device usage reason
+	public var asNeededFor: CodeableConcept?
 	
 	/// Associated insurance coverage
 	public var insurance: [Reference]?
@@ -122,6 +125,8 @@ open class DeviceRequest: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		asNeeded: FHIRPrimitive<FHIRBool>? = nil,
+		asNeededFor: CodeableConcept? = nil,
 		authoredOn: FHIRPrimitive<DateTime>? = nil,
 		basedOn: [Reference]? = nil,
 		code: CodeableReference,
@@ -143,13 +148,12 @@ open class DeviceRequest: DomainResource {
 		note: [Annotation]? = nil,
 		occurrence: OccurrenceX? = nil,
 		parameter: [DeviceRequestParameter]? = nil,
-		performer: Reference? = nil,
-		performerType: CodeableConcept? = nil,
-		priorRequest: [Reference]? = nil,
+		performer: CodeableReference? = nil,
 		priority: FHIRPrimitive<FHIRString>? = nil,
 		quantity: FHIRPrimitive<FHIRInteger>? = nil,
 		reason: [CodeableReference]? = nil,
 		relevantHistory: [Reference]? = nil,
+		replaces: [Reference]? = nil,
 		requester: Reference? = nil,
 		status: FHIRPrimitive<FHIRString>? = nil,
 		subject: Reference,
@@ -157,6 +161,8 @@ open class DeviceRequest: DomainResource {
 		text: Narrative? = nil
 	) {
 		self.init(code: code, intent: intent, subject: subject)
+		self.asNeeded = asNeeded
+		self.asNeededFor = asNeededFor
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
 		self.contained = contained
@@ -177,12 +183,11 @@ open class DeviceRequest: DomainResource {
 		self.occurrence = occurrence
 		self.parameter = parameter
 		self.performer = performer
-		self.performerType = performerType
-		self.priorRequest = priorRequest
 		self.priority = priority
 		self.quantity = quantity
 		self.reason = reason
 		self.relevantHistory = relevantHistory
+		self.replaces = replaces
 		self.requester = requester
 		self.status = status
 		self.supportingInfo = supportingInfo
@@ -192,6 +197,8 @@ open class DeviceRequest: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case asNeeded; case _asNeeded
+		case asNeededFor
 		case authoredOn; case _authoredOn
 		case basedOn
 		case code
@@ -209,12 +216,11 @@ open class DeviceRequest: DomainResource {
 		case occurrenceTiming
 		case parameter
 		case performer
-		case performerType
-		case priorRequest
 		case priority; case _priority
 		case quantity; case _quantity
 		case reason
 		case relevantHistory
+		case replaces
 		case requester
 		case status; case _status
 		case subject
@@ -226,6 +232,8 @@ open class DeviceRequest: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.asNeeded = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .asNeeded, auxiliaryKey: ._asNeeded)
+		self.asNeededFor = try CodeableConcept(from: _container, forKeyIfPresent: .asNeededFor)
 		self.authoredOn = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authoredOn, auxiliaryKey: ._authoredOn)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.code = try CodeableReference(from: _container, forKey: .code)
@@ -259,13 +267,12 @@ open class DeviceRequest: DomainResource {
 		}
 		self.occurrence = _t_occurrence
 		self.parameter = try [DeviceRequestParameter](from: _container, forKeyIfPresent: .parameter)
-		self.performer = try Reference(from: _container, forKeyIfPresent: .performer)
-		self.performerType = try CodeableConcept(from: _container, forKeyIfPresent: .performerType)
-		self.priorRequest = try [Reference](from: _container, forKeyIfPresent: .priorRequest)
+		self.performer = try CodeableReference(from: _container, forKeyIfPresent: .performer)
 		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.quantity = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .quantity, auxiliaryKey: ._quantity)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.relevantHistory = try [Reference](from: _container, forKeyIfPresent: .relevantHistory)
+		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
 		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
@@ -278,6 +285,8 @@ open class DeviceRequest: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try asNeeded?.encode(on: &_container, forKey: .asNeeded, auxiliaryKey: ._asNeeded)
+		try asNeededFor?.encode(on: &_container, forKey: .asNeededFor)
 		try authoredOn?.encode(on: &_container, forKey: .authoredOn, auxiliaryKey: ._authoredOn)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try code.encode(on: &_container, forKey: .code)
@@ -302,12 +311,11 @@ open class DeviceRequest: DomainResource {
 		}
 		try parameter?.encode(on: &_container, forKey: .parameter)
 		try performer?.encode(on: &_container, forKey: .performer)
-		try performerType?.encode(on: &_container, forKey: .performerType)
-		try priorRequest?.encode(on: &_container, forKey: .priorRequest)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
 		try quantity?.encode(on: &_container, forKey: .quantity, auxiliaryKey: ._quantity)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try relevantHistory?.encode(on: &_container, forKey: .relevantHistory)
+		try replaces?.encode(on: &_container, forKey: .replaces)
 		try requester?.encode(on: &_container, forKey: .requester)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject.encode(on: &_container, forKey: .subject)
@@ -324,7 +332,9 @@ open class DeviceRequest: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return authoredOn == _other.authoredOn
+		return asNeeded == _other.asNeeded
+		    && asNeededFor == _other.asNeededFor
+		    && authoredOn == _other.authoredOn
 		    && basedOn == _other.basedOn
 		    && code == _other.code
 		    && doNotPerform == _other.doNotPerform
@@ -339,12 +349,11 @@ open class DeviceRequest: DomainResource {
 		    && occurrence == _other.occurrence
 		    && parameter == _other.parameter
 		    && performer == _other.performer
-		    && performerType == _other.performerType
-		    && priorRequest == _other.priorRequest
 		    && priority == _other.priority
 		    && quantity == _other.quantity
 		    && reason == _other.reason
 		    && relevantHistory == _other.relevantHistory
+		    && replaces == _other.replaces
 		    && requester == _other.requester
 		    && status == _other.status
 		    && subject == _other.subject
@@ -353,6 +362,8 @@ open class DeviceRequest: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(asNeeded)
+		hasher.combine(asNeededFor)
 		hasher.combine(authoredOn)
 		hasher.combine(basedOn)
 		hasher.combine(code)
@@ -368,12 +379,11 @@ open class DeviceRequest: DomainResource {
 		hasher.combine(occurrence)
 		hasher.combine(parameter)
 		hasher.combine(performer)
-		hasher.combine(performerType)
-		hasher.combine(priorRequest)
 		hasher.combine(priority)
 		hasher.combine(quantity)
 		hasher.combine(reason)
 		hasher.combine(relevantHistory)
+		hasher.combine(replaces)
 		hasher.combine(requester)
 		hasher.combine(status)
 		hasher.combine(subject)

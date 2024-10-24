@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  The role that the assertion variable plays.
  
- URL: http://terminology.hl7.org/CodeSystem/statistic-model-code
+ URL: http://hl7.org/fhir/statistic-model-code
  ValueSet: http://hl7.org/fhir/ValueSet/statistic-model-code
  */
 public enum StatisticModelCode: String, FHIRPrimitiveType {

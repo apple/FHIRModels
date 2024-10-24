@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -47,6 +47,10 @@ public enum AssertionOperatorType: String, FHIRPrimitiveType {
 	
 	/// Compare value to be less than a known value.
 	case lessThan
+	
+	/// Manually evaluate the condition described by this assert. The test engine SHALL pause and provide an input
+	/// mechanism to set the outcome of this assert to 'pass', 'fail', 'skip' or 'stop'.
+	case manualEval
 	
 	/// Compare value string does not contain a known value.
 	case notContains

@@ -2,8 +2,8 @@
 //  SupplyDelivery.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SupplyDelivery)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SupplyDelivery)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,9 +20,7 @@
 import FMCore
 
 /**
- Delivery of bulk Supplies.
- 
- Record of delivery of what is supplied.
+ Record of movement of supplies from one location to another.
  */
 open class SupplyDelivery: DomainResource {
 	
@@ -45,32 +43,37 @@ open class SupplyDelivery: DomainResource {
 	public var partOf: [Reference]?
 	
 	/// A code specifying the state of the dispense event.
-	public var status: FHIRPrimitive<SupplyDeliveryStatus>?
+	public var status: FHIRPrimitive<SupplyDeliveryStatus>
 	
 	/// Patient for whom the item is supplied
 	public var patient: Reference?
 	
-	/// Category of dispense event
+	/// Category of supply event
 	public var type: CodeableConcept?
 	
+	/// Stage or event of delivery
+	public var stage: CodeableConcept
+	
 	/// The item that is delivered or supplied
-	public var suppliedItem: SupplyDeliverySuppliedItem?
+	public var suppliedItem: [SupplyDeliverySuppliedItem]?
 	
 	/// When event occurred
 	/// One of `occurrence[x]`
 	public var occurrence: OccurrenceX?
 	
-	/// Dispenser
+	/// The item supplier
 	public var supplier: Reference?
 	
-	/// Where the Supply was sent
+	/// Where the delivery was sent
 	public var destination: Reference?
 	
-	/// Who collected the Supply
+	/// Who received the delivery
 	public var receiver: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(stage: CodeableConcept, status: FHIRPrimitive<SupplyDeliveryStatus>) {
+		self.stage = stage
+		self.status = status
 		super.init()
 	}
 	
@@ -90,13 +93,14 @@ open class SupplyDelivery: DomainResource {
 		partOf: [Reference]? = nil,
 		patient: Reference? = nil,
 		receiver: [Reference]? = nil,
-		status: FHIRPrimitive<SupplyDeliveryStatus>? = nil,
-		suppliedItem: SupplyDeliverySuppliedItem? = nil,
+		stage: CodeableConcept,
+		status: FHIRPrimitive<SupplyDeliveryStatus>,
+		suppliedItem: [SupplyDeliverySuppliedItem]? = nil,
 		supplier: Reference? = nil,
 		text: Narrative? = nil,
 		type: CodeableConcept? = nil
 	) {
-		self.init()
+		self.init(stage: stage, status: status)
 		self.basedOn = basedOn
 		self.contained = contained
 		self.destination = destination
@@ -111,7 +115,6 @@ open class SupplyDelivery: DomainResource {
 		self.partOf = partOf
 		self.patient = patient
 		self.receiver = receiver
-		self.status = status
 		self.suppliedItem = suppliedItem
 		self.supplier = supplier
 		self.text = text
@@ -130,6 +133,7 @@ open class SupplyDelivery: DomainResource {
 		case partOf
 		case patient
 		case receiver
+		case stage
 		case status; case _status
 		case suppliedItem
 		case supplier
@@ -167,8 +171,9 @@ open class SupplyDelivery: DomainResource {
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.patient = try Reference(from: _container, forKeyIfPresent: .patient)
 		self.receiver = try [Reference](from: _container, forKeyIfPresent: .receiver)
-		self.status = try FHIRPrimitive<SupplyDeliveryStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
-		self.suppliedItem = try SupplyDeliverySuppliedItem(from: _container, forKeyIfPresent: .suppliedItem)
+		self.stage = try CodeableConcept(from: _container, forKey: .stage)
+		self.status = try FHIRPrimitive<SupplyDeliveryStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.suppliedItem = try [SupplyDeliverySuppliedItem](from: _container, forKeyIfPresent: .suppliedItem)
 		self.supplier = try Reference(from: _container, forKeyIfPresent: .supplier)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -195,7 +200,8 @@ open class SupplyDelivery: DomainResource {
 		try partOf?.encode(on: &_container, forKey: .partOf)
 		try patient?.encode(on: &_container, forKey: .patient)
 		try receiver?.encode(on: &_container, forKey: .receiver)
-		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try stage.encode(on: &_container, forKey: .stage)
+		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try suppliedItem?.encode(on: &_container, forKey: .suppliedItem)
 		try supplier?.encode(on: &_container, forKey: .supplier)
 		try type?.encode(on: &_container, forKey: .type)
@@ -218,6 +224,7 @@ open class SupplyDelivery: DomainResource {
 		    && partOf == _other.partOf
 		    && patient == _other.patient
 		    && receiver == _other.receiver
+		    && stage == _other.stage
 		    && status == _other.status
 		    && suppliedItem == _other.suppliedItem
 		    && supplier == _other.supplier
@@ -233,6 +240,7 @@ open class SupplyDelivery: DomainResource {
 		hasher.combine(partOf)
 		hasher.combine(patient)
 		hasher.combine(receiver)
+		hasher.combine(stage)
 		hasher.combine(status)
 		hasher.combine(suppliedItem)
 		hasher.combine(supplier)
@@ -253,10 +261,13 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 		case reference(Reference)
 	}
 	
-	/// Amount dispensed
+	/// Amount supplied
 	public var quantity: Quantity?
 	
-	/// Medication, Substance, or Device supplied
+	/// A description of the supplied item's condition (e.g., box is damaged)
+	public var condition: CodeableConcept?
+	
+	/// Medication, Substance, Device or Biologically Derived Product supplied
 	/// One of `item[x]`
 	public var item: ItemX?
 	
@@ -267,6 +278,7 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		condition: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		item: ItemX? = nil,
@@ -274,6 +286,7 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 		quantity: Quantity? = nil
 	) {
 		self.init()
+		self.condition = condition
 		self.`extension` = `extension`
 		self.id = id
 		self.item = item
@@ -284,6 +297,7 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case condition
 		case itemCodeableConcept
 		case itemReference
 		case quantity
@@ -294,6 +308,7 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.condition = try CodeableConcept(from: _container, forKeyIfPresent: .condition)
 		var _t_item: ItemX? = nil
 		if let itemCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .itemCodeableConcept) {
 			if _t_item != nil {
@@ -317,6 +332,7 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try condition?.encode(on: &_container, forKey: .condition)
 		if let _enum = item {
 			switch _enum {
 			case .codeableConcept(let _value):
@@ -338,12 +354,14 @@ open class SupplyDeliverySuppliedItem: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return item == _other.item
+		return condition == _other.condition
+		    && item == _other.item
 		    && quantity == _other.quantity
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(condition)
 		hasher.combine(item)
 		hasher.combine(quantity)
 	}

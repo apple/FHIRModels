@@ -2,8 +2,8 @@
 //  ChargeItem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ChargeItem)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ChargeItem)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -59,8 +59,8 @@ open class ChargeItem: DomainResource {
 	/// Individual service was done for/to
 	public var subject: Reference
 	
-	/// Encounter / Episode associated with event
-	public var context: Reference?
+	/// Encounter associated with this ChargeItem
+	public var encounter: Reference?
 	
 	/// When the charged service was applied
 	/// One of `occurrence[x]`
@@ -84,14 +84,14 @@ open class ChargeItem: DomainResource {
 	/// Anatomical location, if relevant
 	public var bodysite: [CodeableConcept]?
 	
-	/// Factor overriding the associated rules
-	public var factorOverride: FHIRPrimitive<FHIRDecimal>?
+	/// Unit price overriding the associated rules
+	public var unitPriceComponent: MonetaryComponent?
 	
-	/// Price overriding the associated rules
-	public var priceOverride: Money?
+	/// Total price overriding the associated rules
+	public var totalPriceComponent: MonetaryComponent?
 	
 	/// Reason for overriding the list price/factor
-	public var overrideReason: FHIRPrimitive<FHIRString>?
+	public var overrideReason: CodeableConcept?
 	
 	/// Individual who was entering
 	public var enterer: Reference?
@@ -100,10 +100,10 @@ open class ChargeItem: DomainResource {
 	public var enteredDate: FHIRPrimitive<DateTime>?
 	
 	/// Why was the charged  service rendered?
-	public var reason: [CodeableConcept]?
+	public var reason: [CodeableReference]?
 	
 	/// Which rendered service is being charged?
-	public var service: [Reference]?
+	public var service: [CodeableReference]?
 	
 	/// Product charged
 	public var product: [CodeableReference]?
@@ -131,14 +131,13 @@ open class ChargeItem: DomainResource {
 		bodysite: [CodeableConcept]? = nil,
 		code: CodeableConcept,
 		contained: [ResourceProxy]? = nil,
-		context: Reference? = nil,
 		costCenter: Reference? = nil,
 		definitionCanonical: [FHIRPrimitive<Canonical>]? = nil,
 		definitionUri: [FHIRPrimitive<FHIRURI>]? = nil,
+		encounter: Reference? = nil,
 		enteredDate: FHIRPrimitive<DateTime>? = nil,
 		enterer: Reference? = nil,
 		`extension`: [Extension]? = nil,
-		factorOverride: FHIRPrimitive<FHIRDecimal>? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -147,33 +146,33 @@ open class ChargeItem: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		occurrence: OccurrenceX? = nil,
-		overrideReason: FHIRPrimitive<FHIRString>? = nil,
+		overrideReason: CodeableConcept? = nil,
 		partOf: [Reference]? = nil,
 		performer: [ChargeItemPerformer]? = nil,
 		performingOrganization: Reference? = nil,
-		priceOverride: Money? = nil,
 		product: [CodeableReference]? = nil,
 		quantity: Quantity? = nil,
-		reason: [CodeableConcept]? = nil,
+		reason: [CodeableReference]? = nil,
 		requestingOrganization: Reference? = nil,
-		service: [Reference]? = nil,
+		service: [CodeableReference]? = nil,
 		status: FHIRPrimitive<ChargeItemStatus>,
 		subject: Reference,
 		supportingInformation: [Reference]? = nil,
-		text: Narrative? = nil
+		text: Narrative? = nil,
+		totalPriceComponent: MonetaryComponent? = nil,
+		unitPriceComponent: MonetaryComponent? = nil
 	) {
 		self.init(code: code, status: status, subject: subject)
 		self.account = account
 		self.bodysite = bodysite
 		self.contained = contained
-		self.context = context
 		self.costCenter = costCenter
 		self.definitionCanonical = definitionCanonical
 		self.definitionUri = definitionUri
+		self.encounter = encounter
 		self.enteredDate = enteredDate
 		self.enterer = enterer
 		self.`extension` = `extension`
-		self.factorOverride = factorOverride
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
@@ -186,7 +185,6 @@ open class ChargeItem: DomainResource {
 		self.partOf = partOf
 		self.performer = performer
 		self.performingOrganization = performingOrganization
-		self.priceOverride = priceOverride
 		self.product = product
 		self.quantity = quantity
 		self.reason = reason
@@ -194,6 +192,8 @@ open class ChargeItem: DomainResource {
 		self.service = service
 		self.supportingInformation = supportingInformation
 		self.text = text
+		self.totalPriceComponent = totalPriceComponent
+		self.unitPriceComponent = unitPriceComponent
 	}
 	
 	// MARK: - Codable
@@ -202,23 +202,21 @@ open class ChargeItem: DomainResource {
 		case account
 		case bodysite
 		case code
-		case context
 		case costCenter
 		case definitionCanonical; case _definitionCanonical
 		case definitionUri; case _definitionUri
+		case encounter
 		case enteredDate; case _enteredDate
 		case enterer
-		case factorOverride; case _factorOverride
 		case identifier
 		case note
 		case occurrenceDateTime; case _occurrenceDateTime
 		case occurrencePeriod
 		case occurrenceTiming
-		case overrideReason; case _overrideReason
+		case overrideReason
 		case partOf
 		case performer
 		case performingOrganization
-		case priceOverride
 		case product
 		case quantity
 		case reason
@@ -227,6 +225,8 @@ open class ChargeItem: DomainResource {
 		case status; case _status
 		case subject
 		case supportingInformation
+		case totalPriceComponent
+		case unitPriceComponent
 	}
 	
 	/// Initializer for Decodable
@@ -237,13 +237,12 @@ open class ChargeItem: DomainResource {
 		self.account = try [Reference](from: _container, forKeyIfPresent: .account)
 		self.bodysite = try [CodeableConcept](from: _container, forKeyIfPresent: .bodysite)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
-		self.context = try Reference(from: _container, forKeyIfPresent: .context)
 		self.costCenter = try Reference(from: _container, forKeyIfPresent: .costCenter)
 		self.definitionCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .definitionCanonical, auxiliaryKey: ._definitionCanonical)
 		self.definitionUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .definitionUri, auxiliaryKey: ._definitionUri)
+		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.enteredDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .enteredDate, auxiliaryKey: ._enteredDate)
 		self.enterer = try Reference(from: _container, forKeyIfPresent: .enterer)
-		self.factorOverride = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .factorOverride, auxiliaryKey: ._factorOverride)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurrence: OccurrenceX? = nil
@@ -266,19 +265,20 @@ open class ChargeItem: DomainResource {
 			_t_occurrence = .timing(occurrenceTiming)
 		}
 		self.occurrence = _t_occurrence
-		self.overrideReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .overrideReason, auxiliaryKey: ._overrideReason)
+		self.overrideReason = try CodeableConcept(from: _container, forKeyIfPresent: .overrideReason)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.performer = try [ChargeItemPerformer](from: _container, forKeyIfPresent: .performer)
 		self.performingOrganization = try Reference(from: _container, forKeyIfPresent: .performingOrganization)
-		self.priceOverride = try Money(from: _container, forKeyIfPresent: .priceOverride)
 		self.product = try [CodeableReference](from: _container, forKeyIfPresent: .product)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
-		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
+		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.requestingOrganization = try Reference(from: _container, forKeyIfPresent: .requestingOrganization)
-		self.service = try [Reference](from: _container, forKeyIfPresent: .service)
+		self.service = try [CodeableReference](from: _container, forKeyIfPresent: .service)
 		self.status = try FHIRPrimitive<ChargeItemStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
+		self.totalPriceComponent = try MonetaryComponent(from: _container, forKeyIfPresent: .totalPriceComponent)
+		self.unitPriceComponent = try MonetaryComponent(from: _container, forKeyIfPresent: .unitPriceComponent)
 		try super.init(from: decoder)
 	}
 	
@@ -290,13 +290,12 @@ open class ChargeItem: DomainResource {
 		try account?.encode(on: &_container, forKey: .account)
 		try bodysite?.encode(on: &_container, forKey: .bodysite)
 		try code.encode(on: &_container, forKey: .code)
-		try context?.encode(on: &_container, forKey: .context)
 		try costCenter?.encode(on: &_container, forKey: .costCenter)
 		try definitionCanonical?.encode(on: &_container, forKey: .definitionCanonical, auxiliaryKey: ._definitionCanonical)
 		try definitionUri?.encode(on: &_container, forKey: .definitionUri, auxiliaryKey: ._definitionUri)
+		try encounter?.encode(on: &_container, forKey: .encounter)
 		try enteredDate?.encode(on: &_container, forKey: .enteredDate, auxiliaryKey: ._enteredDate)
 		try enterer?.encode(on: &_container, forKey: .enterer)
-		try factorOverride?.encode(on: &_container, forKey: .factorOverride, auxiliaryKey: ._factorOverride)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try note?.encode(on: &_container, forKey: .note)
 		if let _enum = occurrence {
@@ -309,11 +308,10 @@ open class ChargeItem: DomainResource {
 				try _value.encode(on: &_container, forKey: .occurrenceTiming)
 			}
 		}
-		try overrideReason?.encode(on: &_container, forKey: .overrideReason, auxiliaryKey: ._overrideReason)
+		try overrideReason?.encode(on: &_container, forKey: .overrideReason)
 		try partOf?.encode(on: &_container, forKey: .partOf)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try performingOrganization?.encode(on: &_container, forKey: .performingOrganization)
-		try priceOverride?.encode(on: &_container, forKey: .priceOverride)
 		try product?.encode(on: &_container, forKey: .product)
 		try quantity?.encode(on: &_container, forKey: .quantity)
 		try reason?.encode(on: &_container, forKey: .reason)
@@ -322,6 +320,8 @@ open class ChargeItem: DomainResource {
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject.encode(on: &_container, forKey: .subject)
 		try supportingInformation?.encode(on: &_container, forKey: .supportingInformation)
+		try totalPriceComponent?.encode(on: &_container, forKey: .totalPriceComponent)
+		try unitPriceComponent?.encode(on: &_container, forKey: .unitPriceComponent)
 		try super.encode(to: encoder)
 	}
 	
@@ -337,13 +337,12 @@ open class ChargeItem: DomainResource {
 		return account == _other.account
 		    && bodysite == _other.bodysite
 		    && code == _other.code
-		    && context == _other.context
 		    && costCenter == _other.costCenter
 		    && definitionCanonical == _other.definitionCanonical
 		    && definitionUri == _other.definitionUri
+		    && encounter == _other.encounter
 		    && enteredDate == _other.enteredDate
 		    && enterer == _other.enterer
-		    && factorOverride == _other.factorOverride
 		    && identifier == _other.identifier
 		    && note == _other.note
 		    && occurrence == _other.occurrence
@@ -351,7 +350,6 @@ open class ChargeItem: DomainResource {
 		    && partOf == _other.partOf
 		    && performer == _other.performer
 		    && performingOrganization == _other.performingOrganization
-		    && priceOverride == _other.priceOverride
 		    && product == _other.product
 		    && quantity == _other.quantity
 		    && reason == _other.reason
@@ -360,6 +358,8 @@ open class ChargeItem: DomainResource {
 		    && status == _other.status
 		    && subject == _other.subject
 		    && supportingInformation == _other.supportingInformation
+		    && totalPriceComponent == _other.totalPriceComponent
+		    && unitPriceComponent == _other.unitPriceComponent
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -367,13 +367,12 @@ open class ChargeItem: DomainResource {
 		hasher.combine(account)
 		hasher.combine(bodysite)
 		hasher.combine(code)
-		hasher.combine(context)
 		hasher.combine(costCenter)
 		hasher.combine(definitionCanonical)
 		hasher.combine(definitionUri)
+		hasher.combine(encounter)
 		hasher.combine(enteredDate)
 		hasher.combine(enterer)
-		hasher.combine(factorOverride)
 		hasher.combine(identifier)
 		hasher.combine(note)
 		hasher.combine(occurrence)
@@ -381,7 +380,6 @@ open class ChargeItem: DomainResource {
 		hasher.combine(partOf)
 		hasher.combine(performer)
 		hasher.combine(performingOrganization)
-		hasher.combine(priceOverride)
 		hasher.combine(product)
 		hasher.combine(quantity)
 		hasher.combine(reason)
@@ -390,6 +388,8 @@ open class ChargeItem: DomainResource {
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(supportingInformation)
+		hasher.combine(totalPriceComponent)
+		hasher.combine(unitPriceComponent)
 	}
 }
 

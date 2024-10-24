@@ -2,8 +2,8 @@
 //  CapabilityStatement.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,22 +22,32 @@ import FMCore
 /**
  A statement of system capabilities.
  
- A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server for a particular version of FHIR
- that may be used as a statement of actual server functionality or a statement of required or desired server
+ A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server or Client for a particular version
+ of FHIR that may be used as a statement of actual server functionality or a statement of required or desired server
  implementation.
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class CapabilityStatement: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .capabilityStatement }
 	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Canonical identifier for this capability statement, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
+	/// Additional identifier for the CapabilityStatement (business identifier)
+	public var identifier: [Identifier]?
+	
 	/// Business version of the capability statement
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this capability statement (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -54,7 +64,7 @@ open class CapabilityStatement: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -74,6 +84,9 @@ open class CapabilityStatement: DomainResource {
 	
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
 	/// The way that this statement is intended to be used, to describe an actual running instance of software, a
 	/// particular product (kind, not instance of software) or a class of implementation (e.g. a desired purchase).
@@ -100,6 +113,9 @@ open class CapabilityStatement: DomainResource {
 	/// Patch formats supported
 	public var patchFormat: [FHIRPrimitive<FHIRString>]?
 	
+	/// Languages supported
+	public var acceptLanguage: [FHIRPrimitive<FHIRString>]?
+	
 	/// Implementation guides supported
 	public var implementationGuide: [FHIRPrimitive<Canonical>]?
 	
@@ -124,9 +140,11 @@ open class CapabilityStatement: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		acceptLanguage: [FHIRPrimitive<FHIRString>]? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		document: [CapabilityStatementDocument]? = nil,
@@ -135,6 +153,7 @@ open class CapabilityStatement: DomainResource {
 		fhirVersion: FHIRPrimitive<FHIRString>,
 		format: [FHIRPrimitive<FHIRString>],
 		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
 		implementation: CapabilityStatementImplementation? = nil,
 		implementationGuide: [FHIRPrimitive<Canonical>]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -157,17 +176,21 @@ open class CapabilityStatement: DomainResource {
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(date: date, fhirVersion: fhirVersion, format: format, kind: kind, status: status)
+		self.acceptLanguage = acceptLanguage
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.description_fhir = description_fhir
 		self.document = document
 		self.experimental = experimental
 		self.`extension` = `extension`
 		self.id = id
+		self.identifier = identifier
 		self.implementation = implementation
 		self.implementationGuide = implementationGuide
 		self.implicitRules = implicitRules
@@ -189,19 +212,23 @@ open class CapabilityStatement: DomainResource {
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case acceptLanguage; case _acceptLanguage
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case document
 		case experimental; case _experimental
 		case fhirVersion; case _fhirVersion
 		case format; case _format
+		case identifier
 		case implementation
 		case implementationGuide; case _implementationGuide
 		case imports; case _imports
@@ -220,6 +247,8 @@ open class CapabilityStatement: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -227,14 +256,17 @@ open class CapabilityStatement: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.acceptLanguage = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .acceptLanguage, auxiliaryKey: ._acceptLanguage)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKey: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.document = try [CapabilityStatementDocument](from: _container, forKeyIfPresent: .document)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.fhirVersion = try FHIRPrimitive<FHIRString>(from: _container, forKey: .fhirVersion, auxiliaryKey: ._fhirVersion)
 		self.format = try [FHIRPrimitive<FHIRString>](from: _container, forKey: .format, auxiliaryKey: ._format)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.implementation = try CapabilityStatementImplementation(from: _container, forKeyIfPresent: .implementation)
 		self.implementationGuide = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .implementationGuide, auxiliaryKey: ._implementationGuide)
 		self.imports = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .imports, auxiliaryKey: ._imports)
@@ -253,6 +285,20 @@ open class CapabilityStatement: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -261,14 +307,17 @@ open class CapabilityStatement: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try acceptLanguage?.encode(on: &_container, forKey: .acceptLanguage, auxiliaryKey: ._acceptLanguage)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try document?.encode(on: &_container, forKey: .document)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try fhirVersion.encode(on: &_container, forKey: .fhirVersion, auxiliaryKey: ._fhirVersion)
 		try format.encode(on: &_container, forKey: .format, auxiliaryKey: ._format)
+		try identifier?.encode(on: &_container, forKey: .identifier)
 		try implementation?.encode(on: &_container, forKey: .implementation)
 		try implementationGuide?.encode(on: &_container, forKey: .implementationGuide, auxiliaryKey: ._implementationGuide)
 		try imports?.encode(on: &_container, forKey: .imports, auxiliaryKey: ._imports)
@@ -287,6 +336,14 @@ open class CapabilityStatement: DomainResource {
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -299,14 +356,17 @@ open class CapabilityStatement: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return contact == _other.contact
+		return acceptLanguage == _other.acceptLanguage
+		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && document == _other.document
 		    && experimental == _other.experimental
 		    && fhirVersion == _other.fhirVersion
 		    && format == _other.format
+		    && identifier == _other.identifier
 		    && implementation == _other.implementation
 		    && implementationGuide == _other.implementationGuide
 		    && imports == _other.imports
@@ -325,18 +385,22 @@ open class CapabilityStatement: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(acceptLanguage)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(document)
 		hasher.combine(experimental)
 		hasher.combine(fhirVersion)
 		hasher.combine(format)
+		hasher.combine(identifier)
 		hasher.combine(implementation)
 		hasher.combine(implementationGuide)
 		hasher.combine(imports)
@@ -355,6 +419,7 @@ open class CapabilityStatement: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -1036,12 +1101,42 @@ open class CapabilityStatementRestInteraction: BackboneElement {
 open class CapabilityStatementRestResource: BackboneElement {
 	
 	/// A type of resource exposed via the restful interface.
+	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
+	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
+	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
+	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
+	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
+	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
+	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
+	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
+	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
+	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
+	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
+	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
+	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
+	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
+	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
+	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
+	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
+	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
+	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
+	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
+	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
+	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
+	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
+	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
+	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
+	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
+	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
+	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
+	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
+	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
 	public var type: FHIRPrimitive<ResourceType>
 	
-	/// Base System profile for all uses of resource
+	/// System-wide profile
 	public var profile: FHIRPrimitive<Canonical>?
 	
-	/// Profiles for use cases supported
+	/// Use-case specific profiles
 	public var supportedProfile: [FHIRPrimitive<Canonical>]?
 	
 	/// Additional information about the use of the resource type
@@ -1071,6 +1166,9 @@ open class CapabilityStatementRestResource: BackboneElement {
 	/// If allows/uses conditional update
 	public var conditionalUpdate: FHIRPrimitive<FHIRBool>?
 	
+	/// If allows/uses conditional patch
+	public var conditionalPatch: FHIRPrimitive<FHIRBool>?
+	
 	/// A code that indicates how the server supports conditional delete.
 	public var conditionalDelete: FHIRPrimitive<ConditionalDeleteStatus>?
 	
@@ -1099,6 +1197,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 	public convenience init(
 		conditionalCreate: FHIRPrimitive<FHIRBool>? = nil,
 		conditionalDelete: FHIRPrimitive<ConditionalDeleteStatus>? = nil,
+		conditionalPatch: FHIRPrimitive<FHIRBool>? = nil,
 		conditionalRead: FHIRPrimitive<ConditionalReadStatus>? = nil,
 		conditionalUpdate: FHIRPrimitive<FHIRBool>? = nil,
 		documentation: FHIRPrimitive<FHIRString>? = nil,
@@ -1121,6 +1220,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		self.init(type: type)
 		self.conditionalCreate = conditionalCreate
 		self.conditionalDelete = conditionalDelete
+		self.conditionalPatch = conditionalPatch
 		self.conditionalRead = conditionalRead
 		self.conditionalUpdate = conditionalUpdate
 		self.documentation = documentation
@@ -1145,6 +1245,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case conditionalCreate; case _conditionalCreate
 		case conditionalDelete; case _conditionalDelete
+		case conditionalPatch; case _conditionalPatch
 		case conditionalRead; case _conditionalRead
 		case conditionalUpdate; case _conditionalUpdate
 		case documentation; case _documentation
@@ -1169,6 +1270,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		// Decode all our properties
 		self.conditionalCreate = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionalCreate, auxiliaryKey: ._conditionalCreate)
 		self.conditionalDelete = try FHIRPrimitive<ConditionalDeleteStatus>(from: _container, forKeyIfPresent: .conditionalDelete, auxiliaryKey: ._conditionalDelete)
+		self.conditionalPatch = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionalPatch, auxiliaryKey: ._conditionalPatch)
 		self.conditionalRead = try FHIRPrimitive<ConditionalReadStatus>(from: _container, forKeyIfPresent: .conditionalRead, auxiliaryKey: ._conditionalRead)
 		self.conditionalUpdate = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionalUpdate, auxiliaryKey: ._conditionalUpdate)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
@@ -1194,6 +1296,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		// Encode all our properties
 		try conditionalCreate?.encode(on: &_container, forKey: .conditionalCreate, auxiliaryKey: ._conditionalCreate)
 		try conditionalDelete?.encode(on: &_container, forKey: .conditionalDelete, auxiliaryKey: ._conditionalDelete)
+		try conditionalPatch?.encode(on: &_container, forKey: .conditionalPatch, auxiliaryKey: ._conditionalPatch)
 		try conditionalRead?.encode(on: &_container, forKey: .conditionalRead, auxiliaryKey: ._conditionalRead)
 		try conditionalUpdate?.encode(on: &_container, forKey: .conditionalUpdate, auxiliaryKey: ._conditionalUpdate)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
@@ -1223,6 +1326,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		}
 		return conditionalCreate == _other.conditionalCreate
 		    && conditionalDelete == _other.conditionalDelete
+		    && conditionalPatch == _other.conditionalPatch
 		    && conditionalRead == _other.conditionalRead
 		    && conditionalUpdate == _other.conditionalUpdate
 		    && documentation == _other.documentation
@@ -1244,6 +1348,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(conditionalCreate)
 		hasher.combine(conditionalDelete)
+		hasher.combine(conditionalPatch)
 		hasher.combine(conditionalRead)
 		hasher.combine(conditionalUpdate)
 		hasher.combine(documentation)
@@ -1270,8 +1375,9 @@ open class CapabilityStatementRestResource: BackboneElement {
 open class CapabilityStatementRestResourceInteraction: BackboneElement {
 	
 	/// Coded identifier of the operation, supported by the system resource.
-	/// Restricted to: ['read', 'vread', 'update', 'patch', 'delete', 'history-instance', 'history-type', 'create',
-	/// 'search-type']
+	/// Restricted to: ['read', 'vread', 'update', 'update-conditional', 'patch', 'patch-conditional', 'delete',
+	/// 'delete-conditional-single', 'delete-conditional-multiple', 'delete-history', 'delete-history-version',
+	/// 'history-instance', 'history-type', 'create', 'create-conditional', 'search-type']
 	public var code: FHIRPrimitive<FHIRRestfulInteractions>
 	
 	/// Anything special about operation behavior
@@ -1445,7 +1551,7 @@ open class CapabilityStatementRestResourceOperation: BackboneElement {
  */
 open class CapabilityStatementRestResourceSearchParam: BackboneElement {
 	
-	/// Name of search parameter
+	/// Name for parameter in search url
 	public var name: FHIRPrimitive<FHIRString>
 	
 	/// Source of definition for parameter

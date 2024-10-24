@@ -2,8 +2,8 @@
 //  TriggerDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,6 +41,12 @@ open class TriggerDefinition: DataType {
 	/// Name or URI that identifies the event
 	public var name: FHIRPrimitive<FHIRString>?
 	
+	/// Coded definition of the event
+	public var code: CodeableConcept?
+	
+	/// What event
+	public var subscriptionTopic: FHIRPrimitive<Canonical>?
+	
 	/// Timing of the event
 	/// One of `timing[x]`
 	public var timing: TimingX?
@@ -59,29 +65,35 @@ open class TriggerDefinition: DataType {
 	
 	/// Convenience initializer
 	public convenience init(
+		code: CodeableConcept? = nil,
 		condition: Expression? = nil,
 		data: [DataRequirement]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
+		subscriptionTopic: FHIRPrimitive<Canonical>? = nil,
 		timing: TimingX? = nil,
 		type: FHIRPrimitive<TriggerType>
 	) {
 		self.init(type: type)
+		self.code = code
 		self.condition = condition
 		self.data = data
 		self.`extension` = `extension`
 		self.id = id
 		self.name = name
+		self.subscriptionTopic = subscriptionTopic
 		self.timing = timing
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case code
 		case condition
 		case data
 		case name; case _name
+		case subscriptionTopic; case _subscriptionTopic
 		case timingDate; case _timingDate
 		case timingDateTime; case _timingDateTime
 		case timingReference
@@ -94,9 +106,11 @@ open class TriggerDefinition: DataType {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.condition = try Expression(from: _container, forKeyIfPresent: .condition)
 		self.data = try [DataRequirement](from: _container, forKeyIfPresent: .data)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
+		self.subscriptionTopic = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .subscriptionTopic, auxiliaryKey: ._subscriptionTopic)
 		var _t_timing: TimingX? = nil
 		if let timingTiming = try Timing(from: _container, forKeyIfPresent: .timingTiming) {
 			if _t_timing != nil {
@@ -132,9 +146,11 @@ open class TriggerDefinition: DataType {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try code?.encode(on: &_container, forKey: .code)
 		try condition?.encode(on: &_container, forKey: .condition)
 		try data?.encode(on: &_container, forKey: .data)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
+		try subscriptionTopic?.encode(on: &_container, forKey: .subscriptionTopic, auxiliaryKey: ._subscriptionTopic)
 		if let _enum = timing {
 			switch _enum {
 			case .timing(let _value):
@@ -160,18 +176,22 @@ open class TriggerDefinition: DataType {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return condition == _other.condition
+		return code == _other.code
+		    && condition == _other.condition
 		    && data == _other.data
 		    && name == _other.name
+		    && subscriptionTopic == _other.subscriptionTopic
 		    && timing == _other.timing
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(code)
 		hasher.combine(condition)
 		hasher.combine(data)
 		hasher.combine(name)
+		hasher.combine(subscriptionTopic)
 		hasher.combine(timing)
 		hasher.combine(type)
 	}

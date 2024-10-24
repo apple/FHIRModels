@@ -2,8 +2,8 @@
 //  QuestionnaireResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,25 +29,25 @@ open class QuestionnaireResponse: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .questionnaireResponse }
 	
-	/// Unique id for this set of answers
+	/// Business identifier for this set of answers
 	public var identifier: [Identifier]?
 	
 	/// Request fulfilled by this QuestionnaireResponse
 	public var basedOn: [Reference]?
 	
-	/// Part of this action
+	/// Part of referenced event
 	public var partOf: [Reference]?
 	
-	/// Form being answered
-	public var questionnaire: FHIRPrimitive<Canonical>?
+	/// Canonical URL of Questionnaire being answered
+	public var questionnaire: FHIRPrimitive<Canonical>
 	
-	/// The position of the questionnaire response within its overall lifecycle.
+	/// The current state of the questionnaire response.
 	public var status: FHIRPrimitive<QuestionnaireResponseStatus>
 	
 	/// The subject of the questions
 	public var subject: Reference?
 	
-	/// Encounter created as part of
+	/// Encounter the questionnaire response is part of
 	public var encounter: Reference?
 	
 	/// Date the answers were gathered
@@ -63,7 +63,8 @@ open class QuestionnaireResponse: DomainResource {
 	public var item: [QuestionnaireResponseItem]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<QuestionnaireResponseStatus>) {
+	public init(questionnaire: FHIRPrimitive<Canonical>, status: FHIRPrimitive<QuestionnaireResponseStatus>) {
+		self.questionnaire = questionnaire
 		self.status = status
 		super.init()
 	}
@@ -84,13 +85,13 @@ open class QuestionnaireResponse: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		partOf: [Reference]? = nil,
-		questionnaire: FHIRPrimitive<Canonical>? = nil,
+		questionnaire: FHIRPrimitive<Canonical>,
 		source: Reference? = nil,
 		status: FHIRPrimitive<QuestionnaireResponseStatus>,
 		subject: Reference? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(status: status)
+		self.init(questionnaire: questionnaire, status: status)
 		self.author = author
 		self.authored = authored
 		self.basedOn = basedOn
@@ -105,7 +106,6 @@ open class QuestionnaireResponse: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.partOf = partOf
-		self.questionnaire = questionnaire
 		self.source = source
 		self.subject = subject
 		self.text = text
@@ -139,7 +139,7 @@ open class QuestionnaireResponse: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.item = try [QuestionnaireResponseItem](from: _container, forKeyIfPresent: .item)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
-		self.questionnaire = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .questionnaire, auxiliaryKey: ._questionnaire)
+		self.questionnaire = try FHIRPrimitive<Canonical>(from: _container, forKey: .questionnaire, auxiliaryKey: ._questionnaire)
 		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		self.status = try FHIRPrimitive<QuestionnaireResponseStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
@@ -158,7 +158,7 @@ open class QuestionnaireResponse: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try item?.encode(on: &_container, forKey: .item)
 		try partOf?.encode(on: &_container, forKey: .partOf)
-		try questionnaire?.encode(on: &_container, forKey: .questionnaire, auxiliaryKey: ._questionnaire)
+		try questionnaire.encode(on: &_container, forKey: .questionnaire, auxiliaryKey: ._questionnaire)
 		try source?.encode(on: &_container, forKey: .source)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)

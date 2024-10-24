@@ -2,8 +2,8 @@
 //  Contract.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Contract)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Contract)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -2557,7 +2557,7 @@ open class ContractTermOfferParty: BackboneElement {
  Protection for the Term.
  
  Security labels that protect the handling of information about the term and its elements, which may be specifically
- identified..
+ identified.
  */
 open class ContractTermSecurityLabel: BackboneElement {
 	

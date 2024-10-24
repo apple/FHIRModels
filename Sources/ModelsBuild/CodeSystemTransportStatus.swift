@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,16 +27,22 @@ import FMCore
  */
 public enum TransportStatus: String, FHIRPrimitiveType {
 	
-	/// This transport was abandoned.
+	/// Transport was started but not completed.
 	case abandoned
 	
-	/// Transport has been delivered ("completed").
+	/// Transport was cancelled before started.
+	case cancelled
+	
+	/// Transport has been completed.
 	case completed
 	
-	/// This transport record should never have existed, though it is possible that real-world decisions were based on
+	/// This electronic record should never have existed, though it is possible that real-world decisions were based on
 	/// it. (If real-world activity has occurred, the status should be "abandoned" rather than "entered-in-error".).
 	case enteredInError = "entered-in-error"
 	
-	/// Transport has been requested, but not delivered.
+	/// Transport has started but not completed.
 	case inProgress = "in-progress"
+	
+	/// Planned transport that is not yet requested.
+	case planned
 }

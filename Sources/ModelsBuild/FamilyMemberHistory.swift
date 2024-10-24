@@ -2,8 +2,8 @@
 //  FamilyMemberHistory.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,6 +72,9 @@ open class FamilyMemberHistory: DomainResource {
 	/// When history was recorded or last updated
 	public var date: FHIRPrimitive<DateTime>?
 	
+	/// Who or what participated in the activities related to the family member history and how they were involved
+	public var participant: [FamilyMemberHistoryParticipant]?
+	
 	/// The family member described
 	public var name: FHIRPrimitive<FHIRString>?
 	
@@ -137,6 +140,7 @@ open class FamilyMemberHistory: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		note: [Annotation]? = nil,
+		participant: [FamilyMemberHistoryParticipant]? = nil,
 		patient: Reference,
 		procedure: [FamilyMemberHistoryProcedure]? = nil,
 		reason: [CodeableReference]? = nil,
@@ -165,6 +169,7 @@ open class FamilyMemberHistory: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.note = note
+		self.participant = participant
 		self.procedure = procedure
 		self.reason = reason
 		self.sex = sex
@@ -194,6 +199,7 @@ open class FamilyMemberHistory: DomainResource {
 		case instantiatesUri; case _instantiatesUri
 		case name; case _name
 		case note
+		case participant
 		case patient
 		case procedure
 		case reason
@@ -288,6 +294,7 @@ open class FamilyMemberHistory: DomainResource {
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
+		self.participant = try [FamilyMemberHistoryParticipant](from: _container, forKeyIfPresent: .participant)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.procedure = try [FamilyMemberHistoryProcedure](from: _container, forKeyIfPresent: .procedure)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
@@ -345,6 +352,7 @@ open class FamilyMemberHistory: DomainResource {
 		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try note?.encode(on: &_container, forKey: .note)
+		try participant?.encode(on: &_container, forKey: .participant)
 		try patient.encode(on: &_container, forKey: .patient)
 		try procedure?.encode(on: &_container, forKey: .procedure)
 		try reason?.encode(on: &_container, forKey: .reason)
@@ -375,6 +383,7 @@ open class FamilyMemberHistory: DomainResource {
 		    && instantiatesUri == _other.instantiatesUri
 		    && name == _other.name
 		    && note == _other.note
+		    && participant == _other.participant
 		    && patient == _other.patient
 		    && procedure == _other.procedure
 		    && reason == _other.reason
@@ -397,6 +406,7 @@ open class FamilyMemberHistory: DomainResource {
 		hasher.combine(instantiatesUri)
 		hasher.combine(name)
 		hasher.combine(note)
+		hasher.combine(participant)
 		hasher.combine(patient)
 		hasher.combine(procedure)
 		hasher.combine(reason)
@@ -423,10 +433,10 @@ open class FamilyMemberHistoryCondition: BackboneElement {
 		case string(FHIRPrimitive<FHIRString>)
 	}
 	
-	/// Condition suffered by relation
+	/// Condition, allergy, or intolerance suffered by relation
 	public var code: CodeableConcept
 	
-	/// deceased | permanent disability | etc.
+	/// deceased | permanent disability | etc
 	public var outcome: CodeableConcept?
 	
 	/// Whether the condition contributed to the cause of death
@@ -564,6 +574,87 @@ open class FamilyMemberHistoryCondition: BackboneElement {
 		hasher.combine(note)
 		hasher.combine(onset)
 		hasher.combine(outcome)
+	}
+}
+
+/**
+ Who or what participated in the activities related to the family member history and how they were involved.
+ 
+ Indicates who or what participated in the activities related to the family member history and how they were involved.
+ */
+open class FamilyMemberHistoryParticipant: BackboneElement {
+	
+	/// Type of involvement
+	public var function: CodeableConcept?
+	
+	/// Who or what participated in the activities related to the family member history
+	public var actor: Reference
+	
+	/// Designated initializer taking all required properties
+	public init(actor: Reference) {
+		self.actor = actor
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init(actor: actor)
+		self.`extension` = `extension`
+		self.function = function
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case actor
+		case function
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.actor = try Reference(from: _container, forKey: .actor)
+		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try actor.encode(on: &_container, forKey: .actor)
+		try function?.encode(on: &_container, forKey: .function)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? FamilyMemberHistoryParticipant else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return actor == _other.actor
+		    && function == _other.function
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(actor)
+		hasher.combine(function)
 	}
 }
 

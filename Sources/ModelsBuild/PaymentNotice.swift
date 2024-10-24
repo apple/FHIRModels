@@ -2,8 +2,8 @@
 //  PaymentNotice.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/PaymentNotice)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PaymentNotice)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ open class PaymentNotice: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .paymentNotice }
 	
-	/// Business Identifier for the payment noctice
+	/// Business Identifier for the payment notice
 	public var identifier: [Identifier]?
 	
 	/// The status of the resource instance.
@@ -45,10 +45,10 @@ open class PaymentNotice: DomainResource {
 	public var created: FHIRPrimitive<DateTime>
 	
 	/// Responsible practitioner
-	public var provider: Reference?
+	public var reporter: Reference?
 	
 	/// Payment reference
-	public var payment: Reference
+	public var payment: Reference?
 	
 	/// Payment or clearing date
 	public var paymentDate: FHIRPrimitive<FHIRDate>?
@@ -66,10 +66,9 @@ open class PaymentNotice: DomainResource {
 	public var paymentStatus: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(amount: Money, created: FHIRPrimitive<DateTime>, payment: Reference, recipient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
+	public init(amount: Money, created: FHIRPrimitive<DateTime>, recipient: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
 		self.amount = amount
 		self.created = created
-		self.payment = payment
 		self.recipient = recipient
 		self.status = status
 		super.init()
@@ -88,17 +87,17 @@ open class PaymentNotice: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		payee: Reference? = nil,
-		payment: Reference,
+		payment: Reference? = nil,
 		paymentDate: FHIRPrimitive<FHIRDate>? = nil,
 		paymentStatus: CodeableConcept? = nil,
-		provider: Reference? = nil,
 		recipient: Reference,
+		reporter: Reference? = nil,
 		request: Reference? = nil,
 		response: Reference? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
 		text: Narrative? = nil
 	) {
-		self.init(amount: amount, created: created, payment: payment, recipient: recipient, status: status)
+		self.init(amount: amount, created: created, recipient: recipient, status: status)
 		self.contained = contained
 		self.`extension` = `extension`
 		self.id = id
@@ -108,9 +107,10 @@ open class PaymentNotice: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.payee = payee
+		self.payment = payment
 		self.paymentDate = paymentDate
 		self.paymentStatus = paymentStatus
-		self.provider = provider
+		self.reporter = reporter
 		self.request = request
 		self.response = response
 		self.text = text
@@ -126,8 +126,8 @@ open class PaymentNotice: DomainResource {
 		case payment
 		case paymentDate; case _paymentDate
 		case paymentStatus
-		case provider
 		case recipient
+		case reporter
 		case request
 		case response
 		case status; case _status
@@ -142,11 +142,11 @@ open class PaymentNotice: DomainResource {
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.payee = try Reference(from: _container, forKeyIfPresent: .payee)
-		self.payment = try Reference(from: _container, forKey: .payment)
+		self.payment = try Reference(from: _container, forKeyIfPresent: .payment)
 		self.paymentDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .paymentDate, auxiliaryKey: ._paymentDate)
 		self.paymentStatus = try CodeableConcept(from: _container, forKeyIfPresent: .paymentStatus)
-		self.provider = try Reference(from: _container, forKeyIfPresent: .provider)
 		self.recipient = try Reference(from: _container, forKey: .recipient)
+		self.reporter = try Reference(from: _container, forKeyIfPresent: .reporter)
 		self.request = try Reference(from: _container, forKeyIfPresent: .request)
 		self.response = try Reference(from: _container, forKeyIfPresent: .response)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
@@ -162,11 +162,11 @@ open class PaymentNotice: DomainResource {
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try payee?.encode(on: &_container, forKey: .payee)
-		try payment.encode(on: &_container, forKey: .payment)
+		try payment?.encode(on: &_container, forKey: .payment)
 		try paymentDate?.encode(on: &_container, forKey: .paymentDate, auxiliaryKey: ._paymentDate)
 		try paymentStatus?.encode(on: &_container, forKey: .paymentStatus)
-		try provider?.encode(on: &_container, forKey: .provider)
 		try recipient.encode(on: &_container, forKey: .recipient)
+		try reporter?.encode(on: &_container, forKey: .reporter)
 		try request?.encode(on: &_container, forKey: .request)
 		try response?.encode(on: &_container, forKey: .response)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
@@ -189,8 +189,8 @@ open class PaymentNotice: DomainResource {
 		    && payment == _other.payment
 		    && paymentDate == _other.paymentDate
 		    && paymentStatus == _other.paymentStatus
-		    && provider == _other.provider
 		    && recipient == _other.recipient
+		    && reporter == _other.reporter
 		    && request == _other.request
 		    && response == _other.response
 		    && status == _other.status
@@ -205,8 +205,8 @@ open class PaymentNotice: DomainResource {
 		hasher.combine(payment)
 		hasher.combine(paymentDate)
 		hasher.combine(paymentStatus)
-		hasher.combine(provider)
 		hasher.combine(recipient)
+		hasher.combine(reporter)
 		hasher.combine(request)
 		hasher.combine(response)
 		hasher.combine(status)

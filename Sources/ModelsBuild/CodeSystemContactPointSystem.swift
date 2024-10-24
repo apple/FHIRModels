@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public enum ContactPointSystem: String, FHIRPrimitiveType {
 	/// recommended to enable automatic dialing support but not required.
 	case phone
 	
-	/// A contact that can be used for sending an sms message (e.g. mobile phones, some landlines).
+	/// A contact that can be used for sending a sms message (e.g. mobile phones, some landlines).
 	case sms
 	
 	/// A contact that is not a phone, fax, pager or email address and is expressed as a URL.  This is intended for

@@ -2,8 +2,8 @@
 //  MedicationAdministration.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,20 +30,15 @@ open class MedicationAdministration: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .medicationAdministration }
 	
-	/// All possible types for "occurence[x]"
-	public enum OccurenceX: Hashable {
+	/// All possible types for "occurrence[x]"
+	public enum OccurrenceX: Hashable {
 		case dateTime(FHIRPrimitive<DateTime>)
 		case period(Period)
+		case timing(Timing)
 	}
 	
 	/// External identifier
 	public var identifier: [Identifier]?
-	
-	/// Instantiates protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Plan this is fulfilled by this administration
 	public var basedOn: [Reference]?
@@ -74,9 +69,9 @@ open class MedicationAdministration: DomainResource {
 	/// Additional information to support administration
 	public var supportingInformation: [Reference]?
 	
-	/// Start and end time of administration
-	/// One of `occurence[x]`
-	public var occurence: OccurenceX
+	/// Specific date/time or interval of time during which the administration took place (or did not take place)
+	/// One of `occurrence[x]`
+	public var occurrence: OccurrenceX
 	
 	/// When the MedicationAdministration was first captured in the subject's record
 	public var recorded: FHIRPrimitive<DateTime>?
@@ -87,17 +82,17 @@ open class MedicationAdministration: DomainResource {
 	/// Reason full dose was not administered
 	public var subPotentReason: [CodeableConcept]?
 	
-	/// Who performed the medication administration and what they did
+	/// Who or what performed the medication administration and what type of performance they did
 	public var performer: [MedicationAdministrationPerformer]?
 	
-	/// Concept, condition or observation that supports why the medication was administered
+	/// Reason that supports why the medication was administered
 	public var reason: [CodeableReference]?
 	
 	/// Request administration performed against
 	public var request: Reference?
 	
 	/// Device used to administer
-	public var device: [Reference]?
+	public var device: [CodeableReference]?
 	
 	/// Information about the administration
 	public var note: [Annotation]?
@@ -109,9 +104,9 @@ open class MedicationAdministration: DomainResource {
 	public var eventHistory: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(medication: CodeableReference, occurence: OccurenceX, status: FHIRPrimitive<MedicationAdministrationStatusCodes>, subject: Reference) {
+	public init(medication: CodeableReference, occurrence: OccurrenceX, status: FHIRPrimitive<MedicationAdministrationStatusCodes>, subject: Reference) {
 		self.medication = medication
-		self.occurence = occurence
+		self.occurrence = occurrence
 		self.status = status
 		self.subject = subject
 		super.init()
@@ -122,7 +117,7 @@ open class MedicationAdministration: DomainResource {
 		basedOn: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
-		device: [Reference]? = nil,
+		device: [CodeableReference]? = nil,
 		dosage: MedicationAdministrationDosage? = nil,
 		encounter: Reference? = nil,
 		eventHistory: [Reference]? = nil,
@@ -130,15 +125,13 @@ open class MedicationAdministration: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		isSubPotent: FHIRPrimitive<FHIRBool>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		medication: CodeableReference,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
-		occurence: OccurenceX,
+		occurrence: OccurrenceX,
 		partOf: [Reference]? = nil,
 		performer: [MedicationAdministrationPerformer]? = nil,
 		reason: [CodeableReference]? = nil,
@@ -151,7 +144,7 @@ open class MedicationAdministration: DomainResource {
 		supportingInformation: [Reference]? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(medication: medication, occurence: occurence, status: status, subject: subject)
+		self.init(medication: medication, occurrence: occurrence, status: status, subject: subject)
 		self.basedOn = basedOn
 		self.category = category
 		self.contained = contained
@@ -163,8 +156,6 @@ open class MedicationAdministration: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.isSubPotent = isSubPotent
 		self.language = language
 		self.meta = meta
@@ -191,13 +182,12 @@ open class MedicationAdministration: DomainResource {
 		case encounter
 		case eventHistory
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case isSubPotent; case _isSubPotent
 		case medication
 		case note
-		case occurenceDateTime; case _occurenceDateTime
-		case occurencePeriod
+		case occurrenceDateTime; case _occurrenceDateTime
+		case occurrencePeriod
+		case occurrenceTiming
 		case partOf
 		case performer
 		case reason
@@ -215,37 +205,41 @@ open class MedicationAdministration: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.occurenceDateTime) || _container.contains(CodingKeys.occurencePeriod) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.occurenceDateTime, CodingKeys.occurencePeriod], debugDescription: "Must have at least one value for \"occurence\" but have none"))
+		guard _container.contains(CodingKeys.occurrenceDateTime) || _container.contains(CodingKeys.occurrencePeriod) || _container.contains(CodingKeys.occurrenceTiming) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.occurrenceDateTime, CodingKeys.occurrencePeriod, CodingKeys.occurrenceTiming], debugDescription: "Must have at least one value for \"occurrence\" but have none"))
 		}
 		
 		// Decode all our properties
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
-		self.device = try [Reference](from: _container, forKeyIfPresent: .device)
+		self.device = try [CodeableReference](from: _container, forKeyIfPresent: .device)
 		self.dosage = try MedicationAdministrationDosage(from: _container, forKeyIfPresent: .dosage)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.eventHistory = try [Reference](from: _container, forKeyIfPresent: .eventHistory)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.isSubPotent = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isSubPotent, auxiliaryKey: ._isSubPotent)
 		self.medication = try CodeableReference(from: _container, forKey: .medication)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		var _t_occurence: OccurenceX? = nil
-		if let occurenceDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .occurenceDateTime, auxiliaryKey: ._occurenceDateTime) {
-			if _t_occurence != nil {
-				throw DecodingError.dataCorruptedError(forKey: .occurenceDateTime, in: _container, debugDescription: "More than one value provided for \"occurence\"")
+		var _t_occurrence: OccurrenceX? = nil
+		if let occurrenceDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime) {
+			if _t_occurrence != nil {
+				throw DecodingError.dataCorruptedError(forKey: .occurrenceDateTime, in: _container, debugDescription: "More than one value provided for \"occurrence\"")
 			}
-			_t_occurence = .dateTime(occurenceDateTime)
+			_t_occurrence = .dateTime(occurrenceDateTime)
 		}
-		if let occurencePeriod = try Period(from: _container, forKeyIfPresent: .occurencePeriod) {
-			if _t_occurence != nil {
-				throw DecodingError.dataCorruptedError(forKey: .occurencePeriod, in: _container, debugDescription: "More than one value provided for \"occurence\"")
+		if let occurrencePeriod = try Period(from: _container, forKeyIfPresent: .occurrencePeriod) {
+			if _t_occurrence != nil {
+				throw DecodingError.dataCorruptedError(forKey: .occurrencePeriod, in: _container, debugDescription: "More than one value provided for \"occurrence\"")
 			}
-			_t_occurence = .period(occurencePeriod)
+			_t_occurrence = .period(occurrencePeriod)
 		}
-		self.occurence = _t_occurence!
+		if let occurrenceTiming = try Timing(from: _container, forKeyIfPresent: .occurrenceTiming) {
+			if _t_occurrence != nil {
+				throw DecodingError.dataCorruptedError(forKey: .occurrenceTiming, in: _container, debugDescription: "More than one value provided for \"occurrence\"")
+			}
+			_t_occurrence = .timing(occurrenceTiming)
+		}
+		self.occurrence = _t_occurrence!
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.performer = try [MedicationAdministrationPerformer](from: _container, forKeyIfPresent: .performer)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
@@ -271,17 +265,17 @@ open class MedicationAdministration: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try eventHistory?.encode(on: &_container, forKey: .eventHistory)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try isSubPotent?.encode(on: &_container, forKey: .isSubPotent, auxiliaryKey: ._isSubPotent)
 		try medication.encode(on: &_container, forKey: .medication)
 		try note?.encode(on: &_container, forKey: .note)
 		
-			switch occurence {
+			switch occurrence {
 			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .occurenceDateTime, auxiliaryKey: ._occurenceDateTime)
+				try _value.encode(on: &_container, forKey: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime)
 			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .occurencePeriod)
+				try _value.encode(on: &_container, forKey: .occurrencePeriod)
+			case .timing(let _value):
+				try _value.encode(on: &_container, forKey: .occurrenceTiming)
 			}
 		
 		try partOf?.encode(on: &_container, forKey: .partOf)
@@ -313,12 +307,10 @@ open class MedicationAdministration: DomainResource {
 		    && encounter == _other.encounter
 		    && eventHistory == _other.eventHistory
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && isSubPotent == _other.isSubPotent
 		    && medication == _other.medication
 		    && note == _other.note
-		    && occurence == _other.occurence
+		    && occurrence == _other.occurrence
 		    && partOf == _other.partOf
 		    && performer == _other.performer
 		    && reason == _other.reason
@@ -340,12 +332,10 @@ open class MedicationAdministration: DomainResource {
 		hasher.combine(encounter)
 		hasher.combine(eventHistory)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(isSubPotent)
 		hasher.combine(medication)
 		hasher.combine(note)
-		hasher.combine(occurence)
+		hasher.combine(occurrence)
 		hasher.combine(partOf)
 		hasher.combine(performer)
 		hasher.combine(reason)
@@ -509,27 +499,29 @@ open class MedicationAdministrationDosage: BackboneElement {
 }
 
 /**
- Who performed the medication administration and what they did.
+ Who or what performed the medication administration and what type of performance they did.
  
- Indicates who or what performed the medication administration and how they were involved.
+ The performer of the medication treatment.  For devices this is the device that performed the administration of the
+ medication.  An IV Pump would be an example of a device that is performing the administration. Both the IV Pump and the
+ practitioner that set the rate or bolus on the pump can be listed as performers.
  */
 open class MedicationAdministrationPerformer: BackboneElement {
 	
 	/// Type of performance
 	public var function: CodeableConcept?
 	
-	/// Who performed the medication administration
-	public var actor: Reference
+	/// Who or what performed the medication administration
+	public var actor: CodeableReference
 	
 	/// Designated initializer taking all required properties
-	public init(actor: Reference) {
+	public init(actor: CodeableReference) {
 		self.actor = actor
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-		actor: Reference,
+		actor: CodeableReference,
 		`extension`: [Extension]? = nil,
 		function: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -554,7 +546,7 @@ open class MedicationAdministrationPerformer: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actor = try Reference(from: _container, forKey: .actor)
+		self.actor = try CodeableReference(from: _container, forKey: .actor)
 		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
 		try super.init(from: decoder)
 	}

@@ -2,8 +2,8 @@
 //  StructureMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/StructureMap)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/StructureMap)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,13 +21,16 @@ import FMCore
 
 /**
  A Map of relationships between 2 structures that can be used to transform data.
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class StructureMap: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .structureMap }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this structure map, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>
@@ -37,6 +40,10 @@ open class StructureMap: DomainResource {
 	
 	/// Business version of the structure map
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this structure map (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>
@@ -53,7 +60,7 @@ open class StructureMap: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -74,11 +81,17 @@ open class StructureMap: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// Structure Definition used by this map
 	public var structure: [StructureMapStructure]?
 	
 	/// Other maps used by this map (canonical URLs)
 	public var `import`: [FHIRPrimitive<Canonical>]?
+	
+	/// Definition of the constant value used in the map rules
+	public var const: [StructureMapConst]?
 	
 	/// Named sections for reader convenience
 	public var group: [StructureMapGroup]
@@ -94,9 +107,11 @@ open class StructureMap: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		const: [StructureMapConst]? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
@@ -119,12 +134,15 @@ open class StructureMap: DomainResource {
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(group: group, name: name, status: status, url: url)
+		self.const = const
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.description_fhir = description_fhir
 		self.experimental = experimental
@@ -144,13 +162,16 @@ open class StructureMap: DomainResource {
 		self.title = title
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case const
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case experimental; case _experimental
@@ -167,6 +188,8 @@ open class StructureMap: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -174,8 +197,10 @@ open class StructureMap: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.const = try [StructureMapConst](from: _container, forKeyIfPresent: .const)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
@@ -192,6 +217,20 @@ open class StructureMap: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -200,8 +239,10 @@ open class StructureMap: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try const?.encode(on: &_container, forKey: .const)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
@@ -218,6 +259,14 @@ open class StructureMap: DomainResource {
 		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -230,8 +279,10 @@ open class StructureMap: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return contact == _other.contact
+		return const == _other.const
+		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && experimental == _other.experimental
@@ -248,12 +299,15 @@ open class StructureMap: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(const)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(experimental)
@@ -270,13 +324,95 @@ open class StructureMap: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
+	}
+}
+
+/**
+ Definition of the constant value used in the map rules.
+ 
+ Definition of a constant value used in the map rules.
+ */
+open class StructureMapConst: BackboneElement {
+	
+	/// Constant name
+	public var name: FHIRPrimitive<FHIRString>?
+	
+	/// FHIRPath exression - value of the constant
+	public var value: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
+		value: FHIRPrimitive<FHIRString>? = nil
+	) {
+		self.init()
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.name = name
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case name; case _name
+		case value; case _value
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
+		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .value, auxiliaryKey: ._value)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
+		try value?.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? StructureMapConst else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return name == _other.name
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(name)
+		hasher.combine(value)
 	}
 }
 
 /**
  Named sections for reader convenience.
  
- Organizes the mapping into manageable chunks for human review/ease of maintenance.
+ Organizes the mapping into managable chunks for human review/ease of maintenance.
  */
 open class StructureMapGroup: BackboneElement {
 	

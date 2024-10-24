@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- The type of link between this patient resource and another patient resource.
+ The type of link between this Patient resource and other Patient/RelatedPerson resource(s).
  
  URL: http://hl7.org/fhir/link-type
  ValueSet: http://hl7.org/fhir/ValueSet/link-type
@@ -41,9 +41,9 @@ public enum LinkType: String, FHIRPrimitiveType {
 	/// additional referenced information.
 	case replaces
 	
-	/// The patient resource containing this link is in use and valid, but points to another patient resource that is
-	/// known to contain data about the same person. Data in this resource might overlap or contradict information found
-	/// in the other patient resource. This link does not indicate any relative importance of the resources concerned,
-	/// and both should be regarded as equally valid.
+	/// The patient resource containing this link is in use and valid, but points to another Patient or RelatedPerson
+	/// resource that is known to contain data about the same person. Data in this resource might overlap or contradict
+	/// information found in the other Patient/RelatedPerson resource. This link does not indicate any relative
+	/// importance of the resources concerned, and both should be regarded as equally valid.
 	case seealso
 }

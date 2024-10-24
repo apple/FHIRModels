@@ -2,8 +2,8 @@
 //  HealthcareService.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/HealthcareService)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/HealthcareService)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ open class HealthcareService: DomainResource {
 	/// Organization that provides this service
 	public var providedBy: Reference?
 	
+	/// The service within which this service is offered
+	public var offeredIn: [Reference]?
+	
 	/// Broad category of service being performed or delivered
 	public var category: [CodeableConcept]?
 	
@@ -62,9 +65,6 @@ open class HealthcareService: DomainResource {
 	/// Official contact details for the HealthcareService
 	public var contact: [ExtendedContactDetail]?
 	
-	/// Deprecated - use contact.telecom
-	public var telecom: [ContactPoint]?
-	
 	/// Location(s) service is intended for/available to
 	public var coverageArea: [Reference]?
 	
@@ -86,17 +86,14 @@ open class HealthcareService: DomainResource {
 	/// Ways that the service accepts referrals
 	public var referralMethod: [CodeableConcept]?
 	
-	/// If an appointment is required for access to this service
+	/// A referral is required for access to this service
+	public var referralRequired: FHIRPrimitive<FHIRBool>?
+	
+	/// An appointment is required for access to this service
 	public var appointmentRequired: FHIRPrimitive<FHIRBool>?
 	
-	/// Times the Service Site is available
-	public var availableTime: [HealthcareServiceAvailableTime]?
-	
-	/// Not available during this time due to provided reason
-	public var notAvailable: [HealthcareServiceNotAvailable]?
-	
-	/// Description of availability exceptions
-	public var availabilityExceptions: FHIRPrimitive<FHIRString>?
+	/// Times the healthcare service is available (including exceptions)
+	public var availability: Availability?
 	
 	/// Technical endpoints providing access to electronic services operated for the healthcare service
 	public var endpoint: [Reference]?
@@ -110,8 +107,7 @@ open class HealthcareService: DomainResource {
 	public convenience init(
 		active: FHIRPrimitive<FHIRBool>? = nil,
 		appointmentRequired: FHIRPrimitive<FHIRBool>? = nil,
-		availabilityExceptions: FHIRPrimitive<FHIRString>? = nil,
-		availableTime: [HealthcareServiceAvailableTime]? = nil,
+		availability: Availability? = nil,
 		category: [CodeableConcept]? = nil,
 		characteristic: [CodeableConcept]? = nil,
 		comment: FHIRPrimitive<FHIRString>? = nil,
@@ -131,22 +127,21 @@ open class HealthcareService: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
-		notAvailable: [HealthcareServiceNotAvailable]? = nil,
+		offeredIn: [Reference]? = nil,
 		photo: Attachment? = nil,
 		program: [CodeableConcept]? = nil,
 		providedBy: Reference? = nil,
 		referralMethod: [CodeableConcept]? = nil,
+		referralRequired: FHIRPrimitive<FHIRBool>? = nil,
 		serviceProvisionCode: [CodeableConcept]? = nil,
 		specialty: [CodeableConcept]? = nil,
-		telecom: [ContactPoint]? = nil,
 		text: Narrative? = nil,
 		type: [CodeableConcept]? = nil
 	) {
 		self.init()
 		self.active = active
 		self.appointmentRequired = appointmentRequired
-		self.availabilityExceptions = availabilityExceptions
-		self.availableTime = availableTime
+		self.availability = availability
 		self.category = category
 		self.characteristic = characteristic
 		self.comment = comment
@@ -166,14 +161,14 @@ open class HealthcareService: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
-		self.notAvailable = notAvailable
+		self.offeredIn = offeredIn
 		self.photo = photo
 		self.program = program
 		self.providedBy = providedBy
 		self.referralMethod = referralMethod
+		self.referralRequired = referralRequired
 		self.serviceProvisionCode = serviceProvisionCode
 		self.specialty = specialty
-		self.telecom = telecom
 		self.text = text
 		self.type = type
 	}
@@ -183,8 +178,7 @@ open class HealthcareService: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case active; case _active
 		case appointmentRequired; case _appointmentRequired
-		case availabilityExceptions; case _availabilityExceptions
-		case availableTime
+		case availability
 		case category
 		case characteristic
 		case comment; case _comment
@@ -197,14 +191,14 @@ open class HealthcareService: DomainResource {
 		case identifier
 		case location
 		case name; case _name
-		case notAvailable
+		case offeredIn
 		case photo
 		case program
 		case providedBy
 		case referralMethod
+		case referralRequired; case _referralRequired
 		case serviceProvisionCode
 		case specialty
-		case telecom
 		case type
 	}
 	
@@ -215,8 +209,7 @@ open class HealthcareService: DomainResource {
 		// Decode all our properties
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.appointmentRequired = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .appointmentRequired, auxiliaryKey: ._appointmentRequired)
-		self.availabilityExceptions = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .availabilityExceptions, auxiliaryKey: ._availabilityExceptions)
-		self.availableTime = try [HealthcareServiceAvailableTime](from: _container, forKeyIfPresent: .availableTime)
+		self.availability = try Availability(from: _container, forKeyIfPresent: .availability)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
@@ -229,14 +222,14 @@ open class HealthcareService: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.location = try [Reference](from: _container, forKeyIfPresent: .location)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
-		self.notAvailable = try [HealthcareServiceNotAvailable](from: _container, forKeyIfPresent: .notAvailable)
+		self.offeredIn = try [Reference](from: _container, forKeyIfPresent: .offeredIn)
 		self.photo = try Attachment(from: _container, forKeyIfPresent: .photo)
 		self.program = try [CodeableConcept](from: _container, forKeyIfPresent: .program)
 		self.providedBy = try Reference(from: _container, forKeyIfPresent: .providedBy)
 		self.referralMethod = try [CodeableConcept](from: _container, forKeyIfPresent: .referralMethod)
+		self.referralRequired = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .referralRequired, auxiliaryKey: ._referralRequired)
 		self.serviceProvisionCode = try [CodeableConcept](from: _container, forKeyIfPresent: .serviceProvisionCode)
 		self.specialty = try [CodeableConcept](from: _container, forKeyIfPresent: .specialty)
-		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -248,8 +241,7 @@ open class HealthcareService: DomainResource {
 		// Encode all our properties
 		try active?.encode(on: &_container, forKey: .active, auxiliaryKey: ._active)
 		try appointmentRequired?.encode(on: &_container, forKey: .appointmentRequired, auxiliaryKey: ._appointmentRequired)
-		try availabilityExceptions?.encode(on: &_container, forKey: .availabilityExceptions, auxiliaryKey: ._availabilityExceptions)
-		try availableTime?.encode(on: &_container, forKey: .availableTime)
+		try availability?.encode(on: &_container, forKey: .availability)
 		try category?.encode(on: &_container, forKey: .category)
 		try characteristic?.encode(on: &_container, forKey: .characteristic)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
@@ -262,14 +254,14 @@ open class HealthcareService: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try location?.encode(on: &_container, forKey: .location)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
-		try notAvailable?.encode(on: &_container, forKey: .notAvailable)
+		try offeredIn?.encode(on: &_container, forKey: .offeredIn)
 		try photo?.encode(on: &_container, forKey: .photo)
 		try program?.encode(on: &_container, forKey: .program)
 		try providedBy?.encode(on: &_container, forKey: .providedBy)
 		try referralMethod?.encode(on: &_container, forKey: .referralMethod)
+		try referralRequired?.encode(on: &_container, forKey: .referralRequired, auxiliaryKey: ._referralRequired)
 		try serviceProvisionCode?.encode(on: &_container, forKey: .serviceProvisionCode)
 		try specialty?.encode(on: &_container, forKey: .specialty)
-		try telecom?.encode(on: &_container, forKey: .telecom)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -285,8 +277,7 @@ open class HealthcareService: DomainResource {
 		}
 		return active == _other.active
 		    && appointmentRequired == _other.appointmentRequired
-		    && availabilityExceptions == _other.availabilityExceptions
-		    && availableTime == _other.availableTime
+		    && availability == _other.availability
 		    && category == _other.category
 		    && characteristic == _other.characteristic
 		    && comment == _other.comment
@@ -299,14 +290,14 @@ open class HealthcareService: DomainResource {
 		    && identifier == _other.identifier
 		    && location == _other.location
 		    && name == _other.name
-		    && notAvailable == _other.notAvailable
+		    && offeredIn == _other.offeredIn
 		    && photo == _other.photo
 		    && program == _other.program
 		    && providedBy == _other.providedBy
 		    && referralMethod == _other.referralMethod
+		    && referralRequired == _other.referralRequired
 		    && serviceProvisionCode == _other.serviceProvisionCode
 		    && specialty == _other.specialty
-		    && telecom == _other.telecom
 		    && type == _other.type
 	}
 	
@@ -314,8 +305,7 @@ open class HealthcareService: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(active)
 		hasher.combine(appointmentRequired)
-		hasher.combine(availabilityExceptions)
-		hasher.combine(availableTime)
+		hasher.combine(availability)
 		hasher.combine(category)
 		hasher.combine(characteristic)
 		hasher.combine(comment)
@@ -328,116 +318,15 @@ open class HealthcareService: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(location)
 		hasher.combine(name)
-		hasher.combine(notAvailable)
+		hasher.combine(offeredIn)
 		hasher.combine(photo)
 		hasher.combine(program)
 		hasher.combine(providedBy)
 		hasher.combine(referralMethod)
+		hasher.combine(referralRequired)
 		hasher.combine(serviceProvisionCode)
 		hasher.combine(specialty)
-		hasher.combine(telecom)
 		hasher.combine(type)
-	}
-}
-
-/**
- Times the Service Site is available.
- 
- A collection of times that the Service Site is available.
- */
-open class HealthcareServiceAvailableTime: BackboneElement {
-	
-	/// Indicates which days of the week are available between the start and end Times.
-	public var daysOfWeek: [FHIRPrimitive<DaysOfWeek>]?
-	
-	/// Always available? i.e. 24 hour service
-	public var allDay: FHIRPrimitive<FHIRBool>?
-	
-	/// Opening time of day (ignored if allDay = true)
-	public var availableStartTime: FHIRPrimitive<FHIRTime>?
-	
-	/// Closing time of day (ignored if allDay = true)
-	public var availableEndTime: FHIRPrimitive<FHIRTime>?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		allDay: FHIRPrimitive<FHIRBool>? = nil,
-		availableEndTime: FHIRPrimitive<FHIRTime>? = nil,
-		availableStartTime: FHIRPrimitive<FHIRTime>? = nil,
-		daysOfWeek: [FHIRPrimitive<DaysOfWeek>]? = nil,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
-	) {
-		self.init()
-		self.allDay = allDay
-		self.availableEndTime = availableEndTime
-		self.availableStartTime = availableStartTime
-		self.daysOfWeek = daysOfWeek
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case allDay; case _allDay
-		case availableEndTime; case _availableEndTime
-		case availableStartTime; case _availableStartTime
-		case daysOfWeek; case _daysOfWeek
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.allDay = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .allDay, auxiliaryKey: ._allDay)
-		self.availableEndTime = try FHIRPrimitive<FHIRTime>(from: _container, forKeyIfPresent: .availableEndTime, auxiliaryKey: ._availableEndTime)
-		self.availableStartTime = try FHIRPrimitive<FHIRTime>(from: _container, forKeyIfPresent: .availableStartTime, auxiliaryKey: ._availableStartTime)
-		self.daysOfWeek = try [FHIRPrimitive<DaysOfWeek>](from: _container, forKeyIfPresent: .daysOfWeek, auxiliaryKey: ._daysOfWeek)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try allDay?.encode(on: &_container, forKey: .allDay, auxiliaryKey: ._allDay)
-		try availableEndTime?.encode(on: &_container, forKey: .availableEndTime, auxiliaryKey: ._availableEndTime)
-		try availableStartTime?.encode(on: &_container, forKey: .availableStartTime, auxiliaryKey: ._availableStartTime)
-		try daysOfWeek?.encode(on: &_container, forKey: .daysOfWeek, auxiliaryKey: ._daysOfWeek)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? HealthcareServiceAvailableTime else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return allDay == _other.allDay
-		    && availableEndTime == _other.availableEndTime
-		    && availableStartTime == _other.availableStartTime
-		    && daysOfWeek == _other.daysOfWeek
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(allDay)
-		hasher.combine(availableEndTime)
-		hasher.combine(availableStartTime)
-		hasher.combine(daysOfWeek)
 	}
 }
 
@@ -448,11 +337,27 @@ open class HealthcareServiceAvailableTime: BackboneElement {
  */
 open class HealthcareServiceEligibility: BackboneElement {
 	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case quantity(Quantity)
+		case range(Range)
+		case reference(Reference)
+	}
+	
 	/// Coded value for the eligibility
 	public var code: CodeableConcept?
 	
+	/// Value associated with the eligibility code
+	/// One of `value[x]`
+	public var value: ValueX?
+	
 	/// Describes the eligibility conditions for the service
 	public var comment: FHIRPrimitive<FHIRString>?
+	
+	/// The period this eligibility rule applies
+	public var period: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -465,7 +370,9 @@ open class HealthcareServiceEligibility: BackboneElement {
 		comment: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
+		modifierExtension: [Extension]? = nil,
+		period: FHIRPrimitive<FHIRString>? = nil,
+		value: ValueX? = nil
 	) {
 		self.init()
 		self.code = code
@@ -473,6 +380,8 @@ open class HealthcareServiceEligibility: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.period = period
+		self.value = value
 	}
 	
 	// MARK: - Codable
@@ -480,6 +389,12 @@ open class HealthcareServiceEligibility: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case comment; case _comment
+		case period; case _period
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valueQuantity
+		case valueRange
+		case valueReference
 	}
 	
 	/// Initializer for Decodable
@@ -489,6 +404,39 @@ open class HealthcareServiceEligibility: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
+		self.period = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .period, auxiliaryKey: ._period)
+		var _t_value: ValueX? = nil
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
+		}
+		self.value = _t_value
 		try super.init(from: decoder)
 	}
 	
@@ -499,6 +447,21 @@ open class HealthcareServiceEligibility: BackboneElement {
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
+		try period?.encode(on: &_container, forKey: .period, auxiliaryKey: ._period)
+		if let _enum = value {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -513,92 +476,15 @@ open class HealthcareServiceEligibility: BackboneElement {
 		}
 		return code == _other.code
 		    && comment == _other.comment
+		    && period == _other.period
+		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(comment)
-	}
-}
-
-/**
- Not available during this time due to provided reason.
- 
- The HealthcareService is not available during this period of time due to the provided reason.
- */
-open class HealthcareServiceNotAvailable: BackboneElement {
-	
-	/// Reason presented to the user explaining why time not available
-	public var description_fhir: FHIRPrimitive<FHIRString>
-	
-	/// Service not available from this date
-	public var during: Period?
-	
-	/// Designated initializer taking all required properties
-	public init(description_fhir: FHIRPrimitive<FHIRString>) {
-		self.description_fhir = description_fhir
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		description_fhir: FHIRPrimitive<FHIRString>,
-		during: Period? = nil,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
-	) {
-		self.init(description_fhir: description_fhir)
-		self.during = during
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case description_fhir = "description"; case _description_fhir = "_description"
-		case during
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.during = try Period(from: _container, forKeyIfPresent: .during)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try description_fhir.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try during?.encode(on: &_container, forKey: .during)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? HealthcareServiceNotAvailable else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return description_fhir == _other.description_fhir
-		    && during == _other.during
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(description_fhir)
-		hasher.combine(during)
+		hasher.combine(period)
+		hasher.combine(value)
 	}
 }

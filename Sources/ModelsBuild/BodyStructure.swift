@@ -2,8 +2,8 @@
 //  BodyStructure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/BodyStructure)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/BodyStructure)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ open class BodyStructure: DomainResource {
 	public var includedStructure: [BodyStructureIncludedStructure]
 	
 	/// Excluded anatomic locations(s)
-	public var excludedStructure: [BodyStructureExcludedStructure]?
+	public var excludedStructure: [BodyStructureIncludedStructure]?
 	
 	/// Text description
 	public var description_fhir: FHIRPrimitive<FHIRString>?
@@ -65,7 +65,7 @@ open class BodyStructure: DomainResource {
 		active: FHIRPrimitive<FHIRBool>? = nil,
 		contained: [ResourceProxy]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
-		excludedStructure: [BodyStructureExcludedStructure]? = nil,
+		excludedStructure: [BodyStructureIncludedStructure]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
@@ -116,7 +116,7 @@ open class BodyStructure: DomainResource {
 		// Decode all our properties
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.excludedStructure = try [BodyStructureExcludedStructure](from: _container, forKeyIfPresent: .excludedStructure)
+		self.excludedStructure = try [BodyStructureIncludedStructure](from: _container, forKeyIfPresent: .excludedStructure)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.image = try [Attachment](from: _container, forKeyIfPresent: .image)
 		self.includedStructure = try [BodyStructureIncludedStructure](from: _container, forKey: .includedStructure)
@@ -174,97 +174,6 @@ open class BodyStructure: DomainResource {
 }
 
 /**
- Excluded anatomic locations(s).
- 
- The anatomical location(s) or region(s) not occupied or represented by the specimen, lesion, or body structure.
- */
-open class BodyStructureExcludedStructure: BackboneElement {
-	
-	/// Code that represents the excluded structure
-	public var structure: CodeableConcept
-	
-	/// Code that represents the excluded structure laterality
-	public var laterality: CodeableConcept?
-	
-	/// Code that represents the excluded structure qualifier
-	public var qualifier: [CodeableConcept]?
-	
-	/// Designated initializer taking all required properties
-	public init(structure: CodeableConcept) {
-		self.structure = structure
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		laterality: CodeableConcept? = nil,
-		modifierExtension: [Extension]? = nil,
-		qualifier: [CodeableConcept]? = nil,
-		structure: CodeableConcept
-	) {
-		self.init(structure: structure)
-		self.`extension` = `extension`
-		self.id = id
-		self.laterality = laterality
-		self.modifierExtension = modifierExtension
-		self.qualifier = qualifier
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case laterality
-		case qualifier
-		case structure
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
-		self.qualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .qualifier)
-		self.structure = try CodeableConcept(from: _container, forKey: .structure)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try laterality?.encode(on: &_container, forKey: .laterality)
-		try qualifier?.encode(on: &_container, forKey: .qualifier)
-		try structure.encode(on: &_container, forKey: .structure)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? BodyStructureExcludedStructure else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return laterality == _other.laterality
-		    && qualifier == _other.qualifier
-		    && structure == _other.structure
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(laterality)
-		hasher.combine(qualifier)
-		hasher.combine(structure)
-	}
-}
-
-/**
  Included anatomic location(s).
  
  The anatomical location(s) or region(s) of the specimen, lesion, or body structure.
@@ -277,6 +186,12 @@ open class BodyStructureIncludedStructure: BackboneElement {
 	/// Code that represents the included structure laterality
 	public var laterality: CodeableConcept?
 	
+	/// Landmark relative location
+	public var bodyLandmarkOrientation: [BodyStructureIncludedStructureBodyLandmarkOrientation]?
+	
+	/// Cartesian reference for structure
+	public var spatialReference: [Reference]?
+	
 	/// Code that represents the included structure qualifier
 	public var qualifier: [CodeableConcept]?
 	
@@ -288,26 +203,32 @@ open class BodyStructureIncludedStructure: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		bodyLandmarkOrientation: [BodyStructureIncludedStructureBodyLandmarkOrientation]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		laterality: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
 		qualifier: [CodeableConcept]? = nil,
+		spatialReference: [Reference]? = nil,
 		structure: CodeableConcept
 	) {
 		self.init(structure: structure)
+		self.bodyLandmarkOrientation = bodyLandmarkOrientation
 		self.`extension` = `extension`
 		self.id = id
 		self.laterality = laterality
 		self.modifierExtension = modifierExtension
 		self.qualifier = qualifier
+		self.spatialReference = spatialReference
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case bodyLandmarkOrientation
 		case laterality
 		case qualifier
+		case spatialReference
 		case structure
 	}
 	
@@ -316,8 +237,10 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.bodyLandmarkOrientation = try [BodyStructureIncludedStructureBodyLandmarkOrientation](from: _container, forKeyIfPresent: .bodyLandmarkOrientation)
 		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
 		self.qualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .qualifier)
+		self.spatialReference = try [Reference](from: _container, forKeyIfPresent: .spatialReference)
 		self.structure = try CodeableConcept(from: _container, forKey: .structure)
 		try super.init(from: decoder)
 	}
@@ -327,8 +250,10 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try bodyLandmarkOrientation?.encode(on: &_container, forKey: .bodyLandmarkOrientation)
 		try laterality?.encode(on: &_container, forKey: .laterality)
 		try qualifier?.encode(on: &_container, forKey: .qualifier)
+		try spatialReference?.encode(on: &_container, forKey: .spatialReference)
 		try structure.encode(on: &_container, forKey: .structure)
 		try super.encode(to: encoder)
 	}
@@ -342,15 +267,201 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return laterality == _other.laterality
+		return bodyLandmarkOrientation == _other.bodyLandmarkOrientation
+		    && laterality == _other.laterality
 		    && qualifier == _other.qualifier
+		    && spatialReference == _other.spatialReference
 		    && structure == _other.structure
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(bodyLandmarkOrientation)
 		hasher.combine(laterality)
 		hasher.combine(qualifier)
+		hasher.combine(spatialReference)
 		hasher.combine(structure)
+	}
+}
+
+/**
+ Landmark relative location.
+ 
+ Body location in relation to a specific body landmark (e.g., a body structure such a navel, scar, or implanted device).
+ */
+open class BodyStructureIncludedStructureBodyLandmarkOrientation: BackboneElement {
+	
+	/// Explanation of landmark
+	public var landmarkDescription: [CodeableConcept]?
+	
+	/// Clockface orientation
+	public var clockFacePosition: [CodeableConcept]?
+	
+	/// Landmark relative location
+	public var distanceFromLandmark: [BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark]?
+	
+	/// Relative landmark surface orientation
+	public var surfaceOrientation: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		clockFacePosition: [CodeableConcept]? = nil,
+		distanceFromLandmark: [BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		landmarkDescription: [CodeableConcept]? = nil,
+		modifierExtension: [Extension]? = nil,
+		surfaceOrientation: [CodeableConcept]? = nil
+	) {
+		self.init()
+		self.clockFacePosition = clockFacePosition
+		self.distanceFromLandmark = distanceFromLandmark
+		self.`extension` = `extension`
+		self.id = id
+		self.landmarkDescription = landmarkDescription
+		self.modifierExtension = modifierExtension
+		self.surfaceOrientation = surfaceOrientation
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case clockFacePosition
+		case distanceFromLandmark
+		case landmarkDescription
+		case surfaceOrientation
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.clockFacePosition = try [CodeableConcept](from: _container, forKeyIfPresent: .clockFacePosition)
+		self.distanceFromLandmark = try [BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark](from: _container, forKeyIfPresent: .distanceFromLandmark)
+		self.landmarkDescription = try [CodeableConcept](from: _container, forKeyIfPresent: .landmarkDescription)
+		self.surfaceOrientation = try [CodeableConcept](from: _container, forKeyIfPresent: .surfaceOrientation)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try clockFacePosition?.encode(on: &_container, forKey: .clockFacePosition)
+		try distanceFromLandmark?.encode(on: &_container, forKey: .distanceFromLandmark)
+		try landmarkDescription?.encode(on: &_container, forKey: .landmarkDescription)
+		try surfaceOrientation?.encode(on: &_container, forKey: .surfaceOrientation)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? BodyStructureIncludedStructureBodyLandmarkOrientation else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return clockFacePosition == _other.clockFacePosition
+		    && distanceFromLandmark == _other.distanceFromLandmark
+		    && landmarkDescription == _other.landmarkDescription
+		    && surfaceOrientation == _other.surfaceOrientation
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(clockFacePosition)
+		hasher.combine(distanceFromLandmark)
+		hasher.combine(landmarkDescription)
+		hasher.combine(surfaceOrientation)
+	}
+}
+
+/**
+ Landmark relative location.
+ 
+ The distance in centimeters a certain observation is made from a body landmark.
+ */
+open class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark: BackboneElement {
+	
+	/// Measurement device
+	public var device: [CodeableReference]?
+	
+	/// Measured distance from body landmark
+	public var value: [Quantity]?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		device: [CodeableReference]? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: [Quantity]? = nil
+	) {
+		self.init()
+		self.device = device
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case device
+		case value
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.device = try [CodeableReference](from: _container, forKeyIfPresent: .device)
+		self.value = try [Quantity](from: _container, forKeyIfPresent: .value)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try device?.encode(on: &_container, forKey: .device)
+		try value?.encode(on: &_container, forKey: .value)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return device == _other.device
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(device)
+		hasher.combine(value)
 	}
 }

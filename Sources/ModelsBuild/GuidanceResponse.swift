@@ -2,8 +2,8 @@
 //  GuidanceResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -73,13 +73,13 @@ open class GuidanceResponse: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Messages resulting from the evaluation of the artifact or artifacts
-	public var evaluationMessage: [Reference]?
+	public var evaluationMessage: Reference?
 	
 	/// The output parameters of the evaluation, if any
 	public var outputParameters: Reference?
 	
 	/// Proposed actions, if any
-	public var result: Reference?
+	public var result: [Reference]?
 	
 	/// Additional required data
 	public var dataRequirement: [DataRequirement]?
@@ -96,7 +96,7 @@ open class GuidanceResponse: DomainResource {
 		contained: [ResourceProxy]? = nil,
 		dataRequirement: [DataRequirement]? = nil,
 		encounter: Reference? = nil,
-		evaluationMessage: [Reference]? = nil,
+		evaluationMessage: Reference? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
@@ -111,7 +111,7 @@ open class GuidanceResponse: DomainResource {
 		performer: Reference? = nil,
 		reason: [CodeableReference]? = nil,
 		requestIdentifier: Identifier? = nil,
-		result: Reference? = nil,
+		result: [Reference]? = nil,
 		status: FHIRPrimitive<GuidanceResponseStatus>,
 		subject: Reference? = nil,
 		text: Narrative? = nil
@@ -172,7 +172,7 @@ open class GuidanceResponse: DomainResource {
 		// Decode all our properties
 		self.dataRequirement = try [DataRequirement](from: _container, forKeyIfPresent: .dataRequirement)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
-		self.evaluationMessage = try [Reference](from: _container, forKeyIfPresent: .evaluationMessage)
+		self.evaluationMessage = try Reference(from: _container, forKeyIfPresent: .evaluationMessage)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		var _t_module: ModuleX? = nil
 		if let moduleUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .moduleUri, auxiliaryKey: ._moduleUri) {
@@ -200,7 +200,7 @@ open class GuidanceResponse: DomainResource {
 		self.performer = try Reference(from: _container, forKeyIfPresent: .performer)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.requestIdentifier = try Identifier(from: _container, forKeyIfPresent: .requestIdentifier)
-		self.result = try Reference(from: _container, forKeyIfPresent: .result)
+		self.result = try [Reference](from: _container, forKeyIfPresent: .result)
 		self.status = try FHIRPrimitive<GuidanceResponseStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)

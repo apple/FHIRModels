@@ -2,8 +2,8 @@
 //  CommunicationRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CommunicationRequest)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CommunicationRequest)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,7 @@
 import FMCore
 
 /**
- A request for information to be sent to a receiver.
- 
- A request to convey information; e.g. the CDS system proposes that an alert be sent to a responsible provider, the CDS
- system proposes that the public health agency be notified about a reportable condition.
+ A request to convey information from a sender to a recipient.
  */
 open class CommunicationRequest: DomainResource {
 	

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ public enum StructureDefinitionKind: String, FHIRPrimitiveType {
 	
 	/// A 'resource' - a directed acyclic graph of elements that aggregrates other types into an identifiable entity.
 	/// The base FHIR resources are defined by the FHIR specification itself but other 'resources' can be defined in
-	/// additional specifications (though these will not be recognised as 'resources' by the FHIR specification (i.e.
-	/// they do not get end-points etc, or act as the targets of references in FHIR defined resources - though other
-	/// specificatiosn can treat them this way).
+	/// additional specifications (though these will not be recognized as 'resources' by the FHIR specification; i.e.
+	/// they do not get end-points etc., or act as the targets of references in FHIR defined resources - though other
+	/// specifications can treat them this way).
 	case resource
 }

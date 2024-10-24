@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,8 +39,7 @@ public enum DiagnosticReportStatus: String, FHIRPrimitiveType {
 	/// "aborted").
 	case cancelled
 	
-	/// Subsequent to being final, the report has been modified  to correct an error in the report or referenced
-	/// results.
+	/// Subsequent to being final, the report has been modified to correct an error in the report or referenced results.
 	case corrected
 	
 	/// The report has been withdrawn following a previous final release.  This electronic record should never have
@@ -51,11 +50,15 @@ public enum DiagnosticReportStatus: String, FHIRPrimitiveType {
 	/// The report is complete and verified by an authorized person.
 	case final
 	
+	/// Prior to being final, the report has been modified.  This includes any change in the results, diagnosis,
+	/// narrative text, or other content of a non-finalized (e.g., preliminary) report that has been issued.
+	case modified
+	
 	/// This is a partial (e.g. initial, interim or preliminary) report: data in the report may be incomplete or
 	/// unverified.
 	case partial
 	
-	/// Verified early results are available, but not all  results are final.
+	/// Verified early results are available, but not all results are final.
 	case preliminary
 	
 	/// The existence of the report is registered, but there is nothing yet available.

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- None
+ MedicationRequest Intent Codes
  
  URL: http://hl7.org/fhir/CodeSystem/medicationrequest-intent
  ValueSet: http://hl7.org/fhir/ValueSet/medicationrequest-intent
@@ -35,8 +35,8 @@ public enum MedicationRequestIntentCodes: String, FHIRPrimitiveType {
 	/// medication administration record (MAR).
 	case instanceOrder = "instance-order"
 	
-	/// The request represents a component or option for a RequestGroup that establishes timing, conditionality and/or
-	/// other constraints among a set of requests.
+	/// The request represents a component or option for a RequestOrchestration that establishes timing, conditionality
+	/// and/or  other constraints among a set of requests.
 	case option
 	
 	/// The request represents a request/demand and authorization for action

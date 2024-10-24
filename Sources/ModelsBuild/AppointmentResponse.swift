@@ -2,8 +2,8 @@
 //  AppointmentResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AppointmentResponse)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AppointmentResponse)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,6 +32,9 @@ open class AppointmentResponse: DomainResource {
 	/// Appointment this response relates to
 	public var appointment: Reference
 	
+	/// Indicator for a counter proposal
+	public var proposedNewTime: FHIRPrimitive<FHIRBool>?
+	
 	/// Time from appointment, or requested new start time
 	public var start: FHIRPrimitive<Instant>?
 	
@@ -44,17 +47,23 @@ open class AppointmentResponse: DomainResource {
 	/// Person(s), Location, HealthcareService, or Device
 	public var actor: Reference?
 	
-	/// Participation status of the participant. When the status is declined or tentative if the start/end times are
-	/// different to the appointment, then these times should be interpreted as a requested time change. When the status
-	/// is accepted, the times can either be the time of the appointment (as a confirmation of the time) or can be
-	/// empty.
-	public var participantStatus: FHIRPrimitive<ParticipationStatus>
+	/// accepted | declined | tentative | needs-action | entered-in-error
+	public var participantStatus: FHIRPrimitive<FHIRString>
 	
 	/// Additional comments
 	public var comment: FHIRPrimitive<FHIRString>?
 	
+	/// This response is for all occurrences in a recurring request
+	public var recurring: FHIRPrimitive<FHIRBool>?
+	
+	/// Original date within a recurring request
+	public var occurrenceDate: FHIRPrimitive<FHIRDate>?
+	
+	/// The recurrence ID of the specific recurring request
+	public var recurrenceId: FHIRPrimitive<FHIRPositiveInteger>?
+	
 	/// Designated initializer taking all required properties
-	public init(appointment: Reference, participantStatus: FHIRPrimitive<ParticipationStatus>) {
+	public init(appointment: Reference, participantStatus: FHIRPrimitive<FHIRString>) {
 		self.appointment = appointment
 		self.participantStatus = participantStatus
 		super.init()
@@ -74,8 +83,12 @@ open class AppointmentResponse: DomainResource {
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
-		participantStatus: FHIRPrimitive<ParticipationStatus>,
+		occurrenceDate: FHIRPrimitive<FHIRDate>? = nil,
+		participantStatus: FHIRPrimitive<FHIRString>,
 		participantType: [CodeableConcept]? = nil,
+		proposedNewTime: FHIRPrimitive<FHIRBool>? = nil,
+		recurrenceId: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		recurring: FHIRPrimitive<FHIRBool>? = nil,
 		start: FHIRPrimitive<Instant>? = nil,
 		text: Narrative? = nil
 	) {
@@ -91,7 +104,11 @@ open class AppointmentResponse: DomainResource {
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.occurrenceDate = occurrenceDate
 		self.participantType = participantType
+		self.proposedNewTime = proposedNewTime
+		self.recurrenceId = recurrenceId
+		self.recurring = recurring
 		self.start = start
 		self.text = text
 	}
@@ -104,8 +121,12 @@ open class AppointmentResponse: DomainResource {
 		case comment; case _comment
 		case end; case _end
 		case identifier
+		case occurrenceDate; case _occurrenceDate
 		case participantStatus; case _participantStatus
 		case participantType
+		case proposedNewTime; case _proposedNewTime
+		case recurrenceId; case _recurrenceId
+		case recurring; case _recurring
 		case start; case _start
 	}
 	
@@ -119,8 +140,12 @@ open class AppointmentResponse: DomainResource {
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.end = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .end, auxiliaryKey: ._end)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.participantStatus = try FHIRPrimitive<ParticipationStatus>(from: _container, forKey: .participantStatus, auxiliaryKey: ._participantStatus)
+		self.occurrenceDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .occurrenceDate, auxiliaryKey: ._occurrenceDate)
+		self.participantStatus = try FHIRPrimitive<FHIRString>(from: _container, forKey: .participantStatus, auxiliaryKey: ._participantStatus)
 		self.participantType = try [CodeableConcept](from: _container, forKeyIfPresent: .participantType)
+		self.proposedNewTime = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .proposedNewTime, auxiliaryKey: ._proposedNewTime)
+		self.recurrenceId = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .recurrenceId, auxiliaryKey: ._recurrenceId)
+		self.recurring = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .recurring, auxiliaryKey: ._recurring)
 		self.start = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .start, auxiliaryKey: ._start)
 		try super.init(from: decoder)
 	}
@@ -135,8 +160,12 @@ open class AppointmentResponse: DomainResource {
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try end?.encode(on: &_container, forKey: .end, auxiliaryKey: ._end)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try occurrenceDate?.encode(on: &_container, forKey: .occurrenceDate, auxiliaryKey: ._occurrenceDate)
 		try participantStatus.encode(on: &_container, forKey: .participantStatus, auxiliaryKey: ._participantStatus)
 		try participantType?.encode(on: &_container, forKey: .participantType)
+		try proposedNewTime?.encode(on: &_container, forKey: .proposedNewTime, auxiliaryKey: ._proposedNewTime)
+		try recurrenceId?.encode(on: &_container, forKey: .recurrenceId, auxiliaryKey: ._recurrenceId)
+		try recurring?.encode(on: &_container, forKey: .recurring, auxiliaryKey: ._recurring)
 		try start?.encode(on: &_container, forKey: .start, auxiliaryKey: ._start)
 		try super.encode(to: encoder)
 	}
@@ -155,8 +184,12 @@ open class AppointmentResponse: DomainResource {
 		    && comment == _other.comment
 		    && end == _other.end
 		    && identifier == _other.identifier
+		    && occurrenceDate == _other.occurrenceDate
 		    && participantStatus == _other.participantStatus
 		    && participantType == _other.participantType
+		    && proposedNewTime == _other.proposedNewTime
+		    && recurrenceId == _other.recurrenceId
+		    && recurring == _other.recurring
 		    && start == _other.start
 	}
 	
@@ -167,8 +200,12 @@ open class AppointmentResponse: DomainResource {
 		hasher.combine(comment)
 		hasher.combine(end)
 		hasher.combine(identifier)
+		hasher.combine(occurrenceDate)
 		hasher.combine(participantStatus)
 		hasher.combine(participantType)
+		hasher.combine(proposedNewTime)
+		hasher.combine(recurrenceId)
+		hasher.combine(recurring)
 		hasher.combine(start)
 	}
 }

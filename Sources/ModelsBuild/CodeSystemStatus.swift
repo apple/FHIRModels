@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,6 +29,9 @@ public enum Status: String, FHIRPrimitiveType {
 	
 	/// ***TODO***
 	case attested
+	
+	/// The VerificationResult record was created erroneously and is not appropriated for use.
+	case enteredInError = "entered-in-error"
 	
 	/// ***TODO***
 	case inProcess = "in-process"

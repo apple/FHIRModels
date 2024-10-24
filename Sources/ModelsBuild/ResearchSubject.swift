@@ -2,8 +2,8 @@
 //  ResearchSubject.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
 import FMCore
 
 /**
- Physical entity which is the primary unit of interest in the study.
+ Participant or object which is the recipient of investigative activities in a study.
  
- A physical entity which is the primary unit of operational and/or administrative interest in a study.
+ A ResearchSubject is a participant or object which is the recipient of investigative activities in a research study.
  */
 open class ResearchSubject: DomainResource {
 	
@@ -34,9 +34,6 @@ open class ResearchSubject: DomainResource {
 	/// The publication state of the resource (not of the subject).
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// Subject status
-	public var progress: [ResearchSubjectProgress]?
-	
 	/// Start and end of participation
 	public var period: Period?
 	
@@ -46,14 +43,20 @@ open class ResearchSubject: DomainResource {
 	/// Who or what is part of study
 	public var subject: Reference
 	
+	/// A duration in the lifecycle of the ResearchSubject within a ResearchStudy
+	public var subjectState: [ResearchSubjectSubjectState]?
+	
+	/// A significant event in the progress of a ResearchSubject
+	public var subjectMilestone: [ResearchSubjectSubjectMilestone]?
+	
 	/// What path should be followed
-	public var assignedArm: FHIRPrimitive<FHIRString>?
+	public var assignedComparisonGroup: FHIRPrimitive<FHIRString>?
 	
 	/// What path was followed
-	public var actualArm: FHIRPrimitive<FHIRString>?
+	public var actualComparisonGroup: FHIRPrimitive<FHIRString>?
 	
 	/// Agreement to participate in study
-	public var consent: Reference?
+	public var consent: [Reference]?
 	
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<PublicationStatus>, study: Reference, subject: Reference) {
@@ -65,9 +68,9 @@ open class ResearchSubject: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		actualArm: FHIRPrimitive<FHIRString>? = nil,
-		assignedArm: FHIRPrimitive<FHIRString>? = nil,
-		consent: Reference? = nil,
+		actualComparisonGroup: FHIRPrimitive<FHIRString>? = nil,
+		assignedComparisonGroup: FHIRPrimitive<FHIRString>? = nil,
+		consent: [Reference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -77,15 +80,16 @@ open class ResearchSubject: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		period: Period? = nil,
-		progress: [ResearchSubjectProgress]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		study: Reference,
 		subject: Reference,
+		subjectMilestone: [ResearchSubjectSubjectMilestone]? = nil,
+		subjectState: [ResearchSubjectSubjectState]? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(status: status, study: study, subject: subject)
-		self.actualArm = actualArm
-		self.assignedArm = assignedArm
+		self.actualComparisonGroup = actualComparisonGroup
+		self.assignedComparisonGroup = assignedComparisonGroup
 		self.consent = consent
 		self.contained = contained
 		self.`extension` = `extension`
@@ -96,22 +100,24 @@ open class ResearchSubject: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.period = period
-		self.progress = progress
+		self.subjectMilestone = subjectMilestone
+		self.subjectState = subjectState
 		self.text = text
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case actualArm; case _actualArm
-		case assignedArm; case _assignedArm
+		case actualComparisonGroup; case _actualComparisonGroup
+		case assignedComparisonGroup; case _assignedComparisonGroup
 		case consent
 		case identifier
 		case period
-		case progress
 		case status; case _status
 		case study
 		case subject
+		case subjectMilestone
+		case subjectState
 	}
 	
 	/// Initializer for Decodable
@@ -119,15 +125,16 @@ open class ResearchSubject: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actualArm = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .actualArm, auxiliaryKey: ._actualArm)
-		self.assignedArm = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assignedArm, auxiliaryKey: ._assignedArm)
-		self.consent = try Reference(from: _container, forKeyIfPresent: .consent)
+		self.actualComparisonGroup = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .actualComparisonGroup, auxiliaryKey: ._actualComparisonGroup)
+		self.assignedComparisonGroup = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assignedComparisonGroup, auxiliaryKey: ._assignedComparisonGroup)
+		self.consent = try [Reference](from: _container, forKeyIfPresent: .consent)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
-		self.progress = try [ResearchSubjectProgress](from: _container, forKeyIfPresent: .progress)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.study = try Reference(from: _container, forKey: .study)
 		self.subject = try Reference(from: _container, forKey: .subject)
+		self.subjectMilestone = try [ResearchSubjectSubjectMilestone](from: _container, forKeyIfPresent: .subjectMilestone)
+		self.subjectState = try [ResearchSubjectSubjectState](from: _container, forKeyIfPresent: .subjectState)
 		try super.init(from: decoder)
 	}
 	
@@ -136,15 +143,16 @@ open class ResearchSubject: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try actualArm?.encode(on: &_container, forKey: .actualArm, auxiliaryKey: ._actualArm)
-		try assignedArm?.encode(on: &_container, forKey: .assignedArm, auxiliaryKey: ._assignedArm)
+		try actualComparisonGroup?.encode(on: &_container, forKey: .actualComparisonGroup, auxiliaryKey: ._actualComparisonGroup)
+		try assignedComparisonGroup?.encode(on: &_container, forKey: .assignedComparisonGroup, auxiliaryKey: ._assignedComparisonGroup)
 		try consent?.encode(on: &_container, forKey: .consent)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try period?.encode(on: &_container, forKey: .period)
-		try progress?.encode(on: &_container, forKey: .progress)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try study.encode(on: &_container, forKey: .study)
 		try subject.encode(on: &_container, forKey: .subject)
+		try subjectMilestone?.encode(on: &_container, forKey: .subjectMilestone)
+		try subjectState?.encode(on: &_container, forKey: .subjectState)
 		try super.encode(to: encoder)
 	}
 	
@@ -157,95 +165,76 @@ open class ResearchSubject: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return actualArm == _other.actualArm
-		    && assignedArm == _other.assignedArm
+		return actualComparisonGroup == _other.actualComparisonGroup
+		    && assignedComparisonGroup == _other.assignedComparisonGroup
 		    && consent == _other.consent
 		    && identifier == _other.identifier
 		    && period == _other.period
-		    && progress == _other.progress
 		    && status == _other.status
 		    && study == _other.study
 		    && subject == _other.subject
+		    && subjectMilestone == _other.subjectMilestone
+		    && subjectState == _other.subjectState
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(actualArm)
-		hasher.combine(assignedArm)
+		hasher.combine(actualComparisonGroup)
+		hasher.combine(assignedComparisonGroup)
 		hasher.combine(consent)
 		hasher.combine(identifier)
 		hasher.combine(period)
-		hasher.combine(progress)
 		hasher.combine(status)
 		hasher.combine(study)
 		hasher.combine(subject)
+		hasher.combine(subjectMilestone)
+		hasher.combine(subjectState)
 	}
 }
 
 /**
- Subject status.
- 
- The current state (status) of the subject and resons for status change where appropriate.
+ A significant event in the progress of a ResearchSubject.
  */
-open class ResearchSubjectProgress: BackboneElement {
-	
-	/// state | milestone
-	public var type: CodeableConcept?
-	
-	/// candidate | eligible | follow-up | ineligible | not-registered | off-study | on-study | on-study-intervention |
-	/// on-study-observation | pending-on-study | potential-candidate | screening | withdrawn
-	public var subjectState: CodeableConcept?
+open class ResearchSubjectSubjectMilestone: BackboneElement {
 	
 	/// SignedUp | Screened | Randomized
-	public var milestone: CodeableConcept?
+	public var milestone: [CodeableConcept]
 	
-	/// State change reason
+	/// The date/time when this milestone event was completed
+	public var date: FHIRPrimitive<DateTime>?
+	
+	/// None
 	public var reason: CodeableConcept?
 	
-	/// State change date
-	public var startDate: FHIRPrimitive<DateTime>?
-	
-	/// State change date
-	public var endDate: FHIRPrimitive<DateTime>?
-	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(milestone: [CodeableConcept]) {
+		self.milestone = milestone
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-		endDate: FHIRPrimitive<DateTime>? = nil,
+		date: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		milestone: CodeableConcept? = nil,
+		milestone: [CodeableConcept],
 		modifierExtension: [Extension]? = nil,
-		reason: CodeableConcept? = nil,
-		startDate: FHIRPrimitive<DateTime>? = nil,
-		subjectState: CodeableConcept? = nil,
-		type: CodeableConcept? = nil
+		reason: CodeableConcept? = nil
 	) {
-		self.init()
-		self.endDate = endDate
+		self.init(milestone: milestone)
+		self.date = date
 		self.`extension` = `extension`
 		self.id = id
-		self.milestone = milestone
 		self.modifierExtension = modifierExtension
 		self.reason = reason
-		self.startDate = startDate
-		self.subjectState = subjectState
-		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case endDate; case _endDate
+		case date; case _date
 		case milestone
 		case reason
-		case startDate; case _startDate
-		case subjectState
-		case type
 	}
 	
 	/// Initializer for Decodable
@@ -253,12 +242,9 @@ open class ResearchSubjectProgress: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.endDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .endDate, auxiliaryKey: ._endDate)
-		self.milestone = try CodeableConcept(from: _container, forKeyIfPresent: .milestone)
+		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
+		self.milestone = try [CodeableConcept](from: _container, forKey: .milestone)
 		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
-		self.startDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .startDate, auxiliaryKey: ._startDate)
-		self.subjectState = try CodeableConcept(from: _container, forKeyIfPresent: .subjectState)
-		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -267,39 +253,130 @@ open class ResearchSubjectProgress: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try endDate?.encode(on: &_container, forKey: .endDate, auxiliaryKey: ._endDate)
-		try milestone?.encode(on: &_container, forKey: .milestone)
+		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
+		try milestone.encode(on: &_container, forKey: .milestone)
 		try reason?.encode(on: &_container, forKey: .reason)
-		try startDate?.encode(on: &_container, forKey: .startDate, auxiliaryKey: ._startDate)
-		try subjectState?.encode(on: &_container, forKey: .subjectState)
-		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ResearchSubjectProgress else {
+		guard let _other = _other as? ResearchSubjectSubjectMilestone else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return endDate == _other.endDate
+		return date == _other.date
 		    && milestone == _other.milestone
 		    && reason == _other.reason
-		    && startDate == _other.startDate
-		    && subjectState == _other.subjectState
-		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(endDate)
+		hasher.combine(date)
 		hasher.combine(milestone)
 		hasher.combine(reason)
+	}
+}
+
+/**
+ A duration in the lifecycle of the ResearchSubject within a ResearchStudy.
+ */
+open class ResearchSubjectSubjectState: BackboneElement {
+	
+	/// candidate | in-prescreening | in-screening | eligible | ineligible | on-study | on-study-intervention | in-
+	/// follow-up | off-study
+	public var code: CodeableConcept
+	
+	/// The date a research subject entered the given state
+	public var startDate: FHIRPrimitive<DateTime>
+	
+	/// The date a research subject exited or left the given state
+	public var endDate: FHIRPrimitive<DateTime>?
+	
+	/// State change reason
+	public var reason: CodeableConcept?
+	
+	/// Designated initializer taking all required properties
+	public init(code: CodeableConcept, startDate: FHIRPrimitive<DateTime>) {
+		self.code = code
+		self.startDate = startDate
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept,
+		endDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		startDate: FHIRPrimitive<DateTime>
+	) {
+		self.init(code: code, startDate: startDate)
+		self.endDate = endDate
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reason = reason
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case endDate; case _endDate
+		case reason
+		case startDate; case _startDate
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.endDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .endDate, auxiliaryKey: ._endDate)
+		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
+		self.startDate = try FHIRPrimitive<DateTime>(from: _container, forKey: .startDate, auxiliaryKey: ._startDate)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code)
+		try endDate?.encode(on: &_container, forKey: .endDate, auxiliaryKey: ._endDate)
+		try reason?.encode(on: &_container, forKey: .reason)
+		try startDate.encode(on: &_container, forKey: .startDate, auxiliaryKey: ._startDate)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ResearchSubjectSubjectState else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && endDate == _other.endDate
+		    && reason == _other.reason
+		    && startDate == _other.startDate
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(endDate)
+		hasher.combine(reason)
 		hasher.combine(startDate)
-		hasher.combine(subjectState)
-		hasher.combine(type)
 	}
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,6 +48,9 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// connection with this knowledge resource.
 	case citation
 	
+	/// The related artifact is the citation for this artifact.
+	case citeAs = "cite-as"
+	
 	/// This artifact is cited by the target artifact.
 	case citedBy = "cited-by"
 	
@@ -83,6 +86,10 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// This artifact identifies errors and replacement content for the target artifact.
 	case corrects
 	
+	/// This artifact was created with the target artifact. The target artifact is a tool or support material used in
+	/// the creation of the artifact, and not content that the artifact was derived from.
+	case createdWith = "created-with"
+	
 	/// This artifact depends on the target artifact. There is a requirement to use the target artifact in the creation
 	/// or interpretation of this artifact.
 	case dependsOn = "depends-on"
@@ -97,6 +104,10 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// as additional information on clinical context or appropriateness.
 	case documentation
 	
+	/// This artifact provides additional documentation for the target artifact. This could include additional
+	/// instructions on usage as well as additional information on clinical context or appropriateness.
+	case documents
+	
 	/// The target artifact is a summary of the justification for the knowledge resource including supporting evidence,
 	/// relevant guidelines, or other clinically important information. This information is intended to provide a way to
 	/// make the justification for the knowledge resource available to the consumer of interventions or results produced
@@ -107,7 +118,8 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// other artifacts).
 	case partOf = "part-of"
 	
-	/// The previous version of the knowledge resource.
+	/// The previous version of the knowledge artifact, used to establish an ordering of versions of an artifact,
+	/// independent of the status of each version.
 	case predecessor
 	
 	/// This artifact is replaced with or superseded by the target artifact. This artifact may be considered deprecated.
@@ -131,15 +143,21 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// to “deduplicate” knowledge artifacts from different sources, or in systems to show “similar items”.
 	case similarTo = "similar-to"
 	
-	/// The next version of the knowledge resource.
+	/// The target artifact is a precise description of a concept in this artifact. This may be used when the
+	/// RelatedArtifact datatype is used in elements contained in this artifact.
+	case specificationOf = "specification-of"
+	
+	/// The subsequent version of the knowledge artfact, used to establish an ordering of versions of an artifact,
+	/// independent of the status of each version.
 	case successor
 	
-	/// The target artifact contains additional documentation for the knowledge resource. This could include additional
-	/// instructions on usage as well as additional information on clinical context or appropriateness.
+	/// The target artifact contains additional information related to the knowledge artifact but is not documentation
+	/// as the additional information does not describe, explain, or instruct regarding the knowledge artifact content
+	/// or application. This could include an associated dataset.
 	case supportedWith = "supported-with"
 	
-	/// This artifact provides additional documentation for the target artifact. This could include additional
-	/// instructions on usage as well as additional information on clinical context or appropriateness.
+	/// This artifact provides additional support for the target artifact. The type of support  is not documentation as
+	/// it does not describe, explain, or instruct regarding the target artifact.
 	case supports
 	
 	/// This artifact was transformed into the target artifact (e.g., by format or language conversion).

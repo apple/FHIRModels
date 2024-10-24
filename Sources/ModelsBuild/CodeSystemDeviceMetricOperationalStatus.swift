@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,9 +33,9 @@ public enum DeviceMetricOperationalStatus: String, FHIRPrimitiveType {
 	/// The DeviceMetric is not operating.
 	case off
 	
-	/// The DeviceMetric is operating and will generate DeviceObservations.
+	/// The DeviceMetric is operating and will generate Observations.
 	case on
 	
-	/// The DeviceMetric is operating, but will not generate any DeviceObservations.
+	/// The DeviceMetric is operating, but will not generate any Observations.
 	case standby
 }

@@ -2,8 +2,8 @@
 //  MedicationRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationRequest)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicationRequest)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,16 +34,10 @@ open class MedicationRequest: DomainResource {
 	/// External ids for this request
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
-	/// What request fulfills
+	/// A plan or request that is fulfilled in whole or in part by this medication request
 	public var basedOn: [Reference]?
 	
-	/// An order/prescription that is being replaced
+	/// Reference to an order/prescription that is being replaced by this MedicationRequest
 	public var priorPrescription: Reference?
 	
 	/// Composite request this is part of
@@ -73,7 +67,7 @@ open class MedicationRequest: DomainResource {
 	/// Medication to be taken
 	public var medication: CodeableReference
 	
-	/// Who or group medication request is for
+	/// Individual or group for whom the medication has been requested
 	public var subject: Reference
 	
 	/// The person or organization who provided the information about this request, if the source is someone other than
@@ -99,7 +93,10 @@ open class MedicationRequest: DomainResource {
 	public var performerType: CodeableConcept?
 	
 	/// Intended performer of administration
-	public var performer: Reference?
+	public var performer: [Reference]?
+	
+	/// Intended type of device for the administration
+	public var device: [CodeableReference]?
 	
 	/// Person who entered the request
 	public var recorder: Reference?
@@ -116,8 +113,14 @@ open class MedicationRequest: DomainResource {
 	/// Information about the prescription
 	public var note: [Annotation]?
 	
-	/// How the medication should be taken
-	public var dose: MedicationRequestDose?
+	/// Full representation of the dosage instructions
+	public var renderedDosageInstruction: FHIRPrimitive<FHIRString>?
+	
+	/// Period over which the medication is to be taken
+	public var effectiveDosePeriod: Period?
+	
+	/// Specific instructions for how the medication should be taken
+	public var dosageInstruction: [Dosage]?
 	
 	/// Medication supply authorization
 	public var dispenseRequest: MedicationRequestDispenseRequest?
@@ -144,9 +147,11 @@ open class MedicationRequest: DomainResource {
 		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
 		courseOfTherapyType: CodeableConcept? = nil,
+		device: [CodeableReference]? = nil,
 		dispenseRequest: MedicationRequestDispenseRequest? = nil,
 		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-		dose: MedicationRequestDose? = nil,
+		dosageInstruction: [Dosage]? = nil,
+		effectiveDosePeriod: Period? = nil,
 		encounter: Reference? = nil,
 		eventHistory: [Reference]? = nil,
 		`extension`: [Extension]? = nil,
@@ -155,8 +160,6 @@ open class MedicationRequest: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		informationSource: [Reference]? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		insurance: [Reference]? = nil,
 		intent: FHIRPrimitive<MedicationRequestIntentCodes>,
 		language: FHIRPrimitive<FHIRString>? = nil,
@@ -164,12 +167,13 @@ open class MedicationRequest: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
-		performer: Reference? = nil,
+		performer: [Reference]? = nil,
 		performerType: CodeableConcept? = nil,
 		priorPrescription: Reference? = nil,
 		priority: FHIRPrimitive<FHIRString>? = nil,
 		reason: [CodeableReference]? = nil,
 		recorder: Reference? = nil,
+		renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil,
 		reported: FHIRPrimitive<FHIRBool>? = nil,
 		requester: Reference? = nil,
 		status: FHIRPrimitive<MedicationRequestStatusCodes>,
@@ -186,9 +190,11 @@ open class MedicationRequest: DomainResource {
 		self.category = category
 		self.contained = contained
 		self.courseOfTherapyType = courseOfTherapyType
+		self.device = device
 		self.dispenseRequest = dispenseRequest
 		self.doNotPerform = doNotPerform
-		self.dose = dose
+		self.dosageInstruction = dosageInstruction
+		self.effectiveDosePeriod = effectiveDosePeriod
 		self.encounter = encounter
 		self.eventHistory = eventHistory
 		self.`extension` = `extension`
@@ -197,8 +203,6 @@ open class MedicationRequest: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.informationSource = informationSource
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.insurance = insurance
 		self.language = language
 		self.meta = meta
@@ -210,6 +214,7 @@ open class MedicationRequest: DomainResource {
 		self.priority = priority
 		self.reason = reason
 		self.recorder = recorder
+		self.renderedDosageInstruction = renderedDosageInstruction
 		self.reported = reported
 		self.requester = requester
 		self.statusChanged = statusChanged
@@ -226,16 +231,16 @@ open class MedicationRequest: DomainResource {
 		case basedOn
 		case category
 		case courseOfTherapyType
+		case device
 		case dispenseRequest
 		case doNotPerform; case _doNotPerform
-		case dose
+		case dosageInstruction
+		case effectiveDosePeriod
 		case encounter
 		case eventHistory
 		case groupIdentifier
 		case identifier
 		case informationSource
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case insurance
 		case intent; case _intent
 		case medication
@@ -246,6 +251,7 @@ open class MedicationRequest: DomainResource {
 		case priority; case _priority
 		case reason
 		case recorder
+		case renderedDosageInstruction; case _renderedDosageInstruction
 		case reported; case _reported
 		case requester
 		case status; case _status
@@ -265,26 +271,27 @@ open class MedicationRequest: DomainResource {
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.courseOfTherapyType = try CodeableConcept(from: _container, forKeyIfPresent: .courseOfTherapyType)
+		self.device = try [CodeableReference](from: _container, forKeyIfPresent: .device)
 		self.dispenseRequest = try MedicationRequestDispenseRequest(from: _container, forKeyIfPresent: .dispenseRequest)
 		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
-		self.dose = try MedicationRequestDose(from: _container, forKeyIfPresent: .dose)
+		self.dosageInstruction = try [Dosage](from: _container, forKeyIfPresent: .dosageInstruction)
+		self.effectiveDosePeriod = try Period(from: _container, forKeyIfPresent: .effectiveDosePeriod)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.eventHistory = try [Reference](from: _container, forKeyIfPresent: .eventHistory)
 		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.informationSource = try [Reference](from: _container, forKeyIfPresent: .informationSource)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.insurance = try [Reference](from: _container, forKeyIfPresent: .insurance)
 		self.intent = try FHIRPrimitive<MedicationRequestIntentCodes>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.medication = try CodeableReference(from: _container, forKey: .medication)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.performer = try Reference(from: _container, forKeyIfPresent: .performer)
+		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.performerType = try CodeableConcept(from: _container, forKeyIfPresent: .performerType)
 		self.priorPrescription = try Reference(from: _container, forKeyIfPresent: .priorPrescription)
 		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
+		self.renderedDosageInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		self.reported = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .reported, auxiliaryKey: ._reported)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
 		self.status = try FHIRPrimitive<MedicationRequestStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
@@ -305,16 +312,16 @@ open class MedicationRequest: DomainResource {
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
 		try courseOfTherapyType?.encode(on: &_container, forKey: .courseOfTherapyType)
+		try device?.encode(on: &_container, forKey: .device)
 		try dispenseRequest?.encode(on: &_container, forKey: .dispenseRequest)
 		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
-		try dose?.encode(on: &_container, forKey: .dose)
+		try dosageInstruction?.encode(on: &_container, forKey: .dosageInstruction)
+		try effectiveDosePeriod?.encode(on: &_container, forKey: .effectiveDosePeriod)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try eventHistory?.encode(on: &_container, forKey: .eventHistory)
 		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try informationSource?.encode(on: &_container, forKey: .informationSource)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try insurance?.encode(on: &_container, forKey: .insurance)
 		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
 		try medication.encode(on: &_container, forKey: .medication)
@@ -325,6 +332,7 @@ open class MedicationRequest: DomainResource {
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try recorder?.encode(on: &_container, forKey: .recorder)
+		try renderedDosageInstruction?.encode(on: &_container, forKey: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
 		try reported?.encode(on: &_container, forKey: .reported, auxiliaryKey: ._reported)
 		try requester?.encode(on: &_container, forKey: .requester)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
@@ -349,16 +357,16 @@ open class MedicationRequest: DomainResource {
 		    && basedOn == _other.basedOn
 		    && category == _other.category
 		    && courseOfTherapyType == _other.courseOfTherapyType
+		    && device == _other.device
 		    && dispenseRequest == _other.dispenseRequest
 		    && doNotPerform == _other.doNotPerform
-		    && dose == _other.dose
+		    && dosageInstruction == _other.dosageInstruction
+		    && effectiveDosePeriod == _other.effectiveDosePeriod
 		    && encounter == _other.encounter
 		    && eventHistory == _other.eventHistory
 		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
 		    && informationSource == _other.informationSource
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && insurance == _other.insurance
 		    && intent == _other.intent
 		    && medication == _other.medication
@@ -369,6 +377,7 @@ open class MedicationRequest: DomainResource {
 		    && priority == _other.priority
 		    && reason == _other.reason
 		    && recorder == _other.recorder
+		    && renderedDosageInstruction == _other.renderedDosageInstruction
 		    && reported == _other.reported
 		    && requester == _other.requester
 		    && status == _other.status
@@ -385,16 +394,16 @@ open class MedicationRequest: DomainResource {
 		hasher.combine(basedOn)
 		hasher.combine(category)
 		hasher.combine(courseOfTherapyType)
+		hasher.combine(device)
 		hasher.combine(dispenseRequest)
 		hasher.combine(doNotPerform)
-		hasher.combine(dose)
+		hasher.combine(dosageInstruction)
+		hasher.combine(effectiveDosePeriod)
 		hasher.combine(encounter)
 		hasher.combine(eventHistory)
 		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
 		hasher.combine(informationSource)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(insurance)
 		hasher.combine(intent)
 		hasher.combine(medication)
@@ -405,6 +414,7 @@ open class MedicationRequest: DomainResource {
 		hasher.combine(priority)
 		hasher.combine(reason)
 		hasher.combine(recorder)
+		hasher.combine(renderedDosageInstruction)
 		hasher.combine(reported)
 		hasher.combine(requester)
 		hasher.combine(status)
@@ -648,97 +658,6 @@ open class MedicationRequestDispenseRequestInitialFill: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(duration)
 		hasher.combine(quantity)
-	}
-}
-
-/**
- How the medication should be taken.
- 
- Indicates how the medication is to be used by the patient.
- */
-open class MedicationRequestDose: BackboneElement {
-	
-	/// Full representation of the dosage instructions
-	public var renderedDosageInstruction: FHIRPrimitive<FHIRString>?
-	
-	/// Period over which the medication is to be taken
-	public var effectiveDosePeriod: Period?
-	
-	/// Specific instructions for how the medication should be taken
-	public var dosageInstruction: [Dosage]?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		dosageInstruction: [Dosage]? = nil,
-		effectiveDosePeriod: Period? = nil,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		renderedDosageInstruction: FHIRPrimitive<FHIRString>? = nil
-	) {
-		self.init()
-		self.dosageInstruction = dosageInstruction
-		self.effectiveDosePeriod = effectiveDosePeriod
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.renderedDosageInstruction = renderedDosageInstruction
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case dosageInstruction
-		case effectiveDosePeriod
-		case renderedDosageInstruction; case _renderedDosageInstruction
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.dosageInstruction = try [Dosage](from: _container, forKeyIfPresent: .dosageInstruction)
-		self.effectiveDosePeriod = try Period(from: _container, forKeyIfPresent: .effectiveDosePeriod)
-		self.renderedDosageInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try dosageInstruction?.encode(on: &_container, forKey: .dosageInstruction)
-		try effectiveDosePeriod?.encode(on: &_container, forKey: .effectiveDosePeriod)
-		try renderedDosageInstruction?.encode(on: &_container, forKey: .renderedDosageInstruction, auxiliaryKey: ._renderedDosageInstruction)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationRequestDose else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return dosageInstruction == _other.dosageInstruction
-		    && effectiveDosePeriod == _other.effectiveDosePeriod
-		    && renderedDosageInstruction == _other.renderedDosageInstruction
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(dosageInstruction)
-		hasher.combine(effectiveDosePeriod)
-		hasher.combine(renderedDosageInstruction)
 	}
 }
 

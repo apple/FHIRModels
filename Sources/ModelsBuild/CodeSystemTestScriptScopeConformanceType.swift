@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  The expectation of whether the test must pass for the system to be considered conformant with the artifact.
  
- URL: http://terminology.hl7.org/CodeSystem/testscript-scope-conformance-codes
+ URL: http://hl7.org/fhir/testscript-scope-conformance-codes
  ValueSet: http://hl7.org/fhir/ValueSet/testscript-scope-conformance-codes
  */
 public enum TestScriptScopeConformanceType: String, FHIRPrimitiveType {

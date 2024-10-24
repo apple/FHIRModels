@@ -2,8 +2,8 @@
 //  DataRequirement.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DataRequirement)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DataRequirement)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,8 +33,9 @@ open class DataRequirement: DataType {
 		case reference(Reference)
 	}
 	
-	/// The type of the required data
-	public var type: FHIRPrimitive<FHIRString>
+	/// The type of the required data, specified as the type name of a resource. For profiles, this value is set to the
+	/// type of the base resource of the profile.
+	public var type: FHIRPrimitive<ResourceType>
 	
 	/// The profile of the required data
 	public var profile: [FHIRPrimitive<Canonical>]?
@@ -52,6 +53,9 @@ open class DataRequirement: DataType {
 	/// What dates/date ranges are expected
 	public var dateFilter: [DataRequirementDateFilter]?
 	
+	/// What values are expected
+	public var valueFilter: [DataRequirementValueFilter]?
+	
 	/// Number of results
 	public var limit: FHIRPrimitive<FHIRPositiveInteger>?
 	
@@ -59,7 +63,7 @@ open class DataRequirement: DataType {
 	public var sort: [DataRequirementSort]?
 	
 	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<FHIRString>) {
+	public init(type: FHIRPrimitive<ResourceType>) {
 		self.type = type
 		super.init()
 	}
@@ -75,7 +79,8 @@ open class DataRequirement: DataType {
 		profile: [FHIRPrimitive<Canonical>]? = nil,
 		sort: [DataRequirementSort]? = nil,
 		subject: SubjectX? = nil,
-		type: FHIRPrimitive<FHIRString>
+		type: FHIRPrimitive<ResourceType>,
+		valueFilter: [DataRequirementValueFilter]? = nil
 	) {
 		self.init(type: type)
 		self.codeFilter = codeFilter
@@ -87,6 +92,7 @@ open class DataRequirement: DataType {
 		self.profile = profile
 		self.sort = sort
 		self.subject = subject
+		self.valueFilter = valueFilter
 	}
 	
 	// MARK: - Codable
@@ -101,6 +107,7 @@ open class DataRequirement: DataType {
 		case subjectCodeableConcept
 		case subjectReference
 		case type; case _type
+		case valueFilter
 	}
 	
 	/// Initializer for Decodable
@@ -128,7 +135,8 @@ open class DataRequirement: DataType {
 			_t_subject = .reference(subjectReference)
 		}
 		self.subject = _t_subject
-		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ResourceType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.valueFilter = try [DataRequirementValueFilter](from: _container, forKeyIfPresent: .valueFilter)
 		try super.init(from: decoder)
 	}
 	
@@ -152,6 +160,7 @@ open class DataRequirement: DataType {
 			}
 		}
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try valueFilter?.encode(on: &_container, forKey: .valueFilter)
 		try super.encode(to: encoder)
 	}
 	
@@ -172,6 +181,7 @@ open class DataRequirement: DataType {
 		    && sort == _other.sort
 		    && subject == _other.subject
 		    && type == _other.type
+		    && valueFilter == _other.valueFilter
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -184,6 +194,7 @@ open class DataRequirement: DataType {
 		hasher.combine(sort)
 		hasher.combine(subject)
 		hasher.combine(type)
+		hasher.combine(valueFilter)
 	}
 }
 
@@ -201,7 +212,7 @@ open class DataRequirementCodeFilter: Element {
 	/// A coded (token) parameter to search on
 	public var searchParam: FHIRPrimitive<FHIRString>?
 	
-	/// Valueset for the filter
+	/// ValueSet for the filter
 	public var valueSet: FHIRPrimitive<Canonical>?
 	
 	/// What code is expected
@@ -491,5 +502,144 @@ open class DataRequirementSort: Element {
 		super.hash(into: &hasher)
 		hasher.combine(direction)
 		hasher.combine(path)
+	}
+}
+
+/**
+ What values are expected.
+ 
+ Value filters specify additional constraints on the data for elements other than code-valued or date-valued. Each value
+ filter specifies an additional constraint on the data (i.e. valueFilters are AND'ed, not OR'ed).
+ */
+open class DataRequirementValueFilter: Element {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case dateTime(FHIRPrimitive<DateTime>)
+		case duration(Duration)
+		case period(Period)
+	}
+	
+	/// An attribute to filter on
+	public var path: FHIRPrimitive<FHIRString>?
+	
+	/// A parameter to search on
+	public var searchParam: FHIRPrimitive<FHIRString>?
+	
+	/// The comparator to be used to determine whether the value is matching.
+	/// Restricted to: ['eq', 'gt', 'lt', 'ge', 'le', 'sa', 'eb']
+	public var comparator: FHIRPrimitive<SearchComparator>?
+	
+	/// The value of the filter, as a Period, DateTime, or Duration value
+	/// One of `value[x]`
+	public var value: ValueX?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		comparator: FHIRPrimitive<SearchComparator>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		path: FHIRPrimitive<FHIRString>? = nil,
+		searchParam: FHIRPrimitive<FHIRString>? = nil,
+		value: ValueX? = nil
+	) {
+		self.init()
+		self.comparator = comparator
+		self.`extension` = `extension`
+		self.id = id
+		self.path = path
+		self.searchParam = searchParam
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case comparator; case _comparator
+		case path; case _path
+		case searchParam; case _searchParam
+		case valueDateTime; case _valueDateTime
+		case valueDuration
+		case valuePeriod
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.comparator = try FHIRPrimitive<SearchComparator>(from: _container, forKeyIfPresent: .comparator, auxiliaryKey: ._comparator)
+		self.path = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .path, auxiliaryKey: ._path)
+		self.searchParam = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .searchParam, auxiliaryKey: ._searchParam)
+		var _t_value: ValueX? = nil
+		if let valueDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .valueDateTime, auxiliaryKey: ._valueDateTime) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDateTime, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .dateTime(valueDateTime)
+		}
+		if let valuePeriod = try Period(from: _container, forKeyIfPresent: .valuePeriod) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valuePeriod, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .period(valuePeriod)
+		}
+		if let valueDuration = try Duration(from: _container, forKeyIfPresent: .valueDuration) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDuration, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .duration(valueDuration)
+		}
+		self.value = _t_value
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try comparator?.encode(on: &_container, forKey: .comparator, auxiliaryKey: ._comparator)
+		try path?.encode(on: &_container, forKey: .path, auxiliaryKey: ._path)
+		try searchParam?.encode(on: &_container, forKey: .searchParam, auxiliaryKey: ._searchParam)
+		if let _enum = value {
+			switch _enum {
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .valueDateTime, auxiliaryKey: ._valueDateTime)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .valuePeriod)
+			case .duration(let _value):
+				try _value.encode(on: &_container, forKey: .valueDuration)
+			}
+		}
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? DataRequirementValueFilter else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return comparator == _other.comparator
+		    && path == _other.path
+		    && searchParam == _other.searchParam
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(comparator)
+		hasher.combine(path)
+		hasher.combine(searchParam)
+		hasher.combine(value)
 	}
 }

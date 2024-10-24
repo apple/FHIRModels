@@ -2,8 +2,8 @@
 //  Patient.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Patient)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Patient)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  Information about an individual or animal receiving health care services.
  
- Demographics and other administrative information about an individual or animal receiving care or other health-related
- services.
+ Demographics and other administrative information about an individual or animal that is the subject of potential, past,
+ current, or future health-related care, services, or processes.
  */
 open class Patient: DomainResource {
 	
@@ -55,12 +55,15 @@ open class Patient: DomainResource {
 	
 	/// Administrative Gender - the gender that the patient is considered to have for administration and record keeping
 	/// purposes.
+	/// 
+	/// See the [Patient Gender and Sex section](patient.html#gender) for additional information about communicating
+	/// patient gender and sex.
 	public var gender: FHIRPrimitive<AdministrativeGender>?
 	
 	/// The date of birth for the individual
 	public var birthDate: FHIRPrimitive<FHIRDate>?
 	
-	/// Indicates if the individual is deceased or not
+	/// Indicates if/when the individual is deceased
 	/// One of `deceased[x]`
 	public var deceased: DeceasedX?
 	
@@ -394,17 +397,26 @@ open class PatientCommunication: BackboneElement {
  */
 open class PatientContact: BackboneElement {
 	
-	/// The kind of relationship
+	/// The kind of personal relationship
 	public var relationship: [CodeableConcept]?
+	
+	/// The kind of functional role
+	public var role: [CodeableConcept]?
 	
 	/// A name associated with the contact person
 	public var name: HumanName?
+	
+	/// Additional names for the contact person
+	public var additionalName: [HumanName]?
 	
 	/// A contact detail for the person
 	public var telecom: [ContactPoint]?
 	
 	/// Address for the contact person
 	public var address: Address?
+	
+	/// Additional addresses for the contact person
+	public var additionalAddress: [Address]?
 	
 	/// Administrative Gender - the gender that the contact person is considered to have for administration and record
 	/// keeping purposes.
@@ -423,6 +435,8 @@ open class PatientContact: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		additionalAddress: [Address]? = nil,
+		additionalName: [HumanName]? = nil,
 		address: Address? = nil,
 		`extension`: [Extension]? = nil,
 		gender: FHIRPrimitive<AdministrativeGender>? = nil,
@@ -432,9 +446,12 @@ open class PatientContact: BackboneElement {
 		organization: Reference? = nil,
 		period: Period? = nil,
 		relationship: [CodeableConcept]? = nil,
+		role: [CodeableConcept]? = nil,
 		telecom: [ContactPoint]? = nil
 	) {
 		self.init()
+		self.additionalAddress = additionalAddress
+		self.additionalName = additionalName
 		self.address = address
 		self.`extension` = `extension`
 		self.gender = gender
@@ -444,18 +461,22 @@ open class PatientContact: BackboneElement {
 		self.organization = organization
 		self.period = period
 		self.relationship = relationship
+		self.role = role
 		self.telecom = telecom
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case additionalAddress
+		case additionalName
 		case address
 		case gender; case _gender
 		case name
 		case organization
 		case period
 		case relationship
+		case role
 		case telecom
 	}
 	
@@ -464,12 +485,15 @@ open class PatientContact: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.additionalAddress = try [Address](from: _container, forKeyIfPresent: .additionalAddress)
+		self.additionalName = try [HumanName](from: _container, forKeyIfPresent: .additionalName)
 		self.address = try Address(from: _container, forKeyIfPresent: .address)
 		self.gender = try FHIRPrimitive<AdministrativeGender>(from: _container, forKeyIfPresent: .gender, auxiliaryKey: ._gender)
 		self.name = try HumanName(from: _container, forKeyIfPresent: .name)
 		self.organization = try Reference(from: _container, forKeyIfPresent: .organization)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.relationship = try [CodeableConcept](from: _container, forKeyIfPresent: .relationship)
+		self.role = try [CodeableConcept](from: _container, forKeyIfPresent: .role)
 		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
 		try super.init(from: decoder)
 	}
@@ -479,12 +503,15 @@ open class PatientContact: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try additionalAddress?.encode(on: &_container, forKey: .additionalAddress)
+		try additionalName?.encode(on: &_container, forKey: .additionalName)
 		try address?.encode(on: &_container, forKey: .address)
 		try gender?.encode(on: &_container, forKey: .gender, auxiliaryKey: ._gender)
 		try name?.encode(on: &_container, forKey: .name)
 		try organization?.encode(on: &_container, forKey: .organization)
 		try period?.encode(on: &_container, forKey: .period)
 		try relationship?.encode(on: &_container, forKey: .relationship)
+		try role?.encode(on: &_container, forKey: .role)
 		try telecom?.encode(on: &_container, forKey: .telecom)
 		try super.encode(to: encoder)
 	}
@@ -498,23 +525,29 @@ open class PatientContact: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return address == _other.address
+		return additionalAddress == _other.additionalAddress
+		    && additionalName == _other.additionalName
+		    && address == _other.address
 		    && gender == _other.gender
 		    && name == _other.name
 		    && organization == _other.organization
 		    && period == _other.period
 		    && relationship == _other.relationship
+		    && role == _other.role
 		    && telecom == _other.telecom
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(additionalAddress)
+		hasher.combine(additionalName)
 		hasher.combine(address)
 		hasher.combine(gender)
 		hasher.combine(name)
 		hasher.combine(organization)
 		hasher.combine(period)
 		hasher.combine(relationship)
+		hasher.combine(role)
 		hasher.combine(telecom)
 	}
 }

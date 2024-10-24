@@ -2,8 +2,8 @@
 //  Invoice.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Invoice)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Invoice)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,6 +29,12 @@ open class Invoice: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .invoice }
 	
+	/// All possible types for "period[x]"
+	public enum PeriodX: Hashable {
+		case date(FHIRPrimitive<FHIRDate>)
+		case period(Period)
+	}
+	
 	/// Business Identifier for item
 	public var identifier: [Identifier]?
 	
@@ -47,8 +53,15 @@ open class Invoice: DomainResource {
 	/// Recipient of this invoice
 	public var recipient: Reference?
 	
-	/// Invoice date / posting date
+	/// DEPRICATED
 	public var date: FHIRPrimitive<DateTime>?
+	
+	/// When posted
+	public var creation: FHIRPrimitive<DateTime>?
+	
+	/// Billing date or period
+	/// One of `period[x]`
+	public var period: PeriodX?
 	
 	/// Participant in creation of this Invoice
 	public var participant: [InvoiceParticipant]?
@@ -63,7 +76,7 @@ open class Invoice: DomainResource {
 	public var lineItem: [InvoiceLineItem]?
 	
 	/// Components of Invoice total
-	public var totalPriceComponent: [InvoiceLineItemPriceComponent]?
+	public var totalPriceComponent: [MonetaryComponent]?
 	
 	/// Net total of this Invoice
 	public var totalNet: Money?
@@ -88,6 +101,7 @@ open class Invoice: DomainResource {
 		account: Reference? = nil,
 		cancelledReason: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
+		creation: FHIRPrimitive<DateTime>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -101,19 +115,21 @@ open class Invoice: DomainResource {
 		note: [Annotation]? = nil,
 		participant: [InvoiceParticipant]? = nil,
 		paymentTerms: FHIRPrimitive<FHIRString>? = nil,
+		period: PeriodX? = nil,
 		recipient: Reference? = nil,
 		status: FHIRPrimitive<InvoiceStatus>,
 		subject: Reference? = nil,
 		text: Narrative? = nil,
 		totalGross: Money? = nil,
 		totalNet: Money? = nil,
-		totalPriceComponent: [InvoiceLineItemPriceComponent]? = nil,
+		totalPriceComponent: [MonetaryComponent]? = nil,
 		type: CodeableConcept? = nil
 	) {
 		self.init(status: status)
 		self.account = account
 		self.cancelledReason = cancelledReason
 		self.contained = contained
+		self.creation = creation
 		self.date = date
 		self.`extension` = `extension`
 		self.id = id
@@ -127,6 +143,7 @@ open class Invoice: DomainResource {
 		self.note = note
 		self.participant = participant
 		self.paymentTerms = paymentTerms
+		self.period = period
 		self.recipient = recipient
 		self.subject = subject
 		self.text = text
@@ -141,6 +158,7 @@ open class Invoice: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case account
 		case cancelledReason; case _cancelledReason
+		case creation; case _creation
 		case date; case _date
 		case identifier
 		case issuer
@@ -148,6 +166,8 @@ open class Invoice: DomainResource {
 		case note
 		case participant
 		case paymentTerms; case _paymentTerms
+		case periodDate; case _periodDate
+		case periodPeriod
 		case recipient
 		case status; case _status
 		case subject
@@ -164,6 +184,7 @@ open class Invoice: DomainResource {
 		// Decode all our properties
 		self.account = try Reference(from: _container, forKeyIfPresent: .account)
 		self.cancelledReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .cancelledReason, auxiliaryKey: ._cancelledReason)
+		self.creation = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .creation, auxiliaryKey: ._creation)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.issuer = try Reference(from: _container, forKeyIfPresent: .issuer)
@@ -171,12 +192,26 @@ open class Invoice: DomainResource {
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.participant = try [InvoiceParticipant](from: _container, forKeyIfPresent: .participant)
 		self.paymentTerms = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .paymentTerms, auxiliaryKey: ._paymentTerms)
+		var _t_period: PeriodX? = nil
+		if let periodDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .periodDate, auxiliaryKey: ._periodDate) {
+			if _t_period != nil {
+				throw DecodingError.dataCorruptedError(forKey: .periodDate, in: _container, debugDescription: "More than one value provided for \"period\"")
+			}
+			_t_period = .date(periodDate)
+		}
+		if let periodPeriod = try Period(from: _container, forKeyIfPresent: .periodPeriod) {
+			if _t_period != nil {
+				throw DecodingError.dataCorruptedError(forKey: .periodPeriod, in: _container, debugDescription: "More than one value provided for \"period\"")
+			}
+			_t_period = .period(periodPeriod)
+		}
+		self.period = _t_period
 		self.recipient = try Reference(from: _container, forKeyIfPresent: .recipient)
 		self.status = try FHIRPrimitive<InvoiceStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.totalGross = try Money(from: _container, forKeyIfPresent: .totalGross)
 		self.totalNet = try Money(from: _container, forKeyIfPresent: .totalNet)
-		self.totalPriceComponent = try [InvoiceLineItemPriceComponent](from: _container, forKeyIfPresent: .totalPriceComponent)
+		self.totalPriceComponent = try [MonetaryComponent](from: _container, forKeyIfPresent: .totalPriceComponent)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -188,6 +223,7 @@ open class Invoice: DomainResource {
 		// Encode all our properties
 		try account?.encode(on: &_container, forKey: .account)
 		try cancelledReason?.encode(on: &_container, forKey: .cancelledReason, auxiliaryKey: ._cancelledReason)
+		try creation?.encode(on: &_container, forKey: .creation, auxiliaryKey: ._creation)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try issuer?.encode(on: &_container, forKey: .issuer)
@@ -195,6 +231,14 @@ open class Invoice: DomainResource {
 		try note?.encode(on: &_container, forKey: .note)
 		try participant?.encode(on: &_container, forKey: .participant)
 		try paymentTerms?.encode(on: &_container, forKey: .paymentTerms, auxiliaryKey: ._paymentTerms)
+		if let _enum = period {
+			switch _enum {
+			case .date(let _value):
+				try _value.encode(on: &_container, forKey: .periodDate, auxiliaryKey: ._periodDate)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .periodPeriod)
+			}
+		}
 		try recipient?.encode(on: &_container, forKey: .recipient)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
@@ -216,6 +260,7 @@ open class Invoice: DomainResource {
 		}
 		return account == _other.account
 		    && cancelledReason == _other.cancelledReason
+		    && creation == _other.creation
 		    && date == _other.date
 		    && identifier == _other.identifier
 		    && issuer == _other.issuer
@@ -223,6 +268,7 @@ open class Invoice: DomainResource {
 		    && note == _other.note
 		    && participant == _other.participant
 		    && paymentTerms == _other.paymentTerms
+		    && period == _other.period
 		    && recipient == _other.recipient
 		    && status == _other.status
 		    && subject == _other.subject
@@ -236,6 +282,7 @@ open class Invoice: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(account)
 		hasher.combine(cancelledReason)
+		hasher.combine(creation)
 		hasher.combine(date)
 		hasher.combine(identifier)
 		hasher.combine(issuer)
@@ -243,6 +290,7 @@ open class Invoice: DomainResource {
 		hasher.combine(note)
 		hasher.combine(participant)
 		hasher.combine(paymentTerms)
+		hasher.combine(period)
 		hasher.combine(recipient)
 		hasher.combine(status)
 		hasher.combine(subject)
@@ -256,8 +304,8 @@ open class Invoice: DomainResource {
 /**
  Line items of this Invoice.
  
- Each line item represents one charge for goods and services rendered. Details such as date, code and amount are found
- in the referenced ChargeItem resource.
+ Each line item represents one charge for goods and services rendered. Details such.ofType(date), code and amount are
+ found in the referenced ChargeItem resource.
  */
 open class InvoiceLineItem: BackboneElement {
 	
@@ -267,15 +315,25 @@ open class InvoiceLineItem: BackboneElement {
 		case reference(Reference)
 	}
 	
+	/// All possible types for "serviced[x]"
+	public enum ServicedX: Hashable {
+		case date(FHIRPrimitive<FHIRDate>)
+		case period(Period)
+	}
+	
 	/// Sequence number of line item
 	public var sequence: FHIRPrimitive<FHIRPositiveInteger>?
+	
+	/// Service data or period
+	/// One of `serviced[x]`
+	public var serviced: ServicedX?
 	
 	/// Reference to ChargeItem containing details of this line item or an inline billing code
 	/// One of `chargeItem[x]`
 	public var chargeItem: ChargeItemX
 	
 	/// Components of total line item price
-	public var priceComponent: [InvoiceLineItemPriceComponent]?
+	public var priceComponent: [MonetaryComponent]?
 	
 	/// Designated initializer taking all required properties
 	public init(chargeItem: ChargeItemX) {
@@ -289,8 +347,9 @@ open class InvoiceLineItem: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		priceComponent: [InvoiceLineItemPriceComponent]? = nil,
-		sequence: FHIRPrimitive<FHIRPositiveInteger>? = nil
+		priceComponent: [MonetaryComponent]? = nil,
+		sequence: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		serviced: ServicedX? = nil
 	) {
 		self.init(chargeItem: chargeItem)
 		self.`extension` = `extension`
@@ -298,6 +357,7 @@ open class InvoiceLineItem: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.priceComponent = priceComponent
 		self.sequence = sequence
+		self.serviced = serviced
 	}
 	
 	// MARK: - Codable
@@ -307,6 +367,8 @@ open class InvoiceLineItem: BackboneElement {
 		case chargeItemReference
 		case priceComponent
 		case sequence; case _sequence
+		case servicedDate; case _servicedDate
+		case servicedPeriod
 	}
 	
 	/// Initializer for Decodable
@@ -333,8 +395,22 @@ open class InvoiceLineItem: BackboneElement {
 			_t_chargeItem = .codeableConcept(chargeItemCodeableConcept)
 		}
 		self.chargeItem = _t_chargeItem!
-		self.priceComponent = try [InvoiceLineItemPriceComponent](from: _container, forKeyIfPresent: .priceComponent)
+		self.priceComponent = try [MonetaryComponent](from: _container, forKeyIfPresent: .priceComponent)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .sequence, auxiliaryKey: ._sequence)
+		var _t_serviced: ServicedX? = nil
+		if let servicedDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .servicedDate, auxiliaryKey: ._servicedDate) {
+			if _t_serviced != nil {
+				throw DecodingError.dataCorruptedError(forKey: .servicedDate, in: _container, debugDescription: "More than one value provided for \"serviced\"")
+			}
+			_t_serviced = .date(servicedDate)
+		}
+		if let servicedPeriod = try Period(from: _container, forKeyIfPresent: .servicedPeriod) {
+			if _t_serviced != nil {
+				throw DecodingError.dataCorruptedError(forKey: .servicedPeriod, in: _container, debugDescription: "More than one value provided for \"serviced\"")
+			}
+			_t_serviced = .period(servicedPeriod)
+		}
+		self.serviced = _t_serviced
 		try super.init(from: decoder)
 	}
 	
@@ -353,6 +429,14 @@ open class InvoiceLineItem: BackboneElement {
 		
 		try priceComponent?.encode(on: &_container, forKey: .priceComponent)
 		try sequence?.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
+		if let _enum = serviced {
+			switch _enum {
+			case .date(let _value):
+				try _value.encode(on: &_container, forKey: .servicedDate, auxiliaryKey: ._servicedDate)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .servicedPeriod)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -368,6 +452,7 @@ open class InvoiceLineItem: BackboneElement {
 		return chargeItem == _other.chargeItem
 		    && priceComponent == _other.priceComponent
 		    && sequence == _other.sequence
+		    && serviced == _other.serviced
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -375,110 +460,7 @@ open class InvoiceLineItem: BackboneElement {
 		hasher.combine(chargeItem)
 		hasher.combine(priceComponent)
 		hasher.combine(sequence)
-	}
-}
-
-/**
- Components of total line item price.
- 
- The price for a ChargeItem may be calculated as a base price with surcharges/deductions that apply in certain
- conditions. A ChargeItemDefinition resource that defines the prices, factors and conditions that apply to a billing
- code is currently under development. The priceComponent element can be used to offer transparency to the recipient of
- the Invoice as to how the prices have been calculated.
- */
-open class InvoiceLineItemPriceComponent: BackboneElement {
-	
-	/// This code identifies the type of the component.
-	public var type: FHIRPrimitive<InvoicePriceComponentType>
-	
-	/// Code identifying the specific component
-	public var code: CodeableConcept?
-	
-	/// Factor used for calculating this component
-	public var factor: FHIRPrimitive<FHIRDecimal>?
-	
-	/// Monetary amount associated with this component
-	public var amount: Money?
-	
-	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<InvoicePriceComponentType>) {
-		self.type = type
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		amount: Money? = nil,
-		code: CodeableConcept? = nil,
-		`extension`: [Extension]? = nil,
-		factor: FHIRPrimitive<FHIRDecimal>? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		type: FHIRPrimitive<InvoicePriceComponentType>
-	) {
-		self.init(type: type)
-		self.amount = amount
-		self.code = code
-		self.`extension` = `extension`
-		self.factor = factor
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case amount
-		case code
-		case factor; case _factor
-		case type; case _type
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.amount = try Money(from: _container, forKeyIfPresent: .amount)
-		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.factor = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .factor, auxiliaryKey: ._factor)
-		self.type = try FHIRPrimitive<InvoicePriceComponentType>(from: _container, forKey: .type, auxiliaryKey: ._type)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try amount?.encode(on: &_container, forKey: .amount)
-		try code?.encode(on: &_container, forKey: .code)
-		try factor?.encode(on: &_container, forKey: .factor, auxiliaryKey: ._factor)
-		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? InvoiceLineItemPriceComponent else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return amount == _other.amount
-		    && code == _other.code
-		    && factor == _other.factor
-		    && type == _other.type
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(amount)
-		hasher.combine(code)
-		hasher.combine(factor)
-		hasher.combine(type)
+		hasher.combine(serviced)
 	}
 }
 

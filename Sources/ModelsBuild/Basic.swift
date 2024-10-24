@@ -2,8 +2,8 @@
 //  Basic.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Basic)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Basic)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ open class Basic: DomainResource {
 	public var subject: Reference?
 	
 	/// When created
-	public var created: FHIRPrimitive<FHIRDate>?
+	public var created: FHIRPrimitive<DateTime>?
 	
 	/// Who created
 	public var author: Reference?
@@ -55,7 +55,7 @@ open class Basic: DomainResource {
 		author: Reference? = nil,
 		code: CodeableConcept,
 		contained: [ResourceProxy]? = nil,
-		created: FHIRPrimitive<FHIRDate>? = nil,
+		created: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
@@ -98,7 +98,7 @@ open class Basic: DomainResource {
 		// Decode all our properties
 		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
-		self.created = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .created, auxiliaryKey: ._created)
+		self.created = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .created, auxiliaryKey: ._created)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)

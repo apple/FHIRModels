@@ -2,8 +2,8 @@
 //  Address.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Address)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Address)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import FMCore
  An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type
  may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid
  for mail delivery.  There are a variety of postal address formats defined around the world.
+ The ISO21090-codedString may be used to provide a coded representation of the contents of strings in an Address.
  */
 open class Address: DataType {
 	

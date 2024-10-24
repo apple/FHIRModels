@@ -2,8 +2,8 @@
 //  Measure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Measure)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Measure)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,10 +23,6 @@ import FMCore
  A quality measure definition.
  
  The Measure resource provides the definition of a quality measure.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class Measure: DomainResource {
 	
@@ -38,6 +34,12 @@ open class Measure: DomainResource {
 		case reference(Reference)
 	}
 	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Canonical identifier for this measure, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
@@ -46,6 +48,10 @@ open class Measure: DomainResource {
 	
 	/// Business version of the measure
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this measure (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -66,13 +72,18 @@ open class Measure: DomainResource {
 	/// One of `subject[x]`
 	public var subject: SubjectX?
 	
-	/// Population basis
-	public var basis: FHIRPrimitive<FHIRString>?
+	/// The population basis specifies the type of elements in the population. For a subject-based measure, this is
+	/// boolean (because the subject and the population basis are the same, and the population criteria define yes/no
+	/// values for each individual in the population). For measures that have a population basis that is different than
+	/// the subject, this element specifies the type of the population basis. For example, an encounter-based measure
+	/// has a subject of Patient and a population basis of Encounter, and the population criteria all return lists of
+	/// Encounters.
+	public var basis: FHIRPrimitive<ResourceType>?
 	
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -96,16 +107,19 @@ open class Measure: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// When the measure was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// When the measure was last reviewed
+	/// When the measure was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
 	/// When the measure is expected to be used
 	public var effectivePeriod: Period?
 	
-	/// The category of the measure, such as Education, Treatment, Assessment, etc.
+	/// The category of the measure, such as Education, Treatment, Assessment, etc
 	public var topic: [CodeableConcept]?
 	
 	/// Who authored the content
@@ -120,7 +134,7 @@ open class Measure: DomainResource {
 	/// Who endorsed the content
 	public var endorser: [ContactDetail]?
 	
-	/// Additional documentation, citations, etc.
+	/// Additional documentation, citations, etc
 	public var relatedArtifact: [RelatedArtifact]?
 	
 	/// Logic used by the measure
@@ -157,9 +171,9 @@ open class Measure: DomainResource {
 	public var improvementNotation: CodeableConcept?
 	
 	/// Defined terms used in the measure documentation
-	public var definition: [FHIRPrimitive<FHIRString>]?
+	public var term: [MeasureTerm]?
 	
-	/// Additional guidance for implementers
+	/// Additional guidance for implementers (deprecated)
 	public var guidance: FHIRPrimitive<FHIRString>?
 	
 	/// Population criteria group
@@ -178,14 +192,14 @@ open class Measure: DomainResource {
 	public convenience init(
 		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
 		author: [ContactDetail]? = nil,
-		basis: FHIRPrimitive<FHIRString>? = nil,
+		basis: FHIRPrimitive<ResourceType>? = nil,
 		clinicalRecommendationStatement: FHIRPrimitive<FHIRString>? = nil,
 		compositeScoring: CodeableConcept? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
-		definition: [FHIRPrimitive<FHIRString>]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		disclaimer: FHIRPrimitive<FHIRString>? = nil,
 		editor: [ContactDetail]? = nil,
@@ -219,6 +233,7 @@ open class Measure: DomainResource {
 		subject: SubjectX? = nil,
 		subtitle: FHIRPrimitive<FHIRString>? = nil,
 		supplementalData: [MeasureSupplementalData]? = nil,
+		term: [MeasureTerm]? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		topic: [CodeableConcept]? = nil,
@@ -226,7 +241,8 @@ open class Measure: DomainResource {
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		usage: FHIRPrimitive<FHIRString>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
@@ -237,8 +253,8 @@ open class Measure: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
-		self.definition = definition
 		self.description_fhir = description_fhir
 		self.disclaimer = disclaimer
 		self.editor = editor
@@ -271,6 +287,7 @@ open class Measure: DomainResource {
 		self.subject = subject
 		self.subtitle = subtitle
 		self.supplementalData = supplementalData
+		self.term = term
 		self.text = text
 		self.title = title
 		self.topic = topic
@@ -279,6 +296,7 @@ open class Measure: DomainResource {
 		self.usage = usage
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -291,8 +309,8 @@ open class Measure: DomainResource {
 		case compositeScoring
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
-		case definition; case _definition
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case disclaimer; case _disclaimer
 		case editor
@@ -321,6 +339,7 @@ open class Measure: DomainResource {
 		case subjectReference
 		case subtitle; case _subtitle
 		case supplementalData
+		case term
 		case title; case _title
 		case topic
 		case type
@@ -328,6 +347,8 @@ open class Measure: DomainResource {
 		case usage; case _usage
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -337,13 +358,13 @@ open class Measure: DomainResource {
 		// Decode all our properties
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
-		self.basis = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
+		self.basis = try FHIRPrimitive<ResourceType>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
 		self.clinicalRecommendationStatement = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .clinicalRecommendationStatement, auxiliaryKey: ._clinicalRecommendationStatement)
 		self.compositeScoring = try CodeableConcept(from: _container, forKeyIfPresent: .compositeScoring)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
-		self.definition = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.disclaimer = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disclaimer, auxiliaryKey: ._disclaimer)
 		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
@@ -384,6 +405,7 @@ open class Measure: DomainResource {
 		self.subject = _t_subject
 		self.subtitle = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .subtitle, auxiliaryKey: ._subtitle)
 		self.supplementalData = try [MeasureSupplementalData](from: _container, forKeyIfPresent: .supplementalData)
+		self.term = try [MeasureTerm](from: _container, forKeyIfPresent: .term)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.topic = try [CodeableConcept](from: _container, forKeyIfPresent: .topic)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
@@ -391,6 +413,20 @@ open class Measure: DomainResource {
 		self.usage = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .usage, auxiliaryKey: ._usage)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -406,8 +442,8 @@ open class Measure: DomainResource {
 		try compositeScoring?.encode(on: &_container, forKey: .compositeScoring)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
-		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try disclaimer?.encode(on: &_container, forKey: .disclaimer, auxiliaryKey: ._disclaimer)
 		try editor?.encode(on: &_container, forKey: .editor)
@@ -442,6 +478,7 @@ open class Measure: DomainResource {
 		}
 		try subtitle?.encode(on: &_container, forKey: .subtitle, auxiliaryKey: ._subtitle)
 		try supplementalData?.encode(on: &_container, forKey: .supplementalData)
+		try term?.encode(on: &_container, forKey: .term)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try topic?.encode(on: &_container, forKey: .topic)
 		try type?.encode(on: &_container, forKey: .type)
@@ -449,6 +486,14 @@ open class Measure: DomainResource {
 		try usage?.encode(on: &_container, forKey: .usage, auxiliaryKey: ._usage)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -468,8 +513,8 @@ open class Measure: DomainResource {
 		    && compositeScoring == _other.compositeScoring
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
-		    && definition == _other.definition
 		    && description_fhir == _other.description_fhir
 		    && disclaimer == _other.disclaimer
 		    && editor == _other.editor
@@ -497,6 +542,7 @@ open class Measure: DomainResource {
 		    && subject == _other.subject
 		    && subtitle == _other.subtitle
 		    && supplementalData == _other.supplementalData
+		    && term == _other.term
 		    && title == _other.title
 		    && topic == _other.topic
 		    && type == _other.type
@@ -504,6 +550,7 @@ open class Measure: DomainResource {
 		    && usage == _other.usage
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -515,8 +562,8 @@ open class Measure: DomainResource {
 		hasher.combine(compositeScoring)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
-		hasher.combine(definition)
 		hasher.combine(description_fhir)
 		hasher.combine(disclaimer)
 		hasher.combine(editor)
@@ -544,6 +591,7 @@ open class Measure: DomainResource {
 		hasher.combine(subject)
 		hasher.combine(subtitle)
 		hasher.combine(supplementalData)
+		hasher.combine(term)
 		hasher.combine(title)
 		hasher.combine(topic)
 		hasher.combine(type)
@@ -551,6 +599,7 @@ open class Measure: DomainResource {
 		hasher.combine(usage)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -561,6 +610,15 @@ open class Measure: DomainResource {
  */
 open class MeasureGroup: BackboneElement {
 	
+	/// All possible types for "subject[x]"
+	public enum SubjectX: Hashable {
+		case codeableConcept(CodeableConcept)
+		case reference(Reference)
+	}
+	
+	/// Unique id for group in measure
+	public var linkId: FHIRPrimitive<FHIRString>?
+	
 	/// Meaning of the group
 	public var code: CodeableConcept?
 	
@@ -570,8 +628,17 @@ open class MeasureGroup: BackboneElement {
 	/// process | outcome | structure | patient-reported-outcome | composite
 	public var type: [CodeableConcept]?
 	
-	/// Population basis
-	public var basis: FHIRPrimitive<FHIRString>?
+	/// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
+	/// One of `subject[x]`
+	public var subject: SubjectX?
+	
+	/// The population basis specifies the type of elements in the population. For a subject-based measure, this is
+	/// boolean (because the subject and the population basis are the same, and the population criteria define yes/no
+	/// values for each individual in the population). For measures that have a population basis that is different than
+	/// the subject, this element specifies the type of the population basis. For example, an encounter-based measure
+	/// has a subject of Patient and a population basis of Encounter, and the population criteria all return lists of
+	/// Encounters.
+	public var basis: FHIRPrimitive<ResourceType>?
 	
 	/// proportion | ratio | continuous-variable | cohort
 	public var scoring: CodeableConcept?
@@ -579,8 +646,14 @@ open class MeasureGroup: BackboneElement {
 	/// What units?
 	public var scoringUnit: CodeableConcept?
 	
+	/// How is rate aggregation performed for this measure
+	public var rateAggregation: FHIRPrimitive<FHIRString>?
+	
 	/// increase | decrease
 	public var improvementNotation: CodeableConcept?
+	
+	/// Logic used by the measure group
+	public var library: [FHIRPrimitive<Canonical>]?
 	
 	/// Population criteria
 	public var population: [MeasureGroupPopulation]?
@@ -595,17 +668,21 @@ open class MeasureGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		basis: FHIRPrimitive<FHIRString>? = nil,
+		basis: FHIRPrimitive<ResourceType>? = nil,
 		code: CodeableConcept? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		improvementNotation: CodeableConcept? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		population: [MeasureGroupPopulation]? = nil,
+		rateAggregation: FHIRPrimitive<FHIRString>? = nil,
 		scoring: CodeableConcept? = nil,
 		scoringUnit: CodeableConcept? = nil,
 		stratifier: [MeasureGroupStratifier]? = nil,
+		subject: SubjectX? = nil,
 		type: [CodeableConcept]? = nil
 	) {
 		self.init()
@@ -615,11 +692,15 @@ open class MeasureGroup: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.improvementNotation = improvementNotation
+		self.library = library
+		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 		self.population = population
+		self.rateAggregation = rateAggregation
 		self.scoring = scoring
 		self.scoringUnit = scoringUnit
 		self.stratifier = stratifier
+		self.subject = subject
 		self.type = type
 	}
 	
@@ -630,10 +711,15 @@ open class MeasureGroup: BackboneElement {
 		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case improvementNotation
+		case library; case _library
+		case linkId; case _linkId
 		case population
+		case rateAggregation; case _rateAggregation
 		case scoring
 		case scoringUnit
 		case stratifier
+		case subjectCodeableConcept
+		case subjectReference
 		case type
 	}
 	
@@ -642,14 +728,31 @@ open class MeasureGroup: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.basis = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
+		self.basis = try FHIRPrimitive<ResourceType>(from: _container, forKeyIfPresent: .basis, auxiliaryKey: ._basis)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.improvementNotation = try CodeableConcept(from: _container, forKeyIfPresent: .improvementNotation)
+		self.library = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .library, auxiliaryKey: ._library)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		self.population = try [MeasureGroupPopulation](from: _container, forKeyIfPresent: .population)
+		self.rateAggregation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .rateAggregation, auxiliaryKey: ._rateAggregation)
 		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
 		self.scoringUnit = try CodeableConcept(from: _container, forKeyIfPresent: .scoringUnit)
 		self.stratifier = try [MeasureGroupStratifier](from: _container, forKeyIfPresent: .stratifier)
+		var _t_subject: SubjectX? = nil
+		if let subjectCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .subjectCodeableConcept) {
+			if _t_subject != nil {
+				throw DecodingError.dataCorruptedError(forKey: .subjectCodeableConcept, in: _container, debugDescription: "More than one value provided for \"subject\"")
+			}
+			_t_subject = .codeableConcept(subjectCodeableConcept)
+		}
+		if let subjectReference = try Reference(from: _container, forKeyIfPresent: .subjectReference) {
+			if _t_subject != nil {
+				throw DecodingError.dataCorruptedError(forKey: .subjectReference, in: _container, debugDescription: "More than one value provided for \"subject\"")
+			}
+			_t_subject = .reference(subjectReference)
+		}
+		self.subject = _t_subject
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -663,10 +766,21 @@ open class MeasureGroup: BackboneElement {
 		try code?.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try improvementNotation?.encode(on: &_container, forKey: .improvementNotation)
+		try library?.encode(on: &_container, forKey: .library, auxiliaryKey: ._library)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try population?.encode(on: &_container, forKey: .population)
+		try rateAggregation?.encode(on: &_container, forKey: .rateAggregation, auxiliaryKey: ._rateAggregation)
 		try scoring?.encode(on: &_container, forKey: .scoring)
 		try scoringUnit?.encode(on: &_container, forKey: .scoringUnit)
 		try stratifier?.encode(on: &_container, forKey: .stratifier)
+		if let _enum = subject {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .subjectCodeableConcept)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .subjectReference)
+			}
+		}
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -684,10 +798,14 @@ open class MeasureGroup: BackboneElement {
 		    && code == _other.code
 		    && description_fhir == _other.description_fhir
 		    && improvementNotation == _other.improvementNotation
+		    && library == _other.library
+		    && linkId == _other.linkId
 		    && population == _other.population
+		    && rateAggregation == _other.rateAggregation
 		    && scoring == _other.scoring
 		    && scoringUnit == _other.scoringUnit
 		    && stratifier == _other.stratifier
+		    && subject == _other.subject
 		    && type == _other.type
 	}
 	
@@ -697,10 +815,14 @@ open class MeasureGroup: BackboneElement {
 		hasher.combine(code)
 		hasher.combine(description_fhir)
 		hasher.combine(improvementNotation)
+		hasher.combine(library)
+		hasher.combine(linkId)
 		hasher.combine(population)
+		hasher.combine(rateAggregation)
 		hasher.combine(scoring)
 		hasher.combine(scoringUnit)
 		hasher.combine(stratifier)
+		hasher.combine(subject)
 		hasher.combine(type)
 	}
 }
@@ -712,6 +834,9 @@ open class MeasureGroup: BackboneElement {
  */
 open class MeasureGroupPopulation: BackboneElement {
 	
+	/// Unique id for population in measure
+	public var linkId: FHIRPrimitive<FHIRString>?
+	
 	/// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-
 	/// exception | measure-population | measure-population-exclusion | measure-observation
 	public var code: CodeableConcept?
@@ -720,7 +845,10 @@ open class MeasureGroupPopulation: BackboneElement {
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// The criteria that defines this population
-	public var criteria: Expression
+	public var criteria: Expression?
+	
+	/// A group resource that defines this population
+	public var groupDefinition: Reference?
 	
 	/// Which population
 	public var inputPopulationId: FHIRPrimitive<FHIRString>?
@@ -729,8 +857,7 @@ open class MeasureGroupPopulation: BackboneElement {
 	public var aggregateMethod: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(criteria: Expression) {
-		self.criteria = criteria
+	override public init() {
 		super.init()
 	}
 	
@@ -738,20 +865,25 @@ open class MeasureGroupPopulation: BackboneElement {
 	public convenience init(
 		aggregateMethod: CodeableConcept? = nil,
 		code: CodeableConcept? = nil,
-		criteria: Expression,
+		criteria: Expression? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
+		groupDefinition: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		inputPopulationId: FHIRPrimitive<FHIRString>? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
-		self.init(criteria: criteria)
+		self.init()
 		self.aggregateMethod = aggregateMethod
 		self.code = code
+		self.criteria = criteria
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
+		self.groupDefinition = groupDefinition
 		self.id = id
 		self.inputPopulationId = inputPopulationId
+		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 	}
 	
@@ -762,7 +894,9 @@ open class MeasureGroupPopulation: BackboneElement {
 		case code
 		case criteria
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case groupDefinition
 		case inputPopulationId; case _inputPopulationId
+		case linkId; case _linkId
 	}
 	
 	/// Initializer for Decodable
@@ -772,9 +906,11 @@ open class MeasureGroupPopulation: BackboneElement {
 		// Decode all our properties
 		self.aggregateMethod = try CodeableConcept(from: _container, forKeyIfPresent: .aggregateMethod)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.criteria = try Expression(from: _container, forKey: .criteria)
+		self.criteria = try Expression(from: _container, forKeyIfPresent: .criteria)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.groupDefinition = try Reference(from: _container, forKeyIfPresent: .groupDefinition)
 		self.inputPopulationId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .inputPopulationId, auxiliaryKey: ._inputPopulationId)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		try super.init(from: decoder)
 	}
 	
@@ -785,9 +921,11 @@ open class MeasureGroupPopulation: BackboneElement {
 		// Encode all our properties
 		try aggregateMethod?.encode(on: &_container, forKey: .aggregateMethod)
 		try code?.encode(on: &_container, forKey: .code)
-		try criteria.encode(on: &_container, forKey: .criteria)
+		try criteria?.encode(on: &_container, forKey: .criteria)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try groupDefinition?.encode(on: &_container, forKey: .groupDefinition)
 		try inputPopulationId?.encode(on: &_container, forKey: .inputPopulationId, auxiliaryKey: ._inputPopulationId)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try super.encode(to: encoder)
 	}
 	
@@ -804,7 +942,9 @@ open class MeasureGroupPopulation: BackboneElement {
 		    && code == _other.code
 		    && criteria == _other.criteria
 		    && description_fhir == _other.description_fhir
+		    && groupDefinition == _other.groupDefinition
 		    && inputPopulationId == _other.inputPopulationId
+		    && linkId == _other.linkId
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -813,7 +953,9 @@ open class MeasureGroupPopulation: BackboneElement {
 		hasher.combine(code)
 		hasher.combine(criteria)
 		hasher.combine(description_fhir)
+		hasher.combine(groupDefinition)
 		hasher.combine(inputPopulationId)
+		hasher.combine(linkId)
 	}
 }
 
@@ -825,6 +967,9 @@ open class MeasureGroupPopulation: BackboneElement {
  */
 open class MeasureGroupStratifier: BackboneElement {
 	
+	/// Unique id for stratifier in measure
+	public var linkId: FHIRPrimitive<FHIRString>?
+	
 	/// Meaning of the stratifier
 	public var code: CodeableConcept?
 	
@@ -833,6 +978,9 @@ open class MeasureGroupStratifier: BackboneElement {
 	
 	/// How the measure should be stratified
 	public var criteria: Expression?
+	
+	/// A group resource that defines this population
+	public var groupDefinition: Reference?
 	
 	/// Stratifier criteria component for the measure
 	public var component: [MeasureGroupStratifierComponent]?
@@ -849,7 +997,9 @@ open class MeasureGroupStratifier: BackboneElement {
 		criteria: Expression? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
+		groupDefinition: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
 		self.init()
@@ -858,7 +1008,9 @@ open class MeasureGroupStratifier: BackboneElement {
 		self.criteria = criteria
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
+		self.groupDefinition = groupDefinition
 		self.id = id
+		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 	}
 	
@@ -869,6 +1021,8 @@ open class MeasureGroupStratifier: BackboneElement {
 		case component
 		case criteria
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case groupDefinition
+		case linkId; case _linkId
 	}
 	
 	/// Initializer for Decodable
@@ -880,6 +1034,8 @@ open class MeasureGroupStratifier: BackboneElement {
 		self.component = try [MeasureGroupStratifierComponent](from: _container, forKeyIfPresent: .component)
 		self.criteria = try Expression(from: _container, forKeyIfPresent: .criteria)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.groupDefinition = try Reference(from: _container, forKeyIfPresent: .groupDefinition)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		try super.init(from: decoder)
 	}
 	
@@ -892,6 +1048,8 @@ open class MeasureGroupStratifier: BackboneElement {
 		try component?.encode(on: &_container, forKey: .component)
 		try criteria?.encode(on: &_container, forKey: .criteria)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try groupDefinition?.encode(on: &_container, forKey: .groupDefinition)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try super.encode(to: encoder)
 	}
 	
@@ -908,6 +1066,8 @@ open class MeasureGroupStratifier: BackboneElement {
 		    && component == _other.component
 		    && criteria == _other.criteria
 		    && description_fhir == _other.description_fhir
+		    && groupDefinition == _other.groupDefinition
+		    && linkId == _other.linkId
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -916,6 +1076,8 @@ open class MeasureGroupStratifier: BackboneElement {
 		hasher.combine(component)
 		hasher.combine(criteria)
 		hasher.combine(description_fhir)
+		hasher.combine(groupDefinition)
+		hasher.combine(linkId)
 	}
 }
 
@@ -927,6 +1089,9 @@ open class MeasureGroupStratifier: BackboneElement {
  */
 open class MeasureGroupStratifierComponent: BackboneElement {
 	
+	/// Unique id for stratifier component in measure
+	public var linkId: FHIRPrimitive<FHIRString>?
+	
 	/// Meaning of the stratifier component
 	public var code: CodeableConcept?
 	
@@ -934,28 +1099,35 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Component of how the measure should be stratified
-	public var criteria: Expression
+	public var criteria: Expression?
+	
+	/// A group resource that defines this population
+	public var groupDefinition: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(criteria: Expression) {
-		self.criteria = criteria
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
 		code: CodeableConcept? = nil,
-		criteria: Expression,
+		criteria: Expression? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
+		groupDefinition: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
-		self.init(criteria: criteria)
+		self.init()
 		self.code = code
+		self.criteria = criteria
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
+		self.groupDefinition = groupDefinition
 		self.id = id
+		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 	}
 	
@@ -965,6 +1137,8 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 		case code
 		case criteria
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case groupDefinition
+		case linkId; case _linkId
 	}
 	
 	/// Initializer for Decodable
@@ -973,8 +1147,10 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.criteria = try Expression(from: _container, forKey: .criteria)
+		self.criteria = try Expression(from: _container, forKeyIfPresent: .criteria)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.groupDefinition = try Reference(from: _container, forKeyIfPresent: .groupDefinition)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		try super.init(from: decoder)
 	}
 	
@@ -984,8 +1160,10 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 		
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
-		try criteria.encode(on: &_container, forKey: .criteria)
+		try criteria?.encode(on: &_container, forKey: .criteria)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try groupDefinition?.encode(on: &_container, forKey: .groupDefinition)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try super.encode(to: encoder)
 	}
 	
@@ -1001,6 +1179,8 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 		return code == _other.code
 		    && criteria == _other.criteria
 		    && description_fhir == _other.description_fhir
+		    && groupDefinition == _other.groupDefinition
+		    && linkId == _other.linkId
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -1008,6 +1188,8 @@ open class MeasureGroupStratifierComponent: BackboneElement {
 		hasher.combine(code)
 		hasher.combine(criteria)
 		hasher.combine(description_fhir)
+		hasher.combine(groupDefinition)
+		hasher.combine(linkId)
 	}
 }
 
@@ -1018,6 +1200,9 @@ open class MeasureGroupStratifierComponent: BackboneElement {
  referenced library, or a valid FHIR Resource Path.
  */
 open class MeasureSupplementalData: BackboneElement {
+	
+	/// Unique id for supplementalData in measure
+	public var linkId: FHIRPrimitive<FHIRString>?
 	
 	/// Meaning of the supplemental data
 	public var code: CodeableConcept?
@@ -1044,6 +1229,7 @@ open class MeasureSupplementalData: BackboneElement {
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		usage: [CodeableConcept]? = nil
 	) {
@@ -1052,6 +1238,7 @@ open class MeasureSupplementalData: BackboneElement {
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
+		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 		self.usage = usage
 	}
@@ -1062,6 +1249,7 @@ open class MeasureSupplementalData: BackboneElement {
 		case code
 		case criteria
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case linkId; case _linkId
 		case usage
 	}
 	
@@ -1073,6 +1261,7 @@ open class MeasureSupplementalData: BackboneElement {
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.criteria = try Expression(from: _container, forKey: .criteria)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		self.usage = try [CodeableConcept](from: _container, forKeyIfPresent: .usage)
 		try super.init(from: decoder)
 	}
@@ -1085,6 +1274,7 @@ open class MeasureSupplementalData: BackboneElement {
 		try code?.encode(on: &_container, forKey: .code)
 		try criteria.encode(on: &_container, forKey: .criteria)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try usage?.encode(on: &_container, forKey: .usage)
 		try super.encode(to: encoder)
 	}
@@ -1101,6 +1291,7 @@ open class MeasureSupplementalData: BackboneElement {
 		return code == _other.code
 		    && criteria == _other.criteria
 		    && description_fhir == _other.description_fhir
+		    && linkId == _other.linkId
 		    && usage == _other.usage
 	}
 	
@@ -1109,6 +1300,88 @@ open class MeasureSupplementalData: BackboneElement {
 		hasher.combine(code)
 		hasher.combine(criteria)
 		hasher.combine(description_fhir)
+		hasher.combine(linkId)
 		hasher.combine(usage)
+	}
+}
+
+/**
+ Defined terms used in the measure documentation.
+ 
+ Provides a description of an individual term used within the measure.
+ */
+open class MeasureTerm: BackboneElement {
+	
+	/// What term?
+	public var code: CodeableConcept?
+	
+	/// Meaning of the term
+	public var definition: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept? = nil,
+		definition: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.code = code
+		self.definition = definition
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case definition; case _definition
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.definition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code?.encode(on: &_container, forKey: .code)
+		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MeasureTerm else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && definition == _other.definition
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(definition)
 	}
 }

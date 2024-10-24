@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,10 @@
 import FMCore
 
 /**
- This value set captures the set of indicator codes defined by the CDS Hooks specification.
+ This codesystem captures the indicator codes defined by the CDS Hooks specification. The indicator is included as an
+ element of the cards in a CDS Hooks response and conveys the urgency and/or importance of the information in each card.
+ See [Card Attributes](https://cds-hooks.hl7.org/1.0/#card-attributes) in the CDS Hooks specification for more
+ information.
  
  URL: http://cds-hooks.hl7.org/CodeSystem/indicator
  ValueSet: http://hl7.org/fhir/ValueSet/cdshooks-indicator

@@ -2,8 +2,8 @@
 //  TerminologyCapabilities.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,13 +24,16 @@ import FMCore
  
  A TerminologyCapabilities resource documents a set of capabilities (behaviors) of a FHIR Terminology Server that may be
  used as a statement of actual server functionality or a statement of required or desired server implementation.
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class TerminologyCapabilities: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .terminologyCapabilities }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this terminology capabilities, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
@@ -40,6 +43,10 @@ open class TerminologyCapabilities: DomainResource {
 	
 	/// Business version of the terminology capabilities
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this terminology capabilities (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -56,7 +63,7 @@ open class TerminologyCapabilities: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -76,6 +83,9 @@ open class TerminologyCapabilities: DomainResource {
 	
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
 	/// The way that this statement is intended to be used, to describe an actual running instance of software, a
 	/// particular product (kind, not instance of software) or a class of implementation (e.g. a desired purchase).
@@ -124,6 +134,7 @@ open class TerminologyCapabilities: DomainResource {
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		expansion: TerminologyCapabilitiesExpansion? = nil,
@@ -150,7 +161,8 @@ open class TerminologyCapabilities: DomainResource {
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
 		validateCode: TerminologyCapabilitiesValidateCode? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(date: date, kind: kind, status: status)
 		self.closure = closure
@@ -159,6 +171,7 @@ open class TerminologyCapabilities: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.description_fhir = description_fhir
 		self.expansion = expansion
 		self.experimental = experimental
@@ -183,6 +196,7 @@ open class TerminologyCapabilities: DomainResource {
 		self.useContext = useContext
 		self.validateCode = validateCode
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -193,6 +207,7 @@ open class TerminologyCapabilities: DomainResource {
 		case codeSystem
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case expansion
@@ -213,6 +228,8 @@ open class TerminologyCapabilities: DomainResource {
 		case useContext
 		case validateCode
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -225,6 +242,7 @@ open class TerminologyCapabilities: DomainResource {
 		self.codeSystem = try [TerminologyCapabilitiesCodeSystem](from: _container, forKeyIfPresent: .codeSystem)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKey: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.expansion = try TerminologyCapabilitiesExpansion(from: _container, forKeyIfPresent: .expansion)
@@ -245,6 +263,20 @@ open class TerminologyCapabilities: DomainResource {
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.validateCode = try TerminologyCapabilitiesValidateCode(from: _container, forKeyIfPresent: .validateCode)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -258,6 +290,7 @@ open class TerminologyCapabilities: DomainResource {
 		try codeSystem?.encode(on: &_container, forKey: .codeSystem)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try expansion?.encode(on: &_container, forKey: .expansion)
@@ -278,6 +311,14 @@ open class TerminologyCapabilities: DomainResource {
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try validateCode?.encode(on: &_container, forKey: .validateCode)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -295,6 +336,7 @@ open class TerminologyCapabilities: DomainResource {
 		    && codeSystem == _other.codeSystem
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && expansion == _other.expansion
@@ -315,6 +357,7 @@ open class TerminologyCapabilities: DomainResource {
 		    && useContext == _other.useContext
 		    && validateCode == _other.validateCode
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -324,6 +367,7 @@ open class TerminologyCapabilities: DomainResource {
 		hasher.combine(codeSystem)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(expansion)
@@ -344,6 +388,7 @@ open class TerminologyCapabilities: DomainResource {
 		hasher.combine(useContext)
 		hasher.combine(validateCode)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -432,16 +477,22 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 	/// Version of Code System supported
 	public var version: [TerminologyCapabilitiesCodeSystemVersion]?
 	
+	/// The extent of the content of the code system (the concepts and codes it defines) are represented in this
+	/// resource instance.
+	public var content: FHIRPrimitive<CodeSystemContentMode>
+	
 	/// Whether subsumption is supported
 	public var subsumption: FHIRPrimitive<FHIRBool>?
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(content: FHIRPrimitive<CodeSystemContentMode>) {
+		self.content = content
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		content: FHIRPrimitive<CodeSystemContentMode>,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
@@ -449,7 +500,7 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 		uri: FHIRPrimitive<Canonical>? = nil,
 		version: [TerminologyCapabilitiesCodeSystemVersion]? = nil
 	) {
-		self.init()
+		self.init(content: content)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -461,6 +512,7 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case content; case _content
 		case subsumption; case _subsumption
 		case uri; case _uri
 		case version
@@ -471,6 +523,7 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.content = try FHIRPrimitive<CodeSystemContentMode>(from: _container, forKey: .content, auxiliaryKey: ._content)
 		self.subsumption = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .subsumption, auxiliaryKey: ._subsumption)
 		self.uri = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .uri, auxiliaryKey: ._uri)
 		self.version = try [TerminologyCapabilitiesCodeSystemVersion](from: _container, forKeyIfPresent: .version)
@@ -482,6 +535,7 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try content.encode(on: &_container, forKey: .content, auxiliaryKey: ._content)
 		try subsumption?.encode(on: &_container, forKey: .subsumption, auxiliaryKey: ._subsumption)
 		try uri?.encode(on: &_container, forKey: .uri, auxiliaryKey: ._uri)
 		try version?.encode(on: &_container, forKey: .version)
@@ -497,13 +551,15 @@ open class TerminologyCapabilitiesCodeSystem: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return subsumption == _other.subsumption
+		return content == _other.content
+		    && subsumption == _other.subsumption
 		    && uri == _other.uri
 		    && version == _other.version
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(content)
 		hasher.combine(subsumption)
 		hasher.combine(uri)
 		hasher.combine(version)

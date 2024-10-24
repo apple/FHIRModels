@@ -2,8 +2,8 @@
 //  Questionnaire.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Questionnaire)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Questionnaire)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,23 +24,29 @@ import FMCore
  
  A structured set of questions intended to guide the collection of answers from end-users. Questionnaires provide
  detailed control over order, presentation, phraseology and grouping to allow coherent, consistent data collection.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class Questionnaire: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .questionnaire }
 	
-	/// Canonical identifier for this questionnaire, represented as a URI (globally unique)
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
+	/// Canonical identifier for this questionnaire, represented as an absolute URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
-	/// Additional identifier for the questionnaire
+	/// Business identifier for questionnaire
 	public var identifier: [Identifier]?
 	
 	/// Business version of the questionnaire
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this questionnaire (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -48,22 +54,52 @@ open class Questionnaire: DomainResource {
 	/// Name for this questionnaire (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
 	
-	/// Instantiates protocol or definition
+	/// Based on Questionnaire
 	public var derivedFrom: [FHIRPrimitive<Canonical>]?
 	
-	/// The status of this questionnaire. Enables tracking the life-cycle of the content.
+	/// The current state of this questionnaire.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
 	/// For testing purposes, not real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// The types of subjects that can be the subject of responses created for the questionnaire.
+	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
+	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
+	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
+	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
+	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
+	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
+	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
+	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
+	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
+	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
+	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
+	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
+	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
+	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
+	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
+	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
+	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
+	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
+	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
+	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
+	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
+	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
+	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
+	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
+	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
+	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
+	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
+	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
+	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
+	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
 	public var subjectType: [FHIRPrimitive<ResourceType>]?
 	
-	/// Date last formally published
+	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -84,10 +120,13 @@ open class Questionnaire: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// When the questionnaire was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// When the questionnaire was last reviewed
+	/// When the questionnaire was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
 	/// When the questionnaire is expected to be used
@@ -112,6 +151,7 @@ open class Questionnaire: DomainResource {
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		derivedFrom: [FHIRPrimitive<Canonical>]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
@@ -136,7 +176,8 @@ open class Questionnaire: DomainResource {
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
@@ -144,6 +185,7 @@ open class Questionnaire: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.derivedFrom = derivedFrom
 		self.description_fhir = description_fhir
@@ -168,6 +210,7 @@ open class Questionnaire: DomainResource {
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -177,6 +220,7 @@ open class Questionnaire: DomainResource {
 		case code
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case derivedFrom; case _derivedFrom
 		case description_fhir = "description"; case _description_fhir = "_description"
@@ -195,6 +239,8 @@ open class Questionnaire: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -206,6 +252,7 @@ open class Questionnaire: DomainResource {
 		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.derivedFrom = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -224,6 +271,20 @@ open class Questionnaire: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -236,6 +297,7 @@ open class Questionnaire: DomainResource {
 		try code?.encode(on: &_container, forKey: .code)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -254,6 +316,14 @@ open class Questionnaire: DomainResource {
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -270,6 +340,7 @@ open class Questionnaire: DomainResource {
 		    && code == _other.code
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && derivedFrom == _other.derivedFrom
 		    && description_fhir == _other.description_fhir
@@ -288,6 +359,7 @@ open class Questionnaire: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -296,6 +368,7 @@ open class Questionnaire: DomainResource {
 		hasher.combine(code)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(derivedFrom)
 		hasher.combine(description_fhir)
@@ -314,6 +387,7 @@ open class Questionnaire: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -349,8 +423,8 @@ open class QuestionnaireItem: BackboneElement {
 	/// Controls how multiple enableWhen values are interpreted -  whether all or any must be true.
 	public var enableBehavior: FHIRPrimitive<EnableWhenBehavior>?
 	
-	/// Indicates if and how items that are disabled (because enableWhen evaluates to 'false') should be displayed.
-	public var disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>?
+	/// hidden | protected
+	public var disabledDisplay: FHIRPrimitive<FHIRString>?
 	
 	/// Whether the item must be included in data results
 	public var required: FHIRPrimitive<FHIRBool>?
@@ -361,14 +435,13 @@ open class QuestionnaireItem: BackboneElement {
 	/// Don't allow human editing
 	public var readOnly: FHIRPrimitive<FHIRBool>?
 	
-	/// No more than this many characters
+	/// No more than these many characters
 	public var maxLength: FHIRPrimitive<FHIRInteger>?
 	
-	/// For items that have a defined set of allowed answers (via answerOption or answerValueset), indicates whether
-	/// values *other* than those specified can be selected.
-	public var answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>?
+	/// optionsOnly | optionsOrType | optionsOrString
+	public var answerConstraint: FHIRPrimitive<FHIRString>?
 	
-	/// Valueset containing permitted answers
+	/// ValueSet containing permitted answers
 	public var answerValueSet: FHIRPrimitive<Canonical>?
 	
 	/// Permitted answer
@@ -389,12 +462,12 @@ open class QuestionnaireItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>? = nil,
+		answerConstraint: FHIRPrimitive<FHIRString>? = nil,
 		answerOption: [QuestionnaireItemAnswerOption]? = nil,
 		answerValueSet: FHIRPrimitive<Canonical>? = nil,
 		code: [Coding]? = nil,
 		definition: FHIRPrimitive<FHIRURI>? = nil,
-		disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>? = nil,
+		disabledDisplay: FHIRPrimitive<FHIRString>? = nil,
 		enableBehavior: FHIRPrimitive<EnableWhenBehavior>? = nil,
 		enableWhen: [QuestionnaireItemEnableWhen]? = nil,
 		`extension`: [Extension]? = nil,
@@ -461,12 +534,12 @@ open class QuestionnaireItem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.answerConstraint = try FHIRPrimitive<QuestionnaireAnswerConstraint>(from: _container, forKeyIfPresent: .answerConstraint, auxiliaryKey: ._answerConstraint)
+		self.answerConstraint = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .answerConstraint, auxiliaryKey: ._answerConstraint)
 		self.answerOption = try [QuestionnaireItemAnswerOption](from: _container, forKeyIfPresent: .answerOption)
 		self.answerValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .answerValueSet, auxiliaryKey: ._answerValueSet)
 		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.definition = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
-		self.disabledDisplay = try FHIRPrimitive<QuestionnaireItemDisabledDisplay>(from: _container, forKeyIfPresent: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
+		self.disabledDisplay = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
 		self.enableBehavior = try FHIRPrimitive<EnableWhenBehavior>(from: _container, forKeyIfPresent: .enableBehavior, auxiliaryKey: ._enableBehavior)
 		self.enableWhen = try [QuestionnaireItemEnableWhen](from: _container, forKeyIfPresent: .enableWhen)
 		self.initial = try [QuestionnaireItemInitial](from: _container, forKeyIfPresent: .initial)

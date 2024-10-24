@@ -2,8 +2,8 @@
 //  InventoryReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/InventoryReport)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/InventoryReport)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ open class InventoryReport: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .inventoryReport }
 	
-	/// Identifiers for the report
+	/// Business identifier for the report
 	public var identifier: [Identifier]?
 	
 	/// The status of the inventory check or notification - whether this is draft (e.g. the report is still pending some
@@ -40,7 +40,7 @@ open class InventoryReport: DomainResource {
 	/// addition | subtraction
 	public var operationType: CodeableConcept?
 	
-	/// The reason for this count - regular count, ad-hoc count, new arrivals, etc.
+	/// The reason for this count - regular count, ad-hoc count, new arrivals, etc
 	public var operationTypeReason: CodeableConcept?
 	
 	/// When the report has been submitted
@@ -56,7 +56,7 @@ open class InventoryReport: DomainResource {
 	public var inventoryListing: [InventoryReportInventoryListing]?
 	
 	/// A note associated with the InventoryReport
-	public var note: Annotation?
+	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
 	public init(countType: FHIRPrimitive<InventoryCountType>, reportedDateTime: FHIRPrimitive<DateTime>, status: FHIRPrimitive<InventoryReportStatus>) {
@@ -78,7 +78,7 @@ open class InventoryReport: DomainResource {
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
-		note: Annotation? = nil,
+		note: [Annotation]? = nil,
 		operationType: CodeableConcept? = nil,
 		operationTypeReason: CodeableConcept? = nil,
 		reportedDateTime: FHIRPrimitive<DateTime>,
@@ -128,7 +128,7 @@ open class InventoryReport: DomainResource {
 		self.countType = try FHIRPrimitive<InventoryCountType>(from: _container, forKey: .countType, auxiliaryKey: ._countType)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.inventoryListing = try [InventoryReportInventoryListing](from: _container, forKeyIfPresent: .inventoryListing)
-		self.note = try Annotation(from: _container, forKeyIfPresent: .note)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.operationType = try CodeableConcept(from: _container, forKeyIfPresent: .operationType)
 		self.operationTypeReason = try CodeableConcept(from: _container, forKeyIfPresent: .operationTypeReason)
 		self.reportedDateTime = try FHIRPrimitive<DateTime>(from: _container, forKey: .reportedDateTime, auxiliaryKey: ._reportedDateTime)
@@ -200,14 +200,14 @@ open class InventoryReportInventoryListing: BackboneElement {
 	/// Location of the inventory items
 	public var location: Reference?
 	
-	/// The status of the items
+	/// The status of the items that are being reported
 	public var itemStatus: CodeableConcept?
 	
 	/// The date and time when the items were counted
 	public var countingDateTime: FHIRPrimitive<DateTime>?
 	
 	/// The item or items in this listing
-	public var items: [InventoryReportInventoryListingItems]?
+	public var item: [InventoryReportInventoryListingItem]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -219,8 +219,8 @@ open class InventoryReportInventoryListing: BackboneElement {
 		countingDateTime: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		item: [InventoryReportInventoryListingItem]? = nil,
 		itemStatus: CodeableConcept? = nil,
-		items: [InventoryReportInventoryListingItems]? = nil,
 		location: Reference? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
@@ -228,8 +228,8 @@ open class InventoryReportInventoryListing: BackboneElement {
 		self.countingDateTime = countingDateTime
 		self.`extension` = `extension`
 		self.id = id
+		self.item = item
 		self.itemStatus = itemStatus
-		self.items = items
 		self.location = location
 		self.modifierExtension = modifierExtension
 	}
@@ -238,8 +238,8 @@ open class InventoryReportInventoryListing: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case countingDateTime; case _countingDateTime
+		case item
 		case itemStatus
-		case items
 		case location
 	}
 	
@@ -249,8 +249,8 @@ open class InventoryReportInventoryListing: BackboneElement {
 		
 		// Decode all our properties
 		self.countingDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .countingDateTime, auxiliaryKey: ._countingDateTime)
+		self.item = try [InventoryReportInventoryListingItem](from: _container, forKeyIfPresent: .item)
 		self.itemStatus = try CodeableConcept(from: _container, forKeyIfPresent: .itemStatus)
-		self.items = try [InventoryReportInventoryListingItems](from: _container, forKeyIfPresent: .items)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		try super.init(from: decoder)
 	}
@@ -261,8 +261,8 @@ open class InventoryReportInventoryListing: BackboneElement {
 		
 		// Encode all our properties
 		try countingDateTime?.encode(on: &_container, forKey: .countingDateTime, auxiliaryKey: ._countingDateTime)
+		try item?.encode(on: &_container, forKey: .item)
 		try itemStatus?.encode(on: &_container, forKey: .itemStatus)
-		try items?.encode(on: &_container, forKey: .items)
 		try location?.encode(on: &_container, forKey: .location)
 		try super.encode(to: encoder)
 	}
@@ -277,16 +277,16 @@ open class InventoryReportInventoryListing: BackboneElement {
 			return false
 		}
 		return countingDateTime == _other.countingDateTime
+		    && item == _other.item
 		    && itemStatus == _other.itemStatus
-		    && items == _other.items
 		    && location == _other.location
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(countingDateTime)
+		hasher.combine(item)
 		hasher.combine(itemStatus)
-		hasher.combine(items)
 		hasher.combine(location)
 	}
 }
@@ -294,28 +294,16 @@ open class InventoryReportInventoryListing: BackboneElement {
 /**
  The item or items in this listing.
  */
-open class InventoryReportInventoryListingItems: BackboneElement {
+open class InventoryReportInventoryListingItem: BackboneElement {
 	
-	/// The category of the item or items
+	/// The inventory category or classification of the items being reported
 	public var category: CodeableConcept?
 	
-	/// The quantity of the item or items
+	/// The quantity of the item or items being reported
 	public var quantity: Quantity
 	
 	/// The code or reference to the item type
 	public var item: CodeableReference
-	
-	/// The lot number of the item or items
-	public var lot: FHIRPrimitive<FHIRString>?
-	
-	/// The serial number of the item
-	public var serial: FHIRPrimitive<FHIRString>?
-	
-	/// The expiry date of the item or items
-	public var expiry: FHIRPrimitive<DateTime>?
-	
-	/// The manufacturingDate of the item or items
-	public var manufacturingDate: FHIRPrimitive<DateTime>?
 	
 	/// Designated initializer taking all required properties
 	public init(item: CodeableReference, quantity: Quantity) {
@@ -327,37 +315,25 @@ open class InventoryReportInventoryListingItems: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		category: CodeableConcept? = nil,
-		expiry: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		item: CodeableReference,
-		lot: FHIRPrimitive<FHIRString>? = nil,
-		manufacturingDate: FHIRPrimitive<DateTime>? = nil,
 		modifierExtension: [Extension]? = nil,
-		quantity: Quantity,
-		serial: FHIRPrimitive<FHIRString>? = nil
+		quantity: Quantity
 	) {
 		self.init(item: item, quantity: quantity)
 		self.category = category
-		self.expiry = expiry
 		self.`extension` = `extension`
 		self.id = id
-		self.lot = lot
-		self.manufacturingDate = manufacturingDate
 		self.modifierExtension = modifierExtension
-		self.serial = serial
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case category
-		case expiry; case _expiry
 		case item
-		case lot; case _lot
-		case manufacturingDate; case _manufacturingDate
 		case quantity
-		case serial; case _serial
 	}
 	
 	/// Initializer for Decodable
@@ -366,12 +342,8 @@ open class InventoryReportInventoryListingItems: BackboneElement {
 		
 		// Decode all our properties
 		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
-		self.expiry = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expiry, auxiliaryKey: ._expiry)
 		self.item = try CodeableReference(from: _container, forKey: .item)
-		self.lot = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lot, auxiliaryKey: ._lot)
-		self.manufacturingDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .manufacturingDate, auxiliaryKey: ._manufacturingDate)
 		self.quantity = try Quantity(from: _container, forKey: .quantity)
-		self.serial = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .serial, auxiliaryKey: ._serial)
 		try super.init(from: decoder)
 	}
 	
@@ -381,41 +353,29 @@ open class InventoryReportInventoryListingItems: BackboneElement {
 		
 		// Encode all our properties
 		try category?.encode(on: &_container, forKey: .category)
-		try expiry?.encode(on: &_container, forKey: .expiry, auxiliaryKey: ._expiry)
 		try item.encode(on: &_container, forKey: .item)
-		try lot?.encode(on: &_container, forKey: .lot, auxiliaryKey: ._lot)
-		try manufacturingDate?.encode(on: &_container, forKey: .manufacturingDate, auxiliaryKey: ._manufacturingDate)
 		try quantity.encode(on: &_container, forKey: .quantity)
-		try serial?.encode(on: &_container, forKey: .serial, auxiliaryKey: ._serial)
 		try super.encode(to: encoder)
 	}
 	
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? InventoryReportInventoryListingItems else {
+		guard let _other = _other as? InventoryReportInventoryListingItem else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
 		return category == _other.category
-		    && expiry == _other.expiry
 		    && item == _other.item
-		    && lot == _other.lot
-		    && manufacturingDate == _other.manufacturingDate
 		    && quantity == _other.quantity
-		    && serial == _other.serial
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(category)
-		hasher.combine(expiry)
 		hasher.combine(item)
-		hasher.combine(lot)
-		hasher.combine(manufacturingDate)
 		hasher.combine(quantity)
-		hasher.combine(serial)
 	}
 }

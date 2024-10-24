@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
 import FMCore
 
 /**
- Extra measures defined for a Medicinal Product, such as requirement to conduct post-authorisation studies.
+ Extra measures defined for a Medicinal Product, such as requirement to conduct post-authorization studies.
  
  URL: http://hl7.org/fhir/medicinal-product-special-measures
  ValueSet: http://hl7.org/fhir/ValueSet/medicinal-product-special-measures
  */
 public enum SpecialMeasures: String, FHIRPrimitiveType {
 	
-	/// Requirement to conduct post-authorisation studies
-	case postAuthorisationStudies = "Post-authorisationStudies"
+	/// Requirement to conduct post-authorization studies
+	case postAuthorizationStudies = "Post-authorizationStudies"
 }

@@ -2,8 +2,8 @@
 //  StructureDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/StructureDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/StructureDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,13 +24,16 @@ import FMCore
  
  A definition of a FHIR structure. This resource is used to describe the underlying resources, data types defined in
  FHIR, and also for describing extensions and constraints on resources and data types.
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class StructureDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .structureDefinition }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this structure definition, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>
@@ -40,6 +43,10 @@ open class StructureDefinition: DomainResource {
 	
 	/// Business version of the structure definition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this structure definition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>
@@ -56,7 +63,7 @@ open class StructureDefinition: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -76,6 +83,9 @@ open class StructureDefinition: DomainResource {
 	
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
 	/// Assist with indexing and finding
 	public var keyword: [Coding]?
@@ -133,6 +143,7 @@ open class StructureDefinition: DomainResource {
 		context: [StructureDefinitionContext]? = nil,
 		contextInvariant: [FHIRPrimitive<FHIRString>]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		derivation: FHIRPrimitive<TypeDerivationRule>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
@@ -160,7 +171,8 @@ open class StructureDefinition: DomainResource {
 		type: FHIRPrimitive<FHIRURI>,
 		url: FHIRPrimitive<FHIRURI>,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(abstract: abstract, kind: kind, name: name, status: status, type: type, url: url)
 		self.baseDefinition = baseDefinition
@@ -169,6 +181,7 @@ open class StructureDefinition: DomainResource {
 		self.context = context
 		self.contextInvariant = contextInvariant
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.derivation = derivation
 		self.description_fhir = description_fhir
@@ -192,6 +205,7 @@ open class StructureDefinition: DomainResource {
 		self.title = title
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -203,6 +217,7 @@ open class StructureDefinition: DomainResource {
 		case context
 		case contextInvariant; case _contextInvariant
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case derivation; case _derivation
 		case description_fhir = "description"; case _description_fhir = "_description"
@@ -224,6 +239,8 @@ open class StructureDefinition: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -237,6 +254,7 @@ open class StructureDefinition: DomainResource {
 		self.context = try [StructureDefinitionContext](from: _container, forKeyIfPresent: .context)
 		self.contextInvariant = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .contextInvariant, auxiliaryKey: ._contextInvariant)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.derivation = try FHIRPrimitive<TypeDerivationRule>(from: _container, forKeyIfPresent: .derivation, auxiliaryKey: ._derivation)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -258,6 +276,20 @@ open class StructureDefinition: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -272,6 +304,7 @@ open class StructureDefinition: DomainResource {
 		try context?.encode(on: &_container, forKey: .context)
 		try contextInvariant?.encode(on: &_container, forKey: .contextInvariant, auxiliaryKey: ._contextInvariant)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try derivation?.encode(on: &_container, forKey: .derivation, auxiliaryKey: ._derivation)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -293,6 +326,14 @@ open class StructureDefinition: DomainResource {
 		try url.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -311,6 +352,7 @@ open class StructureDefinition: DomainResource {
 		    && context == _other.context
 		    && contextInvariant == _other.contextInvariant
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && derivation == _other.derivation
 		    && description_fhir == _other.description_fhir
@@ -332,6 +374,7 @@ open class StructureDefinition: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -342,6 +385,7 @@ open class StructureDefinition: DomainResource {
 		hasher.combine(context)
 		hasher.combine(contextInvariant)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(derivation)
 		hasher.combine(description_fhir)
@@ -363,13 +407,15 @@ open class StructureDefinition: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
 /**
  If an extension, where it can be used in instances.
  
- Identifies the types of resource or data type elements to which the extension can be applied.
+ Identifies the types of resource or data type elements to which the extension can be applied. For more guidance on
+ using the 'context' element, see the [defining extensions page](defining-extensions.html#context).
  */
 open class StructureDefinitionContext: BackboneElement {
 	
@@ -534,7 +580,7 @@ open class StructureDefinitionMapping: BackboneElement {
 	/// Names what this mapping refers to
 	public var name: FHIRPrimitive<FHIRString>?
 	
-	/// Versions, Issues, Scope limitations etc.
+	/// Versions, Issues, Scope limitations etc
 	public var comment: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties

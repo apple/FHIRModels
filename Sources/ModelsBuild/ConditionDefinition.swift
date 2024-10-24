@@ -2,8 +2,8 @@
 //  ConditionDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ConditionDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ConditionDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,14 +23,16 @@ import FMCore
  A definition of a condition.
  
  A definition of a condition and information relevant to managing it.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class ConditionDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .conditionDefinition }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this condition definition, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
@@ -40,6 +42,10 @@ open class ConditionDefinition: DomainResource {
 	
 	/// Business version of the condition definition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this condition definition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -59,7 +65,7 @@ open class ConditionDefinition: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -99,7 +105,7 @@ open class ConditionDefinition: DomainResource {
 	public var definition: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Observations particularly relevant to this condition
-	public var observation: [ConditionDefinitionObservation]?
+	public var observation: [FHIRPrimitive<Canonical>]?
 	
 	/// Medications particularly relevant for this condition
 	public var medication: [ConditionDefinitionMedication]?
@@ -146,7 +152,7 @@ open class ConditionDefinition: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
-		observation: [ConditionDefinitionObservation]? = nil,
+		observation: [FHIRPrimitive<Canonical>]? = nil,
 		plan: [ConditionDefinitionPlan]? = nil,
 		precondition: [ConditionDefinitionPrecondition]? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
@@ -160,7 +166,8 @@ open class ConditionDefinition: DomainResource {
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(code: code, status: status)
 		self.bodySite = bodySite
@@ -197,6 +204,7 @@ open class ConditionDefinition: DomainResource {
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -216,7 +224,7 @@ open class ConditionDefinition: DomainResource {
 		case jurisdiction
 		case medication
 		case name; case _name
-		case observation
+		case observation; case _observation
 		case plan
 		case precondition
 		case publisher; case _publisher
@@ -230,6 +238,8 @@ open class ConditionDefinition: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -251,7 +261,7 @@ open class ConditionDefinition: DomainResource {
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.medication = try [ConditionDefinitionMedication](from: _container, forKeyIfPresent: .medication)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
-		self.observation = try [ConditionDefinitionObservation](from: _container, forKeyIfPresent: .observation)
+		self.observation = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .observation, auxiliaryKey: ._observation)
 		self.plan = try [ConditionDefinitionPlan](from: _container, forKeyIfPresent: .plan)
 		self.precondition = try [ConditionDefinitionPrecondition](from: _container, forKeyIfPresent: .precondition)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
@@ -265,6 +275,20 @@ open class ConditionDefinition: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -287,7 +311,7 @@ open class ConditionDefinition: DomainResource {
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try medication?.encode(on: &_container, forKey: .medication)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
-		try observation?.encode(on: &_container, forKey: .observation)
+		try observation?.encode(on: &_container, forKey: .observation, auxiliaryKey: ._observation)
 		try plan?.encode(on: &_container, forKey: .plan)
 		try precondition?.encode(on: &_container, forKey: .precondition)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
@@ -301,6 +325,14 @@ open class ConditionDefinition: DomainResource {
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -341,6 +373,7 @@ open class ConditionDefinition: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -373,6 +406,7 @@ open class ConditionDefinition: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -439,85 +473,6 @@ open class ConditionDefinitionMedication: BackboneElement {
 	
 	public override func isEqual(to _other: Any?) -> Bool {
 		guard let _other = _other as? ConditionDefinitionMedication else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return category == _other.category
-		    && code == _other.code
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(category)
-		hasher.combine(code)
-	}
-}
-
-/**
- Observations particularly relevant to this condition.
- */
-open class ConditionDefinitionObservation: BackboneElement {
-	
-	/// Category that is relevant
-	public var category: CodeableConcept?
-	
-	/// Code for relevant Observation
-	public var code: CodeableConcept?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		category: CodeableConcept? = nil,
-		code: CodeableConcept? = nil,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
-	) {
-		self.init()
-		self.category = category
-		self.code = code
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case category
-		case code
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
-		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try category?.encode(on: &_container, forKey: .category)
-		try code?.encode(on: &_container, forKey: .code)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ConditionDefinitionObservation else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {

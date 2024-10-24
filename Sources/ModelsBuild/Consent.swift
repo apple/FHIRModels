@@ -2,8 +2,8 @@
 //  Consent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Consent)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Consent)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -43,8 +43,11 @@ open class Consent: DomainResource {
 	/// Who the consent applies to
 	public var subject: Reference?
 	
-	/// When consent was agreed to
-	public var dateTime: FHIRPrimitive<DateTime>?
+	/// Fully executed date of the consent
+	public var date: FHIRPrimitive<FHIRDate>?
+	
+	/// Effective period for this Consent
+	public var period: Period?
 	
 	/// Who is granting rights according to the policy and rules
 	public var grantor: [Reference]?
@@ -76,8 +79,11 @@ open class Consent: DomainResource {
 	/// Consent Verified by patient or family
 	public var verification: [ConsentVerification]?
 	
+	/// Action to take - permit or deny - as default.
+	public var decision: FHIRPrimitive<ConsentProvisionType>?
+	
 	/// Constraints to the base Consent.policyRule/Consent.policy
-	public var provision: ConsentProvision?
+	public var provision: [ConsentProvision]?
 	
 	/// Designated initializer taking all required properties
 	public init(status: FHIRPrimitive<ConsentState>) {
@@ -90,7 +96,8 @@ open class Consent: DomainResource {
 		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
 		controller: [Reference]? = nil,
-		dateTime: FHIRPrimitive<DateTime>? = nil,
+		date: FHIRPrimitive<FHIRDate>? = nil,
+		decision: FHIRPrimitive<ConsentProvisionType>? = nil,
 		`extension`: [Extension]? = nil,
 		grantee: [Reference]? = nil,
 		grantor: [Reference]? = nil,
@@ -101,9 +108,10 @@ open class Consent: DomainResource {
 		manager: [Reference]? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		period: Period? = nil,
 		policyBasis: ConsentPolicyBasis? = nil,
 		policyText: [Reference]? = nil,
-		provision: ConsentProvision? = nil,
+		provision: [ConsentProvision]? = nil,
 		regulatoryBasis: [CodeableConcept]? = nil,
 		sourceAttachment: [Attachment]? = nil,
 		sourceReference: [Reference]? = nil,
@@ -116,7 +124,8 @@ open class Consent: DomainResource {
 		self.category = category
 		self.contained = contained
 		self.controller = controller
-		self.dateTime = dateTime
+		self.date = date
+		self.decision = decision
 		self.`extension` = `extension`
 		self.grantee = grantee
 		self.grantor = grantor
@@ -127,6 +136,7 @@ open class Consent: DomainResource {
 		self.manager = manager
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.period = period
 		self.policyBasis = policyBasis
 		self.policyText = policyText
 		self.provision = provision
@@ -143,11 +153,13 @@ open class Consent: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case category
 		case controller
-		case dateTime; case _dateTime
+		case date; case _date
+		case decision; case _decision
 		case grantee
 		case grantor
 		case identifier
 		case manager
+		case period
 		case policyBasis
 		case policyText
 		case provision
@@ -166,14 +178,16 @@ open class Consent: DomainResource {
 		// Decode all our properties
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.controller = try [Reference](from: _container, forKeyIfPresent: .controller)
-		self.dateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .dateTime, auxiliaryKey: ._dateTime)
+		self.date = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
+		self.decision = try FHIRPrimitive<ConsentProvisionType>(from: _container, forKeyIfPresent: .decision, auxiliaryKey: ._decision)
 		self.grantee = try [Reference](from: _container, forKeyIfPresent: .grantee)
 		self.grantor = try [Reference](from: _container, forKeyIfPresent: .grantor)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.manager = try [Reference](from: _container, forKeyIfPresent: .manager)
+		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.policyBasis = try ConsentPolicyBasis(from: _container, forKeyIfPresent: .policyBasis)
 		self.policyText = try [Reference](from: _container, forKeyIfPresent: .policyText)
-		self.provision = try ConsentProvision(from: _container, forKeyIfPresent: .provision)
+		self.provision = try [ConsentProvision](from: _container, forKeyIfPresent: .provision)
 		self.regulatoryBasis = try [CodeableConcept](from: _container, forKeyIfPresent: .regulatoryBasis)
 		self.sourceAttachment = try [Attachment](from: _container, forKeyIfPresent: .sourceAttachment)
 		self.sourceReference = try [Reference](from: _container, forKeyIfPresent: .sourceReference)
@@ -190,11 +204,13 @@ open class Consent: DomainResource {
 		// Encode all our properties
 		try category?.encode(on: &_container, forKey: .category)
 		try controller?.encode(on: &_container, forKey: .controller)
-		try dateTime?.encode(on: &_container, forKey: .dateTime, auxiliaryKey: ._dateTime)
+		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
+		try decision?.encode(on: &_container, forKey: .decision, auxiliaryKey: ._decision)
 		try grantee?.encode(on: &_container, forKey: .grantee)
 		try grantor?.encode(on: &_container, forKey: .grantor)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try manager?.encode(on: &_container, forKey: .manager)
+		try period?.encode(on: &_container, forKey: .period)
 		try policyBasis?.encode(on: &_container, forKey: .policyBasis)
 		try policyText?.encode(on: &_container, forKey: .policyText)
 		try provision?.encode(on: &_container, forKey: .provision)
@@ -218,11 +234,13 @@ open class Consent: DomainResource {
 		}
 		return category == _other.category
 		    && controller == _other.controller
-		    && dateTime == _other.dateTime
+		    && date == _other.date
+		    && decision == _other.decision
 		    && grantee == _other.grantee
 		    && grantor == _other.grantor
 		    && identifier == _other.identifier
 		    && manager == _other.manager
+		    && period == _other.period
 		    && policyBasis == _other.policyBasis
 		    && policyText == _other.policyText
 		    && provision == _other.provision
@@ -238,11 +256,13 @@ open class Consent: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(category)
 		hasher.combine(controller)
-		hasher.combine(dateTime)
+		hasher.combine(date)
+		hasher.combine(decision)
 		hasher.combine(grantee)
 		hasher.combine(grantor)
 		hasher.combine(identifier)
 		hasher.combine(manager)
+		hasher.combine(period)
 		hasher.combine(policyBasis)
 		hasher.combine(policyText)
 		hasher.combine(provision)
@@ -267,8 +287,8 @@ open class ConsentPolicyBasis: BackboneElement {
 	/// Reference backing policy resource
 	public var reference: Reference?
 	
-	/// URL to a computable backing policy
-	public var url: FHIRPrimitive<FHIRURI>?
+	/// URI to a computable backing policy
+	public var uri: FHIRPrimitive<FHIRURI>?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -281,21 +301,21 @@ open class ConsentPolicyBasis: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		reference: Reference? = nil,
-		url: FHIRPrimitive<FHIRURI>? = nil
+		uri: FHIRPrimitive<FHIRURI>? = nil
 	) {
 		self.init()
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.reference = reference
-		self.url = url
+		self.uri = uri
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case reference
-		case url; case _url
+		case uri; case _uri
 	}
 	
 	/// Initializer for Decodable
@@ -304,7 +324,7 @@ open class ConsentPolicyBasis: BackboneElement {
 		
 		// Decode all our properties
 		self.reference = try Reference(from: _container, forKeyIfPresent: .reference)
-		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
+		self.uri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .uri, auxiliaryKey: ._uri)
 		try super.init(from: decoder)
 	}
 	
@@ -314,7 +334,7 @@ open class ConsentPolicyBasis: BackboneElement {
 		
 		// Encode all our properties
 		try reference?.encode(on: &_container, forKey: .reference)
-		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
+		try uri?.encode(on: &_container, forKey: .uri, auxiliaryKey: ._uri)
 		try super.encode(to: encoder)
 	}
 	
@@ -328,13 +348,13 @@ open class ConsentPolicyBasis: BackboneElement {
 			return false
 		}
 		return reference == _other.reference
-		    && url == _other.url
+		    && uri == _other.uri
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(reference)
-		hasher.combine(url)
+		hasher.combine(uri)
 	}
 }
 
@@ -345,41 +365,40 @@ open class ConsentPolicyBasis: BackboneElement {
  */
 open class ConsentProvision: BackboneElement {
 	
-	/// Action  to take - permit or deny - when the rule conditions are met.  Not permitted in root rule, required in
-	/// all nested rules.
-	public var type: FHIRPrimitive<ConsentProvisionType>?
-	
-	/// Timeframe for this rule
+	/// Timeframe for this provision
 	public var period: Period?
 	
-	/// Who|what controlled by this rule (or group, by role)
+	/// Who|what controlled by this provision (or group, by role)
 	public var actor: [ConsentProvisionActor]?
 	
-	/// Actions controlled by this rule
+	/// Actions controlled by this provision
 	public var action: [CodeableConcept]?
 	
 	/// Security Labels that define affected resources
 	public var securityLabel: [Coding]?
 	
-	/// Context of activities covered by this rule
+	/// Context of activities covered by this provision
 	public var purpose: [Coding]?
 	
-	/// e.g. Resource Type, Profile, CDA, etc.
-	public var `class`: [Coding]?
+	/// e.g. Resource Type, Profile, CDA, etc
+	public var documentType: [Coding]?
+	
+	/// e.g. Resource Type, Profile, etc
+	public var resourceType: [Coding]?
 	
 	/// e.g. LOINC or SNOMED CT code, etc. in the content
 	public var code: [CodeableConcept]?
 	
-	/// Timeframe for data controlled by this rule
+	/// Timeframe for data controlled by this provision
 	public var dataPeriod: Period?
 	
-	/// Data controlled by this rule
+	/// Data controlled by this provision
 	public var data: [ConsentProvisionData]?
 	
 	/// A computable expression of the consent
 	public var expression: Expression?
 	
-	/// Nested Exception Rules
+	/// Nested Exception Provisions
 	public var provision: [ConsentProvision]?
 	
 	/// Designated initializer taking all required properties
@@ -391,10 +410,10 @@ open class ConsentProvision: BackboneElement {
 	public convenience init(
 		action: [CodeableConcept]? = nil,
 		actor: [ConsentProvisionActor]? = nil,
-		`class`: [Coding]? = nil,
 		code: [CodeableConcept]? = nil,
 		data: [ConsentProvisionData]? = nil,
 		dataPeriod: Period? = nil,
+		documentType: [Coding]? = nil,
 		expression: Expression? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -402,16 +421,16 @@ open class ConsentProvision: BackboneElement {
 		period: Period? = nil,
 		provision: [ConsentProvision]? = nil,
 		purpose: [Coding]? = nil,
-		securityLabel: [Coding]? = nil,
-		type: FHIRPrimitive<ConsentProvisionType>? = nil
+		resourceType: [Coding]? = nil,
+		securityLabel: [Coding]? = nil
 	) {
 		self.init()
 		self.action = action
 		self.actor = actor
-		self.`class` = `class`
 		self.code = code
 		self.data = data
 		self.dataPeriod = dataPeriod
+		self.documentType = documentType
 		self.expression = expression
 		self.`extension` = `extension`
 		self.id = id
@@ -419,8 +438,8 @@ open class ConsentProvision: BackboneElement {
 		self.period = period
 		self.provision = provision
 		self.purpose = purpose
+		self.resourceType = resourceType
 		self.securityLabel = securityLabel
-		self.type = type
 	}
 	
 	// MARK: - Codable
@@ -428,16 +447,16 @@ open class ConsentProvision: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case action
 		case actor
-		case `class` = "class"
 		case code
 		case data
 		case dataPeriod
+		case documentType
 		case expression
 		case period
 		case provision
 		case purpose
+		case resourceType
 		case securityLabel
-		case type; case _type
 	}
 	
 	/// Initializer for Decodable
@@ -447,16 +466,16 @@ open class ConsentProvision: BackboneElement {
 		// Decode all our properties
 		self.action = try [CodeableConcept](from: _container, forKeyIfPresent: .action)
 		self.actor = try [ConsentProvisionActor](from: _container, forKeyIfPresent: .actor)
-		self.`class` = try [Coding](from: _container, forKeyIfPresent: .`class`)
 		self.code = try [CodeableConcept](from: _container, forKeyIfPresent: .code)
 		self.data = try [ConsentProvisionData](from: _container, forKeyIfPresent: .data)
 		self.dataPeriod = try Period(from: _container, forKeyIfPresent: .dataPeriod)
+		self.documentType = try [Coding](from: _container, forKeyIfPresent: .documentType)
 		self.expression = try Expression(from: _container, forKeyIfPresent: .expression)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.provision = try [ConsentProvision](from: _container, forKeyIfPresent: .provision)
 		self.purpose = try [Coding](from: _container, forKeyIfPresent: .purpose)
+		self.resourceType = try [Coding](from: _container, forKeyIfPresent: .resourceType)
 		self.securityLabel = try [Coding](from: _container, forKeyIfPresent: .securityLabel)
-		self.type = try FHIRPrimitive<ConsentProvisionType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
 	
@@ -467,16 +486,16 @@ open class ConsentProvision: BackboneElement {
 		// Encode all our properties
 		try action?.encode(on: &_container, forKey: .action)
 		try actor?.encode(on: &_container, forKey: .actor)
-		try `class`?.encode(on: &_container, forKey: .`class`)
 		try code?.encode(on: &_container, forKey: .code)
 		try data?.encode(on: &_container, forKey: .data)
 		try dataPeriod?.encode(on: &_container, forKey: .dataPeriod)
+		try documentType?.encode(on: &_container, forKey: .documentType)
 		try expression?.encode(on: &_container, forKey: .expression)
 		try period?.encode(on: &_container, forKey: .period)
 		try provision?.encode(on: &_container, forKey: .provision)
 		try purpose?.encode(on: &_container, forKey: .purpose)
+		try resourceType?.encode(on: &_container, forKey: .resourceType)
 		try securityLabel?.encode(on: &_container, forKey: .securityLabel)
-		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
 	
@@ -491,39 +510,39 @@ open class ConsentProvision: BackboneElement {
 		}
 		return action == _other.action
 		    && actor == _other.actor
-		    && `class` == _other.`class`
 		    && code == _other.code
 		    && data == _other.data
 		    && dataPeriod == _other.dataPeriod
+		    && documentType == _other.documentType
 		    && expression == _other.expression
 		    && period == _other.period
 		    && provision == _other.provision
 		    && purpose == _other.purpose
+		    && resourceType == _other.resourceType
 		    && securityLabel == _other.securityLabel
-		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(action)
 		hasher.combine(actor)
-		hasher.combine(`class`)
 		hasher.combine(code)
 		hasher.combine(data)
 		hasher.combine(dataPeriod)
+		hasher.combine(documentType)
 		hasher.combine(expression)
 		hasher.combine(period)
 		hasher.combine(provision)
 		hasher.combine(purpose)
+		hasher.combine(resourceType)
 		hasher.combine(securityLabel)
-		hasher.combine(type)
 	}
 }
 
 /**
- Who|what controlled by this rule (or group, by role).
+ Who|what controlled by this provision (or group, by role).
  
- Who or what is controlled by this rule. Use group to identify a set of actors by some property they share (e.g.
+ Who or what is controlled by this provision. Use group to identify a set of actors by some property they share (e.g.
  'admitting officers').
  */
 open class ConsentProvisionActor: BackboneElement {
@@ -603,9 +622,9 @@ open class ConsentProvisionActor: BackboneElement {
 }
 
 /**
- Data controlled by this rule.
+ Data controlled by this provision.
  
- The resources controlled by this rule if specific resources are referenced.
+ The resources controlled by this provision if specific resources are referenced.
  */
 open class ConsentProvisionData: BackboneElement {
 	

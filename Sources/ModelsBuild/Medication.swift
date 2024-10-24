@@ -2,8 +2,8 @@
 //  Medication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Medication)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Medication)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ open class Medication: DomainResource {
 	/// A code to indicate if the medication is in active use.
 	public var status: FHIRPrimitive<MedicationStatusCodes>?
 	
-	/// Organization responsible for manufacturing the item
+	/// Organization that has authorization to market medication
 	public var marketingAuthorizationHolder: Reference?
 	
 	/// powder | tablets | capsule +
@@ -47,13 +47,16 @@ open class Medication: DomainResource {
 	
 	/// When the specified product code does not infer a package size, this is the specific amount of drug in the
 	/// product
-	public var totalVolume: Ratio?
+	public var totalVolume: Quantity?
 	
 	/// Active or inactive ingredient
 	public var ingredient: [MedicationIngredient]?
 	
 	/// Details about packaged medications
 	public var batch: MedicationBatch?
+	
+	/// Knowledge about this medication
+	public var definition: Reference?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -65,6 +68,7 @@ open class Medication: DomainResource {
 		batch: MedicationBatch? = nil,
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
+		definition: Reference? = nil,
 		doseForm: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -77,12 +81,13 @@ open class Medication: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		status: FHIRPrimitive<MedicationStatusCodes>? = nil,
 		text: Narrative? = nil,
-		totalVolume: Ratio? = nil
+		totalVolume: Quantity? = nil
 	) {
 		self.init()
 		self.batch = batch
 		self.code = code
 		self.contained = contained
+		self.definition = definition
 		self.doseForm = doseForm
 		self.`extension` = `extension`
 		self.id = id
@@ -103,6 +108,7 @@ open class Medication: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case batch
 		case code
+		case definition
 		case doseForm
 		case identifier
 		case ingredient
@@ -118,12 +124,13 @@ open class Medication: DomainResource {
 		// Decode all our properties
 		self.batch = try MedicationBatch(from: _container, forKeyIfPresent: .batch)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.definition = try Reference(from: _container, forKeyIfPresent: .definition)
 		self.doseForm = try CodeableConcept(from: _container, forKeyIfPresent: .doseForm)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.ingredient = try [MedicationIngredient](from: _container, forKeyIfPresent: .ingredient)
 		self.marketingAuthorizationHolder = try Reference(from: _container, forKeyIfPresent: .marketingAuthorizationHolder)
 		self.status = try FHIRPrimitive<MedicationStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
-		self.totalVolume = try Ratio(from: _container, forKeyIfPresent: .totalVolume)
+		self.totalVolume = try Quantity(from: _container, forKeyIfPresent: .totalVolume)
 		try super.init(from: decoder)
 	}
 	
@@ -134,6 +141,7 @@ open class Medication: DomainResource {
 		// Encode all our properties
 		try batch?.encode(on: &_container, forKey: .batch)
 		try code?.encode(on: &_container, forKey: .code)
+		try definition?.encode(on: &_container, forKey: .definition)
 		try doseForm?.encode(on: &_container, forKey: .doseForm)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
@@ -154,6 +162,7 @@ open class Medication: DomainResource {
 		}
 		return batch == _other.batch
 		    && code == _other.code
+		    && definition == _other.definition
 		    && doseForm == _other.doseForm
 		    && identifier == _other.identifier
 		    && ingredient == _other.ingredient
@@ -166,6 +175,7 @@ open class Medication: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(batch)
 		hasher.combine(code)
+		hasher.combine(definition)
 		hasher.combine(doseForm)
 		hasher.combine(identifier)
 		hasher.combine(ingredient)

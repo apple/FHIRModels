@@ -2,8 +2,8 @@
 //  MedicationDispense.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicationDispense)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ open class MedicationDispense: DomainResource {
 	/// Medication order that authorizes the dispense
 	public var authorizingPrescription: [Reference]?
 	
-	/// Trial fill, partial fill, emergency fill, etc.
+	/// Trial fill, partial fill, emergency fill, etc
 	public var type: CodeableConcept?
 	
 	/// Amount dispensed
@@ -90,7 +90,7 @@ open class MedicationDispense: DomainResource {
 	/// When product was given out
 	public var whenHandedOver: FHIRPrimitive<DateTime>?
 	
-	/// Where the medication was sent
+	/// Where the medication was/will be sent
 	public var destination: Reference?
 	
 	/// Who collected the medication or where the medication was delivered

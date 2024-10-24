@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  Evidence Report Section Type.
  
- URL: http://terminology.hl7.org/CodeSystem/evidence-report-section
+ URL: http://hl7.org/fhir/evidence-report-section
  ValueSet: http://hl7.org/fhir/ValueSet/evidence-report-section
  */
 public enum ReportSectionType: String, FHIRPrimitiveType {

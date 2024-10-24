@@ -2,8 +2,8 @@
 //  CoverageEligibilityResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,6 +48,9 @@ open class CoverageEligibilityResponse: DomainResource {
 	/// Intended recipient of products and services
 	public var patient: Reference
 	
+	/// Event information
+	public var event: [CoverageEligibilityResponseEvent]?
+	
 	/// Estimated date or dates of service
 	/// One of `serviced[x]`
 	public var serviced: ServicedX?
@@ -62,7 +65,7 @@ open class CoverageEligibilityResponse: DomainResource {
 	public var request: Reference
 	
 	/// The outcome of the request processing.
-	public var outcome: FHIRPrimitive<EligibilityOutcomeCodes>
+	public var outcome: FHIRPrimitive<EligibilityOutcome>
 	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
@@ -83,7 +86,7 @@ open class CoverageEligibilityResponse: DomainResource {
 	public var error: [CoverageEligibilityResponseError]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<EligibilityOutcomeCodes>, patient: Reference, purpose: [FHIRPrimitive<EligibilityResponsePurpose>], request: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
+	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<EligibilityOutcome>, patient: Reference, purpose: [FHIRPrimitive<EligibilityResponsePurpose>], request: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
 		self.created = created
 		self.insurer = insurer
 		self.outcome = outcome
@@ -100,6 +103,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		created: FHIRPrimitive<DateTime>,
 		disposition: FHIRPrimitive<FHIRString>? = nil,
 		error: [CoverageEligibilityResponseError]? = nil,
+		event: [CoverageEligibilityResponseEvent]? = nil,
 		`extension`: [Extension]? = nil,
 		form: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -110,7 +114,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
-		outcome: FHIRPrimitive<EligibilityOutcomeCodes>,
+		outcome: FHIRPrimitive<EligibilityOutcome>,
 		patient: Reference,
 		preAuthRef: FHIRPrimitive<FHIRString>? = nil,
 		purpose: [FHIRPrimitive<EligibilityResponsePurpose>],
@@ -124,6 +128,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		self.contained = contained
 		self.disposition = disposition
 		self.error = error
+		self.event = event
 		self.`extension` = `extension`
 		self.form = form
 		self.id = id
@@ -145,6 +150,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		case created; case _created
 		case disposition; case _disposition
 		case error
+		case event
 		case form
 		case identifier
 		case insurance
@@ -168,11 +174,12 @@ open class CoverageEligibilityResponse: DomainResource {
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
 		self.disposition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.error = try [CoverageEligibilityResponseError](from: _container, forKeyIfPresent: .error)
+		self.event = try [CoverageEligibilityResponseEvent](from: _container, forKeyIfPresent: .event)
 		self.form = try CodeableConcept(from: _container, forKeyIfPresent: .form)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.insurance = try [CoverageEligibilityResponseInsurance](from: _container, forKeyIfPresent: .insurance)
 		self.insurer = try Reference(from: _container, forKey: .insurer)
-		self.outcome = try FHIRPrimitive<EligibilityOutcomeCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
+		self.outcome = try FHIRPrimitive<EligibilityOutcome>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.preAuthRef = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preAuthRef, auxiliaryKey: ._preAuthRef)
 		self.purpose = try [FHIRPrimitive<EligibilityResponsePurpose>](from: _container, forKey: .purpose, auxiliaryKey: ._purpose)
@@ -204,6 +211,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
 		try disposition?.encode(on: &_container, forKey: .disposition, auxiliaryKey: ._disposition)
 		try error?.encode(on: &_container, forKey: .error)
+		try event?.encode(on: &_container, forKey: .event)
 		try form?.encode(on: &_container, forKey: .form)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try insurance?.encode(on: &_container, forKey: .insurance)
@@ -238,6 +246,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		return created == _other.created
 		    && disposition == _other.disposition
 		    && error == _other.error
+		    && event == _other.event
 		    && form == _other.form
 		    && identifier == _other.identifier
 		    && insurance == _other.insurance
@@ -257,6 +266,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		hasher.combine(created)
 		hasher.combine(disposition)
 		hasher.combine(error)
+		hasher.combine(event)
 		hasher.combine(form)
 		hasher.combine(identifier)
 		hasher.combine(insurance)
@@ -282,6 +292,9 @@ open class CoverageEligibilityResponseError: BackboneElement {
 	/// Error code detailing processing issues
 	public var code: CodeableConcept
 	
+	/// FHIRPath of element(s) related to issue
+	public var expression: [FHIRPrimitive<FHIRString>]?
+	
 	/// Designated initializer taking all required properties
 	public init(code: CodeableConcept) {
 		self.code = code
@@ -291,11 +304,13 @@ open class CoverageEligibilityResponseError: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: CodeableConcept,
+		expression: [FHIRPrimitive<FHIRString>]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
 		self.init(code: code)
+		self.expression = expression
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -305,6 +320,7 @@ open class CoverageEligibilityResponseError: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code
+		case expression; case _expression
 	}
 	
 	/// Initializer for Decodable
@@ -313,6 +329,7 @@ open class CoverageEligibilityResponseError: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.expression = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .expression, auxiliaryKey: ._expression)
 		try super.init(from: decoder)
 	}
 	
@@ -322,6 +339,7 @@ open class CoverageEligibilityResponseError: BackboneElement {
 		
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
+		try expression?.encode(on: &_container, forKey: .expression, auxiliaryKey: ._expression)
 		try super.encode(to: encoder)
 	}
 	
@@ -335,11 +353,127 @@ open class CoverageEligibilityResponseError: BackboneElement {
 			return false
 		}
 		return code == _other.code
+		    && expression == _other.expression
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
+		hasher.combine(expression)
+	}
+}
+
+/**
+ Event information.
+ 
+ Information code for an event with a corresponding date or period.
+ */
+open class CoverageEligibilityResponseEvent: BackboneElement {
+	
+	/// All possible types for "when[x]"
+	public enum WhenX: Hashable {
+		case dateTime(FHIRPrimitive<DateTime>)
+		case period(Period)
+	}
+	
+	/// Specific event
+	public var type: CodeableConcept
+	
+	/// Occurance date or period
+	/// One of `when[x]`
+	public var when: WhenX
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableConcept, when: WhenX) {
+		self.type = type
+		self.when = when
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		when: WhenX
+	) {
+		self.init(type: type, when: when)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case type
+		case whenDateTime; case _whenDateTime
+		case whenPeriod
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.whenDateTime) || _container.contains(CodingKeys.whenPeriod) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.whenDateTime, CodingKeys.whenPeriod], debugDescription: "Must have at least one value for \"when\" but have none"))
+		}
+		
+		// Decode all our properties
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_when: WhenX? = nil
+		if let whenDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .whenDateTime, auxiliaryKey: ._whenDateTime) {
+			if _t_when != nil {
+				throw DecodingError.dataCorruptedError(forKey: .whenDateTime, in: _container, debugDescription: "More than one value provided for \"when\"")
+			}
+			_t_when = .dateTime(whenDateTime)
+		}
+		if let whenPeriod = try Period(from: _container, forKeyIfPresent: .whenPeriod) {
+			if _t_when != nil {
+				throw DecodingError.dataCorruptedError(forKey: .whenPeriod, in: _container, debugDescription: "More than one value provided for \"when\"")
+			}
+			_t_when = .period(whenPeriod)
+		}
+		self.when = _t_when!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try type.encode(on: &_container, forKey: .type)
+		
+			switch when {
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .whenDateTime, auxiliaryKey: ._whenDateTime)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .whenPeriod)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? CoverageEligibilityResponseEvent else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return type == _other.type
+		    && when == _other.when
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(type)
+		hasher.combine(when)
 	}
 }
 

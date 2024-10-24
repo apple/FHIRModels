@@ -2,8 +2,8 @@
 //  Observation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Observation)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Observation)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,6 +53,7 @@ open class Observation: DomainResource {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case reference(Reference)
 		case sampledData(SampledData)
 		case string(FHIRPrimitive<FHIRString>)
 		case time(FHIRPrimitive<FHIRTime>)
@@ -67,6 +68,9 @@ open class Observation: DomainResource {
 	
 	/// Fulfills plan, proposal or order
 	public var basedOn: [Reference]?
+	
+	/// Triggering observation(s)
+	public var triggeredBy: [ObservationTriggeredBy]?
 	
 	/// Part of referenced event
 	public var partOf: [Reference]?
@@ -103,10 +107,10 @@ open class Observation: DomainResource {
 	/// One of `value[x]`
 	public var value: ValueX?
 	
-	/// Why the result is missing
+	/// Why the result value is missing
 	public var dataAbsentReason: CodeableConcept?
 	
-	/// High, low, normal, etc.
+	/// High, low, normal, etc
 	public var interpretation: [CodeableConcept]?
 	
 	/// Comments about the observation
@@ -115,13 +119,16 @@ open class Observation: DomainResource {
 	/// Observed body part
 	public var bodySite: CodeableConcept?
 	
+	/// Observed body structure
+	public var bodyStructure: Reference?
+	
 	/// How it was done
 	public var method: CodeableConcept?
 	
 	/// Specimen used for this observation
 	public var specimen: Reference?
 	
-	/// (Measurement) Device
+	/// A reference to the device that generates the measurements or the device settings for the device
 	public var device: Reference?
 	
 	/// Provides guide for interpretation
@@ -130,7 +137,7 @@ open class Observation: DomainResource {
 	/// Related resource that belongs to the Observation group
 	public var hasMember: [Reference]?
 	
-	/// Related measurements the observation is made from
+	/// Related resource from which the observation is made
 	public var derivedFrom: [Reference]?
 	
 	/// Component results
@@ -147,6 +154,7 @@ open class Observation: DomainResource {
 	public convenience init(
 		basedOn: [Reference]? = nil,
 		bodySite: CodeableConcept? = nil,
+		bodyStructure: Reference? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept,
 		component: [ObservationComponent]? = nil,
@@ -177,11 +185,13 @@ open class Observation: DomainResource {
 		status: FHIRPrimitive<ObservationStatus>,
 		subject: Reference? = nil,
 		text: Narrative? = nil,
+		triggeredBy: [ObservationTriggeredBy]? = nil,
 		value: ValueX? = nil
 	) {
 		self.init(code: code, status: status)
 		self.basedOn = basedOn
 		self.bodySite = bodySite
+		self.bodyStructure = bodyStructure
 		self.category = category
 		self.component = component
 		self.contained = contained
@@ -210,6 +220,7 @@ open class Observation: DomainResource {
 		self.specimen = specimen
 		self.subject = subject
 		self.text = text
+		self.triggeredBy = triggeredBy
 		self.value = value
 	}
 	
@@ -218,6 +229,7 @@ open class Observation: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case basedOn
 		case bodySite
+		case bodyStructure
 		case category
 		case code
 		case component
@@ -244,6 +256,7 @@ open class Observation: DomainResource {
 		case specimen
 		case status; case _status
 		case subject
+		case triggeredBy
 		case valueAttachment
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
@@ -253,6 +266,7 @@ open class Observation: DomainResource {
 		case valueQuantity
 		case valueRange
 		case valueRatio
+		case valueReference
 		case valueSampledData
 		case valueString; case _valueString
 		case valueTime; case _valueTime
@@ -265,6 +279,7 @@ open class Observation: DomainResource {
 		// Decode all our properties
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
+		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.component = try [ObservationComponent](from: _container, forKeyIfPresent: .component)
@@ -325,6 +340,7 @@ open class Observation: DomainResource {
 		self.specimen = try Reference(from: _container, forKeyIfPresent: .specimen)
 		self.status = try FHIRPrimitive<ObservationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
+		self.triggeredBy = try [ObservationTriggeredBy](from: _container, forKeyIfPresent: .triggeredBy)
 		var _t_value: ValueX? = nil
 		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
 			if _t_value != nil {
@@ -398,6 +414,12 @@ open class Observation: DomainResource {
 			}
 			_t_value = .attachment(valueAttachment)
 		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
+		}
 		self.value = _t_value
 		try super.init(from: decoder)
 	}
@@ -409,6 +431,7 @@ open class Observation: DomainResource {
 		// Encode all our properties
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
+		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
 		try category?.encode(on: &_container, forKey: .category)
 		try code.encode(on: &_container, forKey: .code)
 		try component?.encode(on: &_container, forKey: .component)
@@ -449,6 +472,7 @@ open class Observation: DomainResource {
 		try specimen?.encode(on: &_container, forKey: .specimen)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
+		try triggeredBy?.encode(on: &_container, forKey: .triggeredBy)
 		if let _enum = value {
 			switch _enum {
 			case .quantity(let _value):
@@ -475,6 +499,8 @@ open class Observation: DomainResource {
 				try _value.encode(on: &_container, forKey: .valuePeriod)
 			case .attachment(let _value):
 				try _value.encode(on: &_container, forKey: .valueAttachment)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
 			}
 		}
 		try super.encode(to: encoder)
@@ -491,6 +517,7 @@ open class Observation: DomainResource {
 		}
 		return basedOn == _other.basedOn
 		    && bodySite == _other.bodySite
+		    && bodyStructure == _other.bodyStructure
 		    && category == _other.category
 		    && code == _other.code
 		    && component == _other.component
@@ -513,6 +540,7 @@ open class Observation: DomainResource {
 		    && specimen == _other.specimen
 		    && status == _other.status
 		    && subject == _other.subject
+		    && triggeredBy == _other.triggeredBy
 		    && value == _other.value
 	}
 	
@@ -520,6 +548,7 @@ open class Observation: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(basedOn)
 		hasher.combine(bodySite)
+		hasher.combine(bodyStructure)
 		hasher.combine(category)
 		hasher.combine(code)
 		hasher.combine(component)
@@ -542,6 +571,7 @@ open class Observation: DomainResource {
 		hasher.combine(specimen)
 		hasher.combine(status)
 		hasher.combine(subject)
+		hasher.combine(triggeredBy)
 		hasher.combine(value)
 	}
 }
@@ -566,6 +596,7 @@ open class ObservationComponent: BackboneElement {
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
+		case reference(Reference)
 		case sampledData(SampledData)
 		case string(FHIRPrimitive<FHIRString>)
 		case time(FHIRPrimitive<FHIRTime>)
@@ -578,13 +609,13 @@ open class ObservationComponent: BackboneElement {
 	/// One of `value[x]`
 	public var value: ValueX?
 	
-	/// Why the component result is missing
+	/// Why the component result value is missing
 	public var dataAbsentReason: CodeableConcept?
 	
-	/// High, low, normal, etc.
+	/// High, low, normal, etc
 	public var interpretation: [CodeableConcept]?
 	
-	/// Provides guide for interpretation of component result
+	/// Provides guide for interpretation of component result value
 	public var referenceRange: [ObservationReferenceRange]?
 	
 	/// Designated initializer taking all required properties
@@ -630,6 +661,7 @@ open class ObservationComponent: BackboneElement {
 		case valueQuantity
 		case valueRange
 		case valueRatio
+		case valueReference
 		case valueSampledData
 		case valueString; case _valueString
 		case valueTime; case _valueTime
@@ -717,6 +749,12 @@ open class ObservationComponent: BackboneElement {
 			}
 			_t_value = .attachment(valueAttachment)
 		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
+		}
 		self.value = _t_value
 		try super.init(from: decoder)
 	}
@@ -756,6 +794,8 @@ open class ObservationComponent: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valuePeriod)
 			case .attachment(let _value):
 				try _value.encode(on: &_container, forKey: .valueAttachment)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
 			}
 		}
 		try super.encode(to: encoder)
@@ -802,6 +842,9 @@ open class ObservationReferenceRange: BackboneElement {
 	/// High Range, if relevant
 	public var high: Quantity?
 	
+	/// Normal value, if relevant
+	public var normalValue: CodeableConcept?
+	
 	/// Reference range qualifier
 	public var type: CodeableConcept?
 	
@@ -828,6 +871,7 @@ open class ObservationReferenceRange: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		low: Quantity? = nil,
 		modifierExtension: [Extension]? = nil,
+		normalValue: CodeableConcept? = nil,
 		text: FHIRPrimitive<FHIRString>? = nil,
 		type: CodeableConcept? = nil
 	) {
@@ -839,6 +883,7 @@ open class ObservationReferenceRange: BackboneElement {
 		self.id = id
 		self.low = low
 		self.modifierExtension = modifierExtension
+		self.normalValue = normalValue
 		self.text = text
 		self.type = type
 	}
@@ -850,6 +895,7 @@ open class ObservationReferenceRange: BackboneElement {
 		case appliesTo
 		case high
 		case low
+		case normalValue
 		case text; case _text
 		case type
 	}
@@ -863,6 +909,7 @@ open class ObservationReferenceRange: BackboneElement {
 		self.appliesTo = try [CodeableConcept](from: _container, forKeyIfPresent: .appliesTo)
 		self.high = try Quantity(from: _container, forKeyIfPresent: .high)
 		self.low = try Quantity(from: _container, forKeyIfPresent: .low)
+		self.normalValue = try CodeableConcept(from: _container, forKeyIfPresent: .normalValue)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -877,6 +924,7 @@ open class ObservationReferenceRange: BackboneElement {
 		try appliesTo?.encode(on: &_container, forKey: .appliesTo)
 		try high?.encode(on: &_container, forKey: .high)
 		try low?.encode(on: &_container, forKey: .low)
+		try normalValue?.encode(on: &_container, forKey: .normalValue)
 		try text?.encode(on: &_container, forKey: .text, auxiliaryKey: ._text)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -895,6 +943,7 @@ open class ObservationReferenceRange: BackboneElement {
 		    && appliesTo == _other.appliesTo
 		    && high == _other.high
 		    && low == _other.low
+		    && normalValue == _other.normalValue
 		    && text == _other.text
 		    && type == _other.type
 	}
@@ -905,7 +954,99 @@ open class ObservationReferenceRange: BackboneElement {
 		hasher.combine(appliesTo)
 		hasher.combine(high)
 		hasher.combine(low)
+		hasher.combine(normalValue)
 		hasher.combine(text)
+		hasher.combine(type)
+	}
+}
+
+/**
+ Triggering observation(s).
+ 
+ Identifies the observation(s) that triggered the performance of this observation.
+ */
+open class ObservationTriggeredBy: BackboneElement {
+	
+	/// Triggering observation
+	public var observation: Reference
+	
+	/// reflex | repeat | re-run
+	public var type: FHIRPrimitive<FHIRString>
+	
+	/// Reason that the observation was triggered
+	public var reason: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	public init(observation: Reference, type: FHIRPrimitive<FHIRString>) {
+		self.observation = observation
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		observation: Reference,
+		reason: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<FHIRString>
+	) {
+		self.init(observation: observation, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reason = reason
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case observation
+		case reason; case _reason
+		case type; case _type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.observation = try Reference(from: _container, forKey: .observation)
+		self.reason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .reason, auxiliaryKey: ._reason)
+		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try observation.encode(on: &_container, forKey: .observation)
+		try reason?.encode(on: &_container, forKey: .reason, auxiliaryKey: ._reason)
+		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ObservationTriggeredBy else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return observation == _other.observation
+		    && reason == _other.reason
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(observation)
+		hasher.combine(reason)
 		hasher.combine(type)
 	}
 }

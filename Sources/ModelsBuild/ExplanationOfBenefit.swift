@@ -2,8 +2,8 @@
 //  ExplanationOfBenefit.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,6 +32,9 @@ open class ExplanationOfBenefit: DomainResource {
 	/// Business Identifier for the resource
 	public var identifier: [Identifier]?
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<ExplanationOfBenefitStatus>
 	
@@ -41,9 +44,14 @@ open class ExplanationOfBenefit: DomainResource {
 	/// More granular claim type
 	public var subType: CodeableConcept?
 	
-	/// A code to indicate whether the nature of the request is: to request adjudication of products and services
-	/// previously rendered; or requesting authorization and adjudication for provision in the future; or requesting the
-	/// non-binding adjudication of the listed products and services which could be provided in the future.
+	/// A code to indicate whether the nature of the request is: Claim - A request to an Insurer to adjudicate the
+	/// supplied charges for health care goods and services under the identified policy and to pay the determined
+	/// Benefit amount, if any; Preauthorization - A request to an Insurer to adjudicate the supplied proposed future
+	/// charges for health care goods and services under the identified policy and to approve the services and provide
+	/// the expected benefit amounts and potentially to reserve funds to pay the benefits when Claims for the indicated
+	/// services are later submitted; or, Pre-determination - A request to an Insurer to adjudicate the supplied 'what
+	/// if' charges for health care goods and services under the identified policy and report back what the Benefit
+	/// payable would be had the services actually been provided.
 	public var use: FHIRPrimitive<Use>
 	
 	/// The recipient of the products and services
@@ -59,10 +67,10 @@ open class ExplanationOfBenefit: DomainResource {
 	public var enterer: Reference?
 	
 	/// Party responsible for reimbursement
-	public var insurer: Reference
+	public var insurer: Reference?
 	
 	/// Party responsible for the claim
-	public var provider: Reference
+	public var provider: Reference?
 	
 	/// Desired processing urgency
 	public var priority: CodeableConcept?
@@ -82,11 +90,17 @@ open class ExplanationOfBenefit: DomainResource {
 	/// Original prescription if superceded by fulfiller
 	public var originalPrescription: Reference?
 	
+	/// Event information
+	public var event: [ExplanationOfBenefitEvent]?
+	
 	/// Recipient of benefits payable
 	public var payee: ExplanationOfBenefitPayee?
 	
 	/// Treatment Referral
 	public var referral: Reference?
+	
+	/// Encounters associated with the listed treatments
+	public var encounter: [Reference]?
 	
 	/// Servicing Facility
 	public var facility: Reference?
@@ -100,6 +114,9 @@ open class ExplanationOfBenefit: DomainResource {
 	/// The outcome of the claim, predetermination, or preauthorization processing.
 	public var outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>
 	
+	/// Result of the adjudication
+	public var decision: CodeableConcept?
+	
 	/// Disposition Message
 	public var disposition: FHIRPrimitive<FHIRString>?
 	
@@ -108,6 +125,9 @@ open class ExplanationOfBenefit: DomainResource {
 	
 	/// Preauthorization in-effect period
 	public var preAuthRefPeriod: [Period]?
+	
+	/// Package billing code
+	public var diagnosisRelatedGroup: CodeableConcept?
 	
 	/// Care Team members
 	public var careTeam: [ExplanationOfBenefitCareTeam]?
@@ -125,10 +145,13 @@ open class ExplanationOfBenefit: DomainResource {
 	public var precedence: FHIRPrimitive<FHIRPositiveInteger>?
 	
 	/// Patient insurance information
-	public var insurance: [ExplanationOfBenefitInsurance]
+	public var insurance: [ExplanationOfBenefitInsurance]?
 	
 	/// Details of the event
 	public var accident: ExplanationOfBenefitAccident?
+	
+	/// Paid by the patient
+	public var patientPaid: Money?
 	
 	/// Product or service provided
 	public var item: [ExplanationOfBenefitItem]?
@@ -161,13 +184,10 @@ open class ExplanationOfBenefit: DomainResource {
 	public var benefitBalance: [ExplanationOfBenefitBenefitBalance]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurance: [ExplanationOfBenefitInsurance], insurer: Reference, outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>, patient: Reference, provider: Reference, status: FHIRPrimitive<ExplanationOfBenefitStatus>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
+	public init(created: FHIRPrimitive<DateTime>, outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>, patient: Reference, status: FHIRPrimitive<ExplanationOfBenefitStatus>, type: CodeableConcept, use: FHIRPrimitive<Use>) {
 		self.created = created
-		self.insurance = insurance
-		self.insurer = insurer
 		self.outcome = outcome
 		self.patient = patient
-		self.provider = provider
 		self.status = status
 		self.type = type
 		self.use = use
@@ -187,9 +207,13 @@ open class ExplanationOfBenefit: DomainResource {
 		claimResponse: Reference? = nil,
 		contained: [ResourceProxy]? = nil,
 		created: FHIRPrimitive<DateTime>,
+		decision: CodeableConcept? = nil,
 		diagnosis: [ExplanationOfBenefitDiagnosis]? = nil,
+		diagnosisRelatedGroup: CodeableConcept? = nil,
 		disposition: FHIRPrimitive<FHIRString>? = nil,
+		encounter: [Reference]? = nil,
 		enterer: Reference? = nil,
+		event: [ExplanationOfBenefitEvent]? = nil,
 		`extension`: [Extension]? = nil,
 		facility: Reference? = nil,
 		form: Attachment? = nil,
@@ -199,8 +223,8 @@ open class ExplanationOfBenefit: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		insurance: [ExplanationOfBenefitInsurance],
-		insurer: Reference,
+		insurance: [ExplanationOfBenefitInsurance]? = nil,
+		insurer: Reference? = nil,
 		item: [ExplanationOfBenefitItem]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
@@ -208,6 +232,7 @@ open class ExplanationOfBenefit: DomainResource {
 		originalPrescription: Reference? = nil,
 		outcome: FHIRPrimitive<ClaimProcessingOutcomeCodes>,
 		patient: Reference,
+		patientPaid: Money? = nil,
 		payee: ExplanationOfBenefitPayee? = nil,
 		payment: ExplanationOfBenefitPayment? = nil,
 		preAuthRef: [FHIRPrimitive<FHIRString>]? = nil,
@@ -217,7 +242,7 @@ open class ExplanationOfBenefit: DomainResource {
 		priority: CodeableConcept? = nil,
 		procedure: [ExplanationOfBenefitProcedure]? = nil,
 		processNote: [ExplanationOfBenefitProcessNote]? = nil,
-		provider: Reference,
+		provider: Reference? = nil,
 		referral: Reference? = nil,
 		related: [ExplanationOfBenefitRelated]? = nil,
 		status: FHIRPrimitive<ExplanationOfBenefitStatus>,
@@ -225,10 +250,11 @@ open class ExplanationOfBenefit: DomainResource {
 		supportingInfo: [ExplanationOfBenefitSupportingInfo]? = nil,
 		text: Narrative? = nil,
 		total: [ExplanationOfBenefitTotal]? = nil,
+		traceNumber: [Identifier]? = nil,
 		type: CodeableConcept,
 		use: FHIRPrimitive<Use>
 	) {
-		self.init(created: created, insurance: insurance, insurer: insurer, outcome: outcome, patient: patient, provider: provider, status: status, type: type, use: use)
+		self.init(created: created, outcome: outcome, patient: patient, status: status, type: type, use: use)
 		self.accident = accident
 		self.addItem = addItem
 		self.adjudication = adjudication
@@ -239,9 +265,13 @@ open class ExplanationOfBenefit: DomainResource {
 		self.claim = claim
 		self.claimResponse = claimResponse
 		self.contained = contained
+		self.decision = decision
 		self.diagnosis = diagnosis
+		self.diagnosisRelatedGroup = diagnosisRelatedGroup
 		self.disposition = disposition
+		self.encounter = encounter
 		self.enterer = enterer
+		self.event = event
 		self.`extension` = `extension`
 		self.facility = facility
 		self.form = form
@@ -251,11 +281,14 @@ open class ExplanationOfBenefit: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.insurance = insurance
+		self.insurer = insurer
 		self.item = item
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.originalPrescription = originalPrescription
+		self.patientPaid = patientPaid
 		self.payee = payee
 		self.payment = payment
 		self.preAuthRef = preAuthRef
@@ -265,12 +298,14 @@ open class ExplanationOfBenefit: DomainResource {
 		self.priority = priority
 		self.procedure = procedure
 		self.processNote = processNote
+		self.provider = provider
 		self.referral = referral
 		self.related = related
 		self.subType = subType
 		self.supportingInfo = supportingInfo
 		self.text = text
 		self.total = total
+		self.traceNumber = traceNumber
 	}
 	
 	// MARK: - Codable
@@ -286,9 +321,13 @@ open class ExplanationOfBenefit: DomainResource {
 		case claim
 		case claimResponse
 		case created; case _created
+		case decision
 		case diagnosis
+		case diagnosisRelatedGroup
 		case disposition; case _disposition
+		case encounter
 		case enterer
+		case event
 		case facility
 		case form
 		case formCode
@@ -301,6 +340,7 @@ open class ExplanationOfBenefit: DomainResource {
 		case originalPrescription
 		case outcome; case _outcome
 		case patient
+		case patientPaid
 		case payee
 		case payment
 		case preAuthRef; case _preAuthRef
@@ -317,6 +357,7 @@ open class ExplanationOfBenefit: DomainResource {
 		case subType
 		case supportingInfo
 		case total
+		case traceNumber
 		case type
 		case use; case _use
 	}
@@ -336,21 +377,26 @@ open class ExplanationOfBenefit: DomainResource {
 		self.claim = try Reference(from: _container, forKeyIfPresent: .claim)
 		self.claimResponse = try Reference(from: _container, forKeyIfPresent: .claimResponse)
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
+		self.decision = try CodeableConcept(from: _container, forKeyIfPresent: .decision)
 		self.diagnosis = try [ExplanationOfBenefitDiagnosis](from: _container, forKeyIfPresent: .diagnosis)
+		self.diagnosisRelatedGroup = try CodeableConcept(from: _container, forKeyIfPresent: .diagnosisRelatedGroup)
 		self.disposition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
+		self.encounter = try [Reference](from: _container, forKeyIfPresent: .encounter)
 		self.enterer = try Reference(from: _container, forKeyIfPresent: .enterer)
+		self.event = try [ExplanationOfBenefitEvent](from: _container, forKeyIfPresent: .event)
 		self.facility = try Reference(from: _container, forKeyIfPresent: .facility)
 		self.form = try Attachment(from: _container, forKeyIfPresent: .form)
 		self.formCode = try CodeableConcept(from: _container, forKeyIfPresent: .formCode)
 		self.fundsReserve = try CodeableConcept(from: _container, forKeyIfPresent: .fundsReserve)
 		self.fundsReserveRequested = try CodeableConcept(from: _container, forKeyIfPresent: .fundsReserveRequested)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.insurance = try [ExplanationOfBenefitInsurance](from: _container, forKey: .insurance)
-		self.insurer = try Reference(from: _container, forKey: .insurer)
+		self.insurance = try [ExplanationOfBenefitInsurance](from: _container, forKeyIfPresent: .insurance)
+		self.insurer = try Reference(from: _container, forKeyIfPresent: .insurer)
 		self.item = try [ExplanationOfBenefitItem](from: _container, forKeyIfPresent: .item)
 		self.originalPrescription = try Reference(from: _container, forKeyIfPresent: .originalPrescription)
 		self.outcome = try FHIRPrimitive<ClaimProcessingOutcomeCodes>(from: _container, forKey: .outcome, auxiliaryKey: ._outcome)
 		self.patient = try Reference(from: _container, forKey: .patient)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
 		self.payee = try ExplanationOfBenefitPayee(from: _container, forKeyIfPresent: .payee)
 		self.payment = try ExplanationOfBenefitPayment(from: _container, forKeyIfPresent: .payment)
 		self.preAuthRef = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .preAuthRef, auxiliaryKey: ._preAuthRef)
@@ -360,13 +406,14 @@ open class ExplanationOfBenefit: DomainResource {
 		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
 		self.procedure = try [ExplanationOfBenefitProcedure](from: _container, forKeyIfPresent: .procedure)
 		self.processNote = try [ExplanationOfBenefitProcessNote](from: _container, forKeyIfPresent: .processNote)
-		self.provider = try Reference(from: _container, forKey: .provider)
+		self.provider = try Reference(from: _container, forKeyIfPresent: .provider)
 		self.referral = try Reference(from: _container, forKeyIfPresent: .referral)
 		self.related = try [ExplanationOfBenefitRelated](from: _container, forKeyIfPresent: .related)
 		self.status = try FHIRPrimitive<ExplanationOfBenefitStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subType = try CodeableConcept(from: _container, forKeyIfPresent: .subType)
 		self.supportingInfo = try [ExplanationOfBenefitSupportingInfo](from: _container, forKeyIfPresent: .supportingInfo)
 		self.total = try [ExplanationOfBenefitTotal](from: _container, forKeyIfPresent: .total)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		self.use = try FHIRPrimitive<Use>(from: _container, forKey: .use, auxiliaryKey: ._use)
 		try super.init(from: decoder)
@@ -387,21 +434,26 @@ open class ExplanationOfBenefit: DomainResource {
 		try claim?.encode(on: &_container, forKey: .claim)
 		try claimResponse?.encode(on: &_container, forKey: .claimResponse)
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
+		try decision?.encode(on: &_container, forKey: .decision)
 		try diagnosis?.encode(on: &_container, forKey: .diagnosis)
+		try diagnosisRelatedGroup?.encode(on: &_container, forKey: .diagnosisRelatedGroup)
 		try disposition?.encode(on: &_container, forKey: .disposition, auxiliaryKey: ._disposition)
+		try encounter?.encode(on: &_container, forKey: .encounter)
 		try enterer?.encode(on: &_container, forKey: .enterer)
+		try event?.encode(on: &_container, forKey: .event)
 		try facility?.encode(on: &_container, forKey: .facility)
 		try form?.encode(on: &_container, forKey: .form)
 		try formCode?.encode(on: &_container, forKey: .formCode)
 		try fundsReserve?.encode(on: &_container, forKey: .fundsReserve)
 		try fundsReserveRequested?.encode(on: &_container, forKey: .fundsReserveRequested)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try insurance.encode(on: &_container, forKey: .insurance)
-		try insurer.encode(on: &_container, forKey: .insurer)
+		try insurance?.encode(on: &_container, forKey: .insurance)
+		try insurer?.encode(on: &_container, forKey: .insurer)
 		try item?.encode(on: &_container, forKey: .item)
 		try originalPrescription?.encode(on: &_container, forKey: .originalPrescription)
 		try outcome.encode(on: &_container, forKey: .outcome, auxiliaryKey: ._outcome)
 		try patient.encode(on: &_container, forKey: .patient)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
 		try payee?.encode(on: &_container, forKey: .payee)
 		try payment?.encode(on: &_container, forKey: .payment)
 		try preAuthRef?.encode(on: &_container, forKey: .preAuthRef, auxiliaryKey: ._preAuthRef)
@@ -411,13 +463,14 @@ open class ExplanationOfBenefit: DomainResource {
 		try priority?.encode(on: &_container, forKey: .priority)
 		try procedure?.encode(on: &_container, forKey: .procedure)
 		try processNote?.encode(on: &_container, forKey: .processNote)
-		try provider.encode(on: &_container, forKey: .provider)
+		try provider?.encode(on: &_container, forKey: .provider)
 		try referral?.encode(on: &_container, forKey: .referral)
 		try related?.encode(on: &_container, forKey: .related)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subType?.encode(on: &_container, forKey: .subType)
 		try supportingInfo?.encode(on: &_container, forKey: .supportingInfo)
 		try total?.encode(on: &_container, forKey: .total)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try type.encode(on: &_container, forKey: .type)
 		try use.encode(on: &_container, forKey: .use, auxiliaryKey: ._use)
 		try super.encode(to: encoder)
@@ -442,9 +495,13 @@ open class ExplanationOfBenefit: DomainResource {
 		    && claim == _other.claim
 		    && claimResponse == _other.claimResponse
 		    && created == _other.created
+		    && decision == _other.decision
 		    && diagnosis == _other.diagnosis
+		    && diagnosisRelatedGroup == _other.diagnosisRelatedGroup
 		    && disposition == _other.disposition
+		    && encounter == _other.encounter
 		    && enterer == _other.enterer
+		    && event == _other.event
 		    && facility == _other.facility
 		    && form == _other.form
 		    && formCode == _other.formCode
@@ -457,6 +514,7 @@ open class ExplanationOfBenefit: DomainResource {
 		    && originalPrescription == _other.originalPrescription
 		    && outcome == _other.outcome
 		    && patient == _other.patient
+		    && patientPaid == _other.patientPaid
 		    && payee == _other.payee
 		    && payment == _other.payment
 		    && preAuthRef == _other.preAuthRef
@@ -473,6 +531,7 @@ open class ExplanationOfBenefit: DomainResource {
 		    && subType == _other.subType
 		    && supportingInfo == _other.supportingInfo
 		    && total == _other.total
+		    && traceNumber == _other.traceNumber
 		    && type == _other.type
 		    && use == _other.use
 	}
@@ -489,9 +548,13 @@ open class ExplanationOfBenefit: DomainResource {
 		hasher.combine(claim)
 		hasher.combine(claimResponse)
 		hasher.combine(created)
+		hasher.combine(decision)
 		hasher.combine(diagnosis)
+		hasher.combine(diagnosisRelatedGroup)
 		hasher.combine(disposition)
+		hasher.combine(encounter)
 		hasher.combine(enterer)
+		hasher.combine(event)
 		hasher.combine(facility)
 		hasher.combine(form)
 		hasher.combine(formCode)
@@ -504,6 +567,7 @@ open class ExplanationOfBenefit: DomainResource {
 		hasher.combine(originalPrescription)
 		hasher.combine(outcome)
 		hasher.combine(patient)
+		hasher.combine(patientPaid)
 		hasher.combine(payee)
 		hasher.combine(payment)
 		hasher.combine(preAuthRef)
@@ -520,6 +584,7 @@ open class ExplanationOfBenefit: DomainResource {
 		hasher.combine(subType)
 		hasher.combine(supportingInfo)
 		hasher.combine(total)
+		hasher.combine(traceNumber)
 		hasher.combine(type)
 		hasher.combine(use)
 	}
@@ -673,11 +738,23 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 	/// Subdetail sequence number
 	public var subDetailSequence: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
 	/// Authorized providers
 	public var provider: [Reference]?
 	
+	/// Revenue or cost center code
+	public var revenue: CodeableConcept?
+	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
+	
+	/// Request or Referral for Service
+	public var request: [Reference]?
 	
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
@@ -693,6 +770,9 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 	/// One of `location[x]`
 	public var location: LocationX?
 	
+	/// Paid by the patient
+	public var patientPaid: Money?
+	
 	/// Count of products or services
 	public var quantity: Quantity?
 	
@@ -702,17 +782,20 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
 	/// Anatomical location
-	public var bodySite: CodeableConcept?
-	
-	/// Anatomical sub-location
-	public var subSite: [CodeableConcept]?
+	public var bodySite: [ExplanationOfBenefitAddItemBodySite]?
 	
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Additem level adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
 	
 	/// Added items adjudication
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
@@ -721,15 +804,14 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 	public var detail: [ExplanationOfBenefitAddItemDetail]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept) {
-		self.productOrService = productOrService
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ExplanationOfBenefitItemAdjudication]? = nil,
-		bodySite: CodeableConcept? = nil,
+		bodySite: [ExplanationOfBenefitAddItemBodySite]? = nil,
 		detail: [ExplanationOfBenefitAddItemDetail]? = nil,
 		detailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
 		`extension`: [Extension]? = nil,
@@ -741,16 +823,22 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		patientPaid: Money? = nil,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		programCode: [CodeableConcept]? = nil,
 		provider: [Reference]? = nil,
 		quantity: Quantity? = nil,
+		request: [Reference]? = nil,
+		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
 		serviced: ServicedX? = nil,
 		subDetailSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		subSite: [CodeableConcept]? = nil,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService)
+		self.init()
 		self.adjudication = adjudication
 		self.bodySite = bodySite
 		self.detail = detail
@@ -764,12 +852,19 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.programCode = programCode
 		self.provider = provider
 		self.quantity = quantity
+		self.request = request
+		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
 		self.serviced = serviced
 		self.subDetailSequence = subDetailSequence
-		self.subSite = subSite
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.unitPrice = unitPrice
 	}
 	
@@ -788,14 +883,20 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case productOrService
+		case productOrServiceEnd
 		case programCode
 		case provider
 		case quantity
+		case request
+		case revenue
+		case reviewOutcome
 		case servicedDate; case _servicedDate
 		case servicedPeriod
 		case subDetailSequence; case _subDetailSequence
-		case subSite
+		case tax
+		case traceNumber
 		case unitPrice
 	}
 	
@@ -805,7 +906,7 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		
 		// Decode all our properties
 		self.adjudication = try [ExplanationOfBenefitItemAdjudication](from: _container, forKeyIfPresent: .adjudication)
-		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
+		self.bodySite = try [ExplanationOfBenefitAddItemBodySite](from: _container, forKeyIfPresent: .bodySite)
 		self.detail = try [ExplanationOfBenefitAddItemDetail](from: _container, forKeyIfPresent: .detail)
 		self.detailSequence = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .detailSequence, auxiliaryKey: ._detailSequence)
 		self.factor = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .factor, auxiliaryKey: ._factor)
@@ -833,10 +934,15 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.programCode = try [CodeableConcept](from: _container, forKeyIfPresent: .programCode)
 		self.provider = try [Reference](from: _container, forKeyIfPresent: .provider)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.request = try [Reference](from: _container, forKeyIfPresent: .request)
+		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
 		var _t_serviced: ServicedX? = nil
 		if let servicedDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .servicedDate, auxiliaryKey: ._servicedDate) {
 			if _t_serviced != nil {
@@ -852,7 +958,8 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		}
 		self.serviced = _t_serviced
 		self.subDetailSequence = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
-		self.subSite = try [CodeableConcept](from: _container, forKeyIfPresent: .subSite)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
@@ -881,10 +988,15 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try programCode?.encode(on: &_container, forKey: .programCode)
 		try provider?.encode(on: &_container, forKey: .provider)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try request?.encode(on: &_container, forKey: .request)
+		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
 		if let _enum = serviced {
 			switch _enum {
 			case .date(let _value):
@@ -894,7 +1006,8 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 			}
 		}
 		try subDetailSequence?.encode(on: &_container, forKey: .subDetailSequence, auxiliaryKey: ._subDetailSequence)
-		try subSite?.encode(on: &_container, forKey: .subSite)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
@@ -918,13 +1031,19 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && programCode == _other.programCode
 		    && provider == _other.provider
 		    && quantity == _other.quantity
+		    && request == _other.request
+		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
 		    && serviced == _other.serviced
 		    && subDetailSequence == _other.subDetailSequence
-		    && subSite == _other.subSite
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && unitPrice == _other.unitPrice
 	}
 	
@@ -940,14 +1059,101 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(programCode)
 		hasher.combine(provider)
 		hasher.combine(quantity)
+		hasher.combine(request)
+		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
 		hasher.combine(serviced)
 		hasher.combine(subDetailSequence)
-		hasher.combine(subSite)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(unitPrice)
+	}
+}
+
+/**
+ Anatomical location.
+ 
+ Physical location where the service is performed or applies.
+ */
+open class ExplanationOfBenefitAddItemBodySite: BackboneElement {
+	
+	/// Location
+	public var site: [CodeableReference]
+	
+	/// Sub-location
+	public var subSite: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	public init(site: [CodeableReference]) {
+		self.site = site
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		site: [CodeableReference],
+		subSite: [CodeableConcept]? = nil
+	) {
+		self.init(site: site)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.subSite = subSite
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case site
+		case subSite
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.site = try [CodeableReference](from: _container, forKey: .site)
+		self.subSite = try [CodeableConcept](from: _container, forKeyIfPresent: .subSite)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try site.encode(on: &_container, forKey: .site)
+		try subSite?.encode(on: &_container, forKey: .subSite)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ExplanationOfBenefitAddItemBodySite else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return site == _other.site
+		    && subSite == _other.subSite
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(site)
+		hasher.combine(subSite)
 	}
 }
 
@@ -958,11 +1164,23 @@ open class ExplanationOfBenefitAddItem: BackboneElement {
  */
 open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
+	/// Revenue or cost center code
+	public var revenue: CodeableConcept?
+	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
 	
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
+	
+	/// Paid by the patient
+	public var patientPaid: Money?
 	
 	/// Count of products or services
 	public var quantity: Quantity?
@@ -973,11 +1191,17 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Additem detail level adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
 	
 	/// Added items adjudication
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
@@ -986,8 +1210,7 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 	public var subDetail: [ExplanationOfBenefitAddItemDetailSubDetail]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept) {
-		self.productOrService = productOrService
+	override public init() {
 		super.init()
 	}
 	
@@ -1001,12 +1224,18 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		patientPaid: Money? = nil,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		quantity: Quantity? = nil,
+		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
 		subDetail: [ExplanationOfBenefitAddItemDetailSubDetail]? = nil,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService)
+		self.init()
 		self.adjudication = adjudication
 		self.`extension` = `extension`
 		self.factor = factor
@@ -1015,8 +1244,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.quantity = quantity
+		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
 		self.subDetail = subDetail
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.unitPrice = unitPrice
 	}
 	
@@ -1028,9 +1264,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case productOrService
+		case productOrServiceEnd
 		case quantity
+		case revenue
+		case reviewOutcome
 		case subDetail
+		case tax
+		case traceNumber
 		case unitPrice
 	}
 	
@@ -1044,9 +1286,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
 		self.subDetail = try [ExplanationOfBenefitAddItemDetailSubDetail](from: _container, forKeyIfPresent: .subDetail)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
@@ -1061,9 +1309,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
 		try subDetail?.encode(on: &_container, forKey: .subDetail)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
@@ -1082,9 +1336,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && quantity == _other.quantity
+		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
 		    && subDetail == _other.subDetail
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && unitPrice == _other.unitPrice
 	}
 	
@@ -1095,9 +1355,15 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(quantity)
+		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
 		hasher.combine(subDetail)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(unitPrice)
 	}
 }
@@ -1109,11 +1375,23 @@ open class ExplanationOfBenefitAddItemDetail: BackboneElement {
  */
 open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
+	/// Revenue or cost center code
+	public var revenue: CodeableConcept?
+	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
 	
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
+	
+	/// Paid by the patient
+	public var patientPaid: Money?
 	
 	/// Count of products or services
 	public var quantity: Quantity?
@@ -1124,18 +1402,23 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
+	/// Additem subdetail level adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
+	
 	/// Added items adjudication
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept) {
-		self.productOrService = productOrService
+	override public init() {
 		super.init()
 	}
 	
@@ -1149,11 +1432,17 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		patientPaid: Money? = nil,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		quantity: Quantity? = nil,
+		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService)
+		self.init()
 		self.adjudication = adjudication
 		self.`extension` = `extension`
 		self.factor = factor
@@ -1162,7 +1451,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.quantity = quantity
+		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.unitPrice = unitPrice
 	}
 	
@@ -1174,8 +1470,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case productOrService
+		case productOrServiceEnd
 		case quantity
+		case revenue
+		case reviewOutcome
+		case tax
+		case traceNumber
 		case unitPrice
 	}
 	
@@ -1189,8 +1491,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
 	}
@@ -1205,8 +1513,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
 	}
@@ -1225,8 +1539,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && quantity == _other.quantity
+		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && unitPrice == _other.unitPrice
 	}
 	
@@ -1237,8 +1557,14 @@ open class ExplanationOfBenefitAddItemDetailSubDetail: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(quantity)
+		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(unitPrice)
 	}
 }
@@ -1558,8 +1884,8 @@ open class ExplanationOfBenefitCareTeam: BackboneElement {
 	/// Function within the team
 	public var role: CodeableConcept?
 	
-	/// Practitioner credential or specialization
-	public var qualification: CodeableConcept?
+	/// Practitioner or provider specialization
+	public var specialty: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
 	public init(provider: Reference, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
@@ -1574,28 +1900,28 @@ open class ExplanationOfBenefitCareTeam: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		provider: Reference,
-		qualification: CodeableConcept? = nil,
 		responsible: FHIRPrimitive<FHIRBool>? = nil,
 		role: CodeableConcept? = nil,
-		sequence: FHIRPrimitive<FHIRPositiveInteger>
+		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		specialty: CodeableConcept? = nil
 	) {
 		self.init(provider: provider, sequence: sequence)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.qualification = qualification
 		self.responsible = responsible
 		self.role = role
+		self.specialty = specialty
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case provider
-		case qualification
 		case responsible; case _responsible
 		case role
 		case sequence; case _sequence
+		case specialty
 	}
 	
 	/// Initializer for Decodable
@@ -1604,10 +1930,10 @@ open class ExplanationOfBenefitCareTeam: BackboneElement {
 		
 		// Decode all our properties
 		self.provider = try Reference(from: _container, forKey: .provider)
-		self.qualification = try CodeableConcept(from: _container, forKeyIfPresent: .qualification)
 		self.responsible = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .responsible, auxiliaryKey: ._responsible)
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
+		self.specialty = try CodeableConcept(from: _container, forKeyIfPresent: .specialty)
 		try super.init(from: decoder)
 	}
 	
@@ -1617,10 +1943,10 @@ open class ExplanationOfBenefitCareTeam: BackboneElement {
 		
 		// Encode all our properties
 		try provider.encode(on: &_container, forKey: .provider)
-		try qualification?.encode(on: &_container, forKey: .qualification)
 		try responsible?.encode(on: &_container, forKey: .responsible, auxiliaryKey: ._responsible)
 		try role?.encode(on: &_container, forKey: .role)
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
+		try specialty?.encode(on: &_container, forKey: .specialty)
 		try super.encode(to: encoder)
 	}
 	
@@ -1634,19 +1960,19 @@ open class ExplanationOfBenefitCareTeam: BackboneElement {
 			return false
 		}
 		return provider == _other.provider
-		    && qualification == _other.qualification
 		    && responsible == _other.responsible
 		    && role == _other.role
 		    && sequence == _other.sequence
+		    && specialty == _other.specialty
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(provider)
-		hasher.combine(qualification)
 		hasher.combine(responsible)
 		hasher.combine(role)
 		hasher.combine(sequence)
+		hasher.combine(specialty)
 	}
 }
 
@@ -1676,9 +2002,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 	/// Present on admission
 	public var onAdmission: CodeableConcept?
 	
-	/// Package billing code
-	public var packageCode: CodeableConcept?
-	
 	/// Designated initializer taking all required properties
 	public init(diagnosis: DiagnosisX, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.diagnosis = diagnosis
@@ -1693,7 +2016,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		onAdmission: CodeableConcept? = nil,
-		packageCode: CodeableConcept? = nil,
 		sequence: FHIRPrimitive<FHIRPositiveInteger>,
 		type: [CodeableConcept]? = nil
 	) {
@@ -1702,7 +2024,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.onAdmission = onAdmission
-		self.packageCode = packageCode
 		self.type = type
 	}
 	
@@ -1712,7 +2033,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		case diagnosisCodeableConcept
 		case diagnosisReference
 		case onAdmission
-		case packageCode
 		case sequence; case _sequence
 		case type
 	}
@@ -1742,7 +2062,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		}
 		self.diagnosis = _t_diagnosis!
 		self.onAdmission = try CodeableConcept(from: _container, forKeyIfPresent: .onAdmission)
-		self.packageCode = try CodeableConcept(from: _container, forKeyIfPresent: .packageCode)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -1762,7 +2081,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 			}
 		
 		try onAdmission?.encode(on: &_container, forKey: .onAdmission)
-		try packageCode?.encode(on: &_container, forKey: .packageCode)
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -1779,7 +2097,6 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		}
 		return diagnosis == _other.diagnosis
 		    && onAdmission == _other.onAdmission
-		    && packageCode == _other.packageCode
 		    && sequence == _other.sequence
 		    && type == _other.type
 	}
@@ -1788,9 +2105,122 @@ open class ExplanationOfBenefitDiagnosis: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(diagnosis)
 		hasher.combine(onAdmission)
-		hasher.combine(packageCode)
 		hasher.combine(sequence)
 		hasher.combine(type)
+	}
+}
+
+/**
+ Event information.
+ 
+ Information code for an event with a corresponding date or period.
+ */
+open class ExplanationOfBenefitEvent: BackboneElement {
+	
+	/// All possible types for "when[x]"
+	public enum WhenX: Hashable {
+		case dateTime(FHIRPrimitive<DateTime>)
+		case period(Period)
+	}
+	
+	/// Specific event
+	public var type: CodeableConcept
+	
+	/// Occurance date or period
+	/// One of `when[x]`
+	public var when: WhenX
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableConcept, when: WhenX) {
+		self.type = type
+		self.when = when
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: CodeableConcept,
+		when: WhenX
+	) {
+		self.init(type: type, when: when)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case type
+		case whenDateTime; case _whenDateTime
+		case whenPeriod
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.whenDateTime) || _container.contains(CodingKeys.whenPeriod) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.whenDateTime, CodingKeys.whenPeriod], debugDescription: "Must have at least one value for \"when\" but have none"))
+		}
+		
+		// Decode all our properties
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		var _t_when: WhenX? = nil
+		if let whenDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .whenDateTime, auxiliaryKey: ._whenDateTime) {
+			if _t_when != nil {
+				throw DecodingError.dataCorruptedError(forKey: .whenDateTime, in: _container, debugDescription: "More than one value provided for \"when\"")
+			}
+			_t_when = .dateTime(whenDateTime)
+		}
+		if let whenPeriod = try Period(from: _container, forKeyIfPresent: .whenPeriod) {
+			if _t_when != nil {
+				throw DecodingError.dataCorruptedError(forKey: .whenPeriod, in: _container, debugDescription: "More than one value provided for \"when\"")
+			}
+			_t_when = .period(whenPeriod)
+		}
+		self.when = _t_when!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try type.encode(on: &_container, forKey: .type)
+		
+			switch when {
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .whenDateTime, auxiliaryKey: ._whenDateTime)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .whenPeriod)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ExplanationOfBenefitEvent else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return type == _other.type
+		    && when == _other.when
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(type)
+		hasher.combine(when)
 	}
 }
 
@@ -1921,6 +2351,9 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	/// Applicable exception and supporting information
 	public var informationSequence: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
 	/// Revenue or cost center code
 	public var revenue: CodeableConcept?
 	
@@ -1928,7 +2361,13 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	public var category: CodeableConcept?
 	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
+	
+	/// Request or Referral for Service
+	public var request: [Reference]?
 	
 	/// Product or service billing modifiers
 	public var modifier: [CodeableConcept]?
@@ -1944,6 +2383,9 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	/// One of `location[x]`
 	public var location: LocationX?
 	
+	/// Paid by the patient
+	public var patientPaid: Money?
+	
 	/// Count of products or services
 	public var quantity: Quantity?
 	
@@ -1953,6 +2395,9 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
@@ -1960,16 +2405,16 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	public var udi: [Reference]?
 	
 	/// Anatomical location
-	public var bodySite: CodeableConcept?
+	public var bodySite: [ExplanationOfBenefitItemBodySite]?
 	
-	/// Anatomical sub-location
-	public var subSite: [CodeableConcept]?
-	
-	/// Encounters related to this billed item
+	/// Encounters associated with the listed treatments
 	public var encounter: [Reference]?
 	
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
 	
 	/// Adjudication details
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
@@ -1978,8 +2423,7 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	public var detail: [ExplanationOfBenefitItemDetail]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
-		self.productOrService = productOrService
+	public init(sequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.sequence = sequence
 		super.init()
 	}
@@ -1987,7 +2431,7 @@ open class ExplanationOfBenefitItem: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		adjudication: [ExplanationOfBenefitItemAdjudication]? = nil,
-		bodySite: CodeableConcept? = nil,
+		bodySite: [ExplanationOfBenefitItemBodySite]? = nil,
 		careTeamSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
 		category: CodeableConcept? = nil,
 		detail: [ExplanationOfBenefitItemDetail]? = nil,
@@ -2002,18 +2446,23 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		patientPaid: Money? = nil,
 		procedureSequence: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		programCode: [CodeableConcept]? = nil,
 		quantity: Quantity? = nil,
+		request: [Reference]? = nil,
 		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
 		sequence: FHIRPrimitive<FHIRPositiveInteger>,
 		serviced: ServicedX? = nil,
-		subSite: [CodeableConcept]? = nil,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		udi: [Reference]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService, sequence: sequence)
+		self.init(sequence: sequence)
 		self.adjudication = adjudication
 		self.bodySite = bodySite
 		self.careTeamSequence = careTeamSequence
@@ -2030,12 +2479,18 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
 		self.procedureSequence = procedureSequence
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.programCode = programCode
 		self.quantity = quantity
+		self.request = request
 		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
 		self.serviced = serviced
-		self.subSite = subSite
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.udi = udi
 		self.unitPrice = unitPrice
 	}
@@ -2058,15 +2513,20 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case procedureSequence; case _procedureSequence
 		case productOrService
+		case productOrServiceEnd
 		case programCode
 		case quantity
+		case request
 		case revenue
+		case reviewOutcome
 		case sequence; case _sequence
 		case servicedDate; case _servicedDate
 		case servicedPeriod
-		case subSite
+		case tax
+		case traceNumber
 		case udi
 		case unitPrice
 	}
@@ -2077,7 +2537,7 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		
 		// Decode all our properties
 		self.adjudication = try [ExplanationOfBenefitItemAdjudication](from: _container, forKeyIfPresent: .adjudication)
-		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
+		self.bodySite = try [ExplanationOfBenefitItemBodySite](from: _container, forKeyIfPresent: .bodySite)
 		self.careTeamSequence = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .careTeamSequence, auxiliaryKey: ._careTeamSequence)
 		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
 		self.detail = try [ExplanationOfBenefitItemDetail](from: _container, forKeyIfPresent: .detail)
@@ -2108,11 +2568,15 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
 		self.procedureSequence = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .procedureSequence, auxiliaryKey: ._procedureSequence)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.programCode = try [CodeableConcept](from: _container, forKeyIfPresent: .programCode)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.request = try [Reference](from: _container, forKeyIfPresent: .request)
 		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
 		var _t_serviced: ServicedX? = nil
 		if let servicedDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .servicedDate, auxiliaryKey: ._servicedDate) {
@@ -2128,7 +2592,8 @@ open class ExplanationOfBenefitItem: BackboneElement {
 			_t_serviced = .period(servicedPeriod)
 		}
 		self.serviced = _t_serviced
-		self.subSite = try [CodeableConcept](from: _container, forKeyIfPresent: .subSite)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.udi = try [Reference](from: _container, forKeyIfPresent: .udi)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
@@ -2161,11 +2626,15 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
 		try procedureSequence?.encode(on: &_container, forKey: .procedureSequence, auxiliaryKey: ._procedureSequence)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try programCode?.encode(on: &_container, forKey: .programCode)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try request?.encode(on: &_container, forKey: .request)
 		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
 		if let _enum = serviced {
 			switch _enum {
@@ -2175,7 +2644,8 @@ open class ExplanationOfBenefitItem: BackboneElement {
 				try _value.encode(on: &_container, forKey: .servicedPeriod)
 			}
 		}
-		try subSite?.encode(on: &_container, forKey: .subSite)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try udi?.encode(on: &_container, forKey: .udi)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
@@ -2203,14 +2673,19 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && procedureSequence == _other.procedureSequence
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && programCode == _other.programCode
 		    && quantity == _other.quantity
+		    && request == _other.request
 		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
 		    && sequence == _other.sequence
 		    && serviced == _other.serviced
-		    && subSite == _other.subSite
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && udi == _other.udi
 		    && unitPrice == _other.unitPrice
 	}
@@ -2230,14 +2705,19 @@ open class ExplanationOfBenefitItem: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(procedureSequence)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(programCode)
 		hasher.combine(quantity)
+		hasher.combine(request)
 		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
 		hasher.combine(sequence)
 		hasher.combine(serviced)
-		hasher.combine(subSite)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(udi)
 		hasher.combine(unitPrice)
 	}
@@ -2261,7 +2741,7 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 	public var amount: Money?
 	
 	/// Non-monitary value
-	public var value: FHIRPrimitive<FHIRDecimal>?
+	public var quantity: Quantity?
 	
 	/// Designated initializer taking all required properties
 	public init(category: CodeableConcept) {
@@ -2276,16 +2756,16 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		reason: CodeableConcept? = nil,
-		value: FHIRPrimitive<FHIRDecimal>? = nil
+		quantity: Quantity? = nil,
+		reason: CodeableConcept? = nil
 	) {
 		self.init(category: category)
 		self.amount = amount
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.quantity = quantity
 		self.reason = reason
-		self.value = value
 	}
 	
 	// MARK: - Codable
@@ -2293,8 +2773,8 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case amount
 		case category
+		case quantity
 		case reason
-		case value; case _value
 	}
 	
 	/// Initializer for Decodable
@@ -2304,8 +2784,8 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 		// Decode all our properties
 		self.amount = try Money(from: _container, forKeyIfPresent: .amount)
 		self.category = try CodeableConcept(from: _container, forKey: .category)
+		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
-		self.value = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .value, auxiliaryKey: ._value)
 		try super.init(from: decoder)
 	}
 	
@@ -2316,8 +2796,8 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 		// Encode all our properties
 		try amount?.encode(on: &_container, forKey: .amount)
 		try category.encode(on: &_container, forKey: .category)
+		try quantity?.encode(on: &_container, forKey: .quantity)
 		try reason?.encode(on: &_container, forKey: .reason)
-		try value?.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
 		try super.encode(to: encoder)
 	}
 	
@@ -2332,16 +2812,97 @@ open class ExplanationOfBenefitItemAdjudication: BackboneElement {
 		}
 		return amount == _other.amount
 		    && category == _other.category
+		    && quantity == _other.quantity
 		    && reason == _other.reason
-		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(amount)
 		hasher.combine(category)
+		hasher.combine(quantity)
 		hasher.combine(reason)
-		hasher.combine(value)
+	}
+}
+
+/**
+ Anatomical location.
+ 
+ Physical location where the service is performed or applies.
+ */
+open class ExplanationOfBenefitItemBodySite: BackboneElement {
+	
+	/// Location
+	public var site: [CodeableReference]
+	
+	/// Sub-location
+	public var subSite: [CodeableConcept]?
+	
+	/// Designated initializer taking all required properties
+	public init(site: [CodeableReference]) {
+		self.site = site
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		site: [CodeableReference],
+		subSite: [CodeableConcept]? = nil
+	) {
+		self.init(site: site)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.subSite = subSite
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case site
+		case subSite
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.site = try [CodeableReference](from: _container, forKey: .site)
+		self.subSite = try [CodeableConcept](from: _container, forKeyIfPresent: .subSite)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try site.encode(on: &_container, forKey: .site)
+		try subSite?.encode(on: &_container, forKey: .subSite)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ExplanationOfBenefitItemBodySite else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return site == _other.site
+		    && subSite == _other.subSite
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(site)
+		hasher.combine(subSite)
 	}
 }
 
@@ -2355,6 +2916,9 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 	/// Product or service provided
 	public var sequence: FHIRPrimitive<FHIRPositiveInteger>
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
 	/// Revenue or cost center code
 	public var revenue: CodeableConcept?
 	
@@ -2362,13 +2926,19 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 	public var category: CodeableConcept?
 	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
 	
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
 	
 	/// Program the product or service is provided under
 	public var programCode: [CodeableConcept]?
+	
+	/// Paid by the patient
+	public var patientPaid: Money?
 	
 	/// Count of products or services
 	public var quantity: Quantity?
@@ -2379,6 +2949,9 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
@@ -2388,6 +2961,9 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
+	/// Detail level adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
+	
 	/// Detail level adjudication details
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
 	
@@ -2395,8 +2971,7 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 	public var subDetail: [ExplanationOfBenefitItemDetailSubDetail]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
-		self.productOrService = productOrService
+	public init(sequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.sequence = sequence
 		super.init()
 	}
@@ -2412,16 +2987,21 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		patientPaid: Money? = nil,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		programCode: [CodeableConcept]? = nil,
 		quantity: Quantity? = nil,
 		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
 		sequence: FHIRPrimitive<FHIRPositiveInteger>,
 		subDetail: [ExplanationOfBenefitItemDetailSubDetail]? = nil,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		udi: [Reference]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService, sequence: sequence)
+		self.init(sequence: sequence)
 		self.adjudication = adjudication
 		self.category = category
 		self.`extension` = `extension`
@@ -2431,10 +3011,16 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.programCode = programCode
 		self.quantity = quantity
 		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
 		self.subDetail = subDetail
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.udi = udi
 		self.unitPrice = unitPrice
 	}
@@ -2448,12 +3034,17 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case productOrService
+		case productOrServiceEnd
 		case programCode
 		case quantity
 		case revenue
+		case reviewOutcome
 		case sequence; case _sequence
 		case subDetail
+		case tax
+		case traceNumber
 		case udi
 		case unitPrice
 	}
@@ -2469,12 +3060,17 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.programCode = try [CodeableConcept](from: _container, forKeyIfPresent: .programCode)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
 		self.subDetail = try [ExplanationOfBenefitItemDetailSubDetail](from: _container, forKeyIfPresent: .subDetail)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.udi = try [Reference](from: _container, forKeyIfPresent: .udi)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
@@ -2491,12 +3087,17 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try programCode?.encode(on: &_container, forKey: .programCode)
 		try quantity?.encode(on: &_container, forKey: .quantity)
 		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
 		try subDetail?.encode(on: &_container, forKey: .subDetail)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try udi?.encode(on: &_container, forKey: .udi)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
@@ -2517,12 +3118,17 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && programCode == _other.programCode
 		    && quantity == _other.quantity
 		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
 		    && sequence == _other.sequence
 		    && subDetail == _other.subDetail
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && udi == _other.udi
 		    && unitPrice == _other.unitPrice
 	}
@@ -2535,12 +3141,17 @@ open class ExplanationOfBenefitItemDetail: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(programCode)
 		hasher.combine(quantity)
 		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
 		hasher.combine(sequence)
 		hasher.combine(subDetail)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(udi)
 		hasher.combine(unitPrice)
 	}
@@ -2556,6 +3167,9 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 	/// Product or service provided
 	public var sequence: FHIRPrimitive<FHIRPositiveInteger>
 	
+	/// Number for tracking
+	public var traceNumber: [Identifier]?
+	
 	/// Revenue or cost center code
 	public var revenue: CodeableConcept?
 	
@@ -2563,13 +3177,19 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 	public var category: CodeableConcept?
 	
 	/// Billing, service, product, or drug code
-	public var productOrService: CodeableConcept
+	public var productOrService: CodeableConcept?
+	
+	/// End of a range of codes
+	public var productOrServiceEnd: CodeableConcept?
 	
 	/// Service/Product billing modifiers
 	public var modifier: [CodeableConcept]?
 	
 	/// Program the product or service is provided under
 	public var programCode: [CodeableConcept]?
+	
+	/// Paid by the patient
+	public var patientPaid: Money?
 	
 	/// Count of products or services
 	public var quantity: Quantity?
@@ -2580,6 +3200,9 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 	/// Price scaling factor
 	public var factor: FHIRPrimitive<FHIRDecimal>?
 	
+	/// Total tax
+	public var tax: Money?
+	
 	/// Total item cost
 	public var net: Money?
 	
@@ -2589,12 +3212,14 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 	/// Applicable note numbers
 	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
+	/// Subdetail level adjudication results
+	public var reviewOutcome: ExplanationOfBenefitItemReviewOutcome?
+	
 	/// Subdetail level adjudication details
 	public var adjudication: [ExplanationOfBenefitItemAdjudication]?
 	
 	/// Designated initializer taking all required properties
-	public init(productOrService: CodeableConcept, sequence: FHIRPrimitive<FHIRPositiveInteger>) {
-		self.productOrService = productOrService
+	public init(sequence: FHIRPrimitive<FHIRPositiveInteger>) {
 		self.sequence = sequence
 		super.init()
 	}
@@ -2610,15 +3235,20 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		net: Money? = nil,
 		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
-		productOrService: CodeableConcept,
+		patientPaid: Money? = nil,
+		productOrService: CodeableConcept? = nil,
+		productOrServiceEnd: CodeableConcept? = nil,
 		programCode: [CodeableConcept]? = nil,
 		quantity: Quantity? = nil,
 		revenue: CodeableConcept? = nil,
+		reviewOutcome: ExplanationOfBenefitItemReviewOutcome? = nil,
 		sequence: FHIRPrimitive<FHIRPositiveInteger>,
+		tax: Money? = nil,
+		traceNumber: [Identifier]? = nil,
 		udi: [Reference]? = nil,
 		unitPrice: Money? = nil
 	) {
-		self.init(productOrService: productOrService, sequence: sequence)
+		self.init(sequence: sequence)
 		self.adjudication = adjudication
 		self.category = category
 		self.`extension` = `extension`
@@ -2628,9 +3258,15 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.net = net
 		self.noteNumber = noteNumber
+		self.patientPaid = patientPaid
+		self.productOrService = productOrService
+		self.productOrServiceEnd = productOrServiceEnd
 		self.programCode = programCode
 		self.quantity = quantity
 		self.revenue = revenue
+		self.reviewOutcome = reviewOutcome
+		self.tax = tax
+		self.traceNumber = traceNumber
 		self.udi = udi
 		self.unitPrice = unitPrice
 	}
@@ -2644,11 +3280,16 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		case modifier
 		case net
 		case noteNumber; case _noteNumber
+		case patientPaid
 		case productOrService
+		case productOrServiceEnd
 		case programCode
 		case quantity
 		case revenue
+		case reviewOutcome
 		case sequence; case _sequence
+		case tax
+		case traceNumber
 		case udi
 		case unitPrice
 	}
@@ -2664,11 +3305,16 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		self.modifier = try [CodeableConcept](from: _container, forKeyIfPresent: .modifier)
 		self.net = try Money(from: _container, forKeyIfPresent: .net)
 		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
-		self.productOrService = try CodeableConcept(from: _container, forKey: .productOrService)
+		self.patientPaid = try Money(from: _container, forKeyIfPresent: .patientPaid)
+		self.productOrService = try CodeableConcept(from: _container, forKeyIfPresent: .productOrService)
+		self.productOrServiceEnd = try CodeableConcept(from: _container, forKeyIfPresent: .productOrServiceEnd)
 		self.programCode = try [CodeableConcept](from: _container, forKeyIfPresent: .programCode)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.revenue = try CodeableConcept(from: _container, forKeyIfPresent: .revenue)
+		self.reviewOutcome = try ExplanationOfBenefitItemReviewOutcome(from: _container, forKeyIfPresent: .reviewOutcome)
 		self.sequence = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKey: .sequence, auxiliaryKey: ._sequence)
+		self.tax = try Money(from: _container, forKeyIfPresent: .tax)
+		self.traceNumber = try [Identifier](from: _container, forKeyIfPresent: .traceNumber)
 		self.udi = try [Reference](from: _container, forKeyIfPresent: .udi)
 		self.unitPrice = try Money(from: _container, forKeyIfPresent: .unitPrice)
 		try super.init(from: decoder)
@@ -2685,11 +3331,16 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		try modifier?.encode(on: &_container, forKey: .modifier)
 		try net?.encode(on: &_container, forKey: .net)
 		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
-		try productOrService.encode(on: &_container, forKey: .productOrService)
+		try patientPaid?.encode(on: &_container, forKey: .patientPaid)
+		try productOrService?.encode(on: &_container, forKey: .productOrService)
+		try productOrServiceEnd?.encode(on: &_container, forKey: .productOrServiceEnd)
 		try programCode?.encode(on: &_container, forKey: .programCode)
 		try quantity?.encode(on: &_container, forKey: .quantity)
 		try revenue?.encode(on: &_container, forKey: .revenue)
+		try reviewOutcome?.encode(on: &_container, forKey: .reviewOutcome)
 		try sequence.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
+		try tax?.encode(on: &_container, forKey: .tax)
+		try traceNumber?.encode(on: &_container, forKey: .traceNumber)
 		try udi?.encode(on: &_container, forKey: .udi)
 		try unitPrice?.encode(on: &_container, forKey: .unitPrice)
 		try super.encode(to: encoder)
@@ -2710,11 +3361,16 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		    && modifier == _other.modifier
 		    && net == _other.net
 		    && noteNumber == _other.noteNumber
+		    && patientPaid == _other.patientPaid
 		    && productOrService == _other.productOrService
+		    && productOrServiceEnd == _other.productOrServiceEnd
 		    && programCode == _other.programCode
 		    && quantity == _other.quantity
 		    && revenue == _other.revenue
+		    && reviewOutcome == _other.reviewOutcome
 		    && sequence == _other.sequence
+		    && tax == _other.tax
+		    && traceNumber == _other.traceNumber
 		    && udi == _other.udi
 		    && unitPrice == _other.unitPrice
 	}
@@ -2727,13 +3383,119 @@ open class ExplanationOfBenefitItemDetailSubDetail: BackboneElement {
 		hasher.combine(modifier)
 		hasher.combine(net)
 		hasher.combine(noteNumber)
+		hasher.combine(patientPaid)
 		hasher.combine(productOrService)
+		hasher.combine(productOrServiceEnd)
 		hasher.combine(programCode)
 		hasher.combine(quantity)
 		hasher.combine(revenue)
+		hasher.combine(reviewOutcome)
 		hasher.combine(sequence)
+		hasher.combine(tax)
+		hasher.combine(traceNumber)
 		hasher.combine(udi)
 		hasher.combine(unitPrice)
+	}
+}
+
+/**
+ Adjudication results.
+ 
+ The high-level results of the adjudication if adjudication has been performed.
+ */
+open class ExplanationOfBenefitItemReviewOutcome: BackboneElement {
+	
+	/// Result of the adjudication
+	public var decision: CodeableConcept?
+	
+	/// Reason for result of the adjudication
+	public var reason: [CodeableConcept]?
+	
+	/// Preauthorization reference
+	public var preAuthRef: FHIRPrimitive<FHIRString>?
+	
+	/// Preauthorization reference effective period
+	public var preAuthPeriod: Period?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		decision: CodeableConcept? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		preAuthPeriod: Period? = nil,
+		preAuthRef: FHIRPrimitive<FHIRString>? = nil,
+		reason: [CodeableConcept]? = nil
+	) {
+		self.init()
+		self.decision = decision
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.preAuthPeriod = preAuthPeriod
+		self.preAuthRef = preAuthRef
+		self.reason = reason
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case decision
+		case preAuthPeriod
+		case preAuthRef; case _preAuthRef
+		case reason
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.decision = try CodeableConcept(from: _container, forKeyIfPresent: .decision)
+		self.preAuthPeriod = try Period(from: _container, forKeyIfPresent: .preAuthPeriod)
+		self.preAuthRef = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preAuthRef, auxiliaryKey: ._preAuthRef)
+		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try decision?.encode(on: &_container, forKey: .decision)
+		try preAuthPeriod?.encode(on: &_container, forKey: .preAuthPeriod)
+		try preAuthRef?.encode(on: &_container, forKey: .preAuthRef, auxiliaryKey: ._preAuthRef)
+		try reason?.encode(on: &_container, forKey: .reason)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ExplanationOfBenefitItemReviewOutcome else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return decision == _other.decision
+		    && preAuthPeriod == _other.preAuthPeriod
+		    && preAuthRef == _other.preAuthRef
+		    && reason == _other.reason
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(decision)
+		hasher.combine(preAuthPeriod)
+		hasher.combine(preAuthRef)
+		hasher.combine(reason)
 	}
 }
 
@@ -3093,8 +3855,8 @@ open class ExplanationOfBenefitProcessNote: BackboneElement {
 	/// Note instance identifier
 	public var number: FHIRPrimitive<FHIRPositiveInteger>?
 	
-	/// The business purpose of the note text.
-	public var type: FHIRPrimitive<NoteType>?
+	/// Note purpose
+	public var type: CodeableConcept?
 	
 	/// Note explanatory text
 	public var text: FHIRPrimitive<FHIRString>?
@@ -3115,7 +3877,7 @@ open class ExplanationOfBenefitProcessNote: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		number: FHIRPrimitive<FHIRPositiveInteger>? = nil,
 		text: FHIRPrimitive<FHIRString>? = nil,
-		type: FHIRPrimitive<NoteType>? = nil
+		type: CodeableConcept? = nil
 	) {
 		self.init()
 		self.`extension` = `extension`
@@ -3133,7 +3895,7 @@ open class ExplanationOfBenefitProcessNote: BackboneElement {
 		case language
 		case number; case _number
 		case text; case _text
-		case type; case _type
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -3144,7 +3906,7 @@ open class ExplanationOfBenefitProcessNote: BackboneElement {
 		self.language = try CodeableConcept(from: _container, forKeyIfPresent: .language)
 		self.number = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)
-		self.type = try FHIRPrimitive<NoteType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -3156,7 +3918,7 @@ open class ExplanationOfBenefitProcessNote: BackboneElement {
 		try language?.encode(on: &_container, forKey: .language)
 		try number?.encode(on: &_container, forKey: .number, auxiliaryKey: ._number)
 		try text?.encode(on: &_container, forKey: .text, auxiliaryKey: ._text)
-		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -3294,6 +4056,7 @@ open class ExplanationOfBenefitSupportingInfo: BackboneElement {
 	public enum ValueX: Hashable {
 		case attachment(Attachment)
 		case boolean(FHIRPrimitive<FHIRBool>)
+		case identifier(Identifier)
 		case quantity(Quantity)
 		case reference(Reference)
 		case string(FHIRPrimitive<FHIRString>)
@@ -3359,6 +4122,7 @@ open class ExplanationOfBenefitSupportingInfo: BackboneElement {
 		case timingPeriod
 		case valueAttachment
 		case valueBoolean; case _valueBoolean
+		case valueIdentifier
 		case valueQuantity
 		case valueReference
 		case valueString; case _valueString
@@ -3418,6 +4182,12 @@ open class ExplanationOfBenefitSupportingInfo: BackboneElement {
 			}
 			_t_value = .reference(valueReference)
 		}
+		if let valueIdentifier = try Identifier(from: _container, forKeyIfPresent: .valueIdentifier) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueIdentifier, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .identifier(valueIdentifier)
+		}
 		self.value = _t_value
 		try super.init(from: decoder)
 	}
@@ -3451,6 +4221,8 @@ open class ExplanationOfBenefitSupportingInfo: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueAttachment)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .valueReference)
+			case .identifier(let _value):
+				try _value.encode(on: &_container, forKey: .valueIdentifier)
 			}
 		}
 		try super.encode(to: encoder)

@@ -2,8 +2,8 @@
 //  ArtifactAssessment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ArtifactAssessment)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ArtifactAssessment)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,10 +24,6 @@ import FMCore
  
  This Resource provides one or more comments, classifiers or ratings about a Resource and supports attribution and
  rights management metadata for the added content.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class ArtifactAssessment: DomainResource {
 	
@@ -49,6 +45,9 @@ open class ArtifactAssessment: DomainResource {
 	/// Additional identifier for the artifact assessment
 	public var identifier: [Identifier]?
 	
+	/// A short title for the assessment for use in displaying and selecting
+	public var title: FHIRPrimitive<FHIRString>?
+	
 	/// How to cite the comment or rating
 	/// One of `citeAs[x]`
 	public var citeAs: CiteAsX?
@@ -60,10 +59,10 @@ open class ArtifactAssessment: DomainResource {
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// When the artifact assessment was approved by publisher
-	public var approvalDate: FHIRPrimitive<DateTime>?
+	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// When the artifact assessment was last reviewed
-	public var lastReviewDate: FHIRPrimitive<DateTime>?
+	/// When the artifact assessment was last reviewed by the publisher
+	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
 	/// The artifact assessed, commented upon or rated
 	/// One of `artifact[x]`
@@ -86,7 +85,7 @@ open class ArtifactAssessment: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		approvalDate: FHIRPrimitive<DateTime>? = nil,
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
 		artifact: ArtifactX,
 		citeAs: CiteAsX? = nil,
 		contained: [ResourceProxy]? = nil,
@@ -99,10 +98,11 @@ open class ArtifactAssessment: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
-		lastReviewDate: FHIRPrimitive<DateTime>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		text: Narrative? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
 		workflowStatus: FHIRPrimitive<ArtifactAssessmentWorkflowStatus>? = nil
 	) {
 		self.init(artifact: artifact)
@@ -122,6 +122,7 @@ open class ArtifactAssessment: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.text = text
+		self.title = title
 		self.workflowStatus = workflowStatus
 	}
 	
@@ -140,6 +141,7 @@ open class ArtifactAssessment: DomainResource {
 		case disposition; case _disposition
 		case identifier
 		case lastReviewDate; case _lastReviewDate
+		case title; case _title
 		case workflowStatus; case _workflowStatus
 	}
 	
@@ -153,7 +155,7 @@ open class ArtifactAssessment: DomainResource {
 		}
 		
 		// Decode all our properties
-		self.approvalDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
+		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
 		var _t_artifact: ArtifactX? = nil
 		if let artifactReference = try Reference(from: _container, forKeyIfPresent: .artifactReference) {
 			if _t_artifact != nil {
@@ -193,7 +195,8 @@ open class ArtifactAssessment: DomainResource {
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.disposition = try FHIRPrimitive<ArtifactAssessmentDisposition>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.lastReviewDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.workflowStatus = try FHIRPrimitive<ArtifactAssessmentWorkflowStatus>(from: _container, forKeyIfPresent: .workflowStatus, auxiliaryKey: ._workflowStatus)
 		try super.init(from: decoder)
 	}
@@ -228,6 +231,7 @@ open class ArtifactAssessment: DomainResource {
 		try disposition?.encode(on: &_container, forKey: .disposition, auxiliaryKey: ._disposition)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try workflowStatus?.encode(on: &_container, forKey: .workflowStatus, auxiliaryKey: ._workflowStatus)
 		try super.encode(to: encoder)
 	}
@@ -250,6 +254,7 @@ open class ArtifactAssessment: DomainResource {
 		    && disposition == _other.disposition
 		    && identifier == _other.identifier
 		    && lastReviewDate == _other.lastReviewDate
+		    && title == _other.title
 		    && workflowStatus == _other.workflowStatus
 	}
 	
@@ -264,6 +269,7 @@ open class ArtifactAssessment: DomainResource {
 		hasher.combine(disposition)
 		hasher.combine(identifier)
 		hasher.combine(lastReviewDate)
+		hasher.combine(title)
 		hasher.combine(workflowStatus)
 	}
 }
@@ -286,6 +292,9 @@ open class ArtifactAssessmentContent: BackboneElement {
 	
 	/// Rating, classifier, or assessment
 	public var classifier: [CodeableConcept]?
+	
+	/// Quantitative rating
+	public var quantity: Quantity?
 	
 	/// Who authored the content
 	public var author: Reference?
@@ -318,6 +327,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		informationType: FHIRPrimitive<ArtifactAssessmentInformationType>? = nil,
 		modifierExtension: [Extension]? = nil,
 		path: [FHIRPrimitive<FHIRURI>]? = nil,
+		quantity: Quantity? = nil,
 		relatedArtifact: [RelatedArtifact]? = nil,
 		summary: FHIRPrimitive<FHIRString>? = nil,
 		type: CodeableConcept? = nil
@@ -332,6 +342,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		self.informationType = informationType
 		self.modifierExtension = modifierExtension
 		self.path = path
+		self.quantity = quantity
 		self.relatedArtifact = relatedArtifact
 		self.summary = summary
 		self.type = type
@@ -346,6 +357,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		case freeToShare; case _freeToShare
 		case informationType; case _informationType
 		case path; case _path
+		case quantity
 		case relatedArtifact
 		case summary; case _summary
 		case type
@@ -362,6 +374,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		self.freeToShare = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .freeToShare, auxiliaryKey: ._freeToShare)
 		self.informationType = try FHIRPrimitive<ArtifactAssessmentInformationType>(from: _container, forKeyIfPresent: .informationType, auxiliaryKey: ._informationType)
 		self.path = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .path, auxiliaryKey: ._path)
+		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
 		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
 		self.summary = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .summary, auxiliaryKey: ._summary)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
@@ -379,6 +392,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		try freeToShare?.encode(on: &_container, forKey: .freeToShare, auxiliaryKey: ._freeToShare)
 		try informationType?.encode(on: &_container, forKey: .informationType, auxiliaryKey: ._informationType)
 		try path?.encode(on: &_container, forKey: .path, auxiliaryKey: ._path)
+		try quantity?.encode(on: &_container, forKey: .quantity)
 		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
 		try summary?.encode(on: &_container, forKey: .summary, auxiliaryKey: ._summary)
 		try type?.encode(on: &_container, forKey: .type)
@@ -400,6 +414,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		    && freeToShare == _other.freeToShare
 		    && informationType == _other.informationType
 		    && path == _other.path
+		    && quantity == _other.quantity
 		    && relatedArtifact == _other.relatedArtifact
 		    && summary == _other.summary
 		    && type == _other.type
@@ -413,6 +428,7 @@ open class ArtifactAssessmentContent: BackboneElement {
 		hasher.combine(freeToShare)
 		hasher.combine(informationType)
 		hasher.combine(path)
+		hasher.combine(quantity)
 		hasher.combine(relatedArtifact)
 		hasher.combine(summary)
 		hasher.combine(type)

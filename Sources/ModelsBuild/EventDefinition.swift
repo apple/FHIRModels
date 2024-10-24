@@ -2,8 +2,8 @@
 //  EventDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/EventDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EventDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,10 +23,6 @@ import FMCore
  A description of when an event can occur.
  
  The EventDefinition resource provides a reusable description of when a particular event can occur.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class EventDefinition: DomainResource {
 	
@@ -38,6 +34,12 @@ open class EventDefinition: DomainResource {
 		case reference(Reference)
 	}
 	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Canonical identifier for this event definition, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
@@ -46,6 +48,10 @@ open class EventDefinition: DomainResource {
 	
 	/// Business version of the event definition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this event definition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -69,7 +75,7 @@ open class EventDefinition: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -93,16 +99,19 @@ open class EventDefinition: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// When the event definition was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// When the event definition was last reviewed
+	/// When the event definition was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
 	/// When the event definition is expected to be used
 	public var effectivePeriod: Period?
 	
-	/// E.g. Education, Treatment, Assessment, etc.
+	/// E.g. Education, Treatment, Assessment, etc
 	public var topic: [CodeableConcept]?
 	
 	/// Who authored the content
@@ -117,7 +126,7 @@ open class EventDefinition: DomainResource {
 	/// Who endorsed the content
 	public var endorser: [ContactDetail]?
 	
-	/// Additional documentation, citations, etc.
+	/// Additional documentation, citations, etc
 	public var relatedArtifact: [RelatedArtifact]?
 	
 	/// "when" the event occurs (multiple = 'or')
@@ -137,6 +146,7 @@ open class EventDefinition: DomainResource {
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		editor: [ContactDetail]? = nil,
@@ -167,7 +177,8 @@ open class EventDefinition: DomainResource {
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		usage: FHIRPrimitive<FHIRString>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status, trigger: trigger)
 		self.approvalDate = approvalDate
@@ -175,6 +186,7 @@ open class EventDefinition: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.description_fhir = description_fhir
 		self.editor = editor
@@ -204,6 +216,7 @@ open class EventDefinition: DomainResource {
 		self.usage = usage
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -213,6 +226,7 @@ open class EventDefinition: DomainResource {
 		case author
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case editor
@@ -238,6 +252,8 @@ open class EventDefinition: DomainResource {
 		case usage; case _usage
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -249,6 +265,7 @@ open class EventDefinition: DomainResource {
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
@@ -286,6 +303,20 @@ open class EventDefinition: DomainResource {
 		self.usage = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .usage, auxiliaryKey: ._usage)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -298,6 +329,7 @@ open class EventDefinition: DomainResource {
 		try author?.encode(on: &_container, forKey: .author)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try editor?.encode(on: &_container, forKey: .editor)
@@ -329,6 +361,14 @@ open class EventDefinition: DomainResource {
 		try usage?.encode(on: &_container, forKey: .usage, auxiliaryKey: ._usage)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -345,6 +385,7 @@ open class EventDefinition: DomainResource {
 		    && author == _other.author
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && editor == _other.editor
@@ -369,6 +410,7 @@ open class EventDefinition: DomainResource {
 		    && usage == _other.usage
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -377,6 +419,7 @@ open class EventDefinition: DomainResource {
 		hasher.combine(author)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(editor)
@@ -401,5 +444,6 @@ open class EventDefinition: DomainResource {
 		hasher.combine(usage)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,7 +42,9 @@ public enum QuestionnaireItemType: String, FHIRPrimitiveType {
 	/// Question with a date and time answer (valueDateTime).
 	case dateTime
 	
-	/// Question with is a real number answer (valueDecimal).
+	/// Question with is a real number answer (valueDecimal).  There is an extension
+	/// 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably convey the unit of
+	/// measure associated with the answer for use when performing data extraction to an element of type Quantity.
 	case decimal
 	
 	/// Text for display that will not capture an answer or have child items.
@@ -51,13 +53,15 @@ public enum QuestionnaireItemType: String, FHIRPrimitiveType {
 	/// An item with no direct answer but should have at least one child item.
 	case group
 	
-	/// Question with an integer answer (valueInteger).
+	/// Question with an integer answer (valueInteger).  There is an extension
+	/// 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that can be used to computably convey the unit of
+	/// measure associated with the answer for use when performing data extraction to an element of type Quantity.
 	case integer
 	
-	/// Question with a combination of a numeric value and unit, potentially with a comparator (<, >, etc.) as an
-	/// answer. (valueQuantity) There is an extension 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit' that
-	/// can be used to define what unit should be captured (or the unit that has a ucum conversion from the provided
-	/// unit).
+	/// Question with a combination of a numeric value and unit as an answer. (valueSimpleQuantity)  There are two
+	/// extensions ('http://hl7.org/fhir/StructureDefinition/questionnaire-unitOption' and
+	/// 'http://hl7.org/fhir/StructureDefinition/questionnaire-unitValueSet')  that can be used to define what unit
+	/// should be selected for the Quantity.code and Quantity.system.
 	case quantity
 	
 	/// An item that defines a specific answer to be captured, and which may have child items. (the answer provided in
@@ -67,7 +71,8 @@ public enum QuestionnaireItemType: String, FHIRPrimitiveType {
 	/// Question with a reference to another resource (practitioner, organization, etc.) as an answer (valueReference).
 	case reference
 	
-	/// Question with a short (few words to short sentence) free-text entry answer (valueString).
+	/// Question with a short (few words to short sentence) free-text entry answer (valueString).  Strings SHOULD NOT
+	/// contain carriage return or newline characters.  If multi-line answers are needed, use the 'text' type.
 	case string
 	
 	/// Question with a long (potentially multi-paragraph) free-text entry answer (valueString).

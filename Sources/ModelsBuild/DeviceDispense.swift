@@ -2,8 +2,8 @@
 //  DeviceDispense.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DeviceDispense)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceDispense)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
 import FMCore
 
 /**
- Device Dispense.
- 
  A record of dispensation of a device.
+ 
+ A record of dispensation of a device - i.e., assigning a device to a patient, or to a professional for their use.
  */
 open class DeviceDispense: DomainResource {
 	
@@ -52,6 +52,9 @@ open class DeviceDispense: DomainResource {
 	/// Who the dispense is for
 	public var subject: Reference
 	
+	/// Who collected the device or where the medication was delivered
+	public var receiver: Reference?
+	
 	/// Encounter associated with event
 	public var encounter: Reference?
 	
@@ -64,7 +67,7 @@ open class DeviceDispense: DomainResource {
 	/// Where the dispense occurred
 	public var location: Reference?
 	
-	/// Trial fill, partial fill, emergency fill, etc.
+	/// Trial fill, partial fill, emergency fill, etc
 	public var type: CodeableConcept?
 	
 	/// Amount dispensed
@@ -118,6 +121,7 @@ open class DeviceDispense: DomainResource {
 		performer: [DeviceDispensePerformer]? = nil,
 		preparedDate: FHIRPrimitive<DateTime>? = nil,
 		quantity: Quantity? = nil,
+		receiver: Reference? = nil,
 		status: FHIRPrimitive<DeviceDispenseStatusCodes>,
 		statusReason: CodeableReference? = nil,
 		subject: Reference,
@@ -147,6 +151,7 @@ open class DeviceDispense: DomainResource {
 		self.performer = performer
 		self.preparedDate = preparedDate
 		self.quantity = quantity
+		self.receiver = receiver
 		self.statusReason = statusReason
 		self.supportingInformation = supportingInformation
 		self.text = text
@@ -171,6 +176,7 @@ open class DeviceDispense: DomainResource {
 		case performer
 		case preparedDate; case _preparedDate
 		case quantity
+		case receiver
 		case status; case _status
 		case statusReason
 		case subject
@@ -198,6 +204,7 @@ open class DeviceDispense: DomainResource {
 		self.performer = try [DeviceDispensePerformer](from: _container, forKeyIfPresent: .performer)
 		self.preparedDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .preparedDate, auxiliaryKey: ._preparedDate)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.receiver = try Reference(from: _container, forKeyIfPresent: .receiver)
 		self.status = try FHIRPrimitive<DeviceDispenseStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableReference(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
@@ -226,6 +233,7 @@ open class DeviceDispense: DomainResource {
 		try performer?.encode(on: &_container, forKey: .performer)
 		try preparedDate?.encode(on: &_container, forKey: .preparedDate, auxiliaryKey: ._preparedDate)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try receiver?.encode(on: &_container, forKey: .receiver)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try subject.encode(on: &_container, forKey: .subject)
@@ -258,6 +266,7 @@ open class DeviceDispense: DomainResource {
 		    && performer == _other.performer
 		    && preparedDate == _other.preparedDate
 		    && quantity == _other.quantity
+		    && receiver == _other.receiver
 		    && status == _other.status
 		    && statusReason == _other.statusReason
 		    && subject == _other.subject
@@ -282,6 +291,7 @@ open class DeviceDispense: DomainResource {
 		hasher.combine(performer)
 		hasher.combine(preparedDate)
 		hasher.combine(quantity)
+		hasher.combine(receiver)
 		hasher.combine(status)
 		hasher.combine(statusReason)
 		hasher.combine(subject)

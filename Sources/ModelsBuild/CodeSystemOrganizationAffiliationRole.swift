@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public enum OrganizationAffiliationRole: String, FHIRPrimitiveType {
 	/// An organization providing reimbursement, payment, or related services
 	case payer
 	
-	/// provider
+	/// An organization that delivers care services (e.g. hospitals, clinics, community and social services, etc.).
 	case provider
 	
 	/// An organization providing research-related services such as conducting research, recruiting research

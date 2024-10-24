@@ -2,8 +2,8 @@
 //  Dosage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Dosage)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Dosage)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -56,11 +56,11 @@ open class Dosage: BackboneType {
 	/// Technique for administering medication
 	public var method: CodeableConcept?
 	
-	/// Amount of medication administered
+	/// Amount of medication administered, to be administered or typical amount to be administered
 	public var doseAndRate: [DosageDoseAndRate]?
 	
 	/// Upper limit on medication per unit of time
-	public var maxDosePerPeriod: Ratio?
+	public var maxDosePerPeriod: [Ratio]?
 	
 	/// Upper limit on medication per administration
 	public var maxDosePerAdministration: Quantity?
@@ -83,7 +83,7 @@ open class Dosage: BackboneType {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		maxDosePerAdministration: Quantity? = nil,
 		maxDosePerLifetime: Quantity? = nil,
-		maxDosePerPeriod: Ratio? = nil,
+		maxDosePerPeriod: [Ratio]? = nil,
 		method: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
 		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
@@ -143,7 +143,7 @@ open class Dosage: BackboneType {
 		self.doseAndRate = try [DosageDoseAndRate](from: _container, forKeyIfPresent: .doseAndRate)
 		self.maxDosePerAdministration = try Quantity(from: _container, forKeyIfPresent: .maxDosePerAdministration)
 		self.maxDosePerLifetime = try Quantity(from: _container, forKeyIfPresent: .maxDosePerLifetime)
-		self.maxDosePerPeriod = try Ratio(from: _container, forKeyIfPresent: .maxDosePerPeriod)
+		self.maxDosePerPeriod = try [Ratio](from: _container, forKeyIfPresent: .maxDosePerPeriod)
 		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
 		self.patientInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .patientInstruction, auxiliaryKey: ._patientInstruction)
 		self.route = try CodeableConcept(from: _container, forKeyIfPresent: .route)
@@ -221,9 +221,10 @@ open class Dosage: BackboneType {
 }
 
 /**
- Amount of medication administered.
+ Amount of medication administered, to be administered or typical amount to be administered.
  
- The amount of medication administered.
+ Depending on the resource,this is the amount of medication administered, to  be administered or typical amount to be
+ administered.
  */
 open class DosageDoseAndRate: Element {
 	

@@ -2,8 +2,8 @@
 //  Flag.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Flag)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Flag)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ open class Flag: DomainResource {
 	public var identifier: [Identifier]?
 	
 	/// Supports basic workflow.
-	public var status: FHIRPrimitive<FlagStatus>
+	public var status: FHIRPrimitive<FlagStatus>?
 	
-	/// Clinical, administrative, etc.
+	/// Clinical, administrative, etc
 	public var category: [CodeableConcept]?
 	
 	/// Coded or textual message to display to user
@@ -52,10 +52,12 @@ open class Flag: DomainResource {
 	/// Flag creator
 	public var author: Reference?
 	
+	/// Extra information to use in context of the flag
+	public var supportingInfo: [Reference]?
+	
 	/// Designated initializer taking all required properties
-	public init(code: CodeableConcept, status: FHIRPrimitive<FlagStatus>, subject: Reference) {
+	public init(code: CodeableConcept, subject: Reference) {
 		self.code = code
-		self.status = status
 		self.subject = subject
 		super.init()
 	}
@@ -75,11 +77,12 @@ open class Flag: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		period: Period? = nil,
-		status: FHIRPrimitive<FlagStatus>,
+		status: FHIRPrimitive<FlagStatus>? = nil,
 		subject: Reference,
+		supportingInfo: [Reference]? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(code: code, status: status, subject: subject)
+		self.init(code: code, subject: subject)
 		self.author = author
 		self.category = category
 		self.contained = contained
@@ -92,6 +95,8 @@ open class Flag: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.period = period
+		self.status = status
+		self.supportingInfo = supportingInfo
 		self.text = text
 	}
 	
@@ -106,6 +111,7 @@ open class Flag: DomainResource {
 		case period
 		case status; case _status
 		case subject
+		case supportingInfo
 	}
 	
 	/// Initializer for Decodable
@@ -119,8 +125,9 @@ open class Flag: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
-		self.status = try FHIRPrimitive<FlagStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FlagStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
+		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
 	}
 	
@@ -135,8 +142,9 @@ open class Flag: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try period?.encode(on: &_container, forKey: .period)
-		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject.encode(on: &_container, forKey: .subject)
+		try supportingInfo?.encode(on: &_container, forKey: .supportingInfo)
 		try super.encode(to: encoder)
 	}
 	
@@ -157,6 +165,7 @@ open class Flag: DomainResource {
 		    && period == _other.period
 		    && status == _other.status
 		    && subject == _other.subject
+		    && supportingInfo == _other.supportingInfo
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -169,5 +178,6 @@ open class Flag: DomainResource {
 		hasher.combine(period)
 		hasher.combine(status)
 		hasher.combine(subject)
+		hasher.combine(supportingInfo)
 	}
 }

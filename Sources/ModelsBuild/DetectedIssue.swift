@@ -2,8 +2,8 @@
 //  DetectedIssue.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import FMCore
  Clinical issue with action.
  
  Indicates an actual or potential clinical issue with or between one or more active or proposed clinical actions for a
- patient; e.g. Drug-drug interaction, Ineffective treatment frequency, Procedure-condition conflict, etc.
+ patient; e.g. Drug-drug interaction, Ineffective treatment frequency, Procedure-condition conflict, gaps in care, etc.
  */
 open class DetectedIssue: DomainResource {
 	
@@ -38,18 +38,24 @@ open class DetectedIssue: DomainResource {
 	/// Unique id for the detected issue
 	public var identifier: [Identifier]?
 	
-	/// Indicates the status of the detected issue.
-	public var status: FHIRPrimitive<ObservationStatus>
+	/// preliminary | final | entered-in-error | mitigated
+	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Issue Category, e.g. drug-drug, duplicate therapy, etc.
+	/// Type of detected issue, e.g. drug-drug, duplicate therapy, etc
+	public var category: [CodeableConcept]?
+	
+	/// Specific type of detected issue, e.g. drug-drug, duplicate therapy, etc
 	public var code: CodeableConcept?
 	
 	/// Indicates the degree of importance associated with the identified issue based on the potential impact on the
 	/// patient.
 	public var severity: FHIRPrimitive<DetectedIssueSeverity>?
 	
-	/// Associated patient
-	public var patient: Reference?
+	/// Associated subject
+	public var subject: Reference?
+	
+	/// Encounter detected issue is part of
+	public var encounter: Reference?
 	
 	/// When identified
 	/// One of `identified[x]`
@@ -74,7 +80,7 @@ open class DetectedIssue: DomainResource {
 	public var mitigation: [DetectedIssueMitigation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<ObservationStatus>) {
+	public init(status: FHIRPrimitive<FHIRString>) {
 		self.status = status
 		super.init()
 	}
@@ -82,9 +88,11 @@ open class DetectedIssue: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		author: Reference? = nil,
+		category: [CodeableConcept]? = nil,
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
 		detail: FHIRPrimitive<FHIRString>? = nil,
+		encounter: Reference? = nil,
 		evidence: [DetectedIssueEvidence]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -96,17 +104,19 @@ open class DetectedIssue: DomainResource {
 		meta: Meta? = nil,
 		mitigation: [DetectedIssueMitigation]? = nil,
 		modifierExtension: [Extension]? = nil,
-		patient: Reference? = nil,
 		reference: FHIRPrimitive<FHIRURI>? = nil,
 		severity: FHIRPrimitive<DetectedIssueSeverity>? = nil,
-		status: FHIRPrimitive<ObservationStatus>,
+		status: FHIRPrimitive<FHIRString>,
+		subject: Reference? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(status: status)
 		self.author = author
+		self.category = category
 		self.code = code
 		self.contained = contained
 		self.detail = detail
+		self.encounter = encounter
 		self.evidence = evidence
 		self.`extension` = `extension`
 		self.id = id
@@ -118,9 +128,9 @@ open class DetectedIssue: DomainResource {
 		self.meta = meta
 		self.mitigation = mitigation
 		self.modifierExtension = modifierExtension
-		self.patient = patient
 		self.reference = reference
 		self.severity = severity
+		self.subject = subject
 		self.text = text
 	}
 	
@@ -128,18 +138,20 @@ open class DetectedIssue: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case author
+		case category
 		case code
 		case detail; case _detail
+		case encounter
 		case evidence
 		case identifiedDateTime; case _identifiedDateTime
 		case identifiedPeriod
 		case identifier
 		case implicated
 		case mitigation
-		case patient
 		case reference; case _reference
 		case severity; case _severity
 		case status; case _status
+		case subject
 	}
 	
 	/// Initializer for Decodable
@@ -148,8 +160,10 @@ open class DetectedIssue: DomainResource {
 		
 		// Decode all our properties
 		self.author = try Reference(from: _container, forKeyIfPresent: .author)
+		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.detail = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .detail, auxiliaryKey: ._detail)
+		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.evidence = try [DetectedIssueEvidence](from: _container, forKeyIfPresent: .evidence)
 		var _t_identified: IdentifiedX? = nil
 		if let identifiedDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .identifiedDateTime, auxiliaryKey: ._identifiedDateTime) {
@@ -168,10 +182,10 @@ open class DetectedIssue: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.implicated = try [Reference](from: _container, forKeyIfPresent: .implicated)
 		self.mitigation = try [DetectedIssueMitigation](from: _container, forKeyIfPresent: .mitigation)
-		self.patient = try Reference(from: _container, forKeyIfPresent: .patient)
 		self.reference = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
 		self.severity = try FHIRPrimitive<DetectedIssueSeverity>(from: _container, forKeyIfPresent: .severity, auxiliaryKey: ._severity)
-		self.status = try FHIRPrimitive<ObservationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
 	}
 	
@@ -181,8 +195,10 @@ open class DetectedIssue: DomainResource {
 		
 		// Encode all our properties
 		try author?.encode(on: &_container, forKey: .author)
+		try category?.encode(on: &_container, forKey: .category)
 		try code?.encode(on: &_container, forKey: .code)
 		try detail?.encode(on: &_container, forKey: .detail, auxiliaryKey: ._detail)
+		try encounter?.encode(on: &_container, forKey: .encounter)
 		try evidence?.encode(on: &_container, forKey: .evidence)
 		if let _enum = identified {
 			switch _enum {
@@ -195,10 +211,10 @@ open class DetectedIssue: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try implicated?.encode(on: &_container, forKey: .implicated)
 		try mitigation?.encode(on: &_container, forKey: .mitigation)
-		try patient?.encode(on: &_container, forKey: .patient)
 		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
 		try severity?.encode(on: &_container, forKey: .severity, auxiliaryKey: ._severity)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try subject?.encode(on: &_container, forKey: .subject)
 		try super.encode(to: encoder)
 	}
 	
@@ -212,33 +228,37 @@ open class DetectedIssue: DomainResource {
 			return false
 		}
 		return author == _other.author
+		    && category == _other.category
 		    && code == _other.code
 		    && detail == _other.detail
+		    && encounter == _other.encounter
 		    && evidence == _other.evidence
 		    && identified == _other.identified
 		    && identifier == _other.identifier
 		    && implicated == _other.implicated
 		    && mitigation == _other.mitigation
-		    && patient == _other.patient
 		    && reference == _other.reference
 		    && severity == _other.severity
 		    && status == _other.status
+		    && subject == _other.subject
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(author)
+		hasher.combine(category)
 		hasher.combine(code)
 		hasher.combine(detail)
+		hasher.combine(encounter)
 		hasher.combine(evidence)
 		hasher.combine(identified)
 		hasher.combine(identifier)
 		hasher.combine(implicated)
 		hasher.combine(mitigation)
-		hasher.combine(patient)
 		hasher.combine(reference)
 		hasher.combine(severity)
 		hasher.combine(status)
+		hasher.combine(subject)
 	}
 }
 
@@ -342,6 +362,9 @@ open class DetectedIssueMitigation: BackboneElement {
 	/// Who is committing?
 	public var author: Reference?
 	
+	/// Additional notes about the mitigation
+	public var note: [Annotation]?
+	
 	/// Designated initializer taking all required properties
 	public init(action: CodeableConcept) {
 		self.action = action
@@ -355,7 +378,8 @@ open class DetectedIssueMitigation: BackboneElement {
 		date: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
+		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil
 	) {
 		self.init(action: action)
 		self.author = author
@@ -363,6 +387,7 @@ open class DetectedIssueMitigation: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.note = note
 	}
 	
 	// MARK: - Codable
@@ -371,6 +396,7 @@ open class DetectedIssueMitigation: BackboneElement {
 		case action
 		case author
 		case date; case _date
+		case note
 	}
 	
 	/// Initializer for Decodable
@@ -381,6 +407,7 @@ open class DetectedIssueMitigation: BackboneElement {
 		self.action = try CodeableConcept(from: _container, forKey: .action)
 		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		try super.init(from: decoder)
 	}
 	
@@ -392,6 +419,7 @@ open class DetectedIssueMitigation: BackboneElement {
 		try action.encode(on: &_container, forKey: .action)
 		try author?.encode(on: &_container, forKey: .author)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
+		try note?.encode(on: &_container, forKey: .note)
 		try super.encode(to: encoder)
 	}
 	
@@ -407,6 +435,7 @@ open class DetectedIssueMitigation: BackboneElement {
 		return action == _other.action
 		    && author == _other.author
 		    && date == _other.date
+		    && note == _other.note
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -414,5 +443,6 @@ open class DetectedIssueMitigation: BackboneElement {
 		hasher.combine(action)
 		hasher.combine(author)
 		hasher.combine(date)
+		hasher.combine(note)
 	}
 }

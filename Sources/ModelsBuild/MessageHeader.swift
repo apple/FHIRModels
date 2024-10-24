@@ -2,8 +2,8 @@
 //  MessageHeader.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MessageHeader)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MessageHeader)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,31 +32,20 @@ open class MessageHeader: DomainResource {
 	
 	/// All possible types for "event[x]"
 	public enum EventX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
 		case coding(Coding)
 		case uri(FHIRPrimitive<FHIRURI>)
 	}
 	
-	/// Code for the event this message represents or link to event definition
+	/// The real world event that triggered this messsage
 	/// One of `event[x]`
 	public var event: EventX
 	
 	/// Message destination application(s)
 	public var destination: [MessageHeaderDestination]?
 	
-	/// Real world sender of the message
-	public var sender: Reference?
-	
-	/// The source of the data entry
-	public var enterer: Reference?
-	
-	/// The source of the decision
-	public var author: Reference?
-	
 	/// Message source application
 	public var source: MessageHeaderSource
-	
-	/// Final responsibility for event
-	public var responsible: Reference?
 	
 	/// Cause of event
 	public var reason: CodeableConcept?
@@ -79,11 +68,9 @@ open class MessageHeader: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		author: Reference? = nil,
 		contained: [ResourceProxy]? = nil,
 		definition: FHIRPrimitive<Canonical>? = nil,
 		destination: [MessageHeaderDestination]? = nil,
-		enterer: Reference? = nil,
 		event: EventX,
 		`extension`: [Extension]? = nil,
 		focus: [Reference]? = nil,
@@ -94,17 +81,13 @@ open class MessageHeader: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		reason: CodeableConcept? = nil,
 		response: MessageHeaderResponse? = nil,
-		responsible: Reference? = nil,
-		sender: Reference? = nil,
 		source: MessageHeaderSource,
 		text: Narrative? = nil
 	) {
 		self.init(event: event, source: source)
-		self.author = author
 		self.contained = contained
 		self.definition = definition
 		self.destination = destination
-		self.enterer = enterer
 		self.`extension` = `extension`
 		self.focus = focus
 		self.id = id
@@ -114,25 +97,20 @@ open class MessageHeader: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.reason = reason
 		self.response = response
-		self.responsible = responsible
-		self.sender = sender
 		self.text = text
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case author
 		case definition; case _definition
 		case destination
-		case enterer
+		case eventCanonical; case _eventCanonical
 		case eventCoding
 		case eventUri; case _eventUri
 		case focus
 		case reason
 		case response
-		case responsible
-		case sender
 		case source
 	}
 	
@@ -141,15 +119,13 @@ open class MessageHeader: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.eventCoding) || _container.contains(CodingKeys.eventUri) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.eventCoding, CodingKeys.eventUri], debugDescription: "Must have at least one value for \"event\" but have none"))
+		guard _container.contains(CodingKeys.eventCanonical) || _container.contains(CodingKeys.eventCoding) || _container.contains(CodingKeys.eventUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.eventCanonical, CodingKeys.eventCoding, CodingKeys.eventUri], debugDescription: "Must have at least one value for \"event\" but have none"))
 		}
 		
 		// Decode all our properties
-		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.destination = try [MessageHeaderDestination](from: _container, forKeyIfPresent: .destination)
-		self.enterer = try Reference(from: _container, forKeyIfPresent: .enterer)
 		var _t_event: EventX? = nil
 		if let eventCoding = try Coding(from: _container, forKeyIfPresent: .eventCoding) {
 			if _t_event != nil {
@@ -163,12 +139,16 @@ open class MessageHeader: DomainResource {
 			}
 			_t_event = .uri(eventUri)
 		}
+		if let eventCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .eventCanonical, auxiliaryKey: ._eventCanonical) {
+			if _t_event != nil {
+				throw DecodingError.dataCorruptedError(forKey: .eventCanonical, in: _container, debugDescription: "More than one value provided for \"event\"")
+			}
+			_t_event = .canonical(eventCanonical)
+		}
 		self.event = _t_event!
 		self.focus = try [Reference](from: _container, forKeyIfPresent: .focus)
 		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
 		self.response = try MessageHeaderResponse(from: _container, forKeyIfPresent: .response)
-		self.responsible = try Reference(from: _container, forKeyIfPresent: .responsible)
-		self.sender = try Reference(from: _container, forKeyIfPresent: .sender)
 		self.source = try MessageHeaderSource(from: _container, forKey: .source)
 		try super.init(from: decoder)
 	}
@@ -178,23 +158,21 @@ open class MessageHeader: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try author?.encode(on: &_container, forKey: .author)
 		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try destination?.encode(on: &_container, forKey: .destination)
-		try enterer?.encode(on: &_container, forKey: .enterer)
 		
 			switch event {
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .eventCoding)
 			case .uri(let _value):
 				try _value.encode(on: &_container, forKey: .eventUri, auxiliaryKey: ._eventUri)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .eventCanonical, auxiliaryKey: ._eventCanonical)
 			}
 		
 		try focus?.encode(on: &_container, forKey: .focus)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try response?.encode(on: &_container, forKey: .response)
-		try responsible?.encode(on: &_container, forKey: .responsible)
-		try sender?.encode(on: &_container, forKey: .sender)
 		try source.encode(on: &_container, forKey: .source)
 		try super.encode(to: encoder)
 	}
@@ -208,31 +186,23 @@ open class MessageHeader: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return author == _other.author
-		    && definition == _other.definition
+		return definition == _other.definition
 		    && destination == _other.destination
-		    && enterer == _other.enterer
 		    && event == _other.event
 		    && focus == _other.focus
 		    && reason == _other.reason
 		    && response == _other.response
-		    && responsible == _other.responsible
-		    && sender == _other.sender
 		    && source == _other.source
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(author)
 		hasher.combine(definition)
 		hasher.combine(destination)
-		hasher.combine(enterer)
 		hasher.combine(event)
 		hasher.combine(focus)
 		hasher.combine(reason)
 		hasher.combine(response)
-		hasher.combine(responsible)
-		hasher.combine(sender)
 		hasher.combine(source)
 	}
 }
@@ -244,14 +214,18 @@ open class MessageHeader: DomainResource {
  */
 open class MessageHeaderDestination: BackboneElement {
 	
+	/// All possible types for "endpoint[x]"
+	public enum EndpointX: Hashable {
+		case reference(Reference)
+		case url(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// Actual destination address or Endpoint resource
+	/// One of `endpoint[x]`
+	public var endpoint: EndpointX?
+	
 	/// Name of system
 	public var name: FHIRPrimitive<FHIRString>?
-	
-	/// Particular delivery destination within the destination
-	public var target: Reference?
-	
-	/// Actual destination address or id
-	public var endpoint: FHIRPrimitive<FHIRURI>?
 	
 	/// Intended "real-world" recipient for the data
 	public var receiver: Reference?
@@ -263,13 +237,12 @@ open class MessageHeaderDestination: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		endpoint: EndpointX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
-		receiver: Reference? = nil,
-		target: Reference? = nil
+		receiver: Reference? = nil
 	) {
 		self.init()
 		self.endpoint = endpoint
@@ -278,16 +251,15 @@ open class MessageHeaderDestination: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.receiver = receiver
-		self.target = target
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case endpoint; case _endpoint
+		case endpointReference
+		case endpointUrl; case _endpointUrl
 		case name; case _name
 		case receiver
-		case target
 	}
 	
 	/// Initializer for Decodable
@@ -295,10 +267,22 @@ open class MessageHeaderDestination: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpoint, auxiliaryKey: ._endpoint)
+		var _t_endpoint: EndpointX? = nil
+		if let endpointUrl = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpointUrl, auxiliaryKey: ._endpointUrl) {
+			if _t_endpoint != nil {
+				throw DecodingError.dataCorruptedError(forKey: .endpointUrl, in: _container, debugDescription: "More than one value provided for \"endpoint\"")
+			}
+			_t_endpoint = .url(endpointUrl)
+		}
+		if let endpointReference = try Reference(from: _container, forKeyIfPresent: .endpointReference) {
+			if _t_endpoint != nil {
+				throw DecodingError.dataCorruptedError(forKey: .endpointReference, in: _container, debugDescription: "More than one value provided for \"endpoint\"")
+			}
+			_t_endpoint = .reference(endpointReference)
+		}
+		self.endpoint = _t_endpoint
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.receiver = try Reference(from: _container, forKeyIfPresent: .receiver)
-		self.target = try Reference(from: _container, forKeyIfPresent: .target)
 		try super.init(from: decoder)
 	}
 	
@@ -307,10 +291,16 @@ open class MessageHeaderDestination: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try endpoint?.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		if let _enum = endpoint {
+			switch _enum {
+			case .url(let _value):
+				try _value.encode(on: &_container, forKey: .endpointUrl, auxiliaryKey: ._endpointUrl)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .endpointReference)
+			}
+		}
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try receiver?.encode(on: &_container, forKey: .receiver)
-		try target?.encode(on: &_container, forKey: .target)
 		try super.encode(to: encoder)
 	}
 	
@@ -326,7 +316,6 @@ open class MessageHeaderDestination: BackboneElement {
 		return endpoint == _other.endpoint
 		    && name == _other.name
 		    && receiver == _other.receiver
-		    && target == _other.target
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -334,7 +323,6 @@ open class MessageHeaderDestination: BackboneElement {
 		hasher.combine(endpoint)
 		hasher.combine(name)
 		hasher.combine(receiver)
-		hasher.combine(target)
 	}
 }
 
@@ -345,7 +333,7 @@ open class MessageHeaderDestination: BackboneElement {
  */
 open class MessageHeaderResponse: BackboneElement {
 	
-	/// Id of original message
+	/// Bundle.identifier of original message
 	public var identifier: Identifier
 	
 	/// Code that identifies the type of response to the message - whether it was successful or not, and whether it
@@ -437,6 +425,16 @@ open class MessageHeaderResponse: BackboneElement {
  */
 open class MessageHeaderSource: BackboneElement {
 	
+	/// All possible types for "endpoint[x]"
+	public enum EndpointX: Hashable {
+		case reference(Reference)
+		case url(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// Actual source address or Endpoint resource
+	/// One of `endpoint[x]`
+	public var endpoint: EndpointX?
+	
 	/// Name of system
 	public var name: FHIRPrimitive<FHIRString>?
 	
@@ -449,8 +447,8 @@ open class MessageHeaderSource: BackboneElement {
 	/// Human contact for problems
 	public var contact: ContactPoint?
 	
-	/// Actual message source address or id
-	public var endpoint: FHIRPrimitive<FHIRURI>?
+	/// Real world sender of the message
+	public var sender: Reference?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -460,11 +458,12 @@ open class MessageHeaderSource: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		contact: ContactPoint? = nil,
-		endpoint: FHIRPrimitive<FHIRURI>? = nil,
+		endpoint: EndpointX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
+		sender: Reference? = nil,
 		software: FHIRPrimitive<FHIRString>? = nil,
 		version: FHIRPrimitive<FHIRString>? = nil
 	) {
@@ -475,6 +474,7 @@ open class MessageHeaderSource: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.name = name
+		self.sender = sender
 		self.software = software
 		self.version = version
 	}
@@ -483,8 +483,10 @@ open class MessageHeaderSource: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case contact
-		case endpoint; case _endpoint
+		case endpointReference
+		case endpointUrl; case _endpointUrl
 		case name; case _name
+		case sender
 		case software; case _software
 		case version; case _version
 	}
@@ -495,8 +497,22 @@ open class MessageHeaderSource: BackboneElement {
 		
 		// Decode all our properties
 		self.contact = try ContactPoint(from: _container, forKeyIfPresent: .contact)
-		self.endpoint = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpoint, auxiliaryKey: ._endpoint)
+		var _t_endpoint: EndpointX? = nil
+		if let endpointUrl = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endpointUrl, auxiliaryKey: ._endpointUrl) {
+			if _t_endpoint != nil {
+				throw DecodingError.dataCorruptedError(forKey: .endpointUrl, in: _container, debugDescription: "More than one value provided for \"endpoint\"")
+			}
+			_t_endpoint = .url(endpointUrl)
+		}
+		if let endpointReference = try Reference(from: _container, forKeyIfPresent: .endpointReference) {
+			if _t_endpoint != nil {
+				throw DecodingError.dataCorruptedError(forKey: .endpointReference, in: _container, debugDescription: "More than one value provided for \"endpoint\"")
+			}
+			_t_endpoint = .reference(endpointReference)
+		}
+		self.endpoint = _t_endpoint
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
+		self.sender = try Reference(from: _container, forKeyIfPresent: .sender)
 		self.software = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .software, auxiliaryKey: ._software)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		try super.init(from: decoder)
@@ -508,8 +524,16 @@ open class MessageHeaderSource: BackboneElement {
 		
 		// Encode all our properties
 		try contact?.encode(on: &_container, forKey: .contact)
-		try endpoint?.encode(on: &_container, forKey: .endpoint, auxiliaryKey: ._endpoint)
+		if let _enum = endpoint {
+			switch _enum {
+			case .url(let _value):
+				try _value.encode(on: &_container, forKey: .endpointUrl, auxiliaryKey: ._endpointUrl)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .endpointReference)
+			}
+		}
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
+		try sender?.encode(on: &_container, forKey: .sender)
 		try software?.encode(on: &_container, forKey: .software, auxiliaryKey: ._software)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		try super.encode(to: encoder)
@@ -527,6 +551,7 @@ open class MessageHeaderSource: BackboneElement {
 		return contact == _other.contact
 		    && endpoint == _other.endpoint
 		    && name == _other.name
+		    && sender == _other.sender
 		    && software == _other.software
 		    && version == _other.version
 	}
@@ -536,6 +561,7 @@ open class MessageHeaderSource: BackboneElement {
 		hasher.combine(contact)
 		hasher.combine(endpoint)
 		hasher.combine(name)
+		hasher.combine(sender)
 		hasher.combine(software)
 		hasher.combine(version)
 	}

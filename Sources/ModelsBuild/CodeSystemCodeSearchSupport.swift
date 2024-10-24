@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,9 +27,15 @@ import FMCore
  */
 public enum CodeSearchSupport: String, FHIRPrimitiveType {
 	
-	/// The search for code on ValueSet only includes all codes based on the expansion of the value set.
-	case all
+	/// The search for code on ValueSet returns ValueSet resources where the code is included in the extensional
+	/// definition of the ValueSet.
+	case inCompose = "in-compose"
 	
-	/// The search for code on ValueSet only includes codes explicitly detailed on includes or expansions.
-	case explicit
+	/// The search for code on ValueSet returns ValueSet resources where the code is included in the extensional
+	/// definition or contained in the ValueSet expansion.
+	case inComposeOrExpansion = "in-compose-or-expansion"
+	
+	/// The search for code on ValueSet returns ValueSet resources where the code is contained in the  ValueSet
+	/// expansion.
+	case inExpansion = "in-expansion"
 }

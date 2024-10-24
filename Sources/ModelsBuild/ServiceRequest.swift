@@ -2,8 +2,8 @@
 //  ServiceRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ServiceRequest)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ServiceRequest)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -82,10 +82,10 @@ open class ServiceRequest: DomainResource {
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
 	
 	/// What is being requested/ordered
-	public var code: CodeableConcept?
+	public var code: CodeableReference?
 	
-	/// Additional order information
-	public var orderDetail: [CodeableConcept]?
+	/// Additional information about the request
+	public var orderDetail: [ServiceRequestOrderDetail]?
 	
 	/// Service amount
 	/// One of `quantity[x]`
@@ -93,6 +93,9 @@ open class ServiceRequest: DomainResource {
 	
 	/// Individual or Entity the service is ordered for
 	public var subject: Reference
+	
+	/// What the service request is about, when it is not about the subject of record
+	public var focus: [Reference]?
 	
 	/// Encounter in which the request was created
 	public var encounter: Reference?
@@ -127,7 +130,7 @@ open class ServiceRequest: DomainResource {
 	public var insurance: [Reference]?
 	
 	/// Additional clinical information
-	public var supportingInfo: [Reference]?
+	public var supportingInfo: [CodeableReference]?
 	
 	/// Procedure Samples
 	public var specimen: [Reference]?
@@ -142,7 +145,7 @@ open class ServiceRequest: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Patient or consumer-oriented instructions
-	public var patientInstruction: FHIRPrimitive<FHIRString>?
+	public var patientInstruction: [ServiceRequestPatientInstruction]?
 	
 	/// Request provenance
 	public var relevantHistory: [Reference]?
@@ -163,11 +166,12 @@ open class ServiceRequest: DomainResource {
 		bodySite: [CodeableConcept]? = nil,
 		bodyStructure: Reference? = nil,
 		category: [CodeableConcept]? = nil,
-		code: CodeableConcept? = nil,
+		code: CodeableReference? = nil,
 		contained: [ResourceProxy]? = nil,
 		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
 		encounter: Reference? = nil,
 		`extension`: [Extension]? = nil,
+		focus: [Reference]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -181,8 +185,8 @@ open class ServiceRequest: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		occurrence: OccurrenceX? = nil,
-		orderDetail: [CodeableConcept]? = nil,
-		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
+		orderDetail: [ServiceRequestOrderDetail]? = nil,
+		patientInstruction: [ServiceRequestPatientInstruction]? = nil,
 		performer: [Reference]? = nil,
 		performerType: CodeableConcept? = nil,
 		priority: FHIRPrimitive<FHIRString>? = nil,
@@ -195,7 +199,7 @@ open class ServiceRequest: DomainResource {
 		specimen: [Reference]? = nil,
 		status: FHIRPrimitive<FHIRString>,
 		subject: Reference,
-		supportingInfo: [Reference]? = nil,
+		supportingInfo: [CodeableReference]? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(intent: intent, status: status, subject: subject)
@@ -210,6 +214,7 @@ open class ServiceRequest: DomainResource {
 		self.doNotPerform = doNotPerform
 		self.encounter = encounter
 		self.`extension` = `extension`
+		self.focus = focus
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
@@ -251,6 +256,7 @@ open class ServiceRequest: DomainResource {
 		case code
 		case doNotPerform; case _doNotPerform
 		case encounter
+		case focus
 		case identifier
 		case instantiatesCanonical; case _instantiatesCanonical
 		case instantiatesUri; case _instantiatesUri
@@ -262,7 +268,7 @@ open class ServiceRequest: DomainResource {
 		case occurrencePeriod
 		case occurrenceTiming
 		case orderDetail
-		case patientInstruction; case _patientInstruction
+		case patientInstruction
 		case performer
 		case performerType
 		case priority; case _priority
@@ -304,9 +310,10 @@ open class ServiceRequest: DomainResource {
 		self.bodySite = try [CodeableConcept](from: _container, forKeyIfPresent: .bodySite)
 		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
-		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.code = try CodeableReference(from: _container, forKeyIfPresent: .code)
 		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
+		self.focus = try [Reference](from: _container, forKeyIfPresent: .focus)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
@@ -334,8 +341,8 @@ open class ServiceRequest: DomainResource {
 			_t_occurrence = .timing(occurrenceTiming)
 		}
 		self.occurrence = _t_occurrence
-		self.orderDetail = try [CodeableConcept](from: _container, forKeyIfPresent: .orderDetail)
-		self.patientInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .patientInstruction, auxiliaryKey: ._patientInstruction)
+		self.orderDetail = try [ServiceRequestOrderDetail](from: _container, forKeyIfPresent: .orderDetail)
+		self.patientInstruction = try [ServiceRequestPatientInstruction](from: _container, forKeyIfPresent: .patientInstruction)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.performerType = try CodeableConcept(from: _container, forKeyIfPresent: .performerType)
 		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
@@ -367,7 +374,7 @@ open class ServiceRequest: DomainResource {
 		self.specimen = try [Reference](from: _container, forKeyIfPresent: .specimen)
 		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
-		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
+		self.supportingInfo = try [CodeableReference](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
 	}
 	
@@ -392,6 +399,7 @@ open class ServiceRequest: DomainResource {
 		try code?.encode(on: &_container, forKey: .code)
 		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		try encounter?.encode(on: &_container, forKey: .encounter)
+		try focus?.encode(on: &_container, forKey: .focus)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
@@ -410,7 +418,7 @@ open class ServiceRequest: DomainResource {
 			}
 		}
 		try orderDetail?.encode(on: &_container, forKey: .orderDetail)
-		try patientInstruction?.encode(on: &_container, forKey: .patientInstruction, auxiliaryKey: ._patientInstruction)
+		try patientInstruction?.encode(on: &_container, forKey: .patientInstruction)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try performerType?.encode(on: &_container, forKey: .performerType)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
@@ -454,6 +462,7 @@ open class ServiceRequest: DomainResource {
 		    && code == _other.code
 		    && doNotPerform == _other.doNotPerform
 		    && encounter == _other.encounter
+		    && focus == _other.focus
 		    && identifier == _other.identifier
 		    && instantiatesCanonical == _other.instantiatesCanonical
 		    && instantiatesUri == _other.instantiatesUri
@@ -490,6 +499,7 @@ open class ServiceRequest: DomainResource {
 		hasher.combine(code)
 		hasher.combine(doNotPerform)
 		hasher.combine(encounter)
+		hasher.combine(focus)
 		hasher.combine(identifier)
 		hasher.combine(instantiatesCanonical)
 		hasher.combine(instantiatesUri)
@@ -513,5 +523,350 @@ open class ServiceRequest: DomainResource {
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(supportingInfo)
+	}
+}
+
+/**
+ Additional information about the request.
+ 
+ Additional details and instructions about how the services are to be delivered. For example, an order for a urinary
+ catheter may have an order detail for an external or indwelling catheter, or an order for a bandage may require
+ additional instructions specifying how the bandage should be applied. Questions or additional information to be
+ gathered from a patient may be included here.
+ */
+open class ServiceRequestOrderDetail: BackboneElement {
+	
+	/// The context of the order details by reference
+	public var parameterFocus: CodeableReference?
+	
+	/// The parameter details for the service being requested
+	public var parameter: [ServiceRequestOrderDetailParameter]
+	
+	/// Designated initializer taking all required properties
+	public init(parameter: [ServiceRequestOrderDetailParameter]) {
+		self.parameter = parameter
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		parameter: [ServiceRequestOrderDetailParameter],
+		parameterFocus: CodeableReference? = nil
+	) {
+		self.init(parameter: parameter)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.parameterFocus = parameterFocus
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case parameter
+		case parameterFocus
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.parameter = try [ServiceRequestOrderDetailParameter](from: _container, forKey: .parameter)
+		self.parameterFocus = try CodeableReference(from: _container, forKeyIfPresent: .parameterFocus)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try parameter.encode(on: &_container, forKey: .parameter)
+		try parameterFocus?.encode(on: &_container, forKey: .parameterFocus)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ServiceRequestOrderDetail else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return parameter == _other.parameter
+		    && parameterFocus == _other.parameterFocus
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(parameter)
+		hasher.combine(parameterFocus)
+	}
+}
+
+/**
+ The parameter details for the service being requested.
+ */
+open class ServiceRequestOrderDetailParameter: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case codeableConcept(CodeableConcept)
+		case period(Period)
+		case quantity(Quantity)
+		case range(Range)
+		case ratio(Ratio)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
+	/// The detail of the order being requested
+	public var code: CodeableConcept
+	
+	/// The value for the order detail
+	/// One of `value[x]`
+	public var value: ValueX
+	
+	/// Designated initializer taking all required properties
+	public init(code: CodeableConcept, value: ValueX) {
+		self.code = code
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: ValueX
+	) {
+		self.init(code: code, value: value)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case valueBoolean; case _valueBoolean
+		case valueCodeableConcept
+		case valuePeriod
+		case valueQuantity
+		case valueRange
+		case valueRatio
+		case valueString; case _valueString
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueString) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueBoolean, CodingKeys.valueCodeableConcept, CodingKeys.valuePeriod, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueString], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKey: .code)
+		var _t_value: ValueX? = nil
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRatio = try Ratio(from: _container, forKeyIfPresent: .valueRatio) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRatio, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .ratio(valueRatio)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCodeableConcept, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .codeableConcept(valueCodeableConcept)
+		}
+		if let valueString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueString, auxiliaryKey: ._valueString) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueString, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .string(valueString)
+		}
+		if let valuePeriod = try Period(from: _container, forKeyIfPresent: .valuePeriod) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valuePeriod, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .period(valuePeriod)
+		}
+		self.value = _t_value!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code)
+		
+			switch value {
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .ratio(let _value):
+				try _value.encode(on: &_container, forKey: .valueRatio)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .valueString, auxiliaryKey: ._valueString)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .valuePeriod)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ServiceRequestOrderDetailParameter else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(value)
+	}
+}
+
+/**
+ Patient or consumer-oriented instructions.
+ 
+ Instructions in terms that are understood by the patient or consumer.
+ */
+open class ServiceRequestPatientInstruction: BackboneElement {
+	
+	/// All possible types for "instruction[x]"
+	public enum InstructionX: Hashable {
+		case markdown(FHIRPrimitive<FHIRString>)
+		case reference(Reference)
+	}
+	
+	/// Patient or consumer-oriented instructions
+	/// One of `instruction[x]`
+	public var instruction: InstructionX?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		instruction: InstructionX? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.`extension` = `extension`
+		self.id = id
+		self.instruction = instruction
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case instructionMarkdown; case _instructionMarkdown
+		case instructionReference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		var _t_instruction: InstructionX? = nil
+		if let instructionMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .instructionMarkdown, auxiliaryKey: ._instructionMarkdown) {
+			if _t_instruction != nil {
+				throw DecodingError.dataCorruptedError(forKey: .instructionMarkdown, in: _container, debugDescription: "More than one value provided for \"instruction\"")
+			}
+			_t_instruction = .markdown(instructionMarkdown)
+		}
+		if let instructionReference = try Reference(from: _container, forKeyIfPresent: .instructionReference) {
+			if _t_instruction != nil {
+				throw DecodingError.dataCorruptedError(forKey: .instructionReference, in: _container, debugDescription: "More than one value provided for \"instruction\"")
+			}
+			_t_instruction = .reference(instructionReference)
+		}
+		self.instruction = _t_instruction
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		if let _enum = instruction {
+			switch _enum {
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .instructionMarkdown, auxiliaryKey: ._instructionMarkdown)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .instructionReference)
+			}
+		}
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ServiceRequestPatientInstruction else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return instruction == _other.instruction
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(instruction)
 	}
 }

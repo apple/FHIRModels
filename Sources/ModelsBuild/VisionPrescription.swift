@@ -2,8 +2,8 @@
 //  VisionPrescription.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/VisionPrescription)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/VisionPrescription)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ open class VisionPrescription: DomainResource {
 	
 	/// Business Identifier for vision prescription
 	public var identifier: [Identifier]?
+	
+	/// What prescription fulfills
+	public var basedOn: [Reference]?
 	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
@@ -65,6 +68,7 @@ open class VisionPrescription: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		basedOn: [Reference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		created: FHIRPrimitive<DateTime>,
 		dateWritten: FHIRPrimitive<DateTime>,
@@ -83,6 +87,7 @@ open class VisionPrescription: DomainResource {
 		text: Narrative? = nil
 	) {
 		self.init(created: created, dateWritten: dateWritten, lensSpecification: lensSpecification, patient: patient, prescriber: prescriber, status: status)
+		self.basedOn = basedOn
 		self.contained = contained
 		self.encounter = encounter
 		self.`extension` = `extension`
@@ -98,6 +103,7 @@ open class VisionPrescription: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case basedOn
 		case created; case _created
 		case dateWritten; case _dateWritten
 		case encounter
@@ -113,6 +119,7 @@ open class VisionPrescription: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
 		self.dateWritten = try FHIRPrimitive<DateTime>(from: _container, forKey: .dateWritten, auxiliaryKey: ._dateWritten)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
@@ -129,6 +136,7 @@ open class VisionPrescription: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
 		try dateWritten.encode(on: &_container, forKey: .dateWritten, auxiliaryKey: ._dateWritten)
 		try encounter?.encode(on: &_container, forKey: .encounter)
@@ -149,7 +157,8 @@ open class VisionPrescription: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return created == _other.created
+		return basedOn == _other.basedOn
+		    && created == _other.created
 		    && dateWritten == _other.dateWritten
 		    && encounter == _other.encounter
 		    && identifier == _other.identifier
@@ -161,6 +170,7 @@ open class VisionPrescription: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(basedOn)
 		hasher.combine(created)
 		hasher.combine(dateWritten)
 		hasher.combine(encounter)

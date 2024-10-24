@@ -2,8 +2,8 @@
 //  SpecimenDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,6 +34,12 @@ open class SpecimenDefinition: DomainResource {
 		case reference(Reference)
 	}
 	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// Logical canonical URL to reference this SpecimenDefinition (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
 	
@@ -42,6 +48,13 @@ open class SpecimenDefinition: DomainResource {
 	
 	/// Business version of the SpecimenDefinition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
+	
+	/// Name for this {{title}} (computer friendly)
+	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Name for this SpecimenDefinition (Human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
@@ -66,7 +79,7 @@ open class SpecimenDefinition: DomainResource {
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// The name of the individual or organization that published the SpecimenDefinition
-	public var publisher: Reference?
+	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
 	public var contact: [ContactDetail]?
@@ -86,10 +99,13 @@ open class SpecimenDefinition: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// When SpecimenDefinition was approved by publisher
 	public var approvalDate: FHIRPrimitive<FHIRDate>?
 	
-	/// The date on which the asset content was last reviewed
+	/// The date on which the asset content was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
 	/// The effective date range for the SpecimenDefinition
@@ -123,6 +139,7 @@ open class SpecimenDefinition: DomainResource {
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
 		derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
@@ -138,8 +155,9 @@ open class SpecimenDefinition: DomainResource {
 		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
 		patientPreparation: [CodeableConcept]? = nil,
-		publisher: Reference? = nil,
+		publisher: FHIRPrimitive<FHIRString>? = nil,
 		purpose: FHIRPrimitive<FHIRString>? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		subject: SubjectX? = nil,
@@ -150,7 +168,8 @@ open class SpecimenDefinition: DomainResource {
 		typeTested: [SpecimenDefinitionTypeTested]? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status)
 		self.approvalDate = approvalDate
@@ -158,6 +177,7 @@ open class SpecimenDefinition: DomainResource {
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.derivedFromCanonical = derivedFromCanonical
 		self.derivedFromUri = derivedFromUri
@@ -173,6 +193,7 @@ open class SpecimenDefinition: DomainResource {
 		self.lastReviewDate = lastReviewDate
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.name = name
 		self.patientPreparation = patientPreparation
 		self.publisher = publisher
 		self.purpose = purpose
@@ -185,6 +206,7 @@ open class SpecimenDefinition: DomainResource {
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -194,6 +216,7 @@ open class SpecimenDefinition: DomainResource {
 		case collection
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case derivedFromCanonical; case _derivedFromCanonical
 		case derivedFromUri; case _derivedFromUri
@@ -203,8 +226,9 @@ open class SpecimenDefinition: DomainResource {
 		case identifier
 		case jurisdiction
 		case lastReviewDate; case _lastReviewDate
+		case name; case _name
 		case patientPreparation
-		case publisher
+		case publisher; case _publisher
 		case purpose; case _purpose
 		case status; case _status
 		case subjectCodeableConcept
@@ -216,6 +240,8 @@ open class SpecimenDefinition: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -227,6 +253,7 @@ open class SpecimenDefinition: DomainResource {
 		self.collection = try [CodeableConcept](from: _container, forKeyIfPresent: .collection)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.derivedFromCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		self.derivedFromUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
@@ -236,8 +263,9 @@ open class SpecimenDefinition: DomainResource {
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.patientPreparation = try [CodeableConcept](from: _container, forKeyIfPresent: .patientPreparation)
-		self.publisher = try Reference(from: _container, forKeyIfPresent: .publisher)
+		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		var _t_subject: SubjectX? = nil
@@ -261,6 +289,20 @@ open class SpecimenDefinition: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -273,6 +315,7 @@ open class SpecimenDefinition: DomainResource {
 		try collection?.encode(on: &_container, forKey: .collection)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try derivedFromCanonical?.encode(on: &_container, forKey: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		try derivedFromUri?.encode(on: &_container, forKey: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
@@ -282,8 +325,9 @@ open class SpecimenDefinition: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try patientPreparation?.encode(on: &_container, forKey: .patientPreparation)
-		try publisher?.encode(on: &_container, forKey: .publisher)
+		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		if let _enum = subject {
@@ -301,6 +345,14 @@ open class SpecimenDefinition: DomainResource {
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -317,6 +369,7 @@ open class SpecimenDefinition: DomainResource {
 		    && collection == _other.collection
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && derivedFromCanonical == _other.derivedFromCanonical
 		    && derivedFromUri == _other.derivedFromUri
@@ -326,6 +379,7 @@ open class SpecimenDefinition: DomainResource {
 		    && identifier == _other.identifier
 		    && jurisdiction == _other.jurisdiction
 		    && lastReviewDate == _other.lastReviewDate
+		    && name == _other.name
 		    && patientPreparation == _other.patientPreparation
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
@@ -338,6 +392,7 @@ open class SpecimenDefinition: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -346,6 +401,7 @@ open class SpecimenDefinition: DomainResource {
 		hasher.combine(collection)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(derivedFromCanonical)
 		hasher.combine(derivedFromUri)
@@ -355,6 +411,7 @@ open class SpecimenDefinition: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(jurisdiction)
 		hasher.combine(lastReviewDate)
+		hasher.combine(name)
 		hasher.combine(patientPreparation)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
@@ -367,6 +424,7 @@ open class SpecimenDefinition: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 

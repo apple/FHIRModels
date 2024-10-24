@@ -2,8 +2,8 @@
 //  RelatedArtifact.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RelatedArtifact)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RelatedArtifact)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -50,6 +50,12 @@ open class RelatedArtifact: DataType {
 	/// What artifact, if not a conformance resource
 	public var resourceReference: Reference?
 	
+	/// The publication status of the artifact being referred to.
+	public var publicationStatus: FHIRPrimitive<PublicationStatus>?
+	
+	/// Date of publication of the artifact being referred to
+	public var publicationDate: FHIRPrimitive<FHIRDate>?
+	
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<RelatedArtifactType>) {
 		self.type = type
@@ -65,6 +71,8 @@ open class RelatedArtifact: DataType {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		label: FHIRPrimitive<FHIRString>? = nil,
+		publicationDate: FHIRPrimitive<FHIRDate>? = nil,
+		publicationStatus: FHIRPrimitive<PublicationStatus>? = nil,
 		resource: FHIRPrimitive<Canonical>? = nil,
 		resourceReference: Reference? = nil,
 		type: FHIRPrimitive<RelatedArtifactType>
@@ -77,6 +85,8 @@ open class RelatedArtifact: DataType {
 		self.`extension` = `extension`
 		self.id = id
 		self.label = label
+		self.publicationDate = publicationDate
+		self.publicationStatus = publicationStatus
 		self.resource = resource
 		self.resourceReference = resourceReference
 	}
@@ -89,6 +99,8 @@ open class RelatedArtifact: DataType {
 		case display; case _display
 		case document
 		case label; case _label
+		case publicationDate; case _publicationDate
+		case publicationStatus; case _publicationStatus
 		case resource; case _resource
 		case resourceReference
 		case type; case _type
@@ -104,6 +116,8 @@ open class RelatedArtifact: DataType {
 		self.display = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .display, auxiliaryKey: ._display)
 		self.document = try Attachment(from: _container, forKeyIfPresent: .document)
 		self.label = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .label, auxiliaryKey: ._label)
+		self.publicationDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .publicationDate, auxiliaryKey: ._publicationDate)
+		self.publicationStatus = try FHIRPrimitive<PublicationStatus>(from: _container, forKeyIfPresent: .publicationStatus, auxiliaryKey: ._publicationStatus)
 		self.resource = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
 		self.resourceReference = try Reference(from: _container, forKeyIfPresent: .resourceReference)
 		self.type = try FHIRPrimitive<RelatedArtifactType>(from: _container, forKey: .type, auxiliaryKey: ._type)
@@ -120,6 +134,8 @@ open class RelatedArtifact: DataType {
 		try display?.encode(on: &_container, forKey: .display, auxiliaryKey: ._display)
 		try document?.encode(on: &_container, forKey: .document)
 		try label?.encode(on: &_container, forKey: .label, auxiliaryKey: ._label)
+		try publicationDate?.encode(on: &_container, forKey: .publicationDate, auxiliaryKey: ._publicationDate)
+		try publicationStatus?.encode(on: &_container, forKey: .publicationStatus, auxiliaryKey: ._publicationStatus)
 		try resource?.encode(on: &_container, forKey: .resource, auxiliaryKey: ._resource)
 		try resourceReference?.encode(on: &_container, forKey: .resourceReference)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
@@ -140,6 +156,8 @@ open class RelatedArtifact: DataType {
 		    && display == _other.display
 		    && document == _other.document
 		    && label == _other.label
+		    && publicationDate == _other.publicationDate
+		    && publicationStatus == _other.publicationStatus
 		    && resource == _other.resource
 		    && resourceReference == _other.resourceReference
 		    && type == _other.type
@@ -152,6 +170,8 @@ open class RelatedArtifact: DataType {
 		hasher.combine(display)
 		hasher.combine(document)
 		hasher.combine(label)
+		hasher.combine(publicationDate)
+		hasher.combine(publicationStatus)
 		hasher.combine(resource)
 		hasher.combine(resourceReference)
 		hasher.combine(type)

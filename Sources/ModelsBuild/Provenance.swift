@@ -2,8 +2,8 @@
 //  Provenance.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Provenance)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Provenance)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,11 +53,14 @@ open class Provenance: DomainResource {
 	/// Policy or plan the activity was defined by
 	public var policy: [FHIRPrimitive<FHIRURI>]?
 	
-	/// Where the activity occurred, if relevant
+	/// Where the activity occurred
 	public var location: Reference?
 	
 	/// Authorization (purposeOfUse) related to the event
 	public var authorization: [CodeableReference]?
+	
+	/// Why was the event performed?
+	public var why: FHIRPrimitive<FHIRString>?
 	
 	/// Activity that occurred
 	public var activity: CodeableConcept?
@@ -109,7 +112,8 @@ open class Provenance: DomainResource {
 		recorded: FHIRPrimitive<Instant>? = nil,
 		signature: [Signature]? = nil,
 		target: [Reference],
-		text: Narrative? = nil
+		text: Narrative? = nil,
+		why: FHIRPrimitive<FHIRString>? = nil
 	) {
 		self.init(agent: agent, target: target)
 		self.activity = activity
@@ -131,6 +135,7 @@ open class Provenance: DomainResource {
 		self.recorded = recorded
 		self.signature = signature
 		self.text = text
+		self.why = why
 	}
 	
 	// MARK: - Codable
@@ -150,6 +155,7 @@ open class Provenance: DomainResource {
 		case recorded; case _recorded
 		case signature
 		case target
+		case why; case _why
 	}
 	
 	/// Initializer for Decodable
@@ -183,6 +189,7 @@ open class Provenance: DomainResource {
 		self.recorded = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .recorded, auxiliaryKey: ._recorded)
 		self.signature = try [Signature](from: _container, forKeyIfPresent: .signature)
 		self.target = try [Reference](from: _container, forKey: .target)
+		self.why = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .why, auxiliaryKey: ._why)
 		try super.init(from: decoder)
 	}
 	
@@ -211,6 +218,7 @@ open class Provenance: DomainResource {
 		try recorded?.encode(on: &_container, forKey: .recorded, auxiliaryKey: ._recorded)
 		try signature?.encode(on: &_container, forKey: .signature)
 		try target.encode(on: &_container, forKey: .target)
+		try why?.encode(on: &_container, forKey: .why, auxiliaryKey: ._why)
 		try super.encode(to: encoder)
 	}
 	
@@ -236,6 +244,7 @@ open class Provenance: DomainResource {
 		    && recorded == _other.recorded
 		    && signature == _other.signature
 		    && target == _other.target
+		    && why == _other.why
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -253,6 +262,7 @@ open class Provenance: DomainResource {
 		hasher.combine(recorded)
 		hasher.combine(signature)
 		hasher.combine(target)
+		hasher.combine(why)
 	}
 }
 

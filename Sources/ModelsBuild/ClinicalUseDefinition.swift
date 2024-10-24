@@ -2,8 +2,8 @@
 //  ClinicalUseDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ClinicalUseDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ClinicalUseDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,11 +33,12 @@ open class ClinicalUseDefinition: DomainResource {
 	/// None
 	public var type: FHIRPrimitive<ClinicalUseDefinitionType>
 	
-	/// A categorisation of the issue, primarily for dividing warnings into subject heading areas such as "Pregnancy and
-	/// Lactation", "Overdose", "Effects on Ability to Drive and Use Machines"
+	/// A categorisation of the issue, primarily for dividing warnings into subject heading areas such as "Pregnancy",
+	/// "Overdose"
 	public var category: [CodeableConcept]?
 	
-	/// The medication or procedure for which this is an indication
+	/// The medication, product, substance, device, procedure etc. for which this is an indication, contraindication,
+	/// interaction, undesirable effect, or warning
 	public var subject: [Reference]?
 	
 	/// Whether this is a current issue or one that has been retired etc
@@ -55,12 +56,14 @@ open class ClinicalUseDefinition: DomainResource {
 	/// The population group to which this applies
 	public var population: [Reference]?
 	
+	/// Logic used by the clinical use definition
+	public var library: [FHIRPrimitive<Canonical>]?
+	
 	/// A possible negative outcome from the use of this treatment
 	public var undesirableEffect: ClinicalUseDefinitionUndesirableEffect?
 	
-	/// A critical piece of information about environmental, health or physical risks or hazards that serve as caution
-	/// to the user. For example 'Do not operate heavy machinery', 'May cause drowsiness' or 'Get medical
-	/// advice/attention if you feel unwell'
+	/// Critical environmental, health or physical risks or hazards. For example 'Do not operate heavy machinery', 'May
+	/// cause drowsiness'
 	public var warning: ClinicalUseDefinitionWarning?
 	
 	/// Designated initializer taking all required properties
@@ -81,6 +84,7 @@ open class ClinicalUseDefinition: DomainResource {
 		indication: ClinicalUseDefinitionIndication? = nil,
 		interaction: ClinicalUseDefinitionInteraction? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		library: [FHIRPrimitive<Canonical>]? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		population: [Reference]? = nil,
@@ -102,6 +106,7 @@ open class ClinicalUseDefinition: DomainResource {
 		self.indication = indication
 		self.interaction = interaction
 		self.language = language
+		self.library = library
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.population = population
@@ -120,6 +125,7 @@ open class ClinicalUseDefinition: DomainResource {
 		case identifier
 		case indication
 		case interaction
+		case library; case _library
 		case population
 		case status
 		case subject
@@ -138,6 +144,7 @@ open class ClinicalUseDefinition: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.indication = try ClinicalUseDefinitionIndication(from: _container, forKeyIfPresent: .indication)
 		self.interaction = try ClinicalUseDefinitionInteraction(from: _container, forKeyIfPresent: .interaction)
+		self.library = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .library, auxiliaryKey: ._library)
 		self.population = try [Reference](from: _container, forKeyIfPresent: .population)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
@@ -157,6 +164,7 @@ open class ClinicalUseDefinition: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try indication?.encode(on: &_container, forKey: .indication)
 		try interaction?.encode(on: &_container, forKey: .interaction)
+		try library?.encode(on: &_container, forKey: .library, auxiliaryKey: ._library)
 		try population?.encode(on: &_container, forKey: .population)
 		try status?.encode(on: &_container, forKey: .status)
 		try subject?.encode(on: &_container, forKey: .subject)
@@ -180,6 +188,7 @@ open class ClinicalUseDefinition: DomainResource {
 		    && identifier == _other.identifier
 		    && indication == _other.indication
 		    && interaction == _other.interaction
+		    && library == _other.library
 		    && population == _other.population
 		    && status == _other.status
 		    && subject == _other.subject
@@ -195,6 +204,7 @@ open class ClinicalUseDefinition: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(indication)
 		hasher.combine(interaction)
+		hasher.combine(library)
 		hasher.combine(population)
 		hasher.combine(status)
 		hasher.combine(subject)
@@ -221,8 +231,11 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	/// The indication which this is a contraidication for
 	public var indication: [Reference]?
 	
-	/// Information about the use of the medicinal product in relation to other therapies described as part of the
-	/// contraindication
+	/// An expression that returns true or false, indicating whether the indication is applicable or not, after having
+	/// applied its other elements
+	public var applicability: Expression?
+	
+	/// Information about use of the product in relation to other therapies described as part of the contraindication
 	public var otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]?
 	
 	/// Designated initializer taking all required properties
@@ -232,6 +245,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		applicability: Expression? = nil,
 		comorbidity: [CodeableReference]? = nil,
 		diseaseStatus: CodeableReference? = nil,
 		diseaseSymptomProcedure: CodeableReference? = nil,
@@ -242,6 +256,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]? = nil
 	) {
 		self.init()
+		self.applicability = applicability
 		self.comorbidity = comorbidity
 		self.diseaseStatus = diseaseStatus
 		self.diseaseSymptomProcedure = diseaseSymptomProcedure
@@ -255,6 +270,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case applicability
 		case comorbidity
 		case diseaseStatus
 		case diseaseSymptomProcedure
@@ -267,6 +283,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.applicability = try Expression(from: _container, forKeyIfPresent: .applicability)
 		self.comorbidity = try [CodeableReference](from: _container, forKeyIfPresent: .comorbidity)
 		self.diseaseStatus = try CodeableReference(from: _container, forKeyIfPresent: .diseaseStatus)
 		self.diseaseSymptomProcedure = try CodeableReference(from: _container, forKeyIfPresent: .diseaseSymptomProcedure)
@@ -280,6 +297,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try applicability?.encode(on: &_container, forKey: .applicability)
 		try comorbidity?.encode(on: &_container, forKey: .comorbidity)
 		try diseaseStatus?.encode(on: &_container, forKey: .diseaseStatus)
 		try diseaseSymptomProcedure?.encode(on: &_container, forKey: .diseaseSymptomProcedure)
@@ -297,7 +315,8 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return comorbidity == _other.comorbidity
+		return applicability == _other.applicability
+		    && comorbidity == _other.comorbidity
 		    && diseaseStatus == _other.diseaseStatus
 		    && diseaseSymptomProcedure == _other.diseaseSymptomProcedure
 		    && indication == _other.indication
@@ -306,6 +325,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(applicability)
 		hasher.combine(comorbidity)
 		hasher.combine(diseaseStatus)
 		hasher.combine(diseaseSymptomProcedure)
@@ -315,22 +335,23 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 }
 
 /**
+ Information about use of the product in relation to other therapies described as part of the contraindication.
+ 
  Information about the use of the medicinal product in relation to other therapies described as part of the
  contraindication.
  */
 open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 	
-	/// The type of relationship between the medicinal product indication or contraindication and another therapy
+	/// The type of relationship between the product indication/contraindication and another therapy
 	public var relationshipType: CodeableConcept
 	
-	/// Reference to a specific medication (active substance, medicinal product or class of products) as part of an
-	/// indication or contraindication
-	public var therapy: CodeableReference
+	/// Reference to a specific medication, substance etc. as part of an indication or contraindication
+	public var treatment: CodeableReference
 	
 	/// Designated initializer taking all required properties
-	public init(relationshipType: CodeableConcept, therapy: CodeableReference) {
+	public init(relationshipType: CodeableConcept, treatment: CodeableReference) {
 		self.relationshipType = relationshipType
-		self.therapy = therapy
+		self.treatment = treatment
 		super.init()
 	}
 	
@@ -340,9 +361,9 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		relationshipType: CodeableConcept,
-		therapy: CodeableReference
+		treatment: CodeableReference
 	) {
-		self.init(relationshipType: relationshipType, therapy: therapy)
+		self.init(relationshipType: relationshipType, treatment: treatment)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -352,7 +373,7 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case relationshipType
-		case therapy
+		case treatment
 	}
 	
 	/// Initializer for Decodable
@@ -361,7 +382,7 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 		
 		// Decode all our properties
 		self.relationshipType = try CodeableConcept(from: _container, forKey: .relationshipType)
-		self.therapy = try CodeableReference(from: _container, forKey: .therapy)
+		self.treatment = try CodeableReference(from: _container, forKey: .treatment)
 		try super.init(from: decoder)
 	}
 	
@@ -371,7 +392,7 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 		
 		// Encode all our properties
 		try relationshipType.encode(on: &_container, forKey: .relationshipType)
-		try therapy.encode(on: &_container, forKey: .therapy)
+		try treatment.encode(on: &_container, forKey: .treatment)
 		try super.encode(to: encoder)
 	}
 	
@@ -385,13 +406,13 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
 			return false
 		}
 		return relationshipType == _other.relationshipType
-		    && therapy == _other.therapy
+		    && treatment == _other.treatment
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(relationshipType)
-		hasher.combine(therapy)
+		hasher.combine(treatment)
 	}
 }
 
@@ -400,26 +421,36 @@ open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
  */
 open class ClinicalUseDefinitionIndication: BackboneElement {
 	
+	/// All possible types for "duration[x]"
+	public enum DurationX: Hashable {
+		case range(Range)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
 	/// The situation that is being documented as an indicaton for this item
 	public var diseaseSymptomProcedure: CodeableReference?
 	
 	/// The status of the disease or symptom for the indication
 	public var diseaseStatus: CodeableReference?
 	
-	/// A comorbidity (concurrent condition) or coinfection as part of the indication
+	/// A comorbidity or coinfection as part of the indication
 	public var comorbidity: [CodeableReference]?
 	
 	/// The intended effect, aim or strategy to be achieved
 	public var intendedEffect: CodeableReference?
 	
 	/// Timing or duration information
-	public var duration: Quantity?
+	/// One of `duration[x]`
+	public var duration: DurationX?
 	
-	/// The specific undesirable effects of the medicinal product
+	/// An unwanted side effect or negative outcome of the subject of this resource when being used for this indication
 	public var undesirableEffect: [Reference]?
 	
-	/// Information about the use of the medicinal product in relation to other therapies described as part of the
-	/// indication
+	/// An expression that returns true or false, indicating whether the indication is applicable or not, after having
+	/// applied its other elements
+	public var applicability: Expression?
+	
+	/// The use of the medicinal product in relation to other therapies described as part of the indication
 	public var otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]?
 	
 	/// Designated initializer taking all required properties
@@ -429,10 +460,11 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		applicability: Expression? = nil,
 		comorbidity: [CodeableReference]? = nil,
 		diseaseStatus: CodeableReference? = nil,
 		diseaseSymptomProcedure: CodeableReference? = nil,
-		duration: Quantity? = nil,
+		duration: DurationX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		intendedEffect: CodeableReference? = nil,
@@ -441,6 +473,7 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		undesirableEffect: [Reference]? = nil
 	) {
 		self.init()
+		self.applicability = applicability
 		self.comorbidity = comorbidity
 		self.diseaseStatus = diseaseStatus
 		self.diseaseSymptomProcedure = diseaseSymptomProcedure
@@ -456,10 +489,12 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case applicability
 		case comorbidity
 		case diseaseStatus
 		case diseaseSymptomProcedure
-		case duration
+		case durationRange
+		case durationString; case _durationString
 		case intendedEffect
 		case otherTherapy
 		case undesirableEffect
@@ -470,10 +505,24 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.applicability = try Expression(from: _container, forKeyIfPresent: .applicability)
 		self.comorbidity = try [CodeableReference](from: _container, forKeyIfPresent: .comorbidity)
 		self.diseaseStatus = try CodeableReference(from: _container, forKeyIfPresent: .diseaseStatus)
 		self.diseaseSymptomProcedure = try CodeableReference(from: _container, forKeyIfPresent: .diseaseSymptomProcedure)
-		self.duration = try Quantity(from: _container, forKeyIfPresent: .duration)
+		var _t_duration: DurationX? = nil
+		if let durationRange = try Range(from: _container, forKeyIfPresent: .durationRange) {
+			if _t_duration != nil {
+				throw DecodingError.dataCorruptedError(forKey: .durationRange, in: _container, debugDescription: "More than one value provided for \"duration\"")
+			}
+			_t_duration = .range(durationRange)
+		}
+		if let durationString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .durationString, auxiliaryKey: ._durationString) {
+			if _t_duration != nil {
+				throw DecodingError.dataCorruptedError(forKey: .durationString, in: _container, debugDescription: "More than one value provided for \"duration\"")
+			}
+			_t_duration = .string(durationString)
+		}
+		self.duration = _t_duration
 		self.intendedEffect = try CodeableReference(from: _container, forKeyIfPresent: .intendedEffect)
 		self.otherTherapy = try [ClinicalUseDefinitionContraindicationOtherTherapy](from: _container, forKeyIfPresent: .otherTherapy)
 		self.undesirableEffect = try [Reference](from: _container, forKeyIfPresent: .undesirableEffect)
@@ -485,10 +534,18 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try applicability?.encode(on: &_container, forKey: .applicability)
 		try comorbidity?.encode(on: &_container, forKey: .comorbidity)
 		try diseaseStatus?.encode(on: &_container, forKey: .diseaseStatus)
 		try diseaseSymptomProcedure?.encode(on: &_container, forKey: .diseaseSymptomProcedure)
-		try duration?.encode(on: &_container, forKey: .duration)
+		if let _enum = duration {
+			switch _enum {
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .durationRange)
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .durationString, auxiliaryKey: ._durationString)
+			}
+		}
 		try intendedEffect?.encode(on: &_container, forKey: .intendedEffect)
 		try otherTherapy?.encode(on: &_container, forKey: .otherTherapy)
 		try undesirableEffect?.encode(on: &_container, forKey: .undesirableEffect)
@@ -504,7 +561,8 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return comorbidity == _other.comorbidity
+		return applicability == _other.applicability
+		    && comorbidity == _other.comorbidity
 		    && diseaseStatus == _other.diseaseStatus
 		    && diseaseSymptomProcedure == _other.diseaseSymptomProcedure
 		    && duration == _other.duration
@@ -515,6 +573,7 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(applicability)
 		hasher.combine(comorbidity)
 		hasher.combine(diseaseStatus)
 		hasher.combine(diseaseSymptomProcedure)
@@ -530,10 +589,10 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
  */
 open class ClinicalUseDefinitionInteraction: BackboneElement {
 	
-	/// The specific medication, food, substance or laboratory test that interacts
+	/// The specific medication, product, food etc. or laboratory test that interacts
 	public var interactant: [ClinicalUseDefinitionInteractionInteractant]?
 	
-	/// The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test interaction
+	/// The type of the interaction e.g. drug-drug interaction, drug-lab test interaction
 	public var type: CodeableConcept?
 	
 	/// The effect of the interaction, for example "reduced gastric absorption of primary medication"
@@ -635,7 +694,9 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 }
 
 /**
- The specific medication, food, substance or laboratory test that interacts.
+ The specific medication, product, food etc. or laboratory test that interacts.
+ 
+ The specific medication, product, food, substance etc. or laboratory test that interacts.
  */
 open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 	
@@ -645,7 +706,7 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 		case reference(Reference)
 	}
 	
-	/// The specific medication, food or laboratory test that interacts
+	/// The specific medication, product, food etc. or laboratory test that interacts
 	/// One of `item[x]`
 	public var item: ItemX
 	
@@ -739,7 +800,7 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 /**
  A possible negative outcome from the use of this treatment.
  
- Describe the undesirable effects of the medicinal product.
+ Describe the possible undesirable effects (negative outcomes) from the use of the medicinal product as treatment.
  */
 open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 	
@@ -828,9 +889,8 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 }
 
 /**
- A critical piece of information about environmental, health or physical risks or hazards that serve as caution to the
- user. For example 'Do not operate heavy machinery', 'May cause drowsiness' or 'Get medical advice/attention if you feel
- unwell'.
+ Critical environmental, health or physical risks or hazards. For example 'Do not operate heavy machinery', 'May cause
+ drowsiness'.
  
  A critical piece of information about environmental, health or physical risks or hazards that serve as caution to the
  user. For example 'Do not operate heavy machinery', 'May cause drowsiness', or 'Get medical advice/attention if you

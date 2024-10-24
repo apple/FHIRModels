@@ -2,8 +2,8 @@
 //  EvidenceReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/EvidenceReport)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EvidenceReport)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,10 +24,6 @@ import FMCore
  
  The EvidenceReport Resource is a specialized container for a collection of resources and codeable concepts, adapted to
  support compositions of Evidence, EvidenceVariable, and Citation resources and related concepts.
- 
- Interfaces:
-	 - MetadataResource: http://hl7.org/fhir/StructureDefinition/MetadataResource
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class EvidenceReport: DomainResource {
 	
@@ -70,7 +66,7 @@ open class EvidenceReport: DomainResource {
 	/// Focus of the report
 	public var subject: EvidenceReportSubject
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher

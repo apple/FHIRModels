@@ -2,8 +2,8 @@
 //  ExtendedContactDetail.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ExtendedContactDetail)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ExtendedContactDetail)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ open class ExtendedContactDetail: DataType {
 	public var purpose: CodeableConcept?
 	
 	/// Name of an individual to contact
-	public var name: HumanName?
+	public var name: [HumanName]?
 	
 	/// Contact details (e.g.phone/fax/url)
 	public var telecom: [ContactPoint]?
@@ -39,7 +39,7 @@ open class ExtendedContactDetail: DataType {
 	/// Address for the contact
 	public var address: Address?
 	
-	/// Organization
+	/// This contact detail is handled/monitored by a specific organization
 	public var organization: Reference?
 	
 	/// Period that this contact was valid for usage
@@ -55,7 +55,7 @@ open class ExtendedContactDetail: DataType {
 		address: Address? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		name: HumanName? = nil,
+		name: [HumanName]? = nil,
 		organization: Reference? = nil,
 		period: Period? = nil,
 		purpose: CodeableConcept? = nil,
@@ -89,7 +89,7 @@ open class ExtendedContactDetail: DataType {
 		
 		// Decode all our properties
 		self.address = try Address(from: _container, forKeyIfPresent: .address)
-		self.name = try HumanName(from: _container, forKeyIfPresent: .name)
+		self.name = try [HumanName](from: _container, forKeyIfPresent: .name)
 		self.organization = try Reference(from: _container, forKeyIfPresent: .organization)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.purpose = try CodeableConcept(from: _container, forKeyIfPresent: .purpose)

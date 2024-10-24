@@ -2,8 +2,8 @@
 //  DeviceUsage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DeviceUsage)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceUsage)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,6 +72,9 @@ open class DeviceUsage: DomainResource {
 	/// The reason for asserting the usage status - for example forgot, lost, stolen, broken
 	public var usageReason: [CodeableConcept]?
 	
+	/// How device is being used
+	public var adherence: DeviceUsageAdherence?
+	
 	/// Who made the statement
 	public var informationSource: Reference?
 	
@@ -97,6 +100,7 @@ open class DeviceUsage: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		adherence: DeviceUsageAdherence? = nil,
 		basedOn: [Reference]? = nil,
 		bodySite: CodeableReference? = nil,
 		category: [CodeableConcept]? = nil,
@@ -123,6 +127,7 @@ open class DeviceUsage: DomainResource {
 		usageStatus: CodeableConcept? = nil
 	) {
 		self.init(device: device, patient: patient, status: status)
+		self.adherence = adherence
 		self.basedOn = basedOn
 		self.bodySite = bodySite
 		self.category = category
@@ -149,6 +154,7 @@ open class DeviceUsage: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case adherence
 		case basedOn
 		case bodySite
 		case category
@@ -174,6 +180,7 @@ open class DeviceUsage: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.adherence = try DeviceUsageAdherence(from: _container, forKeyIfPresent: .adherence)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try CodeableReference(from: _container, forKeyIfPresent: .bodySite)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
@@ -217,6 +224,7 @@ open class DeviceUsage: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try adherence?.encode(on: &_container, forKey: .adherence)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
 		try category?.encode(on: &_container, forKey: .category)
@@ -254,7 +262,8 @@ open class DeviceUsage: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return basedOn == _other.basedOn
+		return adherence == _other.adherence
+		    && basedOn == _other.basedOn
 		    && bodySite == _other.bodySite
 		    && category == _other.category
 		    && context == _other.context
@@ -274,6 +283,7 @@ open class DeviceUsage: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(adherence)
 		hasher.combine(basedOn)
 		hasher.combine(bodySite)
 		hasher.combine(category)
@@ -290,5 +300,86 @@ open class DeviceUsage: DomainResource {
 		hasher.combine(timing)
 		hasher.combine(usageReason)
 		hasher.combine(usageStatus)
+	}
+}
+
+/**
+ How device is being used.
+ 
+ This indicates how or if the device is being used.
+ */
+open class DeviceUsageAdherence: BackboneElement {
+	
+	/// always | never | sometimes
+	public var code: CodeableConcept
+	
+	/// lost | stolen | prescribed | broken | burned | forgot
+	public var reason: [CodeableConcept]
+	
+	/// Designated initializer taking all required properties
+	public init(code: CodeableConcept, reason: [CodeableConcept]) {
+		self.code = code
+		self.reason = reason
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: [CodeableConcept]
+	) {
+		self.init(code: code, reason: reason)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case reason
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.reason = try [CodeableConcept](from: _container, forKey: .reason)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code)
+		try reason.encode(on: &_container, forKey: .reason)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? DeviceUsageAdherence else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && reason == _other.reason
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(reason)
 	}
 }

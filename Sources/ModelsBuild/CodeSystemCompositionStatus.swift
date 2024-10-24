@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,6 +31,18 @@ public enum CompositionStatus: String, FHIRPrimitiveType {
 	/// released as "final" and the composition is complete and verified by an authorized person.
 	case amended
 	
+	/// Subsequent to being final, the composition content has been modified by adding new content. The existing content
+	/// is unchanged.
+	case appended
+	
+	/// The composition is unavailable because the measurement was not started or not completed (also sometimes called
+	/// "aborted").
+	case cancelled
+	
+	/// Subsequent to being final, the composition content has been modified to correct an error in the composition or
+	/// referenced results.
+	case corrected
+	
 	/// This composition has been withdrawn or superseded and should no longer be used.
 	case deprecated
 	
@@ -42,7 +54,18 @@ public enum CompositionStatus: String, FHIRPrimitiveType {
 	/// planned. Any subsequent updates would be on a new version of the composition.
 	case final
 	
-	/// This is a preliminary composition or document (also known as initial or interim). The content may be incomplete
+	/// This is a partial (e.g. initial, interim or preliminary) composition: data in the composition may be incomplete
 	/// or unverified.
+	case partial
+	
+	/// Verified early results are available, but not all results are final.
 	case preliminary
+	
+	/// The existence of the composition is registered, but there is nothing yet available.
+	case registered
+	
+	/// The authoring/source system does not know which of the status values currently applies for this observation.
+	/// Note: This concept is not to be used for "other" - one of the listed statuses is presumed to apply, but the
+	/// authoring/source system does not know which.
+	case unknown
 }

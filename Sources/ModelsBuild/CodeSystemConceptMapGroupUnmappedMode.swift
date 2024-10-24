@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,13 @@ import FMCore
  */
 public enum ConceptMapGroupUnmappedMode: String, FHIRPrimitiveType {
 	
-	/// Use the code explicitly provided in the group.unmapped.
+	/// Use the code(s) explicitly provided in the group.unmapped 'code' or 'valueSet' element.
 	case fixed
 	
 	/// Use the map identified by the canonical URL in the url element.
 	case otherMap = "other-map"
 	
-	/// Use the code as provided in the $translate request.
-	case provided
+	/// Use the code as provided in the $translate request in one of the following input parameters: sourceCode,
+	/// sourceCoding, sourceCodeableConcept.
+	case useSourceCode = "use-source-code"
 }

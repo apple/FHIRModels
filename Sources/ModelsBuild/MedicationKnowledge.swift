@@ -2,8 +2,8 @@
 //  MedicationKnowledge.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicationKnowledge)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,16 +37,16 @@ open class MedicationKnowledge: DomainResource {
 	/// A code to indicate if the medication referred to by this MedicationKnowledge is in active use within the drug
 	/// database or inventory system. The status refers to the validity about the information of the medication and not
 	/// to its medicinal properties.
-	public var status: FHIRPrimitive<MedicationKnowledgeStatusCodes>?
+	public var status: FHIRPrimitive<PublicationStatus>?
 	
 	/// Creator or owner of the knowledge or information about the medication
-	public var author: Reference?
+	public var author: ContactDetail?
 	
 	/// Codes that identify the different jurisdictions for which the information of this resource was created
-	public var intendedJurisdiction: [CodeableConcept]?
+	public var jurisdiction: [CodeableConcept]?
 	
 	/// A name associated with the medication being described
-	public var name: [FHIRPrimitive<FHIRString>]?
+	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Associated or related medication information
 	public var relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]?
@@ -98,7 +98,7 @@ open class MedicationKnowledge: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		associatedMedication: [Reference]? = nil,
-		author: Reference? = nil,
+		author: ContactDetail? = nil,
 		clinicalUseIssue: [Reference]? = nil,
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
@@ -109,20 +109,20 @@ open class MedicationKnowledge: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		indicationGuideline: [MedicationKnowledgeIndicationGuideline]? = nil,
-		intendedJurisdiction: [CodeableConcept]? = nil,
+		jurisdiction: [CodeableConcept]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		medicineClassification: [MedicationKnowledgeMedicineClassification]? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		monitoringProgram: [MedicationKnowledgeMonitoringProgram]? = nil,
 		monograph: [MedicationKnowledgeMonograph]? = nil,
-		name: [FHIRPrimitive<FHIRString>]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
 		packaging: [MedicationKnowledgePackaging]? = nil,
 		preparationInstruction: FHIRPrimitive<FHIRString>? = nil,
 		productType: [CodeableConcept]? = nil,
 		regulatory: [MedicationKnowledgeRegulatory]? = nil,
 		relatedMedicationKnowledge: [MedicationKnowledgeRelatedMedicationKnowledge]? = nil,
-		status: FHIRPrimitive<MedicationKnowledgeStatusCodes>? = nil,
+		status: FHIRPrimitive<PublicationStatus>? = nil,
 		storageGuideline: [MedicationKnowledgeStorageGuideline]? = nil,
 		text: Narrative? = nil
 	) {
@@ -139,7 +139,7 @@ open class MedicationKnowledge: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.indicationGuideline = indicationGuideline
-		self.intendedJurisdiction = intendedJurisdiction
+		self.jurisdiction = jurisdiction
 		self.language = language
 		self.medicineClassification = medicineClassification
 		self.meta = meta
@@ -168,7 +168,7 @@ open class MedicationKnowledge: DomainResource {
 		case definitional
 		case identifier
 		case indicationGuideline
-		case intendedJurisdiction
+		case jurisdiction
 		case medicineClassification
 		case monitoringProgram
 		case monograph
@@ -188,24 +188,24 @@ open class MedicationKnowledge: DomainResource {
 		
 		// Decode all our properties
 		self.associatedMedication = try [Reference](from: _container, forKeyIfPresent: .associatedMedication)
-		self.author = try Reference(from: _container, forKeyIfPresent: .author)
+		self.author = try ContactDetail(from: _container, forKeyIfPresent: .author)
 		self.clinicalUseIssue = try [Reference](from: _container, forKeyIfPresent: .clinicalUseIssue)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.cost = try [MedicationKnowledgeCost](from: _container, forKeyIfPresent: .cost)
 		self.definitional = try MedicationKnowledgeDefinitional(from: _container, forKeyIfPresent: .definitional)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.indicationGuideline = try [MedicationKnowledgeIndicationGuideline](from: _container, forKeyIfPresent: .indicationGuideline)
-		self.intendedJurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .intendedJurisdiction)
+		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.medicineClassification = try [MedicationKnowledgeMedicineClassification](from: _container, forKeyIfPresent: .medicineClassification)
 		self.monitoringProgram = try [MedicationKnowledgeMonitoringProgram](from: _container, forKeyIfPresent: .monitoringProgram)
 		self.monograph = try [MedicationKnowledgeMonograph](from: _container, forKeyIfPresent: .monograph)
-		self.name = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.packaging = try [MedicationKnowledgePackaging](from: _container, forKeyIfPresent: .packaging)
 		self.preparationInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preparationInstruction, auxiliaryKey: ._preparationInstruction)
 		self.productType = try [CodeableConcept](from: _container, forKeyIfPresent: .productType)
 		self.regulatory = try [MedicationKnowledgeRegulatory](from: _container, forKeyIfPresent: .regulatory)
 		self.relatedMedicationKnowledge = try [MedicationKnowledgeRelatedMedicationKnowledge](from: _container, forKeyIfPresent: .relatedMedicationKnowledge)
-		self.status = try FHIRPrimitive<MedicationKnowledgeStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.storageGuideline = try [MedicationKnowledgeStorageGuideline](from: _container, forKeyIfPresent: .storageGuideline)
 		try super.init(from: decoder)
 	}
@@ -223,7 +223,7 @@ open class MedicationKnowledge: DomainResource {
 		try definitional?.encode(on: &_container, forKey: .definitional)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try indicationGuideline?.encode(on: &_container, forKey: .indicationGuideline)
-		try intendedJurisdiction?.encode(on: &_container, forKey: .intendedJurisdiction)
+		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try medicineClassification?.encode(on: &_container, forKey: .medicineClassification)
 		try monitoringProgram?.encode(on: &_container, forKey: .monitoringProgram)
 		try monograph?.encode(on: &_container, forKey: .monograph)
@@ -255,7 +255,7 @@ open class MedicationKnowledge: DomainResource {
 		    && definitional == _other.definitional
 		    && identifier == _other.identifier
 		    && indicationGuideline == _other.indicationGuideline
-		    && intendedJurisdiction == _other.intendedJurisdiction
+		    && jurisdiction == _other.jurisdiction
 		    && medicineClassification == _other.medicineClassification
 		    && monitoringProgram == _other.monitoringProgram
 		    && monograph == _other.monograph
@@ -279,7 +279,7 @@ open class MedicationKnowledge: DomainResource {
 		hasher.combine(definitional)
 		hasher.combine(identifier)
 		hasher.combine(indicationGuideline)
-		hasher.combine(intendedJurisdiction)
+		hasher.combine(jurisdiction)
 		hasher.combine(medicineClassification)
 		hasher.combine(monitoringProgram)
 		hasher.combine(monograph)
@@ -696,7 +696,7 @@ open class MedicationKnowledgeDefinitionalIngredient: BackboneElement {
 	/// Substances contained in the medication
 	public var item: CodeableReference
 	
-	/// A code that defines the type of ingredient, active, base, etc.
+	/// A code that defines the type of ingredient, active, base, etc
 	public var type: CodeableConcept?
 	
 	/// Quantity of ingredient present

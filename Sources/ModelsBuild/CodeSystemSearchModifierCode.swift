@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,6 +39,10 @@ public enum SearchModifierCode: String, FHIRPrimitiveType {
 	/// hierarchical relationships).
 	case below
 	
+	/// Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or
+	/// Reference.display) matches the supplied parameter value.
+	case codeText = "code-text"
+	
 	/// The search parameter returns resources that include the supplied parameter value anywhere within the field being
 	/// searched.
 	case contains
@@ -49,6 +53,10 @@ public enum SearchModifierCode: String, FHIRPrimitiveType {
 	
 	/// The search parameter applies to the identifier on the resource, not the reference.
 	case identifier
+	
+	/// The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included
+	/// resource instead of the matching resource.
+	case iterate
 	
 	/// The search parameter returns resources that have a value or not.
 	case missing
@@ -62,11 +70,16 @@ public enum SearchModifierCode: String, FHIRPrimitiveType {
 	
 	/// The search parameter has the format system|code|value, where the system and code refer to an
 	/// Identifier.type.coding.system and .code, and match if any of the type codes match. All 3 parts must be present.
-	case ofType
+	case ofType = "of-type"
 	
 	/// The search parameter is processed as a string that searches text associated with the code/value - either
-	/// CodeableConcept.text, Coding.display, or Identifier.type.text.
+	/// CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display.
 	case text
+	
+	/// Tests whether the value in a resource matches the supplied parameter value using advanced text handling that
+	/// searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or
+	/// Identifier.type.text.
+	case textAdvanced = "text-advanced"
 	
 	/// The search parameter only applies to the Resource Type specified as a modifier (e.g. the modifier is not
 	/// actually :type, but :Patient etc.).

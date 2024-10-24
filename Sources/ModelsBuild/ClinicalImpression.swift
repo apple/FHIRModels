@@ -2,8 +2,8 @@
 //  ClinicalImpression.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ClinicalImpression)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ClinicalImpression)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,6 +72,10 @@ open class ClinicalImpression: DomainResource {
 	/// Relevant impressions of patient state
 	public var problem: [Reference]?
 	
+	/// Change in the status/pattern of a subject's condition since previously assessed, such as worsening, improving,
+	/// or no change
+	public var changePattern: CodeableConcept?
+	
 	/// Clinical Protocol followed
 	public var `protocol`: [FHIRPrimitive<FHIRURI>]?
 	
@@ -102,6 +106,7 @@ open class ClinicalImpression: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		changePattern: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
@@ -130,6 +135,7 @@ open class ClinicalImpression: DomainResource {
 		text: Narrative? = nil
 	) {
 		self.init(status: status, subject: subject)
+		self.changePattern = changePattern
 		self.contained = contained
 		self.date = date
 		self.description_fhir = description_fhir
@@ -159,6 +165,7 @@ open class ClinicalImpression: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case changePattern
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case effectiveDateTime; case _effectiveDateTime
@@ -185,6 +192,7 @@ open class ClinicalImpression: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.changePattern = try CodeableConcept(from: _container, forKeyIfPresent: .changePattern)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		var _t_effective: EffectiveX? = nil
@@ -224,6 +232,7 @@ open class ClinicalImpression: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try changePattern?.encode(on: &_container, forKey: .changePattern)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		if let _enum = effective {
@@ -261,7 +270,8 @@ open class ClinicalImpression: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return date == _other.date
+		return changePattern == _other.changePattern
+		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && effective == _other.effective
 		    && encounter == _other.encounter
@@ -283,6 +293,7 @@ open class ClinicalImpression: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(changePattern)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(effective)

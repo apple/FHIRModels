@@ -2,8 +2,8 @@
 //  TestReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/TestReport)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/TestReport)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -467,6 +467,9 @@ open class TestReportSetupActionAssert: BackboneElement {
 	/// A link to further details on the result
 	public var detail: FHIRPrimitive<FHIRString>?
 	
+	/// Links or references to the testing requirements
+	public var requirement: [TestReportSetupActionAssertRequirement]?
+	
 	/// Designated initializer taking all required properties
 	public init(result: FHIRPrimitive<TestReportActionResult>) {
 		self.result = result
@@ -480,6 +483,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		message: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
+		requirement: [TestReportSetupActionAssertRequirement]? = nil,
 		result: FHIRPrimitive<TestReportActionResult>
 	) {
 		self.init(result: result)
@@ -488,6 +492,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 		self.id = id
 		self.message = message
 		self.modifierExtension = modifierExtension
+		self.requirement = requirement
 	}
 	
 	// MARK: - Codable
@@ -495,6 +500,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case detail; case _detail
 		case message; case _message
+		case requirement
 		case result; case _result
 	}
 	
@@ -505,6 +511,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 		// Decode all our properties
 		self.detail = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .detail, auxiliaryKey: ._detail)
 		self.message = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .message, auxiliaryKey: ._message)
+		self.requirement = try [TestReportSetupActionAssertRequirement](from: _container, forKeyIfPresent: .requirement)
 		self.result = try FHIRPrimitive<TestReportActionResult>(from: _container, forKey: .result, auxiliaryKey: ._result)
 		try super.init(from: decoder)
 	}
@@ -516,6 +523,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 		// Encode all our properties
 		try detail?.encode(on: &_container, forKey: .detail, auxiliaryKey: ._detail)
 		try message?.encode(on: &_container, forKey: .message, auxiliaryKey: ._message)
+		try requirement?.encode(on: &_container, forKey: .requirement)
 		try result.encode(on: &_container, forKey: .result, auxiliaryKey: ._result)
 		try super.encode(to: encoder)
 	}
@@ -531,6 +539,7 @@ open class TestReportSetupActionAssert: BackboneElement {
 		}
 		return detail == _other.detail
 		    && message == _other.message
+		    && requirement == _other.requirement
 		    && result == _other.result
 	}
 	
@@ -538,7 +547,107 @@ open class TestReportSetupActionAssert: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(detail)
 		hasher.combine(message)
+		hasher.combine(requirement)
 		hasher.combine(result)
+	}
+}
+
+/**
+ Links or references to the testing requirements.
+ 
+ Links or references providing traceability to the testing requirements for this assert.
+ */
+open class TestReportSetupActionAssertRequirement: BackboneElement {
+	
+	/// All possible types for "link[x]"
+	public enum LinkX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// Link or reference to the testing requirement
+	/// One of `link[x]`
+	public var link: LinkX?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		link: LinkX? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.`extension` = `extension`
+		self.id = id
+		self.link = link
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case linkCanonical; case _linkCanonical
+		case linkUri; case _linkUri
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		var _t_link: LinkX? = nil
+		if let linkUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .linkUri, auxiliaryKey: ._linkUri) {
+			if _t_link != nil {
+				throw DecodingError.dataCorruptedError(forKey: .linkUri, in: _container, debugDescription: "More than one value provided for \"link\"")
+			}
+			_t_link = .uri(linkUri)
+		}
+		if let linkCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .linkCanonical, auxiliaryKey: ._linkCanonical) {
+			if _t_link != nil {
+				throw DecodingError.dataCorruptedError(forKey: .linkCanonical, in: _container, debugDescription: "More than one value provided for \"link\"")
+			}
+			_t_link = .canonical(linkCanonical)
+		}
+		self.link = _t_link
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		if let _enum = link {
+			switch _enum {
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .linkUri, auxiliaryKey: ._linkUri)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .linkCanonical, auxiliaryKey: ._linkCanonical)
+			}
+		}
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? TestReportSetupActionAssertRequirement else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return link == _other.link
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(link)
 	}
 }
 

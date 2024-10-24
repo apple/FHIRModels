@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- None
+ MedicationRequest Status Codes
  
  URL: http://hl7.org/fhir/CodeSystem/medicationrequest-status
  ValueSet: http://hl7.org/fhir/ValueSet/medicationrequest-status
@@ -44,7 +44,7 @@ public enum MedicationRequestStatusCodes: String, FHIRPrimitiveType {
 	case ended
 	
 	/// The request was recorded against the wrong patient or for some reason should not have been recorded (e.g. wrong
-	/// medication, wrong dose, etc). Some of the actions that are implied by the medication request may have occurred.
+	/// medication, wrong dose, etc.). Some of the actions that are implied by the medication request may have occurred.
 	/// For example, the medication may have been dispensed and the patient may have taken some of the medication.
 	case enteredInError = "entered-in-error"
 	

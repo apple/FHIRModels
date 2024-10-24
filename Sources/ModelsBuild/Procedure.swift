@@ -2,8 +2,8 @@
 //  Procedure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Procedure)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Procedure)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -77,6 +77,9 @@ open class Procedure: DomainResource {
 	/// Individual or entity the procedure was performed on
 	public var subject: Reference
 	
+	/// Who is the target of the procedure when it is not the subject of record only
+	public var focus: Reference?
+	
 	/// The Encounter during which this Procedure was created
 	public var encounter: Reference?
 	
@@ -94,7 +97,7 @@ open class Procedure: DomainResource {
 	/// One of `reported[x]`
 	public var reported: ReportedX?
 	
-	/// The people who performed the procedure
+	/// Who performed the procedure and what they did
 	public var performer: [ProcedurePerformer]?
 	
 	/// Where the procedure happened
@@ -106,20 +109,20 @@ open class Procedure: DomainResource {
 	/// Target body sites
 	public var bodySite: [CodeableConcept]?
 	
+	/// Target body structure
+	public var bodyStructure: [Reference]?
+	
 	/// The result of procedure
-	public var outcome: CodeableConcept?
+	public var outcome: [CodeableReference]?
 	
 	/// Any report resulting from the procedure
 	public var report: [Reference]?
 	
 	/// Complication following the procedure
-	public var complication: [CodeableConcept]?
-	
-	/// A condition that is a result of the procedure
-	public var complicationDetail: [Reference]?
+	public var complication: [CodeableReference]?
 	
 	/// Instructions for follow up
-	public var followUp: [CodeableConcept]?
+	public var followUp: [CodeableReference]?
 	
 	/// Additional information about the procedure
 	public var note: [Annotation]?
@@ -144,15 +147,16 @@ open class Procedure: DomainResource {
 	public convenience init(
 		basedOn: [Reference]? = nil,
 		bodySite: [CodeableConcept]? = nil,
+		bodyStructure: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept? = nil,
-		complication: [CodeableConcept]? = nil,
-		complicationDetail: [Reference]? = nil,
+		complication: [CodeableReference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		encounter: Reference? = nil,
 		`extension`: [Extension]? = nil,
 		focalDevice: [ProcedureFocalDevice]? = nil,
-		followUp: [CodeableConcept]? = nil,
+		focus: Reference? = nil,
+		followUp: [CodeableReference]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -164,7 +168,7 @@ open class Procedure: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		occurrence: OccurrenceX? = nil,
-		outcome: CodeableConcept? = nil,
+		outcome: [CodeableReference]? = nil,
 		partOf: [Reference]? = nil,
 		performer: [ProcedurePerformer]? = nil,
 		reason: [CodeableReference]? = nil,
@@ -182,14 +186,15 @@ open class Procedure: DomainResource {
 		self.init(status: status, subject: subject)
 		self.basedOn = basedOn
 		self.bodySite = bodySite
+		self.bodyStructure = bodyStructure
 		self.category = category
 		self.code = code
 		self.complication = complication
-		self.complicationDetail = complicationDetail
 		self.contained = contained
 		self.encounter = encounter
 		self.`extension` = `extension`
 		self.focalDevice = focalDevice
+		self.focus = focus
 		self.followUp = followUp
 		self.id = id
 		self.identifier = identifier
@@ -221,12 +226,13 @@ open class Procedure: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case basedOn
 		case bodySite
+		case bodyStructure
 		case category
 		case code
 		case complication
-		case complicationDetail
 		case encounter
 		case focalDevice
+		case focus
 		case followUp
 		case identifier
 		case instantiatesCanonical; case _instantiatesCanonical
@@ -262,13 +268,14 @@ open class Procedure: DomainResource {
 		// Decode all our properties
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try [CodeableConcept](from: _container, forKeyIfPresent: .bodySite)
+		self.bodyStructure = try [Reference](from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.complication = try [CodeableConcept](from: _container, forKeyIfPresent: .complication)
-		self.complicationDetail = try [Reference](from: _container, forKeyIfPresent: .complicationDetail)
+		self.complication = try [CodeableReference](from: _container, forKeyIfPresent: .complication)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.focalDevice = try [ProcedureFocalDevice](from: _container, forKeyIfPresent: .focalDevice)
-		self.followUp = try [CodeableConcept](from: _container, forKeyIfPresent: .followUp)
+		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
+		self.followUp = try [CodeableReference](from: _container, forKeyIfPresent: .followUp)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
@@ -312,7 +319,7 @@ open class Procedure: DomainResource {
 			_t_occurrence = .timing(occurrenceTiming)
 		}
 		self.occurrence = _t_occurrence
-		self.outcome = try CodeableConcept(from: _container, forKeyIfPresent: .outcome)
+		self.outcome = try [CodeableReference](from: _container, forKeyIfPresent: .outcome)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.performer = try [ProcedurePerformer](from: _container, forKeyIfPresent: .performer)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
@@ -348,12 +355,13 @@ open class Procedure: DomainResource {
 		// Encode all our properties
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try bodySite?.encode(on: &_container, forKey: .bodySite)
+		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
 		try category?.encode(on: &_container, forKey: .category)
 		try code?.encode(on: &_container, forKey: .code)
 		try complication?.encode(on: &_container, forKey: .complication)
-		try complicationDetail?.encode(on: &_container, forKey: .complicationDetail)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try focalDevice?.encode(on: &_container, forKey: .focalDevice)
+		try focus?.encode(on: &_container, forKey: .focus)
 		try followUp?.encode(on: &_container, forKey: .followUp)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
@@ -410,12 +418,13 @@ open class Procedure: DomainResource {
 		}
 		return basedOn == _other.basedOn
 		    && bodySite == _other.bodySite
+		    && bodyStructure == _other.bodyStructure
 		    && category == _other.category
 		    && code == _other.code
 		    && complication == _other.complication
-		    && complicationDetail == _other.complicationDetail
 		    && encounter == _other.encounter
 		    && focalDevice == _other.focalDevice
+		    && focus == _other.focus
 		    && followUp == _other.followUp
 		    && identifier == _other.identifier
 		    && instantiatesCanonical == _other.instantiatesCanonical
@@ -442,12 +451,13 @@ open class Procedure: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(basedOn)
 		hasher.combine(bodySite)
+		hasher.combine(bodyStructure)
 		hasher.combine(category)
 		hasher.combine(code)
 		hasher.combine(complication)
-		hasher.combine(complicationDetail)
 		hasher.combine(encounter)
 		hasher.combine(focalDevice)
+		hasher.combine(focus)
 		hasher.combine(followUp)
 		hasher.combine(identifier)
 		hasher.combine(instantiatesCanonical)
@@ -554,9 +564,9 @@ open class ProcedureFocalDevice: BackboneElement {
 }
 
 /**
- The people who performed the procedure.
+ Who performed the procedure and what they did.
  
- Limited to "real" people rather than equipment.
+ Indicates who or what performed the procedure and how they were involved.
  */
 open class ProcedurePerformer: BackboneElement {
 	
@@ -568,6 +578,9 @@ open class ProcedurePerformer: BackboneElement {
 	
 	/// Organization the device or practitioner was acting for
 	public var onBehalfOf: Reference?
+	
+	/// When the performer performed the procedure
+	public var period: Period?
 	
 	/// Designated initializer taking all required properties
 	public init(actor: Reference) {
@@ -582,7 +595,8 @@ open class ProcedurePerformer: BackboneElement {
 		function: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		onBehalfOf: Reference? = nil
+		onBehalfOf: Reference? = nil,
+		period: Period? = nil
 	) {
 		self.init(actor: actor)
 		self.`extension` = `extension`
@@ -590,6 +604,7 @@ open class ProcedurePerformer: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.onBehalfOf = onBehalfOf
+		self.period = period
 	}
 	
 	// MARK: - Codable
@@ -598,6 +613,7 @@ open class ProcedurePerformer: BackboneElement {
 		case actor
 		case function
 		case onBehalfOf
+		case period
 	}
 	
 	/// Initializer for Decodable
@@ -608,6 +624,7 @@ open class ProcedurePerformer: BackboneElement {
 		self.actor = try Reference(from: _container, forKey: .actor)
 		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
 		self.onBehalfOf = try Reference(from: _container, forKeyIfPresent: .onBehalfOf)
+		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		try super.init(from: decoder)
 	}
 	
@@ -619,6 +636,7 @@ open class ProcedurePerformer: BackboneElement {
 		try actor.encode(on: &_container, forKey: .actor)
 		try function?.encode(on: &_container, forKey: .function)
 		try onBehalfOf?.encode(on: &_container, forKey: .onBehalfOf)
+		try period?.encode(on: &_container, forKey: .period)
 		try super.encode(to: encoder)
 	}
 	
@@ -634,6 +652,7 @@ open class ProcedurePerformer: BackboneElement {
 		return actor == _other.actor
 		    && function == _other.function
 		    && onBehalfOf == _other.onBehalfOf
+		    && period == _other.period
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -641,5 +660,6 @@ open class ProcedurePerformer: BackboneElement {
 		hasher.combine(actor)
 		hasher.combine(function)
 		hasher.combine(onBehalfOf)
+		hasher.combine(period)
 	}
 }

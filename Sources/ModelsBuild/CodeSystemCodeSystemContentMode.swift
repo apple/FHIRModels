@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ public enum CodeSystemContentMode: String, FHIRPrimitiveType {
 	/// All the concepts defined by the code system are included in the code system resource.
 	case complete
 	
-	/// A few representative concepts are included in the code system resource. There is no useful intent in the subset
-	/// choice and there's no process to make it workable: it's not intended to be workable.
+	/// A subset of the valid externally defined concepts are included in the code system resource. There is no specific
+	/// purpose or documented intent other than for illustrative purposes.
 	case example
 	
 	/// A subset of the code system concepts are included in the code system resource. This is a curated subset released

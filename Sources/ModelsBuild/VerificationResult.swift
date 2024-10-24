@@ -2,8 +2,8 @@
 //  VerificationResult.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/VerificationResult)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/VerificationResult)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -256,10 +256,10 @@ open class VerificationResultAttestation: BackboneElement {
 	/// attestation source
 	public var proxyIdentityCertificate: FHIRPrimitive<FHIRString>?
 	
-	/// Proxy signature
+	/// Proxy signature (digital or image)
 	public var proxySignature: Signature?
 	
-	/// Attester signature
+	/// Attester signature (digital or image)
 	public var sourceSignature: Signature?
 	
 	/// Designated initializer taking all required properties
@@ -513,7 +513,7 @@ open class VerificationResultValidator: BackboneElement {
 	/// A digital identity certificate associated with the validator
 	public var identityCertificate: FHIRPrimitive<FHIRString>?
 	
-	/// Validator signature
+	/// Validator signature (digital or image)
 	public var attestationSignature: Signature?
 	
 	/// Designated initializer taking all required properties

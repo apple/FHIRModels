@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,21 +20,19 @@
 import FMCore
 
 /**
- The availability status of the device.
+ The status of the Device record.
  
  URL: http://hl7.org/fhir/device-status
  ValueSet: http://hl7.org/fhir/ValueSet/device-status
  */
 public enum FHIRDeviceStatus: String, FHIRPrimitiveType {
 	
-	/// The device is available for use.  Note: For *implanted devices*  this means that the device is implanted in the
-	/// patient.
+	/// The device record is current and is appropriate for reference in new instances.
 	case active
 	
-	/// The device was entered in error and voided.
+	/// The device record is not current and is not appropriate for reference in new instances.
 	case enteredInError = "entered-in-error"
 	
-	/// The device is no longer available for use (e.g. lost, expired, damaged).  Note: For *implanted devices*  this
-	/// means that the device has been removed from the patient.
+	/// The device record is not current and is not appropriate for reference in new instances.
 	case inactive
 }

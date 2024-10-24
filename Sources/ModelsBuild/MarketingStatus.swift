@@ -2,8 +2,8 @@
 //  MarketingStatus.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MarketingStatus)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MarketingStatus)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,11 +25,11 @@ import FMCore
  */
 open class MarketingStatus: BackboneType {
 	
-	/// The country in which the marketing authorisation has been granted shall be specified It should be specified
+	/// The country in which the marketing authorization has been granted shall be specified It should be specified
 	/// using the ISO 3166 ‑ 1 alpha-2 code elements
 	public var country: CodeableConcept?
 	
-	/// Where a Medicines Regulatory Agency has granted a marketing authorisation for which specific provisions within a
+	/// Where a Medicines Regulatory Agency has granted a marketing authorization for which specific provisions within a
 	/// jurisdiction apply, the jurisdiction can be specified using an appropriate controlled terminology The controlled
 	/// term and the controlled term identifier shall be specified
 	public var jurisdiction: CodeableConcept?
@@ -38,13 +38,13 @@ open class MarketingStatus: BackboneType {
 	/// more information and examples
 	public var status: CodeableConcept
 	
-	/// The date when the Medicinal Product is placed on the market by the Marketing Authorisation Holder (or where
+	/// The date when the Medicinal Product is placed on the market by the Marketing Authorization Holder (or where
 	/// applicable, the manufacturer/distributor) in a country and/or jurisdiction shall be provided A complete date
 	/// consisting of day, month and year shall be specified using the ISO 8601 date format NOTE “Placed on the market”
 	/// refers to the release of the Medicinal Product into the distribution chain
 	public var dateRange: Period?
 	
-	/// The date when the Medicinal Product is placed on the market by the Marketing Authorisation Holder (or where
+	/// The date when the Medicinal Product is placed on the market by the Marketing Authorization Holder (or where
 	/// applicable, the manufacturer/distributor) in a country and/or jurisdiction shall be provided A complete date
 	/// consisting of day, month and year shall be specified using the ISO 8601 date format NOTE “Placed on the market”
 	/// refers to the release of the Medicinal Product into the distribution chain

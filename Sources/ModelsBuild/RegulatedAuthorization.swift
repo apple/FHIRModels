@@ -2,8 +2,8 @@
 //  RegulatedAuthorization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ open class RegulatedAuthorization: DomainResource {
 	public var validityPeriod: Period?
 	
 	/// Condition for which the use of the regulated product applies
-	public var indication: CodeableReference?
+	public var indication: [CodeableReference]?
 	
 	/// The intended use of the product, e.g. prevention, treatment
 	public var intendedUse: CodeableConcept?
@@ -95,7 +95,7 @@ open class RegulatedAuthorization: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		indication: CodeableReference? = nil,
+		indication: [CodeableReference]? = nil,
 		intendedUse: CodeableConcept? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
@@ -166,7 +166,7 @@ open class RegulatedAuthorization: DomainResource {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.holder = try Reference(from: _container, forKeyIfPresent: .holder)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.indication = try CodeableReference(from: _container, forKeyIfPresent: .indication)
+		self.indication = try [CodeableReference](from: _container, forKeyIfPresent: .indication)
 		self.intendedUse = try CodeableConcept(from: _container, forKeyIfPresent: .intendedUse)
 		self.region = try [CodeableConcept](from: _container, forKeyIfPresent: .region)
 		self.regulator = try Reference(from: _container, forKeyIfPresent: .regulator)

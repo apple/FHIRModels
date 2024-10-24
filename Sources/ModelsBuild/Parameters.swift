@@ -2,8 +2,8 @@
 //  Parameters.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Parameters)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Parameters)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  Operation Request or Response.
  
- This resource is a non-persisted resource used to pass information into and back from an [operation](operations.html).
- It has no other use, and there is no RESTful endpoint associated with it.
+ This resource is used to pass information into and back from an operation (whether invoked directly from REST or within
+ a messaging environment).  It is not persisted or allowed to be referenced by other resources.
  */
 open class Parameters: Resource {
 	
@@ -108,6 +108,7 @@ open class ParametersParameter: BackboneElement {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -117,7 +118,6 @@ open class ParametersParameter: BackboneElement {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -127,12 +127,13 @@ open class ParametersParameter: BackboneElement {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -207,6 +208,7 @@ open class ParametersParameter: BackboneElement {
 		case valueAge
 		case valueAnnotation
 		case valueAttachment
+		case valueAvailability
 		case valueBase64Binary; case _valueBase64Binary
 		case valueBoolean; case _valueBoolean
 		case valueCanonical; case _valueCanonical
@@ -216,7 +218,6 @@ open class ParametersParameter: BackboneElement {
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
-		case valueContributor
 		case valueCount
 		case valueDataRequirement
 		case valueDate; case _valueDate
@@ -226,12 +227,13 @@ open class ParametersParameter: BackboneElement {
 		case valueDosage
 		case valueDuration
 		case valueExpression
+		case valueExtendedContactDetail
 		case valueHumanName
 		case valueId; case _valueId
 		case valueIdentifier
 		case valueInstant; case _valueInstant
 		case valueInteger; case _valueInteger
-		case valueInteger64; case _valueInteger64
+		case valueInteger64
 		case valueMarkdown; case _valueMarkdown
 		case valueMeta
 		case valueMoney
@@ -327,7 +329,7 @@ open class ParametersParameter: BackboneElement {
 			}
 			_t_value = .integer(valueInteger)
 		}
-		if let valueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .valueInteger64, auxiliaryKey: ._valueInteger64) {
+		if let valueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .valueInteger64) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueInteger64, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
@@ -531,12 +533,6 @@ open class ParametersParameter: BackboneElement {
 			}
 			_t_value = .contactDetail(valueContactDetail)
 		}
-		if let valueContributor = try Contributor(from: _container, forKeyIfPresent: .valueContributor) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueContributor, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .contributor(valueContributor)
-		}
 		if let valueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .valueDataRequirement) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDataRequirement, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -572,6 +568,18 @@ open class ParametersParameter: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueUsageContext, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .usageContext(valueUsageContext)
+		}
+		if let valueAvailability = try Availability(from: _container, forKeyIfPresent: .valueAvailability) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAvailability, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .availability(valueAvailability)
+		}
+		if let valueExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .valueExtendedContactDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
@@ -620,7 +628,7 @@ open class ParametersParameter: BackboneElement {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .valueInteger64, auxiliaryKey: ._valueInteger64)
+				try _value.encode(on: &_container, forKey: .valueInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .oid(let _value):
@@ -687,8 +695,6 @@ open class ParametersParameter: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .valueContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .valueDataRequirement)
 			case .expression(let _value):
@@ -701,6 +707,10 @@ open class ParametersParameter: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .valueUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .valueAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):

@@ -16,52 +16,59 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import XCTest
+import Foundation
 import ModelsBuild
+import Testing
 
-class ModelsBuildTests: XCTestCase {
+struct ModelsBuildTests {
 	
 	@available(OSX 10.15, *)
 	@available(iOS 13.0, *)
 	@available(watchOS 7.0, *)
 	@available(tvOS 13.0, *)
-	func testGroupResourceDecodeEncode() throws {
+	@Test
+    func groupResourceDecodeEncode() throws {
 		let string =
             """
             {
-                "resourceType": "Group",
-                "id": "101",
-                "text": {
-                    "status": "additional",
-                    "div": "<div><p>Herd of 25 horses</p><p>Gender: mixed</p><p>Owner: John Smith</p></div>"
-                },
-                "type": "animal",
-                "actual": true,
+                "characteristic": [{
+                    "code": {
+                        "text": "gender"
+                    },
+                    "exclude": false,
+                    "valueCodeableConcept": {"text": "female"}
+                }],
                 "code": {
-                    "text": "Horse"
-                },
-                "name": "John's herd",
-                "quantity": 25,
-                "characteristic": [
-                    {
-                        "code": {
-                            "text": "gender"
-                        },
-                        "valueCodeableConcept": {
-                            "text": "mixed"
-                        },
-                        "exclude": false
+                    "coding": [{
+                        "code": "388393002",
+                        "display": "Genus Sus (organism)",
+                        "system": "http://snomed.info/sct"
                     },
                     {
-                        "code": {
-                            "text": "owner"
-                        },
-                        "valueCodeableConcept": {
-                            "text": "John Smith"
-                        },
-                        "exclude": false
+                        "code": "POR",
+                        "display": "porcine",
+                        "system": "https://www.aphis.usda.gov"
+                    }],
+                    "text": "Porcine"
+                },
+                "extension": [{
+                    "url": "http://example.org/fhir/StructureDefinition/owner",
+                    "valueReference": {
+                        "display": "Peter Chalmers",
+                        "reference": "RelatedPerson/peter"
                     }
-                ]
+                }],
+                "id": "herd1",
+                "identifier": [{
+                    "system": "https://vetmed.iastate.edu/vdl",
+                    "value": "20171120-1234"
+                }],
+                "membership": "enumerated",
+                "name": "Breeding herd",
+                "quantity": 2500,
+                "resourceType": "Group",
+                "status": "active",
+                "type": "animal"
             }
             """
 		guard let data = string.data(using: .utf8) else {
@@ -70,13 +77,13 @@ class ModelsBuildTests: XCTestCase {
 		
 		let decoder = JSONDecoder()
 		let group = try decoder.decode(Group.self, from: data)
-		XCTAssertEqual(type(of: group).resourceType, .group)
-		XCTAssertEqual(group.id, "101")
-		XCTAssertEqual(group.type.value, .animal)
-		XCTAssertEqual(group.actual, true)
-		XCTAssertEqual(group.quantity, 25)
-		XCTAssertEqual(group.code?.text, "Horse")
-		XCTAssertEqual(group.characteristic?.count, 2)
+		#expect(type(of: group).resourceType == .group)
+		#expect(group.id == "herd1")
+        #expect(try #require(group.status) == .active)
+        #expect(group.type?.value == .animal)
+		#expect(group.quantity == 2500)
+		#expect(group.code?.text == "Porcine")
+		#expect(group.characteristic?.count == 1)
 		
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .withoutEscapingSlashes
@@ -84,11 +91,14 @@ class ModelsBuildTests: XCTestCase {
 		guard let encodedString = String(data: encoded, encoding: .utf8) else {
 			throw TestError.failed("decoding UTF8 data to string")
 		}
-		XCTAssertTrue(encodedString.contains("\"id\":\"101\""))
-		XCTAssertTrue(encodedString.contains("\"type\":\"animal\""))
-		XCTAssertTrue(encodedString.contains("\"actual\":true"))
-		XCTAssertTrue(encodedString.contains("\"quantity\":25"))
-		XCTAssertTrue(encodedString.contains("\"code\":{\"text\":\"Horse\"}"))
-		XCTAssertTrue(encodedString.contains("\"characteristic\":["))
+        #expect(encodedString.contains("\"id\":\"herd1\""))
+        #expect(encodedString.contains("\"type\":\"animal\""))
+        #expect(encodedString.contains("\"status\":\"active\""))
+        #expect(encodedString.contains("\"membership\":\"enumerated\""))
+        #expect(encodedString.contains("\"name\":\"Breeding herd\""))
+        #expect(encodedString.contains("\"quantity\":25"))
+        #expect(encodedString.contains("\"text\":\"Porcine\""))
+        #expect(encodedString.contains("\"system\":\"http://snomed.info/sct\""))
+        #expect(encodedString.contains("\"characteristic\":["))
 	}
 }

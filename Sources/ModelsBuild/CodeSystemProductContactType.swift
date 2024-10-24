@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,12 +33,12 @@ public enum ProductContactType: String, FHIRPrimitiveType {
 	/// Pharmacovigilance Enquiry Information
 	case pVEnquiries = "PVEnquiries"
 	
-	/// Person/Company authorised for Communication between MAH and Authorities after Authorisation
+	/// Person/Company authorised for Communication between MAH and Authorities after Authorization
 	case procedureContactAfter = "ProcedureContactAfter"
 	
 	/// Person/Company authorised for Communication on behalf of the Applicant during the Procedure
 	case procedureContactDuring = "ProcedureContactDuring"
 	
-	/// Proposed Marketing Authorisation Holder/Person
+	/// Proposed Marketing Authorization Holder/Person
 	case proposedMAH = "ProposedMAH"
 }

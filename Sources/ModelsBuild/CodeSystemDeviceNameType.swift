@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,10 +31,10 @@ public enum DeviceNameType: String, FHIRPrimitiveType {
 	/// when documented as a self-reported device.
 	case patientReportedName = "patient-reported-name"
 	
-	/// The term assigned to a medical device by the entity who registers or submits information about it to a
-	/// jurisdiction or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned
-	/// by the labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be
-	/// synonymous with proprietary name or trade name of the device.
+	/// The term assigned to a device by the entity that may be registered or submitted to a jurisdiction, certification
+	/// body, or its databases. This may be considered the manufacturer assigned name (e.g., brand name assigned by the
+	/// labeler or manufacturer in US, or device name assigned by the manufacturer in EU) and may also be synonymous
+	/// with proprietary name or trade name of the device.
 	case registeredName = "registered-name"
 	
 	/// The term that generically describes the device by a name as assigned by the manufacturer that is recognized by

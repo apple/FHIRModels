@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- The [check list items](http://hl7.org/fhir/safety.html) defined as part of the FHIR specification.
+ The [checklist items](http://hl7.org/fhir/safety.html) defined as part of the FHIR specification.
  
  URL: http://hl7.org/fhir/safety-entries
  ValueSet: http://hl7.org/fhir/ValueSet/safety-entries
@@ -138,8 +138,8 @@ public enum FHIRSafetyCheckListEntries: String, FHIRPrimitiveType {
 	/// parameters (typically, either filters locally or warns the user)
 	case searchParameters = "search-parameters"
 	
-	/// My system checks for time zones and adjusts times appropriately. (note: time zones are extremely difficult to
-	/// get correct - see [W3C Timezone Advice](https://www.w3.org/TR/timezone/), and note that some fields should be
+	/// My system checks for timezones and adjusts times appropriately. (note: timezones are extremely difficult to get
+	/// correct - see [W3C Timezone Advice](https://www.w3.org/TR/timezone/), and note that some fields should be
 	/// timezone corrected, and others should not be)
 	case timeZone = "time-zone"
 	

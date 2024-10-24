@@ -2,8 +2,8 @@
 //  ParameterDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ParameterDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ParameterDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,14 +42,14 @@ open class ParameterDefinition: DataType {
 	/// A brief description of the parameter
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
-	/// What type of value
-	public var type: FHIRPrimitive<FHIRString>
+	/// The type of the parameter.
+	public var type: FHIRPrimitive<ResourceType>
 	
 	/// What profile the value is expected to be
 	public var profile: FHIRPrimitive<Canonical>?
 	
 	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<FHIRString>, use: FHIRPrimitive<OperationParameterUse>) {
+	public init(type: FHIRPrimitive<ResourceType>, use: FHIRPrimitive<OperationParameterUse>) {
 		self.type = type
 		self.use = use
 		super.init()
@@ -64,7 +64,7 @@ open class ParameterDefinition: DataType {
 		min: FHIRPrimitive<FHIRInteger>? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		profile: FHIRPrimitive<Canonical>? = nil,
-		type: FHIRPrimitive<FHIRString>,
+		type: FHIRPrimitive<ResourceType>,
 		use: FHIRPrimitive<OperationParameterUse>
 	) {
 		self.init(type: type, use: use)
@@ -99,7 +99,7 @@ open class ParameterDefinition: DataType {
 		self.min = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .min, auxiliaryKey: ._min)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.profile = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .profile, auxiliaryKey: ._profile)
-		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ResourceType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		self.use = try FHIRPrimitive<OperationParameterUse>(from: _container, forKey: .use, auxiliaryKey: ._use)
 		try super.init(from: decoder)
 	}

@@ -2,8 +2,8 @@
 //  Goal.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Goal)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Goal)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ open class Goal: DomainResource {
 	/// attainable
 	public var achievementStatus: CodeableConcept?
 	
-	/// E.g. Treatment, dietary, behavioral, etc.
+	/// E.g. Treatment, dietary, behavioral, etc
 	public var category: [CodeableConcept]?
 	
 	/// After meeting the goal, ongoing activity is needed to sustain the goal objective
@@ -64,14 +64,17 @@ open class Goal: DomainResource {
 	/// One of `start[x]`
 	public var start: StartX?
 	
+	/// Individual acceptance of goal
+	public var acceptance: [GoalAcceptance]?
+	
 	/// Target outcome for the goal
 	public var target: [GoalTarget]?
 	
-	/// When goal status took effect
+	/// When goal achievment status took effect
 	public var statusDate: FHIRPrimitive<FHIRDate>?
 	
-	/// Reason for current status
-	public var statusReason: FHIRPrimitive<FHIRString>?
+	/// Reason for current lifecycle status
+	public var statusReason: [CodeableConcept]?
 	
 	/// Who's responsible for creating Goal?
 	public var source: Reference?
@@ -95,6 +98,7 @@ open class Goal: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		acceptance: [GoalAcceptance]? = nil,
 		achievementStatus: CodeableConcept? = nil,
 		addresses: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
@@ -115,12 +119,13 @@ open class Goal: DomainResource {
 		source: Reference? = nil,
 		start: StartX? = nil,
 		statusDate: FHIRPrimitive<FHIRDate>? = nil,
-		statusReason: FHIRPrimitive<FHIRString>? = nil,
+		statusReason: [CodeableConcept]? = nil,
 		subject: Reference,
 		target: [GoalTarget]? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(description_fhir: description_fhir, lifecycleStatus: lifecycleStatus, subject: subject)
+		self.acceptance = acceptance
 		self.achievementStatus = achievementStatus
 		self.addresses = addresses
 		self.category = category
@@ -147,6 +152,7 @@ open class Goal: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case acceptance
 		case achievementStatus
 		case addresses
 		case category
@@ -161,7 +167,7 @@ open class Goal: DomainResource {
 		case startCodeableConcept
 		case startDate; case _startDate
 		case statusDate; case _statusDate
-		case statusReason; case _statusReason
+		case statusReason
 		case subject
 		case target
 	}
@@ -171,6 +177,7 @@ open class Goal: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.acceptance = try [GoalAcceptance](from: _container, forKeyIfPresent: .acceptance)
 		self.achievementStatus = try CodeableConcept(from: _container, forKeyIfPresent: .achievementStatus)
 		self.addresses = try [Reference](from: _container, forKeyIfPresent: .addresses)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
@@ -197,7 +204,7 @@ open class Goal: DomainResource {
 		}
 		self.start = _t_start
 		self.statusDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .statusDate, auxiliaryKey: ._statusDate)
-		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
+		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.target = try [GoalTarget](from: _container, forKeyIfPresent: .target)
 		try super.init(from: decoder)
@@ -208,6 +215,7 @@ open class Goal: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try acceptance?.encode(on: &_container, forKey: .acceptance)
 		try achievementStatus?.encode(on: &_container, forKey: .achievementStatus)
 		try addresses?.encode(on: &_container, forKey: .addresses)
 		try category?.encode(on: &_container, forKey: .category)
@@ -228,7 +236,7 @@ open class Goal: DomainResource {
 			}
 		}
 		try statusDate?.encode(on: &_container, forKey: .statusDate, auxiliaryKey: ._statusDate)
-		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
+		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try subject.encode(on: &_container, forKey: .subject)
 		try target?.encode(on: &_container, forKey: .target)
 		try super.encode(to: encoder)
@@ -243,7 +251,8 @@ open class Goal: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return achievementStatus == _other.achievementStatus
+		return acceptance == _other.acceptance
+		    && achievementStatus == _other.achievementStatus
 		    && addresses == _other.addresses
 		    && category == _other.category
 		    && continuous == _other.continuous
@@ -263,6 +272,7 @@ open class Goal: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(acceptance)
 		hasher.combine(achievementStatus)
 		hasher.combine(addresses)
 		hasher.combine(category)
@@ -279,6 +289,98 @@ open class Goal: DomainResource {
 		hasher.combine(statusReason)
 		hasher.combine(subject)
 		hasher.combine(target)
+	}
+}
+
+/**
+ Individual acceptance of goal.
+ 
+ Information about the acceptance and relative priority assigned to the goal by the patient, practitioners and other
+ stakeholders.
+ */
+open class GoalAcceptance: BackboneElement {
+	
+	/// Individual whose acceptance is reflected
+	public var individual: Reference
+	
+	/// Indicates whether the specified individual has accepted the goal or not.
+	public var status: FHIRPrimitive<GoalAcceptStatus>?
+	
+	/// Priority of goal for individual
+	public var priority: CodeableConcept?
+	
+	/// Designated initializer taking all required properties
+	public init(individual: Reference) {
+		self.individual = individual
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		individual: Reference,
+		modifierExtension: [Extension]? = nil,
+		priority: CodeableConcept? = nil,
+		status: FHIRPrimitive<GoalAcceptStatus>? = nil
+	) {
+		self.init(individual: individual)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.priority = priority
+		self.status = status
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case individual
+		case priority
+		case status; case _status
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.individual = try Reference(from: _container, forKey: .individual)
+		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
+		self.status = try FHIRPrimitive<GoalAcceptStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try individual.encode(on: &_container, forKey: .individual)
+		try priority?.encode(on: &_container, forKey: .priority)
+		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? GoalAcceptance else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return individual == _other.individual
+		    && priority == _other.priority
+		    && status == _other.status
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(individual)
+		hasher.combine(priority)
+		hasher.combine(status)
 	}
 }
 

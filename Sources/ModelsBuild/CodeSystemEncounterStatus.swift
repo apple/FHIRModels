@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,6 +33,16 @@ public enum EncounterStatus: String, FHIRPrimitiveType {
 	/// The Encounter has ended.
 	case completed
 	
+	/// The Encounter has been clinically completed, the patient has been discharged from the facility or the visit has
+	/// ended, and the patient may have departed (refer to subjectStatus). While the encounter is in this status,
+	/// administrative activities are usually performed, collating all required documentation and charge information
+	/// before being released for billing, at which point the status will move to completed.
+	case discharged
+	
+	/// The Encounter has started, but was not able to be completed. Further action may need to be performed, such as
+	/// rescheduling appointments related to this encounter.
+	case discontinued
+	
 	/// This instance should not have been part of this patient's medical record.
 	case enteredInError = "entered-in-error"
 	
@@ -40,7 +50,7 @@ public enum EncounterStatus: String, FHIRPrimitiveType {
 	case inProgress = "in-progress"
 	
 	/// The Encounter has begun, but is currently on hold, e.g. because the patient is temporarily on leave.
-	case onhold
+	case onHold = "on-hold"
 	
 	/// The Encounter has not yet started.
 	case planned

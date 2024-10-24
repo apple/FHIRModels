@@ -2,8 +2,8 @@
 //  PackagedProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ open class PackagedProductDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .packagedProductDefinition }
 	
-	/// A unique identifier for this package as whole
+	/// A unique identifier for this package as whole - not for the content of the package
 	public var identifier: [Identifier]?
 	
 	/// A name for this package. Typically as listed in a drug formulary, catalogue, inventory etc
@@ -46,7 +46,8 @@ open class PackagedProductDefinition: DomainResource {
 	public var statusDate: FHIRPrimitive<DateTime>?
 	
 	/// A total of the complete count of contained items of a particular type/form, independent of sub-packaging or
-	/// organization. This can be considered as the pack size
+	/// organization. This can be considered as the pack size. See also packaging.containedItem.amount (especially the
+	/// long definition)
 	public var containedItemQuantity: [Quantity]?
 	
 	/// Textual description. Note that this is not the name of the package or product
@@ -59,10 +60,7 @@ open class PackagedProductDefinition: DomainResource {
 	/// locations associated
 	public var marketingStatus: [MarketingStatus]?
 	
-	/// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable"
-	public var characteristic: [CodeableConcept]?
-	
-	/// If the drug product is supplied with another item such as a diluent or adjuvant
+	/// Identifies if the drug product is supplied with another item such as a diluent or adjuvant
 	public var copackagedIndicator: FHIRPrimitive<FHIRBool>?
 	
 	/// Manufacturer of this package type (multiple means these are all possible manufacturers)
@@ -73,7 +71,10 @@ open class PackagedProductDefinition: DomainResource {
 	
 	/// A packaging item, as a container for medically related items, possibly with other packaging items within, or a
 	/// packaging component, such as bottle cap
-	public var package: PackagedProductDefinitionPackage?
+	public var packaging: PackagedProductDefinitionPackaging?
+	
+	/// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable"
+	public var characteristic: [PackagedProductDefinitionPackagingProperty]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -83,7 +84,7 @@ open class PackagedProductDefinition: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		attachedDocument: [Reference]? = nil,
-		characteristic: [CodeableConcept]? = nil,
+		characteristic: [PackagedProductDefinitionPackagingProperty]? = nil,
 		contained: [ResourceProxy]? = nil,
 		containedItemQuantity: [Quantity]? = nil,
 		copackagedIndicator: FHIRPrimitive<FHIRBool>? = nil,
@@ -99,8 +100,8 @@ open class PackagedProductDefinition: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
-		package: PackagedProductDefinitionPackage? = nil,
 		packageFor: [Reference]? = nil,
+		packaging: PackagedProductDefinitionPackaging? = nil,
 		status: CodeableConcept? = nil,
 		statusDate: FHIRPrimitive<DateTime>? = nil,
 		text: Narrative? = nil,
@@ -124,8 +125,8 @@ open class PackagedProductDefinition: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
-		self.package = package
 		self.packageFor = packageFor
+		self.packaging = packaging
 		self.status = status
 		self.statusDate = statusDate
 		self.text = text
@@ -145,8 +146,8 @@ open class PackagedProductDefinition: DomainResource {
 		case manufacturer
 		case marketingStatus
 		case name; case _name
-		case package
 		case packageFor
+		case packaging
 		case status
 		case statusDate; case _statusDate
 		case type
@@ -158,7 +159,7 @@ open class PackagedProductDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.attachedDocument = try [Reference](from: _container, forKeyIfPresent: .attachedDocument)
-		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
+		self.characteristic = try [PackagedProductDefinitionPackagingProperty](from: _container, forKeyIfPresent: .characteristic)
 		self.containedItemQuantity = try [Quantity](from: _container, forKeyIfPresent: .containedItemQuantity)
 		self.copackagedIndicator = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .copackagedIndicator, auxiliaryKey: ._copackagedIndicator)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -167,8 +168,8 @@ open class PackagedProductDefinition: DomainResource {
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
 		self.marketingStatus = try [MarketingStatus](from: _container, forKeyIfPresent: .marketingStatus)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
-		self.package = try PackagedProductDefinitionPackage(from: _container, forKeyIfPresent: .package)
 		self.packageFor = try [Reference](from: _container, forKeyIfPresent: .packageFor)
+		self.packaging = try PackagedProductDefinitionPackaging(from: _container, forKeyIfPresent: .packaging)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
 		self.statusDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .statusDate, auxiliaryKey: ._statusDate)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
@@ -190,8 +191,8 @@ open class PackagedProductDefinition: DomainResource {
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
 		try marketingStatus?.encode(on: &_container, forKey: .marketingStatus)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
-		try package?.encode(on: &_container, forKey: .package)
 		try packageFor?.encode(on: &_container, forKey: .packageFor)
+		try packaging?.encode(on: &_container, forKey: .packaging)
 		try status?.encode(on: &_container, forKey: .status)
 		try statusDate?.encode(on: &_container, forKey: .statusDate, auxiliaryKey: ._statusDate)
 		try type?.encode(on: &_container, forKey: .type)
@@ -217,8 +218,8 @@ open class PackagedProductDefinition: DomainResource {
 		    && manufacturer == _other.manufacturer
 		    && marketingStatus == _other.marketingStatus
 		    && name == _other.name
-		    && package == _other.package
 		    && packageFor == _other.packageFor
+		    && packaging == _other.packaging
 		    && status == _other.status
 		    && statusDate == _other.statusDate
 		    && type == _other.type
@@ -236,8 +237,8 @@ open class PackagedProductDefinition: DomainResource {
 		hasher.combine(manufacturer)
 		hasher.combine(marketingStatus)
 		hasher.combine(name)
-		hasher.combine(package)
 		hasher.combine(packageFor)
+		hasher.combine(packaging)
 		hasher.combine(status)
 		hasher.combine(statusDate)
 		hasher.combine(type)
@@ -330,7 +331,7 @@ open class PackagedProductDefinitionLegalStatusOfSupply: BackboneElement {
  A packaging item, as a container for medically related items, possibly with other packaging items within, or a
  packaging component, such as bottle cap (which is not a device or a medication manufactured item).
  */
-open class PackagedProductDefinitionPackage: BackboneElement {
+open class PackagedProductDefinitionPackaging: BackboneElement {
 	
 	/// An identifier that is specific to this particular part of the packaging. Including possibly a Data Carrier
 	/// Identifier
@@ -338,6 +339,10 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	
 	/// The physical type of the container of the items
 	public var type: CodeableConcept?
+	
+	/// Is this a part of the packaging (e.g. a cap or bottle stopper), rather than the packaging itself (e.g. a bottle
+	/// or vial)
+	public var componentPart: FHIRPrimitive<FHIRBool>?
 	
 	/// The quantity of this level of packaging in the package that contains it (with the outermost level being 1)
 	public var quantity: FHIRPrimitive<FHIRInteger>?
@@ -352,17 +357,17 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	/// Shelf Life and storage information
 	public var shelfLifeStorage: [ProductShelfLife]?
 	
-	/// Manufacturer of this package Item (multiple means these are all possible manufacturers)
+	/// Manufacturer of this packaging item (multiple means these are all potential manufacturers)
 	public var manufacturer: [Reference]?
 	
 	/// General characteristics of this item
-	public var property: [PackagedProductDefinitionPackageProperty]?
+	public var property: [PackagedProductDefinitionPackagingProperty]?
 	
 	/// The item(s) within the packaging
-	public var containedItem: [PackagedProductDefinitionPackageContainedItem]?
+	public var containedItem: [PackagedProductDefinitionPackagingContainedItem]?
 	
-	/// Allows containers (and parts of containers) within containers, still a single packaged product
-	public var package: [PackagedProductDefinitionPackage]?
+	/// Allows containers (and parts of containers) within containers, still as a part of single packaged product
+	public var packaging: [PackagedProductDefinitionPackaging]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -372,21 +377,23 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		alternateMaterial: [CodeableConcept]? = nil,
-		containedItem: [PackagedProductDefinitionPackageContainedItem]? = nil,
+		componentPart: FHIRPrimitive<FHIRBool>? = nil,
+		containedItem: [PackagedProductDefinitionPackagingContainedItem]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		manufacturer: [Reference]? = nil,
 		material: [CodeableConcept]? = nil,
 		modifierExtension: [Extension]? = nil,
-		package: [PackagedProductDefinitionPackage]? = nil,
-		property: [PackagedProductDefinitionPackageProperty]? = nil,
+		packaging: [PackagedProductDefinitionPackaging]? = nil,
+		property: [PackagedProductDefinitionPackagingProperty]? = nil,
 		quantity: FHIRPrimitive<FHIRInteger>? = nil,
 		shelfLifeStorage: [ProductShelfLife]? = nil,
 		type: CodeableConcept? = nil
 	) {
 		self.init()
 		self.alternateMaterial = alternateMaterial
+		self.componentPart = componentPart
 		self.containedItem = containedItem
 		self.`extension` = `extension`
 		self.id = id
@@ -394,7 +401,7 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 		self.manufacturer = manufacturer
 		self.material = material
 		self.modifierExtension = modifierExtension
-		self.package = package
+		self.packaging = packaging
 		self.property = property
 		self.quantity = quantity
 		self.shelfLifeStorage = shelfLifeStorage
@@ -405,11 +412,12 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case alternateMaterial
+		case componentPart; case _componentPart
 		case containedItem
 		case identifier
 		case manufacturer
 		case material
-		case package
+		case packaging
 		case property
 		case quantity; case _quantity
 		case shelfLifeStorage
@@ -422,12 +430,13 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 		
 		// Decode all our properties
 		self.alternateMaterial = try [CodeableConcept](from: _container, forKeyIfPresent: .alternateMaterial)
-		self.containedItem = try [PackagedProductDefinitionPackageContainedItem](from: _container, forKeyIfPresent: .containedItem)
+		self.componentPart = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .componentPart, auxiliaryKey: ._componentPart)
+		self.containedItem = try [PackagedProductDefinitionPackagingContainedItem](from: _container, forKeyIfPresent: .containedItem)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
 		self.material = try [CodeableConcept](from: _container, forKeyIfPresent: .material)
-		self.package = try [PackagedProductDefinitionPackage](from: _container, forKeyIfPresent: .package)
-		self.property = try [PackagedProductDefinitionPackageProperty](from: _container, forKeyIfPresent: .property)
+		self.packaging = try [PackagedProductDefinitionPackaging](from: _container, forKeyIfPresent: .packaging)
+		self.property = try [PackagedProductDefinitionPackagingProperty](from: _container, forKeyIfPresent: .property)
 		self.quantity = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .quantity, auxiliaryKey: ._quantity)
 		self.shelfLifeStorage = try [ProductShelfLife](from: _container, forKeyIfPresent: .shelfLifeStorage)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
@@ -440,11 +449,12 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 		
 		// Encode all our properties
 		try alternateMaterial?.encode(on: &_container, forKey: .alternateMaterial)
+		try componentPart?.encode(on: &_container, forKey: .componentPart, auxiliaryKey: ._componentPart)
 		try containedItem?.encode(on: &_container, forKey: .containedItem)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
 		try material?.encode(on: &_container, forKey: .material)
-		try package?.encode(on: &_container, forKey: .package)
+		try packaging?.encode(on: &_container, forKey: .packaging)
 		try property?.encode(on: &_container, forKey: .property)
 		try quantity?.encode(on: &_container, forKey: .quantity, auxiliaryKey: ._quantity)
 		try shelfLifeStorage?.encode(on: &_container, forKey: .shelfLifeStorage)
@@ -455,18 +465,19 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? PackagedProductDefinitionPackage else {
+		guard let _other = _other as? PackagedProductDefinitionPackaging else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
 			return false
 		}
 		return alternateMaterial == _other.alternateMaterial
+		    && componentPart == _other.componentPart
 		    && containedItem == _other.containedItem
 		    && identifier == _other.identifier
 		    && manufacturer == _other.manufacturer
 		    && material == _other.material
-		    && package == _other.package
+		    && packaging == _other.packaging
 		    && property == _other.property
 		    && quantity == _other.quantity
 		    && shelfLifeStorage == _other.shelfLifeStorage
@@ -476,11 +487,12 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(alternateMaterial)
+		hasher.combine(componentPart)
 		hasher.combine(containedItem)
 		hasher.combine(identifier)
 		hasher.combine(manufacturer)
 		hasher.combine(material)
-		hasher.combine(package)
+		hasher.combine(packaging)
 		hasher.combine(property)
 		hasher.combine(quantity)
 		hasher.combine(shelfLifeStorage)
@@ -491,13 +503,14 @@ open class PackagedProductDefinitionPackage: BackboneElement {
 /**
  The item(s) within the packaging.
  */
-open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
+open class PackagedProductDefinitionPackagingContainedItem: BackboneElement {
 	
 	/// The actual item(s) of medication, as manufactured, or a device, or other medically related item (food,
 	/// biologicals, raw materials, medical fluids, gases etc.), as contained in the package
 	public var item: CodeableReference
 	
-	/// The number of this type of item within this packaging
+	/// The number of this type of item within this packaging or for continuous items such as liquids it is the quantity
+	/// (for example 25ml). See also PackagedProductDefinition.containedItemQuantity (especially the long definition)
 	public var amount: Quantity?
 	
 	/// Designated initializer taking all required properties
@@ -551,7 +564,7 @@ open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? PackagedProductDefinitionPackageContainedItem else {
+		guard let _other = _other as? PackagedProductDefinitionPackagingContainedItem else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
@@ -571,7 +584,7 @@ open class PackagedProductDefinitionPackageContainedItem: BackboneElement {
 /**
  General characteristics of this item.
  */
-open class PackagedProductDefinitionPackageProperty: BackboneElement {
+open class PackagedProductDefinitionPackagingProperty: BackboneElement {
 	
 	/// All possible types for "value[x]"
 	public enum ValueX: Hashable {
@@ -688,7 +701,7 @@ open class PackagedProductDefinitionPackageProperty: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? PackagedProductDefinitionPackageProperty else {
+		guard let _other = _other as? PackagedProductDefinitionPackagingProperty else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {

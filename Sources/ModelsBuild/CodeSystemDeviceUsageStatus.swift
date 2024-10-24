@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  A coded concept indicating the current status of the Device Usage.
  
- URL: http://hl7.org/fhir/device-usage-status
- ValueSet: http://hl7.org/fhir/ValueSet/device-usage-status
+ URL: http://hl7.org/fhir/deviceusage-status
+ ValueSet: http://hl7.org/fhir/ValueSet/deviceusage-status
  */
 public enum DeviceUsageStatus: String, FHIRPrimitiveType {
 	

@@ -2,8 +2,8 @@
 //  Ingredient.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Ingredient)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Ingredient)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -48,6 +48,10 @@ open class Ingredient: DomainResource {
 	/// If the ingredient is a known or suspected allergen
 	public var allergenicIndicator: FHIRPrimitive<FHIRBool>?
 	
+	/// A place for providing any notes that are relevant to the component, e.g. removed during process, adjusted for
+	/// loss on drying
+	public var comment: FHIRPrimitive<FHIRString>?
+	
 	/// An organization that manufactures this ingredient
 	public var manufacturer: [IngredientManufacturer]?
 	
@@ -65,6 +69,7 @@ open class Ingredient: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		allergenicIndicator: FHIRPrimitive<FHIRBool>? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
 		`extension`: [Extension]? = nil,
 		`for`: [Reference]? = nil,
@@ -84,6 +89,7 @@ open class Ingredient: DomainResource {
 	) {
 		self.init(role: role, status: status, substance: substance)
 		self.allergenicIndicator = allergenicIndicator
+		self.comment = comment
 		self.contained = contained
 		self.`extension` = `extension`
 		self.`for` = `for`
@@ -103,6 +109,7 @@ open class Ingredient: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case allergenicIndicator; case _allergenicIndicator
+		case comment; case _comment
 		case `for` = "for"
 		case function
 		case group
@@ -119,6 +126,7 @@ open class Ingredient: DomainResource {
 		
 		// Decode all our properties
 		self.allergenicIndicator = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .allergenicIndicator, auxiliaryKey: ._allergenicIndicator)
+		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.`for` = try [Reference](from: _container, forKeyIfPresent: .`for`)
 		self.function = try [CodeableConcept](from: _container, forKeyIfPresent: .function)
 		self.group = try CodeableConcept(from: _container, forKeyIfPresent: .group)
@@ -136,6 +144,7 @@ open class Ingredient: DomainResource {
 		
 		// Encode all our properties
 		try allergenicIndicator?.encode(on: &_container, forKey: .allergenicIndicator, auxiliaryKey: ._allergenicIndicator)
+		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try `for`?.encode(on: &_container, forKey: .`for`)
 		try function?.encode(on: &_container, forKey: .function)
 		try group?.encode(on: &_container, forKey: .group)
@@ -157,6 +166,7 @@ open class Ingredient: DomainResource {
 			return false
 		}
 		return allergenicIndicator == _other.allergenicIndicator
+		    && comment == _other.comment
 		    && `for` == _other.`for`
 		    && function == _other.function
 		    && group == _other.group
@@ -170,6 +180,7 @@ open class Ingredient: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(allergenicIndicator)
+		hasher.combine(comment)
 		hasher.combine(`for`)
 		hasher.combine(function)
 		hasher.combine(group)
@@ -376,7 +387,7 @@ open class IngredientSubstanceStrength: BackboneElement {
 	public var presentation: PresentationX?
 	
 	/// Text of either the whole presentation strength or a part of it (rest being in Strength.presentation as a ratio)
-	public var presentationText: FHIRPrimitive<FHIRString>?
+	public var textPresentation: FHIRPrimitive<FHIRString>?
 	
 	/// The strength per unitary volume (or mass)
 	/// One of `concentration[x]`
@@ -384,7 +395,7 @@ open class IngredientSubstanceStrength: BackboneElement {
 	
 	/// Text of either the whole concentration strength or a part of it (rest being in Strength.concentration as a
 	/// ratio)
-	public var concentrationText: FHIRPrimitive<FHIRString>?
+	public var textConcentration: FHIRPrimitive<FHIRString>?
 	
 	/// A code that indicates if the strength is, for example, based on the ingredient substance as stated or on the
 	/// substance base (when the ingredient is a salt)
@@ -408,28 +419,28 @@ open class IngredientSubstanceStrength: BackboneElement {
 	public convenience init(
 		basis: CodeableConcept? = nil,
 		concentration: ConcentrationX? = nil,
-		concentrationText: FHIRPrimitive<FHIRString>? = nil,
 		country: [CodeableConcept]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		measurementPoint: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		presentation: PresentationX? = nil,
-		presentationText: FHIRPrimitive<FHIRString>? = nil,
-		referenceStrength: [IngredientSubstanceStrengthReferenceStrength]? = nil
+		referenceStrength: [IngredientSubstanceStrengthReferenceStrength]? = nil,
+		textConcentration: FHIRPrimitive<FHIRString>? = nil,
+		textPresentation: FHIRPrimitive<FHIRString>? = nil
 	) {
 		self.init()
 		self.basis = basis
 		self.concentration = concentration
-		self.concentrationText = concentrationText
 		self.country = country
 		self.`extension` = `extension`
 		self.id = id
 		self.measurementPoint = measurementPoint
 		self.modifierExtension = modifierExtension
 		self.presentation = presentation
-		self.presentationText = presentationText
 		self.referenceStrength = referenceStrength
+		self.textConcentration = textConcentration
+		self.textPresentation = textPresentation
 	}
 	
 	// MARK: - Codable
@@ -440,15 +451,15 @@ open class IngredientSubstanceStrength: BackboneElement {
 		case concentrationQuantity
 		case concentrationRatio
 		case concentrationRatioRange
-		case concentrationText; case _concentrationText
 		case country
 		case measurementPoint; case _measurementPoint
 		case presentationCodeableConcept
 		case presentationQuantity
 		case presentationRatio
 		case presentationRatioRange
-		case presentationText; case _presentationText
 		case referenceStrength
+		case textConcentration; case _textConcentration
+		case textPresentation; case _textPresentation
 	}
 	
 	/// Initializer for Decodable
@@ -483,7 +494,6 @@ open class IngredientSubstanceStrength: BackboneElement {
 			_t_concentration = .quantity(concentrationQuantity)
 		}
 		self.concentration = _t_concentration
-		self.concentrationText = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .concentrationText, auxiliaryKey: ._concentrationText)
 		self.country = try [CodeableConcept](from: _container, forKeyIfPresent: .country)
 		self.measurementPoint = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .measurementPoint, auxiliaryKey: ._measurementPoint)
 		var _t_presentation: PresentationX? = nil
@@ -512,8 +522,9 @@ open class IngredientSubstanceStrength: BackboneElement {
 			_t_presentation = .quantity(presentationQuantity)
 		}
 		self.presentation = _t_presentation
-		self.presentationText = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .presentationText, auxiliaryKey: ._presentationText)
 		self.referenceStrength = try [IngredientSubstanceStrengthReferenceStrength](from: _container, forKeyIfPresent: .referenceStrength)
+		self.textConcentration = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .textConcentration, auxiliaryKey: ._textConcentration)
+		self.textPresentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .textPresentation, auxiliaryKey: ._textPresentation)
 		try super.init(from: decoder)
 	}
 	
@@ -535,7 +546,6 @@ open class IngredientSubstanceStrength: BackboneElement {
 				try _value.encode(on: &_container, forKey: .concentrationQuantity)
 			}
 		}
-		try concentrationText?.encode(on: &_container, forKey: .concentrationText, auxiliaryKey: ._concentrationText)
 		try country?.encode(on: &_container, forKey: .country)
 		try measurementPoint?.encode(on: &_container, forKey: .measurementPoint, auxiliaryKey: ._measurementPoint)
 		if let _enum = presentation {
@@ -550,8 +560,9 @@ open class IngredientSubstanceStrength: BackboneElement {
 				try _value.encode(on: &_container, forKey: .presentationQuantity)
 			}
 		}
-		try presentationText?.encode(on: &_container, forKey: .presentationText, auxiliaryKey: ._presentationText)
 		try referenceStrength?.encode(on: &_container, forKey: .referenceStrength)
+		try textConcentration?.encode(on: &_container, forKey: .textConcentration, auxiliaryKey: ._textConcentration)
+		try textPresentation?.encode(on: &_container, forKey: .textPresentation, auxiliaryKey: ._textPresentation)
 		try super.encode(to: encoder)
 	}
 	
@@ -566,24 +577,24 @@ open class IngredientSubstanceStrength: BackboneElement {
 		}
 		return basis == _other.basis
 		    && concentration == _other.concentration
-		    && concentrationText == _other.concentrationText
 		    && country == _other.country
 		    && measurementPoint == _other.measurementPoint
 		    && presentation == _other.presentation
-		    && presentationText == _other.presentationText
 		    && referenceStrength == _other.referenceStrength
+		    && textConcentration == _other.textConcentration
+		    && textPresentation == _other.textPresentation
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(basis)
 		hasher.combine(concentration)
-		hasher.combine(concentrationText)
 		hasher.combine(country)
 		hasher.combine(measurementPoint)
 		hasher.combine(presentation)
-		hasher.combine(presentationText)
 		hasher.combine(referenceStrength)
+		hasher.combine(textConcentration)
+		hasher.combine(textPresentation)
 	}
 }
 
@@ -605,7 +616,7 @@ open class IngredientSubstanceStrengthReferenceStrength: BackboneElement {
 	}
 	
 	/// Relevant reference substance
-	public var substance: CodeableReference?
+	public var substance: CodeableReference
 	
 	/// Strength expressed in terms of a reference substance
 	/// One of `strength[x]`
@@ -618,8 +629,9 @@ open class IngredientSubstanceStrengthReferenceStrength: BackboneElement {
 	public var country: [CodeableConcept]?
 	
 	/// Designated initializer taking all required properties
-	public init(strength: StrengthX) {
+	public init(strength: StrengthX, substance: CodeableReference) {
 		self.strength = strength
+		self.substance = substance
 		super.init()
 	}
 	
@@ -631,15 +643,14 @@ open class IngredientSubstanceStrengthReferenceStrength: BackboneElement {
 		measurementPoint: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		strength: StrengthX,
-		substance: CodeableReference? = nil
+		substance: CodeableReference
 	) {
-		self.init(strength: strength)
+		self.init(strength: strength, substance: substance)
 		self.country = country
 		self.`extension` = `extension`
 		self.id = id
 		self.measurementPoint = measurementPoint
 		self.modifierExtension = modifierExtension
-		self.substance = substance
 	}
 	
 	// MARK: - Codable
@@ -685,7 +696,7 @@ open class IngredientSubstanceStrengthReferenceStrength: BackboneElement {
 			_t_strength = .quantity(strengthQuantity)
 		}
 		self.strength = _t_strength!
-		self.substance = try CodeableReference(from: _container, forKeyIfPresent: .substance)
+		self.substance = try CodeableReference(from: _container, forKey: .substance)
 		try super.init(from: decoder)
 	}
 	
@@ -706,7 +717,7 @@ open class IngredientSubstanceStrengthReferenceStrength: BackboneElement {
 				try _value.encode(on: &_container, forKey: .strengthQuantity)
 			}
 		
-		try substance?.encode(on: &_container, forKey: .substance)
+		try substance.encode(on: &_container, forKey: .substance)
 		try super.encode(to: encoder)
 	}
 	

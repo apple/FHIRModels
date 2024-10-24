@@ -2,8 +2,8 @@
 //  List.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/List)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/List)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ import FMCore
 
 /**
  A list is a curated collection of resources.
+ 
+ A List is a curated collection of resources, for things such as problem lists, allergy lists, facility list,
+ organization list, etc.
  */
 open class List: DomainResource {
 	
@@ -43,8 +46,8 @@ open class List: DomainResource {
 	/// What the purpose of this list is
 	public var code: CodeableConcept?
 	
-	/// If all resources have the same subject
-	public var subject: Reference?
+	/// If all resources have the same subject(s)
+	public var subject: [Reference]?
 	
 	/// Context in which list created
 	public var encounter: Reference?
@@ -94,7 +97,7 @@ open class List: DomainResource {
 		orderedBy: CodeableConcept? = nil,
 		source: Reference? = nil,
 		status: FHIRPrimitive<ListStatus>,
-		subject: Reference? = nil,
+		subject: [Reference]? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil
 	) {
@@ -154,7 +157,7 @@ open class List: DomainResource {
 		self.orderedBy = try CodeableConcept(from: _container, forKeyIfPresent: .orderedBy)
 		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		self.status = try FHIRPrimitive<ListStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
+		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		try super.init(from: decoder)
 	}

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,27 +27,31 @@ import FMCore
  */
 public enum AuditEventSeverity: String, FHIRPrimitiveType {
 	
-	/// Action must be taken immediately.
+	/// Notification should be sent to trigger action be taken. e.g., Loss of the primary network connection needing
+	/// attention.
 	case alert
 	
-	/// Critical conditions.
+	/// Critical conditions. e.g., A failure in the system's primary application that will reset automatically.
 	case critical
 	
-	/// Debug-level messages.
+	/// Debug-level messages. Information useful to developers for debugging the application.
 	case debug
 	
-	/// System is unusable.
+	/// System is unusable. e.g., This level should only be reported by infrastructure and should not be used by
+	/// applications.
 	case emergency
 	
-	/// Error conditions.
+	/// Error conditions. e.g., An application has exceeded its file storage limit and attempts to write are failing.
 	case error
 	
-	/// Informational messages.
+	/// Normal operational messages that require no action. e.g., An application has started, paused, or ended
+	/// successfully.
 	case informational
 	
-	/// Normal but significant condition.
+	/// Notice messages. Normal but significant condition. Events that are unusual, but not error conditions.
 	case notice
 	
-	/// Warning conditions.
+	/// Warning conditions. May indicate that an error will occur if action is not taken. e.g., A non-root file system
+	/// has only 2GB remaining.
 	case warning
 }

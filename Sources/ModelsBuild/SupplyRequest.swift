@@ -2,8 +2,8 @@
 //  SupplyRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SupplyRequest)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SupplyRequest)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@ import FMCore
 /**
  Request for a medication, substance or device.
  
- A record of a request for a medication, substance or device used in the healthcare setting.
+ A record of a request to deliver a medication, substance or device used in the healthcare setting to a particular
+ destination for a particular person or organization.
  */
 open class SupplyRequest: DomainResource {
 	
@@ -41,6 +42,9 @@ open class SupplyRequest: DomainResource {
 	/// Status of the supply request.
 	public var status: FHIRPrimitive<SupplyRequestStatus>?
 	
+	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+	public var intent: FHIRPrimitive<FHIRString>
+	
 	/// What other request is fulfilled by this supply request
 	public var basedOn: [Reference]?
 	
@@ -49,6 +53,9 @@ open class SupplyRequest: DomainResource {
 	
 	/// routine | urgent | asap | stat
 	public var priority: FHIRPrimitive<FHIRString>?
+	
+	/// The patient for who the supply request is for
+	public var deliverFor: Reference?
 	
 	/// Medication, Substance, or Device requested to be supplied
 	public var item: CodeableReference
@@ -82,7 +89,8 @@ open class SupplyRequest: DomainResource {
 	public var deliverTo: Reference?
 	
 	/// Designated initializer taking all required properties
-	public init(item: CodeableReference, quantity: Quantity) {
+	public init(intent: FHIRPrimitive<FHIRString>, item: CodeableReference, quantity: Quantity) {
+		self.intent = intent
 		self.item = item
 		self.quantity = quantity
 		super.init()
@@ -94,12 +102,14 @@ open class SupplyRequest: DomainResource {
 		basedOn: [Reference]? = nil,
 		category: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
+		deliverFor: Reference? = nil,
 		deliverFrom: Reference? = nil,
 		deliverTo: Reference? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		intent: FHIRPrimitive<FHIRString>,
 		item: CodeableReference,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
@@ -114,11 +124,12 @@ open class SupplyRequest: DomainResource {
 		supplier: [Reference]? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(item: item, quantity: quantity)
+		self.init(intent: intent, item: item, quantity: quantity)
 		self.authoredOn = authoredOn
 		self.basedOn = basedOn
 		self.category = category
 		self.contained = contained
+		self.deliverFor = deliverFor
 		self.deliverFrom = deliverFrom
 		self.deliverTo = deliverTo
 		self.`extension` = `extension`
@@ -144,9 +155,11 @@ open class SupplyRequest: DomainResource {
 		case authoredOn; case _authoredOn
 		case basedOn
 		case category
+		case deliverFor
 		case deliverFrom
 		case deliverTo
 		case identifier
+		case intent; case _intent
 		case item
 		case occurrenceDateTime; case _occurrenceDateTime
 		case occurrencePeriod
@@ -168,9 +181,11 @@ open class SupplyRequest: DomainResource {
 		self.authoredOn = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authoredOn, auxiliaryKey: ._authoredOn)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
+		self.deliverFor = try Reference(from: _container, forKeyIfPresent: .deliverFor)
 		self.deliverFrom = try Reference(from: _container, forKeyIfPresent: .deliverFrom)
 		self.deliverTo = try Reference(from: _container, forKeyIfPresent: .deliverTo)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.item = try CodeableReference(from: _container, forKey: .item)
 		var _t_occurrence: OccurrenceX? = nil
 		if let occurrenceDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime) {
@@ -210,9 +225,11 @@ open class SupplyRequest: DomainResource {
 		try authoredOn?.encode(on: &_container, forKey: .authoredOn, auxiliaryKey: ._authoredOn)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
+		try deliverFor?.encode(on: &_container, forKey: .deliverFor)
 		try deliverFrom?.encode(on: &_container, forKey: .deliverFrom)
 		try deliverTo?.encode(on: &_container, forKey: .deliverTo)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
 		try item.encode(on: &_container, forKey: .item)
 		if let _enum = occurrence {
 			switch _enum {
@@ -246,9 +263,11 @@ open class SupplyRequest: DomainResource {
 		return authoredOn == _other.authoredOn
 		    && basedOn == _other.basedOn
 		    && category == _other.category
+		    && deliverFor == _other.deliverFor
 		    && deliverFrom == _other.deliverFrom
 		    && deliverTo == _other.deliverTo
 		    && identifier == _other.identifier
+		    && intent == _other.intent
 		    && item == _other.item
 		    && occurrence == _other.occurrence
 		    && parameter == _other.parameter
@@ -265,9 +284,11 @@ open class SupplyRequest: DomainResource {
 		hasher.combine(authoredOn)
 		hasher.combine(basedOn)
 		hasher.combine(category)
+		hasher.combine(deliverFor)
 		hasher.combine(deliverFrom)
 		hasher.combine(deliverTo)
 		hasher.combine(identifier)
+		hasher.combine(intent)
 		hasher.combine(item)
 		hasher.combine(occurrence)
 		hasher.combine(parameter)

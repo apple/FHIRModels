@@ -2,8 +2,8 @@
 //  OperationDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,19 +24,29 @@ import FMCore
  
  A formal computable definition of an operation (on the RESTful interface) or a named query (using the search
  interaction).
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class OperationDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .operationDefinition }
 	
-	/// Canonical identifier for this operation definition, represented as a URI (globally unique)
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
+	/// Canonical identifier for this operation definition, represented as an absolute URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
+	
+	/// Additional identifier for the implementation guide (business identifier)
+	public var identifier: [Identifier]?
 	
 	/// Business version of the operation definition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this operation definition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>
@@ -44,7 +54,7 @@ open class OperationDefinition: DomainResource {
 	/// Name for this operation definition (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
 	
-	/// The status of this operation definition. Enables tracking the life-cycle of the content.
+	/// The current state of this operation definition.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
 	/// Whether this is an operation or a named query.
@@ -56,7 +66,7 @@ open class OperationDefinition: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -74,10 +84,16 @@ open class OperationDefinition: DomainResource {
 	/// Why this operation definition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
+	/// Use and/or publishing restrictions
+	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
 	/// Whether content is changed by the operation
 	public var affectsState: FHIRPrimitive<FHIRBool>?
 	
-	/// Name used to invoke the operation
+	/// Recommended name for operation in search url
 	public var code: FHIRPrimitive<FHIRString>
 	
 	/// Additional information about use
@@ -86,8 +102,8 @@ open class OperationDefinition: DomainResource {
 	/// Marks this as a profile of the base
 	public var base: FHIRPrimitive<Canonical>?
 	
-	/// The types on which this operation can be executed.
-	public var resource: [FHIRPrimitive<ResourceType>]?
+	/// Types this operation applies to
+	public var resource: [FHIRPrimitive<FHIRString>]?
 	
 	/// Invoke at the system level?
 	public var system: FHIRPrimitive<FHIRBool>
@@ -130,11 +146,14 @@ open class OperationDefinition: DomainResource {
 		comment: FHIRPrimitive<FHIRString>? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
+		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		inputProfile: FHIRPrimitive<Canonical>? = nil,
 		instance: FHIRPrimitive<FHIRBool>,
@@ -149,7 +168,7 @@ open class OperationDefinition: DomainResource {
 		parameter: [OperationDefinitionParameter]? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
 		purpose: FHIRPrimitive<FHIRString>? = nil,
-		resource: [FHIRPrimitive<ResourceType>]? = nil,
+		resource: [FHIRPrimitive<FHIRString>]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		system: FHIRPrimitive<FHIRBool>,
 		text: Narrative? = nil,
@@ -157,7 +176,8 @@ open class OperationDefinition: DomainResource {
 		type: FHIRPrimitive<FHIRBool>,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(code: code, instance: instance, kind: kind, name: name, status: status, system: system, type: type)
 		self.affectsState = affectsState
@@ -165,11 +185,14 @@ open class OperationDefinition: DomainResource {
 		self.comment = comment
 		self.contact = contact
 		self.contained = contained
+		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.description_fhir = description_fhir
 		self.experimental = experimental
 		self.`extension` = `extension`
 		self.id = id
+		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.inputProfile = inputProfile
 		self.jurisdiction = jurisdiction
@@ -187,6 +210,7 @@ open class OperationDefinition: DomainResource {
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
@@ -197,9 +221,12 @@ open class OperationDefinition: DomainResource {
 		case code; case _code
 		case comment; case _comment
 		case contact
+		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case experimental; case _experimental
+		case identifier
 		case inputProfile; case _inputProfile
 		case instance; case _instance
 		case jurisdiction
@@ -218,6 +245,8 @@ open class OperationDefinition: DomainResource {
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -230,9 +259,12 @@ open class OperationDefinition: DomainResource {
 		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKey: .code, auxiliaryKey: ._code)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
+		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.inputProfile = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .inputProfile, auxiliaryKey: ._inputProfile)
 		self.instance = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .instance, auxiliaryKey: ._instance)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
@@ -243,7 +275,7 @@ open class OperationDefinition: DomainResource {
 		self.parameter = try [OperationDefinitionParameter](from: _container, forKeyIfPresent: .parameter)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
-		self.resource = try [FHIRPrimitive<ResourceType>](from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
+		self.resource = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.system = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .system, auxiliaryKey: ._system)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
@@ -251,6 +283,20 @@ open class OperationDefinition: DomainResource {
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -264,9 +310,12 @@ open class OperationDefinition: DomainResource {
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try contact?.encode(on: &_container, forKey: .contact)
+		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
+		try identifier?.encode(on: &_container, forKey: .identifier)
 		try inputProfile?.encode(on: &_container, forKey: .inputProfile, auxiliaryKey: ._inputProfile)
 		try instance.encode(on: &_container, forKey: .instance, auxiliaryKey: ._instance)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
@@ -285,6 +334,14 @@ open class OperationDefinition: DomainResource {
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -302,9 +359,12 @@ open class OperationDefinition: DomainResource {
 		    && code == _other.code
 		    && comment == _other.comment
 		    && contact == _other.contact
+		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
 		    && experimental == _other.experimental
+		    && identifier == _other.identifier
 		    && inputProfile == _other.inputProfile
 		    && instance == _other.instance
 		    && jurisdiction == _other.jurisdiction
@@ -323,6 +383,7 @@ open class OperationDefinition: DomainResource {
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -332,9 +393,12 @@ open class OperationDefinition: DomainResource {
 		hasher.combine(code)
 		hasher.combine(comment)
 		hasher.combine(contact)
+		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
 		hasher.combine(experimental)
+		hasher.combine(identifier)
 		hasher.combine(inputProfile)
 		hasher.combine(instance)
 		hasher.combine(jurisdiction)
@@ -353,6 +417,7 @@ open class OperationDefinition: DomainResource {
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -451,6 +516,9 @@ open class OperationDefinitionParameter: BackboneElement {
 	/// Whether this is an input or an output parameter.
 	public var use: FHIRPrimitive<OperationParameterUse>
 	
+	/// If present, indicates that the parameter applies when the operation is being invoked at the specified level.
+	public var scope: [FHIRPrimitive<OperationParameterScope>]?
+	
 	/// Minimum Cardinality
 	public var min: FHIRPrimitive<FHIRInteger>
 	
@@ -460,13 +528,19 @@ open class OperationDefinitionParameter: BackboneElement {
 	/// Description of meaning/use
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
-	/// What type this parameter has
-	public var type: FHIRPrimitive<FHIRString>?
+	/// The type for this parameter.
+	public var type: FHIRPrimitive<ResourceType>?
 	
-	/// If type is Reference | canonical, allowed targets
+	/// Support for polymorphic types. If the parameter type is abstract, this element lists allowed sub-types for the
+	/// parameter.
+	public var allowedType: [FHIRPrimitive<ResourceType>]?
+	
+	/// If type is Reference | canonical, allowed targets. If type is 'Resource', then this constrains the allowed
+	/// resource types
 	public var targetProfile: [FHIRPrimitive<Canonical>]?
 	
-	/// How the parameter is understood as a search parameter. This is only used if the parameter type is 'string'.
+	/// How the parameter is understood if/when it used as search parameter. This is only used if the parameter is a
+	/// string.
 	public var searchType: FHIRPrimitive<SearchParamType>?
 	
 	/// ValueSet details if this is coded
@@ -489,6 +563,7 @@ open class OperationDefinitionParameter: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		allowedType: [FHIRPrimitive<ResourceType>]? = nil,
 		binding: OperationDefinitionParameterBinding? = nil,
 		documentation: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
@@ -499,12 +574,14 @@ open class OperationDefinitionParameter: BackboneElement {
 		name: FHIRPrimitive<FHIRString>,
 		part: [OperationDefinitionParameter]? = nil,
 		referencedFrom: [OperationDefinitionParameterReferencedFrom]? = nil,
+		scope: [FHIRPrimitive<OperationParameterScope>]? = nil,
 		searchType: FHIRPrimitive<SearchParamType>? = nil,
 		targetProfile: [FHIRPrimitive<Canonical>]? = nil,
-		type: FHIRPrimitive<FHIRString>? = nil,
+		type: FHIRPrimitive<ResourceType>? = nil,
 		use: FHIRPrimitive<OperationParameterUse>
 	) {
 		self.init(max: max, min: min, name: name, use: use)
+		self.allowedType = allowedType
 		self.binding = binding
 		self.documentation = documentation
 		self.`extension` = `extension`
@@ -512,6 +589,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.part = part
 		self.referencedFrom = referencedFrom
+		self.scope = scope
 		self.searchType = searchType
 		self.targetProfile = targetProfile
 		self.type = type
@@ -520,6 +598,7 @@ open class OperationDefinitionParameter: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case allowedType; case _allowedType
 		case binding
 		case documentation; case _documentation
 		case max; case _max
@@ -527,6 +606,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		case name; case _name
 		case part
 		case referencedFrom
+		case scope; case _scope
 		case searchType; case _searchType
 		case targetProfile; case _targetProfile
 		case type; case _type
@@ -538,6 +618,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.allowedType = try [FHIRPrimitive<ResourceType>](from: _container, forKeyIfPresent: .allowedType, auxiliaryKey: ._allowedType)
 		self.binding = try OperationDefinitionParameterBinding(from: _container, forKeyIfPresent: .binding)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
 		self.max = try FHIRPrimitive<FHIRString>(from: _container, forKey: .max, auxiliaryKey: ._max)
@@ -545,9 +626,10 @@ open class OperationDefinitionParameter: BackboneElement {
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
 		self.part = try [OperationDefinitionParameter](from: _container, forKeyIfPresent: .part)
 		self.referencedFrom = try [OperationDefinitionParameterReferencedFrom](from: _container, forKeyIfPresent: .referencedFrom)
+		self.scope = try [FHIRPrimitive<OperationParameterScope>](from: _container, forKeyIfPresent: .scope, auxiliaryKey: ._scope)
 		self.searchType = try FHIRPrimitive<SearchParamType>(from: _container, forKeyIfPresent: .searchType, auxiliaryKey: ._searchType)
 		self.targetProfile = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .targetProfile, auxiliaryKey: ._targetProfile)
-		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ResourceType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		self.use = try FHIRPrimitive<OperationParameterUse>(from: _container, forKey: .use, auxiliaryKey: ._use)
 		try super.init(from: decoder)
 	}
@@ -557,6 +639,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try allowedType?.encode(on: &_container, forKey: .allowedType, auxiliaryKey: ._allowedType)
 		try binding?.encode(on: &_container, forKey: .binding)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
 		try max.encode(on: &_container, forKey: .max, auxiliaryKey: ._max)
@@ -564,6 +647,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		try name.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try part?.encode(on: &_container, forKey: .part)
 		try referencedFrom?.encode(on: &_container, forKey: .referencedFrom)
+		try scope?.encode(on: &_container, forKey: .scope, auxiliaryKey: ._scope)
 		try searchType?.encode(on: &_container, forKey: .searchType, auxiliaryKey: ._searchType)
 		try targetProfile?.encode(on: &_container, forKey: .targetProfile, auxiliaryKey: ._targetProfile)
 		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
@@ -580,13 +664,15 @@ open class OperationDefinitionParameter: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return binding == _other.binding
+		return allowedType == _other.allowedType
+		    && binding == _other.binding
 		    && documentation == _other.documentation
 		    && max == _other.max
 		    && min == _other.min
 		    && name == _other.name
 		    && part == _other.part
 		    && referencedFrom == _other.referencedFrom
+		    && scope == _other.scope
 		    && searchType == _other.searchType
 		    && targetProfile == _other.targetProfile
 		    && type == _other.type
@@ -595,6 +681,7 @@ open class OperationDefinitionParameter: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(allowedType)
 		hasher.combine(binding)
 		hasher.combine(documentation)
 		hasher.combine(max)
@@ -602,6 +689,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		hasher.combine(name)
 		hasher.combine(part)
 		hasher.combine(referencedFrom)
+		hasher.combine(scope)
 		hasher.combine(searchType)
 		hasher.combine(targetProfile)
 		hasher.combine(type)

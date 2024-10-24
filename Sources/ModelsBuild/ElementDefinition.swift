@@ -2,8 +2,8 @@
 //  ElementDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ open class ElementDefinition: BackboneType {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -41,7 +42,6 @@ open class ElementDefinition: BackboneType {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -51,12 +51,13 @@ open class ElementDefinition: BackboneType {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -89,6 +90,7 @@ open class ElementDefinition: BackboneType {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -98,7 +100,6 @@ open class ElementDefinition: BackboneType {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -108,12 +109,13 @@ open class ElementDefinition: BackboneType {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -147,7 +149,7 @@ open class ElementDefinition: BackboneType {
 		case decimal(FHIRPrimitive<FHIRDecimal>)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case positiveInt(FHIRPrimitive<FHIRPositiveInteger>)
 		case quantity(Quantity)
 		case time(FHIRPrimitive<FHIRTime>)
@@ -161,7 +163,7 @@ open class ElementDefinition: BackboneType {
 		case decimal(FHIRPrimitive<FHIRDecimal>)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case positiveInt(FHIRPrimitive<FHIRPositiveInteger>)
 		case quantity(Quantity)
 		case time(FHIRPrimitive<FHIRTime>)
@@ -174,6 +176,7 @@ open class ElementDefinition: BackboneType {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -183,7 +186,6 @@ open class ElementDefinition: BackboneType {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -193,12 +195,13 @@ open class ElementDefinition: BackboneType {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -229,6 +232,8 @@ open class ElementDefinition: BackboneType {
 	public var path: FHIRPrimitive<FHIRString>
 	
 	/// Codes that define how this element is represented in instances, when the deviation varies from the normal case.
+	/// No extensions are allowed on elements with a representation of 'xmlAttr', no matter what FHIR serialization
+	/// format is used.
 	public var representation: [FHIRPrimitive<PropertyRepresentation>]?
 	
 	/// Name for this particular element (in a set of slices)
@@ -305,7 +310,7 @@ open class ElementDefinition: BackboneType {
 	/// One of `maxValue[x]`
 	public var maxValue: MaxValueX?
 	
-	/// Max length for strings
+	/// Max length for string type data
 	public var maxLength: FHIRPrimitive<FHIRInteger>?
 	
 	/// Reference to invariant about presence
@@ -314,7 +319,13 @@ open class ElementDefinition: BackboneType {
 	/// Condition that must evaluate to true
 	public var constraint: [ElementDefinitionConstraint]?
 	
-	/// If the element must be supported
+	/// For primitives, that a value must be present - not replaced by an extension
+	public var mustHaveValue: FHIRPrimitive<FHIRBool>?
+	
+	/// Extensions that are allowed to replace a primitive value
+	public var valueAlternatives: [FHIRPrimitive<Canonical>]?
+	
+	/// If the element must be supported (discouraged - see obligations)
 	public var mustSupport: FHIRPrimitive<FHIRBool>?
 	
 	/// If this modifies the meaning of other elements
@@ -366,6 +377,7 @@ open class ElementDefinition: BackboneType {
 		min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		minValue: MinValueX? = nil,
 		modifierExtension: [Extension]? = nil,
+		mustHaveValue: FHIRPrimitive<FHIRBool>? = nil,
 		mustSupport: FHIRPrimitive<FHIRBool>? = nil,
 		orderMeaning: FHIRPrimitive<FHIRString>? = nil,
 		path: FHIRPrimitive<FHIRString>,
@@ -376,7 +388,8 @@ open class ElementDefinition: BackboneType {
 		sliceIsConstraining: FHIRPrimitive<FHIRBool>? = nil,
 		sliceName: FHIRPrimitive<FHIRString>? = nil,
 		slicing: ElementDefinitionSlicing? = nil,
-		type: [ElementDefinitionType]? = nil
+		type: [ElementDefinitionType]? = nil,
+		valueAlternatives: [FHIRPrimitive<Canonical>]? = nil
 	) {
 		self.init(path: path)
 		self.alias = alias
@@ -405,6 +418,7 @@ open class ElementDefinition: BackboneType {
 		self.min = min
 		self.minValue = minValue
 		self.modifierExtension = modifierExtension
+		self.mustHaveValue = mustHaveValue
 		self.mustSupport = mustSupport
 		self.orderMeaning = orderMeaning
 		self.pattern = pattern
@@ -415,6 +429,7 @@ open class ElementDefinition: BackboneType {
 		self.sliceName = sliceName
 		self.slicing = slicing
 		self.type = type
+		self.valueAlternatives = valueAlternatives
 	}
 	
 	// MARK: - Codable
@@ -432,6 +447,7 @@ open class ElementDefinition: BackboneType {
 		case defaultValueAge
 		case defaultValueAnnotation
 		case defaultValueAttachment
+		case defaultValueAvailability
 		case defaultValueBase64Binary; case _defaultValueBase64Binary
 		case defaultValueBoolean; case _defaultValueBoolean
 		case defaultValueCanonical; case _defaultValueCanonical
@@ -441,7 +457,6 @@ open class ElementDefinition: BackboneType {
 		case defaultValueCoding
 		case defaultValueContactDetail
 		case defaultValueContactPoint
-		case defaultValueContributor
 		case defaultValueCount
 		case defaultValueDataRequirement
 		case defaultValueDate; case _defaultValueDate
@@ -451,12 +466,13 @@ open class ElementDefinition: BackboneType {
 		case defaultValueDosage
 		case defaultValueDuration
 		case defaultValueExpression
+		case defaultValueExtendedContactDetail
 		case defaultValueHumanName
 		case defaultValueId; case _defaultValueId
 		case defaultValueIdentifier
 		case defaultValueInstant; case _defaultValueInstant
 		case defaultValueInteger; case _defaultValueInteger
-		case defaultValueInteger64; case _defaultValueInteger64
+		case defaultValueInteger64
 		case defaultValueMarkdown; case _defaultValueMarkdown
 		case defaultValueMeta
 		case defaultValueMoney
@@ -487,6 +503,7 @@ open class ElementDefinition: BackboneType {
 		case fixedAge
 		case fixedAnnotation
 		case fixedAttachment
+		case fixedAvailability
 		case fixedBase64Binary; case _fixedBase64Binary
 		case fixedBoolean; case _fixedBoolean
 		case fixedCanonical; case _fixedCanonical
@@ -496,7 +513,6 @@ open class ElementDefinition: BackboneType {
 		case fixedCoding
 		case fixedContactDetail
 		case fixedContactPoint
-		case fixedContributor
 		case fixedCount
 		case fixedDataRequirement
 		case fixedDate; case _fixedDate
@@ -506,12 +522,13 @@ open class ElementDefinition: BackboneType {
 		case fixedDosage
 		case fixedDuration
 		case fixedExpression
+		case fixedExtendedContactDetail
 		case fixedHumanName
 		case fixedId; case _fixedId
 		case fixedIdentifier
 		case fixedInstant; case _fixedInstant
 		case fixedInteger; case _fixedInteger
-		case fixedInteger64; case _fixedInteger64
+		case fixedInteger64
 		case fixedMarkdown; case _fixedMarkdown
 		case fixedMeta
 		case fixedMoney
@@ -548,7 +565,7 @@ open class ElementDefinition: BackboneType {
 		case maxValueDecimal; case _maxValueDecimal
 		case maxValueInstant; case _maxValueInstant
 		case maxValueInteger; case _maxValueInteger
-		case maxValueInteger64; case _maxValueInteger64
+		case maxValueInteger64
 		case maxValuePositiveInt; case _maxValuePositiveInt
 		case maxValueQuantity
 		case maxValueTime; case _maxValueTime
@@ -560,11 +577,12 @@ open class ElementDefinition: BackboneType {
 		case minValueDecimal; case _minValueDecimal
 		case minValueInstant; case _minValueInstant
 		case minValueInteger; case _minValueInteger
-		case minValueInteger64; case _minValueInteger64
+		case minValueInteger64
 		case minValuePositiveInt; case _minValuePositiveInt
 		case minValueQuantity
 		case minValueTime; case _minValueTime
 		case minValueUnsignedInt; case _minValueUnsignedInt
+		case mustHaveValue; case _mustHaveValue
 		case mustSupport; case _mustSupport
 		case orderMeaning; case _orderMeaning
 		case path; case _path
@@ -572,6 +590,7 @@ open class ElementDefinition: BackboneType {
 		case patternAge
 		case patternAnnotation
 		case patternAttachment
+		case patternAvailability
 		case patternBase64Binary; case _patternBase64Binary
 		case patternBoolean; case _patternBoolean
 		case patternCanonical; case _patternCanonical
@@ -581,7 +600,6 @@ open class ElementDefinition: BackboneType {
 		case patternCoding
 		case patternContactDetail
 		case patternContactPoint
-		case patternContributor
 		case patternCount
 		case patternDataRequirement
 		case patternDate; case _patternDate
@@ -591,12 +609,13 @@ open class ElementDefinition: BackboneType {
 		case patternDosage
 		case patternDuration
 		case patternExpression
+		case patternExtendedContactDetail
 		case patternHumanName
 		case patternId; case _patternId
 		case patternIdentifier
 		case patternInstant; case _patternInstant
 		case patternInteger; case _patternInteger
-		case patternInteger64; case _patternInteger64
+		case patternInteger64
 		case patternMarkdown; case _patternMarkdown
 		case patternMeta
 		case patternMoney
@@ -628,6 +647,7 @@ open class ElementDefinition: BackboneType {
 		case sliceName; case _sliceName
 		case slicing
 		case type
+		case valueAlternatives; case _valueAlternatives
 	}
 	
 	/// Initializer for Decodable
@@ -704,7 +724,7 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_defaultValue = .integer(defaultValueInteger)
 		}
-		if let defaultValueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .defaultValueInteger64, auxiliaryKey: ._defaultValueInteger64) {
+		if let defaultValueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .defaultValueInteger64) {
 			if _t_defaultValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueInteger64, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
 			}
@@ -908,12 +928,6 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_defaultValue = .contactDetail(defaultValueContactDetail)
 		}
-		if let defaultValueContributor = try Contributor(from: _container, forKeyIfPresent: .defaultValueContributor) {
-			if _t_defaultValue != nil {
-				throw DecodingError.dataCorruptedError(forKey: .defaultValueContributor, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
-			}
-			_t_defaultValue = .contributor(defaultValueContributor)
-		}
 		if let defaultValueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .defaultValueDataRequirement) {
 			if _t_defaultValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueDataRequirement, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
@@ -949,6 +963,18 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueUsageContext, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
 			}
 			_t_defaultValue = .usageContext(defaultValueUsageContext)
+		}
+		if let defaultValueAvailability = try Availability(from: _container, forKeyIfPresent: .defaultValueAvailability) {
+			if _t_defaultValue != nil {
+				throw DecodingError.dataCorruptedError(forKey: .defaultValueAvailability, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
+			}
+			_t_defaultValue = .availability(defaultValueAvailability)
+		}
+		if let defaultValueExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .defaultValueExtendedContactDetail) {
+			if _t_defaultValue != nil {
+				throw DecodingError.dataCorruptedError(forKey: .defaultValueExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
+			}
+			_t_defaultValue = .extendedContactDetail(defaultValueExtendedContactDetail)
 		}
 		if let defaultValueDosage = try Dosage(from: _container, forKeyIfPresent: .defaultValueDosage) {
 			if _t_defaultValue != nil {
@@ -1026,7 +1052,7 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_fixed = .integer(fixedInteger)
 		}
-		if let fixedInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .fixedInteger64, auxiliaryKey: ._fixedInteger64) {
+		if let fixedInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .fixedInteger64) {
 			if _t_fixed != nil {
 				throw DecodingError.dataCorruptedError(forKey: .fixedInteger64, in: _container, debugDescription: "More than one value provided for \"fixed\"")
 			}
@@ -1230,12 +1256,6 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_fixed = .contactDetail(fixedContactDetail)
 		}
-		if let fixedContributor = try Contributor(from: _container, forKeyIfPresent: .fixedContributor) {
-			if _t_fixed != nil {
-				throw DecodingError.dataCorruptedError(forKey: .fixedContributor, in: _container, debugDescription: "More than one value provided for \"fixed\"")
-			}
-			_t_fixed = .contributor(fixedContributor)
-		}
 		if let fixedDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .fixedDataRequirement) {
 			if _t_fixed != nil {
 				throw DecodingError.dataCorruptedError(forKey: .fixedDataRequirement, in: _container, debugDescription: "More than one value provided for \"fixed\"")
@@ -1271,6 +1291,18 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .fixedUsageContext, in: _container, debugDescription: "More than one value provided for \"fixed\"")
 			}
 			_t_fixed = .usageContext(fixedUsageContext)
+		}
+		if let fixedAvailability = try Availability(from: _container, forKeyIfPresent: .fixedAvailability) {
+			if _t_fixed != nil {
+				throw DecodingError.dataCorruptedError(forKey: .fixedAvailability, in: _container, debugDescription: "More than one value provided for \"fixed\"")
+			}
+			_t_fixed = .availability(fixedAvailability)
+		}
+		if let fixedExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .fixedExtendedContactDetail) {
+			if _t_fixed != nil {
+				throw DecodingError.dataCorruptedError(forKey: .fixedExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"fixed\"")
+			}
+			_t_fixed = .extendedContactDetail(fixedExtendedContactDetail)
 		}
 		if let fixedDosage = try Dosage(from: _container, forKeyIfPresent: .fixedDosage) {
 			if _t_fixed != nil {
@@ -1329,7 +1361,7 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_maxValue = .integer(maxValueInteger)
 		}
-		if let maxValueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .maxValueInteger64, auxiliaryKey: ._maxValueInteger64) {
+		if let maxValueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .maxValueInteger64) {
 			if _t_maxValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .maxValueInteger64, in: _container, debugDescription: "More than one value provided for \"maxValue\"")
 			}
@@ -1393,7 +1425,7 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_minValue = .integer(minValueInteger)
 		}
-		if let minValueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .minValueInteger64, auxiliaryKey: ._minValueInteger64) {
+		if let minValueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .minValueInteger64) {
 			if _t_minValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .minValueInteger64, in: _container, debugDescription: "More than one value provided for \"minValue\"")
 			}
@@ -1418,6 +1450,7 @@ open class ElementDefinition: BackboneType {
 			_t_minValue = .quantity(minValueQuantity)
 		}
 		self.minValue = _t_minValue
+		self.mustHaveValue = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .mustHaveValue, auxiliaryKey: ._mustHaveValue)
 		self.mustSupport = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .mustSupport, auxiliaryKey: ._mustSupport)
 		self.orderMeaning = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .orderMeaning, auxiliaryKey: ._orderMeaning)
 		self.path = try FHIRPrimitive<FHIRString>(from: _container, forKey: .path, auxiliaryKey: ._path)
@@ -1482,7 +1515,7 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_pattern = .integer(patternInteger)
 		}
-		if let patternInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .patternInteger64, auxiliaryKey: ._patternInteger64) {
+		if let patternInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .patternInteger64) {
 			if _t_pattern != nil {
 				throw DecodingError.dataCorruptedError(forKey: .patternInteger64, in: _container, debugDescription: "More than one value provided for \"pattern\"")
 			}
@@ -1686,12 +1719,6 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_pattern = .contactDetail(patternContactDetail)
 		}
-		if let patternContributor = try Contributor(from: _container, forKeyIfPresent: .patternContributor) {
-			if _t_pattern != nil {
-				throw DecodingError.dataCorruptedError(forKey: .patternContributor, in: _container, debugDescription: "More than one value provided for \"pattern\"")
-			}
-			_t_pattern = .contributor(patternContributor)
-		}
 		if let patternDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .patternDataRequirement) {
 			if _t_pattern != nil {
 				throw DecodingError.dataCorruptedError(forKey: .patternDataRequirement, in: _container, debugDescription: "More than one value provided for \"pattern\"")
@@ -1728,6 +1755,18 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_pattern = .usageContext(patternUsageContext)
 		}
+		if let patternAvailability = try Availability(from: _container, forKeyIfPresent: .patternAvailability) {
+			if _t_pattern != nil {
+				throw DecodingError.dataCorruptedError(forKey: .patternAvailability, in: _container, debugDescription: "More than one value provided for \"pattern\"")
+			}
+			_t_pattern = .availability(patternAvailability)
+		}
+		if let patternExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .patternExtendedContactDetail) {
+			if _t_pattern != nil {
+				throw DecodingError.dataCorruptedError(forKey: .patternExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"pattern\"")
+			}
+			_t_pattern = .extendedContactDetail(patternExtendedContactDetail)
+		}
 		if let patternDosage = try Dosage(from: _container, forKeyIfPresent: .patternDosage) {
 			if _t_pattern != nil {
 				throw DecodingError.dataCorruptedError(forKey: .patternDosage, in: _container, debugDescription: "More than one value provided for \"pattern\"")
@@ -1748,6 +1787,7 @@ open class ElementDefinition: BackboneType {
 		self.sliceName = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .sliceName, auxiliaryKey: ._sliceName)
 		self.slicing = try ElementDefinitionSlicing(from: _container, forKeyIfPresent: .slicing)
 		self.type = try [ElementDefinitionType](from: _container, forKeyIfPresent: .type)
+		self.valueAlternatives = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .valueAlternatives, auxiliaryKey: ._valueAlternatives)
 		try super.init(from: decoder)
 	}
 	
@@ -1787,7 +1827,7 @@ open class ElementDefinition: BackboneType {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueInteger, auxiliaryKey: ._defaultValueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueInteger64, auxiliaryKey: ._defaultValueInteger64)
+				try _value.encode(on: &_container, forKey: .defaultValueInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueMarkdown, auxiliaryKey: ._defaultValueMarkdown)
 			case .oid(let _value):
@@ -1854,8 +1894,6 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .defaultValueTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .defaultValueContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueDataRequirement)
 			case .expression(let _value):
@@ -1868,6 +1906,10 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .defaultValueTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .defaultValueAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .defaultValueExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueDosage)
 			case .meta(let _value):
@@ -1899,7 +1941,7 @@ open class ElementDefinition: BackboneType {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .fixedInteger, auxiliaryKey: ._fixedInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .fixedInteger64, auxiliaryKey: ._fixedInteger64)
+				try _value.encode(on: &_container, forKey: .fixedInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .fixedMarkdown, auxiliaryKey: ._fixedMarkdown)
 			case .oid(let _value):
@@ -1966,8 +2008,6 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .fixedTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .fixedContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .fixedContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .fixedDataRequirement)
 			case .expression(let _value):
@@ -1980,6 +2020,10 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .fixedTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .fixedUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .fixedAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .fixedExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .fixedDosage)
 			case .meta(let _value):
@@ -2008,7 +2052,7 @@ open class ElementDefinition: BackboneType {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .maxValueInteger, auxiliaryKey: ._maxValueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .maxValueInteger64, auxiliaryKey: ._maxValueInteger64)
+				try _value.encode(on: &_container, forKey: .maxValueInteger64)
 			case .positiveInt(let _value):
 				try _value.encode(on: &_container, forKey: .maxValuePositiveInt, auxiliaryKey: ._maxValuePositiveInt)
 			case .unsignedInt(let _value):
@@ -2034,7 +2078,7 @@ open class ElementDefinition: BackboneType {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .minValueInteger, auxiliaryKey: ._minValueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .minValueInteger64, auxiliaryKey: ._minValueInteger64)
+				try _value.encode(on: &_container, forKey: .minValueInteger64)
 			case .positiveInt(let _value):
 				try _value.encode(on: &_container, forKey: .minValuePositiveInt, auxiliaryKey: ._minValuePositiveInt)
 			case .unsignedInt(let _value):
@@ -2043,6 +2087,7 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .minValueQuantity)
 			}
 		}
+		try mustHaveValue?.encode(on: &_container, forKey: .mustHaveValue, auxiliaryKey: ._mustHaveValue)
 		try mustSupport?.encode(on: &_container, forKey: .mustSupport, auxiliaryKey: ._mustSupport)
 		try orderMeaning?.encode(on: &_container, forKey: .orderMeaning, auxiliaryKey: ._orderMeaning)
 		try path.encode(on: &_container, forKey: .path, auxiliaryKey: ._path)
@@ -2069,7 +2114,7 @@ open class ElementDefinition: BackboneType {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .patternInteger, auxiliaryKey: ._patternInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .patternInteger64, auxiliaryKey: ._patternInteger64)
+				try _value.encode(on: &_container, forKey: .patternInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .patternMarkdown, auxiliaryKey: ._patternMarkdown)
 			case .oid(let _value):
@@ -2136,8 +2181,6 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .patternTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .patternContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .patternContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .patternDataRequirement)
 			case .expression(let _value):
@@ -2150,6 +2193,10 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .patternTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .patternUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .patternAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .patternExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .patternDosage)
 			case .meta(let _value):
@@ -2163,6 +2210,7 @@ open class ElementDefinition: BackboneType {
 		try sliceName?.encode(on: &_container, forKey: .sliceName, auxiliaryKey: ._sliceName)
 		try slicing?.encode(on: &_container, forKey: .slicing)
 		try type?.encode(on: &_container, forKey: .type)
+		try valueAlternatives?.encode(on: &_container, forKey: .valueAlternatives, auxiliaryKey: ._valueAlternatives)
 		try super.encode(to: encoder)
 	}
 	
@@ -2198,6 +2246,7 @@ open class ElementDefinition: BackboneType {
 		    && meaningWhenMissing == _other.meaningWhenMissing
 		    && min == _other.min
 		    && minValue == _other.minValue
+		    && mustHaveValue == _other.mustHaveValue
 		    && mustSupport == _other.mustSupport
 		    && orderMeaning == _other.orderMeaning
 		    && path == _other.path
@@ -2209,6 +2258,7 @@ open class ElementDefinition: BackboneType {
 		    && sliceName == _other.sliceName
 		    && slicing == _other.slicing
 		    && type == _other.type
+		    && valueAlternatives == _other.valueAlternatives
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -2236,6 +2286,7 @@ open class ElementDefinition: BackboneType {
 		hasher.combine(meaningWhenMissing)
 		hasher.combine(min)
 		hasher.combine(minValue)
+		hasher.combine(mustHaveValue)
 		hasher.combine(mustSupport)
 		hasher.combine(orderMeaning)
 		hasher.combine(path)
@@ -2247,6 +2298,7 @@ open class ElementDefinition: BackboneType {
 		hasher.combine(sliceName)
 		hasher.combine(slicing)
 		hasher.combine(type)
+		hasher.combine(valueAlternatives)
 	}
 }
 
@@ -2255,7 +2307,7 @@ open class ElementDefinition: BackboneType {
  
  Information about the base definition of the element, provided to make it unnecessary for tools to trace the deviation
  of the element through the derived and related profiles. When the element definition is not the original definition of
- an element - i.g. either in a constraint on another type, or for elements from a super type in a snap shot - then the
+ an element - e.g. either in a constraint on another type, or for elements from a super type in a snap shot - then the
  information in provided in the element definition may be different to the base definition. On the original definition
  of the element, it will be same.
  */
@@ -2355,11 +2407,14 @@ open class ElementDefinitionBinding: Element {
 	/// provided value set must be adhered to in the instances.
 	public var strength: FHIRPrimitive<BindingStrength>
 	
-	/// Human explanation of the value set
+	/// Intended use of codes in the bound value set
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Source of value set
 	public var valueSet: FHIRPrimitive<Canonical>?
+	
+	/// Additional Bindings - more rules about the binding
+	public var additional: [ElementDefinitionBindingAdditional]?
 	
 	/// Designated initializer taking all required properties
 	public init(strength: FHIRPrimitive<BindingStrength>) {
@@ -2369,6 +2424,7 @@ open class ElementDefinitionBinding: Element {
 	
 	/// Convenience initializer
 	public convenience init(
+		additional: [ElementDefinitionBindingAdditional]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -2376,6 +2432,7 @@ open class ElementDefinitionBinding: Element {
 		valueSet: FHIRPrimitive<Canonical>? = nil
 	) {
 		self.init(strength: strength)
+		self.additional = additional
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
@@ -2385,6 +2442,7 @@ open class ElementDefinitionBinding: Element {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case additional
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case strength; case _strength
 		case valueSet; case _valueSet
@@ -2395,6 +2453,7 @@ open class ElementDefinitionBinding: Element {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.additional = try [ElementDefinitionBindingAdditional](from: _container, forKeyIfPresent: .additional)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.strength = try FHIRPrimitive<BindingStrength>(from: _container, forKey: .strength, auxiliaryKey: ._strength)
 		self.valueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .valueSet, auxiliaryKey: ._valueSet)
@@ -2406,6 +2465,7 @@ open class ElementDefinitionBinding: Element {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try additional?.encode(on: &_container, forKey: .additional)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try strength.encode(on: &_container, forKey: .strength, auxiliaryKey: ._strength)
 		try valueSet?.encode(on: &_container, forKey: .valueSet, auxiliaryKey: ._valueSet)
@@ -2421,15 +2481,137 @@ open class ElementDefinitionBinding: Element {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return description_fhir == _other.description_fhir
+		return additional == _other.additional
+		    && description_fhir == _other.description_fhir
 		    && strength == _other.strength
 		    && valueSet == _other.valueSet
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(additional)
 		hasher.combine(description_fhir)
 		hasher.combine(strength)
+		hasher.combine(valueSet)
+	}
+}
+
+/**
+ Additional Bindings - more rules about the binding.
+ 
+ Additional bindings that help applications implementing this element. Additional bindings do not replace the main
+ binding but provide more information and/or context.
+ */
+open class ElementDefinitionBindingAdditional: Element {
+	
+	/// maximum | minimum | required | extensible | candidate | current | preferred | ui | starter | component
+	public var purpose: FHIRPrimitive<FHIRString>
+	
+	/// The value set for the additional binding
+	public var valueSet: FHIRPrimitive<Canonical>
+	
+	/// Documentation of the purpose of use of the binding
+	public var documentation: FHIRPrimitive<FHIRString>?
+	
+	/// Concise documentation - for summary tables
+	public var shortDoco: FHIRPrimitive<FHIRString>?
+	
+	/// Qualifies the usage - jurisdiction, gender, workflow status etc.
+	public var usage: [UsageContext]?
+	
+	/// Whether binding can applies to all repeats, or just one
+	public var any: FHIRPrimitive<FHIRBool>?
+	
+	/// Designated initializer taking all required properties
+	public init(purpose: FHIRPrimitive<FHIRString>, valueSet: FHIRPrimitive<Canonical>) {
+		self.purpose = purpose
+		self.valueSet = valueSet
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		any: FHIRPrimitive<FHIRBool>? = nil,
+		documentation: FHIRPrimitive<FHIRString>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<FHIRString>,
+		shortDoco: FHIRPrimitive<FHIRString>? = nil,
+		usage: [UsageContext]? = nil,
+		valueSet: FHIRPrimitive<Canonical>
+	) {
+		self.init(purpose: purpose, valueSet: valueSet)
+		self.any = any
+		self.documentation = documentation
+		self.`extension` = `extension`
+		self.id = id
+		self.shortDoco = shortDoco
+		self.usage = usage
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case any; case _any
+		case documentation; case _documentation
+		case purpose; case _purpose
+		case shortDoco; case _shortDoco
+		case usage
+		case valueSet; case _valueSet
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.any = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .any, auxiliaryKey: ._any)
+		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
+		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKey: .purpose, auxiliaryKey: ._purpose)
+		self.shortDoco = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .shortDoco, auxiliaryKey: ._shortDoco)
+		self.usage = try [UsageContext](from: _container, forKeyIfPresent: .usage)
+		self.valueSet = try FHIRPrimitive<Canonical>(from: _container, forKey: .valueSet, auxiliaryKey: ._valueSet)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try any?.encode(on: &_container, forKey: .any, auxiliaryKey: ._any)
+		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try purpose.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
+		try shortDoco?.encode(on: &_container, forKey: .shortDoco, auxiliaryKey: ._shortDoco)
+		try usage?.encode(on: &_container, forKey: .usage)
+		try valueSet.encode(on: &_container, forKey: .valueSet, auxiliaryKey: ._valueSet)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ElementDefinitionBindingAdditional else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return any == _other.any
+		    && documentation == _other.documentation
+		    && purpose == _other.purpose
+		    && shortDoco == _other.shortDoco
+		    && usage == _other.usage
+		    && valueSet == _other.valueSet
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(any)
+		hasher.combine(documentation)
+		hasher.combine(purpose)
+		hasher.combine(shortDoco)
+		hasher.combine(usage)
 		hasher.combine(valueSet)
 	}
 }
@@ -2451,14 +2633,14 @@ open class ElementDefinitionConstraint: Element {
 	/// Identifies the impact constraint violation has on the conformance of the instance.
 	public var severity: FHIRPrimitive<ConstraintSeverity>
 	
+	/// Suppress warning or hint in profile
+	public var suppress: FHIRPrimitive<FHIRBool>?
+	
 	/// Human description of constraint
 	public var human: FHIRPrimitive<FHIRString>
 	
 	/// FHIRPath expression of constraint
 	public var expression: FHIRPrimitive<FHIRString>?
-	
-	/// XPath expression of constraint
-	public var xpath: FHIRPrimitive<FHIRString>?
 	
 	/// Reference to original source of constraint
 	public var source: FHIRPrimitive<Canonical>?
@@ -2481,7 +2663,7 @@ open class ElementDefinitionConstraint: Element {
 		requirements: FHIRPrimitive<FHIRString>? = nil,
 		severity: FHIRPrimitive<ConstraintSeverity>,
 		source: FHIRPrimitive<Canonical>? = nil,
-		xpath: FHIRPrimitive<FHIRString>? = nil
+		suppress: FHIRPrimitive<FHIRBool>? = nil
 	) {
 		self.init(human: human, key: key, severity: severity)
 		self.expression = expression
@@ -2489,7 +2671,7 @@ open class ElementDefinitionConstraint: Element {
 		self.id = id
 		self.requirements = requirements
 		self.source = source
-		self.xpath = xpath
+		self.suppress = suppress
 	}
 	
 	// MARK: - Codable
@@ -2501,7 +2683,7 @@ open class ElementDefinitionConstraint: Element {
 		case requirements; case _requirements
 		case severity; case _severity
 		case source; case _source
-		case xpath; case _xpath
+		case suppress; case _suppress
 	}
 	
 	/// Initializer for Decodable
@@ -2515,7 +2697,7 @@ open class ElementDefinitionConstraint: Element {
 		self.requirements = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .requirements, auxiliaryKey: ._requirements)
 		self.severity = try FHIRPrimitive<ConstraintSeverity>(from: _container, forKey: .severity, auxiliaryKey: ._severity)
 		self.source = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .source, auxiliaryKey: ._source)
-		self.xpath = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .xpath, auxiliaryKey: ._xpath)
+		self.suppress = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .suppress, auxiliaryKey: ._suppress)
 		try super.init(from: decoder)
 	}
 	
@@ -2530,7 +2712,7 @@ open class ElementDefinitionConstraint: Element {
 		try requirements?.encode(on: &_container, forKey: .requirements, auxiliaryKey: ._requirements)
 		try severity.encode(on: &_container, forKey: .severity, auxiliaryKey: ._severity)
 		try source?.encode(on: &_container, forKey: .source, auxiliaryKey: ._source)
-		try xpath?.encode(on: &_container, forKey: .xpath, auxiliaryKey: ._xpath)
+		try suppress?.encode(on: &_container, forKey: .suppress, auxiliaryKey: ._suppress)
 		try super.encode(to: encoder)
 	}
 	
@@ -2549,7 +2731,7 @@ open class ElementDefinitionConstraint: Element {
 		    && requirements == _other.requirements
 		    && severity == _other.severity
 		    && source == _other.source
-		    && xpath == _other.xpath
+		    && suppress == _other.suppress
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -2560,7 +2742,7 @@ open class ElementDefinitionConstraint: Element {
 		hasher.combine(requirements)
 		hasher.combine(severity)
 		hasher.combine(source)
-		hasher.combine(xpath)
+		hasher.combine(suppress)
 	}
 }
 
@@ -2577,6 +2759,7 @@ open class ElementDefinitionExample: Element {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -2586,7 +2769,6 @@ open class ElementDefinitionExample: Element {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -2596,12 +2778,13 @@ open class ElementDefinitionExample: Element {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -2662,6 +2845,7 @@ open class ElementDefinitionExample: Element {
 		case valueAge
 		case valueAnnotation
 		case valueAttachment
+		case valueAvailability
 		case valueBase64Binary; case _valueBase64Binary
 		case valueBoolean; case _valueBoolean
 		case valueCanonical; case _valueCanonical
@@ -2671,7 +2855,6 @@ open class ElementDefinitionExample: Element {
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
-		case valueContributor
 		case valueCount
 		case valueDataRequirement
 		case valueDate; case _valueDate
@@ -2681,12 +2864,13 @@ open class ElementDefinitionExample: Element {
 		case valueDosage
 		case valueDuration
 		case valueExpression
+		case valueExtendedContactDetail
 		case valueHumanName
 		case valueId; case _valueId
 		case valueIdentifier
 		case valueInstant; case _valueInstant
 		case valueInteger; case _valueInteger
-		case valueInteger64; case _valueInteger64
+		case valueInteger64
 		case valueMarkdown; case _valueMarkdown
 		case valueMeta
 		case valueMoney
@@ -2718,8 +2902,8 @@ open class ElementDefinitionExample: Element {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueContributor) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueContributor, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueAvailability) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueExtendedContactDetail) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueAvailability, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueExtendedContactDetail, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -2785,7 +2969,7 @@ open class ElementDefinitionExample: Element {
 			}
 			_t_value = .integer(valueInteger)
 		}
-		if let valueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .valueInteger64, auxiliaryKey: ._valueInteger64) {
+		if let valueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .valueInteger64) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueInteger64, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
@@ -2989,12 +3173,6 @@ open class ElementDefinitionExample: Element {
 			}
 			_t_value = .contactDetail(valueContactDetail)
 		}
-		if let valueContributor = try Contributor(from: _container, forKeyIfPresent: .valueContributor) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueContributor, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .contributor(valueContributor)
-		}
 		if let valueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .valueDataRequirement) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDataRequirement, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -3030,6 +3208,18 @@ open class ElementDefinitionExample: Element {
 				throw DecodingError.dataCorruptedError(forKey: .valueUsageContext, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .usageContext(valueUsageContext)
+		}
+		if let valueAvailability = try Availability(from: _container, forKeyIfPresent: .valueAvailability) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAvailability, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .availability(valueAvailability)
+		}
+		if let valueExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .valueExtendedContactDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
@@ -3076,7 +3266,7 @@ open class ElementDefinitionExample: Element {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .valueInteger64, auxiliaryKey: ._valueInteger64)
+				try _value.encode(on: &_container, forKey: .valueInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .oid(let _value):
@@ -3143,8 +3333,6 @@ open class ElementDefinitionExample: Element {
 				try _value.encode(on: &_container, forKey: .valueTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .valueContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .valueDataRequirement)
 			case .expression(let _value):
@@ -3157,6 +3345,10 @@ open class ElementDefinitionExample: Element {
 				try _value.encode(on: &_container, forKey: .valueTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .valueUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .valueAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):

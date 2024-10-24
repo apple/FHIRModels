@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  Cited Artifact Status Type
  
- URL: http://terminology.hl7.org/CodeSystem/cited-artifact-status-type
+ URL: http://hl7.org/fhir/cited-artifact-status-type
  ValueSet: http://hl7.org/fhir/ValueSet/cited-artifact-status-type
  */
 public enum CitedArtifactStatusType: String, FHIRPrimitiveType {
@@ -71,6 +71,9 @@ public enum CitedArtifactStatusType: String, FHIRPrimitiveType {
 	
 	/// The content is in a state of being reviewed.
 	case underReview = "under-review"
+	
+	/// The status of the content is not recorded in the metadata.
+	case unknown
 	
 	/// The content that was not published has been removed from consideration for publishing by the submitter.
 	case withdrawn

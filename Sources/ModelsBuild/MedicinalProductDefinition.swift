@@ -2,8 +2,8 @@
 //  MedicinalProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -82,6 +82,10 @@ open class MedicinalProductDefinition: DomainResource {
 	/// Package type for the product
 	public var packagedMedicinalProduct: [CodeableConcept]?
 	
+	/// Types of medicinal manufactured items and/or devices that this product consists of, such as tablets, capsule, or
+	/// syringes
+	public var comprisedOf: [Reference]?
+	
 	/// The ingredients of this medicinal product - when not detailed in other resources
 	public var ingredient: [CodeableConcept]?
 	
@@ -131,6 +135,7 @@ open class MedicinalProductDefinition: DomainResource {
 		clinicalTrial: [Reference]? = nil,
 		code: [Coding]? = nil,
 		combinedPharmaceuticalDoseForm: CodeableConcept? = nil,
+		comprisedOf: [Reference]? = nil,
 		contact: [MedicinalProductDefinitionContact]? = nil,
 		contained: [ResourceProxy]? = nil,
 		crossReference: [MedicinalProductDefinitionCrossReference]? = nil,
@@ -169,6 +174,7 @@ open class MedicinalProductDefinition: DomainResource {
 		self.clinicalTrial = clinicalTrial
 		self.code = code
 		self.combinedPharmaceuticalDoseForm = combinedPharmaceuticalDoseForm
+		self.comprisedOf = comprisedOf
 		self.contact = contact
 		self.contained = contained
 		self.crossReference = crossReference
@@ -209,6 +215,7 @@ open class MedicinalProductDefinition: DomainResource {
 		case clinicalTrial
 		case code
 		case combinedPharmaceuticalDoseForm
+		case comprisedOf
 		case contact
 		case crossReference
 		case description_fhir = "description"; case _description_fhir = "_description"
@@ -244,6 +251,7 @@ open class MedicinalProductDefinition: DomainResource {
 		self.clinicalTrial = try [Reference](from: _container, forKeyIfPresent: .clinicalTrial)
 		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.combinedPharmaceuticalDoseForm = try CodeableConcept(from: _container, forKeyIfPresent: .combinedPharmaceuticalDoseForm)
+		self.comprisedOf = try [Reference](from: _container, forKeyIfPresent: .comprisedOf)
 		self.contact = try [MedicinalProductDefinitionContact](from: _container, forKeyIfPresent: .contact)
 		self.crossReference = try [MedicinalProductDefinitionCrossReference](from: _container, forKeyIfPresent: .crossReference)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -280,6 +288,7 @@ open class MedicinalProductDefinition: DomainResource {
 		try clinicalTrial?.encode(on: &_container, forKey: .clinicalTrial)
 		try code?.encode(on: &_container, forKey: .code)
 		try combinedPharmaceuticalDoseForm?.encode(on: &_container, forKey: .combinedPharmaceuticalDoseForm)
+		try comprisedOf?.encode(on: &_container, forKey: .comprisedOf)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try crossReference?.encode(on: &_container, forKey: .crossReference)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
@@ -320,6 +329,7 @@ open class MedicinalProductDefinition: DomainResource {
 		    && clinicalTrial == _other.clinicalTrial
 		    && code == _other.code
 		    && combinedPharmaceuticalDoseForm == _other.combinedPharmaceuticalDoseForm
+		    && comprisedOf == _other.comprisedOf
 		    && contact == _other.contact
 		    && crossReference == _other.crossReference
 		    && description_fhir == _other.description_fhir
@@ -352,6 +362,7 @@ open class MedicinalProductDefinition: DomainResource {
 		hasher.combine(clinicalTrial)
 		hasher.combine(code)
 		hasher.combine(combinedPharmaceuticalDoseForm)
+		hasher.combine(comprisedOf)
 		hasher.combine(contact)
 		hasher.combine(crossReference)
 		hasher.combine(description_fhir)
@@ -389,6 +400,8 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case codeableConcept(CodeableConcept)
 		case date(FHIRPrimitive<FHIRDate>)
+		case integer(FHIRPrimitive<FHIRInteger>)
+		case markdown(FHIRPrimitive<FHIRString>)
 		case quantity(Quantity)
 	}
 	
@@ -428,6 +441,8 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
 		case valueDate; case _valueDate
+		case valueInteger; case _valueInteger
+		case valueMarkdown; case _valueMarkdown
 		case valueQuantity
 	}
 	
@@ -444,11 +459,23 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 			}
 			_t_value = .codeableConcept(valueCodeableConcept)
 		}
+		if let valueMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueMarkdown, auxiliaryKey: ._valueMarkdown) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueMarkdown, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .markdown(valueMarkdown)
+		}
 		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
+		}
+		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueInteger, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .integer(valueInteger)
 		}
 		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
 			if _t_value != nil {
@@ -482,8 +509,12 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 			switch _enum {
 			case .codeableConcept(let _value):
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .integer(let _value):
+				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
 			case .boolean(let _value):
@@ -687,10 +718,10 @@ open class MedicinalProductDefinitionName: BackboneElement {
 	public var type: CodeableConcept?
 	
 	/// Coding words or phrases of the name
-	public var namePart: [MedicinalProductDefinitionNameNamePart]?
+	public var part: [MedicinalProductDefinitionNamePart]?
 	
 	/// Country and jurisdiction where the name applies
-	public var countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]?
+	public var usage: [MedicinalProductDefinitionNameUsage]?
 	
 	/// Designated initializer taking all required properties
 	public init(productName: FHIRPrimitive<FHIRString>) {
@@ -700,30 +731,30 @@ open class MedicinalProductDefinitionName: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		countryLanguage: [MedicinalProductDefinitionNameCountryLanguage]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		namePart: [MedicinalProductDefinitionNameNamePart]? = nil,
+		part: [MedicinalProductDefinitionNamePart]? = nil,
 		productName: FHIRPrimitive<FHIRString>,
-		type: CodeableConcept? = nil
+		type: CodeableConcept? = nil,
+		usage: [MedicinalProductDefinitionNameUsage]? = nil
 	) {
 		self.init(productName: productName)
-		self.countryLanguage = countryLanguage
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.namePart = namePart
+		self.part = part
 		self.type = type
+		self.usage = usage
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case countryLanguage
-		case namePart
+		case part
 		case productName; case _productName
 		case type
+		case usage
 	}
 	
 	/// Initializer for Decodable
@@ -731,10 +762,10 @@ open class MedicinalProductDefinitionName: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.countryLanguage = try [MedicinalProductDefinitionNameCountryLanguage](from: _container, forKeyIfPresent: .countryLanguage)
-		self.namePart = try [MedicinalProductDefinitionNameNamePart](from: _container, forKeyIfPresent: .namePart)
+		self.part = try [MedicinalProductDefinitionNamePart](from: _container, forKeyIfPresent: .part)
 		self.productName = try FHIRPrimitive<FHIRString>(from: _container, forKey: .productName, auxiliaryKey: ._productName)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
+		self.usage = try [MedicinalProductDefinitionNameUsage](from: _container, forKeyIfPresent: .usage)
 		try super.init(from: decoder)
 	}
 	
@@ -743,10 +774,10 @@ open class MedicinalProductDefinitionName: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try countryLanguage?.encode(on: &_container, forKey: .countryLanguage)
-		try namePart?.encode(on: &_container, forKey: .namePart)
+		try part?.encode(on: &_container, forKey: .part)
 		try productName.encode(on: &_container, forKey: .productName, auxiliaryKey: ._productName)
 		try type?.encode(on: &_container, forKey: .type)
+		try usage?.encode(on: &_container, forKey: .usage)
 		try super.encode(to: encoder)
 	}
 	
@@ -759,17 +790,96 @@ open class MedicinalProductDefinitionName: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return countryLanguage == _other.countryLanguage
-		    && namePart == _other.namePart
+		return part == _other.part
 		    && productName == _other.productName
+		    && type == _other.type
+		    && usage == _other.usage
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(part)
+		hasher.combine(productName)
+		hasher.combine(type)
+		hasher.combine(usage)
+	}
+}
+
+/**
+ Coding words or phrases of the name.
+ */
+open class MedicinalProductDefinitionNamePart: BackboneElement {
+	
+	/// A fragment of a product name
+	public var part: FHIRPrimitive<FHIRString>
+	
+	/// Identifying type for this part of the name (e.g. strength part)
+	public var type: CodeableConcept
+	
+	/// Designated initializer taking all required properties
+	public init(part: FHIRPrimitive<FHIRString>, type: CodeableConcept) {
+		self.part = part
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		part: FHIRPrimitive<FHIRString>,
+		type: CodeableConcept
+	) {
+		self.init(part: part, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case part; case _part
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.part = try FHIRPrimitive<FHIRString>(from: _container, forKey: .part, auxiliaryKey: ._part)
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try part.encode(on: &_container, forKey: .part, auxiliaryKey: ._part)
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicinalProductDefinitionNamePart else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return part == _other.part
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(countryLanguage)
-		hasher.combine(namePart)
-		hasher.combine(productName)
+		hasher.combine(part)
 		hasher.combine(type)
 	}
 }
@@ -779,7 +889,7 @@ open class MedicinalProductDefinitionName: BackboneElement {
  
  Country and jurisdiction where the name applies, and associated language.
  */
-open class MedicinalProductDefinitionNameCountryLanguage: BackboneElement {
+open class MedicinalProductDefinitionNameUsage: BackboneElement {
 	
 	/// Country code for where this name applies
 	public var country: CodeableConcept
@@ -846,7 +956,7 @@ open class MedicinalProductDefinitionNameCountryLanguage: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicinalProductDefinitionNameCountryLanguage else {
+		guard let _other = _other as? MedicinalProductDefinitionNameUsage else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
@@ -862,85 +972,6 @@ open class MedicinalProductDefinitionNameCountryLanguage: BackboneElement {
 		hasher.combine(country)
 		hasher.combine(jurisdiction)
 		hasher.combine(language)
-	}
-}
-
-/**
- Coding words or phrases of the name.
- */
-open class MedicinalProductDefinitionNameNamePart: BackboneElement {
-	
-	/// A fragment of a product name
-	public var part: FHIRPrimitive<FHIRString>
-	
-	/// Identifying type for this part of the name (e.g. strength part)
-	public var type: CodeableConcept
-	
-	/// Designated initializer taking all required properties
-	public init(part: FHIRPrimitive<FHIRString>, type: CodeableConcept) {
-		self.part = part
-		self.type = type
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		part: FHIRPrimitive<FHIRString>,
-		type: CodeableConcept
-	) {
-		self.init(part: part, type: type)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case part; case _part
-		case type
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.part = try FHIRPrimitive<FHIRString>(from: _container, forKey: .part, auxiliaryKey: ._part)
-		self.type = try CodeableConcept(from: _container, forKey: .type)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try part.encode(on: &_container, forKey: .part, auxiliaryKey: ._part)
-		try type.encode(on: &_container, forKey: .type)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicinalProductDefinitionNameNamePart else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return part == _other.part
-		    && type == _other.type
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(part)
-		hasher.combine(type)
 	}
 }
 

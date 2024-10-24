@@ -2,8 +2,8 @@
 //  ImagingStudy.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ImagingStudy)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ImagingStudy)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,11 +53,11 @@ open class ImagingStudy: DomainResource {
 	/// Request fulfilled
 	public var basedOn: [Reference]?
 	
+	/// Part of referenced event
+	public var partOf: [Reference]?
+	
 	/// Referring physician
 	public var referrer: Reference?
-	
-	/// Who interpreted images
-	public var interpreter: [Reference]?
 	
 	/// Study access endpoint
 	public var endpoint: [Reference]?
@@ -104,7 +104,6 @@ open class ImagingStudy: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		interpreter: [Reference]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		location: Reference? = nil,
 		meta: Meta? = nil,
@@ -113,6 +112,7 @@ open class ImagingStudy: DomainResource {
 		note: [Annotation]? = nil,
 		numberOfInstances: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		numberOfSeries: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		partOf: [Reference]? = nil,
 		procedure: [CodeableReference]? = nil,
 		reason: [CodeableReference]? = nil,
 		referrer: Reference? = nil,
@@ -132,7 +132,6 @@ open class ImagingStudy: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.interpreter = interpreter
 		self.language = language
 		self.location = location
 		self.meta = meta
@@ -141,6 +140,7 @@ open class ImagingStudy: DomainResource {
 		self.note = note
 		self.numberOfInstances = numberOfInstances
 		self.numberOfSeries = numberOfSeries
+		self.partOf = partOf
 		self.procedure = procedure
 		self.reason = reason
 		self.referrer = referrer
@@ -157,12 +157,12 @@ open class ImagingStudy: DomainResource {
 		case encounter
 		case endpoint
 		case identifier
-		case interpreter
 		case location
 		case modality
 		case note
 		case numberOfInstances; case _numberOfInstances
 		case numberOfSeries; case _numberOfSeries
+		case partOf
 		case procedure
 		case reason
 		case referrer
@@ -182,12 +182,12 @@ open class ImagingStudy: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.interpreter = try [Reference](from: _container, forKeyIfPresent: .interpreter)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.modality = try [CodeableConcept](from: _container, forKeyIfPresent: .modality)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.numberOfInstances = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfInstances, auxiliaryKey: ._numberOfInstances)
 		self.numberOfSeries = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfSeries, auxiliaryKey: ._numberOfSeries)
+		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.procedure = try [CodeableReference](from: _container, forKeyIfPresent: .procedure)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.referrer = try Reference(from: _container, forKeyIfPresent: .referrer)
@@ -208,12 +208,12 @@ open class ImagingStudy: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try endpoint?.encode(on: &_container, forKey: .endpoint)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try interpreter?.encode(on: &_container, forKey: .interpreter)
 		try location?.encode(on: &_container, forKey: .location)
 		try modality?.encode(on: &_container, forKey: .modality)
 		try note?.encode(on: &_container, forKey: .note)
 		try numberOfInstances?.encode(on: &_container, forKey: .numberOfInstances, auxiliaryKey: ._numberOfInstances)
 		try numberOfSeries?.encode(on: &_container, forKey: .numberOfSeries, auxiliaryKey: ._numberOfSeries)
+		try partOf?.encode(on: &_container, forKey: .partOf)
 		try procedure?.encode(on: &_container, forKey: .procedure)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try referrer?.encode(on: &_container, forKey: .referrer)
@@ -238,12 +238,12 @@ open class ImagingStudy: DomainResource {
 		    && encounter == _other.encounter
 		    && endpoint == _other.endpoint
 		    && identifier == _other.identifier
-		    && interpreter == _other.interpreter
 		    && location == _other.location
 		    && modality == _other.modality
 		    && note == _other.note
 		    && numberOfInstances == _other.numberOfInstances
 		    && numberOfSeries == _other.numberOfSeries
+		    && partOf == _other.partOf
 		    && procedure == _other.procedure
 		    && reason == _other.reason
 		    && referrer == _other.referrer
@@ -260,12 +260,12 @@ open class ImagingStudy: DomainResource {
 		hasher.combine(encounter)
 		hasher.combine(endpoint)
 		hasher.combine(identifier)
-		hasher.combine(interpreter)
 		hasher.combine(location)
 		hasher.combine(modality)
 		hasher.combine(note)
 		hasher.combine(numberOfInstances)
 		hasher.combine(numberOfSeries)
+		hasher.combine(partOf)
 		hasher.combine(procedure)
 		hasher.combine(reason)
 		hasher.combine(referrer)
@@ -468,7 +468,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 	public var uid: FHIRPrimitive<FHIRString>
 	
 	/// DICOM class type
-	public var sopClass: Coding
+	public var sopClass: FHIRPrimitive<FHIRURI>
 	
 	/// The number of this instance in the series
 	public var number: FHIRPrimitive<FHIRUnsignedInteger>?
@@ -477,7 +477,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 	public var title: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
-	public init(sopClass: Coding, uid: FHIRPrimitive<FHIRString>) {
+	public init(sopClass: FHIRPrimitive<FHIRURI>, uid: FHIRPrimitive<FHIRString>) {
 		self.sopClass = sopClass
 		self.uid = uid
 		super.init()
@@ -489,7 +489,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
-		sopClass: Coding,
+		sopClass: FHIRPrimitive<FHIRURI>,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		uid: FHIRPrimitive<FHIRString>
 	) {
@@ -505,7 +505,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case number; case _number
-		case sopClass
+		case sopClass; case _sopClass
 		case title; case _title
 		case uid; case _uid
 	}
@@ -516,7 +516,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 		
 		// Decode all our properties
 		self.number = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
-		self.sopClass = try Coding(from: _container, forKey: .sopClass)
+		self.sopClass = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .sopClass, auxiliaryKey: ._sopClass)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.uid = try FHIRPrimitive<FHIRString>(from: _container, forKey: .uid, auxiliaryKey: ._uid)
 		try super.init(from: decoder)
@@ -528,7 +528,7 @@ open class ImagingStudySeriesInstance: BackboneElement {
 		
 		// Encode all our properties
 		try number?.encode(on: &_container, forKey: .number, auxiliaryKey: ._number)
-		try sopClass.encode(on: &_container, forKey: .sopClass)
+		try sopClass.encode(on: &_container, forKey: .sopClass, auxiliaryKey: ._sopClass)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try uid.encode(on: &_container, forKey: .uid, auxiliaryKey: ._uid)
 		try super.encode(to: encoder)

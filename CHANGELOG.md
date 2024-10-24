@@ -3,6 +3,10 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+## 0.6.0
+
+- BREAKING CHANGES: update _build_ models to 6.0.0-ballot2 (http://build.fhir.org/)
+
 ## 0.5.0
 
 - Add R5 release

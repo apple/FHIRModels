@@ -2,8 +2,8 @@
 //  CarePlan.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CarePlan)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CarePlan)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ open class CarePlan: DomainResource {
 	/// Instantiates external protocol or definition
 	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
 	
-	/// Fulfills CarePlan
+	/// Fulfills plan, proposal or order
 	public var basedOn: [Reference]?
 	
 	/// CarePlan replaced by this CarePlan
@@ -75,7 +75,7 @@ open class CarePlan: DomainResource {
 	public var created: FHIRPrimitive<DateTime>?
 	
 	/// Who is the designated responsible party
-	public var author: Reference?
+	public var custodian: Reference?
 	
 	/// Who provided the content of the care plan
 	public var contributor: [Reference]?
@@ -110,13 +110,13 @@ open class CarePlan: DomainResource {
 	public convenience init(
 		activity: [CarePlanActivity]? = nil,
 		addresses: [CodeableReference]? = nil,
-		author: Reference? = nil,
 		basedOn: [Reference]? = nil,
 		careTeam: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
 		contributor: [Reference]? = nil,
 		created: FHIRPrimitive<DateTime>? = nil,
+		custodian: Reference? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		encounter: Reference? = nil,
 		`extension`: [Extension]? = nil,
@@ -143,13 +143,13 @@ open class CarePlan: DomainResource {
 		self.init(intent: intent, status: status, subject: subject)
 		self.activity = activity
 		self.addresses = addresses
-		self.author = author
 		self.basedOn = basedOn
 		self.careTeam = careTeam
 		self.category = category
 		self.contained = contained
 		self.contributor = contributor
 		self.created = created
+		self.custodian = custodian
 		self.description_fhir = description_fhir
 		self.encounter = encounter
 		self.`extension` = `extension`
@@ -176,12 +176,12 @@ open class CarePlan: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case activity
 		case addresses
-		case author
 		case basedOn
 		case careTeam
 		case category
 		case contributor
 		case created; case _created
+		case custodian
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case encounter
 		case goal
@@ -206,12 +206,12 @@ open class CarePlan: DomainResource {
 		// Decode all our properties
 		self.activity = try [CarePlanActivity](from: _container, forKeyIfPresent: .activity)
 		self.addresses = try [CodeableReference](from: _container, forKeyIfPresent: .addresses)
-		self.author = try Reference(from: _container, forKeyIfPresent: .author)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.careTeam = try [Reference](from: _container, forKeyIfPresent: .careTeam)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.contributor = try [Reference](from: _container, forKeyIfPresent: .contributor)
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .created, auxiliaryKey: ._created)
+		self.custodian = try Reference(from: _container, forKeyIfPresent: .custodian)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.goal = try [Reference](from: _container, forKeyIfPresent: .goal)
@@ -237,12 +237,12 @@ open class CarePlan: DomainResource {
 		// Encode all our properties
 		try activity?.encode(on: &_container, forKey: .activity)
 		try addresses?.encode(on: &_container, forKey: .addresses)
-		try author?.encode(on: &_container, forKey: .author)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try careTeam?.encode(on: &_container, forKey: .careTeam)
 		try category?.encode(on: &_container, forKey: .category)
 		try contributor?.encode(on: &_container, forKey: .contributor)
 		try created?.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
+		try custodian?.encode(on: &_container, forKey: .custodian)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try goal?.encode(on: &_container, forKey: .goal)
@@ -272,12 +272,12 @@ open class CarePlan: DomainResource {
 		}
 		return activity == _other.activity
 		    && addresses == _other.addresses
-		    && author == _other.author
 		    && basedOn == _other.basedOn
 		    && careTeam == _other.careTeam
 		    && category == _other.category
 		    && contributor == _other.contributor
 		    && created == _other.created
+		    && custodian == _other.custodian
 		    && description_fhir == _other.description_fhir
 		    && encounter == _other.encounter
 		    && goal == _other.goal
@@ -299,12 +299,12 @@ open class CarePlan: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(activity)
 		hasher.combine(addresses)
-		hasher.combine(author)
 		hasher.combine(basedOn)
 		hasher.combine(careTeam)
 		hasher.combine(category)
 		hasher.combine(contributor)
 		hasher.combine(created)
+		hasher.combine(custodian)
 		hasher.combine(description_fhir)
 		hasher.combine(encounter)
 		hasher.combine(goal)
@@ -331,7 +331,7 @@ open class CarePlan: DomainResource {
  */
 open class CarePlanActivity: BackboneElement {
 	
-	/// Results of the activity (concept, or Appointment, Encounter, Procedure, etc)
+	/// Activities that are completed or in progress (concept, or Appointment, Encounter, Procedure, etc.)
 	public var performedActivity: [CodeableReference]?
 	
 	/// Comments about the activity status/progress
@@ -339,9 +339,6 @@ open class CarePlanActivity: BackboneElement {
 	
 	/// Activity that is intended to be part of the care plan
 	public var plannedActivityReference: Reference?
-	
-	/// In-line definition of activity
-	public var plannedActivityDetail: CarePlanActivityPlannedActivityDetail?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -354,7 +351,6 @@ open class CarePlanActivity: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		performedActivity: [CodeableReference]? = nil,
-		plannedActivityDetail: CarePlanActivityPlannedActivityDetail? = nil,
 		plannedActivityReference: Reference? = nil,
 		progress: [Annotation]? = nil
 	) {
@@ -363,7 +359,6 @@ open class CarePlanActivity: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.performedActivity = performedActivity
-		self.plannedActivityDetail = plannedActivityDetail
 		self.plannedActivityReference = plannedActivityReference
 		self.progress = progress
 	}
@@ -372,7 +367,6 @@ open class CarePlanActivity: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case performedActivity
-		case plannedActivityDetail
 		case plannedActivityReference
 		case progress
 	}
@@ -383,7 +377,6 @@ open class CarePlanActivity: BackboneElement {
 		
 		// Decode all our properties
 		self.performedActivity = try [CodeableReference](from: _container, forKeyIfPresent: .performedActivity)
-		self.plannedActivityDetail = try CarePlanActivityPlannedActivityDetail(from: _container, forKeyIfPresent: .plannedActivityDetail)
 		self.plannedActivityReference = try Reference(from: _container, forKeyIfPresent: .plannedActivityReference)
 		self.progress = try [Annotation](from: _container, forKeyIfPresent: .progress)
 		try super.init(from: decoder)
@@ -395,7 +388,6 @@ open class CarePlanActivity: BackboneElement {
 		
 		// Encode all our properties
 		try performedActivity?.encode(on: &_container, forKey: .performedActivity)
-		try plannedActivityDetail?.encode(on: &_container, forKey: .plannedActivityDetail)
 		try plannedActivityReference?.encode(on: &_container, forKey: .plannedActivityReference)
 		try progress?.encode(on: &_container, forKey: .progress)
 		try super.encode(to: encoder)
@@ -411,7 +403,6 @@ open class CarePlanActivity: BackboneElement {
 			return false
 		}
 		return performedActivity == _other.performedActivity
-		    && plannedActivityDetail == _other.plannedActivityDetail
 		    && plannedActivityReference == _other.plannedActivityReference
 		    && progress == _other.progress
 	}
@@ -419,338 +410,7 @@ open class CarePlanActivity: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(performedActivity)
-		hasher.combine(plannedActivityDetail)
 		hasher.combine(plannedActivityReference)
 		hasher.combine(progress)
-	}
-}
-
-/**
- In-line definition of activity.
- 
- A simple summary of a planned activity suitable for a general care plan system (e.g. form driven) that doesn't know
- about specific resources such as procedure etc.
- */
-open class CarePlanActivityPlannedActivityDetail: BackboneElement {
-	
-	/// All possible types for "product[x]"
-	public enum ProductX: Hashable {
-		case codeableConcept(CodeableConcept)
-		case reference(Reference)
-	}
-	
-	/// All possible types for "reported[x]"
-	public enum ReportedX: Hashable {
-		case boolean(FHIRPrimitive<FHIRBool>)
-		case reference(Reference)
-	}
-	
-	/// All possible types for "scheduled[x]"
-	public enum ScheduledX: Hashable {
-		case period(Period)
-		case string(FHIRPrimitive<FHIRString>)
-		case timing(Timing)
-	}
-	
-	/// A description of the kind of resource the in-line definition of a care plan activity is representing.  The
-	/// CarePlan.activity.detail is an in-line definition when a resource is not referenced using
-	/// CarePlan.activity.reference.  For example, a MedicationRequest, a ServiceRequest, or a CommunicationRequest.
-	/// Restricted to: ['Appointment', 'CommunicationRequest', 'DeviceRequest', 'MedicationRequest', 'NutritionOrder',
-	/// 'Task', 'ServiceRequest', 'VisionPrescription']
-	public var kind: FHIRPrimitive<ResourceType>?
-	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
-	/// Detail type of activity
-	public var code: CodeableConcept?
-	
-	/// Why activity should be done or why activity was prohibited
-	public var reason: [CodeableReference]?
-	
-	/// Goals this activity relates to
-	public var goal: [Reference]?
-	
-	/// Identifies what progress is being made for the specific activity.
-	public var status: FHIRPrimitive<CarePlanActivityStatus>
-	
-	/// Reason for current status
-	public var statusReason: CodeableConcept?
-	
-	/// If true, activity is prohibiting action
-	public var doNotPerform: FHIRPrimitive<FHIRBool>?
-	
-	/// When activity is to occur
-	/// One of `scheduled[x]`
-	public var scheduled: ScheduledX?
-	
-	/// Where it should happen
-	public var location: CodeableReference?
-	
-	/// Reported rather than primary record
-	/// One of `reported[x]`
-	public var reported: ReportedX?
-	
-	/// Who will be responsible?
-	public var performer: [Reference]?
-	
-	/// What is to be administered/supplied
-	/// One of `product[x]`
-	public var product: ProductX?
-	
-	/// How to consume/day?
-	public var dailyAmount: Quantity?
-	
-	/// How much to administer/supply/consume
-	public var quantity: Quantity?
-	
-	/// Extra info describing activity to perform
-	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
-	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<CarePlanActivityStatus>) {
-		self.status = status
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		code: CodeableConcept? = nil,
-		dailyAmount: Quantity? = nil,
-		description_fhir: FHIRPrimitive<FHIRString>? = nil,
-		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
-		`extension`: [Extension]? = nil,
-		goal: [Reference]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-		kind: FHIRPrimitive<ResourceType>? = nil,
-		location: CodeableReference? = nil,
-		modifierExtension: [Extension]? = nil,
-		performer: [Reference]? = nil,
-		product: ProductX? = nil,
-		quantity: Quantity? = nil,
-		reason: [CodeableReference]? = nil,
-		reported: ReportedX? = nil,
-		scheduled: ScheduledX? = nil,
-		status: FHIRPrimitive<CarePlanActivityStatus>,
-		statusReason: CodeableConcept? = nil
-	) {
-		self.init(status: status)
-		self.code = code
-		self.dailyAmount = dailyAmount
-		self.description_fhir = description_fhir
-		self.doNotPerform = doNotPerform
-		self.`extension` = `extension`
-		self.goal = goal
-		self.id = id
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
-		self.kind = kind
-		self.location = location
-		self.modifierExtension = modifierExtension
-		self.performer = performer
-		self.product = product
-		self.quantity = quantity
-		self.reason = reason
-		self.reported = reported
-		self.scheduled = scheduled
-		self.statusReason = statusReason
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case code
-		case dailyAmount
-		case description_fhir = "description"; case _description_fhir = "_description"
-		case doNotPerform; case _doNotPerform
-		case goal
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
-		case kind; case _kind
-		case location
-		case performer
-		case productCodeableConcept
-		case productReference
-		case quantity
-		case reason
-		case reportedBoolean; case _reportedBoolean
-		case reportedReference
-		case scheduledPeriod
-		case scheduledString; case _scheduledString
-		case scheduledTiming
-		case status; case _status
-		case statusReason
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
-		self.dailyAmount = try Quantity(from: _container, forKeyIfPresent: .dailyAmount)
-		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
-		self.goal = try [Reference](from: _container, forKeyIfPresent: .goal)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.kind = try FHIRPrimitive<ResourceType>(from: _container, forKeyIfPresent: .kind, auxiliaryKey: ._kind)
-		self.location = try CodeableReference(from: _container, forKeyIfPresent: .location)
-		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
-		var _t_product: ProductX? = nil
-		if let productCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .productCodeableConcept) {
-			if _t_product != nil {
-				throw DecodingError.dataCorruptedError(forKey: .productCodeableConcept, in: _container, debugDescription: "More than one value provided for \"product\"")
-			}
-			_t_product = .codeableConcept(productCodeableConcept)
-		}
-		if let productReference = try Reference(from: _container, forKeyIfPresent: .productReference) {
-			if _t_product != nil {
-				throw DecodingError.dataCorruptedError(forKey: .productReference, in: _container, debugDescription: "More than one value provided for \"product\"")
-			}
-			_t_product = .reference(productReference)
-		}
-		self.product = _t_product
-		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
-		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
-		var _t_reported: ReportedX? = nil
-		if let reportedBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .reportedBoolean, auxiliaryKey: ._reportedBoolean) {
-			if _t_reported != nil {
-				throw DecodingError.dataCorruptedError(forKey: .reportedBoolean, in: _container, debugDescription: "More than one value provided for \"reported\"")
-			}
-			_t_reported = .boolean(reportedBoolean)
-		}
-		if let reportedReference = try Reference(from: _container, forKeyIfPresent: .reportedReference) {
-			if _t_reported != nil {
-				throw DecodingError.dataCorruptedError(forKey: .reportedReference, in: _container, debugDescription: "More than one value provided for \"reported\"")
-			}
-			_t_reported = .reference(reportedReference)
-		}
-		self.reported = _t_reported
-		var _t_scheduled: ScheduledX? = nil
-		if let scheduledTiming = try Timing(from: _container, forKeyIfPresent: .scheduledTiming) {
-			if _t_scheduled != nil {
-				throw DecodingError.dataCorruptedError(forKey: .scheduledTiming, in: _container, debugDescription: "More than one value provided for \"scheduled\"")
-			}
-			_t_scheduled = .timing(scheduledTiming)
-		}
-		if let scheduledPeriod = try Period(from: _container, forKeyIfPresent: .scheduledPeriod) {
-			if _t_scheduled != nil {
-				throw DecodingError.dataCorruptedError(forKey: .scheduledPeriod, in: _container, debugDescription: "More than one value provided for \"scheduled\"")
-			}
-			_t_scheduled = .period(scheduledPeriod)
-		}
-		if let scheduledString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .scheduledString, auxiliaryKey: ._scheduledString) {
-			if _t_scheduled != nil {
-				throw DecodingError.dataCorruptedError(forKey: .scheduledString, in: _container, debugDescription: "More than one value provided for \"scheduled\"")
-			}
-			_t_scheduled = .string(scheduledString)
-		}
-		self.scheduled = _t_scheduled
-		self.status = try FHIRPrimitive<CarePlanActivityStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try code?.encode(on: &_container, forKey: .code)
-		try dailyAmount?.encode(on: &_container, forKey: .dailyAmount)
-		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
-		try goal?.encode(on: &_container, forKey: .goal)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		try kind?.encode(on: &_container, forKey: .kind, auxiliaryKey: ._kind)
-		try location?.encode(on: &_container, forKey: .location)
-		try performer?.encode(on: &_container, forKey: .performer)
-		if let _enum = product {
-			switch _enum {
-			case .codeableConcept(let _value):
-				try _value.encode(on: &_container, forKey: .productCodeableConcept)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .productReference)
-			}
-		}
-		try quantity?.encode(on: &_container, forKey: .quantity)
-		try reason?.encode(on: &_container, forKey: .reason)
-		if let _enum = reported {
-			switch _enum {
-			case .boolean(let _value):
-				try _value.encode(on: &_container, forKey: .reportedBoolean, auxiliaryKey: ._reportedBoolean)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .reportedReference)
-			}
-		}
-		if let _enum = scheduled {
-			switch _enum {
-			case .timing(let _value):
-				try _value.encode(on: &_container, forKey: .scheduledTiming)
-			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .scheduledPeriod)
-			case .string(let _value):
-				try _value.encode(on: &_container, forKey: .scheduledString, auxiliaryKey: ._scheduledString)
-			}
-		}
-		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try statusReason?.encode(on: &_container, forKey: .statusReason)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? CarePlanActivityPlannedActivityDetail else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return code == _other.code
-		    && dailyAmount == _other.dailyAmount
-		    && description_fhir == _other.description_fhir
-		    && doNotPerform == _other.doNotPerform
-		    && goal == _other.goal
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
-		    && kind == _other.kind
-		    && location == _other.location
-		    && performer == _other.performer
-		    && product == _other.product
-		    && quantity == _other.quantity
-		    && reason == _other.reason
-		    && reported == _other.reported
-		    && scheduled == _other.scheduled
-		    && status == _other.status
-		    && statusReason == _other.statusReason
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(code)
-		hasher.combine(dailyAmount)
-		hasher.combine(description_fhir)
-		hasher.combine(doNotPerform)
-		hasher.combine(goal)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
-		hasher.combine(kind)
-		hasher.combine(location)
-		hasher.combine(performer)
-		hasher.combine(product)
-		hasher.combine(quantity)
-		hasher.combine(reason)
-		hasher.combine(reported)
-		hasher.combine(scheduled)
-		hasher.combine(status)
-		hasher.combine(statusReason)
 	}
 }

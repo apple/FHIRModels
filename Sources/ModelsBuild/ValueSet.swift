@@ -2,8 +2,8 @@
 //  ValueSet.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/ValueSet)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ValueSet)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -25,13 +25,16 @@ import FMCore
  A ValueSet resource instance specifies a set of codes drawn from one or more code systems, intended for use in a
  particular context. Value sets link between [CodeSystem](codesystem.html) definitions and their use in [coded
  elements](terminologies.html).
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class ValueSet: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .valueSet }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this value set, represented as a URI (globally unique)
 	public var url: FHIRPrimitive<FHIRURI>?
@@ -41,6 +44,10 @@ open class ValueSet: DomainResource {
 	
 	/// Business version of the value set
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
 	
 	/// Name for this value set (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
@@ -59,7 +66,7 @@ open class ValueSet: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -83,13 +90,44 @@ open class ValueSet: DomainResource {
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
+	/// When the ValueSet was approved by publisher
+	public var approvalDate: FHIRPrimitive<FHIRDate>?
+	
+	/// When the ValueSet was last reviewed by the publisher
+	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
+	
+	/// When the ValueSet is expected to be used
+	public var effectivePeriod: Period?
+	
+	/// E.g. Education, Treatment, Assessment, etc
+	public var topic: [CodeableConcept]?
+	
+	/// Who authored the ValueSet
+	public var author: [ContactDetail]?
+	
+	/// Who edited the ValueSet
+	public var editor: [ContactDetail]?
+	
+	/// Who reviewed the ValueSet
+	public var reviewer: [ContactDetail]?
+	
+	/// Who endorsed the ValueSet
+	public var endorser: [ContactDetail]?
+	
+	/// Additional documentation, citations, etc
+	public var relatedArtifact: [RelatedArtifact]?
+	
 	/// Content logical definition of the value set (CLD)
 	public var compose: ValueSetCompose?
 	
 	/// Used when the value set is "expanded"
 	public var expansion: ValueSetExpansion?
 	
-	/// Description of the semantic space the Value Set Expansion is intended to cover
+	/// Description of the semantic space the Value Set Expansion is intended to cover and should further clarify the
+	/// text in ValueSet.description
 	public var scope: ValueSetScope?
 	
 	/// Designated initializer taking all required properties
@@ -100,12 +138,18 @@ open class ValueSet: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
 		compose: ValueSetCompose? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
 		expansion: ValueSetExpansion? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
 		`extension`: [Extension]? = nil,
@@ -115,26 +159,37 @@ open class ValueSet: DomainResource {
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		jurisdiction: [CodeableConcept]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
 		purpose: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
 		scope: ValueSetScope? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		version: FHIRPrimitive<FHIRString>? = nil
+		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status)
+		self.approvalDate = approvalDate
+		self.author = author
 		self.compose = compose
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.date = date
 		self.description_fhir = description_fhir
+		self.editor = editor
+		self.effectivePeriod = effectivePeriod
+		self.endorser = endorser
 		self.expansion = expansion
 		self.experimental = experimental
 		self.`extension` = `extension`
@@ -144,41 +199,58 @@ open class ValueSet: DomainResource {
 		self.implicitRules = implicitRules
 		self.jurisdiction = jurisdiction
 		self.language = language
+		self.lastReviewDate = lastReviewDate
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.publisher = publisher
 		self.purpose = purpose
+		self.relatedArtifact = relatedArtifact
+		self.reviewer = reviewer
 		self.scope = scope
 		self.text = text
 		self.title = title
+		self.topic = topic
 		self.url = url
 		self.useContext = useContext
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case approvalDate; case _approvalDate
+		case author
 		case compose
 		case contact
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case editor
+		case effectivePeriod
+		case endorser
 		case expansion
 		case experimental; case _experimental
 		case identifier
 		case immutable; case _immutable
 		case jurisdiction
+		case lastReviewDate; case _lastReviewDate
 		case name; case _name
 		case publisher; case _publisher
 		case purpose; case _purpose
+		case relatedArtifact
+		case reviewer
 		case scope
 		case status; case _status
 		case title; case _title
+		case topic
 		case url; case _url
 		case useContext
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 	}
 	
 	/// Initializer for Decodable
@@ -186,25 +258,49 @@ open class ValueSet: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
+		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
 		self.compose = try ValueSetCompose(from: _container, forKeyIfPresent: .compose)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
+		self.effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod)
+		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
 		self.expansion = try ValueSetExpansion(from: _container, forKeyIfPresent: .expansion)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.immutable = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .immutable, auxiliaryKey: ._immutable)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
+		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
+		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
+		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.scope = try ValueSetScope(from: _container, forKeyIfPresent: .scope)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
+		self.topic = try [CodeableConcept](from: _container, forKeyIfPresent: .topic)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		try super.init(from: decoder)
 	}
 	
@@ -213,25 +309,43 @@ open class ValueSet: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
+		try author?.encode(on: &_container, forKey: .author)
 		try compose?.encode(on: &_container, forKey: .compose)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try editor?.encode(on: &_container, forKey: .editor)
+		try effectivePeriod?.encode(on: &_container, forKey: .effectivePeriod)
+		try endorser?.encode(on: &_container, forKey: .endorser)
 		try expansion?.encode(on: &_container, forKey: .expansion)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try immutable?.encode(on: &_container, forKey: .immutable, auxiliaryKey: ._immutable)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
+		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
+		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
+		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try scope?.encode(on: &_container, forKey: .scope)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
+		try topic?.encode(on: &_container, forKey: .topic)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -244,48 +358,70 @@ open class ValueSet: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return compose == _other.compose
+		return approvalDate == _other.approvalDate
+		    && author == _other.author
+		    && compose == _other.compose
 		    && contact == _other.contact
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
+		    && editor == _other.editor
+		    && effectivePeriod == _other.effectivePeriod
+		    && endorser == _other.endorser
 		    && expansion == _other.expansion
 		    && experimental == _other.experimental
 		    && identifier == _other.identifier
 		    && immutable == _other.immutable
 		    && jurisdiction == _other.jurisdiction
+		    && lastReviewDate == _other.lastReviewDate
 		    && name == _other.name
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
+		    && relatedArtifact == _other.relatedArtifact
+		    && reviewer == _other.reviewer
 		    && scope == _other.scope
 		    && status == _other.status
 		    && title == _other.title
+		    && topic == _other.topic
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(approvalDate)
+		hasher.combine(author)
 		hasher.combine(compose)
 		hasher.combine(contact)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
+		hasher.combine(editor)
+		hasher.combine(effectivePeriod)
+		hasher.combine(endorser)
 		hasher.combine(expansion)
 		hasher.combine(experimental)
 		hasher.combine(identifier)
 		hasher.combine(immutable)
 		hasher.combine(jurisdiction)
+		hasher.combine(lastReviewDate)
 		hasher.combine(name)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
+		hasher.combine(relatedArtifact)
+		hasher.combine(reviewer)
 		hasher.combine(scope)
 		hasher.combine(status)
 		hasher.combine(title)
+		hasher.combine(topic)
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 	}
 }
 
@@ -625,6 +761,9 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 	/// Types of uses of designations
 	public var use: Coding?
 	
+	/// Additional ways how this designation would be used
+	public var additionalUse: [Coding]?
+	
 	/// The text value for this designation
 	public var value: FHIRPrimitive<FHIRString>
 	
@@ -636,6 +775,7 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		additionalUse: [Coding]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
@@ -644,6 +784,7 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 		value: FHIRPrimitive<FHIRString>
 	) {
 		self.init(value: value)
+		self.additionalUse = additionalUse
 		self.`extension` = `extension`
 		self.id = id
 		self.language = language
@@ -654,6 +795,7 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case additionalUse
 		case language; case _language
 		case use
 		case value; case _value
@@ -664,6 +806,7 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.additionalUse = try [Coding](from: _container, forKeyIfPresent: .additionalUse)
 		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .language, auxiliaryKey: ._language)
 		self.use = try Coding(from: _container, forKeyIfPresent: .use)
 		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
@@ -675,6 +818,7 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try additionalUse?.encode(on: &_container, forKey: .additionalUse)
 		try language?.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
 		try use?.encode(on: &_container, forKey: .use)
 		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
@@ -690,13 +834,15 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return language == _other.language
+		return additionalUse == _other.additionalUse
+		    && language == _other.language
 		    && use == _other.use
 		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(additionalUse)
 		hasher.combine(language)
 		hasher.combine(use)
 		hasher.combine(value)
@@ -706,8 +852,9 @@ open class ValueSetComposeIncludeConceptDesignation: BackboneElement {
 /**
  Select codes/concepts by their properties (including relationships).
  
- Select concepts by specify a matching criterion based on the properties (including relationships) defined by the
- system, or on filters defined by the system. If multiple filters are specified, they SHALL all be true.
+ Select concepts by specifying a matching criterion based on the properties (including relationships) defined by the
+ system, or on filters defined by the system. If multiple filters are specified within the include, they SHALL all be
+ true.
  */
 open class ValueSetComposeIncludeFilter: BackboneElement {
 	
@@ -806,6 +953,9 @@ open class ValueSetExpansion: BackboneElement {
 	/// Identifies the value set expansion (business identifier)
 	public var identifier: FHIRPrimitive<FHIRURI>?
 	
+	/// Opaque urls for paging through expansion results
+	public var next: FHIRPrimitive<FHIRURI>?
+	
 	/// Time ValueSet expansion happened
 	public var timestamp: FHIRPrimitive<DateTime>
 	
@@ -837,6 +987,7 @@ open class ValueSetExpansion: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: FHIRPrimitive<FHIRURI>? = nil,
 		modifierExtension: [Extension]? = nil,
+		next: FHIRPrimitive<FHIRURI>? = nil,
 		offset: FHIRPrimitive<FHIRInteger>? = nil,
 		parameter: [ValueSetExpansionParameter]? = nil,
 		property: [ValueSetExpansionProperty]? = nil,
@@ -849,6 +1000,7 @@ open class ValueSetExpansion: BackboneElement {
 		self.id = id
 		self.identifier = identifier
 		self.modifierExtension = modifierExtension
+		self.next = next
 		self.offset = offset
 		self.parameter = parameter
 		self.property = property
@@ -860,6 +1012,7 @@ open class ValueSetExpansion: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case contains
 		case identifier; case _identifier
+		case next; case _next
 		case offset; case _offset
 		case parameter
 		case property
@@ -874,6 +1027,7 @@ open class ValueSetExpansion: BackboneElement {
 		// Decode all our properties
 		self.contains = try [ValueSetExpansionContains](from: _container, forKeyIfPresent: .contains)
 		self.identifier = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .identifier, auxiliaryKey: ._identifier)
+		self.next = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .next, auxiliaryKey: ._next)
 		self.offset = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .offset, auxiliaryKey: ._offset)
 		self.parameter = try [ValueSetExpansionParameter](from: _container, forKeyIfPresent: .parameter)
 		self.property = try [ValueSetExpansionProperty](from: _container, forKeyIfPresent: .property)
@@ -889,6 +1043,7 @@ open class ValueSetExpansion: BackboneElement {
 		// Encode all our properties
 		try contains?.encode(on: &_container, forKey: .contains)
 		try identifier?.encode(on: &_container, forKey: .identifier, auxiliaryKey: ._identifier)
+		try next?.encode(on: &_container, forKey: .next, auxiliaryKey: ._next)
 		try offset?.encode(on: &_container, forKey: .offset, auxiliaryKey: ._offset)
 		try parameter?.encode(on: &_container, forKey: .parameter)
 		try property?.encode(on: &_container, forKey: .property)
@@ -908,6 +1063,7 @@ open class ValueSetExpansion: BackboneElement {
 		}
 		return contains == _other.contains
 		    && identifier == _other.identifier
+		    && next == _other.next
 		    && offset == _other.offset
 		    && parameter == _other.parameter
 		    && property == _other.property
@@ -919,6 +1075,7 @@ open class ValueSetExpansion: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(contains)
 		hasher.combine(identifier)
+		hasher.combine(next)
 		hasher.combine(offset)
 		hasher.combine(parameter)
 		hasher.combine(property)
@@ -1103,6 +1260,180 @@ open class ValueSetExpansionContainsProperty: BackboneElement {
 	/// One of `value[x]`
 	public var value: ValueX
 	
+	/// SubProperty value for the concept
+	public var subProperty: [ValueSetExpansionContainsPropertySubProperty]?
+	
+	/// Designated initializer taking all required properties
+	public init(code: FHIRPrimitive<FHIRString>, value: ValueX) {
+		self.code = code
+		self.value = value
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: FHIRPrimitive<FHIRString>,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		subProperty: [ValueSetExpansionContainsPropertySubProperty]? = nil,
+		value: ValueX
+	) {
+		self.init(code: code, value: value)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.subProperty = subProperty
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code; case _code
+		case subProperty
+		case valueBoolean; case _valueBoolean
+		case valueCode; case _valueCode
+		case valueCoding
+		case valueDateTime; case _valueDateTime
+		case valueDecimal; case _valueDecimal
+		case valueInteger; case _valueInteger
+		case valueString; case _valueString
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueString) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueBoolean, CodingKeys.valueCode, CodingKeys.valueCoding, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueInteger, CodingKeys.valueString], debugDescription: "Must have at least one value for \"value\" but have none"))
+		}
+		
+		// Decode all our properties
+		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKey: .code, auxiliaryKey: ._code)
+		self.subProperty = try [ValueSetExpansionContainsPropertySubProperty](from: _container, forKeyIfPresent: .subProperty)
+		var _t_value: ValueX? = nil
+		if let valueCode = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueCode, auxiliaryKey: ._valueCode) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCode, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .code(valueCode)
+		}
+		if let valueCoding = try Coding(from: _container, forKeyIfPresent: .valueCoding) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueCoding, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .coding(valueCoding)
+		}
+		if let valueString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueString, auxiliaryKey: ._valueString) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueString, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .string(valueString)
+		}
+		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueInteger, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .integer(valueInteger)
+		}
+		if let valueBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .valueBoolean, auxiliaryKey: ._valueBoolean) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueBoolean, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .boolean(valueBoolean)
+		}
+		if let valueDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .valueDateTime, auxiliaryKey: ._valueDateTime) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDateTime, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .dateTime(valueDateTime)
+		}
+		if let valueDecimal = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .valueDecimal, auxiliaryKey: ._valueDecimal) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDecimal, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .decimal(valueDecimal)
+		}
+		self.value = _t_value!
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
+		try subProperty?.encode(on: &_container, forKey: .subProperty)
+		
+			switch value {
+			case .code(let _value):
+				try _value.encode(on: &_container, forKey: .valueCode, auxiliaryKey: ._valueCode)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .valueCoding)
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .valueString, auxiliaryKey: ._valueString)
+			case .integer(let _value):
+				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .valueDateTime, auxiliaryKey: ._valueDateTime)
+			case .decimal(let _value):
+				try _value.encode(on: &_container, forKey: .valueDecimal, auxiliaryKey: ._valueDecimal)
+			}
+		
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ValueSetExpansionContainsProperty else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && subProperty == _other.subProperty
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(subProperty)
+		hasher.combine(value)
+	}
+}
+
+/**
+ SubProperty value for the concept.
+ 
+ A subproperty value for this concept.
+ */
+open class ValueSetExpansionContainsPropertySubProperty: BackboneElement {
+	
+	/// All possible types for "value[x]"
+	public enum ValueX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
+		case code(FHIRPrimitive<FHIRString>)
+		case coding(Coding)
+		case dateTime(FHIRPrimitive<DateTime>)
+		case decimal(FHIRPrimitive<FHIRDecimal>)
+		case integer(FHIRPrimitive<FHIRInteger>)
+		case string(FHIRPrimitive<FHIRString>)
+	}
+	
+	/// Reference to ValueSet.expansion.property.code
+	public var code: FHIRPrimitive<FHIRString>
+	
+	/// Value of the subproperty for this concept
+	/// One of `value[x]`
+	public var value: ValueX
+	
 	/// Designated initializer taking all required properties
 	public init(code: FHIRPrimitive<FHIRString>, value: ValueX) {
 		self.code = code
@@ -1225,7 +1556,7 @@ open class ValueSetExpansionContainsProperty: BackboneElement {
 	// MARK: - Equatable & Hashable
 	
 	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ValueSetExpansionContainsProperty else {
+		guard let _other = _other as? ValueSetExpansionContainsPropertySubProperty else {
 			return false
 		}
 		guard super.isEqual(to: _other) else {
@@ -1484,12 +1815,10 @@ open class ValueSetExpansionProperty: BackboneElement {
 }
 
 /**
- Description of the semantic space the Value Set Expansion is intended to cover.
+ Description of the semantic space the Value Set Expansion is intended to cover and should further clarify the text in
+ ValueSet.description.
  */
 open class ValueSetScope: BackboneElement {
-	
-	/// General focus of the Value Set as it relates to the intended semantic space
-	public var focus: FHIRPrimitive<FHIRString>?
 	
 	/// Criteria describing which concepts or codes should be included and why
 	public var inclusionCriteria: FHIRPrimitive<FHIRString>?
@@ -1506,7 +1835,6 @@ open class ValueSetScope: BackboneElement {
 	public convenience init(
 		exclusionCriteria: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
-		focus: FHIRPrimitive<FHIRString>? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		inclusionCriteria: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
@@ -1514,7 +1842,6 @@ open class ValueSetScope: BackboneElement {
 		self.init()
 		self.exclusionCriteria = exclusionCriteria
 		self.`extension` = `extension`
-		self.focus = focus
 		self.id = id
 		self.inclusionCriteria = inclusionCriteria
 		self.modifierExtension = modifierExtension
@@ -1524,7 +1851,6 @@ open class ValueSetScope: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case exclusionCriteria; case _exclusionCriteria
-		case focus; case _focus
 		case inclusionCriteria; case _inclusionCriteria
 	}
 	
@@ -1534,7 +1860,6 @@ open class ValueSetScope: BackboneElement {
 		
 		// Decode all our properties
 		self.exclusionCriteria = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .exclusionCriteria, auxiliaryKey: ._exclusionCriteria)
-		self.focus = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .focus, auxiliaryKey: ._focus)
 		self.inclusionCriteria = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .inclusionCriteria, auxiliaryKey: ._inclusionCriteria)
 		try super.init(from: decoder)
 	}
@@ -1545,7 +1870,6 @@ open class ValueSetScope: BackboneElement {
 		
 		// Encode all our properties
 		try exclusionCriteria?.encode(on: &_container, forKey: .exclusionCriteria, auxiliaryKey: ._exclusionCriteria)
-		try focus?.encode(on: &_container, forKey: .focus, auxiliaryKey: ._focus)
 		try inclusionCriteria?.encode(on: &_container, forKey: .inclusionCriteria, auxiliaryKey: ._inclusionCriteria)
 		try super.encode(to: encoder)
 	}
@@ -1560,14 +1884,12 @@ open class ValueSetScope: BackboneElement {
 			return false
 		}
 		return exclusionCriteria == _other.exclusionCriteria
-		    && focus == _other.focus
 		    && inclusionCriteria == _other.inclusionCriteria
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(exclusionCriteria)
-		hasher.combine(focus)
 		hasher.combine(inclusionCriteria)
 	}
 }

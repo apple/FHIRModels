@@ -2,8 +2,8 @@
 //  AdministrableProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,6 +57,10 @@ open class AdministrableProductDefinition: DomainResource {
 	/// medicinal product
 	public var device: Reference?
 	
+	/// A general description of the product, when in its final form, suitable for administration e.g. effervescent blue
+	/// liquid, to be swallowed
+	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
 	/// Characteristics e.g. a product's onset of action
 	public var property: [AdministrableProductDefinitionProperty]?
 	
@@ -74,6 +78,7 @@ open class AdministrableProductDefinition: DomainResource {
 	public convenience init(
 		administrableDoseForm: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		device: Reference? = nil,
 		`extension`: [Extension]? = nil,
 		formOf: [Reference]? = nil,
@@ -94,6 +99,7 @@ open class AdministrableProductDefinition: DomainResource {
 		self.init(routeOfAdministration: routeOfAdministration, status: status)
 		self.administrableDoseForm = administrableDoseForm
 		self.contained = contained
+		self.description_fhir = description_fhir
 		self.device = device
 		self.`extension` = `extension`
 		self.formOf = formOf
@@ -114,6 +120,7 @@ open class AdministrableProductDefinition: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case administrableDoseForm
+		case description_fhir = "description"; case _description_fhir = "_description"
 		case device
 		case formOf
 		case identifier
@@ -131,6 +138,7 @@ open class AdministrableProductDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.administrableDoseForm = try CodeableConcept(from: _container, forKeyIfPresent: .administrableDoseForm)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.device = try Reference(from: _container, forKeyIfPresent: .device)
 		self.formOf = try [Reference](from: _container, forKeyIfPresent: .formOf)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
@@ -149,6 +157,7 @@ open class AdministrableProductDefinition: DomainResource {
 		
 		// Encode all our properties
 		try administrableDoseForm?.encode(on: &_container, forKey: .administrableDoseForm)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try device?.encode(on: &_container, forKey: .device)
 		try formOf?.encode(on: &_container, forKey: .formOf)
 		try identifier?.encode(on: &_container, forKey: .identifier)
@@ -171,6 +180,7 @@ open class AdministrableProductDefinition: DomainResource {
 			return false
 		}
 		return administrableDoseForm == _other.administrableDoseForm
+		    && description_fhir == _other.description_fhir
 		    && device == _other.device
 		    && formOf == _other.formOf
 		    && identifier == _other.identifier
@@ -185,6 +195,7 @@ open class AdministrableProductDefinition: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(administrableDoseForm)
+		hasher.combine(description_fhir)
 		hasher.combine(device)
 		hasher.combine(formOf)
 		hasher.combine(identifier)
@@ -208,7 +219,9 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case codeableConcept(CodeableConcept)
 		case date(FHIRPrimitive<FHIRDate>)
+		case markdown(FHIRPrimitive<FHIRString>)
 		case quantity(Quantity)
+		case reference(Reference)
 	}
 	
 	/// A code expressing the type of characteristic
@@ -253,7 +266,9 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
 		case valueDate; case _valueDate
+		case valueMarkdown; case _valueMarkdown
 		case valueQuantity
+		case valueReference
 	}
 	
 	/// Initializer for Decodable
@@ -288,11 +303,23 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 			}
 			_t_value = .boolean(valueBoolean)
 		}
+		if let valueMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .valueMarkdown, auxiliaryKey: ._valueMarkdown) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueMarkdown, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .markdown(valueMarkdown)
+		}
 		if let valueAttachment = try Attachment(from: _container, forKeyIfPresent: .valueAttachment) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueAttachment, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .attachment(valueAttachment)
+		}
+		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueReference, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .reference(valueReference)
 		}
 		self.value = _t_value
 		try super.init(from: decoder)
@@ -315,8 +342,12 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
 			case .boolean(let _value):
 				try _value.encode(on: &_container, forKey: .valueBoolean, auxiliaryKey: ._valueBoolean)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .attachment(let _value):
 				try _value.encode(on: &_container, forKey: .valueAttachment)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .valueReference)
 			}
 		}
 		try super.encode(to: encoder)

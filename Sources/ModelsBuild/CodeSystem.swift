@@ -2,8 +2,8 @@
 //  CodeSystem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CodeSystem)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CodeSystem)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -24,13 +24,16 @@ import FMCore
  
  The CodeSystem resource is used to declare the existence of and describe a code system or code system supplement and
  its key properties, and optionally define a part or all of its content.
- 
- Interfaces:
-	 - CanonicalResource: http://hl7.org/fhir/StructureDefinition/CanonicalResource
  */
 open class CodeSystem: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .codeSystem }
+	
+	/// All possible types for "versionAlgorithm[x]"
+	public enum VersionAlgorithmX: Hashable {
+		case coding(Coding)
+		case string(FHIRPrimitive<FHIRString>)
+	}
 	
 	/// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system)
 	public var url: FHIRPrimitive<FHIRURI>?
@@ -41,13 +44,17 @@ open class CodeSystem: DomainResource {
 	/// Business version of the code system (Coding.version)
 	public var version: FHIRPrimitive<FHIRString>?
 	
+	/// How to compare versions
+	/// One of `versionAlgorithm[x]`
+	public var versionAlgorithm: VersionAlgorithmX?
+	
 	/// Name for this code system (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Name for this code system (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
 	
-	/// The date (and optionally time) when the code system resource was created or revised.
+	/// The status of this code system. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
 	/// For testing purposes, not real usage
@@ -56,7 +63,7 @@ open class CodeSystem: DomainResource {
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Name of the publisher (organization or individual)
+	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
@@ -76,6 +83,36 @@ open class CodeSystem: DomainResource {
 	
 	/// Use and/or publishing restrictions
 	public var copyright: FHIRPrimitive<FHIRString>?
+	
+	/// Copyright holder and year(s)
+	public var copyrightLabel: FHIRPrimitive<FHIRString>?
+	
+	/// When the CodeSystem was approved by publisher
+	public var approvalDate: FHIRPrimitive<FHIRDate>?
+	
+	/// When the CodeSystem was last reviewed by the publisher
+	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
+	
+	/// When the CodeSystem is expected to be used
+	public var effectivePeriod: Period?
+	
+	/// E.g. Education, Treatment, Assessment, etc
+	public var topic: [CodeableConcept]?
+	
+	/// Who authored the CodeSystem
+	public var author: [ContactDetail]?
+	
+	/// Who edited the CodeSystem
+	public var editor: [ContactDetail]?
+	
+	/// Who reviewed the CodeSystem
+	public var reviewer: [ContactDetail]?
+	
+	/// Who endorsed the CodeSystem
+	public var endorser: [ContactDetail]?
+	
+	/// Additional documentation, citations, etc
+	public var relatedArtifact: [RelatedArtifact]?
 	
 	/// If code comparison is case sensitive
 	public var caseSensitive: FHIRPrimitive<FHIRBool>?
@@ -120,6 +157,8 @@ open class CodeSystem: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
+		author: [ContactDetail]? = nil,
 		caseSensitive: FHIRPrimitive<FHIRBool>? = nil,
 		compositional: FHIRPrimitive<FHIRBool>? = nil,
 		concept: [CodeSystemConcept]? = nil,
@@ -127,9 +166,13 @@ open class CodeSystem: DomainResource {
 		contained: [ResourceProxy]? = nil,
 		content: FHIRPrimitive<CodeSystemContentMode>,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
+		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		count: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		editor: [ContactDetail]? = nil,
+		effectivePeriod: Period? = nil,
+		endorser: [ContactDetail]? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
 		`extension`: [Extension]? = nil,
 		filter: [CodeSystemFilter]? = nil,
@@ -139,32 +182,43 @@ open class CodeSystem: DomainResource {
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		jurisdiction: [CodeableConcept]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		property: [CodeSystemProperty]? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
 		purpose: FHIRPrimitive<FHIRString>? = nil,
+		relatedArtifact: [RelatedArtifact]? = nil,
+		reviewer: [ContactDetail]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		supplements: FHIRPrimitive<Canonical>? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
+		topic: [CodeableConcept]? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
 		valueSet: FHIRPrimitive<Canonical>? = nil,
 		version: FHIRPrimitive<FHIRString>? = nil,
+		versionAlgorithm: VersionAlgorithmX? = nil,
 		versionNeeded: FHIRPrimitive<FHIRBool>? = nil
 	) {
 		self.init(content: content, status: status)
+		self.approvalDate = approvalDate
+		self.author = author
 		self.caseSensitive = caseSensitive
 		self.compositional = compositional
 		self.concept = concept
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
+		self.copyrightLabel = copyrightLabel
 		self.count = count
 		self.date = date
 		self.description_fhir = description_fhir
+		self.editor = editor
+		self.effectivePeriod = effectivePeriod
+		self.endorser = endorser
 		self.experimental = experimental
 		self.`extension` = `extension`
 		self.filter = filter
@@ -174,50 +228,67 @@ open class CodeSystem: DomainResource {
 		self.implicitRules = implicitRules
 		self.jurisdiction = jurisdiction
 		self.language = language
+		self.lastReviewDate = lastReviewDate
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.property = property
 		self.publisher = publisher
 		self.purpose = purpose
+		self.relatedArtifact = relatedArtifact
+		self.reviewer = reviewer
 		self.supplements = supplements
 		self.text = text
 		self.title = title
+		self.topic = topic
 		self.url = url
 		self.useContext = useContext
 		self.valueSet = valueSet
 		self.version = version
+		self.versionAlgorithm = versionAlgorithm
 		self.versionNeeded = versionNeeded
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case approvalDate; case _approvalDate
+		case author
 		case caseSensitive; case _caseSensitive
 		case compositional; case _compositional
 		case concept
 		case contact
 		case content; case _content
 		case copyright; case _copyright
+		case copyrightLabel; case _copyrightLabel
 		case count; case _count
 		case date; case _date
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case editor
+		case effectivePeriod
+		case endorser
 		case experimental; case _experimental
 		case filter
 		case hierarchyMeaning; case _hierarchyMeaning
 		case identifier
 		case jurisdiction
+		case lastReviewDate; case _lastReviewDate
 		case name; case _name
 		case property
 		case publisher; case _publisher
 		case purpose; case _purpose
+		case relatedArtifact
+		case reviewer
 		case status; case _status
 		case supplements; case _supplements
 		case title; case _title
+		case topic
 		case url; case _url
 		case useContext
 		case valueSet; case _valueSet
 		case version; case _version
+		case versionAlgorithmCoding
+		case versionAlgorithmString; case _versionAlgorithmString
 		case versionNeeded; case _versionNeeded
 	}
 	
@@ -226,31 +297,55 @@ open class CodeSystem: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
+		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
 		self.caseSensitive = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .caseSensitive, auxiliaryKey: ._caseSensitive)
 		self.compositional = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .compositional, auxiliaryKey: ._compositional)
 		self.concept = try [CodeSystemConcept](from: _container, forKeyIfPresent: .concept)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.content = try FHIRPrimitive<CodeSystemContentMode>(from: _container, forKey: .content, auxiliaryKey: ._content)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
+		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.count = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .count, auxiliaryKey: ._count)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.editor = try [ContactDetail](from: _container, forKeyIfPresent: .editor)
+		self.effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod)
+		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.filter = try [CodeSystemFilter](from: _container, forKeyIfPresent: .filter)
 		self.hierarchyMeaning = try FHIRPrimitive<CodeSystemHierarchyMeaning>(from: _container, forKeyIfPresent: .hierarchyMeaning, auxiliaryKey: ._hierarchyMeaning)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
+		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.property = try [CodeSystemProperty](from: _container, forKeyIfPresent: .property)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
+		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
+		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.supplements = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .supplements, auxiliaryKey: ._supplements)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
+		self.topic = try [CodeableConcept](from: _container, forKeyIfPresent: .topic)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.valueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .valueSet, auxiliaryKey: ._valueSet)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
+		var _t_versionAlgorithm: VersionAlgorithmX? = nil
+		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmString, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .string(versionAlgorithmString)
+		}
+		if let versionAlgorithmCoding = try Coding(from: _container, forKeyIfPresent: .versionAlgorithmCoding) {
+			if _t_versionAlgorithm != nil {
+				throw DecodingError.dataCorruptedError(forKey: .versionAlgorithmCoding, in: _container, debugDescription: "More than one value provided for \"versionAlgorithm\"")
+			}
+			_t_versionAlgorithm = .coding(versionAlgorithmCoding)
+		}
+		self.versionAlgorithm = _t_versionAlgorithm
 		self.versionNeeded = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .versionNeeded, auxiliaryKey: ._versionNeeded)
 		try super.init(from: decoder)
 	}
@@ -260,31 +355,49 @@ open class CodeSystem: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
+		try author?.encode(on: &_container, forKey: .author)
 		try caseSensitive?.encode(on: &_container, forKey: .caseSensitive, auxiliaryKey: ._caseSensitive)
 		try compositional?.encode(on: &_container, forKey: .compositional, auxiliaryKey: ._compositional)
 		try concept?.encode(on: &_container, forKey: .concept)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try content.encode(on: &_container, forKey: .content, auxiliaryKey: ._content)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
+		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try count?.encode(on: &_container, forKey: .count, auxiliaryKey: ._count)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try editor?.encode(on: &_container, forKey: .editor)
+		try effectivePeriod?.encode(on: &_container, forKey: .effectivePeriod)
+		try endorser?.encode(on: &_container, forKey: .endorser)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try filter?.encode(on: &_container, forKey: .filter)
 		try hierarchyMeaning?.encode(on: &_container, forKey: .hierarchyMeaning, auxiliaryKey: ._hierarchyMeaning)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
+		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try property?.encode(on: &_container, forKey: .property)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
+		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
+		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try supplements?.encode(on: &_container, forKey: .supplements, auxiliaryKey: ._supplements)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
+		try topic?.encode(on: &_container, forKey: .topic)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
 		try valueSet?.encode(on: &_container, forKey: .valueSet, auxiliaryKey: ._valueSet)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
+		if let _enum = versionAlgorithm {
+			switch _enum {
+			case .string(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString)
+			case .coding(let _value):
+				try _value.encode(on: &_container, forKey: .versionAlgorithmCoding)
+			}
+		}
 		try versionNeeded?.encode(on: &_container, forKey: .versionNeeded, auxiliaryKey: ._versionNeeded)
 		try super.encode(to: encoder)
 	}
@@ -298,61 +411,83 @@ open class CodeSystem: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return caseSensitive == _other.caseSensitive
+		return approvalDate == _other.approvalDate
+		    && author == _other.author
+		    && caseSensitive == _other.caseSensitive
 		    && compositional == _other.compositional
 		    && concept == _other.concept
 		    && contact == _other.contact
 		    && content == _other.content
 		    && copyright == _other.copyright
+		    && copyrightLabel == _other.copyrightLabel
 		    && count == _other.count
 		    && date == _other.date
 		    && description_fhir == _other.description_fhir
+		    && editor == _other.editor
+		    && effectivePeriod == _other.effectivePeriod
+		    && endorser == _other.endorser
 		    && experimental == _other.experimental
 		    && filter == _other.filter
 		    && hierarchyMeaning == _other.hierarchyMeaning
 		    && identifier == _other.identifier
 		    && jurisdiction == _other.jurisdiction
+		    && lastReviewDate == _other.lastReviewDate
 		    && name == _other.name
 		    && property == _other.property
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
+		    && relatedArtifact == _other.relatedArtifact
+		    && reviewer == _other.reviewer
 		    && status == _other.status
 		    && supplements == _other.supplements
 		    && title == _other.title
+		    && topic == _other.topic
 		    && url == _other.url
 		    && useContext == _other.useContext
 		    && valueSet == _other.valueSet
 		    && version == _other.version
+		    && versionAlgorithm == _other.versionAlgorithm
 		    && versionNeeded == _other.versionNeeded
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(approvalDate)
+		hasher.combine(author)
 		hasher.combine(caseSensitive)
 		hasher.combine(compositional)
 		hasher.combine(concept)
 		hasher.combine(contact)
 		hasher.combine(content)
 		hasher.combine(copyright)
+		hasher.combine(copyrightLabel)
 		hasher.combine(count)
 		hasher.combine(date)
 		hasher.combine(description_fhir)
+		hasher.combine(editor)
+		hasher.combine(effectivePeriod)
+		hasher.combine(endorser)
 		hasher.combine(experimental)
 		hasher.combine(filter)
 		hasher.combine(hierarchyMeaning)
 		hasher.combine(identifier)
 		hasher.combine(jurisdiction)
+		hasher.combine(lastReviewDate)
 		hasher.combine(name)
 		hasher.combine(property)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
+		hasher.combine(relatedArtifact)
+		hasher.combine(reviewer)
 		hasher.combine(status)
 		hasher.combine(supplements)
 		hasher.combine(title)
+		hasher.combine(topic)
 		hasher.combine(url)
 		hasher.combine(useContext)
 		hasher.combine(valueSet)
 		hasher.combine(version)
+		hasher.combine(versionAlgorithm)
 		hasher.combine(versionNeeded)
 	}
 }
@@ -493,6 +628,9 @@ open class CodeSystemConceptDesignation: BackboneElement {
 	/// Details how this designation would be used
 	public var use: Coding?
 	
+	/// Additional ways how this designation would be used
+	public var additionalUse: [Coding]?
+	
 	/// The text value for this designation
 	public var value: FHIRPrimitive<FHIRString>
 	
@@ -504,6 +642,7 @@ open class CodeSystemConceptDesignation: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		additionalUse: [Coding]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
@@ -512,6 +651,7 @@ open class CodeSystemConceptDesignation: BackboneElement {
 		value: FHIRPrimitive<FHIRString>
 	) {
 		self.init(value: value)
+		self.additionalUse = additionalUse
 		self.`extension` = `extension`
 		self.id = id
 		self.language = language
@@ -522,6 +662,7 @@ open class CodeSystemConceptDesignation: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case additionalUse
 		case language; case _language
 		case use
 		case value; case _value
@@ -532,6 +673,7 @@ open class CodeSystemConceptDesignation: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.additionalUse = try [Coding](from: _container, forKeyIfPresent: .additionalUse)
 		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .language, auxiliaryKey: ._language)
 		self.use = try Coding(from: _container, forKeyIfPresent: .use)
 		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKey: .value, auxiliaryKey: ._value)
@@ -543,6 +685,7 @@ open class CodeSystemConceptDesignation: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try additionalUse?.encode(on: &_container, forKey: .additionalUse)
 		try language?.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
 		try use?.encode(on: &_container, forKey: .use)
 		try value.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
@@ -558,13 +701,15 @@ open class CodeSystemConceptDesignation: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return language == _other.language
+		return additionalUse == _other.additionalUse
+		    && language == _other.language
 		    && use == _other.use
 		    && value == _other.value
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(additionalUse)
 		hasher.combine(language)
 		hasher.combine(use)
 		hasher.combine(value)

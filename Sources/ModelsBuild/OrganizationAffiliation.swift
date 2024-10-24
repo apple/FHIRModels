@@ -2,8 +2,8 @@
 //  OrganizationAffiliation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/OrganizationAffiliation)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/OrganizationAffiliation)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- Defines an affiliation/assotiation/relationship between 2 distinct organizations, that is not a part-of
+ Defines an affiliation/association/relationship between 2 distinct organizations, that is not a part-of
  relationship/sub-division relationship.
  */
 open class OrganizationAffiliation: DomainResource {
@@ -42,8 +42,8 @@ open class OrganizationAffiliation: DomainResource {
 	/// Organization that provides/performs the role (e.g. providing services or is a member of)
 	public var participatingOrganization: Reference?
 	
-	/// Health insurance provider network in which the participatingOrganization provides the role's services (if
-	/// defined) at the indicated locations (if defined)
+	/// The network in which the participatingOrganization provides the role's services (if defined) at the indicated
+	/// locations (if defined)
 	public var network: [Reference]?
 	
 	/// Definition of the role the participatingOrganization plays
@@ -58,8 +58,8 @@ open class OrganizationAffiliation: DomainResource {
 	/// Healthcare services provided through the role
 	public var healthcareService: [Reference]?
 	
-	/// Contact details at the participatingOrganization relevant to this Affiliation
-	public var telecom: [ContactPoint]?
+	/// Official contact details at the participatingOrganization relevant to this Affiliation
+	public var contact: [ExtendedContactDetail]?
 	
 	/// Technical endpoints providing access to services operated for this role
 	public var endpoint: [Reference]?
@@ -73,6 +73,7 @@ open class OrganizationAffiliation: DomainResource {
 	public convenience init(
 		active: FHIRPrimitive<FHIRBool>? = nil,
 		code: [CodeableConcept]? = nil,
+		contact: [ExtendedContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		endpoint: [Reference]? = nil,
 		`extension`: [Extension]? = nil,
@@ -89,12 +90,12 @@ open class OrganizationAffiliation: DomainResource {
 		participatingOrganization: Reference? = nil,
 		period: Period? = nil,
 		specialty: [CodeableConcept]? = nil,
-		telecom: [ContactPoint]? = nil,
 		text: Narrative? = nil
 	) {
 		self.init()
 		self.active = active
 		self.code = code
+		self.contact = contact
 		self.contained = contained
 		self.endpoint = endpoint
 		self.`extension` = `extension`
@@ -111,7 +112,6 @@ open class OrganizationAffiliation: DomainResource {
 		self.participatingOrganization = participatingOrganization
 		self.period = period
 		self.specialty = specialty
-		self.telecom = telecom
 		self.text = text
 	}
 	
@@ -120,6 +120,7 @@ open class OrganizationAffiliation: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case active; case _active
 		case code
+		case contact
 		case endpoint
 		case healthcareService
 		case identifier
@@ -129,7 +130,6 @@ open class OrganizationAffiliation: DomainResource {
 		case participatingOrganization
 		case period
 		case specialty
-		case telecom
 	}
 	
 	/// Initializer for Decodable
@@ -139,6 +139,7 @@ open class OrganizationAffiliation: DomainResource {
 		// Decode all our properties
 		self.active = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .active, auxiliaryKey: ._active)
 		self.code = try [CodeableConcept](from: _container, forKeyIfPresent: .code)
+		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.healthcareService = try [Reference](from: _container, forKeyIfPresent: .healthcareService)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
@@ -148,7 +149,6 @@ open class OrganizationAffiliation: DomainResource {
 		self.participatingOrganization = try Reference(from: _container, forKeyIfPresent: .participatingOrganization)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.specialty = try [CodeableConcept](from: _container, forKeyIfPresent: .specialty)
-		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
 		try super.init(from: decoder)
 	}
 	
@@ -159,6 +159,7 @@ open class OrganizationAffiliation: DomainResource {
 		// Encode all our properties
 		try active?.encode(on: &_container, forKey: .active, auxiliaryKey: ._active)
 		try code?.encode(on: &_container, forKey: .code)
+		try contact?.encode(on: &_container, forKey: .contact)
 		try endpoint?.encode(on: &_container, forKey: .endpoint)
 		try healthcareService?.encode(on: &_container, forKey: .healthcareService)
 		try identifier?.encode(on: &_container, forKey: .identifier)
@@ -168,7 +169,6 @@ open class OrganizationAffiliation: DomainResource {
 		try participatingOrganization?.encode(on: &_container, forKey: .participatingOrganization)
 		try period?.encode(on: &_container, forKey: .period)
 		try specialty?.encode(on: &_container, forKey: .specialty)
-		try telecom?.encode(on: &_container, forKey: .telecom)
 		try super.encode(to: encoder)
 	}
 	
@@ -183,6 +183,7 @@ open class OrganizationAffiliation: DomainResource {
 		}
 		return active == _other.active
 		    && code == _other.code
+		    && contact == _other.contact
 		    && endpoint == _other.endpoint
 		    && healthcareService == _other.healthcareService
 		    && identifier == _other.identifier
@@ -192,13 +193,13 @@ open class OrganizationAffiliation: DomainResource {
 		    && participatingOrganization == _other.participatingOrganization
 		    && period == _other.period
 		    && specialty == _other.specialty
-		    && telecom == _other.telecom
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(active)
 		hasher.combine(code)
+		hasher.combine(contact)
 		hasher.combine(endpoint)
 		hasher.combine(healthcareService)
 		hasher.combine(identifier)
@@ -208,6 +209,5 @@ open class OrganizationAffiliation: DomainResource {
 		hasher.combine(participatingOrganization)
 		hasher.combine(period)
 		hasher.combine(specialty)
-		hasher.combine(telecom)
 	}
 }

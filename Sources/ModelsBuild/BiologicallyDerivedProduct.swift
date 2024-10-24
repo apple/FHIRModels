@@ -2,8 +2,8 @@
 //  BiologicallyDerivedProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,41 +30,41 @@ open class BiologicallyDerivedProduct: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .biologicallyDerivedProduct }
 	
-	/// Broad category of this product.
-	public var productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>?
+	/// A category or classification of the product
+	public var productCategory: [CodeableConcept]?
 	
-	/// What this biologically derived product is
+	/// A code that identifies the kind of this biologically derived product
 	public var productCode: CodeableConcept?
 	
-	/// BiologicallyDerivedProduct parent
+	/// The parent biologically-derived product
 	public var parent: [Reference]?
 	
-	/// Procedure request
+	/// Request to obtain and/or infuse this product
 	public var request: [Reference]?
 	
-	/// External ids for this item
+	/// Instance identifier
 	public var identifier: [Identifier]?
 	
-	/// An identifier that supports traceability to the biological entity that is the source of biological material in
-	/// the product
-	public var biologicalSource: Identifier?
+	/// An identifier that supports traceability to the event during which material in this product from one or more
+	/// biological entities was obtained or pooled
+	public var biologicalSourceEvent: Identifier?
 	
-	/// Processing facility
+	/// Processing facilities responsible for the labeling and distribution of this biologically derived product
 	public var processingFacility: [Reference]?
 	
-	/// Description of division
+	/// A unique identifier for an aliquot of a product
 	public var division: FHIRPrimitive<FHIRString>?
 	
-	/// Whether the product is currently available.
-	public var status: FHIRPrimitive<BiologicallyDerivedProductStatus>?
+	/// available | unavailable | processed | applied | discarded
+	public var productStatus: Coding?
 	
-	/// Date of expiration
+	/// Date, and where relevant time, of expiration
 	public var expirationDate: FHIRPrimitive<DateTime>?
 	
 	/// How this product was collected
 	public var collection: BiologicallyDerivedProductCollection?
 	
-	/// Product storage temp requirements
+	/// Product storage temperature requirements
 	public var storageTempRequirements: Range?
 	
 	/// A property that is specific to this BiologicallyDerviedProduct instance
@@ -77,7 +77,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		biologicalSource: Identifier? = nil,
+		biologicalSourceEvent: Identifier? = nil,
 		collection: BiologicallyDerivedProductCollection? = nil,
 		contained: [ResourceProxy]? = nil,
 		division: FHIRPrimitive<FHIRString>? = nil,
@@ -91,16 +91,16 @@ open class BiologicallyDerivedProduct: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		parent: [Reference]? = nil,
 		processingFacility: [Reference]? = nil,
-		productCategory: FHIRPrimitive<BiologicallyDerivedProductCategory>? = nil,
+		productCategory: [CodeableConcept]? = nil,
 		productCode: CodeableConcept? = nil,
+		productStatus: Coding? = nil,
 		property: [BiologicallyDerivedProductProperty]? = nil,
 		request: [Reference]? = nil,
-		status: FHIRPrimitive<BiologicallyDerivedProductStatus>? = nil,
 		storageTempRequirements: Range? = nil,
 		text: Narrative? = nil
 	) {
 		self.init()
-		self.biologicalSource = biologicalSource
+		self.biologicalSourceEvent = biologicalSourceEvent
 		self.collection = collection
 		self.contained = contained
 		self.division = division
@@ -116,9 +116,9 @@ open class BiologicallyDerivedProduct: DomainResource {
 		self.processingFacility = processingFacility
 		self.productCategory = productCategory
 		self.productCode = productCode
+		self.productStatus = productStatus
 		self.property = property
 		self.request = request
-		self.status = status
 		self.storageTempRequirements = storageTempRequirements
 		self.text = text
 	}
@@ -126,18 +126,18 @@ open class BiologicallyDerivedProduct: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case biologicalSource
+		case biologicalSourceEvent
 		case collection
 		case division; case _division
 		case expirationDate; case _expirationDate
 		case identifier
 		case parent
 		case processingFacility
-		case productCategory; case _productCategory
+		case productCategory
 		case productCode
+		case productStatus
 		case property
 		case request
-		case status; case _status
 		case storageTempRequirements
 	}
 	
@@ -146,18 +146,18 @@ open class BiologicallyDerivedProduct: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.biologicalSource = try Identifier(from: _container, forKeyIfPresent: .biologicalSource)
+		self.biologicalSourceEvent = try Identifier(from: _container, forKeyIfPresent: .biologicalSourceEvent)
 		self.collection = try BiologicallyDerivedProductCollection(from: _container, forKeyIfPresent: .collection)
 		self.division = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .division, auxiliaryKey: ._division)
 		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.parent = try [Reference](from: _container, forKeyIfPresent: .parent)
 		self.processingFacility = try [Reference](from: _container, forKeyIfPresent: .processingFacility)
-		self.productCategory = try FHIRPrimitive<BiologicallyDerivedProductCategory>(from: _container, forKeyIfPresent: .productCategory, auxiliaryKey: ._productCategory)
+		self.productCategory = try [CodeableConcept](from: _container, forKeyIfPresent: .productCategory)
 		self.productCode = try CodeableConcept(from: _container, forKeyIfPresent: .productCode)
+		self.productStatus = try Coding(from: _container, forKeyIfPresent: .productStatus)
 		self.property = try [BiologicallyDerivedProductProperty](from: _container, forKeyIfPresent: .property)
 		self.request = try [Reference](from: _container, forKeyIfPresent: .request)
-		self.status = try FHIRPrimitive<BiologicallyDerivedProductStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.storageTempRequirements = try Range(from: _container, forKeyIfPresent: .storageTempRequirements)
 		try super.init(from: decoder)
 	}
@@ -167,18 +167,18 @@ open class BiologicallyDerivedProduct: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try biologicalSource?.encode(on: &_container, forKey: .biologicalSource)
+		try biologicalSourceEvent?.encode(on: &_container, forKey: .biologicalSourceEvent)
 		try collection?.encode(on: &_container, forKey: .collection)
 		try division?.encode(on: &_container, forKey: .division, auxiliaryKey: ._division)
 		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try parent?.encode(on: &_container, forKey: .parent)
 		try processingFacility?.encode(on: &_container, forKey: .processingFacility)
-		try productCategory?.encode(on: &_container, forKey: .productCategory, auxiliaryKey: ._productCategory)
+		try productCategory?.encode(on: &_container, forKey: .productCategory)
 		try productCode?.encode(on: &_container, forKey: .productCode)
+		try productStatus?.encode(on: &_container, forKey: .productStatus)
 		try property?.encode(on: &_container, forKey: .property)
 		try request?.encode(on: &_container, forKey: .request)
-		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try storageTempRequirements?.encode(on: &_container, forKey: .storageTempRequirements)
 		try super.encode(to: encoder)
 	}
@@ -192,7 +192,7 @@ open class BiologicallyDerivedProduct: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return biologicalSource == _other.biologicalSource
+		return biologicalSourceEvent == _other.biologicalSourceEvent
 		    && collection == _other.collection
 		    && division == _other.division
 		    && expirationDate == _other.expirationDate
@@ -201,15 +201,15 @@ open class BiologicallyDerivedProduct: DomainResource {
 		    && processingFacility == _other.processingFacility
 		    && productCategory == _other.productCategory
 		    && productCode == _other.productCode
+		    && productStatus == _other.productStatus
 		    && property == _other.property
 		    && request == _other.request
-		    && status == _other.status
 		    && storageTempRequirements == _other.storageTempRequirements
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(biologicalSource)
+		hasher.combine(biologicalSourceEvent)
 		hasher.combine(collection)
 		hasher.combine(division)
 		hasher.combine(expirationDate)
@@ -218,9 +218,9 @@ open class BiologicallyDerivedProduct: DomainResource {
 		hasher.combine(processingFacility)
 		hasher.combine(productCategory)
 		hasher.combine(productCode)
+		hasher.combine(productStatus)
 		hasher.combine(property)
 		hasher.combine(request)
-		hasher.combine(status)
 		hasher.combine(storageTempRequirements)
 	}
 }
@@ -239,12 +239,16 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 	/// Individual performing collection
 	public var collector: Reference?
 	
-	/// Who is product from
+	/// The patient who underwent the medical procedure to collect the product or the organization that facilitated the
+	/// collection
 	public var source: Reference?
 	
 	/// Time of product collection
 	/// One of `collected[x]`
 	public var collected: CollectedX?
+	
+	/// The procedure involved in the collection
+	public var procedure: Reference?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -258,6 +262,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
+		procedure: Reference? = nil,
 		source: Reference? = nil
 	) {
 		self.init()
@@ -266,6 +271,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.procedure = procedure
 		self.source = source
 	}
 	
@@ -275,6 +281,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		case collectedDateTime; case _collectedDateTime
 		case collectedPeriod
 		case collector
+		case procedure
 		case source
 	}
 	
@@ -298,6 +305,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		}
 		self.collected = _t_collected
 		self.collector = try Reference(from: _container, forKeyIfPresent: .collector)
+		self.procedure = try Reference(from: _container, forKeyIfPresent: .procedure)
 		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		try super.init(from: decoder)
 	}
@@ -316,6 +324,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 			}
 		}
 		try collector?.encode(on: &_container, forKey: .collector)
+		try procedure?.encode(on: &_container, forKey: .procedure)
 		try source?.encode(on: &_container, forKey: .source)
 		try super.encode(to: encoder)
 	}
@@ -331,6 +340,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		}
 		return collected == _other.collected
 		    && collector == _other.collector
+		    && procedure == _other.procedure
 		    && source == _other.source
 	}
 	
@@ -338,6 +348,7 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(collected)
 		hasher.combine(collector)
+		hasher.combine(procedure)
 		hasher.combine(source)
 	}
 }

@@ -2,8 +2,8 @@
 //  Slot.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Slot)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Slot)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ open class Slot: DomainResource {
 	/// The type of appointments that can be booked into this slot (ideally this would be an identifiable service -
 	/// which is at a location, rather than the location itself). If provided then this overrides the value provided on
 	/// the Schedule resource
-	public var serviceType: [CodeableConcept]?
+	public var serviceType: [CodeableReference]?
 	
 	/// The specialty of a practitioner that would be required to perform the service requested in this appointment
 	public var specialty: [CodeableConcept]?
@@ -86,7 +86,7 @@ open class Slot: DomainResource {
 		overbooked: FHIRPrimitive<FHIRBool>? = nil,
 		schedule: Reference,
 		serviceCategory: [CodeableConcept]? = nil,
-		serviceType: [CodeableConcept]? = nil,
+		serviceType: [CodeableReference]? = nil,
 		specialty: [CodeableConcept]? = nil,
 		start: FHIRPrimitive<Instant>,
 		status: FHIRPrimitive<SlotStatus>,
@@ -138,7 +138,7 @@ open class Slot: DomainResource {
 		self.overbooked = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .overbooked, auxiliaryKey: ._overbooked)
 		self.schedule = try Reference(from: _container, forKey: .schedule)
 		self.serviceCategory = try [CodeableConcept](from: _container, forKeyIfPresent: .serviceCategory)
-		self.serviceType = try [CodeableConcept](from: _container, forKeyIfPresent: .serviceType)
+		self.serviceType = try [CodeableReference](from: _container, forKeyIfPresent: .serviceType)
 		self.specialty = try [CodeableConcept](from: _container, forKeyIfPresent: .specialty)
 		self.start = try FHIRPrimitive<Instant>(from: _container, forKey: .start, auxiliaryKey: ._start)
 		self.status = try FHIRPrimitive<SlotStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)

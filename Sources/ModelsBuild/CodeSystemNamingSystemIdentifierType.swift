@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,6 +26,10 @@ import FMCore
  ValueSet: http://hl7.org/fhir/ValueSet/namingsystem-identifier-type
  */
 public enum NamingSystemIdentifierType: String, FHIRPrimitiveType {
+	
+	/// An IRI string that can be prepended to the code to obtain a concept IRI for RDF applications. This should be a
+	/// valid, absolute IRI as defined in RFC 3987. See rdf.html#iri-stem for details on how this value may be used.
+	case iriStem = "iri-stem"
 	
 	/// An ISO object identifier; e.g. 1.2.3.4.5.
 	case oid

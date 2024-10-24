@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  Used to code the format of the display string.
  
- URL: http://terminology.hl7.org/CodeSystem/contributor-summary-style
+ URL: http://hl7.org/fhir/contributor-summary-style
  ValueSet: http://hl7.org/fhir/ValueSet/contributor-summary-style
  */
 public enum ContributorSummaryStyle: String, FHIRPrimitiveType {
@@ -71,8 +71,8 @@ public enum ContributorSummaryStyle: String, FHIRPrimitiveType {
 	/// Project design by Jennnifer Laskowski (JL), Experiment design by JL and Joshua M. Thurman (JMT), technical
 	/// advice and study design contribution by Matthew C. Pickering, experiments performed by JL, data collection and
 	/// analysis by JL, PET imaging and associated analyses by Natalie J. Serkova and Peter M. Smith-Jones, conceptual
-	/// and technical guidance by Eric T. Clambey (ETC) and Raphael A. Nemenoff (RAN), manuscript writing by JL and JMT,
-	/// manuscript revised critically by JL, Brandon Renner, ETC, and RAN.
+	/// and technical guidance by Eric T. Clambey (etc.) and Raphael A. Nemenoff (RAN), manuscript writing by JL and
+	/// JMT, manuscript revised critically by JL, Brandon Renner, etc., and RAN.
 	case contrFullByContr = "contr-full-by-contr"
 	
 	/// Jennnifer Laskowski designed project; developed and performed experiments; collected and analyzed data; wrote
@@ -85,8 +85,8 @@ public enum ContributorSummaryStyle: String, FHIRPrimitiveType {
 	
 	/// Project design by JL, Experiment design by JL and JMT, technical advice and study design contribution by MCP,
 	/// experiments performed by JL, data collection and analysis by JL, PET imaging and associated analyses by NJS and
-	/// PMS-J, conceptual and technical guidance by ETC and RAN, manuscript writing by JL and JMT, manuscript revised
-	/// critically by JL, BR, ETC, and RAN.
+	/// PMS-J, conceptual and technical guidance by etc. and RAN, manuscript writing by JL and JMT, manuscript revised
+	/// critically by JL, BR, etc., and RAN.
 	case contrInitByContr = "contr-init-by-contr"
 	
 	/// J.L. designed project; developed and performed experiments; collected and analyzed data; wrote and revised

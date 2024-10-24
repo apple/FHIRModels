@@ -1,8 +1,8 @@
 //
-//  FHIRInteger.swift
+//  FHIRInteger64.swift
 //  HealthSoftware
 //
-//  2020, Apple Inc.
+//  2023, Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
 import FMCore
 
 /**
- A very large whole number
+ A signed integer in the range -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807 (64-bit).
+ This type is defined to allow for record/time counters that can get very large.
  
- http://hl7.org/fhir/datatypes.html#integer
+ http://hl7.org/fhir/datatypes.html#integer64
  */
 public struct FHIRInteger64: FHIRPrimitiveType, FHIRIntegerRepresentable {
 	
@@ -29,9 +30,6 @@ public struct FHIRInteger64: FHIRPrimitiveType, FHIRIntegerRepresentable {
 	
 	public var integer: Self.IntegerLiteralType
 	
-	/**
-	 Designated initializer.
-	 */
 	public init(_ integer: Self.IntegerLiteralType) {
 		self.integer = integer
 	}

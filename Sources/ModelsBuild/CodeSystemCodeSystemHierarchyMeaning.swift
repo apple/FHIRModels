@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,8 +39,7 @@ public enum CodeSystemHierarchyMeaning: String, FHIRPrimitiveType {
 	
 	/// A hierarchy where the child concepts have an IS-A relationship with the parents - that is, all the properties of
 	/// the parent are also true for its child concepts. Not that is-a is a property of the concepts, so additional
-	/// subsumption relationships may be defined using properties or the [subsumes](extension-codesystem-subsumes.html)
-	/// extension.
+	/// subsumption relationships may be defined using properties.
 	case isA = "is-a"
 	
 	/// Child elements list the individual parts of a composite whole (e.g. body site).

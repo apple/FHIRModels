@@ -2,8 +2,8 @@
 //  Bundle.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Bundle)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Bundle)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ open class Bundle: Resource {
 	/// Digital Signature
 	public var signature: Signature?
 	
+	/// Issues with the Bundle
+	public var issues: ResourceProxy?
+	
 	/// Designated initializer taking all required properties
 	public init(type: FHIRPrimitive<BundleType>) {
 		self.type = type
@@ -61,6 +64,7 @@ open class Bundle: Resource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: Identifier? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		issues: ResourceProxy? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		link: [BundleLink]? = nil,
 		meta: Meta? = nil,
@@ -74,6 +78,7 @@ open class Bundle: Resource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.issues = issues
 		self.language = language
 		self.link = link
 		self.meta = meta
@@ -87,6 +92,7 @@ open class Bundle: Resource {
 	private enum CodingKeys: String, CodingKey {
 		case entry
 		case identifier
+		case issues
 		case link
 		case signature
 		case timestamp; case _timestamp
@@ -101,6 +107,7 @@ open class Bundle: Resource {
 		// Decode all our properties
 		self.entry = try [BundleEntry](from: _container, forKeyIfPresent: .entry)
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.issues = try ResourceProxy(from: _container, forKeyIfPresent: .issues)
 		self.link = try [BundleLink](from: _container, forKeyIfPresent: .link)
 		self.signature = try Signature(from: _container, forKeyIfPresent: .signature)
 		self.timestamp = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .timestamp, auxiliaryKey: ._timestamp)
@@ -116,6 +123,7 @@ open class Bundle: Resource {
 		// Encode all our properties
 		try entry?.encode(on: &_container, forKey: .entry)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try issues?.encode(on: &_container, forKey: .issues)
 		try link?.encode(on: &_container, forKey: .link)
 		try signature?.encode(on: &_container, forKey: .signature)
 		try timestamp?.encode(on: &_container, forKey: .timestamp, auxiliaryKey: ._timestamp)
@@ -135,6 +143,7 @@ open class Bundle: Resource {
 		}
 		return entry == _other.entry
 		    && identifier == _other.identifier
+		    && issues == _other.issues
 		    && link == _other.link
 		    && signature == _other.signature
 		    && timestamp == _other.timestamp
@@ -146,6 +155,7 @@ open class Bundle: Resource {
 		super.hash(into: &hasher)
 		hasher.combine(entry)
 		hasher.combine(identifier)
+		hasher.combine(issues)
 		hasher.combine(link)
 		hasher.combine(signature)
 		hasher.combine(timestamp)
@@ -165,7 +175,7 @@ open class BundleEntry: BackboneElement {
 	/// Links related to this entry
 	public var link: [BundleLink]?
 	
-	/// URI for resource (Absolute URL server address or URI for UUID/OID)
+	/// URI for resource (e.g. the absolute URL server address, URI for UUID/OID, etc.)
 	public var fullUrl: FHIRPrimitive<FHIRURI>?
 	
 	/// A resource in the bundle
@@ -291,7 +301,7 @@ open class BundleEntryRequest: BackboneElement {
 	/// URL for HTTP equivalent of this entry
 	public var url: FHIRPrimitive<FHIRURI>
 	
-	/// For managing cache currency
+	/// For managing cache validation
 	public var ifNoneMatch: FHIRPrimitive<FHIRString>?
 	
 	/// For managing cache currency
@@ -600,14 +610,16 @@ open class BundleEntrySearch: BackboneElement {
  */
 open class BundleLink: BackboneElement {
 	
-	/// See http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
-	public var relation: FHIRPrimitive<FHIRString>
+	/// A name which details the functional use for this link - see [http://www.iana.org/assignments/link-
+	/// relations/link-relations.xhtml#link-relations-1](http://www.iana.org/assignments/link-relations/link-
+	/// relations.xhtml#link-relations-1).
+	public var relation: FHIRPrimitive<LinkRelationTypes>
 	
 	/// Reference details for the link
 	public var url: FHIRPrimitive<FHIRURI>
 	
 	/// Designated initializer taking all required properties
-	public init(relation: FHIRPrimitive<FHIRString>, url: FHIRPrimitive<FHIRURI>) {
+	public init(relation: FHIRPrimitive<LinkRelationTypes>, url: FHIRPrimitive<FHIRURI>) {
 		self.relation = relation
 		self.url = url
 		super.init()
@@ -618,7 +630,7 @@ open class BundleLink: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		relation: FHIRPrimitive<FHIRString>,
+		relation: FHIRPrimitive<LinkRelationTypes>,
 		url: FHIRPrimitive<FHIRURI>
 	) {
 		self.init(relation: relation, url: url)
@@ -639,7 +651,7 @@ open class BundleLink: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.relation = try FHIRPrimitive<FHIRString>(from: _container, forKey: .relation, auxiliaryKey: ._relation)
+		self.relation = try FHIRPrimitive<LinkRelationTypes>(from: _container, forKey: .relation, auxiliaryKey: ._relation)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .url, auxiliaryKey: ._url)
 		try super.init(from: decoder)
 	}

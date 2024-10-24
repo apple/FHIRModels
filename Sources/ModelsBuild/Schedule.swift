@@ -2,8 +2,8 @@
 //  Schedule.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Schedule)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Schedule)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,10 +36,13 @@ open class Schedule: DomainResource {
 	public var serviceCategory: [CodeableConcept]?
 	
 	/// Specific service
-	public var serviceType: [CodeableConcept]?
+	public var serviceType: [CodeableReference]?
 	
 	/// Type of specialty needed
 	public var specialty: [CodeableConcept]?
+	
+	/// Human-readable label
+	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Resource(s) that availability information is being provided for
 	public var actor: [Reference]
@@ -69,9 +72,10 @@ open class Schedule: DomainResource {
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		name: FHIRPrimitive<FHIRString>? = nil,
 		planningHorizon: Period? = nil,
 		serviceCategory: [CodeableConcept]? = nil,
-		serviceType: [CodeableConcept]? = nil,
+		serviceType: [CodeableReference]? = nil,
 		specialty: [CodeableConcept]? = nil,
 		text: Narrative? = nil
 	) {
@@ -86,6 +90,7 @@ open class Schedule: DomainResource {
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.name = name
 		self.planningHorizon = planningHorizon
 		self.serviceCategory = serviceCategory
 		self.serviceType = serviceType
@@ -100,6 +105,7 @@ open class Schedule: DomainResource {
 		case actor
 		case comment; case _comment
 		case identifier
+		case name; case _name
 		case planningHorizon
 		case serviceCategory
 		case serviceType
@@ -115,9 +121,10 @@ open class Schedule: DomainResource {
 		self.actor = try [Reference](from: _container, forKey: .actor)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.planningHorizon = try Period(from: _container, forKeyIfPresent: .planningHorizon)
 		self.serviceCategory = try [CodeableConcept](from: _container, forKeyIfPresent: .serviceCategory)
-		self.serviceType = try [CodeableConcept](from: _container, forKeyIfPresent: .serviceType)
+		self.serviceType = try [CodeableReference](from: _container, forKeyIfPresent: .serviceType)
 		self.specialty = try [CodeableConcept](from: _container, forKeyIfPresent: .specialty)
 		try super.init(from: decoder)
 	}
@@ -131,6 +138,7 @@ open class Schedule: DomainResource {
 		try actor.encode(on: &_container, forKey: .actor)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try planningHorizon?.encode(on: &_container, forKey: .planningHorizon)
 		try serviceCategory?.encode(on: &_container, forKey: .serviceCategory)
 		try serviceType?.encode(on: &_container, forKey: .serviceType)
@@ -151,6 +159,7 @@ open class Schedule: DomainResource {
 		    && actor == _other.actor
 		    && comment == _other.comment
 		    && identifier == _other.identifier
+		    && name == _other.name
 		    && planningHorizon == _other.planningHorizon
 		    && serviceCategory == _other.serviceCategory
 		    && serviceType == _other.serviceType
@@ -163,6 +172,7 @@ open class Schedule: DomainResource {
 		hasher.combine(actor)
 		hasher.combine(comment)
 		hasher.combine(identifier)
+		hasher.combine(name)
 		hasher.combine(planningHorizon)
 		hasher.combine(serviceCategory)
 		hasher.combine(serviceType)

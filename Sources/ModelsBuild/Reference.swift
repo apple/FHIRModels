@@ -2,8 +2,8 @@
 //  Reference.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Reference)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Reference)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ open class Reference: DataType {
 	/// Literal reference, Relative, internal or absolute URL
 	public var reference: FHIRPrimitive<FHIRString>?
 	
-	/// Type the reference refers to (e.g. "Patient")
+	/// Type the reference refers to (e.g. "Patient") - must be a resource in resources
 	public var type: FHIRPrimitive<FHIRURI>?
 	
 	/// Logical reference, when literal reference is not known

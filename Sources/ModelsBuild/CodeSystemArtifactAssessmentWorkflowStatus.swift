@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,6 +37,9 @@ public enum ArtifactAssessmentWorkflowStatus: String, FHIRPrimitiveType {
 	
 	/// The comment is a duplicate of another comment already received
 	case duplicate
+	
+	/// The assessment was entered in error
+	case enteredInError = "entered-in-error"
 	
 	/// The necessary changes to the artifact have been published in a new version of the artifact
 	case published

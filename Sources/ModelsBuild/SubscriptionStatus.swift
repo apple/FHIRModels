@@ -2,8 +2,8 @@
 //  SubscriptionStatus.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@ open class SubscriptionStatus: DomainResource {
 	/// The status of the subscription, which marks the server state for managing the subscription.
 	public var status: FHIRPrimitive<SubscriptionStatusCodes>?
 	
-	/// The type of event being conveyed with this notificaiton.
+	/// The type of event being conveyed with this notification.
 	public var type: FHIRPrimitive<SubscriptionNotificationType>
 	
 	/// Events since the Subscription was created
-	public var eventsSinceSubscriptionStart: FHIRPrimitive<FHIRInteger64>?
+	public var eventsSinceSubscriptionStart: FHIRInteger64?
 	
 	/// Detailed information about any events relevant to this notification
 	public var notificationEvent: [SubscriptionStatusNotificationEvent]?
@@ -60,7 +60,7 @@ open class SubscriptionStatus: DomainResource {
 	public convenience init(
 		contained: [ResourceProxy]? = nil,
 		error: [CodeableConcept]? = nil,
-		eventsSinceSubscriptionStart: FHIRPrimitive<FHIRInteger64>? = nil,
+		eventsSinceSubscriptionStart: FHIRInteger64? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -94,7 +94,7 @@ open class SubscriptionStatus: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case error
-		case eventsSinceSubscriptionStart; case _eventsSinceSubscriptionStart
+		case eventsSinceSubscriptionStart
 		case notificationEvent
 		case status; case _status
 		case subscription
@@ -108,7 +108,7 @@ open class SubscriptionStatus: DomainResource {
 		
 		// Decode all our properties
 		self.error = try [CodeableConcept](from: _container, forKeyIfPresent: .error)
-		self.eventsSinceSubscriptionStart = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .eventsSinceSubscriptionStart, auxiliaryKey: ._eventsSinceSubscriptionStart)
+		self.eventsSinceSubscriptionStart = try FHIRInteger64(from: _container, forKeyIfPresent: .eventsSinceSubscriptionStart)
 		self.notificationEvent = try [SubscriptionStatusNotificationEvent](from: _container, forKeyIfPresent: .notificationEvent)
 		self.status = try FHIRPrimitive<SubscriptionStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subscription = try Reference(from: _container, forKey: .subscription)
@@ -123,7 +123,7 @@ open class SubscriptionStatus: DomainResource {
 		
 		// Encode all our properties
 		try error?.encode(on: &_container, forKey: .error)
-		try eventsSinceSubscriptionStart?.encode(on: &_container, forKey: .eventsSinceSubscriptionStart, auxiliaryKey: ._eventsSinceSubscriptionStart)
+		try eventsSinceSubscriptionStart?.encode(on: &_container, forKey: .eventsSinceSubscriptionStart)
 		try notificationEvent?.encode(on: &_container, forKey: .notificationEvent)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subscription.encode(on: &_container, forKey: .subscription)
@@ -169,20 +169,26 @@ open class SubscriptionStatus: DomainResource {
  */
 open class SubscriptionStatusNotificationEvent: BackboneElement {
 	
-	/// Event number
-	public var eventNumber: FHIRPrimitive<FHIRInteger64>
+	/// Sequencing index of this event
+	public var eventNumber: FHIRInteger64
+	
+	/// Event that triggered this notification
+	public var triggerEvent: [CodeableConcept]?
 	
 	/// The instant this event occurred
 	public var timestamp: FHIRPrimitive<Instant>?
 	
-	/// The focus of this event
+	/// Reference to the primary resource or information of this event
 	public var focus: Reference?
 	
-	/// Additional context for this event
+	/// References related to the focus resource and/or context of this event
 	public var additionalContext: [Reference]?
 	
+	/// Query describing data relevant to this notification
+	public var relatedQuery: [SubscriptionStatusNotificationEventRelatedQuery]?
+	
 	/// Designated initializer taking all required properties
-	public init(eventNumber: FHIRPrimitive<FHIRInteger64>) {
+	public init(eventNumber: FHIRInteger64) {
 		self.eventNumber = eventNumber
 		super.init()
 	}
@@ -190,12 +196,14 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		additionalContext: [Reference]? = nil,
-		eventNumber: FHIRPrimitive<FHIRInteger64>,
+		eventNumber: FHIRInteger64,
 		`extension`: [Extension]? = nil,
 		focus: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		timestamp: FHIRPrimitive<Instant>? = nil
+		relatedQuery: [SubscriptionStatusNotificationEventRelatedQuery]? = nil,
+		timestamp: FHIRPrimitive<Instant>? = nil,
+		triggerEvent: [CodeableConcept]? = nil
 	) {
 		self.init(eventNumber: eventNumber)
 		self.additionalContext = additionalContext
@@ -203,16 +211,20 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		self.focus = focus
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.relatedQuery = relatedQuery
 		self.timestamp = timestamp
+		self.triggerEvent = triggerEvent
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case additionalContext
-		case eventNumber; case _eventNumber
+		case eventNumber
 		case focus
+		case relatedQuery
 		case timestamp; case _timestamp
+		case triggerEvent
 	}
 	
 	/// Initializer for Decodable
@@ -221,9 +233,11 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		
 		// Decode all our properties
 		self.additionalContext = try [Reference](from: _container, forKeyIfPresent: .additionalContext)
-		self.eventNumber = try FHIRPrimitive<FHIRInteger64>(from: _container, forKey: .eventNumber, auxiliaryKey: ._eventNumber)
+		self.eventNumber = try FHIRInteger64(from: _container, forKey: .eventNumber)
 		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
+		self.relatedQuery = try [SubscriptionStatusNotificationEventRelatedQuery](from: _container, forKeyIfPresent: .relatedQuery)
 		self.timestamp = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .timestamp, auxiliaryKey: ._timestamp)
+		self.triggerEvent = try [CodeableConcept](from: _container, forKeyIfPresent: .triggerEvent)
 		try super.init(from: decoder)
 	}
 	
@@ -233,9 +247,11 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		
 		// Encode all our properties
 		try additionalContext?.encode(on: &_container, forKey: .additionalContext)
-		try eventNumber.encode(on: &_container, forKey: .eventNumber, auxiliaryKey: ._eventNumber)
+		try eventNumber.encode(on: &_container, forKey: .eventNumber)
 		try focus?.encode(on: &_container, forKey: .focus)
+		try relatedQuery?.encode(on: &_container, forKey: .relatedQuery)
 		try timestamp?.encode(on: &_container, forKey: .timestamp, auxiliaryKey: ._timestamp)
+		try triggerEvent?.encode(on: &_container, forKey: .triggerEvent)
 		try super.encode(to: encoder)
 	}
 	
@@ -251,7 +267,9 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		return additionalContext == _other.additionalContext
 		    && eventNumber == _other.eventNumber
 		    && focus == _other.focus
+		    && relatedQuery == _other.relatedQuery
 		    && timestamp == _other.timestamp
+		    && triggerEvent == _other.triggerEvent
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -259,6 +277,90 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		hasher.combine(additionalContext)
 		hasher.combine(eventNumber)
 		hasher.combine(focus)
+		hasher.combine(relatedQuery)
 		hasher.combine(timestamp)
+		hasher.combine(triggerEvent)
+	}
+}
+
+/**
+ Query describing data relevant to this notification.
+ 
+ Queries and codes that could be included with notifications of this shape. Servers MAY include these queries if
+ supported and desired in the workflow.
+ */
+open class SubscriptionStatusNotificationEventRelatedQuery: BackboneElement {
+	
+	/// Coded information describing the type of data this query provides
+	public var queryType: Coding?
+	
+	/// Query to perform
+	public var query: FHIRPrimitive<FHIRString>
+	
+	/// Designated initializer taking all required properties
+	public init(query: FHIRPrimitive<FHIRString>) {
+		self.query = query
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		query: FHIRPrimitive<FHIRString>,
+		queryType: Coding? = nil
+	) {
+		self.init(query: query)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.queryType = queryType
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case query; case _query
+		case queryType
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.query = try FHIRPrimitive<FHIRString>(from: _container, forKey: .query, auxiliaryKey: ._query)
+		self.queryType = try Coding(from: _container, forKeyIfPresent: .queryType)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try query.encode(on: &_container, forKey: .query, auxiliaryKey: ._query)
+		try queryType?.encode(on: &_container, forKey: .queryType)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? SubscriptionStatusNotificationEventRelatedQuery else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return query == _other.query
+		    && queryType == _other.queryType
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(query)
+		hasher.combine(queryType)
 	}
 }

@@ -2,8 +2,8 @@
 //  DeviceMetric.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/DeviceMetric)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceMetric)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import FMCore
 /**
  Measurement, calculation or setting capability of a medical device.
  
- Describes a measurement, calculation or setting capability of a medical device.
+ Describes a measurement, calculation or setting capability of a device.
  */
 open class DeviceMetric: DomainResource {
 	
@@ -37,34 +37,28 @@ open class DeviceMetric: DomainResource {
 	/// Unit of Measure for the Metric
 	public var unit: CodeableConcept?
 	
-	/// Describes the link to the source Device
-	public var source: Reference?
-	
-	/// Describes the link to the parent Device
-	public var parent: Reference?
+	/// Describes the link to the Device
+	public var device: Reference
 	
 	/// Indicates current operational state of the device. For example: On, Off, Standby, etc.
 	public var operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>?
 	
-	/// Describes the color representation for the metric. This is often used to aid clinicians to track and identify
-	/// parameter types by color. In practice, consider a Patient Monitor that has ECG/HR and Pleth for example; the
-	/// parameters are displayed in different characteristic colors, such as HR-blue, BP-green, and PR and SpO2-
-	/// magenta.
-	public var color: FHIRPrimitive<DeviceMetricColor>?
+	/// Color name (from CSS4) or #RRGGBB code
+	public var color: FHIRPrimitive<FHIRString>?
 	
-	/// Indicates the category of the observation generation process. A DeviceMetric can be for example a setting,
-	/// measurement, or calculation.
-	public var category: FHIRPrimitive<DeviceMetricCategory>
+	/// The kind of metric represented
+	public var category: CodeableConcept
 	
-	/// Describes the measurement repetition time
-	public var measurementPeriod: Timing?
+	/// Indicates how often the metric is taken or recorded
+	public var measurementFrequency: Quantity?
 	
 	/// Describes the calibrations that have been performed or that are required to be performed
 	public var calibration: [DeviceMetricCalibration]?
 	
 	/// Designated initializer taking all required properties
-	public init(category: FHIRPrimitive<DeviceMetricCategory>, type: CodeableConcept) {
+	public init(category: CodeableConcept, device: Reference, type: CodeableConcept) {
 		self.category = category
+		self.device = device
 		self.type = type
 		super.init()
 	}
@@ -72,25 +66,24 @@ open class DeviceMetric: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		calibration: [DeviceMetricCalibration]? = nil,
-		category: FHIRPrimitive<DeviceMetricCategory>,
-		color: FHIRPrimitive<DeviceMetricColor>? = nil,
+		category: CodeableConcept,
+		color: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
+		device: Reference,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
-		measurementPeriod: Timing? = nil,
+		measurementFrequency: Quantity? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>? = nil,
-		parent: Reference? = nil,
-		source: Reference? = nil,
 		text: Narrative? = nil,
 		type: CodeableConcept,
 		unit: CodeableConcept? = nil
 	) {
-		self.init(category: category, type: type)
+		self.init(category: category, device: device, type: type)
 		self.calibration = calibration
 		self.color = color
 		self.contained = contained
@@ -99,12 +92,10 @@ open class DeviceMetric: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
-		self.measurementPeriod = measurementPeriod
+		self.measurementFrequency = measurementFrequency
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.operationalStatus = operationalStatus
-		self.parent = parent
-		self.source = source
 		self.text = text
 		self.unit = unit
 	}
@@ -113,13 +104,12 @@ open class DeviceMetric: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case calibration
-		case category; case _category
+		case category
 		case color; case _color
+		case device
 		case identifier
-		case measurementPeriod
+		case measurementFrequency
 		case operationalStatus; case _operationalStatus
-		case parent
-		case source
 		case type
 		case unit
 	}
@@ -130,13 +120,12 @@ open class DeviceMetric: DomainResource {
 		
 		// Decode all our properties
 		self.calibration = try [DeviceMetricCalibration](from: _container, forKeyIfPresent: .calibration)
-		self.category = try FHIRPrimitive<DeviceMetricCategory>(from: _container, forKey: .category, auxiliaryKey: ._category)
-		self.color = try FHIRPrimitive<DeviceMetricColor>(from: _container, forKeyIfPresent: .color, auxiliaryKey: ._color)
+		self.category = try CodeableConcept(from: _container, forKey: .category)
+		self.color = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .color, auxiliaryKey: ._color)
+		self.device = try Reference(from: _container, forKey: .device)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.measurementPeriod = try Timing(from: _container, forKeyIfPresent: .measurementPeriod)
+		self.measurementFrequency = try Quantity(from: _container, forKeyIfPresent: .measurementFrequency)
 		self.operationalStatus = try FHIRPrimitive<DeviceMetricOperationalStatus>(from: _container, forKeyIfPresent: .operationalStatus, auxiliaryKey: ._operationalStatus)
-		self.parent = try Reference(from: _container, forKeyIfPresent: .parent)
-		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		self.unit = try CodeableConcept(from: _container, forKeyIfPresent: .unit)
 		try super.init(from: decoder)
@@ -148,13 +137,12 @@ open class DeviceMetric: DomainResource {
 		
 		// Encode all our properties
 		try calibration?.encode(on: &_container, forKey: .calibration)
-		try category.encode(on: &_container, forKey: .category, auxiliaryKey: ._category)
+		try category.encode(on: &_container, forKey: .category)
 		try color?.encode(on: &_container, forKey: .color, auxiliaryKey: ._color)
+		try device.encode(on: &_container, forKey: .device)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try measurementPeriod?.encode(on: &_container, forKey: .measurementPeriod)
+		try measurementFrequency?.encode(on: &_container, forKey: .measurementFrequency)
 		try operationalStatus?.encode(on: &_container, forKey: .operationalStatus, auxiliaryKey: ._operationalStatus)
-		try parent?.encode(on: &_container, forKey: .parent)
-		try source?.encode(on: &_container, forKey: .source)
 		try type.encode(on: &_container, forKey: .type)
 		try unit?.encode(on: &_container, forKey: .unit)
 		try super.encode(to: encoder)
@@ -172,11 +160,10 @@ open class DeviceMetric: DomainResource {
 		return calibration == _other.calibration
 		    && category == _other.category
 		    && color == _other.color
+		    && device == _other.device
 		    && identifier == _other.identifier
-		    && measurementPeriod == _other.measurementPeriod
+		    && measurementFrequency == _other.measurementFrequency
 		    && operationalStatus == _other.operationalStatus
-		    && parent == _other.parent
-		    && source == _other.source
 		    && type == _other.type
 		    && unit == _other.unit
 	}
@@ -186,11 +173,10 @@ open class DeviceMetric: DomainResource {
 		hasher.combine(calibration)
 		hasher.combine(category)
 		hasher.combine(color)
+		hasher.combine(device)
 		hasher.combine(identifier)
-		hasher.combine(measurementPeriod)
+		hasher.combine(measurementFrequency)
 		hasher.combine(operationalStatus)
-		hasher.combine(parent)
-		hasher.combine(source)
 		hasher.combine(type)
 		hasher.combine(unit)
 	}
@@ -201,8 +187,8 @@ open class DeviceMetric: DomainResource {
  */
 open class DeviceMetricCalibration: BackboneElement {
 	
-	/// Describes the type of the calibration method.
-	public var type: FHIRPrimitive<DeviceMetricCalibrationType>?
+	/// The method of calibration
+	public var type: CodeableConcept?
 	
 	/// Describes the state of the calibration.
 	public var state: FHIRPrimitive<DeviceMetricCalibrationState>?
@@ -222,7 +208,7 @@ open class DeviceMetricCalibration: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		state: FHIRPrimitive<DeviceMetricCalibrationState>? = nil,
 		time: FHIRPrimitive<Instant>? = nil,
-		type: FHIRPrimitive<DeviceMetricCalibrationType>? = nil
+		type: CodeableConcept? = nil
 	) {
 		self.init()
 		self.`extension` = `extension`
@@ -238,7 +224,7 @@ open class DeviceMetricCalibration: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case state; case _state
 		case time; case _time
-		case type; case _type
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -248,7 +234,7 @@ open class DeviceMetricCalibration: BackboneElement {
 		// Decode all our properties
 		self.state = try FHIRPrimitive<DeviceMetricCalibrationState>(from: _container, forKeyIfPresent: .state, auxiliaryKey: ._state)
 		self.time = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .time, auxiliaryKey: ._time)
-		self.type = try FHIRPrimitive<DeviceMetricCalibrationType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -259,7 +245,7 @@ open class DeviceMetricCalibration: BackboneElement {
 		// Encode all our properties
 		try state?.encode(on: &_container, forKey: .state, auxiliaryKey: ._state)
 		try time?.encode(on: &_container, forKey: .time, auxiliaryKey: ._time)
-		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	

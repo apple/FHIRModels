@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import FMCore
 public enum GraphCompartmentUse: String, FHIRPrimitiveType {
 	
 	/// This compartment rule is a condition for whether the rule applies.
-	case condition
+	case `where`
 	
 	/// This compartment rule is enforced on any relationships that meet the conditions.
-	case requirement
+	case requires
 }

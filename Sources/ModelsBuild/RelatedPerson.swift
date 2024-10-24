@@ -2,8 +2,8 @@
 //  RelatedPerson.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/RelatedPerson)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RelatedPerson)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  A person that is related to a patient, but who is not a direct target of care.
  
- Information about a person that is involved in a patient's health or the care for a patient, but who is not the target
- of healthcare, nor has a formal responsibility in the care process.
+ Information about a person that is involved in a patient's health or the care for a patient, but who is not the primary
+ target of healthcare.
  */
 open class RelatedPerson: DomainResource {
 	
@@ -38,8 +38,11 @@ open class RelatedPerson: DomainResource {
 	/// The patient this person is related to
 	public var patient: Reference
 	
-	/// The relationship of the related person to the patient
+	/// The personal relationship of the related person to the patient
 	public var relationship: [CodeableConcept]?
+	
+	/// The functional role of the related person to the patient
+	public var role: [CodeableConcept]?
 	
 	/// A name associated with the person
 	public var name: [HumanName]?
@@ -92,6 +95,7 @@ open class RelatedPerson: DomainResource {
 		period: Period? = nil,
 		photo: [Attachment]? = nil,
 		relationship: [CodeableConcept]? = nil,
+		role: [CodeableConcept]? = nil,
 		telecom: [ContactPoint]? = nil,
 		text: Narrative? = nil
 	) {
@@ -113,6 +117,7 @@ open class RelatedPerson: DomainResource {
 		self.period = period
 		self.photo = photo
 		self.relationship = relationship
+		self.role = role
 		self.telecom = telecom
 		self.text = text
 	}
@@ -131,6 +136,7 @@ open class RelatedPerson: DomainResource {
 		case period
 		case photo
 		case relationship
+		case role
 		case telecom
 	}
 	
@@ -150,6 +156,7 @@ open class RelatedPerson: DomainResource {
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.photo = try [Attachment](from: _container, forKeyIfPresent: .photo)
 		self.relationship = try [CodeableConcept](from: _container, forKeyIfPresent: .relationship)
+		self.role = try [CodeableConcept](from: _container, forKeyIfPresent: .role)
 		self.telecom = try [ContactPoint](from: _container, forKeyIfPresent: .telecom)
 		try super.init(from: decoder)
 	}
@@ -170,6 +177,7 @@ open class RelatedPerson: DomainResource {
 		try period?.encode(on: &_container, forKey: .period)
 		try photo?.encode(on: &_container, forKey: .photo)
 		try relationship?.encode(on: &_container, forKey: .relationship)
+		try role?.encode(on: &_container, forKey: .role)
 		try telecom?.encode(on: &_container, forKey: .telecom)
 		try super.encode(to: encoder)
 	}
@@ -194,6 +202,7 @@ open class RelatedPerson: DomainResource {
 		    && period == _other.period
 		    && photo == _other.photo
 		    && relationship == _other.relationship
+		    && role == _other.role
 		    && telecom == _other.telecom
 	}
 	
@@ -210,6 +219,7 @@ open class RelatedPerson: DomainResource {
 		hasher.combine(period)
 		hasher.combine(photo)
 		hasher.combine(relationship)
+		hasher.combine(role)
 		hasher.combine(telecom)
 	}
 }

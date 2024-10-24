@@ -2,8 +2,8 @@
 //  Task.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Task)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Task)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,6 +21,11 @@ import FMCore
 
 /**
  A task to be performed.
+ 
+ A task to be performed as a part of a workflow and the related informations like inputs, outputs and execution
+ progress. While very simple workflows can be implemented with Request alone, most workflows would require a Task
+ (explicit or contained) as a means to track the execution data (i.e. inputs, outputs, status). Please refer to the
+ workflow page for more details.
  */
 open class Task: DomainResource {
 	
@@ -48,7 +53,7 @@ open class Task: DomainResource {
 	public var status: FHIRPrimitive<TaskStatus>
 	
 	/// Reason for current status
-	public var statusReason: CodeableConcept?
+	public var statusReason: CodeableReference?
 	
 	/// E.g. "Specimen collected", "IV prepped"
 	public var businessStatus: CodeableConcept?
@@ -58,6 +63,9 @@ open class Task: DomainResource {
 	
 	/// routine | urgent | asap | stat
 	public var priority: FHIRPrimitive<FHIRString>?
+	
+	/// True if Task is prohibiting action
+	public var doNotPerform: FHIRPrimitive<FHIRBool>?
 	
 	/// Task Type
 	public var code: CodeableConcept?
@@ -74,6 +82,9 @@ open class Task: DomainResource {
 	/// Healthcare event during which this task originated
 	public var encounter: Reference?
 	
+	/// When the task should be performed
+	public var requestedPeriod: Period?
+	
 	/// Start and end time of execution
 	public var executionPeriod: Period?
 	
@@ -86,20 +97,20 @@ open class Task: DomainResource {
 	/// Who is asking for task to be done
 	public var requester: Reference?
 	
-	/// Requested performer
-	public var performerType: [CodeableConcept]?
+	/// Who should perform Task
+	public var requestedPerformer: [CodeableReference]?
 	
 	/// Responsible individual
 	public var owner: Reference?
+	
+	/// Who or what performed the task
+	public var performer: [TaskPerformer]?
 	
 	/// Where task occurs
 	public var location: Reference?
 	
 	/// Why task is needed
-	public var reasonCode: CodeableConcept?
-	
-	/// Why task is needed
-	public var reasonReference: Reference?
+	public var reason: [CodeableReference]?
 	
 	/// Associated insurance coverage
 	public var insurance: [Reference]?
@@ -134,6 +145,7 @@ open class Task: DomainResource {
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
+		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
 		encounter: Reference? = nil,
 		executionPeriod: Period? = nil,
 		`extension`: [Extension]? = nil,
@@ -157,15 +169,16 @@ open class Task: DomainResource {
 		output: [TaskOutput]? = nil,
 		owner: Reference? = nil,
 		partOf: [Reference]? = nil,
-		performerType: [CodeableConcept]? = nil,
+		performer: [TaskPerformer]? = nil,
 		priority: FHIRPrimitive<FHIRString>? = nil,
-		reasonCode: CodeableConcept? = nil,
-		reasonReference: Reference? = nil,
+		reason: [CodeableReference]? = nil,
 		relevantHistory: [Reference]? = nil,
+		requestedPerformer: [CodeableReference]? = nil,
+		requestedPeriod: Period? = nil,
 		requester: Reference? = nil,
 		restriction: TaskRestriction? = nil,
 		status: FHIRPrimitive<TaskStatus>,
-		statusReason: CodeableConcept? = nil,
+		statusReason: CodeableReference? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(intent: intent, status: status)
@@ -175,6 +188,7 @@ open class Task: DomainResource {
 		self.code = code
 		self.contained = contained
 		self.description_fhir = description_fhir
+		self.doNotPerform = doNotPerform
 		self.encounter = encounter
 		self.executionPeriod = executionPeriod
 		self.`extension` = `extension`
@@ -197,11 +211,12 @@ open class Task: DomainResource {
 		self.output = output
 		self.owner = owner
 		self.partOf = partOf
-		self.performerType = performerType
+		self.performer = performer
 		self.priority = priority
-		self.reasonCode = reasonCode
-		self.reasonReference = reasonReference
+		self.reason = reason
 		self.relevantHistory = relevantHistory
+		self.requestedPerformer = requestedPerformer
+		self.requestedPeriod = requestedPeriod
 		self.requester = requester
 		self.restriction = restriction
 		self.statusReason = statusReason
@@ -216,6 +231,7 @@ open class Task: DomainResource {
 		case businessStatus
 		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
+		case doNotPerform; case _doNotPerform
 		case encounter
 		case executionPeriod
 		case focus
@@ -233,11 +249,12 @@ open class Task: DomainResource {
 		case output
 		case owner
 		case partOf
-		case performerType
+		case performer
 		case priority; case _priority
-		case reasonCode
-		case reasonReference
+		case reason
 		case relevantHistory
+		case requestedPerformer
+		case requestedPeriod
 		case requester
 		case restriction
 		case status; case _status
@@ -254,6 +271,7 @@ open class Task: DomainResource {
 		self.businessStatus = try CodeableConcept(from: _container, forKeyIfPresent: .businessStatus)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.executionPeriod = try Period(from: _container, forKeyIfPresent: .executionPeriod)
 		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
@@ -271,15 +289,16 @@ open class Task: DomainResource {
 		self.output = try [TaskOutput](from: _container, forKeyIfPresent: .output)
 		self.owner = try Reference(from: _container, forKeyIfPresent: .owner)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
-		self.performerType = try [CodeableConcept](from: _container, forKeyIfPresent: .performerType)
+		self.performer = try [TaskPerformer](from: _container, forKeyIfPresent: .performer)
 		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
-		self.reasonCode = try CodeableConcept(from: _container, forKeyIfPresent: .reasonCode)
-		self.reasonReference = try Reference(from: _container, forKeyIfPresent: .reasonReference)
+		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.relevantHistory = try [Reference](from: _container, forKeyIfPresent: .relevantHistory)
+		self.requestedPerformer = try [CodeableReference](from: _container, forKeyIfPresent: .requestedPerformer)
+		self.requestedPeriod = try Period(from: _container, forKeyIfPresent: .requestedPeriod)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
 		self.restriction = try TaskRestriction(from: _container, forKeyIfPresent: .restriction)
 		self.status = try FHIRPrimitive<TaskStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
-		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
+		self.statusReason = try CodeableReference(from: _container, forKeyIfPresent: .statusReason)
 		try super.init(from: decoder)
 	}
 	
@@ -293,6 +312,7 @@ open class Task: DomainResource {
 		try businessStatus?.encode(on: &_container, forKey: .businessStatus)
 		try code?.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try executionPeriod?.encode(on: &_container, forKey: .executionPeriod)
 		try focus?.encode(on: &_container, forKey: .focus)
@@ -310,11 +330,12 @@ open class Task: DomainResource {
 		try output?.encode(on: &_container, forKey: .output)
 		try owner?.encode(on: &_container, forKey: .owner)
 		try partOf?.encode(on: &_container, forKey: .partOf)
-		try performerType?.encode(on: &_container, forKey: .performerType)
+		try performer?.encode(on: &_container, forKey: .performer)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
-		try reasonCode?.encode(on: &_container, forKey: .reasonCode)
-		try reasonReference?.encode(on: &_container, forKey: .reasonReference)
+		try reason?.encode(on: &_container, forKey: .reason)
 		try relevantHistory?.encode(on: &_container, forKey: .relevantHistory)
+		try requestedPerformer?.encode(on: &_container, forKey: .requestedPerformer)
+		try requestedPeriod?.encode(on: &_container, forKey: .requestedPeriod)
 		try requester?.encode(on: &_container, forKey: .requester)
 		try restriction?.encode(on: &_container, forKey: .restriction)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
@@ -336,6 +357,7 @@ open class Task: DomainResource {
 		    && businessStatus == _other.businessStatus
 		    && code == _other.code
 		    && description_fhir == _other.description_fhir
+		    && doNotPerform == _other.doNotPerform
 		    && encounter == _other.encounter
 		    && executionPeriod == _other.executionPeriod
 		    && focus == _other.focus
@@ -353,11 +375,12 @@ open class Task: DomainResource {
 		    && output == _other.output
 		    && owner == _other.owner
 		    && partOf == _other.partOf
-		    && performerType == _other.performerType
+		    && performer == _other.performer
 		    && priority == _other.priority
-		    && reasonCode == _other.reasonCode
-		    && reasonReference == _other.reasonReference
+		    && reason == _other.reason
 		    && relevantHistory == _other.relevantHistory
+		    && requestedPerformer == _other.requestedPerformer
+		    && requestedPeriod == _other.requestedPeriod
 		    && requester == _other.requester
 		    && restriction == _other.restriction
 		    && status == _other.status
@@ -371,6 +394,7 @@ open class Task: DomainResource {
 		hasher.combine(businessStatus)
 		hasher.combine(code)
 		hasher.combine(description_fhir)
+		hasher.combine(doNotPerform)
 		hasher.combine(encounter)
 		hasher.combine(executionPeriod)
 		hasher.combine(focus)
@@ -388,11 +412,12 @@ open class Task: DomainResource {
 		hasher.combine(output)
 		hasher.combine(owner)
 		hasher.combine(partOf)
-		hasher.combine(performerType)
+		hasher.combine(performer)
 		hasher.combine(priority)
-		hasher.combine(reasonCode)
-		hasher.combine(reasonReference)
+		hasher.combine(reason)
 		hasher.combine(relevantHistory)
+		hasher.combine(requestedPerformer)
+		hasher.combine(requestedPeriod)
 		hasher.combine(requester)
 		hasher.combine(restriction)
 		hasher.combine(status)
@@ -413,6 +438,7 @@ open class TaskInput: BackboneElement {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -422,7 +448,6 @@ open class TaskInput: BackboneElement {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -432,12 +457,13 @@ open class TaskInput: BackboneElement {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -500,6 +526,7 @@ open class TaskInput: BackboneElement {
 		case valueAge
 		case valueAnnotation
 		case valueAttachment
+		case valueAvailability
 		case valueBase64Binary; case _valueBase64Binary
 		case valueBoolean; case _valueBoolean
 		case valueCanonical; case _valueCanonical
@@ -509,7 +536,6 @@ open class TaskInput: BackboneElement {
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
-		case valueContributor
 		case valueCount
 		case valueDataRequirement
 		case valueDate; case _valueDate
@@ -519,12 +545,13 @@ open class TaskInput: BackboneElement {
 		case valueDosage
 		case valueDuration
 		case valueExpression
+		case valueExtendedContactDetail
 		case valueHumanName
 		case valueId; case _valueId
 		case valueIdentifier
 		case valueInstant; case _valueInstant
 		case valueInteger; case _valueInteger
-		case valueInteger64; case _valueInteger64
+		case valueInteger64
 		case valueMarkdown; case _valueMarkdown
 		case valueMeta
 		case valueMoney
@@ -556,8 +583,8 @@ open class TaskInput: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueContributor) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueContributor, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueAvailability) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueExtendedContactDetail) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueAvailability, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueExtendedContactDetail, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -623,7 +650,7 @@ open class TaskInput: BackboneElement {
 			}
 			_t_value = .integer(valueInteger)
 		}
-		if let valueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .valueInteger64, auxiliaryKey: ._valueInteger64) {
+		if let valueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .valueInteger64) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueInteger64, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
@@ -827,12 +854,6 @@ open class TaskInput: BackboneElement {
 			}
 			_t_value = .contactDetail(valueContactDetail)
 		}
-		if let valueContributor = try Contributor(from: _container, forKeyIfPresent: .valueContributor) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueContributor, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .contributor(valueContributor)
-		}
 		if let valueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .valueDataRequirement) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDataRequirement, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -868,6 +889,18 @@ open class TaskInput: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueUsageContext, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .usageContext(valueUsageContext)
+		}
+		if let valueAvailability = try Availability(from: _container, forKeyIfPresent: .valueAvailability) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAvailability, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .availability(valueAvailability)
+		}
+		if let valueExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .valueExtendedContactDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
@@ -914,7 +947,7 @@ open class TaskInput: BackboneElement {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .valueInteger64, auxiliaryKey: ._valueInteger64)
+				try _value.encode(on: &_container, forKey: .valueInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .oid(let _value):
@@ -981,8 +1014,6 @@ open class TaskInput: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .valueContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .valueDataRequirement)
 			case .expression(let _value):
@@ -995,6 +1026,10 @@ open class TaskInput: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .valueUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .valueAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):
@@ -1037,6 +1072,7 @@ open class TaskOutput: BackboneElement {
 		case age(Age)
 		case annotation(Annotation)
 		case attachment(Attachment)
+		case availability(Availability)
 		case base64Binary(FHIRPrimitive<Base64Binary>)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case canonical(FHIRPrimitive<Canonical>)
@@ -1046,7 +1082,6 @@ open class TaskOutput: BackboneElement {
 		case coding(Coding)
 		case contactDetail(ContactDetail)
 		case contactPoint(ContactPoint)
-		case contributor(Contributor)
 		case count(Count)
 		case dataRequirement(DataRequirement)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -1056,12 +1091,13 @@ open class TaskOutput: BackboneElement {
 		case dosage(Dosage)
 		case duration(Duration)
 		case expression(Expression)
+		case extendedContactDetail(ExtendedContactDetail)
 		case humanName(HumanName)
 		case id(FHIRPrimitive<FHIRString>)
 		case identifier(Identifier)
 		case instant(FHIRPrimitive<Instant>)
 		case integer(FHIRPrimitive<FHIRInteger>)
-		case integer64(FHIRPrimitive<FHIRInteger64>)
+		case integer64(FHIRInteger64)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case meta(Meta)
 		case money(Money)
@@ -1124,6 +1160,7 @@ open class TaskOutput: BackboneElement {
 		case valueAge
 		case valueAnnotation
 		case valueAttachment
+		case valueAvailability
 		case valueBase64Binary; case _valueBase64Binary
 		case valueBoolean; case _valueBoolean
 		case valueCanonical; case _valueCanonical
@@ -1133,7 +1170,6 @@ open class TaskOutput: BackboneElement {
 		case valueCoding
 		case valueContactDetail
 		case valueContactPoint
-		case valueContributor
 		case valueCount
 		case valueDataRequirement
 		case valueDate; case _valueDate
@@ -1143,12 +1179,13 @@ open class TaskOutput: BackboneElement {
 		case valueDosage
 		case valueDuration
 		case valueExpression
+		case valueExtendedContactDetail
 		case valueHumanName
 		case valueId; case _valueId
 		case valueIdentifier
 		case valueInstant; case _valueInstant
 		case valueInteger; case _valueInteger
-		case valueInteger64; case _valueInteger64
+		case valueInteger64
 		case valueMarkdown; case _valueMarkdown
 		case valueMeta
 		case valueMoney
@@ -1180,8 +1217,8 @@ open class TaskOutput: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueContributor) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueContributor, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueAvailability) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueExtendedContactDetail) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueAvailability, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueExtendedContactDetail, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -1247,7 +1284,7 @@ open class TaskOutput: BackboneElement {
 			}
 			_t_value = .integer(valueInteger)
 		}
-		if let valueInteger64 = try FHIRPrimitive<FHIRInteger64>(from: _container, forKeyIfPresent: .valueInteger64, auxiliaryKey: ._valueInteger64) {
+		if let valueInteger64 = try FHIRInteger64(from: _container, forKeyIfPresent: .valueInteger64) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueInteger64, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
@@ -1451,12 +1488,6 @@ open class TaskOutput: BackboneElement {
 			}
 			_t_value = .contactDetail(valueContactDetail)
 		}
-		if let valueContributor = try Contributor(from: _container, forKeyIfPresent: .valueContributor) {
-			if _t_value != nil {
-				throw DecodingError.dataCorruptedError(forKey: .valueContributor, in: _container, debugDescription: "More than one value provided for \"value\"")
-			}
-			_t_value = .contributor(valueContributor)
-		}
 		if let valueDataRequirement = try DataRequirement(from: _container, forKeyIfPresent: .valueDataRequirement) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDataRequirement, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -1492,6 +1523,18 @@ open class TaskOutput: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueUsageContext, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .usageContext(valueUsageContext)
+		}
+		if let valueAvailability = try Availability(from: _container, forKeyIfPresent: .valueAvailability) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueAvailability, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .availability(valueAvailability)
+		}
+		if let valueExtendedContactDetail = try ExtendedContactDetail(from: _container, forKeyIfPresent: .valueExtendedContactDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
@@ -1538,7 +1581,7 @@ open class TaskOutput: BackboneElement {
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .integer64(let _value):
-				try _value.encode(on: &_container, forKey: .valueInteger64, auxiliaryKey: ._valueInteger64)
+				try _value.encode(on: &_container, forKey: .valueInteger64)
 			case .markdown(let _value):
 				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .oid(let _value):
@@ -1605,8 +1648,6 @@ open class TaskOutput: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTiming)
 			case .contactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueContactDetail)
-			case .contributor(let _value):
-				try _value.encode(on: &_container, forKey: .valueContributor)
 			case .dataRequirement(let _value):
 				try _value.encode(on: &_container, forKey: .valueDataRequirement)
 			case .expression(let _value):
@@ -1619,6 +1660,10 @@ open class TaskOutput: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueTriggerDefinition)
 			case .usageContext(let _value):
 				try _value.encode(on: &_container, forKey: .valueUsageContext)
+			case .availability(let _value):
+				try _value.encode(on: &_container, forKey: .valueAvailability)
+			case .extendedContactDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):
@@ -1649,6 +1694,87 @@ open class TaskOutput: BackboneElement {
 }
 
 /**
+ Who or what performed the task.
+ 
+ The entity who performed the requested task.
+ */
+open class TaskPerformer: BackboneElement {
+	
+	/// Type of performance
+	public var function: CodeableConcept?
+	
+	/// Who performed the task
+	public var actor: Reference
+	
+	/// Designated initializer taking all required properties
+	public init(actor: Reference) {
+		self.actor = actor
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		actor: Reference,
+		`extension`: [Extension]? = nil,
+		function: CodeableConcept? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init(actor: actor)
+		self.`extension` = `extension`
+		self.function = function
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case actor
+		case function
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.actor = try Reference(from: _container, forKey: .actor)
+		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try actor.encode(on: &_container, forKey: .actor)
+		try function?.encode(on: &_container, forKey: .function)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? TaskPerformer else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return actor == _other.actor
+		    && function == _other.function
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(actor)
+		hasher.combine(function)
+	}
+}
+
+/**
  Constraints on fulfillment tasks.
  
  If the Task.focus is a request resource and the task is seeking fulfillment (i.e. is asking for the request to be
@@ -1659,7 +1785,7 @@ open class TaskRestriction: BackboneElement {
 	/// How many times to repeat
 	public var repetitions: FHIRPrimitive<FHIRPositiveInteger>?
 	
-	/// When fulfillment sought
+	/// When fulfillment is sought
 	public var period: Period?
 	
 	/// For whom is fulfillment sought?

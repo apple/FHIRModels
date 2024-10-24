@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,13 +22,16 @@ import FMCore
 /**
  To describe the reason for the variant citation, such as version number or subpart specification.
  
- URL: http://terminology.hl7.org/CodeSystem/cited-artifact-part-type
+ URL: http://hl7.org/fhir/cited-artifact-part-type
  ValueSet: http://hl7.org/fhir/ValueSet/cited-artifact-part-type
  */
 public enum CitedArtifactPartType: String, FHIRPrimitiveType {
 	
 	/// Used to distinguish an individual article within an article set where the article set is a base citation.
 	case articleSet = "article-set"
+	
+	/// Denotes specific chapter or chapters of an article or artifact.
+	case chapters
 	
 	/// Denotes specific figure or figures of an article or artifact.
 	case figures

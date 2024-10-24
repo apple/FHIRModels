@@ -2,8 +2,8 @@
 //  HumanName.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/HumanName)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/HumanName)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,9 +20,10 @@
 import FMCore
 
 /**
- Name of a human - parts and usage.
+ Name of a human or other living entity - parts and usage.
  
- A human's name with the ability to identify parts and usage.
+ A name, normally of a human, that can be used for other living entities (e.g. animals but not organizations) that have
+ been assigned names by a human and may need the use of name parts or the need for usage information.
  */
 open class HumanName: DataType {
 	

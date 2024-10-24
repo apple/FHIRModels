@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,6 +71,10 @@ public enum IssueType: String, FHIRPrimitiveType {
 	/// A content validation rule failed - e.g. a schematron rule.
 	case invariant
 	
+	/// Some search filters might not have applied on all results.  Data may have been included that does not meet all
+	/// of the filters listed in the `self` `Bundle.link`.
+	case limitedFilter = "limited-filter"
+	
 	/// A resource/record locking failure (usually in an underlying database).
 	case lockError = "lock-error"
 	
@@ -104,6 +108,9 @@ public enum IssueType: String, FHIRPrimitiveType {
 	/// A structural issue in the content such as wrong namespace, unable to parse the content completely, invalid
 	/// syntax, etc.
 	case structure
+	
+	/// The operation completed successfully.
+	case success
 	
 	/// Some information was not or might not have been returned due to business rules, consent or privacy rules, or
 	/// access permission constraints.  This information may be accessible through alternate processes.

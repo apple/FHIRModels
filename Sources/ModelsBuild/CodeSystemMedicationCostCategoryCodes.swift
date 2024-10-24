@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
 import FMCore
 
 /**
- None
+ Medication Cost Category Codes
  
- URL: http://terminology.hl7.org/CodeSystem/medication-cost-category
+ URL: http://hl7.org/fhir/medication-cost-category
  ValueSet: http://hl7.org/fhir/ValueSet/medication-cost-category
  */
 public enum MedicationCostCategoryCodes: String, FHIRPrimitiveType {

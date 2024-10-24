@@ -2,8 +2,8 @@
 //  Expression.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/Expression)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Expression)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ open class Expression: DataType {
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// text/cql | text/fhirpath | application/x-fhir-query | etc.
-	public var language: FHIRPrimitive<FHIRString>
+	public var language: FHIRPrimitive<FHIRString>?
 	
 	/// Expression in specified language
 	public var expression: FHIRPrimitive<FHIRString>?
@@ -43,8 +43,7 @@ open class Expression: DataType {
 	public var reference: FHIRPrimitive<FHIRURI>?
 	
 	/// Designated initializer taking all required properties
-	public init(language: FHIRPrimitive<FHIRString>) {
-		self.language = language
+	override public init() {
 		super.init()
 	}
 	
@@ -54,15 +53,16 @@ open class Expression: DataType {
 		expression: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		language: FHIRPrimitive<FHIRString>,
+		language: FHIRPrimitive<FHIRString>? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		reference: FHIRPrimitive<FHIRURI>? = nil
 	) {
-		self.init(language: language)
+		self.init()
 		self.description_fhir = description_fhir
 		self.expression = expression
 		self.`extension` = `extension`
 		self.id = id
+		self.language = language
 		self.name = name
 		self.reference = reference
 	}
@@ -84,7 +84,7 @@ open class Expression: DataType {
 		// Decode all our properties
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.expression = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .expression, auxiliaryKey: ._expression)
-		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKey: .language, auxiliaryKey: ._language)
+		self.language = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .language, auxiliaryKey: ._language)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.reference = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
 		try super.init(from: decoder)
@@ -97,7 +97,7 @@ open class Expression: DataType {
 		// Encode all our properties
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try expression?.encode(on: &_container, forKey: .expression, auxiliaryKey: ._expression)
-		try language.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
+		try language?.encode(on: &_container, forKey: .language, auxiliaryKey: ._language)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
 		try super.encode(to: encoder)

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public enum TaskStatus: String, FHIRPrimitiveType {
 	/// The task should never have existed and is retained only because of the possibility it may have used.
 	case enteredInError = "entered-in-error"
 	
-	/// The task was attempted but could not be completed due to some error.
+	/// The task was attempted but was not successful.  No further activity will occur for this task.
 	case failed
 	
 	/// The task has been started but is not yet complete.

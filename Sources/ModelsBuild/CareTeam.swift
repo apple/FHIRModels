@@ -2,8 +2,8 @@
 //  CareTeam.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 4.6.0-048af26 (http://hl7.org/fhir/StructureDefinition/CareTeam)
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CareTeam)
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -210,8 +210,8 @@ open class CareTeam: DomainResource {
  */
 open class CareTeamParticipant: BackboneElement {
 	
-	/// All possible types for "coverage[x]"
-	public enum CoverageX: Hashable {
+	/// All possible types for "effective[x]"
+	public enum EffectiveX: Hashable {
 		case period(Period)
 		case timing(Timing)
 	}
@@ -222,12 +222,13 @@ open class CareTeamParticipant: BackboneElement {
 	/// Who is involved
 	public var member: Reference?
 	
-	/// Organization of the practitioner
+	/// Entity that the participant is acting as a proxy of, or an agent of, or in the interest of, or as a
+	/// representative of
 	public var onBehalfOf: Reference?
 	
 	/// When the member is generally available within this care team
-	/// One of `coverage[x]`
-	public var coverage: CoverageX?
+	/// One of `effective[x]`
+	public var effective: EffectiveX?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -236,7 +237,7 @@ open class CareTeamParticipant: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		coverage: CoverageX? = nil,
+		effective: EffectiveX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		member: Reference? = nil,
@@ -245,7 +246,7 @@ open class CareTeamParticipant: BackboneElement {
 		role: CodeableConcept? = nil
 	) {
 		self.init()
-		self.coverage = coverage
+		self.effective = effective
 		self.`extension` = `extension`
 		self.id = id
 		self.member = member
@@ -257,8 +258,8 @@ open class CareTeamParticipant: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case coveragePeriod
-		case coverageTiming
+		case effectivePeriod
+		case effectiveTiming
 		case member
 		case onBehalfOf
 		case role
@@ -269,20 +270,20 @@ open class CareTeamParticipant: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		var _t_coverage: CoverageX? = nil
-		if let coveragePeriod = try Period(from: _container, forKeyIfPresent: .coveragePeriod) {
-			if _t_coverage != nil {
-				throw DecodingError.dataCorruptedError(forKey: .coveragePeriod, in: _container, debugDescription: "More than one value provided for \"coverage\"")
+		var _t_effective: EffectiveX? = nil
+		if let effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod) {
+			if _t_effective != nil {
+				throw DecodingError.dataCorruptedError(forKey: .effectivePeriod, in: _container, debugDescription: "More than one value provided for \"effective\"")
 			}
-			_t_coverage = .period(coveragePeriod)
+			_t_effective = .period(effectivePeriod)
 		}
-		if let coverageTiming = try Timing(from: _container, forKeyIfPresent: .coverageTiming) {
-			if _t_coverage != nil {
-				throw DecodingError.dataCorruptedError(forKey: .coverageTiming, in: _container, debugDescription: "More than one value provided for \"coverage\"")
+		if let effectiveTiming = try Timing(from: _container, forKeyIfPresent: .effectiveTiming) {
+			if _t_effective != nil {
+				throw DecodingError.dataCorruptedError(forKey: .effectiveTiming, in: _container, debugDescription: "More than one value provided for \"effective\"")
 			}
-			_t_coverage = .timing(coverageTiming)
+			_t_effective = .timing(effectiveTiming)
 		}
-		self.coverage = _t_coverage
+		self.effective = _t_effective
 		self.member = try Reference(from: _container, forKeyIfPresent: .member)
 		self.onBehalfOf = try Reference(from: _container, forKeyIfPresent: .onBehalfOf)
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
@@ -294,12 +295,12 @@ open class CareTeamParticipant: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		if let _enum = coverage {
+		if let _enum = effective {
 			switch _enum {
 			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .coveragePeriod)
+				try _value.encode(on: &_container, forKey: .effectivePeriod)
 			case .timing(let _value):
-				try _value.encode(on: &_container, forKey: .coverageTiming)
+				try _value.encode(on: &_container, forKey: .effectiveTiming)
 			}
 		}
 		try member?.encode(on: &_container, forKey: .member)
@@ -317,7 +318,7 @@ open class CareTeamParticipant: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return coverage == _other.coverage
+		return effective == _other.effective
 		    && member == _other.member
 		    && onBehalfOf == _other.onBehalfOf
 		    && role == _other.role
@@ -325,7 +326,7 @@ open class CareTeamParticipant: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(coverage)
+		hasher.combine(effective)
 		hasher.combine(member)
 		hasher.combine(onBehalfOf)
 		hasher.combine(role)

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,9 +27,6 @@ import FMCore
  */
 public enum DeviceDefinitionRelationType: String, FHIRPrimitiveType {
 	
-	/// The linked device is a container for the current device.
-	case container
-	
 	/// Gateway.
 	case gateway
 	
@@ -38,7 +35,4 @@ public enum DeviceDefinitionRelationType: String, FHIRPrimitiveType {
 	
 	/// The current device replaces the linked device.
 	case replaces
-	
-	/// The current device is supported by the linked device.
-	case supported
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 4.6.0-048af26
-//  Copyright 2022 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot2
+//  Copyright 2024 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ import FMCore
  */
 public enum AggregationMode: String, FHIRPrimitiveType {
 	
-	/// The resource the reference points to will be found in the same bundle as the resource that includes the
-	/// reference.
+	/// When the resource is in a Bundle, the resource the reference points to will be found in the same bundle as the
+	/// resource that includes the reference.
 	case bundled
 	
 	/// The reference is a local reference to a contained resource.
