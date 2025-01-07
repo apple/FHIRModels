@@ -100,7 +100,7 @@ public struct FHIRPrimitive<PrimitiveType: FHIRPrimitiveType>: FHIRPrimitiveProt
 	}
 }
 
-extension FHIRPrimitive: Hashable {
+extension FHIRPrimitive: Equatable, Hashable {
 	
 	public static func ==(l: FHIRPrimitive<PrimitiveType>, r: FHIRPrimitive<PrimitiveType>) -> Bool {
 		if l.value != r.value {
@@ -115,12 +115,24 @@ extension FHIRPrimitive: Hashable {
 		return true
 	}
 	
+	@inlinable
 	public static func ==(l: FHIRPrimitive<PrimitiveType>, r: PrimitiveType) -> Bool {
 		return l.value == r
 	}
 	
+	@inlinable
 	public static func ==(l: PrimitiveType, r: FHIRPrimitive<PrimitiveType>) -> Bool {
 		return l == r.value
+	}
+	
+	@inlinable
+	public static func !=(l: Self, r: PrimitiveType) -> Bool {
+		!(l == r)
+	}
+	
+	@inlinable
+	public static func !=(l: PrimitiveType, r: Self) -> Bool {
+		r != l
 	}
 	
 	public func hash(into hasher: inout Hasher) {

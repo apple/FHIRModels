@@ -3,6 +3,11 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+### 0.6.1
+
+- Make `FHIRPrimitve` explicitly `Equatable` (it already was via `Hashable`) and add negation overloads (fixes https://github.com/apple/FHIRModels/issues/30)
+- Make the build work on Windows (thanks to @fritzt0, fixes https://github.com/apple/FHIRModels/issues/33)
+
 ## 0.6.0
 
 - BREAKING CHANGES: update _build_ models to 6.0.0-ballot2 (http://build.fhir.org/)

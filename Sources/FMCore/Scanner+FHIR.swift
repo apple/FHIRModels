@@ -21,7 +21,7 @@ import Foundation
 public extension Scanner {
 	
 	func hs_scanCharacters(from characterSet: CharacterSet) -> String? {
-		#if os(Linux)
+		#if os(Linux) || os(Windows)
 		return scanCharacters(from: characterSet)
 		#else
         
