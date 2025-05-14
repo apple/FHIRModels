@@ -25,15 +25,15 @@ class TimeZoneTests: XCTestCase {
 	func testRendering() {
 		var timezone = TimeZone(secondsFromGMT: 0)
 		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.fhirDescription, "Z")
+		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "Z")
 		
 		timezone = TimeZone(secondsFromGMT: -7200)
 		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.fhirDescription, "-02:00")
+		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "-02:00")
 		
 		timezone = TimeZone(secondsFromGMT: 7200)
 		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.fhirDescription, "+02:00")
+		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "+02:00")
 	}
 	
 	func testParsing() {
@@ -52,7 +52,7 @@ class TimeZoneTests: XCTestCase {
 				let timezone = try TimeZone(string)
 				XCTAssertEqual(timezone, TimeZone(secondsFromGMT: expectedSeconds))
 				if timezone.secondsFromGMT() != 0 {         // We'll always return "Z" in this case, so can't test with +00:00 and co
-					XCTAssertEqual(string, timezone.fhirDescription)
+					XCTAssertEqual(string, timezone.gmtOffsetString(for: TimeRef()))
 				}
 			} catch {
 				XCTFail("Should succeed parsing \"\(string)\" but threw: \(error)")
@@ -156,5 +156,12 @@ class TimeZoneTests: XCTestCase {
 				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
 			}
 		}
+	}
+}
+
+struct TimeRef: ExpressibleAsNSDate {
+	
+	func asNSDate() throws -> Date {
+		Date()
 	}
 }

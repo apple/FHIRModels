@@ -24,7 +24,7 @@ import FMCore
  *
  *  http://hl7.org/fhir/datatypes.html#positiveInt
  */
-public struct FHIRPositiveInteger: FHIRPrimitiveType, FHIRIntegerRepresentable {
+public struct FHIRPositiveInteger: FHIRPrimitiveType, FHIRIntegerRepresentable, Sendable {
 	
 	public typealias IntegerLiteralType = Int32
 	

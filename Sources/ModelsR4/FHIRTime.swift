@@ -28,7 +28,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#time
  */
-public struct FHIRTime: FHIRPrimitiveType {
+public struct FHIRTime: FHIRPrimitiveType, Sendable {
 	
 	private var _secondsAreUnaltered = true
 	

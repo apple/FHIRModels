@@ -30,7 +30,7 @@ import Foundation
  
  http://hl7.org/fhir/datatypes.html#canonical
  */
-public struct Canonical: FHIRPrimitiveType {
+public struct Canonical: FHIRPrimitiveType, Sendable {
 	
 	public var url: URL
 	

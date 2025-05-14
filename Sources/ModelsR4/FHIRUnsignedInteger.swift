@@ -24,7 +24,7 @@ import FMCore
    
  http://hl7.org/fhir/datatypes.html#unsignedInt
  */
-public struct FHIRUnsignedInteger: FHIRPrimitiveType, FHIRIntegerRepresentable {
+public struct FHIRUnsignedInteger: FHIRPrimitiveType, FHIRIntegerRepresentable, Sendable {
 	
 	public typealias IntegerLiteralType = Int32
 	

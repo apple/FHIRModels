@@ -26,12 +26,23 @@ public extension TimeZone {
 		self.init(secondsFromGMT: seconds)!
 	}
 	
-	var fhirDescription: String {
-		if secondsFromGMT() == 0 {
+	func gmtOffsetString(for reference: ExpressibleAsNSDate) -> String {
+		let referenceDate: Date
+		do {
+			referenceDate = try reference.asNSDate()
+		} catch {
+			// We really should start using os_log
+			print("TimeZone.gmtOffsetString failed to get NSDate from \(reference), defaulting to now")
+			referenceDate = Date()
+		}
+		
+		let gmtOffset = secondsFromGMT(for: referenceDate)
+		if gmtOffset == 0 {
 			return "Z"
 		}
-		let ahead = (secondsFromGMT() > 0)
-		let seconds = abs(secondsFromGMT())
+		
+		let ahead = (gmtOffset > 0)
+		let seconds = abs(gmtOffset)
 		let hours = seconds / 3600
 		let minutes = (seconds - (3600 * hours)) / 60
 		let prefix = ahead ? "+" : "-"

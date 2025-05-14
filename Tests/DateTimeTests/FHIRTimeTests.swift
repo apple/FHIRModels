@@ -177,7 +177,7 @@ class FHIRTimeTests: XCTestCase {
     
     // MARK: - Tools
     
-    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+	private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #filePath, line: UInt = #line) throws {
         let leftTime = try FHIRTime(left)
         let rightTime = try FHIRTime(right)
         if compares == .orderedDescending {

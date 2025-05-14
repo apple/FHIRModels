@@ -106,7 +106,7 @@ class InstantTests: XCTestCase {
     
     // MARK: - Tools
     
-    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #file, line: UInt = #line) throws {
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #filePath, line: UInt = #line) throws {
         let leftInstant = try Instant(left)
         let rightInstant = try Instant(right)
 		XCTAssertEqual(try leftInstant.compare(rightInstant), compares, file: file, line: line)

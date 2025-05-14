@@ -24,7 +24,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#integer64
  */
-public struct FHIRInteger64: FHIRPrimitiveType, FHIRIntegerRepresentable {
+public struct FHIRInteger64: FHIRPrimitiveType, FHIRIntegerRepresentable, Sendable {
 	
 	public typealias IntegerLiteralType = Int64
 	

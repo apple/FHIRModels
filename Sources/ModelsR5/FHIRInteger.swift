@@ -23,7 +23,7 @@ import FMCore
  *
  *  http://hl7.org/fhir/datatypes.html#integer
  */
-public struct FHIRInteger: FHIRPrimitiveType, FHIRIntegerRepresentable {
+public struct FHIRInteger: FHIRPrimitiveType, FHIRIntegerRepresentable, Sendable {
 	
 	public typealias IntegerLiteralType = Int32
 	

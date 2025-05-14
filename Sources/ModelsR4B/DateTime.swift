@@ -35,7 +35,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#datetime
  */
-public struct DateTime: FHIRPrimitiveType {
+public struct DateTime: FHIRPrimitiveType, Sendable {
 	
 	private var _timeZoneIsUnaltered = true
 	
@@ -138,7 +138,7 @@ extension DateTime: CustomStringConvertible {
 			if _timeZoneIsUnaltered, let originalTimeZoneString = originalTimeZoneString {
 				return "\(date.description)T\(time.description)\(originalTimeZoneString)"
 			}
-			return "\(date.description)T\(time.description)\(timeZone.fhirDescription)"
+			return "\(date.description)T\(time.description)\(timeZone.gmtOffsetString(for: self))"
 		}
 		return date.description
 	}

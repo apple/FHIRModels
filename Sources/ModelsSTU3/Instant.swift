@@ -36,7 +36,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#instant
  */
-public struct Instant: FHIRPrimitiveType {
+public struct Instant: FHIRPrimitiveType, Sendable {
 	
 	private var _timezoneIsUnaltered = true
 	
@@ -131,7 +131,7 @@ extension Instant: CustomStringConvertible {
 		if _timezoneIsUnaltered, let originalTimeZoneString = originalTimeZoneString {
 			return "\(date.description)T\(time.description)\(originalTimeZoneString)"
 		}
-		return "\(date.description)T\(time.description)\(timeZone.fhirDescription)"
+		return "\(date.description)T\(time.description)\(timeZone.gmtOffsetString(for: self))"
 	}
 }
 

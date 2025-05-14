@@ -28,7 +28,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#date
  */
-public struct FHIRDate: FHIRPrimitiveType {
+public struct FHIRDate: FHIRPrimitiveType, Sendable {
 	
 	public var year: Int
 	

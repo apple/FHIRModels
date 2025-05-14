@@ -1,7 +1,7 @@
 FHIRModels
 ==========
 
-[![0.6.1](https://img.shields.io/badge/Latest-0.6.1-blueviolet.svg?style=flat)](https://github.com/apple/FHIRModels/releases) [![🔥 FHIR DSTU2, STU3, R4, R4B, R5, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3_•%20R4_•%20R4B_•%20R5_•%20β6.0-orange.svg?style=flat)][fhir] ![Works on macOS, iOS, watchOS, tvOS and Linux](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS_•%20Linux-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](LICENSE)
+[![0.7.0](https://img.shields.io/badge/Latest-0.7.0-blueviolet.svg?style=flat)](https://github.com/apple/FHIRModels/releases) [![🔥 FHIR DSTU2, STU3, R4, R4B, R5, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3_•%20R4_•%20R4B_•%20R5_•%20β6.0-orange.svg?style=flat)][fhir] ![Works on macOS, iOS, watchOS, tvOS and Linux](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS_•%20Linux-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](LICENSE)
 
 FHIRModels is a Swift library for [FHIR®][fhir] resource data models.
 
@@ -17,7 +17,7 @@ FHIRModels is a Swift library for [FHIR®][fhir] resource data models.
 
 ## Requirements
 
-FHIRModels works with Swift 5.1 and newer. Running unit tests requires Swift 5.3 and newer.
+FHIRModels works with Swift 5.7 and newer.
 
 ## Installation
 
@@ -26,14 +26,14 @@ FHIRModels works with Swift 5.1 and newer. Running unit tests requires Swift 5.3
 1. In Xcode 11 and newer, go to “File” » “Swift Package Management” » “Add Package Dependency...”
 2. Search for “FHIRModels” in the panel that comes up or paste the full URL to the GitHub repository, then select the package
 3. Pick the versioning that best works for you (usually the current version and “up to next major”)
-4. In order to update the dependency, periodically select “Update to Latest Package Versions” from Xcode 11's “File” » “Swift Package Management” menu
+4. In order to update the dependency, periodically select “Update to Latest Package Versions” from Xcode's “File” » ”Packages” menu
 
 Alternatively, you can add FHIRModels to your `Package.swift` file as a dependency:
 
 ```swift
 dependencies: [
     .package(url: "https://github.com/apple/FHIRModels.git",
-            .upToNextMajor(from: "0.6.0"))
+            .upToNextMajor(from: "0.7.0"))
 ]
 ```
 

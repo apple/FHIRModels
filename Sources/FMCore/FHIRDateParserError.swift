@@ -18,7 +18,7 @@
 
 import Foundation
 
-public struct FHIRDateParserErrorPosition: CustomStringConvertible {
+public struct FHIRDateParserErrorPosition: CustomStringConvertible, Sendable {
 	public let string: String
 	public let location: Int
 	

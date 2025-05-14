@@ -37,7 +37,7 @@ import Foundation
  
  http://hl7.org/fhir/datatypes.html#decimal
  */
-public struct FHIRDecimal: FHIRPrimitiveType, ExpressibleByFloatLiteral {
+public struct FHIRDecimal: FHIRPrimitiveType, ExpressibleByFloatLiteral, Sendable {
 	
 	public typealias FloatLiteralType = Double
 	

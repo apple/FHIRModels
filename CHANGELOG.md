@@ -3,6 +3,13 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+### 0.7.0
+
+- Make most primitive types (such as `FHIRBool` and `FHIRDateComponents`) `Sendable`
+- Address https://github.com/apple/FHIRModels/issues/36 (thanks to [Lukas Kollmer](https://github.com/lukaskollmer) for the report)
+- Fix time zone description that's off for dates in timezone with DST (again, thanks to [Lukas Kollmer](https://github.com/lukaskollmer) for the detailed report!). Fixes https://github.com/apple/FHIRModels/issues/35
+- Bump Swift tools version to 5.7 
+
 ### 0.6.1
 
 - Make `FHIRPrimitve` explicitly `Equatable` (it already was via `Hashable`) and add negation overloads (fixes https://github.com/apple/FHIRModels/issues/30)

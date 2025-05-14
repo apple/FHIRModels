@@ -18,9 +18,7 @@
 
 import Foundation
 
-public struct FHIRDateComponents: ExpressibleAsNSDate {
-	
-	static var calendar = Calendar(identifier: .gregorian)
+public struct FHIRDateComponents: ExpressibleAsNSDate, Sendable {
 	
 	let year: Int
 	let month: UInt8?
@@ -72,7 +70,7 @@ public struct FHIRDateComponents: ExpressibleAsNSDate {
 	}
 	
 	public static func dateComponents(from date: Date, with timeZone: TimeZone) throws -> (year: Int, month: UInt8?, day: UInt8?) {
-		calendar.timeZone = timeZone
+		let calendar = gregorianCalendar(in: timeZone)
 		let components = calendar.dateComponents([.year, .month, .day], from: date)
 		guard let year = components.year else {
 			throw DateExpressionError.unableToConstructFromDate(date, components)
@@ -81,7 +79,7 @@ public struct FHIRDateComponents: ExpressibleAsNSDate {
 	}
 	
 	public static func timeComponents(from date: Date, with timeZone: TimeZone) throws -> (hour: UInt8, minute: UInt8, second: Decimal) {
-		calendar.timeZone = timeZone
+		let calendar = gregorianCalendar(in: timeZone)
 		let components = calendar.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
 		guard let hourInt = components.hour,
 			  let minuteInt = components.minute,
@@ -106,15 +104,23 @@ public struct FHIRDateComponents: ExpressibleAsNSDate {
 	public static func components(from date: Date, with timeZone: TimeZone) throws -> (year: Int, month: UInt8, day: UInt8, hour: UInt8, minute: UInt8, second: Decimal) {
 		let (year, monthComponent, dayComponent) = try dateComponents(from: date, with: timeZone)
 		guard let month = monthComponent else {
-			let failureComponents = DateComponents(calendar: calendar, timeZone: timeZone, era: nil, year: year, month: nil)
+			let failureComponents = DateComponents(calendar: gregorianCalendar(), timeZone: timeZone, era: nil, year: year, month: nil)
 			throw DateExpressionError.unableToConstructFromDate(date, failureComponents)
 		}
 		guard let day = dayComponent else {
-			let failureComponents = DateComponents(calendar: calendar, timeZone: timeZone, era: nil, year: year, month: Int(month), day: nil)
+			let failureComponents = DateComponents(calendar: gregorianCalendar(), timeZone: timeZone, era: nil, year: year, month: Int(month), day: nil)
 			throw DateExpressionError.unableToConstructFromDate(date, failureComponents)
 		}
 		let (hour, minute, second) = try timeComponents(from: date, with: timeZone)
 		return (year, month, day, hour, minute, second)
+	}
+	
+	private static func gregorianCalendar(in timeZone: TimeZone? = nil) -> Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		if let timeZone {
+			calendar.timeZone = timeZone
+		}
+		return calendar
 	}
 }
 

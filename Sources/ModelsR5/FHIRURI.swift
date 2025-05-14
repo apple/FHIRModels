@@ -30,7 +30,7 @@ import Foundation
  
  For UUID (aka GUID) (`urn:uuid:53fefa32-fcbb-4ff8-8a92-55ee120877b7`) use all lowercase
  */
-public struct FHIRURI: FHIRPrimitiveType {
+public struct FHIRURI: FHIRPrimitiveType, Sendable {
 	
 	public var url: URL
 	

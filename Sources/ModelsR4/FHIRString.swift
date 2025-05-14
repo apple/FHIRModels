@@ -45,7 +45,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#markdown
  */
-public struct FHIRString: FHIRPrimitiveType {
+public struct FHIRString: FHIRPrimitiveType, Sendable {
 	
 	public var string: String
 	
