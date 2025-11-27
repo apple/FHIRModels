@@ -2,8 +2,8 @@
 //  PaymentNotice.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PaymentNotice)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/PaymentNotice)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,6 +34,9 @@ open class PaymentNotice: DomainResource {
 	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// Reason for status change
+	public var statusReason: FHIRPrimitive<FHIRString>?
 	
 	/// Request reference
 	public var request: Reference?
@@ -95,6 +98,7 @@ open class PaymentNotice: DomainResource {
 		request: Reference? = nil,
 		response: Reference? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(amount: amount, created: created, recipient: recipient, status: status)
@@ -113,6 +117,7 @@ open class PaymentNotice: DomainResource {
 		self.reporter = reporter
 		self.request = request
 		self.response = response
+		self.statusReason = statusReason
 		self.text = text
 	}
 	
@@ -131,6 +136,7 @@ open class PaymentNotice: DomainResource {
 		case request
 		case response
 		case status; case _status
+		case statusReason; case _statusReason
 	}
 	
 	/// Initializer for Decodable
@@ -150,6 +156,7 @@ open class PaymentNotice: DomainResource {
 		self.request = try Reference(from: _container, forKeyIfPresent: .request)
 		self.response = try Reference(from: _container, forKeyIfPresent: .response)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
 		try super.init(from: decoder)
 	}
 	
@@ -170,6 +177,7 @@ open class PaymentNotice: DomainResource {
 		try request?.encode(on: &_container, forKey: .request)
 		try response?.encode(on: &_container, forKey: .response)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
 		try super.encode(to: encoder)
 	}
 	
@@ -194,6 +202,7 @@ open class PaymentNotice: DomainResource {
 		    && request == _other.request
 		    && response == _other.response
 		    && status == _other.status
+		    && statusReason == _other.statusReason
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -210,5 +219,6 @@ open class PaymentNotice: DomainResource {
 		hasher.combine(request)
 		hasher.combine(response)
 		hasher.combine(status)
+		hasher.combine(statusReason)
 	}
 }

@@ -2,8 +2,8 @@
 //  ObservationDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ObservationDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ObservationDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,6 +28,12 @@ import FMCore
 open class ObservationDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .observationDefinition }
+	
+	/// All possible types for "device[x]"
+	public enum DeviceX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case reference(Reference)
+	}
 	
 	/// All possible types for "versionAlgorithm[x]"
 	public enum VersionAlgorithmX: Hashable {
@@ -57,7 +63,7 @@ open class ObservationDefinition: DomainResource {
 	/// The current state of the ObservationDefinition.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// If for testing purposes, not real usage
+	/// If For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -75,13 +81,13 @@ open class ObservationDefinition: DomainResource {
 	/// Content intends to support these contexts
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for this ObservationDefinition (if applicable)
+	/// Jurisdiction of the authority that maintains the this ObservationDefinition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this ObservationDefinition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -121,8 +127,8 @@ open class ObservationDefinition: DomainResource {
 	/// Multiple results allowed for conforming observations
 	public var multipleResultsAllowed: FHIRPrimitive<FHIRBool>?
 	
-	/// Body part to be observed
-	public var bodySite: CodeableConcept?
+	/// Body structure to be observed
+	public var bodyStructure: CodeableReference?
 	
 	/// Method used to produce the observation
 	public var method: CodeableConcept?
@@ -131,7 +137,8 @@ open class ObservationDefinition: DomainResource {
 	public var specimen: [Reference]?
 	
 	/// Measurement device or model of device
-	public var device: [Reference]?
+	/// One of `device[x]`
+	public var device: DeviceX?
 	
 	/// The preferred name to be used when reporting the observation results
 	public var preferredReportName: FHIRPrimitive<FHIRString>?
@@ -158,7 +165,7 @@ open class ObservationDefinition: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
-		bodySite: CodeableConcept? = nil,
+		bodyStructure: CodeableReference? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept,
 		component: [ObservationDefinitionComponent]? = nil,
@@ -170,7 +177,7 @@ open class ObservationDefinition: DomainResource {
 		derivedFromCanonical: [FHIRPrimitive<Canonical>]? = nil,
 		derivedFromUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
-		device: [Reference]? = nil,
+		device: DeviceX? = nil,
 		effectivePeriod: Period? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
 		`extension`: [Extension]? = nil,
@@ -205,7 +212,7 @@ open class ObservationDefinition: DomainResource {
 	) {
 		self.init(code: code, status: status)
 		self.approvalDate = approvalDate
-		self.bodySite = bodySite
+		self.bodyStructure = bodyStructure
 		self.category = category
 		self.component = component
 		self.contact = contact
@@ -253,7 +260,7 @@ open class ObservationDefinition: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case approvalDate; case _approvalDate
-		case bodySite
+		case bodyStructure
 		case category
 		case code
 		case component
@@ -264,7 +271,8 @@ open class ObservationDefinition: DomainResource {
 		case derivedFromCanonical; case _derivedFromCanonical
 		case derivedFromUri; case _derivedFromUri
 		case description_fhir = "description"; case _description_fhir = "_description"
-		case device
+		case deviceCanonical; case _deviceCanonical
+		case deviceReference
 		case effectivePeriod
 		case experimental; case _experimental
 		case hasMember
@@ -298,7 +306,7 @@ open class ObservationDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.approvalDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .approvalDate, auxiliaryKey: ._approvalDate)
-		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
+		self.bodyStructure = try CodeableReference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.component = try [ObservationDefinitionComponent](from: _container, forKeyIfPresent: .component)
@@ -309,7 +317,20 @@ open class ObservationDefinition: DomainResource {
 		self.derivedFromCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		self.derivedFromUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.device = try [Reference](from: _container, forKeyIfPresent: .device)
+		var _t_device: DeviceX? = nil
+		if let deviceReference = try Reference(from: _container, forKeyIfPresent: .deviceReference) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceReference, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .reference(deviceReference)
+		}
+		if let deviceCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .deviceCanonical, auxiliaryKey: ._deviceCanonical) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCanonical, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .canonical(deviceCanonical)
+		}
+		self.device = _t_device
 		self.effectivePeriod = try Period(from: _container, forKeyIfPresent: .effectivePeriod)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.hasMember = try [Reference](from: _container, forKeyIfPresent: .hasMember)
@@ -356,7 +377,7 @@ open class ObservationDefinition: DomainResource {
 		
 		// Encode all our properties
 		try approvalDate?.encode(on: &_container, forKey: .approvalDate, auxiliaryKey: ._approvalDate)
-		try bodySite?.encode(on: &_container, forKey: .bodySite)
+		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
 		try category?.encode(on: &_container, forKey: .category)
 		try code.encode(on: &_container, forKey: .code)
 		try component?.encode(on: &_container, forKey: .component)
@@ -367,7 +388,14 @@ open class ObservationDefinition: DomainResource {
 		try derivedFromCanonical?.encode(on: &_container, forKey: .derivedFromCanonical, auxiliaryKey: ._derivedFromCanonical)
 		try derivedFromUri?.encode(on: &_container, forKey: .derivedFromUri, auxiliaryKey: ._derivedFromUri)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try device?.encode(on: &_container, forKey: .device)
+		if let _enum = device {
+			switch _enum {
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .deviceReference)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCanonical, auxiliaryKey: ._deviceCanonical)
+			}
+		}
 		try effectivePeriod?.encode(on: &_container, forKey: .effectivePeriod)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try hasMember?.encode(on: &_container, forKey: .hasMember)
@@ -412,7 +440,7 @@ open class ObservationDefinition: DomainResource {
 			return false
 		}
 		return approvalDate == _other.approvalDate
-		    && bodySite == _other.bodySite
+		    && bodyStructure == _other.bodyStructure
 		    && category == _other.category
 		    && code == _other.code
 		    && component == _other.component
@@ -453,7 +481,7 @@ open class ObservationDefinition: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(approvalDate)
-		hasher.combine(bodySite)
+		hasher.combine(bodyStructure)
 		hasher.combine(category)
 		hasher.combine(code)
 		hasher.combine(component)
@@ -607,8 +635,8 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 	/// Targetted population for the set of qualified values
 	public var appliesTo: [CodeableConcept]?
 	
-	/// The gender this  set of qualified values applies to.
-	public var gender: FHIRPrimitive<AdministrativeGender>?
+	/// The sex parameter for clinical use this set of qualified values applies to.
+	public var sexParameterForClinicalUse: FHIRPrimitive<AdministrativeGender>?
 	
 	/// Applicable age range for the set of qualified values
 	public var age: Range?
@@ -616,7 +644,7 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 	/// Applicable gestational age range for the set of qualified values
 	public var gestationalAge: Range?
 	
-	/// Condition associated with the set of qualified values
+	/// Validity criterion for the qualified value
 	public var condition: FHIRPrimitive<FHIRString>?
 	
 	/// The category of range of values for continuous or ordinal observations that match the criteria of this set of
@@ -655,7 +683,6 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		context: CodeableConcept? = nil,
 		criticalCodedValueSet: FHIRPrimitive<Canonical>? = nil,
 		`extension`: [Extension]? = nil,
-		gender: FHIRPrimitive<AdministrativeGender>? = nil,
 		gestationalAge: Range? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		interpretation: [CodeableConcept]? = nil,
@@ -663,6 +690,7 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		normalCodedValueSet: FHIRPrimitive<Canonical>? = nil,
 		range: Range? = nil,
 		rangeCategory: FHIRPrimitive<ObservationRangeCategory>? = nil,
+		sexParameterForClinicalUse: FHIRPrimitive<AdministrativeGender>? = nil,
 		validCodedValueSet: FHIRPrimitive<Canonical>? = nil
 	) {
 		self.init()
@@ -673,7 +701,6 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		self.context = context
 		self.criticalCodedValueSet = criticalCodedValueSet
 		self.`extension` = `extension`
-		self.gender = gender
 		self.gestationalAge = gestationalAge
 		self.id = id
 		self.interpretation = interpretation
@@ -681,6 +708,7 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		self.normalCodedValueSet = normalCodedValueSet
 		self.range = range
 		self.rangeCategory = rangeCategory
+		self.sexParameterForClinicalUse = sexParameterForClinicalUse
 		self.validCodedValueSet = validCodedValueSet
 	}
 	
@@ -693,12 +721,12 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		case condition; case _condition
 		case context
 		case criticalCodedValueSet; case _criticalCodedValueSet
-		case gender; case _gender
 		case gestationalAge
 		case interpretation
 		case normalCodedValueSet; case _normalCodedValueSet
 		case range
 		case rangeCategory; case _rangeCategory
+		case sexParameterForClinicalUse; case _sexParameterForClinicalUse
 		case validCodedValueSet; case _validCodedValueSet
 	}
 	
@@ -713,12 +741,12 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		self.condition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .condition, auxiliaryKey: ._condition)
 		self.context = try CodeableConcept(from: _container, forKeyIfPresent: .context)
 		self.criticalCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .criticalCodedValueSet, auxiliaryKey: ._criticalCodedValueSet)
-		self.gender = try FHIRPrimitive<AdministrativeGender>(from: _container, forKeyIfPresent: .gender, auxiliaryKey: ._gender)
 		self.gestationalAge = try Range(from: _container, forKeyIfPresent: .gestationalAge)
 		self.interpretation = try [CodeableConcept](from: _container, forKeyIfPresent: .interpretation)
 		self.normalCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .normalCodedValueSet, auxiliaryKey: ._normalCodedValueSet)
 		self.range = try Range(from: _container, forKeyIfPresent: .range)
 		self.rangeCategory = try FHIRPrimitive<ObservationRangeCategory>(from: _container, forKeyIfPresent: .rangeCategory, auxiliaryKey: ._rangeCategory)
+		self.sexParameterForClinicalUse = try FHIRPrimitive<AdministrativeGender>(from: _container, forKeyIfPresent: .sexParameterForClinicalUse, auxiliaryKey: ._sexParameterForClinicalUse)
 		self.validCodedValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .validCodedValueSet, auxiliaryKey: ._validCodedValueSet)
 		try super.init(from: decoder)
 	}
@@ -734,12 +762,12 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		try condition?.encode(on: &_container, forKey: .condition, auxiliaryKey: ._condition)
 		try context?.encode(on: &_container, forKey: .context)
 		try criticalCodedValueSet?.encode(on: &_container, forKey: .criticalCodedValueSet, auxiliaryKey: ._criticalCodedValueSet)
-		try gender?.encode(on: &_container, forKey: .gender, auxiliaryKey: ._gender)
 		try gestationalAge?.encode(on: &_container, forKey: .gestationalAge)
 		try interpretation?.encode(on: &_container, forKey: .interpretation)
 		try normalCodedValueSet?.encode(on: &_container, forKey: .normalCodedValueSet, auxiliaryKey: ._normalCodedValueSet)
 		try range?.encode(on: &_container, forKey: .range)
 		try rangeCategory?.encode(on: &_container, forKey: .rangeCategory, auxiliaryKey: ._rangeCategory)
+		try sexParameterForClinicalUse?.encode(on: &_container, forKey: .sexParameterForClinicalUse, auxiliaryKey: ._sexParameterForClinicalUse)
 		try validCodedValueSet?.encode(on: &_container, forKey: .validCodedValueSet, auxiliaryKey: ._validCodedValueSet)
 		try super.encode(to: encoder)
 	}
@@ -759,12 +787,12 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		    && condition == _other.condition
 		    && context == _other.context
 		    && criticalCodedValueSet == _other.criticalCodedValueSet
-		    && gender == _other.gender
 		    && gestationalAge == _other.gestationalAge
 		    && interpretation == _other.interpretation
 		    && normalCodedValueSet == _other.normalCodedValueSet
 		    && range == _other.range
 		    && rangeCategory == _other.rangeCategory
+		    && sexParameterForClinicalUse == _other.sexParameterForClinicalUse
 		    && validCodedValueSet == _other.validCodedValueSet
 	}
 	
@@ -776,12 +804,12 @@ open class ObservationDefinitionQualifiedValue: BackboneElement {
 		hasher.combine(condition)
 		hasher.combine(context)
 		hasher.combine(criticalCodedValueSet)
-		hasher.combine(gender)
 		hasher.combine(gestationalAge)
 		hasher.combine(interpretation)
 		hasher.combine(normalCodedValueSet)
 		hasher.combine(range)
 		hasher.combine(rangeCategory)
+		hasher.combine(sexParameterForClinicalUse)
 		hasher.combine(validCodedValueSet)
 	}
 }

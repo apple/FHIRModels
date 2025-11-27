@@ -2,8 +2,8 @@
 //  Procedure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Procedure)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Procedure)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -50,20 +50,14 @@ open class Procedure: DomainResource {
 	/// External Identifiers for this procedure
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
 	/// A request for this procedure
 	public var basedOn: [Reference]?
 	
 	/// Part of referenced event
 	public var partOf: [Reference]?
 	
-	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// A code specifying the state of the procedure. Generally, this will be the in-progress or completed state.
+	public var status: FHIRPrimitive<EventStatus>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -110,7 +104,7 @@ open class Procedure: DomainResource {
 	public var bodySite: [CodeableConcept]?
 	
 	/// Target body structure
-	public var bodyStructure: [Reference]?
+	public var bodyStructure: Reference?
 	
 	/// The result of procedure
 	public var outcome: [CodeableReference]?
@@ -137,7 +131,7 @@ open class Procedure: DomainResource {
 	public var supportingInfo: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<FHIRString>, subject: Reference) {
+	public init(status: FHIRPrimitive<EventStatus>, subject: Reference) {
 		self.status = status
 		self.subject = subject
 		super.init()
@@ -147,7 +141,7 @@ open class Procedure: DomainResource {
 	public convenience init(
 		basedOn: [Reference]? = nil,
 		bodySite: [CodeableConcept]? = nil,
-		bodyStructure: [Reference]? = nil,
+		bodyStructure: Reference? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept? = nil,
 		complication: [CodeableReference]? = nil,
@@ -160,8 +154,6 @@ open class Procedure: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		location: Reference? = nil,
 		meta: Meta? = nil,
@@ -176,7 +168,7 @@ open class Procedure: DomainResource {
 		recorder: Reference? = nil,
 		report: [Reference]? = nil,
 		reported: ReportedX? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<EventStatus>,
 		statusReason: CodeableConcept? = nil,
 		subject: Reference,
 		supportingInfo: [Reference]? = nil,
@@ -199,8 +191,6 @@ open class Procedure: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.location = location
 		self.meta = meta
@@ -235,8 +225,6 @@ open class Procedure: DomainResource {
 		case focus
 		case followUp
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case location
 		case note
 		case occurrenceAge
@@ -268,7 +256,7 @@ open class Procedure: DomainResource {
 		// Decode all our properties
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try [CodeableConcept](from: _container, forKeyIfPresent: .bodySite)
-		self.bodyStructure = try [Reference](from: _container, forKeyIfPresent: .bodyStructure)
+		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.complication = try [CodeableReference](from: _container, forKeyIfPresent: .complication)
@@ -277,8 +265,6 @@ open class Procedure: DomainResource {
 		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
 		self.followUp = try [CodeableReference](from: _container, forKeyIfPresent: .followUp)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurrence: OccurrenceX? = nil
@@ -340,7 +326,7 @@ open class Procedure: DomainResource {
 			_t_reported = .reference(reportedReference)
 		}
 		self.reported = _t_reported
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
@@ -364,8 +350,6 @@ open class Procedure: DomainResource {
 		try focus?.encode(on: &_container, forKey: .focus)
 		try followUp?.encode(on: &_container, forKey: .followUp)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try location?.encode(on: &_container, forKey: .location)
 		try note?.encode(on: &_container, forKey: .note)
 		if let _enum = occurrence {
@@ -427,8 +411,6 @@ open class Procedure: DomainResource {
 		    && focus == _other.focus
 		    && followUp == _other.followUp
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && location == _other.location
 		    && note == _other.note
 		    && occurrence == _other.occurrence
@@ -460,8 +442,6 @@ open class Procedure: DomainResource {
 		hasher.combine(focus)
 		hasher.combine(followUp)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(location)
 		hasher.combine(note)
 		hasher.combine(occurrence)

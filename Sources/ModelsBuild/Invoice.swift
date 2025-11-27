@@ -2,8 +2,8 @@
 //  Invoice.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Invoice)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Invoice)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,9 +53,6 @@ open class Invoice: DomainResource {
 	/// Recipient of this invoice
 	public var recipient: Reference?
 	
-	/// DEPRICATED
-	public var date: FHIRPrimitive<DateTime>?
-	
 	/// When posted
 	public var creation: FHIRPrimitive<DateTime>?
 	
@@ -66,7 +63,7 @@ open class Invoice: DomainResource {
 	/// Participant in creation of this Invoice
 	public var participant: [InvoiceParticipant]?
 	
-	/// Issuing Organization of Invoice
+	/// Issuing entity
 	public var issuer: Reference?
 	
 	/// Account that is being balanced
@@ -102,7 +99,6 @@ open class Invoice: DomainResource {
 		cancelledReason: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
 		creation: FHIRPrimitive<DateTime>? = nil,
-		date: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
@@ -130,7 +126,6 @@ open class Invoice: DomainResource {
 		self.cancelledReason = cancelledReason
 		self.contained = contained
 		self.creation = creation
-		self.date = date
 		self.`extension` = `extension`
 		self.id = id
 		self.identifier = identifier
@@ -159,7 +154,6 @@ open class Invoice: DomainResource {
 		case account
 		case cancelledReason; case _cancelledReason
 		case creation; case _creation
-		case date; case _date
 		case identifier
 		case issuer
 		case lineItem
@@ -185,7 +179,6 @@ open class Invoice: DomainResource {
 		self.account = try Reference(from: _container, forKeyIfPresent: .account)
 		self.cancelledReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .cancelledReason, auxiliaryKey: ._cancelledReason)
 		self.creation = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .creation, auxiliaryKey: ._creation)
-		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.issuer = try Reference(from: _container, forKeyIfPresent: .issuer)
 		self.lineItem = try [InvoiceLineItem](from: _container, forKeyIfPresent: .lineItem)
@@ -224,7 +217,6 @@ open class Invoice: DomainResource {
 		try account?.encode(on: &_container, forKey: .account)
 		try cancelledReason?.encode(on: &_container, forKey: .cancelledReason, auxiliaryKey: ._cancelledReason)
 		try creation?.encode(on: &_container, forKey: .creation, auxiliaryKey: ._creation)
-		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try issuer?.encode(on: &_container, forKey: .issuer)
 		try lineItem?.encode(on: &_container, forKey: .lineItem)
@@ -261,7 +253,6 @@ open class Invoice: DomainResource {
 		return account == _other.account
 		    && cancelledReason == _other.cancelledReason
 		    && creation == _other.creation
-		    && date == _other.date
 		    && identifier == _other.identifier
 		    && issuer == _other.issuer
 		    && lineItem == _other.lineItem
@@ -283,7 +274,6 @@ open class Invoice: DomainResource {
 		hasher.combine(account)
 		hasher.combine(cancelledReason)
 		hasher.combine(creation)
-		hasher.combine(date)
 		hasher.combine(identifier)
 		hasher.combine(issuer)
 		hasher.combine(lineItem)

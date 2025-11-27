@@ -2,8 +2,8 @@
 //  ExampleScenario.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ExampleScenario)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ExampleScenario)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,12 @@
 import FMCore
 
 /**
- Example of workflow instance.
+ A computable description of a set of actors and the interactions between those actors.
+ 
+ A computable description of the actors, interactions between those actors that would occur, and concrete examples of
+ the data that would be exchanged in a specific hypothetical exchange, typically used to help demonstrate the
+ interoperability expectations of a specification.  This resource is used to illustrate a specific time-based exchange,
+ not to define in general terms how exchanges can/should occur.
  */
 open class ExampleScenario: DomainResource {
 	
@@ -45,7 +50,7 @@ open class ExampleScenario: DomainResource {
 	/// One of `versionAlgorithm[x]`
 	public var versionAlgorithm: VersionAlgorithmX?
 	
-	/// To be removed?
+	/// Name for this example scenario (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Name for this example scenario (human friendly)
@@ -54,7 +59,7 @@ open class ExampleScenario: DomainResource {
 	/// The status of this example scenario. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -72,13 +77,13 @@ open class ExampleScenario: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for example scenario (if applicable)
+	/// Jurisdiction of the authority that maintains the example scenario (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// The purpose of the example, e.g. to illustrate a scenario
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -329,7 +334,7 @@ open class ExampleScenarioActor: BackboneElement {
 	public var key: FHIRPrimitive<FHIRString>
 	
 	/// The category of actor - person or system.
-	public var type: FHIRPrimitive<ExampleScenarioActorType>
+	public var type: FHIRPrimitive<ActorDefinitionActorType>?
 	
 	/// Label for actor when rendering
 	public var title: FHIRPrimitive<FHIRString>
@@ -337,34 +342,40 @@ open class ExampleScenarioActor: BackboneElement {
 	/// Details about actor
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
+	/// Formal definition of actor
+	public var definition: FHIRPrimitive<Canonical>?
+	
 	/// Designated initializer taking all required properties
-	public init(key: FHIRPrimitive<FHIRString>, title: FHIRPrimitive<FHIRString>, type: FHIRPrimitive<ExampleScenarioActorType>) {
+	public init(key: FHIRPrimitive<FHIRString>, title: FHIRPrimitive<FHIRString>) {
 		self.key = key
 		self.title = title
-		self.type = type
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		definition: FHIRPrimitive<Canonical>? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		key: FHIRPrimitive<FHIRString>,
 		modifierExtension: [Extension]? = nil,
 		title: FHIRPrimitive<FHIRString>,
-		type: FHIRPrimitive<ExampleScenarioActorType>
+		type: FHIRPrimitive<ActorDefinitionActorType>? = nil
 	) {
-		self.init(key: key, title: title, type: type)
+		self.init(key: key, title: title)
+		self.definition = definition
 		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case definition; case _definition
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case key; case _key
 		case title; case _title
@@ -376,10 +387,11 @@ open class ExampleScenarioActor: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKey: .key, auxiliaryKey: ._key)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKey: .title, auxiliaryKey: ._title)
-		self.type = try FHIRPrimitive<ExampleScenarioActorType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ActorDefinitionActorType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
 	
@@ -388,10 +400,11 @@ open class ExampleScenarioActor: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try key.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
 		try title.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
-		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
+		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
 	}
 	
@@ -404,7 +417,8 @@ open class ExampleScenarioActor: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return description_fhir == _other.description_fhir
+		return definition == _other.definition
+		    && description_fhir == _other.description_fhir
 		    && key == _other.key
 		    && title == _other.title
 		    && type == _other.type
@@ -412,6 +426,7 @@ open class ExampleScenarioActor: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(definition)
 		hasher.combine(description_fhir)
 		hasher.combine(key)
 		hasher.combine(title)

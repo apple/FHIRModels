@@ -2,8 +2,8 @@
 //  InsuranceProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/InsuranceProduct)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/InsuranceProduct)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -21,6 +21,10 @@ import FMCore
 
 /**
  Details of a Health Insurance product provided by an organization.
+ 
+ A product is a discrete package of health insurance coverage benefits that are offered under a particular network, by
+ an organization (payer) and additional information about the offering, such as who it is owned and administered by, a
+ coverage area, contact information, etc.
  */
 open class InsuranceProduct: DomainResource {
 	

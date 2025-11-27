@@ -2,8 +2,8 @@
 //  StructureMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/StructureMap)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/StructureMap)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ open class StructureMap: DomainResource {
 	/// The status of this structure map. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -72,13 +72,13 @@ open class StructureMap: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for structure map (if applicable)
+	/// Jurisdiction of the authority that maintains the structure map (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this structure map is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -838,7 +838,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 	public var context: FHIRPrimitive<FHIRString>
 	
 	/// Specified minimum cardinality
-	public var min: FHIRPrimitive<FHIRInteger>?
+	public var min: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// Specified maximum cardinality (number or *)
 	public var max: FHIRPrimitive<FHIRString>?
@@ -885,7 +885,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 		listMode: FHIRPrimitive<StructureMapSourceListMode>? = nil,
 		logMessage: FHIRPrimitive<FHIRString>? = nil,
 		max: FHIRPrimitive<FHIRString>? = nil,
-		min: FHIRPrimitive<FHIRInteger>? = nil,
+		min: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		modifierExtension: [Extension]? = nil,
 		type: FHIRPrimitive<FHIRString>? = nil,
 		variable: FHIRPrimitive<FHIRString>? = nil
@@ -935,7 +935,7 @@ open class StructureMapGroupRuleSource: BackboneElement {
 		self.listMode = try FHIRPrimitive<StructureMapSourceListMode>(from: _container, forKeyIfPresent: .listMode, auxiliaryKey: ._listMode)
 		self.logMessage = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .logMessage, auxiliaryKey: ._logMessage)
 		self.max = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .max, auxiliaryKey: ._max)
-		self.min = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .min, auxiliaryKey: ._min)
+		self.min = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .min, auxiliaryKey: ._min)
 		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		self.variable = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .variable, auxiliaryKey: ._variable)
 		try super.init(from: decoder)

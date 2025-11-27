@@ -2,8 +2,8 @@
 //  QuestionnaireResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -214,7 +214,7 @@ open class QuestionnaireResponseItem: BackboneElement {
 	public var linkId: FHIRPrimitive<FHIRString>
 	
 	/// ElementDefinition - details for the item
-	public var definition: FHIRPrimitive<FHIRURI>?
+	public var definition: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Name for group or question text
 	public var text: FHIRPrimitive<FHIRString>?
@@ -234,7 +234,7 @@ open class QuestionnaireResponseItem: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		answer: [QuestionnaireResponseItemAnswer]? = nil,
-		definition: FHIRPrimitive<FHIRURI>? = nil,
+		definition: [FHIRPrimitive<FHIRURI>]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		item: [QuestionnaireResponseItem]? = nil,
@@ -268,7 +268,7 @@ open class QuestionnaireResponseItem: BackboneElement {
 		
 		// Decode all our properties
 		self.answer = try [QuestionnaireResponseItemAnswer](from: _container, forKeyIfPresent: .answer)
-		self.definition = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
+		self.definition = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.item = try [QuestionnaireResponseItem](from: _container, forKeyIfPresent: .item)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKey: .linkId, auxiliaryKey: ._linkId)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)

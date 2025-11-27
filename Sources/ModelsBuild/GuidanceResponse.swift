@@ -2,8 +2,8 @@
 //  GuidanceResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/GuidanceResponse)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ open class GuidanceResponse: DomainResource {
 	/// The identifier of the request associated with this response, if any
 	public var requestIdentifier: Identifier?
 	
-	/// Business identifier
+	/// Business identifier for guidance response
 	public var identifier: [Identifier]?
 	
 	/// What guidance was requested
@@ -54,10 +54,10 @@ open class GuidanceResponse: DomainResource {
 	/// description of the additional requested information.
 	public var status: FHIRPrimitive<GuidanceResponseStatus>
 	
-	/// Patient the request was performed for
+	/// Individual service was done for/to
 	public var subject: Reference?
 	
-	/// Encounter during which the response was returned
+	/// Encounter the guidance response is part of
 	public var encounter: Reference?
 	
 	/// When the guidance response was processed
@@ -65,6 +65,9 @@ open class GuidanceResponse: DomainResource {
 	
 	/// Device returning the guidance
 	public var performer: Reference?
+	
+	/// Where guidance response occurred
+	public var location: Reference?
 	
 	/// Why guidance is needed
 	public var reason: [CodeableReference]?
@@ -102,6 +105,7 @@ open class GuidanceResponse: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		location: Reference? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		module: ModuleX,
@@ -126,6 +130,7 @@ open class GuidanceResponse: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
+		self.location = location
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
@@ -146,6 +151,7 @@ open class GuidanceResponse: DomainResource {
 		case encounter
 		case evaluationMessage
 		case identifier
+		case location
 		case moduleCanonical; case _moduleCanonical
 		case moduleCodeableConcept
 		case moduleUri; case _moduleUri
@@ -174,6 +180,7 @@ open class GuidanceResponse: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.evaluationMessage = try Reference(from: _container, forKeyIfPresent: .evaluationMessage)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		var _t_module: ModuleX? = nil
 		if let moduleUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .moduleUri, auxiliaryKey: ._moduleUri) {
 			if _t_module != nil {
@@ -215,6 +222,7 @@ open class GuidanceResponse: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try evaluationMessage?.encode(on: &_container, forKey: .evaluationMessage)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try location?.encode(on: &_container, forKey: .location)
 		
 			switch module {
 			case .uri(let _value):
@@ -250,6 +258,7 @@ open class GuidanceResponse: DomainResource {
 		    && encounter == _other.encounter
 		    && evaluationMessage == _other.evaluationMessage
 		    && identifier == _other.identifier
+		    && location == _other.location
 		    && module == _other.module
 		    && note == _other.note
 		    && occurrenceDateTime == _other.occurrenceDateTime
@@ -268,6 +277,7 @@ open class GuidanceResponse: DomainResource {
 		hasher.combine(encounter)
 		hasher.combine(evaluationMessage)
 		hasher.combine(identifier)
+		hasher.combine(location)
 		hasher.combine(module)
 		hasher.combine(note)
 		hasher.combine(occurrenceDateTime)

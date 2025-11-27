@@ -2,8 +2,8 @@
 //  EnrollmentResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EnrollmentResponse)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/EnrollmentResponse)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -52,6 +52,9 @@ open class EnrollmentResponse: DomainResource {
 	/// Responsible practitioner
 	public var requestProvider: Reference?
 	
+	/// The subject(s)to be enrolled
+	public var candidate: Reference?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -59,6 +62,7 @@ open class EnrollmentResponse: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		candidate: Reference? = nil,
 		contained: [ResourceProxy]? = nil,
 		created: FHIRPrimitive<DateTime>? = nil,
 		disposition: FHIRPrimitive<FHIRString>? = nil,
@@ -77,6 +81,7 @@ open class EnrollmentResponse: DomainResource {
 		text: Narrative? = nil
 	) {
 		self.init()
+		self.candidate = candidate
 		self.contained = contained
 		self.created = created
 		self.disposition = disposition
@@ -98,6 +103,7 @@ open class EnrollmentResponse: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case candidate
 		case created; case _created
 		case disposition; case _disposition
 		case identifier
@@ -113,6 +119,7 @@ open class EnrollmentResponse: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.candidate = try Reference(from: _container, forKeyIfPresent: .candidate)
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .created, auxiliaryKey: ._created)
 		self.disposition = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
@@ -129,6 +136,7 @@ open class EnrollmentResponse: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try candidate?.encode(on: &_container, forKey: .candidate)
 		try created?.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
 		try disposition?.encode(on: &_container, forKey: .disposition, auxiliaryKey: ._disposition)
 		try identifier?.encode(on: &_container, forKey: .identifier)
@@ -149,7 +157,8 @@ open class EnrollmentResponse: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return created == _other.created
+		return candidate == _other.candidate
+		    && created == _other.created
 		    && disposition == _other.disposition
 		    && identifier == _other.identifier
 		    && organization == _other.organization
@@ -161,6 +170,7 @@ open class EnrollmentResponse: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(candidate)
 		hasher.combine(created)
 		hasher.combine(disposition)
 		hasher.combine(identifier)

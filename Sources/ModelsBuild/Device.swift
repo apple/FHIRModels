@@ -2,8 +2,8 @@
 //  Device.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Device)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Device)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  Item used in healthcare.
  
- A type of a manufactured item that is used in the provision of healthcare without being substantially changed through
- that activity. The device may be a medical or non-medical device.
+ A manufactured item that is used in the provision of healthcare without being substantially changed through that
+ activity. The device may be a medical or non-medical device.
  */
 open class Device: DomainResource {
 	
@@ -33,9 +33,9 @@ open class Device: DomainResource {
 	public var identifier: [Identifier]?
 	
 	/// The reference to the definition for the device
-	public var definition: Reference?
+	public var definition: FHIRPrimitive<Canonical>?
 	
-	/// Unique Device Identifier (UDI) Barcode string
+	/// Unique Device Identifier (UDI) value
 	public var udiCarrier: [DeviceUdiCarrier]?
 	
 	/// The Device record status. This is not the status of the device like availability.
@@ -44,23 +44,23 @@ open class Device: DomainResource {
 	/// lost | damaged | destroyed | available
 	public var availabilityStatus: CodeableConcept?
 	
-	/// An identifier that supports traceability to the event during which material in this product from one or more
-	/// biological entities was obtained or pooled
+	/// A production identifier of the donation, collection, or pooling event from which biological material in this
+	/// device was derived
 	public var biologicalSourceEvent: Identifier?
 	
 	/// Name of device manufacturer
 	public var manufacturer: FHIRPrimitive<FHIRString>?
 	
-	/// Date when the device was made
+	/// A production identifier that indicates the date when the device was made
 	public var manufactureDate: FHIRPrimitive<DateTime>?
 	
-	/// Date and time of expiry of this device (if applicable)
+	/// A production identifier that indicates the date and time of expiry of this device (if applicable)
 	public var expirationDate: FHIRPrimitive<DateTime>?
 	
-	/// Lot number of manufacture
+	/// A production identifier that indicates the Lot number of manufacture
 	public var lotNumber: FHIRPrimitive<FHIRString>?
 	
-	/// Serial number assigned by the manufacturer
+	/// A production identifier that indicates the Serial number assigned by the manufacturer
 	public var serialNumber: FHIRPrimitive<FHIRString>?
 	
 	/// The name or names of the device as known to the manufacturer and/or patient
@@ -87,32 +87,14 @@ open class Device: DomainResource {
 	/// Inherent, essentially fixed, characteristics of the device.  e.g., time properties, size, material, etc.
 	public var property: [DeviceProperty]?
 	
-	/// The designated condition for performing a task
-	public var mode: CodeableConcept?
-	
-	/// The series of occurrences that repeats during the operation of the device
-	public var cycle: Count?
-	
-	/// A measurement of time during the device's operation (e.g., days, hours, mins, etc.)
-	public var duration: Duration?
-	
-	/// Organization responsible for device
-	public var owner: Reference?
+	/// Material added to a container device
+	public var additive: [DeviceAdditive]?
 	
 	/// Details for human/organization for support
 	public var contact: [ContactPoint]?
 	
 	/// Where the device is found
 	public var location: Reference?
-	
-	/// Network address to contact device
-	public var url: FHIRPrimitive<FHIRURI>?
-	
-	/// Technical endpoints providing access to electronic services provided by the device
-	public var endpoint: [Reference]?
-	
-	/// Linked device acting as a communication/data collector, translator or controller
-	public var gateway: [CodeableReference]?
 	
 	/// Device notes and comments
 	public var note: [Annotation]?
@@ -130,20 +112,17 @@ open class Device: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		additive: [DeviceAdditive]? = nil,
 		availabilityStatus: CodeableConcept? = nil,
 		biologicalSourceEvent: Identifier? = nil,
 		category: [CodeableConcept]? = nil,
 		conformsTo: [DeviceConformsTo]? = nil,
 		contact: [ContactPoint]? = nil,
 		contained: [ResourceProxy]? = nil,
-		cycle: Count? = nil,
-		definition: Reference? = nil,
+		definition: FHIRPrimitive<Canonical>? = nil,
 		deviceVersion: [DeviceDeviceVersion]? = nil,
-		duration: Duration? = nil,
-		endpoint: [Reference]? = nil,
 		expirationDate: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
-		gateway: [CodeableReference]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -153,12 +132,10 @@ open class Device: DomainResource {
 		manufactureDate: FHIRPrimitive<DateTime>? = nil,
 		manufacturer: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
-		mode: CodeableConcept? = nil,
 		modelNumber: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: [DeviceName]? = nil,
 		note: [Annotation]? = nil,
-		owner: Reference? = nil,
 		parent: Reference? = nil,
 		partNumber: FHIRPrimitive<FHIRString>? = nil,
 		property: [DeviceProperty]? = nil,
@@ -167,24 +144,20 @@ open class Device: DomainResource {
 		status: FHIRPrimitive<FHIRDeviceStatus>? = nil,
 		text: Narrative? = nil,
 		type: [CodeableConcept]? = nil,
-		udiCarrier: [DeviceUdiCarrier]? = nil,
-		url: FHIRPrimitive<FHIRURI>? = nil
+		udiCarrier: [DeviceUdiCarrier]? = nil
 	) {
 		self.init()
+		self.additive = additive
 		self.availabilityStatus = availabilityStatus
 		self.biologicalSourceEvent = biologicalSourceEvent
 		self.category = category
 		self.conformsTo = conformsTo
 		self.contact = contact
 		self.contained = contained
-		self.cycle = cycle
 		self.definition = definition
 		self.deviceVersion = deviceVersion
-		self.duration = duration
-		self.endpoint = endpoint
 		self.expirationDate = expirationDate
 		self.`extension` = `extension`
-		self.gateway = gateway
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
@@ -194,12 +167,10 @@ open class Device: DomainResource {
 		self.manufactureDate = manufactureDate
 		self.manufacturer = manufacturer
 		self.meta = meta
-		self.mode = mode
 		self.modelNumber = modelNumber
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.note = note
-		self.owner = owner
 		self.parent = parent
 		self.partNumber = partNumber
 		self.property = property
@@ -209,34 +180,28 @@ open class Device: DomainResource {
 		self.text = text
 		self.type = type
 		self.udiCarrier = udiCarrier
-		self.url = url
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case additive
 		case availabilityStatus
 		case biologicalSourceEvent
 		case category
 		case conformsTo
 		case contact
-		case cycle
-		case definition
+		case definition; case _definition
 		case deviceVersion
-		case duration
-		case endpoint
 		case expirationDate; case _expirationDate
-		case gateway
 		case identifier
 		case location
 		case lotNumber; case _lotNumber
 		case manufactureDate; case _manufactureDate
 		case manufacturer; case _manufacturer
-		case mode
 		case modelNumber; case _modelNumber
 		case name
 		case note
-		case owner
 		case parent
 		case partNumber; case _partNumber
 		case property
@@ -245,7 +210,6 @@ open class Device: DomainResource {
 		case status; case _status
 		case type
 		case udiCarrier
-		case url; case _url
 	}
 	
 	/// Initializer for Decodable
@@ -253,28 +217,23 @@ open class Device: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.additive = try [DeviceAdditive](from: _container, forKeyIfPresent: .additive)
 		self.availabilityStatus = try CodeableConcept(from: _container, forKeyIfPresent: .availabilityStatus)
 		self.biologicalSourceEvent = try Identifier(from: _container, forKeyIfPresent: .biologicalSourceEvent)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.conformsTo = try [DeviceConformsTo](from: _container, forKeyIfPresent: .conformsTo)
 		self.contact = try [ContactPoint](from: _container, forKeyIfPresent: .contact)
-		self.cycle = try Count(from: _container, forKeyIfPresent: .cycle)
-		self.definition = try Reference(from: _container, forKeyIfPresent: .definition)
+		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.deviceVersion = try [DeviceDeviceVersion](from: _container, forKeyIfPresent: .deviceVersion)
-		self.duration = try Duration(from: _container, forKeyIfPresent: .duration)
-		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
-		self.gateway = try [CodeableReference](from: _container, forKeyIfPresent: .gateway)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
 		self.manufactureDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .manufactureDate, auxiliaryKey: ._manufactureDate)
 		self.manufacturer = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .manufacturer, auxiliaryKey: ._manufacturer)
-		self.mode = try CodeableConcept(from: _container, forKeyIfPresent: .mode)
 		self.modelNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .modelNumber, auxiliaryKey: ._modelNumber)
 		self.name = try [DeviceName](from: _container, forKeyIfPresent: .name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.owner = try Reference(from: _container, forKeyIfPresent: .owner)
 		self.parent = try Reference(from: _container, forKeyIfPresent: .parent)
 		self.partNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .partNumber, auxiliaryKey: ._partNumber)
 		self.property = try [DeviceProperty](from: _container, forKeyIfPresent: .property)
@@ -283,7 +242,6 @@ open class Device: DomainResource {
 		self.status = try FHIRPrimitive<FHIRDeviceStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.type = try [CodeableConcept](from: _container, forKeyIfPresent: .type)
 		self.udiCarrier = try [DeviceUdiCarrier](from: _container, forKeyIfPresent: .udiCarrier)
-		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		try super.init(from: decoder)
 	}
 	
@@ -292,28 +250,23 @@ open class Device: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try additive?.encode(on: &_container, forKey: .additive)
 		try availabilityStatus?.encode(on: &_container, forKey: .availabilityStatus)
 		try biologicalSourceEvent?.encode(on: &_container, forKey: .biologicalSourceEvent)
 		try category?.encode(on: &_container, forKey: .category)
 		try conformsTo?.encode(on: &_container, forKey: .conformsTo)
 		try contact?.encode(on: &_container, forKey: .contact)
-		try cycle?.encode(on: &_container, forKey: .cycle)
-		try definition?.encode(on: &_container, forKey: .definition)
+		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try deviceVersion?.encode(on: &_container, forKey: .deviceVersion)
-		try duration?.encode(on: &_container, forKey: .duration)
-		try endpoint?.encode(on: &_container, forKey: .endpoint)
 		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
-		try gateway?.encode(on: &_container, forKey: .gateway)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try location?.encode(on: &_container, forKey: .location)
 		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
 		try manufactureDate?.encode(on: &_container, forKey: .manufactureDate, auxiliaryKey: ._manufactureDate)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer, auxiliaryKey: ._manufacturer)
-		try mode?.encode(on: &_container, forKey: .mode)
 		try modelNumber?.encode(on: &_container, forKey: .modelNumber, auxiliaryKey: ._modelNumber)
 		try name?.encode(on: &_container, forKey: .name)
 		try note?.encode(on: &_container, forKey: .note)
-		try owner?.encode(on: &_container, forKey: .owner)
 		try parent?.encode(on: &_container, forKey: .parent)
 		try partNumber?.encode(on: &_container, forKey: .partNumber, auxiliaryKey: ._partNumber)
 		try property?.encode(on: &_container, forKey: .property)
@@ -322,7 +275,6 @@ open class Device: DomainResource {
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try type?.encode(on: &_container, forKey: .type)
 		try udiCarrier?.encode(on: &_container, forKey: .udiCarrier)
-		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try super.encode(to: encoder)
 	}
 	
@@ -335,28 +287,23 @@ open class Device: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return availabilityStatus == _other.availabilityStatus
+		return additive == _other.additive
+		    && availabilityStatus == _other.availabilityStatus
 		    && biologicalSourceEvent == _other.biologicalSourceEvent
 		    && category == _other.category
 		    && conformsTo == _other.conformsTo
 		    && contact == _other.contact
-		    && cycle == _other.cycle
 		    && definition == _other.definition
 		    && deviceVersion == _other.deviceVersion
-		    && duration == _other.duration
-		    && endpoint == _other.endpoint
 		    && expirationDate == _other.expirationDate
-		    && gateway == _other.gateway
 		    && identifier == _other.identifier
 		    && location == _other.location
 		    && lotNumber == _other.lotNumber
 		    && manufactureDate == _other.manufactureDate
 		    && manufacturer == _other.manufacturer
-		    && mode == _other.mode
 		    && modelNumber == _other.modelNumber
 		    && name == _other.name
 		    && note == _other.note
-		    && owner == _other.owner
 		    && parent == _other.parent
 		    && partNumber == _other.partNumber
 		    && property == _other.property
@@ -365,33 +312,27 @@ open class Device: DomainResource {
 		    && status == _other.status
 		    && type == _other.type
 		    && udiCarrier == _other.udiCarrier
-		    && url == _other.url
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(additive)
 		hasher.combine(availabilityStatus)
 		hasher.combine(biologicalSourceEvent)
 		hasher.combine(category)
 		hasher.combine(conformsTo)
 		hasher.combine(contact)
-		hasher.combine(cycle)
 		hasher.combine(definition)
 		hasher.combine(deviceVersion)
-		hasher.combine(duration)
-		hasher.combine(endpoint)
 		hasher.combine(expirationDate)
-		hasher.combine(gateway)
 		hasher.combine(identifier)
 		hasher.combine(location)
 		hasher.combine(lotNumber)
 		hasher.combine(manufactureDate)
 		hasher.combine(manufacturer)
-		hasher.combine(mode)
 		hasher.combine(modelNumber)
 		hasher.combine(name)
 		hasher.combine(note)
-		hasher.combine(owner)
 		hasher.combine(parent)
 		hasher.combine(partNumber)
 		hasher.combine(property)
@@ -400,7 +341,88 @@ open class Device: DomainResource {
 		hasher.combine(status)
 		hasher.combine(type)
 		hasher.combine(udiCarrier)
-		hasher.combine(url)
+	}
+}
+
+/**
+ Material added to a container device.
+ 
+ Material added to a container device (typically used in specimen collection or initial processing).  The material may
+ be added by the device manufacturer or by a different party subsequent to manufacturing.
+ */
+open class DeviceAdditive: BackboneElement {
+	
+	/// The additive substance
+	public var type: CodeableReference
+	
+	/// Quantity of additive substance within container
+	public var quantity: Quantity?
+	
+	/// Designated initializer taking all required properties
+	public init(type: CodeableReference) {
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		quantity: Quantity? = nil,
+		type: CodeableReference
+	) {
+		self.init(type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.quantity = quantity
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case quantity
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.type = try CodeableReference(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try quantity?.encode(on: &_container, forKey: .quantity)
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? DeviceAdditive else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return quantity == _other.quantity
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(quantity)
+		hasher.combine(type)
 	}
 }
 
@@ -857,11 +879,10 @@ open class DeviceProperty: BackboneElement {
 }
 
 /**
- Unique Device Identifier (UDI) Barcode string.
+ Unique Device Identifier (UDI) value.
  
- Unique device identifier (UDI) assigned to device label or package.  Note that the Device may include multiple
- udiCarriers as it either may include just the udiCarrier for the jurisdiction it is sold, or for multiple jurisdictions
- it could have been sold.
+ Unique Device Identifier (UDI) placed on a device label or package. Note that the Device may include multiple UDIs if
+ it is sold in multiple jurisdictions.
  */
 open class DeviceUdiCarrier: BackboneElement {
 	
@@ -877,10 +898,10 @@ open class DeviceUdiCarrier: BackboneElement {
 	/// Regional UDI authority
 	public var jurisdiction: FHIRPrimitive<FHIRURI>?
 	
-	/// UDI Machine Readable Barcode String
+	/// UDI Machine Readable value
 	public var carrierAIDC: FHIRPrimitive<Base64Binary>?
 	
-	/// UDI Human Readable Barcode String
+	/// UDI Human Readable value
 	public var carrierHRF: FHIRPrimitive<FHIRString>?
 	
 	/// A coded entry to indicate how the data was entered.

@@ -2,8 +2,8 @@
 //  ResearchSubject.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ResearchSubject)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -49,11 +49,8 @@ open class ResearchSubject: DomainResource {
 	/// A significant event in the progress of a ResearchSubject
 	public var subjectMilestone: [ResearchSubjectSubjectMilestone]?
 	
-	/// What path should be followed
-	public var assignedComparisonGroup: FHIRPrimitive<FHIRString>?
-	
-	/// What path was followed
-	public var actualComparisonGroup: FHIRPrimitive<FHIRString>?
+	/// A group to which the subject is assigned
+	public var comparisonGroup: [CodeableReference]?
 	
 	/// Agreement to participate in study
 	public var consent: [Reference]?
@@ -68,8 +65,7 @@ open class ResearchSubject: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		actualComparisonGroup: FHIRPrimitive<FHIRString>? = nil,
-		assignedComparisonGroup: FHIRPrimitive<FHIRString>? = nil,
+		comparisonGroup: [CodeableReference]? = nil,
 		consent: [Reference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		`extension`: [Extension]? = nil,
@@ -88,8 +84,7 @@ open class ResearchSubject: DomainResource {
 		text: Narrative? = nil
 	) {
 		self.init(status: status, study: study, subject: subject)
-		self.actualComparisonGroup = actualComparisonGroup
-		self.assignedComparisonGroup = assignedComparisonGroup
+		self.comparisonGroup = comparisonGroup
 		self.consent = consent
 		self.contained = contained
 		self.`extension` = `extension`
@@ -108,8 +103,7 @@ open class ResearchSubject: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case actualComparisonGroup; case _actualComparisonGroup
-		case assignedComparisonGroup; case _assignedComparisonGroup
+		case comparisonGroup
 		case consent
 		case identifier
 		case period
@@ -125,8 +119,7 @@ open class ResearchSubject: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actualComparisonGroup = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .actualComparisonGroup, auxiliaryKey: ._actualComparisonGroup)
-		self.assignedComparisonGroup = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assignedComparisonGroup, auxiliaryKey: ._assignedComparisonGroup)
+		self.comparisonGroup = try [CodeableReference](from: _container, forKeyIfPresent: .comparisonGroup)
 		self.consent = try [Reference](from: _container, forKeyIfPresent: .consent)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
@@ -143,8 +136,7 @@ open class ResearchSubject: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try actualComparisonGroup?.encode(on: &_container, forKey: .actualComparisonGroup, auxiliaryKey: ._actualComparisonGroup)
-		try assignedComparisonGroup?.encode(on: &_container, forKey: .assignedComparisonGroup, auxiliaryKey: ._assignedComparisonGroup)
+		try comparisonGroup?.encode(on: &_container, forKey: .comparisonGroup)
 		try consent?.encode(on: &_container, forKey: .consent)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try period?.encode(on: &_container, forKey: .period)
@@ -165,8 +157,7 @@ open class ResearchSubject: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return actualComparisonGroup == _other.actualComparisonGroup
-		    && assignedComparisonGroup == _other.assignedComparisonGroup
+		return comparisonGroup == _other.comparisonGroup
 		    && consent == _other.consent
 		    && identifier == _other.identifier
 		    && period == _other.period
@@ -179,8 +170,7 @@ open class ResearchSubject: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(actualComparisonGroup)
-		hasher.combine(assignedComparisonGroup)
+		hasher.combine(comparisonGroup)
 		hasher.combine(consent)
 		hasher.combine(identifier)
 		hasher.combine(period)
@@ -197,17 +187,17 @@ open class ResearchSubject: DomainResource {
  */
 open class ResearchSubjectSubjectMilestone: BackboneElement {
 	
-	/// SignedUp | Screened | Randomized
-	public var milestone: [CodeableConcept]
+	/// None
+	public var milestone: CodeableConcept
 	
 	/// The date/time when this milestone event was completed
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// None
-	public var reason: CodeableConcept?
+	public var reason: [CodeableConcept]?
 	
 	/// Designated initializer taking all required properties
-	public init(milestone: [CodeableConcept]) {
+	public init(milestone: CodeableConcept) {
 		self.milestone = milestone
 		super.init()
 	}
@@ -217,9 +207,9 @@ open class ResearchSubjectSubjectMilestone: BackboneElement {
 		date: FHIRPrimitive<DateTime>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		milestone: [CodeableConcept],
+		milestone: CodeableConcept,
 		modifierExtension: [Extension]? = nil,
-		reason: CodeableConcept? = nil
+		reason: [CodeableConcept]? = nil
 	) {
 		self.init(milestone: milestone)
 		self.date = date
@@ -243,8 +233,8 @@ open class ResearchSubjectSubjectMilestone: BackboneElement {
 		
 		// Decode all our properties
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
-		self.milestone = try [CodeableConcept](from: _container, forKey: .milestone)
-		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
+		self.milestone = try CodeableConcept(from: _container, forKey: .milestone)
+		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
 		try super.init(from: decoder)
 	}
 	

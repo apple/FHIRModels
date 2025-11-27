@@ -2,8 +2,8 @@
 //  Communication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Communication)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Communication)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,12 +33,6 @@ open class Communication: DomainResource {
 	/// Unique identifier
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
 	/// Request fulfilled by this communication
 	public var basedOn: [Reference]?
 	
@@ -48,8 +42,8 @@ open class Communication: DomainResource {
 	/// Reply to
 	public var inResponseTo: [Reference]?
 	
-	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// The status of the transmission.
+	public var status: FHIRPrimitive<EventStatus>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -57,8 +51,9 @@ open class Communication: DomainResource {
 	/// Message category
 	public var category: [CodeableConcept]?
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Characterizes how quickly the planned or in progress communication must be addressed. Includes concepts such as
+	/// stat, urgent, routine.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// A channel of communication
 	public var medium: [CodeableConcept]?
@@ -97,7 +92,7 @@ open class Communication: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<FHIRString>) {
+	public init(status: FHIRPrimitive<EventStatus>) {
 		self.status = status
 		super.init()
 	}
@@ -114,8 +109,6 @@ open class Communication: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		inResponseTo: [Reference]? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		medium: [CodeableConcept]? = nil,
 		meta: Meta? = nil,
@@ -123,13 +116,13 @@ open class Communication: DomainResource {
 		note: [Annotation]? = nil,
 		partOf: [Reference]? = nil,
 		payload: [CommunicationPayload]? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		reason: [CodeableReference]? = nil,
 		received: FHIRPrimitive<DateTime>? = nil,
 		recipient: [Reference]? = nil,
 		sender: Reference? = nil,
 		sent: FHIRPrimitive<DateTime>? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<EventStatus>,
 		statusReason: CodeableConcept? = nil,
 		subject: Reference? = nil,
 		text: Narrative? = nil,
@@ -146,8 +139,6 @@ open class Communication: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.inResponseTo = inResponseTo
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.medium = medium
 		self.meta = meta
@@ -176,8 +167,6 @@ open class Communication: DomainResource {
 		case encounter
 		case identifier
 		case inResponseTo
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case medium
 		case note
 		case partOf
@@ -205,19 +194,17 @@ open class Communication: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.inResponseTo = try [Reference](from: _container, forKeyIfPresent: .inResponseTo)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.medium = try [CodeableConcept](from: _container, forKeyIfPresent: .medium)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.payload = try [CommunicationPayload](from: _container, forKeyIfPresent: .payload)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.received = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .received, auxiliaryKey: ._received)
 		self.recipient = try [Reference](from: _container, forKeyIfPresent: .recipient)
 		self.sender = try Reference(from: _container, forKeyIfPresent: .sender)
 		self.sent = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .sent, auxiliaryKey: ._sent)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.topic = try CodeableConcept(from: _container, forKeyIfPresent: .topic)
@@ -235,8 +222,6 @@ open class Communication: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try inResponseTo?.encode(on: &_container, forKey: .inResponseTo)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try medium?.encode(on: &_container, forKey: .medium)
 		try note?.encode(on: &_container, forKey: .note)
 		try partOf?.encode(on: &_container, forKey: .partOf)
@@ -269,8 +254,6 @@ open class Communication: DomainResource {
 		    && encounter == _other.encounter
 		    && identifier == _other.identifier
 		    && inResponseTo == _other.inResponseTo
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && medium == _other.medium
 		    && note == _other.note
 		    && partOf == _other.partOf
@@ -295,8 +278,6 @@ open class Communication: DomainResource {
 		hasher.combine(encounter)
 		hasher.combine(identifier)
 		hasher.combine(inResponseTo)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(medium)
 		hasher.combine(note)
 		hasher.combine(partOf)

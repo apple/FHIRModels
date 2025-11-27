@@ -2,8 +2,8 @@
 //  DeviceMetric.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceMetric)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DeviceMetric)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,40 +31,48 @@ open class DeviceMetric: DomainResource {
 	/// Instance identifier
 	public var identifier: [Identifier]?
 	
-	/// Identity of metric, for example Heart Rate or PEEP Setting
-	public var type: CodeableConcept
-	
-	/// Unit of Measure for the Metric
-	public var unit: CodeableConcept?
-	
-	/// Describes the link to the Device
-	public var device: Reference
+	/// Indicates current state of the record.
+	public var status: FHIRPrimitive<DeviceMetricStatus>
 	
 	/// Indicates current operational state of the device. For example: On, Off, Standby, etc.
 	public var operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>?
 	
-	/// Color name (from CSS4) or #RRGGBB code
-	public var color: FHIRPrimitive<FHIRString>?
-	
 	/// The kind of metric represented
 	public var category: CodeableConcept
 	
+	/// Identity of metric, for example Heart Rate or PEEP Setting
+	public var type: CodeableConcept
+	
+	/// The device to which this DeviceMetric applies
+	public var device: Reference
+	
+	/// Unit of Measure for the Metric
+	public var unit: CodeableConcept?
+	
+	/// Color name (from CSS4) or #RRGGBB code
+	public var color: FHIRPrimitive<FHIRString>?
+	
 	/// Indicates how often the metric is taken or recorded
 	public var measurementFrequency: Quantity?
+	
+	/// The continuity of the metric (e.g., measurement)
+	public var availability: CodeableConcept?
 	
 	/// Describes the calibrations that have been performed or that are required to be performed
 	public var calibration: [DeviceMetricCalibration]?
 	
 	/// Designated initializer taking all required properties
-	public init(category: CodeableConcept, device: Reference, type: CodeableConcept) {
+	public init(category: CodeableConcept, device: Reference, status: FHIRPrimitive<DeviceMetricStatus>, type: CodeableConcept) {
 		self.category = category
 		self.device = device
+		self.status = status
 		self.type = type
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		availability: CodeableConcept? = nil,
 		calibration: [DeviceMetricCalibration]? = nil,
 		category: CodeableConcept,
 		color: FHIRPrimitive<FHIRString>? = nil,
@@ -79,11 +87,13 @@ open class DeviceMetric: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		operationalStatus: FHIRPrimitive<DeviceMetricOperationalStatus>? = nil,
+		status: FHIRPrimitive<DeviceMetricStatus>,
 		text: Narrative? = nil,
 		type: CodeableConcept,
 		unit: CodeableConcept? = nil
 	) {
-		self.init(category: category, device: device, type: type)
+		self.init(category: category, device: device, status: status, type: type)
+		self.availability = availability
 		self.calibration = calibration
 		self.color = color
 		self.contained = contained
@@ -103,6 +113,7 @@ open class DeviceMetric: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case availability
 		case calibration
 		case category
 		case color; case _color
@@ -110,6 +121,7 @@ open class DeviceMetric: DomainResource {
 		case identifier
 		case measurementFrequency
 		case operationalStatus; case _operationalStatus
+		case status; case _status
 		case type
 		case unit
 	}
@@ -119,6 +131,7 @@ open class DeviceMetric: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.availability = try CodeableConcept(from: _container, forKeyIfPresent: .availability)
 		self.calibration = try [DeviceMetricCalibration](from: _container, forKeyIfPresent: .calibration)
 		self.category = try CodeableConcept(from: _container, forKey: .category)
 		self.color = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .color, auxiliaryKey: ._color)
@@ -126,6 +139,7 @@ open class DeviceMetric: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.measurementFrequency = try Quantity(from: _container, forKeyIfPresent: .measurementFrequency)
 		self.operationalStatus = try FHIRPrimitive<DeviceMetricOperationalStatus>(from: _container, forKeyIfPresent: .operationalStatus, auxiliaryKey: ._operationalStatus)
+		self.status = try FHIRPrimitive<DeviceMetricStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		self.unit = try CodeableConcept(from: _container, forKeyIfPresent: .unit)
 		try super.init(from: decoder)
@@ -136,6 +150,7 @@ open class DeviceMetric: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try availability?.encode(on: &_container, forKey: .availability)
 		try calibration?.encode(on: &_container, forKey: .calibration)
 		try category.encode(on: &_container, forKey: .category)
 		try color?.encode(on: &_container, forKey: .color, auxiliaryKey: ._color)
@@ -143,6 +158,7 @@ open class DeviceMetric: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try measurementFrequency?.encode(on: &_container, forKey: .measurementFrequency)
 		try operationalStatus?.encode(on: &_container, forKey: .operationalStatus, auxiliaryKey: ._operationalStatus)
+		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try type.encode(on: &_container, forKey: .type)
 		try unit?.encode(on: &_container, forKey: .unit)
 		try super.encode(to: encoder)
@@ -157,19 +173,22 @@ open class DeviceMetric: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return calibration == _other.calibration
+		return availability == _other.availability
+		    && calibration == _other.calibration
 		    && category == _other.category
 		    && color == _other.color
 		    && device == _other.device
 		    && identifier == _other.identifier
 		    && measurementFrequency == _other.measurementFrequency
 		    && operationalStatus == _other.operationalStatus
+		    && status == _other.status
 		    && type == _other.type
 		    && unit == _other.unit
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(availability)
 		hasher.combine(calibration)
 		hasher.combine(category)
 		hasher.combine(color)
@@ -177,6 +196,7 @@ open class DeviceMetric: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(measurementFrequency)
 		hasher.combine(operationalStatus)
+		hasher.combine(status)
 		hasher.combine(type)
 		hasher.combine(unit)
 	}

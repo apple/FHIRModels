@@ -2,8 +2,8 @@
 //  Observation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Observation)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Observation)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,12 +36,6 @@ open class Observation: DomainResource {
 		case timing(Timing)
 	}
 	
-	/// All possible types for "instantiates[x]"
-	public enum InstantiatesX: Hashable {
-		case canonical(FHIRPrimitive<Canonical>)
-		case reference(Reference)
-	}
-	
 	/// All possible types for "value[x]"
 	public enum ValueX: Hashable {
 		case attachment(Attachment)
@@ -61,10 +55,6 @@ open class Observation: DomainResource {
 	
 	/// Business Identifier for observation
 	public var identifier: [Identifier]?
-	
-	/// Instantiates FHIR ObservationDefinition
-	/// One of `instantiates[x]`
-	public var instantiates: InstantiatesX?
 	
 	/// Fulfills plan, proposal or order
 	public var basedOn: [Reference]?
@@ -90,7 +80,11 @@ open class Observation: DomainResource {
 	/// What the observation is about, when it is not about the subject of record
 	public var focus: [Reference]?
 	
-	/// Healthcare event during which this observation is made
+	/// This observation organizes/groups a set of sub-observations
+	public var organizer: FHIRPrimitive<FHIRBool>?
+	
+	/// Healthcare event during which this observation is made. If you need to place the observation within one or more
+	/// episodes of care, use the workflow-episodeOfCare extension
 	public var encounter: Reference?
 	
 	/// Clinically relevant time/time-period for observation
@@ -113,14 +107,17 @@ open class Observation: DomainResource {
 	/// High, low, normal, etc
 	public var interpretation: [CodeableConcept]?
 	
+	/// Context for understanding the observation
+	public var interpretationContext: [CodeableReference]?
+	
 	/// Comments about the observation
 	public var note: [Annotation]?
 	
-	/// Observed body part
+	/// DEPRECATED: Observed body part
 	public var bodySite: CodeableConcept?
 	
 	/// Observed body structure
-	public var bodyStructure: Reference?
+	public var bodyStructure: CodeableReference?
 	
 	/// How it was done
 	public var method: CodeableConcept?
@@ -154,7 +151,7 @@ open class Observation: DomainResource {
 	public convenience init(
 		basedOn: [Reference]? = nil,
 		bodySite: CodeableConcept? = nil,
-		bodyStructure: Reference? = nil,
+		bodyStructure: CodeableReference? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept,
 		component: [ObservationComponent]? = nil,
@@ -170,14 +167,15 @@ open class Observation: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiates: InstantiatesX? = nil,
 		interpretation: [CodeableConcept]? = nil,
+		interpretationContext: [CodeableReference]? = nil,
 		issued: FHIRPrimitive<Instant>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		method: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
+		organizer: FHIRPrimitive<FHIRBool>? = nil,
 		partOf: [Reference]? = nil,
 		performer: [Reference]? = nil,
 		referenceRange: [ObservationReferenceRange]? = nil,
@@ -206,14 +204,15 @@ open class Observation: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiates = instantiates
 		self.interpretation = interpretation
+		self.interpretationContext = interpretationContext
 		self.issued = issued
 		self.language = language
 		self.meta = meta
 		self.method = method
 		self.modifierExtension = modifierExtension
 		self.note = note
+		self.organizer = organizer
 		self.partOf = partOf
 		self.performer = performer
 		self.referenceRange = referenceRange
@@ -244,12 +243,12 @@ open class Observation: DomainResource {
 		case focus
 		case hasMember
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesReference
 		case interpretation
+		case interpretationContext
 		case issued; case _issued
 		case method
 		case note
+		case organizer; case _organizer
 		case partOf
 		case performer
 		case referenceRange
@@ -279,7 +278,7 @@ open class Observation: DomainResource {
 		// Decode all our properties
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.bodySite = try CodeableConcept(from: _container, forKeyIfPresent: .bodySite)
-		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
+		self.bodyStructure = try CodeableReference(from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.component = try [ObservationComponent](from: _container, forKeyIfPresent: .component)
@@ -316,24 +315,12 @@ open class Observation: DomainResource {
 		self.focus = try [Reference](from: _container, forKeyIfPresent: .focus)
 		self.hasMember = try [Reference](from: _container, forKeyIfPresent: .hasMember)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		var _t_instantiates: InstantiatesX? = nil
-		if let instantiatesCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical) {
-			if _t_instantiates != nil {
-				throw DecodingError.dataCorruptedError(forKey: .instantiatesCanonical, in: _container, debugDescription: "More than one value provided for \"instantiates\"")
-			}
-			_t_instantiates = .canonical(instantiatesCanonical)
-		}
-		if let instantiatesReference = try Reference(from: _container, forKeyIfPresent: .instantiatesReference) {
-			if _t_instantiates != nil {
-				throw DecodingError.dataCorruptedError(forKey: .instantiatesReference, in: _container, debugDescription: "More than one value provided for \"instantiates\"")
-			}
-			_t_instantiates = .reference(instantiatesReference)
-		}
-		self.instantiates = _t_instantiates
 		self.interpretation = try [CodeableConcept](from: _container, forKeyIfPresent: .interpretation)
+		self.interpretationContext = try [CodeableReference](from: _container, forKeyIfPresent: .interpretationContext)
 		self.issued = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .issued, auxiliaryKey: ._issued)
 		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
+		self.organizer = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .organizer, auxiliaryKey: ._organizer)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.referenceRange = try [ObservationReferenceRange](from: _container, forKeyIfPresent: .referenceRange)
@@ -454,18 +441,12 @@ open class Observation: DomainResource {
 		try focus?.encode(on: &_container, forKey: .focus)
 		try hasMember?.encode(on: &_container, forKey: .hasMember)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		if let _enum = instantiates {
-			switch _enum {
-			case .canonical(let _value):
-				try _value.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .instantiatesReference)
-			}
-		}
 		try interpretation?.encode(on: &_container, forKey: .interpretation)
+		try interpretationContext?.encode(on: &_container, forKey: .interpretationContext)
 		try issued?.encode(on: &_container, forKey: .issued, auxiliaryKey: ._issued)
 		try method?.encode(on: &_container, forKey: .method)
 		try note?.encode(on: &_container, forKey: .note)
+		try organizer?.encode(on: &_container, forKey: .organizer, auxiliaryKey: ._organizer)
 		try partOf?.encode(on: &_container, forKey: .partOf)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try referenceRange?.encode(on: &_container, forKey: .referenceRange)
@@ -529,11 +510,12 @@ open class Observation: DomainResource {
 		    && focus == _other.focus
 		    && hasMember == _other.hasMember
 		    && identifier == _other.identifier
-		    && instantiates == _other.instantiates
 		    && interpretation == _other.interpretation
+		    && interpretationContext == _other.interpretationContext
 		    && issued == _other.issued
 		    && method == _other.method
 		    && note == _other.note
+		    && organizer == _other.organizer
 		    && partOf == _other.partOf
 		    && performer == _other.performer
 		    && referenceRange == _other.referenceRange
@@ -560,11 +542,12 @@ open class Observation: DomainResource {
 		hasher.combine(focus)
 		hasher.combine(hasMember)
 		hasher.combine(identifier)
-		hasher.combine(instantiates)
 		hasher.combine(interpretation)
+		hasher.combine(interpretationContext)
 		hasher.combine(issued)
 		hasher.combine(method)
 		hasher.combine(note)
+		hasher.combine(organizer)
 		hasher.combine(partOf)
 		hasher.combine(performer)
 		hasher.combine(referenceRange)
@@ -970,14 +953,15 @@ open class ObservationTriggeredBy: BackboneElement {
 	/// Triggering observation
 	public var observation: Reference
 	
-	/// reflex | repeat | re-run
-	public var type: FHIRPrimitive<FHIRString>
+	/// The type of trigger.
+	/// Reflex | Repeat | Re-run.
+	public var type: FHIRPrimitive<TriggeredBytype>
 	
 	/// Reason that the observation was triggered
 	public var reason: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
-	public init(observation: Reference, type: FHIRPrimitive<FHIRString>) {
+	public init(observation: Reference, type: FHIRPrimitive<TriggeredBytype>) {
 		self.observation = observation
 		self.type = type
 		super.init()
@@ -990,7 +974,7 @@ open class ObservationTriggeredBy: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		observation: Reference,
 		reason: FHIRPrimitive<FHIRString>? = nil,
-		type: FHIRPrimitive<FHIRString>
+		type: FHIRPrimitive<TriggeredBytype>
 	) {
 		self.init(observation: observation, type: type)
 		self.`extension` = `extension`
@@ -1014,7 +998,7 @@ open class ObservationTriggeredBy: BackboneElement {
 		// Decode all our properties
 		self.observation = try Reference(from: _container, forKey: .observation)
 		self.reason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .reason, auxiliaryKey: ._reason)
-		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<TriggeredBytype>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
 	

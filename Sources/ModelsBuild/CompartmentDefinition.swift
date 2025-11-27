@@ -2,8 +2,8 @@
 //  CompartmentDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CompartmentDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CompartmentDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ open class CompartmentDefinition: DomainResource {
 	/// The status of this compartment definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -290,41 +290,31 @@ open class CompartmentDefinitionResource: BackboneElement {
 	/// The name of a resource supported by the server.
 	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
 	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
-	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
-	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
-	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
-	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
-	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
-	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
-	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
-	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
-	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
-	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
-	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
-	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
-	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
-	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
-	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
-	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
-	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
-	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
-	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
-	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
-	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
+	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BodyStructure', 'Bundle', 'CapabilityStatement', 'CarePlan',
+	/// 'CareTeam', 'Claim', 'ClaimResponse', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
+	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition', 'Consent',
+	/// 'Contract', 'Coverage', 'CoverageEligibilityRequest', 'CoverageEligibilityResponse', 'DetectedIssue', 'Device',
+	/// 'DeviceAlert', 'DeviceAssociation', 'DeviceDefinition', 'DeviceMetric', 'DeviceRequest', 'DiagnosticReport',
+	/// 'DocumentReference', 'Encounter', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse', 'EpisodeOfCare',
+	/// 'EventDefinition', 'Evidence', 'EvidenceVariable', 'ExampleScenario', 'ExplanationOfBenefit',
+	/// 'FamilyMemberHistory', 'Flag', 'Goal', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection',
+	/// 'ImagingStudy', 'Immunization', 'ImplementationGuide', 'Ingredient', 'InsurancePlan', 'InsuranceProduct',
+	/// 'Invoice', 'Library', 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport',
+	/// 'Medication', 'MedicationAdministration', 'MedicationDispense', 'MedicationRequest', 'MedicationStatement',
+	/// 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader', 'NamingSystem', 'NutritionIntake',
+	/// 'NutritionOrder', 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition',
+	/// 'OperationOutcome', 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters',
+	/// 'Patient', 'PaymentNotice', 'PaymentReconciliation', 'Person', 'PlanDefinition', 'Practitioner',
+	/// 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
 	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
 	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
 	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
-	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
-	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
-	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
-	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
+	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'Task', 'TerminologyCapabilities', 'ValueSet',
+	/// 'VisionPrescription']
 	public var code: FHIRPrimitive<ResourceType>
 	
 	/// Search Parameter Name, or chained parameters
 	public var param: [FHIRPrimitive<FHIRString>]?
-	
-	/// Additional documentation about the resource and compartment
-	public var documentation: FHIRPrimitive<FHIRString>?
 	
 	/// Search Param for interpreting $everything.start
 	public var startParam: FHIRPrimitive<FHIRURI>?
@@ -341,7 +331,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: FHIRPrimitive<ResourceType>,
-		documentation: FHIRPrimitive<FHIRString>? = nil,
 		endParam: FHIRPrimitive<FHIRURI>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -350,7 +339,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 		startParam: FHIRPrimitive<FHIRURI>? = nil
 	) {
 		self.init(code: code)
-		self.documentation = documentation
 		self.endParam = endParam
 		self.`extension` = `extension`
 		self.id = id
@@ -363,7 +351,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
-		case documentation; case _documentation
 		case endParam; case _endParam
 		case param; case _param
 		case startParam; case _startParam
@@ -375,7 +362,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try FHIRPrimitive<ResourceType>(from: _container, forKey: .code, auxiliaryKey: ._code)
-		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
 		self.endParam = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .endParam, auxiliaryKey: ._endParam)
 		self.param = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .param, auxiliaryKey: ._param)
 		self.startParam = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .startParam, auxiliaryKey: ._startParam)
@@ -388,7 +374,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 		
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
-		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
 		try endParam?.encode(on: &_container, forKey: .endParam, auxiliaryKey: ._endParam)
 		try param?.encode(on: &_container, forKey: .param, auxiliaryKey: ._param)
 		try startParam?.encode(on: &_container, forKey: .startParam, auxiliaryKey: ._startParam)
@@ -405,7 +390,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 			return false
 		}
 		return code == _other.code
-		    && documentation == _other.documentation
 		    && endParam == _other.endParam
 		    && param == _other.param
 		    && startParam == _other.startParam
@@ -414,7 +398,6 @@ open class CompartmentDefinitionResource: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
-		hasher.combine(documentation)
 		hasher.combine(endParam)
 		hasher.combine(param)
 		hasher.combine(startParam)

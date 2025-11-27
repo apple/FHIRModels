@@ -21,7 +21,7 @@ import FMCore
 /**
  Protocol for all FHIR primitives.
  */
-public protocol FHIRPrimitiveType: FHIRType {
+public protocol FHIRPrimitiveType: FHIRType, Sendable {
 }
 
 extension FHIRPrimitiveType {

@@ -2,8 +2,8 @@
 //  NamingSystem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/NamingSystem)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/NamingSystem)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ open class NamingSystem: DomainResource {
 	/// Indicates the purpose for the naming system - what kinds of things does it make unique?
 	public var kind: FHIRPrimitive<NamingSystemType>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -84,13 +84,13 @@ open class NamingSystem: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for naming system (if applicable)
+	/// Jurisdiction of the authority that maintains the naming system (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this naming system is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)

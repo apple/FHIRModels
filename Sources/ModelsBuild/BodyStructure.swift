@@ -2,8 +2,8 @@
 //  BodyStructure.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/BodyStructure)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/BodyStructure)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,9 +34,6 @@ open class BodyStructure: DomainResource {
 	
 	/// Whether this record is in active use
 	public var active: FHIRPrimitive<FHIRBool>?
-	
-	/// Kind of Structure
-	public var morphology: CodeableConcept?
 	
 	/// Included anatomic location(s)
 	public var includedStructure: [BodyStructureIncludedStructure]
@@ -75,7 +72,6 @@ open class BodyStructure: DomainResource {
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
-		morphology: CodeableConcept? = nil,
 		patient: Reference,
 		text: Narrative? = nil
 	) {
@@ -92,7 +88,6 @@ open class BodyStructure: DomainResource {
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
-		self.morphology = morphology
 		self.text = text
 	}
 	
@@ -105,7 +100,6 @@ open class BodyStructure: DomainResource {
 		case identifier
 		case image
 		case includedStructure
-		case morphology
 		case patient
 	}
 	
@@ -120,7 +114,6 @@ open class BodyStructure: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.image = try [Attachment](from: _container, forKeyIfPresent: .image)
 		self.includedStructure = try [BodyStructureIncludedStructure](from: _container, forKey: .includedStructure)
-		self.morphology = try CodeableConcept(from: _container, forKeyIfPresent: .morphology)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		try super.init(from: decoder)
 	}
@@ -136,7 +129,6 @@ open class BodyStructure: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try image?.encode(on: &_container, forKey: .image)
 		try includedStructure.encode(on: &_container, forKey: .includedStructure)
-		try morphology?.encode(on: &_container, forKey: .morphology)
 		try patient.encode(on: &_container, forKey: .patient)
 		try super.encode(to: encoder)
 	}
@@ -156,7 +148,6 @@ open class BodyStructure: DomainResource {
 		    && identifier == _other.identifier
 		    && image == _other.image
 		    && includedStructure == _other.includedStructure
-		    && morphology == _other.morphology
 		    && patient == _other.patient
 	}
 	
@@ -168,7 +159,6 @@ open class BodyStructure: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(image)
 		hasher.combine(includedStructure)
-		hasher.combine(morphology)
 		hasher.combine(patient)
 	}
 }
@@ -192,8 +182,14 @@ open class BodyStructureIncludedStructure: BackboneElement {
 	/// Cartesian reference for structure
 	public var spatialReference: [Reference]?
 	
+	/// Image(s) of structural aspects
+	public var image: [Attachment]?
+	
 	/// Code that represents the included structure qualifier
 	public var qualifier: [CodeableConcept]?
+	
+	/// Kind of Structure
+	public var morphology: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
 	public init(structure: CodeableConcept) {
@@ -206,8 +202,10 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		bodyLandmarkOrientation: [BodyStructureIncludedStructureBodyLandmarkOrientation]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		image: [Attachment]? = nil,
 		laterality: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
+		morphology: CodeableConcept? = nil,
 		qualifier: [CodeableConcept]? = nil,
 		spatialReference: [Reference]? = nil,
 		structure: CodeableConcept
@@ -216,8 +214,10 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		self.bodyLandmarkOrientation = bodyLandmarkOrientation
 		self.`extension` = `extension`
 		self.id = id
+		self.image = image
 		self.laterality = laterality
 		self.modifierExtension = modifierExtension
+		self.morphology = morphology
 		self.qualifier = qualifier
 		self.spatialReference = spatialReference
 	}
@@ -226,7 +226,9 @@ open class BodyStructureIncludedStructure: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case bodyLandmarkOrientation
+		case image
 		case laterality
+		case morphology
 		case qualifier
 		case spatialReference
 		case structure
@@ -238,7 +240,9 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		
 		// Decode all our properties
 		self.bodyLandmarkOrientation = try [BodyStructureIncludedStructureBodyLandmarkOrientation](from: _container, forKeyIfPresent: .bodyLandmarkOrientation)
+		self.image = try [Attachment](from: _container, forKeyIfPresent: .image)
 		self.laterality = try CodeableConcept(from: _container, forKeyIfPresent: .laterality)
+		self.morphology = try CodeableConcept(from: _container, forKeyIfPresent: .morphology)
 		self.qualifier = try [CodeableConcept](from: _container, forKeyIfPresent: .qualifier)
 		self.spatialReference = try [Reference](from: _container, forKeyIfPresent: .spatialReference)
 		self.structure = try CodeableConcept(from: _container, forKey: .structure)
@@ -251,7 +255,9 @@ open class BodyStructureIncludedStructure: BackboneElement {
 		
 		// Encode all our properties
 		try bodyLandmarkOrientation?.encode(on: &_container, forKey: .bodyLandmarkOrientation)
+		try image?.encode(on: &_container, forKey: .image)
 		try laterality?.encode(on: &_container, forKey: .laterality)
+		try morphology?.encode(on: &_container, forKey: .morphology)
 		try qualifier?.encode(on: &_container, forKey: .qualifier)
 		try spatialReference?.encode(on: &_container, forKey: .spatialReference)
 		try structure.encode(on: &_container, forKey: .structure)
@@ -268,7 +274,9 @@ open class BodyStructureIncludedStructure: BackboneElement {
 			return false
 		}
 		return bodyLandmarkOrientation == _other.bodyLandmarkOrientation
+		    && image == _other.image
 		    && laterality == _other.laterality
+		    && morphology == _other.morphology
 		    && qualifier == _other.qualifier
 		    && spatialReference == _other.spatialReference
 		    && structure == _other.structure
@@ -277,7 +285,9 @@ open class BodyStructureIncludedStructure: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(bodyLandmarkOrientation)
+		hasher.combine(image)
 		hasher.combine(laterality)
+		hasher.combine(morphology)
 		hasher.combine(qualifier)
 		hasher.combine(spatialReference)
 		hasher.combine(structure)

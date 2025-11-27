@@ -2,8 +2,8 @@
 //  ActivityDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ActivityDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ActivityDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,6 +53,7 @@ open class ActivityDefinition: DomainResource {
 		case age(Age)
 		case duration(Duration)
 		case range(Range)
+		case relativeTime(RelativeTime)
 		case timing(Timing)
 	}
 	
@@ -87,7 +88,7 @@ open class ActivityDefinition: DomainResource {
 	/// The status of this activity definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Type of individual the activity definition is intended for
@@ -109,7 +110,7 @@ open class ActivityDefinition: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for activity definition (if applicable)
+	/// Jurisdiction of the authority that maintains the activity definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this activity definition is defined
@@ -118,7 +119,7 @@ open class ActivityDefinition: DomainResource {
 	/// Describes the clinical usage of the activity definition
 	public var usage: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -157,8 +158,8 @@ open class ActivityDefinition: DomainResource {
 	/// A description of the kind of resource the activity definition is representing. For example, a MedicationRequest,
 	/// a ServiceRequest, or a CommunicationRequest.
 	/// Restricted to: ['Appointment', 'CarePlan', 'Claim', 'CommunicationRequest', 'CoverageEligibilityRequest',
-	/// 'DeviceRequest', 'EnrollmentRequest', 'ImmunizationRecommendation', 'MedicationRequest', 'NutritionOrder',
-	/// 'RequestOrchestration', 'ServiceRequest', 'SupplyRequest', 'Task', 'Transport', 'VisionPrescription']
+	/// 'DeviceRequest', 'EnrollmentRequest', 'MedicationRequest', 'NutritionOrder', 'RequestOrchestration',
+	/// 'ServiceRequest', 'Task', 'VisionPrescription']
 	public var kind: FHIRPrimitive<ResourceType>?
 	
 	/// What profile the resource needs to conform to
@@ -167,11 +168,12 @@ open class ActivityDefinition: DomainResource {
 	/// Detail type of activity
 	public var code: CodeableConcept?
 	
-	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	public var intent: FHIRPrimitive<FHIRString>?
+	/// Indicates the level of authority/intentionality associated with the activity and where the request should fit
+	/// into the workflow chain.
+	public var intent: FHIRPrimitive<RequestIntent>?
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the activity  should be addressed with respect to other requests.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// True if the activity should not be performed
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
@@ -248,7 +250,7 @@ open class ActivityDefinition: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		intent: FHIRPrimitive<FHIRString>? = nil,
+		intent: FHIRPrimitive<RequestIntent>? = nil,
 		jurisdiction: [CodeableConcept]? = nil,
 		kind: FHIRPrimitive<ResourceType>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
@@ -261,7 +263,7 @@ open class ActivityDefinition: DomainResource {
 		observationRequirement: [FHIRPrimitive<Canonical>]? = nil,
 		observationResultRequirement: [FHIRPrimitive<Canonical>]? = nil,
 		participant: [ActivityDefinitionParticipant]? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		product: ProductX? = nil,
 		profile: FHIRPrimitive<Canonical>? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
@@ -393,6 +395,7 @@ open class ActivityDefinition: DomainResource {
 		case timingAge
 		case timingDuration
 		case timingRange
+		case timingRelativeTime
 		case timingTiming
 		case title; case _title
 		case topic
@@ -441,7 +444,7 @@ open class ActivityDefinition: DomainResource {
 		self.endorser = try [ContactDetail](from: _container, forKeyIfPresent: .endorser)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKeyIfPresent: .intent, auxiliaryKey: ._intent)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.kind = try FHIRPrimitive<ResourceType>(from: _container, forKeyIfPresent: .kind, auxiliaryKey: ._kind)
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
@@ -451,7 +454,7 @@ open class ActivityDefinition: DomainResource {
 		self.observationRequirement = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .observationRequirement, auxiliaryKey: ._observationRequirement)
 		self.observationResultRequirement = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .observationResultRequirement, auxiliaryKey: ._observationResultRequirement)
 		self.participant = try [ActivityDefinitionParticipant](from: _container, forKeyIfPresent: .participant)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		var _t_product: ProductX? = nil
 		if let productReference = try Reference(from: _container, forKeyIfPresent: .productReference) {
 			if _t_product != nil {
@@ -519,6 +522,12 @@ open class ActivityDefinition: DomainResource {
 				throw DecodingError.dataCorruptedError(forKey: .timingDuration, in: _container, debugDescription: "More than one value provided for \"timing\"")
 			}
 			_t_timing = .duration(timingDuration)
+		}
+		if let timingRelativeTime = try RelativeTime(from: _container, forKeyIfPresent: .timingRelativeTime) {
+			if _t_timing != nil {
+				throw DecodingError.dataCorruptedError(forKey: .timingRelativeTime, in: _container, debugDescription: "More than one value provided for \"timing\"")
+			}
+			_t_timing = .relativeTime(timingRelativeTime)
 		}
 		self.timing = _t_timing
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
@@ -623,6 +632,8 @@ open class ActivityDefinition: DomainResource {
 				try _value.encode(on: &_container, forKey: .timingRange)
 			case .duration(let _value):
 				try _value.encode(on: &_container, forKey: .timingDuration)
+			case .relativeTime(let _value):
+				try _value.encode(on: &_container, forKey: .timingRelativeTime)
 			}
 		}
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)

@@ -2,8 +2,8 @@
 //  Specimen.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Specimen)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Specimen)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -28,11 +28,8 @@ open class Specimen: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .specimen }
 	
-	/// External Identifier
+	/// Primary specimen identifier
 	public var identifier: [Identifier]?
-	
-	/// Identifier assigned by the lab
-	public var accessionIdentifier: Identifier?
 	
 	/// The availability of the specimen.
 	public var status: FHIRPrimitive<SpecimenStatus>?
@@ -84,7 +81,6 @@ open class Specimen: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		accessionIdentifier: Identifier? = nil,
 		collection: SpecimenCollection? = nil,
 		combined: FHIRPrimitive<SpecimenCombined>? = nil,
 		condition: [CodeableConcept]? = nil,
@@ -110,7 +106,6 @@ open class Specimen: DomainResource {
 		type: CodeableConcept? = nil
 	) {
 		self.init()
-		self.accessionIdentifier = accessionIdentifier
 		self.collection = collection
 		self.combined = combined
 		self.condition = condition
@@ -139,7 +134,6 @@ open class Specimen: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case accessionIdentifier
 		case collection
 		case combined; case _combined
 		case condition
@@ -162,7 +156,6 @@ open class Specimen: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.accessionIdentifier = try Identifier(from: _container, forKeyIfPresent: .accessionIdentifier)
 		self.collection = try SpecimenCollection(from: _container, forKeyIfPresent: .collection)
 		self.combined = try FHIRPrimitive<SpecimenCombined>(from: _container, forKeyIfPresent: .combined, auxiliaryKey: ._combined)
 		self.condition = try [CodeableConcept](from: _container, forKeyIfPresent: .condition)
@@ -186,7 +179,6 @@ open class Specimen: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try accessionIdentifier?.encode(on: &_container, forKey: .accessionIdentifier)
 		try collection?.encode(on: &_container, forKey: .collection)
 		try combined?.encode(on: &_container, forKey: .combined, auxiliaryKey: ._combined)
 		try condition?.encode(on: &_container, forKey: .condition)
@@ -214,8 +206,7 @@ open class Specimen: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return accessionIdentifier == _other.accessionIdentifier
-		    && collection == _other.collection
+		return collection == _other.collection
 		    && combined == _other.combined
 		    && condition == _other.condition
 		    && container == _other.container
@@ -234,7 +225,6 @@ open class Specimen: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(accessionIdentifier)
 		hasher.combine(collection)
 		hasher.combine(combined)
 		hasher.combine(condition)
@@ -266,6 +256,12 @@ open class SpecimenCollection: BackboneElement {
 		case period(Period)
 	}
 	
+	/// All possible types for "device[x]"
+	public enum DeviceX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case codeableConcept(CodeableConcept)
+	}
+	
 	/// All possible types for "fastingStatus[x]"
 	public enum FastingStatusX: Hashable {
 		case codeableConcept(CodeableConcept)
@@ -289,7 +285,8 @@ open class SpecimenCollection: BackboneElement {
 	public var method: CodeableConcept?
 	
 	/// Device used to perform collection
-	public var device: CodeableReference?
+	/// One of `device[x]`
+	public var device: DeviceX?
 	
 	/// The procedure that collects the specimen
 	public var procedure: Reference?
@@ -311,7 +308,7 @@ open class SpecimenCollection: BackboneElement {
 		bodySite: CodeableReference? = nil,
 		collected: CollectedX? = nil,
 		collector: Reference? = nil,
-		device: CodeableReference? = nil,
+		device: DeviceX? = nil,
 		duration: Duration? = nil,
 		`extension`: [Extension]? = nil,
 		fastingStatus: FastingStatusX? = nil,
@@ -343,7 +340,8 @@ open class SpecimenCollection: BackboneElement {
 		case collectedDateTime; case _collectedDateTime
 		case collectedPeriod
 		case collector
-		case device
+		case deviceCanonical; case _deviceCanonical
+		case deviceCodeableConcept
 		case duration
 		case fastingStatusCodeableConcept
 		case fastingStatusDuration
@@ -373,7 +371,20 @@ open class SpecimenCollection: BackboneElement {
 		}
 		self.collected = _t_collected
 		self.collector = try Reference(from: _container, forKeyIfPresent: .collector)
-		self.device = try CodeableReference(from: _container, forKeyIfPresent: .device)
+		var _t_device: DeviceX? = nil
+		if let deviceCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .deviceCodeableConcept) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCodeableConcept, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .codeableConcept(deviceCodeableConcept)
+		}
+		if let deviceCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .deviceCanonical, auxiliaryKey: ._deviceCanonical) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCanonical, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .canonical(deviceCanonical)
+		}
+		self.device = _t_device
 		self.duration = try Duration(from: _container, forKeyIfPresent: .duration)
 		var _t_fastingStatus: FastingStatusX? = nil
 		if let fastingStatusCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .fastingStatusCodeableConcept) {
@@ -410,7 +421,14 @@ open class SpecimenCollection: BackboneElement {
 			}
 		}
 		try collector?.encode(on: &_container, forKey: .collector)
-		try device?.encode(on: &_container, forKey: .device)
+		if let _enum = device {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCodeableConcept)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCanonical, auxiliaryKey: ._deviceCanonical)
+			}
+		}
 		try duration?.encode(on: &_container, forKey: .duration)
 		if let _enum = fastingStatus {
 			switch _enum {
@@ -468,21 +486,28 @@ open class SpecimenCollection: BackboneElement {
  */
 open class SpecimenContainer: BackboneElement {
 	
+	/// All possible types for "device[x]"
+	public enum DeviceX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case codeableConcept(CodeableConcept)
+	}
+	
 	/// Device resource for the container
-	public var device: Reference
+	/// One of `device[x]`
+	public var device: DeviceX
 	
 	/// Quantity of specimen within container
 	public var specimenQuantity: Quantity?
 	
 	/// Designated initializer taking all required properties
-	public init(device: Reference) {
+	public init(device: DeviceX) {
 		self.device = device
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-		device: Reference,
+		device: DeviceX,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
@@ -498,7 +523,8 @@ open class SpecimenContainer: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case device
+		case deviceCanonical; case _deviceCanonical
+		case deviceCodeableConcept
 		case specimenQuantity
 	}
 	
@@ -506,8 +532,26 @@ open class SpecimenContainer: BackboneElement {
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.deviceCanonical) || _container.contains(CodingKeys.deviceCodeableConcept) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.deviceCanonical, CodingKeys.deviceCodeableConcept], debugDescription: "Must have at least one value for \"device\" but have none"))
+		}
+		
 		// Decode all our properties
-		self.device = try Reference(from: _container, forKey: .device)
+		var _t_device: DeviceX? = nil
+		if let deviceCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .deviceCodeableConcept) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCodeableConcept, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .codeableConcept(deviceCodeableConcept)
+		}
+		if let deviceCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .deviceCanonical, auxiliaryKey: ._deviceCanonical) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCanonical, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .canonical(deviceCanonical)
+		}
+		self.device = _t_device!
 		self.specimenQuantity = try Quantity(from: _container, forKeyIfPresent: .specimenQuantity)
 		try super.init(from: decoder)
 	}
@@ -517,7 +561,14 @@ open class SpecimenContainer: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try device.encode(on: &_container, forKey: .device)
+		
+			switch device {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCodeableConcept)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCanonical, auxiliaryKey: ._deviceCanonical)
+			}
+		
 		try specimenQuantity?.encode(on: &_container, forKey: .specimenQuantity)
 		try super.encode(to: encoder)
 	}
@@ -632,6 +683,12 @@ open class SpecimenFeature: BackboneElement {
  */
 open class SpecimenProcessing: BackboneElement {
 	
+	/// All possible types for "device[x]"
+	public enum DeviceX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case codeableConcept(CodeableConcept)
+	}
+	
 	/// All possible types for "time[x]"
 	public enum TimeX: Hashable {
 		case dateTime(FHIRPrimitive<DateTime>)
@@ -649,10 +706,11 @@ open class SpecimenProcessing: BackboneElement {
 	public var performer: Reference?
 	
 	/// Device used to process the specimen
-	public var device: Reference?
+	/// One of `device[x]`
+	public var device: DeviceX?
 	
 	/// Material used in the processing step
-	public var additive: [Reference]?
+	public var additive: [CodeableReference]?
 	
 	/// Date and time of specimen processing
 	/// One of `time[x]`
@@ -665,9 +723,9 @@ open class SpecimenProcessing: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		additive: [Reference]? = nil,
+		additive: [CodeableReference]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
-		device: Reference? = nil,
+		device: DeviceX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		method: CodeableConcept? = nil,
@@ -692,7 +750,8 @@ open class SpecimenProcessing: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case additive
 		case description_fhir = "description"; case _description_fhir = "_description"
-		case device
+		case deviceCanonical; case _deviceCanonical
+		case deviceCodeableConcept
 		case method
 		case performer
 		case timeDateTime; case _timeDateTime
@@ -705,9 +764,22 @@ open class SpecimenProcessing: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.additive = try [Reference](from: _container, forKeyIfPresent: .additive)
+		self.additive = try [CodeableReference](from: _container, forKeyIfPresent: .additive)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		self.device = try Reference(from: _container, forKeyIfPresent: .device)
+		var _t_device: DeviceX? = nil
+		if let deviceCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .deviceCodeableConcept) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCodeableConcept, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .codeableConcept(deviceCodeableConcept)
+		}
+		if let deviceCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .deviceCanonical, auxiliaryKey: ._deviceCanonical) {
+			if _t_device != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deviceCanonical, in: _container, debugDescription: "More than one value provided for \"device\"")
+			}
+			_t_device = .canonical(deviceCanonical)
+		}
+		self.device = _t_device
 		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
 		self.performer = try Reference(from: _container, forKeyIfPresent: .performer)
 		var _t_time: TimeX? = nil
@@ -740,7 +812,14 @@ open class SpecimenProcessing: BackboneElement {
 		// Encode all our properties
 		try additive?.encode(on: &_container, forKey: .additive)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		try device?.encode(on: &_container, forKey: .device)
+		if let _enum = device {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCodeableConcept)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .deviceCanonical, auxiliaryKey: ._deviceCanonical)
+			}
+		}
 		try method?.encode(on: &_container, forKey: .method)
 		try performer?.encode(on: &_container, forKey: .performer)
 		if let _enum = time {

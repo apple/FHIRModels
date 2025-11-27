@@ -2,8 +2,8 @@
 //  RelativeTime.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RelativeTime)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/RelativeTime)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 import FMCore
 
 /**
- A point in time or an interval of time relative to an event.
+ Expresses a time or time period as relative to the time of an event.
  
- RelativeTime is used to express a point in time or an interval of time relative to an event defined in data types other
- than dateTime.
+ RelativeTime expresses a time or time period as relative to the time of an event defined in data types other than
+ dateTime.
  */
 open class RelativeTime: BackboneType {
 	
@@ -39,7 +39,7 @@ open class RelativeTime: BackboneType {
 	/// The type of event used as a base point
 	public var contextDefinition: FHIRPrimitive<Canonical>?
 	
-	/// Path to the element defining the point in time
+	/// Path to the element defining the basis for the relative time
 	public var contextPath: FHIRPrimitive<FHIRString>?
 	
 	/// Coded representation of the event used as a base point (reference point) in time

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- Indicator for type of action performed during the event that generated the event.
+ Indicator codes for type of action performed during the event that generated the event.
  
  URL: http://hl7.org/fhir/audit-event-action
  ValueSet: http://hl7.org/fhir/ValueSet/audit-event-action

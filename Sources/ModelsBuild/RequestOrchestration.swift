@@ -2,8 +2,8 @@
 //  RequestOrchestration.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RequestOrchestration)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/RequestOrchestration)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -47,14 +47,16 @@ open class RequestOrchestration: DomainResource {
 	/// Composite request this is part of
 	public var groupIdentifier: Identifier?
 	
-	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// The current state of the request. For request orchestrations, the status reflects the status of all the requests
+	/// in the orchestration.
+	public var status: FHIRPrimitive<RequestStatus>
 	
-	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	public var intent: FHIRPrimitive<FHIRString>
+	/// Indicates the level of authority/intentionality associated with the request and where the request fits into the
+	/// workflow chain.
+	public var intent: FHIRPrimitive<RequestIntent>
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the request should be addressed with respect to other requests.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// What's being requested/ordered
 	public var code: CodeableConcept?
@@ -84,7 +86,7 @@ open class RequestOrchestration: DomainResource {
 	public var action: [RequestOrchestrationAction]?
 	
 	/// Designated initializer taking all required properties
-	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>) {
+	public init(intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>) {
 		self.intent = intent
 		self.status = status
 		super.init()
@@ -107,15 +109,15 @@ open class RequestOrchestration: DomainResource {
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
 		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-		intent: FHIRPrimitive<FHIRString>,
+		intent: FHIRPrimitive<RequestIntent>,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		reason: [CodeableReference]? = nil,
 		replaces: [Reference]? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<RequestStatus>,
 		subject: Reference? = nil,
 		text: Narrative? = nil
 	) {
@@ -185,12 +187,12 @@ open class RequestOrchestration: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
 		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
 	}
@@ -293,6 +295,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		case duration(Duration)
 		case period(Period)
 		case range(Range)
+		case relativeTime(RelativeTime)
 		case timing(Timing)
 	}
 	
@@ -311,8 +314,8 @@ open class RequestOrchestrationAction: BackboneElement {
 	/// Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system
 	public var textEquivalent: FHIRPrimitive<FHIRString>?
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the action should be addressed with respect to other actions.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// Code representing the meaning of the action or sub-actions
 	public var code: [CodeableConcept]?
@@ -347,6 +350,12 @@ open class RequestOrchestrationAction: BackboneElement {
 	
 	/// create | update | remove | fire-event
 	public var type: CodeableConcept?
+	
+	/// All - meaning the applicability of each child action is evaluated independently; if a child action is applicable
+	/// according to the applicability criteria, it is applied. Any - meaning that each child action is evaluated in
+	/// order, and the first action that returns an applicability of true will be applied, and processing of the parent
+	/// action will stop. If not specified, the default behavior of All is used.
+	public var applicabilityBehavior: FHIRPrimitive<ActionApplicabilityBehavior>?
 	
 	/// Defines the grouping behavior for the action and its children.
 	public var groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>?
@@ -387,6 +396,7 @@ open class RequestOrchestrationAction: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		action: [RequestOrchestrationAction]? = nil,
+		applicabilityBehavior: FHIRPrimitive<ActionApplicabilityBehavior>? = nil,
 		cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
 		code: [CodeableConcept]? = nil,
 		condition: [RequestOrchestrationActionCondition]? = nil,
@@ -406,7 +416,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		participant: [RequestOrchestrationActionParticipant]? = nil,
 		precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
 		prefix: FHIRPrimitive<FHIRString>? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		relatedAction: [RequestOrchestrationActionRelatedAction]? = nil,
 		requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
 		resource: Reference? = nil,
@@ -419,6 +429,7 @@ open class RequestOrchestrationAction: BackboneElement {
 	) {
 		self.init()
 		self.action = action
+		self.applicabilityBehavior = applicabilityBehavior
 		self.cardinalityBehavior = cardinalityBehavior
 		self.code = code
 		self.condition = condition
@@ -454,6 +465,7 @@ open class RequestOrchestrationAction: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case action
+		case applicabilityBehavior; case _applicabilityBehavior
 		case cardinalityBehavior; case _cardinalityBehavior
 		case code
 		case condition
@@ -482,6 +494,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		case timingDuration
 		case timingPeriod
 		case timingRange
+		case timingRelativeTime
 		case timingTiming
 		case title; case _title
 		case transform; case _transform
@@ -494,6 +507,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		
 		// Decode all our properties
 		self.action = try [RequestOrchestrationAction](from: _container, forKeyIfPresent: .action)
+		self.applicabilityBehavior = try FHIRPrimitive<ActionApplicabilityBehavior>(from: _container, forKeyIfPresent: .applicabilityBehavior, auxiliaryKey: ._applicabilityBehavior)
 		self.cardinalityBehavior = try FHIRPrimitive<ActionCardinalityBehavior>(from: _container, forKeyIfPresent: .cardinalityBehavior, auxiliaryKey: ._cardinalityBehavior)
 		self.code = try [CodeableConcept](from: _container, forKeyIfPresent: .code)
 		self.condition = try [RequestOrchestrationActionCondition](from: _container, forKeyIfPresent: .condition)
@@ -523,7 +537,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		self.participant = try [RequestOrchestrationActionParticipant](from: _container, forKeyIfPresent: .participant)
 		self.precheckBehavior = try FHIRPrimitive<ActionPrecheckBehavior>(from: _container, forKeyIfPresent: .precheckBehavior, auxiliaryKey: ._precheckBehavior)
 		self.prefix = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .prefix, auxiliaryKey: ._prefix)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.relatedAction = try [RequestOrchestrationActionRelatedAction](from: _container, forKeyIfPresent: .relatedAction)
 		self.requiredBehavior = try FHIRPrimitive<ActionRequiredBehavior>(from: _container, forKeyIfPresent: .requiredBehavior, auxiliaryKey: ._requiredBehavior)
 		self.resource = try Reference(from: _container, forKeyIfPresent: .resource)
@@ -566,6 +580,12 @@ open class RequestOrchestrationAction: BackboneElement {
 			}
 			_t_timing = .timing(timingTiming)
 		}
+		if let timingRelativeTime = try RelativeTime(from: _container, forKeyIfPresent: .timingRelativeTime) {
+			if _t_timing != nil {
+				throw DecodingError.dataCorruptedError(forKey: .timingRelativeTime, in: _container, debugDescription: "More than one value provided for \"timing\"")
+			}
+			_t_timing = .relativeTime(timingRelativeTime)
+		}
 		self.timing = _t_timing
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.transform = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .transform, auxiliaryKey: ._transform)
@@ -579,6 +599,7 @@ open class RequestOrchestrationAction: BackboneElement {
 		
 		// Encode all our properties
 		try action?.encode(on: &_container, forKey: .action)
+		try applicabilityBehavior?.encode(on: &_container, forKey: .applicabilityBehavior, auxiliaryKey: ._applicabilityBehavior)
 		try cardinalityBehavior?.encode(on: &_container, forKey: .cardinalityBehavior, auxiliaryKey: ._cardinalityBehavior)
 		try code?.encode(on: &_container, forKey: .code)
 		try condition?.encode(on: &_container, forKey: .condition)
@@ -622,6 +643,8 @@ open class RequestOrchestrationAction: BackboneElement {
 				try _value.encode(on: &_container, forKey: .timingRange)
 			case .timing(let _value):
 				try _value.encode(on: &_container, forKey: .timingTiming)
+			case .relativeTime(let _value):
+				try _value.encode(on: &_container, forKey: .timingRelativeTime)
 			}
 		}
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
@@ -640,6 +663,7 @@ open class RequestOrchestrationAction: BackboneElement {
 			return false
 		}
 		return action == _other.action
+		    && applicabilityBehavior == _other.applicabilityBehavior
 		    && cardinalityBehavior == _other.cardinalityBehavior
 		    && code == _other.code
 		    && condition == _other.condition
@@ -671,6 +695,7 @@ open class RequestOrchestrationAction: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(action)
+		hasher.combine(applicabilityBehavior)
 		hasher.combine(cardinalityBehavior)
 		hasher.combine(code)
 		hasher.combine(condition)

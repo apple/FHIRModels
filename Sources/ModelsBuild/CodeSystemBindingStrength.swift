@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,6 +26,11 @@ import FMCore
  ValueSet: http://hl7.org/fhir/ValueSet/binding-strength
  */
 public enum BindingStrength: String, FHIRPrimitiveType {
+	
+	/// There is no constraint on the allowed set of codes at the root level, though there may be additional bindings
+	/// that apply in certain contexts.  The root binding element will be a description that gives guidance on potential
+	/// downstream constraint of the allowed codes and/or highlights the presence of additional bindings.
+	case descriptive
 	
 	/// Instances are not expected or even encouraged to draw from the specified value set.  The value set merely
 	/// provides examples of the types of concepts intended to be included.

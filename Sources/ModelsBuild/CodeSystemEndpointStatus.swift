@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,6 +36,10 @@ public enum EndpointStatus: String, FHIRPrimitiveType {
 	/// This endpoint has exceeded connectivity thresholds and is considered in an error state and should no longer be
 	/// attempted to connect to until corrective action is taken.
 	case error
+	
+	/// This endpoint is available for limited use (for example, it is undergoing internal testing).  I.e. the endpoint
+	/// is not fully available, might not always be available, or might only be available for some users.
+	case limited
 	
 	/// This endpoint is no longer to be used.
 	case off

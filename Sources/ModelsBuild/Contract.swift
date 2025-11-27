@@ -2,8 +2,8 @@
 //  Contract.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Contract)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Contract)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ open class Contract: DomainResource {
 	/// Business edition
 	public var version: FHIRPrimitive<FHIRString>?
 	
-	/// amended | appended | cancelled | disputed | entered-in-error | executable +
-	public var status: FHIRPrimitive<FHIRString>?
+	/// The status of the resource instance.
+	public var status: FHIRPrimitive<ContractStatus>?
 	
 	/// Negotiation status
 	public var legalState: CodeableConcept?
@@ -177,7 +177,7 @@ open class Contract: DomainResource {
 		scope: CodeableConcept? = nil,
 		signer: [ContractSigner]? = nil,
 		site: [Reference]? = nil,
-		status: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<ContractStatus>? = nil,
 		subType: [CodeableConcept]? = nil,
 		subject: [Reference]? = nil,
 		subtitle: FHIRPrimitive<FHIRString>? = nil,
@@ -314,7 +314,7 @@ open class Contract: DomainResource {
 		self.scope = try CodeableConcept(from: _container, forKeyIfPresent: .scope)
 		self.signer = try [ContractSigner](from: _container, forKeyIfPresent: .signer)
 		self.site = try [Reference](from: _container, forKeyIfPresent: .site)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<ContractStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subType = try [CodeableConcept](from: _container, forKeyIfPresent: .subType)
 		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
 		self.subtitle = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .subtitle, auxiliaryKey: ._subtitle)
@@ -498,14 +498,14 @@ open class ContractContentDefinition: BackboneElement {
 	/// When published
 	public var publicationDate: FHIRPrimitive<DateTime>?
 	
-	/// amended | appended | cancelled | disputed | entered-in-error | executable +
-	public var publicationStatus: FHIRPrimitive<FHIRString>
+	/// None
+	public var publicationStatus: FHIRPrimitive<ContractPublicationStatus>
 	
 	/// Publication Ownership
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
-	public init(publicationStatus: FHIRPrimitive<FHIRString>, type: CodeableConcept) {
+	public init(publicationStatus: FHIRPrimitive<ContractPublicationStatus>, type: CodeableConcept) {
 		self.publicationStatus = publicationStatus
 		self.type = type
 		super.init()
@@ -518,7 +518,7 @@ open class ContractContentDefinition: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		publicationDate: FHIRPrimitive<DateTime>? = nil,
-		publicationStatus: FHIRPrimitive<FHIRString>,
+		publicationStatus: FHIRPrimitive<ContractPublicationStatus>,
 		publisher: Reference? = nil,
 		subType: CodeableConcept? = nil,
 		type: CodeableConcept
@@ -551,7 +551,7 @@ open class ContractContentDefinition: BackboneElement {
 		// Decode all our properties
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.publicationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .publicationDate, auxiliaryKey: ._publicationDate)
-		self.publicationStatus = try FHIRPrimitive<FHIRString>(from: _container, forKey: .publicationStatus, auxiliaryKey: ._publicationStatus)
+		self.publicationStatus = try FHIRPrimitive<ContractPublicationStatus>(from: _container, forKey: .publicationStatus, auxiliaryKey: ._publicationStatus)
 		self.publisher = try Reference(from: _container, forKeyIfPresent: .publisher)
 		self.subType = try CodeableConcept(from: _container, forKeyIfPresent: .subType)
 		self.type = try CodeableConcept(from: _container, forKey: .type)

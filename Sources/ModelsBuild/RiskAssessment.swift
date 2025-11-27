@@ -2,8 +2,8 @@
 //  RiskAssessment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RiskAssessment)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/RiskAssessment)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ open class RiskAssessment: DomainResource {
 	/// Who did assessment?
 	public var performer: Reference?
 	
-	/// Why the assessment was necessary?
+	/// Why was the assessment necessary?
 	public var reason: [CodeableReference]?
 	
 	/// Information used in assessment
@@ -290,6 +290,7 @@ open class RiskAssessmentPrediction: BackboneElement {
 	/// All possible types for "probability[x]"
 	public enum ProbabilityX: Hashable {
 		case decimal(FHIRPrimitive<FHIRDecimal>)
+		case quantity(Quantity)
 		case range(Range)
 	}
 	
@@ -353,6 +354,7 @@ open class RiskAssessmentPrediction: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case outcome
 		case probabilityDecimal; case _probabilityDecimal
+		case probabilityQuantity
 		case probabilityRange
 		case qualitativeRisk
 		case rationale; case _rationale
@@ -373,6 +375,12 @@ open class RiskAssessmentPrediction: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .probabilityDecimal, in: _container, debugDescription: "More than one value provided for \"probability\"")
 			}
 			_t_probability = .decimal(probabilityDecimal)
+		}
+		if let probabilityQuantity = try Quantity(from: _container, forKeyIfPresent: .probabilityQuantity) {
+			if _t_probability != nil {
+				throw DecodingError.dataCorruptedError(forKey: .probabilityQuantity, in: _container, debugDescription: "More than one value provided for \"probability\"")
+			}
+			_t_probability = .quantity(probabilityQuantity)
 		}
 		if let probabilityRange = try Range(from: _container, forKeyIfPresent: .probabilityRange) {
 			if _t_probability != nil {
@@ -411,6 +419,8 @@ open class RiskAssessmentPrediction: BackboneElement {
 			switch _enum {
 			case .decimal(let _value):
 				try _value.encode(on: &_container, forKey: .probabilityDecimal, auxiliaryKey: ._probabilityDecimal)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .probabilityQuantity)
 			case .range(let _value):
 				try _value.encode(on: &_container, forKey: .probabilityRange)
 			}

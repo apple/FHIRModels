@@ -2,8 +2,8 @@
 //  CarePlan.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CarePlan)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CarePlan)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,12 +32,6 @@ open class CarePlan: DomainResource {
 	/// External Ids for this plan
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
 	/// Fulfills plan, proposal or order
 	public var basedOn: [Reference]?
 	
@@ -47,11 +41,14 @@ open class CarePlan: DomainResource {
 	/// Part of referenced CarePlan
 	public var partOf: [Reference]?
 	
-	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// Indicates whether the plan is currently being acted upon, represents future intentions or is now a historical
+	/// record.
+	public var status: FHIRPrimitive<RequestStatus>
 	
-	/// proposal | plan | order | option | directive
-	public var intent: FHIRPrimitive<FHIRString>
+	/// Indicates the level of authority/intentionality associated with the care plan and where the care plan fits into
+	/// the workflow chain.
+	/// Restricted to: ['proposal', 'plan', 'order', 'option', 'directive']
+	public var intent: FHIRPrimitive<RequestIntent>
 	
 	/// Type of plan
 	public var category: [CodeableConcept]?
@@ -99,7 +96,7 @@ open class CarePlan: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
+	public init(intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>, subject: Reference) {
 		self.intent = intent
 		self.status = status
 		self.subject = subject
@@ -124,9 +121,7 @@ open class CarePlan: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-		intent: FHIRPrimitive<FHIRString>,
+		intent: FHIRPrimitive<RequestIntent>,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
@@ -134,7 +129,7 @@ open class CarePlan: DomainResource {
 		partOf: [Reference]? = nil,
 		period: Period? = nil,
 		replaces: [Reference]? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<RequestStatus>,
 		subject: Reference,
 		supportingInfo: [Reference]? = nil,
 		text: Narrative? = nil,
@@ -157,8 +152,6 @@ open class CarePlan: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
@@ -186,8 +179,6 @@ open class CarePlan: DomainResource {
 		case encounter
 		case goal
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case intent; case _intent
 		case note
 		case partOf
@@ -216,14 +207,12 @@ open class CarePlan: DomainResource {
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.goal = try [Reference](from: _container, forKeyIfPresent: .goal)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.partOf = try [Reference](from: _container, forKeyIfPresent: .partOf)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
@@ -247,8 +236,6 @@ open class CarePlan: DomainResource {
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try goal?.encode(on: &_container, forKey: .goal)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
 		try note?.encode(on: &_container, forKey: .note)
 		try partOf?.encode(on: &_container, forKey: .partOf)
@@ -282,8 +269,6 @@ open class CarePlan: DomainResource {
 		    && encounter == _other.encounter
 		    && goal == _other.goal
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && intent == _other.intent
 		    && note == _other.note
 		    && partOf == _other.partOf
@@ -309,8 +294,6 @@ open class CarePlan: DomainResource {
 		hasher.combine(encounter)
 		hasher.combine(goal)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(intent)
 		hasher.combine(note)
 		hasher.combine(partOf)

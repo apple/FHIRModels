@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,4 +35,7 @@ public enum DeviceAlertStatus: String, FHIRPrimitiveType {
 	
 	/// The alert condition is present, or any signal from a previously present condition is not off
 	case inProgress = "in-progress"
+	
+	/// The status of the alert is not known.
+	case unknown
 }

@@ -2,8 +2,8 @@
 //  TriggerDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/TriggerDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,7 +31,6 @@ open class TriggerDefinition: DataType {
 	public enum TimingX: Hashable {
 		case date(FHIRPrimitive<FHIRDate>)
 		case dateTime(FHIRPrimitive<DateTime>)
-		case reference(Reference)
 		case timing(Timing)
 	}
 	
@@ -96,7 +95,6 @@ open class TriggerDefinition: DataType {
 		case subscriptionTopic; case _subscriptionTopic
 		case timingDate; case _timingDate
 		case timingDateTime; case _timingDateTime
-		case timingReference
 		case timingTiming
 		case type; case _type
 	}
@@ -117,12 +115,6 @@ open class TriggerDefinition: DataType {
 				throw DecodingError.dataCorruptedError(forKey: .timingTiming, in: _container, debugDescription: "More than one value provided for \"timing\"")
 			}
 			_t_timing = .timing(timingTiming)
-		}
-		if let timingReference = try Reference(from: _container, forKeyIfPresent: .timingReference) {
-			if _t_timing != nil {
-				throw DecodingError.dataCorruptedError(forKey: .timingReference, in: _container, debugDescription: "More than one value provided for \"timing\"")
-			}
-			_t_timing = .reference(timingReference)
 		}
 		if let timingDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .timingDate, auxiliaryKey: ._timingDate) {
 			if _t_timing != nil {
@@ -155,8 +147,6 @@ open class TriggerDefinition: DataType {
 			switch _enum {
 			case .timing(let _value):
 				try _value.encode(on: &_container, forKey: .timingTiming)
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .timingReference)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .timingDate, auxiliaryKey: ._timingDate)
 			case .dateTime(let _value):

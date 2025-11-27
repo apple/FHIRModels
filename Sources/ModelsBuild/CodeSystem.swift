@@ -2,8 +2,8 @@
 //  CodeSystem.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CodeSystem)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CodeSystem)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ open class CodeSystem: DomainResource {
 	/// The status of this code system. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -75,13 +75,13 @@ open class CodeSystem: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for code system (if applicable)
+	/// Jurisdiction of the authority that maintains the code system (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this code system is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -734,7 +734,7 @@ open class CodeSystemConceptProperty: BackboneElement {
 		case string(FHIRPrimitive<FHIRString>)
 	}
 	
-	/// Reference to CodeSystem.property.code
+	/// Reference to CodeSystem.property.code or a FHIR defined concept-property
 	public var code: FHIRPrimitive<FHIRString>
 	
 	/// Value of the property for this concept

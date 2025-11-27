@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,14 +20,15 @@
 import FMCore
 
 /**
- The severity of the audit entry.
+ The severity of the audit entry. These codes are derived from the SysLog header, PRI.
+ http://tools.ietf.org/html/rfc5424#appendix-A.3
  
  URL: http://hl7.org/fhir/audit-event-severity
  ValueSet: http://hl7.org/fhir/ValueSet/audit-event-severity
  */
 public enum AuditEventSeverity: String, FHIRPrimitiveType {
 	
-	/// Notification should be sent to trigger action be taken. e.g., Loss of the primary network connection needing
+	/// Notification SHOULD be sent to trigger action be taken. e.g., Loss of the primary network connection needing
 	/// attention.
 	case alert
 	
@@ -37,7 +38,7 @@ public enum AuditEventSeverity: String, FHIRPrimitiveType {
 	/// Debug-level messages. Information useful to developers for debugging the application.
 	case debug
 	
-	/// System is unusable. e.g., This level should only be reported by infrastructure and should not be used by
+	/// System is unusable. e.g., This level SHOULD only be reported by infrastructure and SHOULD NOT be used by
 	/// applications.
 	case emergency
 	

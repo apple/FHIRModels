@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import FMCore
  */
 public enum DeviceAlertActivationState: String, FHIRPrimitiveType {
 	
-	/// The signal will not be announciated during an alert condition
+	/// The intended system function (e.g., detecting or signaling) is deactivated
 	case off
 	
-	/// The signal will be announciated during an alert condition
+	/// The intended system function (e.g., detecting or signaling) is activated
 	case on
 	
-	/// Annunciation of the signal during an alert condition has been suppressed temporarily
+	/// The intended system function (e.g., detecting or signaling) is temporarily suppressed
 	case paused
 }

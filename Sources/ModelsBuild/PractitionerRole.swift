@@ -2,8 +2,8 @@
 //  PractitionerRole.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PractitionerRole)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/PractitionerRole)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -43,6 +43,10 @@ open class PractitionerRole: DomainResource {
 	
 	/// Organization where the role is available
 	public var organization: Reference?
+	
+	/// The network in which the PractitionerRole provides the role's services (if defined) at the indicated locations
+	/// (if defined)
+	public var network: [Reference]?
 	
 	/// Roles which this practitioner may perform
 	public var code: [CodeableConcept]?
@@ -99,6 +103,7 @@ open class PractitionerRole: DomainResource {
 		location: [Reference]? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		network: [Reference]? = nil,
 		organization: Reference? = nil,
 		period: Period? = nil,
 		practitioner: Reference? = nil,
@@ -124,6 +129,7 @@ open class PractitionerRole: DomainResource {
 		self.location = location
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.network = network
 		self.organization = organization
 		self.period = period
 		self.practitioner = practitioner
@@ -145,6 +151,7 @@ open class PractitionerRole: DomainResource {
 		case healthcareService
 		case identifier
 		case location
+		case network
 		case organization
 		case period
 		case practitioner
@@ -167,6 +174,7 @@ open class PractitionerRole: DomainResource {
 		self.healthcareService = try [Reference](from: _container, forKeyIfPresent: .healthcareService)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.location = try [Reference](from: _container, forKeyIfPresent: .location)
+		self.network = try [Reference](from: _container, forKeyIfPresent: .network)
 		self.organization = try Reference(from: _container, forKeyIfPresent: .organization)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		self.practitioner = try Reference(from: _container, forKeyIfPresent: .practitioner)
@@ -190,6 +198,7 @@ open class PractitionerRole: DomainResource {
 		try healthcareService?.encode(on: &_container, forKey: .healthcareService)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try location?.encode(on: &_container, forKey: .location)
+		try network?.encode(on: &_container, forKey: .network)
 		try organization?.encode(on: &_container, forKey: .organization)
 		try period?.encode(on: &_container, forKey: .period)
 		try practitioner?.encode(on: &_container, forKey: .practitioner)
@@ -217,6 +226,7 @@ open class PractitionerRole: DomainResource {
 		    && healthcareService == _other.healthcareService
 		    && identifier == _other.identifier
 		    && location == _other.location
+		    && network == _other.network
 		    && organization == _other.organization
 		    && period == _other.period
 		    && practitioner == _other.practitioner
@@ -236,6 +246,7 @@ open class PractitionerRole: DomainResource {
 		hasher.combine(healthcareService)
 		hasher.combine(identifier)
 		hasher.combine(location)
+		hasher.combine(network)
 		hasher.combine(organization)
 		hasher.combine(period)
 		hasher.combine(practitioner)

@@ -2,8 +2,8 @@
 //  ClinicalUseDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ClinicalUseDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ClinicalUseDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,16 +39,19 @@ open class ClinicalUseDefinition: DomainResource {
 	
 	/// The medication, product, substance, device, procedure etc. for which this is an indication, contraindication,
 	/// interaction, undesirable effect, or warning
-	public var subject: [Reference]?
+	public var subject: [CodeableReference]
 	
 	/// Whether this is a current issue or one that has been retired etc
 	public var status: CodeableConcept?
 	
-	/// Specifics for when this is a contraindication
-	public var contraindication: ClinicalUseDefinitionContraindication?
+	/// A possible negative outcome from the use of this treatment
+	public var undesirableEffect: ClinicalUseDefinitionUndesirableEffect?
 	
 	/// Specifics for when this is an indication
 	public var indication: ClinicalUseDefinitionIndication?
+	
+	/// Specifics for when this is a contraindication
+	public var contraindication: ClinicalUseDefinitionContraindication?
 	
 	/// Specifics for when this is an interaction
 	public var interaction: ClinicalUseDefinitionInteraction?
@@ -59,15 +62,13 @@ open class ClinicalUseDefinition: DomainResource {
 	/// Logic used by the clinical use definition
 	public var library: [FHIRPrimitive<Canonical>]?
 	
-	/// A possible negative outcome from the use of this treatment
-	public var undesirableEffect: ClinicalUseDefinitionUndesirableEffect?
-	
 	/// Critical environmental, health or physical risks or hazards. For example 'Do not operate heavy machinery', 'May
 	/// cause drowsiness'
 	public var warning: ClinicalUseDefinitionWarning?
 	
 	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<ClinicalUseDefinitionType>) {
+	public init(subject: [CodeableReference], type: FHIRPrimitive<ClinicalUseDefinitionType>) {
+		self.subject = subject
 		self.type = type
 		super.init()
 	}
@@ -89,13 +90,13 @@ open class ClinicalUseDefinition: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		population: [Reference]? = nil,
 		status: CodeableConcept? = nil,
-		subject: [Reference]? = nil,
+		subject: [CodeableReference],
 		text: Narrative? = nil,
 		type: FHIRPrimitive<ClinicalUseDefinitionType>,
 		undesirableEffect: ClinicalUseDefinitionUndesirableEffect? = nil,
 		warning: ClinicalUseDefinitionWarning? = nil
 	) {
-		self.init(type: type)
+		self.init(subject: subject, type: type)
 		self.category = category
 		self.contained = contained
 		self.contraindication = contraindication
@@ -111,7 +112,6 @@ open class ClinicalUseDefinition: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.population = population
 		self.status = status
-		self.subject = subject
 		self.text = text
 		self.undesirableEffect = undesirableEffect
 		self.warning = warning
@@ -147,7 +147,7 @@ open class ClinicalUseDefinition: DomainResource {
 		self.library = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .library, auxiliaryKey: ._library)
 		self.population = try [Reference](from: _container, forKeyIfPresent: .population)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
-		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
+		self.subject = try [CodeableReference](from: _container, forKey: .subject)
 		self.type = try FHIRPrimitive<ClinicalUseDefinitionType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		self.undesirableEffect = try ClinicalUseDefinitionUndesirableEffect(from: _container, forKeyIfPresent: .undesirableEffect)
 		self.warning = try ClinicalUseDefinitionWarning(from: _container, forKeyIfPresent: .warning)
@@ -167,7 +167,7 @@ open class ClinicalUseDefinition: DomainResource {
 		try library?.encode(on: &_container, forKey: .library, auxiliaryKey: ._library)
 		try population?.encode(on: &_container, forKey: .population)
 		try status?.encode(on: &_container, forKey: .status)
-		try subject?.encode(on: &_container, forKey: .subject)
+		try subject.encode(on: &_container, forKey: .subject)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try undesirableEffect?.encode(on: &_container, forKey: .undesirableEffect)
 		try warning?.encode(on: &_container, forKey: .warning)
@@ -228,15 +228,18 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 	/// A comorbidity (concurrent condition) or coinfection
 	public var comorbidity: [CodeableReference]?
 	
-	/// The indication which this is a contraidication for
-	public var indication: [Reference]?
+	/// The indication which this is a contraindication for
+	public var indication: [ClinicalUseDefinitionIndication]?
 	
 	/// An expression that returns true or false, indicating whether the indication is applicable or not, after having
 	/// applied its other elements
 	public var applicability: Expression?
 	
+	/// Actions for managing the contraindication
+	public var management: [CodeableConcept]?
+	
 	/// Information about use of the product in relation to other therapies described as part of the contraindication
-	public var otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]?
+	public var otherTherapy: [ClinicalUseDefinitionIndicationOtherTherapy]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -251,9 +254,10 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		diseaseSymptomProcedure: CodeableReference? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		indication: [Reference]? = nil,
+		indication: [ClinicalUseDefinitionIndication]? = nil,
+		management: [CodeableConcept]? = nil,
 		modifierExtension: [Extension]? = nil,
-		otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]? = nil
+		otherTherapy: [ClinicalUseDefinitionIndicationOtherTherapy]? = nil
 	) {
 		self.init()
 		self.applicability = applicability
@@ -263,6 +267,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.indication = indication
+		self.management = management
 		self.modifierExtension = modifierExtension
 		self.otherTherapy = otherTherapy
 	}
@@ -275,6 +280,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		case diseaseStatus
 		case diseaseSymptomProcedure
 		case indication
+		case management
 		case otherTherapy
 	}
 	
@@ -287,8 +293,9 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		self.comorbidity = try [CodeableReference](from: _container, forKeyIfPresent: .comorbidity)
 		self.diseaseStatus = try CodeableReference(from: _container, forKeyIfPresent: .diseaseStatus)
 		self.diseaseSymptomProcedure = try CodeableReference(from: _container, forKeyIfPresent: .diseaseSymptomProcedure)
-		self.indication = try [Reference](from: _container, forKeyIfPresent: .indication)
-		self.otherTherapy = try [ClinicalUseDefinitionContraindicationOtherTherapy](from: _container, forKeyIfPresent: .otherTherapy)
+		self.indication = try [ClinicalUseDefinitionIndication](from: _container, forKeyIfPresent: .indication)
+		self.management = try [CodeableConcept](from: _container, forKeyIfPresent: .management)
+		self.otherTherapy = try [ClinicalUseDefinitionIndicationOtherTherapy](from: _container, forKeyIfPresent: .otherTherapy)
 		try super.init(from: decoder)
 	}
 	
@@ -302,6 +309,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		try diseaseStatus?.encode(on: &_container, forKey: .diseaseStatus)
 		try diseaseSymptomProcedure?.encode(on: &_container, forKey: .diseaseSymptomProcedure)
 		try indication?.encode(on: &_container, forKey: .indication)
+		try management?.encode(on: &_container, forKey: .management)
 		try otherTherapy?.encode(on: &_container, forKey: .otherTherapy)
 		try super.encode(to: encoder)
 	}
@@ -320,6 +328,7 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		    && diseaseStatus == _other.diseaseStatus
 		    && diseaseSymptomProcedure == _other.diseaseSymptomProcedure
 		    && indication == _other.indication
+		    && management == _other.management
 		    && otherTherapy == _other.otherTherapy
 	}
 	
@@ -330,89 +339,8 @@ open class ClinicalUseDefinitionContraindication: BackboneElement {
 		hasher.combine(diseaseStatus)
 		hasher.combine(diseaseSymptomProcedure)
 		hasher.combine(indication)
+		hasher.combine(management)
 		hasher.combine(otherTherapy)
-	}
-}
-
-/**
- Information about use of the product in relation to other therapies described as part of the contraindication.
- 
- Information about the use of the medicinal product in relation to other therapies described as part of the
- contraindication.
- */
-open class ClinicalUseDefinitionContraindicationOtherTherapy: BackboneElement {
-	
-	/// The type of relationship between the product indication/contraindication and another therapy
-	public var relationshipType: CodeableConcept
-	
-	/// Reference to a specific medication, substance etc. as part of an indication or contraindication
-	public var treatment: CodeableReference
-	
-	/// Designated initializer taking all required properties
-	public init(relationshipType: CodeableConcept, treatment: CodeableReference) {
-		self.relationshipType = relationshipType
-		self.treatment = treatment
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		relationshipType: CodeableConcept,
-		treatment: CodeableReference
-	) {
-		self.init(relationshipType: relationshipType, treatment: treatment)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case relationshipType
-		case treatment
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.relationshipType = try CodeableConcept(from: _container, forKey: .relationshipType)
-		self.treatment = try CodeableReference(from: _container, forKey: .treatment)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try relationshipType.encode(on: &_container, forKey: .relationshipType)
-		try treatment.encode(on: &_container, forKey: .treatment)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? ClinicalUseDefinitionContraindicationOtherTherapy else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return relationshipType == _other.relationshipType
-		    && treatment == _other.treatment
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(relationshipType)
-		hasher.combine(treatment)
 	}
 }
 
@@ -427,7 +355,7 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		case string(FHIRPrimitive<FHIRString>)
 	}
 	
-	/// The situation that is being documented as an indicaton for this item
+	/// The situation that is being documented as an indication for this item
 	public var diseaseSymptomProcedure: CodeableReference?
 	
 	/// The status of the disease or symptom for the indication
@@ -437,21 +365,21 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 	public var comorbidity: [CodeableReference]?
 	
 	/// The intended effect, aim or strategy to be achieved
-	public var intendedEffect: CodeableReference?
+	public var intendedEffect: [CodeableReference]?
 	
 	/// Timing or duration information
 	/// One of `duration[x]`
 	public var duration: DurationX?
 	
 	/// An unwanted side effect or negative outcome of the subject of this resource when being used for this indication
-	public var undesirableEffect: [Reference]?
+	public var undesirableEffect: [ClinicalUseDefinitionUndesirableEffect]?
 	
 	/// An expression that returns true or false, indicating whether the indication is applicable or not, after having
 	/// applied its other elements
 	public var applicability: Expression?
 	
-	/// The use of the medicinal product in relation to other therapies described as part of the indication
-	public var otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]?
+	/// Information about use of the product in relation to other therapies described as part of the contraindication
+	public var otherTherapy: [ClinicalUseDefinitionIndicationOtherTherapy]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -467,10 +395,10 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 		duration: DurationX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		intendedEffect: CodeableReference? = nil,
+		intendedEffect: [CodeableReference]? = nil,
 		modifierExtension: [Extension]? = nil,
-		otherTherapy: [ClinicalUseDefinitionContraindicationOtherTherapy]? = nil,
-		undesirableEffect: [Reference]? = nil
+		otherTherapy: [ClinicalUseDefinitionIndicationOtherTherapy]? = nil,
+		undesirableEffect: [ClinicalUseDefinitionUndesirableEffect]? = nil
 	) {
 		self.init()
 		self.applicability = applicability
@@ -523,9 +451,9 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 			_t_duration = .string(durationString)
 		}
 		self.duration = _t_duration
-		self.intendedEffect = try CodeableReference(from: _container, forKeyIfPresent: .intendedEffect)
-		self.otherTherapy = try [ClinicalUseDefinitionContraindicationOtherTherapy](from: _container, forKeyIfPresent: .otherTherapy)
-		self.undesirableEffect = try [Reference](from: _container, forKeyIfPresent: .undesirableEffect)
+		self.intendedEffect = try [CodeableReference](from: _container, forKeyIfPresent: .intendedEffect)
+		self.otherTherapy = try [ClinicalUseDefinitionIndicationOtherTherapy](from: _container, forKeyIfPresent: .otherTherapy)
+		self.undesirableEffect = try [ClinicalUseDefinitionUndesirableEffect](from: _container, forKeyIfPresent: .undesirableEffect)
 		try super.init(from: decoder)
 	}
 	
@@ -585,6 +513,88 @@ open class ClinicalUseDefinitionIndication: BackboneElement {
 }
 
 /**
+ Information about use of the product in relation to other therapies described as part of the contraindication.
+ 
+ Information about the use of the medicinal product in relation to other therapies described as part of the
+ contraindication.
+ */
+open class ClinicalUseDefinitionIndicationOtherTherapy: BackboneElement {
+	
+	/// The type of relationship between the product indication/contraindication and another therapy
+	public var relationshipType: CodeableConcept
+	
+	/// Reference to a specific medication, substance etc. as part of an indication or contraindication
+	public var treatment: CodeableReference
+	
+	/// Designated initializer taking all required properties
+	public init(relationshipType: CodeableConcept, treatment: CodeableReference) {
+		self.relationshipType = relationshipType
+		self.treatment = treatment
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		relationshipType: CodeableConcept,
+		treatment: CodeableReference
+	) {
+		self.init(relationshipType: relationshipType, treatment: treatment)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case relationshipType
+		case treatment
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.relationshipType = try CodeableConcept(from: _container, forKey: .relationshipType)
+		self.treatment = try CodeableReference(from: _container, forKey: .treatment)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try relationshipType.encode(on: &_container, forKey: .relationshipType)
+		try treatment.encode(on: &_container, forKey: .treatment)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ClinicalUseDefinitionIndicationOtherTherapy else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return relationshipType == _other.relationshipType
+		    && treatment == _other.treatment
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(relationshipType)
+		hasher.combine(treatment)
+	}
+}
+
+/**
  Specifics for when this is an interaction.
  */
 open class ClinicalUseDefinitionInteraction: BackboneElement {
@@ -604,6 +614,9 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 	/// Actions for managing the interaction
 	public var management: [CodeableConcept]?
 	
+	/// The severity of the interaction
+	public var severity: CodeableConcept?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -618,6 +631,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		interactant: [ClinicalUseDefinitionInteractionInteractant]? = nil,
 		management: [CodeableConcept]? = nil,
 		modifierExtension: [Extension]? = nil,
+		severity: CodeableConcept? = nil,
 		type: CodeableConcept? = nil
 	) {
 		self.init()
@@ -628,6 +642,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		self.interactant = interactant
 		self.management = management
 		self.modifierExtension = modifierExtension
+		self.severity = severity
 		self.type = type
 	}
 	
@@ -638,6 +653,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		case incidence
 		case interactant
 		case management
+		case severity
 		case type
 	}
 	
@@ -650,6 +666,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		self.incidence = try CodeableConcept(from: _container, forKeyIfPresent: .incidence)
 		self.interactant = try [ClinicalUseDefinitionInteractionInteractant](from: _container, forKeyIfPresent: .interactant)
 		self.management = try [CodeableConcept](from: _container, forKeyIfPresent: .management)
+		self.severity = try CodeableConcept(from: _container, forKeyIfPresent: .severity)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
@@ -663,6 +680,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		try incidence?.encode(on: &_container, forKey: .incidence)
 		try interactant?.encode(on: &_container, forKey: .interactant)
 		try management?.encode(on: &_container, forKey: .management)
+		try severity?.encode(on: &_container, forKey: .severity)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
@@ -680,6 +698,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		    && incidence == _other.incidence
 		    && interactant == _other.interactant
 		    && management == _other.management
+		    && severity == _other.severity
 		    && type == _other.type
 	}
 	
@@ -689,6 +708,7 @@ open class ClinicalUseDefinitionInteraction: BackboneElement {
 		hasher.combine(incidence)
 		hasher.combine(interactant)
 		hasher.combine(management)
+		hasher.combine(severity)
 		hasher.combine(type)
 	}
 }
@@ -710,6 +730,9 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 	/// One of `item[x]`
 	public var item: ItemX
 	
+	/// The route by which the item is administered to cause the interaction
+	public var route: CodeableConcept?
+	
 	/// Designated initializer taking all required properties
 	public init(item: ItemX) {
 		self.item = item
@@ -721,12 +744,14 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		item: ItemX,
-		modifierExtension: [Extension]? = nil
+		modifierExtension: [Extension]? = nil,
+		route: CodeableConcept? = nil
 	) {
 		self.init(item: item)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.route = route
 	}
 	
 	// MARK: - Codable
@@ -734,6 +759,7 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case itemCodeableConcept
 		case itemReference
+		case route
 	}
 	
 	/// Initializer for Decodable
@@ -760,6 +786,7 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 			_t_item = .codeableConcept(itemCodeableConcept)
 		}
 		self.item = _t_item!
+		self.route = try CodeableConcept(from: _container, forKeyIfPresent: .route)
 		try super.init(from: decoder)
 	}
 	
@@ -776,6 +803,7 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 				try _value.encode(on: &_container, forKey: .itemCodeableConcept)
 			}
 		
+		try route?.encode(on: &_container, forKey: .route)
 		try super.encode(to: encoder)
 	}
 	
@@ -789,11 +817,13 @@ open class ClinicalUseDefinitionInteractionInteractant: BackboneElement {
 			return false
 		}
 		return item == _other.item
+		    && route == _other.route
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(item)
+		hasher.combine(route)
 	}
 }
 
@@ -813,6 +843,9 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 	/// How often the effect is seen
 	public var frequencyOfOccurrence: CodeableConcept?
 	
+	/// Actions for managing the undesirable effect
+	public var management: [CodeableConcept]?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -824,6 +857,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		`extension`: [Extension]? = nil,
 		frequencyOfOccurrence: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		management: [CodeableConcept]? = nil,
 		modifierExtension: [Extension]? = nil,
 		symptomConditionEffect: CodeableReference? = nil
 	) {
@@ -832,6 +866,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		self.`extension` = `extension`
 		self.frequencyOfOccurrence = frequencyOfOccurrence
 		self.id = id
+		self.management = management
 		self.modifierExtension = modifierExtension
 		self.symptomConditionEffect = symptomConditionEffect
 	}
@@ -841,6 +876,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case classification
 		case frequencyOfOccurrence
+		case management
 		case symptomConditionEffect
 	}
 	
@@ -851,6 +887,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		// Decode all our properties
 		self.classification = try CodeableConcept(from: _container, forKeyIfPresent: .classification)
 		self.frequencyOfOccurrence = try CodeableConcept(from: _container, forKeyIfPresent: .frequencyOfOccurrence)
+		self.management = try [CodeableConcept](from: _container, forKeyIfPresent: .management)
 		self.symptomConditionEffect = try CodeableReference(from: _container, forKeyIfPresent: .symptomConditionEffect)
 		try super.init(from: decoder)
 	}
@@ -862,6 +899,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		// Encode all our properties
 		try classification?.encode(on: &_container, forKey: .classification)
 		try frequencyOfOccurrence?.encode(on: &_container, forKey: .frequencyOfOccurrence)
+		try management?.encode(on: &_container, forKey: .management)
 		try symptomConditionEffect?.encode(on: &_container, forKey: .symptomConditionEffect)
 		try super.encode(to: encoder)
 	}
@@ -877,6 +915,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		}
 		return classification == _other.classification
 		    && frequencyOfOccurrence == _other.frequencyOfOccurrence
+		    && management == _other.management
 		    && symptomConditionEffect == _other.symptomConditionEffect
 	}
 	
@@ -884,6 +923,7 @@ open class ClinicalUseDefinitionUndesirableEffect: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(classification)
 		hasher.combine(frequencyOfOccurrence)
+		hasher.combine(management)
 		hasher.combine(symptomConditionEffect)
 	}
 }

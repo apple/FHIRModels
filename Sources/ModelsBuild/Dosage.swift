@@ -2,8 +2,8 @@
 //  Dosage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Dosage)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Dosage)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import FMCore
  */
 open class Dosage: BackboneType {
 	
-	/// The order of the dosage instructions
-	public var sequence: FHIRPrimitive<FHIRInteger>?
+	/// Whether the dosage applies (e.g. as a whole) (any can be true)
+	public var condition: [DosageCondition]?
 	
 	/// Free text dosage instructions e.g. SIG
 	public var text: FHIRPrimitive<FHIRString>?
@@ -59,14 +59,8 @@ open class Dosage: BackboneType {
 	/// Amount of medication administered, to be administered or typical amount to be administered
 	public var doseAndRate: [DosageDoseAndRate]?
 	
-	/// Upper limit on medication per unit of time
-	public var maxDosePerPeriod: [Ratio]?
-	
-	/// Upper limit on medication per administration
-	public var maxDosePerAdministration: Quantity?
-	
-	/// Upper limit on medication per lifetime of the patient
-	public var maxDosePerLifetime: Quantity?
+	/// Safety Information about the this dosage instructions
+	public var safety: DosageSafety?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -78,17 +72,15 @@ open class Dosage: BackboneType {
 		additionalInstruction: [CodeableConcept]? = nil,
 		asNeeded: FHIRPrimitive<FHIRBool>? = nil,
 		asNeededFor: [CodeableConcept]? = nil,
+		condition: [DosageCondition]? = nil,
 		doseAndRate: [DosageDoseAndRate]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		maxDosePerAdministration: Quantity? = nil,
-		maxDosePerLifetime: Quantity? = nil,
-		maxDosePerPeriod: [Ratio]? = nil,
 		method: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
 		patientInstruction: FHIRPrimitive<FHIRString>? = nil,
 		route: CodeableConcept? = nil,
-		sequence: FHIRPrimitive<FHIRInteger>? = nil,
+		safety: DosageSafety? = nil,
 		site: CodeableConcept? = nil,
 		text: FHIRPrimitive<FHIRString>? = nil,
 		timing: Timing? = nil
@@ -97,17 +89,15 @@ open class Dosage: BackboneType {
 		self.additionalInstruction = additionalInstruction
 		self.asNeeded = asNeeded
 		self.asNeededFor = asNeededFor
+		self.condition = condition
 		self.doseAndRate = doseAndRate
 		self.`extension` = `extension`
 		self.id = id
-		self.maxDosePerAdministration = maxDosePerAdministration
-		self.maxDosePerLifetime = maxDosePerLifetime
-		self.maxDosePerPeriod = maxDosePerPeriod
 		self.method = method
 		self.modifierExtension = modifierExtension
 		self.patientInstruction = patientInstruction
 		self.route = route
-		self.sequence = sequence
+		self.safety = safety
 		self.site = site
 		self.text = text
 		self.timing = timing
@@ -119,14 +109,12 @@ open class Dosage: BackboneType {
 		case additionalInstruction
 		case asNeeded; case _asNeeded
 		case asNeededFor
+		case condition
 		case doseAndRate
-		case maxDosePerAdministration
-		case maxDosePerLifetime
-		case maxDosePerPeriod
 		case method
 		case patientInstruction; case _patientInstruction
 		case route
-		case sequence; case _sequence
+		case safety
 		case site
 		case text; case _text
 		case timing
@@ -140,14 +128,12 @@ open class Dosage: BackboneType {
 		self.additionalInstruction = try [CodeableConcept](from: _container, forKeyIfPresent: .additionalInstruction)
 		self.asNeeded = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .asNeeded, auxiliaryKey: ._asNeeded)
 		self.asNeededFor = try [CodeableConcept](from: _container, forKeyIfPresent: .asNeededFor)
+		self.condition = try [DosageCondition](from: _container, forKeyIfPresent: .condition)
 		self.doseAndRate = try [DosageDoseAndRate](from: _container, forKeyIfPresent: .doseAndRate)
-		self.maxDosePerAdministration = try Quantity(from: _container, forKeyIfPresent: .maxDosePerAdministration)
-		self.maxDosePerLifetime = try Quantity(from: _container, forKeyIfPresent: .maxDosePerLifetime)
-		self.maxDosePerPeriod = try [Ratio](from: _container, forKeyIfPresent: .maxDosePerPeriod)
 		self.method = try CodeableConcept(from: _container, forKeyIfPresent: .method)
 		self.patientInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .patientInstruction, auxiliaryKey: ._patientInstruction)
 		self.route = try CodeableConcept(from: _container, forKeyIfPresent: .route)
-		self.sequence = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .sequence, auxiliaryKey: ._sequence)
+		self.safety = try DosageSafety(from: _container, forKeyIfPresent: .safety)
 		self.site = try CodeableConcept(from: _container, forKeyIfPresent: .site)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)
 		self.timing = try Timing(from: _container, forKeyIfPresent: .timing)
@@ -162,14 +148,12 @@ open class Dosage: BackboneType {
 		try additionalInstruction?.encode(on: &_container, forKey: .additionalInstruction)
 		try asNeeded?.encode(on: &_container, forKey: .asNeeded, auxiliaryKey: ._asNeeded)
 		try asNeededFor?.encode(on: &_container, forKey: .asNeededFor)
+		try condition?.encode(on: &_container, forKey: .condition)
 		try doseAndRate?.encode(on: &_container, forKey: .doseAndRate)
-		try maxDosePerAdministration?.encode(on: &_container, forKey: .maxDosePerAdministration)
-		try maxDosePerLifetime?.encode(on: &_container, forKey: .maxDosePerLifetime)
-		try maxDosePerPeriod?.encode(on: &_container, forKey: .maxDosePerPeriod)
 		try method?.encode(on: &_container, forKey: .method)
 		try patientInstruction?.encode(on: &_container, forKey: .patientInstruction, auxiliaryKey: ._patientInstruction)
 		try route?.encode(on: &_container, forKey: .route)
-		try sequence?.encode(on: &_container, forKey: .sequence, auxiliaryKey: ._sequence)
+		try safety?.encode(on: &_container, forKey: .safety)
 		try site?.encode(on: &_container, forKey: .site)
 		try text?.encode(on: &_container, forKey: .text, auxiliaryKey: ._text)
 		try timing?.encode(on: &_container, forKey: .timing)
@@ -188,14 +172,12 @@ open class Dosage: BackboneType {
 		return additionalInstruction == _other.additionalInstruction
 		    && asNeeded == _other.asNeeded
 		    && asNeededFor == _other.asNeededFor
+		    && condition == _other.condition
 		    && doseAndRate == _other.doseAndRate
-		    && maxDosePerAdministration == _other.maxDosePerAdministration
-		    && maxDosePerLifetime == _other.maxDosePerLifetime
-		    && maxDosePerPeriod == _other.maxDosePerPeriod
 		    && method == _other.method
 		    && patientInstruction == _other.patientInstruction
 		    && route == _other.route
-		    && sequence == _other.sequence
+		    && safety == _other.safety
 		    && site == _other.site
 		    && text == _other.text
 		    && timing == _other.timing
@@ -206,14 +188,12 @@ open class Dosage: BackboneType {
 		hasher.combine(additionalInstruction)
 		hasher.combine(asNeeded)
 		hasher.combine(asNeededFor)
+		hasher.combine(condition)
 		hasher.combine(doseAndRate)
-		hasher.combine(maxDosePerAdministration)
-		hasher.combine(maxDosePerLifetime)
-		hasher.combine(maxDosePerPeriod)
 		hasher.combine(method)
 		hasher.combine(patientInstruction)
 		hasher.combine(route)
-		hasher.combine(sequence)
+		hasher.combine(safety)
 		hasher.combine(site)
 		hasher.combine(text)
 		hasher.combine(timing)
@@ -230,12 +210,14 @@ open class DosageDoseAndRate: Element {
 	
 	/// All possible types for "dose[x]"
 	public enum DoseX: Hashable {
+		case expression(Expression)
 		case quantity(Quantity)
 		case range(Range)
 	}
 	
 	/// All possible types for "rate[x]"
 	public enum RateX: Hashable {
+		case expression(Expression)
 		case quantity(Quantity)
 		case range(Range)
 		case ratio(Ratio)
@@ -276,8 +258,10 @@ open class DosageDoseAndRate: Element {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case doseExpression
 		case doseQuantity
 		case doseRange
+		case rateExpression
 		case rateQuantity
 		case rateRange
 		case rateRatio
@@ -302,6 +286,12 @@ open class DosageDoseAndRate: Element {
 			}
 			_t_dose = .quantity(doseQuantity)
 		}
+		if let doseExpression = try Expression(from: _container, forKeyIfPresent: .doseExpression) {
+			if _t_dose != nil {
+				throw DecodingError.dataCorruptedError(forKey: .doseExpression, in: _container, debugDescription: "More than one value provided for \"dose\"")
+			}
+			_t_dose = .expression(doseExpression)
+		}
 		self.dose = _t_dose
 		var _t_rate: RateX? = nil
 		if let rateRatio = try Ratio(from: _container, forKeyIfPresent: .rateRatio) {
@@ -322,6 +312,12 @@ open class DosageDoseAndRate: Element {
 			}
 			_t_rate = .quantity(rateQuantity)
 		}
+		if let rateExpression = try Expression(from: _container, forKeyIfPresent: .rateExpression) {
+			if _t_rate != nil {
+				throw DecodingError.dataCorruptedError(forKey: .rateExpression, in: _container, debugDescription: "More than one value provided for \"rate\"")
+			}
+			_t_rate = .expression(rateExpression)
+		}
 		self.rate = _t_rate
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -338,6 +334,8 @@ open class DosageDoseAndRate: Element {
 				try _value.encode(on: &_container, forKey: .doseRange)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .doseQuantity)
+			case .expression(let _value):
+				try _value.encode(on: &_container, forKey: .doseExpression)
 			}
 		}
 		if let _enum = rate {
@@ -348,6 +346,8 @@ open class DosageDoseAndRate: Element {
 				try _value.encode(on: &_container, forKey: .rateRange)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .rateQuantity)
+			case .expression(let _value):
+				try _value.encode(on: &_container, forKey: .rateExpression)
 			}
 		}
 		try type?.encode(on: &_container, forKey: .type)

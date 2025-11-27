@@ -2,8 +2,8 @@
 //  MessageDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MessageDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/MessageDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ open class MessageDefinition: DomainResource {
 	/// The status of this message definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -84,13 +84,13 @@ open class MessageDefinition: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for message definition (if applicable)
+	/// Jurisdiction of the authority that maintains the message definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this message definition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -118,9 +118,6 @@ open class MessageDefinition: DomainResource {
 	/// Responses to this message
 	public var allowedResponse: [MessageDefinitionAllowedResponse]?
 	
-	/// Canonical reference to a GraphDefinition
-	public var graph: FHIRPrimitive<Canonical>?
-	
 	/// Designated initializer taking all required properties
 	public init(date: FHIRPrimitive<DateTime>, event: EventX, status: FHIRPrimitive<PublicationStatus>) {
 		self.date = date
@@ -144,7 +141,6 @@ open class MessageDefinition: DomainResource {
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
 		`extension`: [Extension]? = nil,
 		focus: [MessageDefinitionFocus]? = nil,
-		graph: FHIRPrimitive<Canonical>? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -178,7 +174,6 @@ open class MessageDefinition: DomainResource {
 		self.experimental = experimental
 		self.`extension` = `extension`
 		self.focus = focus
-		self.graph = graph
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
@@ -215,7 +210,6 @@ open class MessageDefinition: DomainResource {
 		case eventUri; case _eventUri
 		case experimental; case _experimental
 		case focus
-		case graph; case _graph
 		case identifier
 		case jurisdiction
 		case name; case _name
@@ -267,7 +261,6 @@ open class MessageDefinition: DomainResource {
 		self.event = _t_event!
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.focus = try [MessageDefinitionFocus](from: _container, forKeyIfPresent: .focus)
-		self.graph = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .graph, auxiliaryKey: ._graph)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
@@ -321,7 +314,6 @@ open class MessageDefinition: DomainResource {
 		
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try focus?.encode(on: &_container, forKey: .focus)
-		try graph?.encode(on: &_container, forKey: .graph, auxiliaryKey: ._graph)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
@@ -366,7 +358,6 @@ open class MessageDefinition: DomainResource {
 		    && event == _other.event
 		    && experimental == _other.experimental
 		    && focus == _other.focus
-		    && graph == _other.graph
 		    && identifier == _other.identifier
 		    && jurisdiction == _other.jurisdiction
 		    && name == _other.name
@@ -396,7 +387,6 @@ open class MessageDefinition: DomainResource {
 		hasher.combine(event)
 		hasher.combine(experimental)
 		hasher.combine(focus)
-		hasher.combine(graph)
 		hasher.combine(identifier)
 		hasher.combine(jurisdiction)
 		hasher.combine(name)
@@ -506,34 +496,27 @@ open class MessageDefinitionFocus: BackboneElement {
 	/// The kind of resource that must be the focus for this message.
 	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
 	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
-	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
-	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
-	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
-	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
-	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
-	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
-	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
-	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
-	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
-	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
-	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
-	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
-	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
-	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
-	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
-	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
-	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
-	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
-	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
-	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
-	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
+	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BodyStructure', 'Bundle', 'CapabilityStatement', 'CarePlan',
+	/// 'CareTeam', 'Claim', 'ClaimResponse', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
+	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition', 'Consent',
+	/// 'Contract', 'Coverage', 'CoverageEligibilityRequest', 'CoverageEligibilityResponse', 'DetectedIssue', 'Device',
+	/// 'DeviceAlert', 'DeviceAssociation', 'DeviceDefinition', 'DeviceMetric', 'DeviceRequest', 'DiagnosticReport',
+	/// 'DocumentReference', 'Encounter', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse', 'EpisodeOfCare',
+	/// 'EventDefinition', 'Evidence', 'EvidenceVariable', 'ExampleScenario', 'ExplanationOfBenefit',
+	/// 'FamilyMemberHistory', 'Flag', 'Goal', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection',
+	/// 'ImagingStudy', 'Immunization', 'ImplementationGuide', 'Ingredient', 'InsurancePlan', 'InsuranceProduct',
+	/// 'Invoice', 'Library', 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport',
+	/// 'Medication', 'MedicationAdministration', 'MedicationDispense', 'MedicationRequest', 'MedicationStatement',
+	/// 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader', 'NamingSystem', 'NutritionIntake',
+	/// 'NutritionOrder', 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition',
+	/// 'OperationOutcome', 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters',
+	/// 'Patient', 'PaymentNotice', 'PaymentReconciliation', 'Person', 'PlanDefinition', 'Practitioner',
+	/// 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
 	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
 	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
 	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
-	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
-	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
-	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
-	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
+	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'Task', 'TerminologyCapabilities', 'ValueSet',
+	/// 'VisionPrescription']
 	public var code: FHIRPrimitive<ResourceType>
 	
 	/// Profile that must be adhered to by focus

@@ -2,8 +2,8 @@
 //  CoverageEligibilityResponse.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityResponse)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -40,6 +40,9 @@ open class CoverageEligibilityResponse: DomainResource {
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
 	
+	/// Reason for status change
+	public var statusReason: FHIRPrimitive<FHIRString>?
+	
 	/// Code to specify whether requesting: prior authorization requirements for some service categories or billing
 	/// codes; benefits for coverages specified or discovered; discovery and return of coverages for the patient; and/or
 	/// validation that the specified coverage is in-force at the date/period specified or 'now' if not specified.
@@ -62,7 +65,7 @@ open class CoverageEligibilityResponse: DomainResource {
 	public var requestor: Reference?
 	
 	/// Eligibility request reference
-	public var request: Reference
+	public var request: Reference?
 	
 	/// The outcome of the request processing.
 	public var outcome: FHIRPrimitive<EligibilityOutcome>
@@ -86,13 +89,12 @@ open class CoverageEligibilityResponse: DomainResource {
 	public var error: [CoverageEligibilityResponseError]?
 	
 	/// Designated initializer taking all required properties
-	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<EligibilityOutcome>, patient: Reference, purpose: [FHIRPrimitive<EligibilityResponsePurpose>], request: Reference, status: FHIRPrimitive<FinancialResourceStatusCodes>) {
+	public init(created: FHIRPrimitive<DateTime>, insurer: Reference, outcome: FHIRPrimitive<EligibilityOutcome>, patient: Reference, purpose: [FHIRPrimitive<EligibilityResponsePurpose>], status: FHIRPrimitive<FinancialResourceStatusCodes>) {
 		self.created = created
 		self.insurer = insurer
 		self.outcome = outcome
 		self.patient = patient
 		self.purpose = purpose
-		self.request = request
 		self.status = status
 		super.init()
 	}
@@ -118,13 +120,14 @@ open class CoverageEligibilityResponse: DomainResource {
 		patient: Reference,
 		preAuthRef: FHIRPrimitive<FHIRString>? = nil,
 		purpose: [FHIRPrimitive<EligibilityResponsePurpose>],
-		request: Reference,
+		request: Reference? = nil,
 		requestor: Reference? = nil,
 		serviced: ServicedX? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(created: created, insurer: insurer, outcome: outcome, patient: patient, purpose: purpose, request: request, status: status)
+		self.init(created: created, insurer: insurer, outcome: outcome, patient: patient, purpose: purpose, status: status)
 		self.contained = contained
 		self.disposition = disposition
 		self.error = error
@@ -139,8 +142,10 @@ open class CoverageEligibilityResponse: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.preAuthRef = preAuthRef
+		self.request = request
 		self.requestor = requestor
 		self.serviced = serviced
+		self.statusReason = statusReason
 		self.text = text
 	}
 	
@@ -164,6 +169,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		case servicedDate; case _servicedDate
 		case servicedPeriod
 		case status; case _status
+		case statusReason; case _statusReason
 	}
 	
 	/// Initializer for Decodable
@@ -183,7 +189,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.preAuthRef = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .preAuthRef, auxiliaryKey: ._preAuthRef)
 		self.purpose = try [FHIRPrimitive<EligibilityResponsePurpose>](from: _container, forKey: .purpose, auxiliaryKey: ._purpose)
-		self.request = try Reference(from: _container, forKey: .request)
+		self.request = try Reference(from: _container, forKeyIfPresent: .request)
 		self.requestor = try Reference(from: _container, forKeyIfPresent: .requestor)
 		var _t_serviced: ServicedX? = nil
 		if let servicedDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .servicedDate, auxiliaryKey: ._servicedDate) {
@@ -200,6 +206,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		}
 		self.serviced = _t_serviced
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
 		try super.init(from: decoder)
 	}
 	
@@ -220,7 +227,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		try patient.encode(on: &_container, forKey: .patient)
 		try preAuthRef?.encode(on: &_container, forKey: .preAuthRef, auxiliaryKey: ._preAuthRef)
 		try purpose.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
-		try request.encode(on: &_container, forKey: .request)
+		try request?.encode(on: &_container, forKey: .request)
 		try requestor?.encode(on: &_container, forKey: .requestor)
 		if let _enum = serviced {
 			switch _enum {
@@ -231,6 +238,7 @@ open class CoverageEligibilityResponse: DomainResource {
 			}
 		}
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
 		try super.encode(to: encoder)
 	}
 	
@@ -259,6 +267,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		    && requestor == _other.requestor
 		    && serviced == _other.serviced
 		    && status == _other.status
+		    && statusReason == _other.statusReason
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -279,6 +288,7 @@ open class CoverageEligibilityResponse: DomainResource {
 		hasher.combine(requestor)
 		hasher.combine(serviced)
 		hasher.combine(status)
+		hasher.combine(statusReason)
 	}
 }
 

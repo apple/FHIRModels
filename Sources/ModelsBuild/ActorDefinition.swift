@@ -2,8 +2,8 @@
 //  ActorDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ActorDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ActorDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 import FMCore
 
 /**
- An application that exchanges data.
+ A system or non-system participant involved in an information exchange process.
  
- Describes an actor - a human or an application that plays a role in data exchange, and that may have obligations
- associated with the role the actor plays.
+ Provides a definition of an actor - a system, individual, non-system device, or collective - that plays a role in a
+ process, such as data exchange, along with associated obligations.
  */
 open class ActorDefinition: DomainResource {
 	
@@ -57,7 +57,7 @@ open class ActorDefinition: DomainResource {
 	/// The status of this actor definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -75,35 +75,35 @@ open class ActorDefinition: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for actor definition (if applicable)
+	/// Jurisdiction of the authority that maintains the actor definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this actor definition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
 	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
-	/// Whether the actor represents a human or an appliction.
-	public var type: FHIRPrimitive<ExampleScenarioActorType>
+	/// What type of actor this is.
+	public var type: FHIRPrimitive<ActorDefinitionActorType>
 	
-	/// Functionality associated with the actor
+	/// Further details about the type of actor
+	public var category: [CodeableConcept]?
+	
+	/// Explanation and details about the actor
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
 	/// Reference to more information about the actor
 	public var reference: [FHIRPrimitive<FHIRURI>]?
 	
-	/// CapabilityStatement for the actor (if applicable)
-	public var capabilities: FHIRPrimitive<Canonical>?
-	
-	/// Definition of this actor in another context / IG
-	public var derivedFrom: [FHIRPrimitive<Canonical>]?
+	/// Parent actor definition
+	public var baseDefinition: [FHIRPrimitive<Canonical>]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<PublicationStatus>, type: FHIRPrimitive<ExampleScenarioActorType>) {
+	public init(status: FHIRPrimitive<PublicationStatus>, type: FHIRPrimitive<ActorDefinitionActorType>) {
 		self.status = status
 		self.type = type
 		super.init()
@@ -111,13 +111,13 @@ open class ActorDefinition: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		capabilities: FHIRPrimitive<Canonical>? = nil,
+		baseDefinition: [FHIRPrimitive<Canonical>]? = nil,
+		category: [CodeableConcept]? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
 		copyrightLabel: FHIRPrimitive<FHIRString>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
-		derivedFrom: [FHIRPrimitive<Canonical>]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		documentation: FHIRPrimitive<FHIRString>? = nil,
 		experimental: FHIRPrimitive<FHIRBool>? = nil,
@@ -136,20 +136,20 @@ open class ActorDefinition: DomainResource {
 		status: FHIRPrimitive<PublicationStatus>,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
-		type: FHIRPrimitive<ExampleScenarioActorType>,
+		type: FHIRPrimitive<ActorDefinitionActorType>,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
 		version: FHIRPrimitive<FHIRString>? = nil,
 		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(status: status, type: type)
-		self.capabilities = capabilities
+		self.baseDefinition = baseDefinition
+		self.category = category
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
 		self.copyrightLabel = copyrightLabel
 		self.date = date
-		self.derivedFrom = derivedFrom
 		self.description_fhir = description_fhir
 		self.documentation = documentation
 		self.experimental = experimental
@@ -176,12 +176,12 @@ open class ActorDefinition: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case capabilities; case _capabilities
+		case baseDefinition; case _baseDefinition
+		case category
 		case contact
 		case copyright; case _copyright
 		case copyrightLabel; case _copyrightLabel
 		case date; case _date
-		case derivedFrom; case _derivedFrom
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case documentation; case _documentation
 		case experimental; case _experimental
@@ -206,12 +206,12 @@ open class ActorDefinition: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.capabilities = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .capabilities, auxiliaryKey: ._capabilities)
+		self.baseDefinition = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .baseDefinition, auxiliaryKey: ._baseDefinition)
+		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
-		self.derivedFrom = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
@@ -223,7 +223,7 @@ open class ActorDefinition: DomainResource {
 		self.reference = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
-		self.type = try FHIRPrimitive<ExampleScenarioActorType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<ActorDefinitionActorType>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
@@ -249,12 +249,12 @@ open class ActorDefinition: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try capabilities?.encode(on: &_container, forKey: .capabilities, auxiliaryKey: ._capabilities)
+		try baseDefinition?.encode(on: &_container, forKey: .baseDefinition, auxiliaryKey: ._baseDefinition)
+		try category?.encode(on: &_container, forKey: .category)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
-		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom, auxiliaryKey: ._derivedFrom)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
@@ -290,12 +290,12 @@ open class ActorDefinition: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return capabilities == _other.capabilities
+		return baseDefinition == _other.baseDefinition
+		    && category == _other.category
 		    && contact == _other.contact
 		    && copyright == _other.copyright
 		    && copyrightLabel == _other.copyrightLabel
 		    && date == _other.date
-		    && derivedFrom == _other.derivedFrom
 		    && description_fhir == _other.description_fhir
 		    && documentation == _other.documentation
 		    && experimental == _other.experimental
@@ -316,12 +316,12 @@ open class ActorDefinition: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(capabilities)
+		hasher.combine(baseDefinition)
+		hasher.combine(category)
 		hasher.combine(contact)
 		hasher.combine(copyright)
 		hasher.combine(copyrightLabel)
 		hasher.combine(date)
-		hasher.combine(derivedFrom)
 		hasher.combine(description_fhir)
 		hasher.combine(documentation)
 		hasher.combine(experimental)

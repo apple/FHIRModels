@@ -2,8 +2,8 @@
 //  MeasureReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MeasureReport)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/MeasureReport)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,6 +32,12 @@ open class MeasureReport: DomainResource {
 	/// Additional identifier for the MeasureReport
 	public var identifier: [Identifier]?
 	
+	/// The category of measure report instance this is (example codes include deqm, ra, vbp)
+	public var category: CodeableConcept?
+	
+	/// Evaluation messages
+	public var messages: Reference?
+	
 	/// The MeasureReport status. No data will be available until the MeasureReport status is complete.
 	public var status: FHIRPrimitive<MeasureReportStatus>
 	
@@ -42,8 +48,11 @@ open class MeasureReport: DomainResource {
 	/// quality measure.
 	public var type: FHIRPrimitive<MeasureReportType>
 	
-	/// incremental | snapshot
-	public var dataUpdateType: FHIRPrimitive<FHIRString>?
+	/// Indicates whether the data submitted in a data-exchange report represents a snapshot or incremental update. A
+	/// snapshot update replaces all previously submitted data for the receiver, whereas an incremental update
+	/// represents only updated and/or changed data and should be applied as a differential update to the existing
+	/// submitted data for the receiver.
+	public var dataUpdateType: FHIRPrimitive<SubmitDataUpdateType>?
 	
 	/// What measure was calculated
 	public var measure: FHIRPrimitive<Canonical>?
@@ -51,7 +60,7 @@ open class MeasureReport: DomainResource {
 	/// What individual(s) the report is for
 	public var subject: Reference?
 	
-	/// When the measure was calculated
+	/// When the measure report was generated
 	public var date: FHIRPrimitive<DateTime>?
 	
 	/// Who is reporting the data
@@ -61,19 +70,13 @@ open class MeasureReport: DomainResource {
 	public var reportingVendor: Reference?
 	
 	/// Where the reported data is from
-	public var location: Reference?
+	public var location: [Reference]?
 	
 	/// What period the report covers
 	public var period: Period
 	
 	/// What parameters were provided to the report
 	public var inputParameters: Reference?
-	
-	/// What scoring method (e.g. proportion, ratio, continuous-variable)
-	public var scoring: CodeableConcept?
-	
-	/// increase | decrease
-	public var improvementNotation: CodeableConcept?
 	
 	/// Measure results for each group
 	public var group: [MeasureReportGroup]?
@@ -94,8 +97,9 @@ open class MeasureReport: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		category: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
-		dataUpdateType: FHIRPrimitive<FHIRString>? = nil,
+		dataUpdateType: FHIRPrimitive<SubmitDataUpdateType>? = nil,
 		date: FHIRPrimitive<DateTime>? = nil,
 		evaluatedResource: [Reference]? = nil,
 		`extension`: [Extension]? = nil,
@@ -103,17 +107,16 @@ open class MeasureReport: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		improvementNotation: CodeableConcept? = nil,
 		inputParameters: Reference? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
-		location: Reference? = nil,
+		location: [Reference]? = nil,
 		measure: FHIRPrimitive<Canonical>? = nil,
+		messages: Reference? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		period: Period,
 		reporter: Reference? = nil,
 		reportingVendor: Reference? = nil,
-		scoring: CodeableConcept? = nil,
 		status: FHIRPrimitive<MeasureReportStatus>,
 		subject: Reference? = nil,
 		supplementalData: [Reference]? = nil,
@@ -121,6 +124,7 @@ open class MeasureReport: DomainResource {
 		type: FHIRPrimitive<MeasureReportType>
 	) {
 		self.init(period: period, status: status, type: type)
+		self.category = category
 		self.contained = contained
 		self.dataUpdateType = dataUpdateType
 		self.date = date
@@ -130,16 +134,15 @@ open class MeasureReport: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.improvementNotation = improvementNotation
 		self.inputParameters = inputParameters
 		self.language = language
 		self.location = location
 		self.measure = measure
+		self.messages = messages
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.reporter = reporter
 		self.reportingVendor = reportingVendor
-		self.scoring = scoring
 		self.subject = subject
 		self.supplementalData = supplementalData
 		self.text = text
@@ -148,19 +151,19 @@ open class MeasureReport: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case category
 		case dataUpdateType; case _dataUpdateType
 		case date; case _date
 		case evaluatedResource
 		case group
 		case identifier
-		case improvementNotation
 		case inputParameters
 		case location
 		case measure; case _measure
+		case messages
 		case period
 		case reporter
 		case reportingVendor
-		case scoring
 		case status; case _status
 		case subject
 		case supplementalData
@@ -172,19 +175,19 @@ open class MeasureReport: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.dataUpdateType = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .dataUpdateType, auxiliaryKey: ._dataUpdateType)
+		self.category = try CodeableConcept(from: _container, forKeyIfPresent: .category)
+		self.dataUpdateType = try FHIRPrimitive<SubmitDataUpdateType>(from: _container, forKeyIfPresent: .dataUpdateType, auxiliaryKey: ._dataUpdateType)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.evaluatedResource = try [Reference](from: _container, forKeyIfPresent: .evaluatedResource)
 		self.group = try [MeasureReportGroup](from: _container, forKeyIfPresent: .group)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.improvementNotation = try CodeableConcept(from: _container, forKeyIfPresent: .improvementNotation)
 		self.inputParameters = try Reference(from: _container, forKeyIfPresent: .inputParameters)
-		self.location = try Reference(from: _container, forKeyIfPresent: .location)
+		self.location = try [Reference](from: _container, forKeyIfPresent: .location)
 		self.measure = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .measure, auxiliaryKey: ._measure)
+		self.messages = try Reference(from: _container, forKeyIfPresent: .messages)
 		self.period = try Period(from: _container, forKey: .period)
 		self.reporter = try Reference(from: _container, forKeyIfPresent: .reporter)
 		self.reportingVendor = try Reference(from: _container, forKeyIfPresent: .reportingVendor)
-		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
 		self.status = try FHIRPrimitive<MeasureReportStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		self.supplementalData = try [Reference](from: _container, forKeyIfPresent: .supplementalData)
@@ -197,19 +200,19 @@ open class MeasureReport: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try category?.encode(on: &_container, forKey: .category)
 		try dataUpdateType?.encode(on: &_container, forKey: .dataUpdateType, auxiliaryKey: ._dataUpdateType)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try evaluatedResource?.encode(on: &_container, forKey: .evaluatedResource)
 		try group?.encode(on: &_container, forKey: .group)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try improvementNotation?.encode(on: &_container, forKey: .improvementNotation)
 		try inputParameters?.encode(on: &_container, forKey: .inputParameters)
 		try location?.encode(on: &_container, forKey: .location)
 		try measure?.encode(on: &_container, forKey: .measure, auxiliaryKey: ._measure)
+		try messages?.encode(on: &_container, forKey: .messages)
 		try period.encode(on: &_container, forKey: .period)
 		try reporter?.encode(on: &_container, forKey: .reporter)
 		try reportingVendor?.encode(on: &_container, forKey: .reportingVendor)
-		try scoring?.encode(on: &_container, forKey: .scoring)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
 		try supplementalData?.encode(on: &_container, forKey: .supplementalData)
@@ -226,19 +229,19 @@ open class MeasureReport: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return dataUpdateType == _other.dataUpdateType
+		return category == _other.category
+		    && dataUpdateType == _other.dataUpdateType
 		    && date == _other.date
 		    && evaluatedResource == _other.evaluatedResource
 		    && group == _other.group
 		    && identifier == _other.identifier
-		    && improvementNotation == _other.improvementNotation
 		    && inputParameters == _other.inputParameters
 		    && location == _other.location
 		    && measure == _other.measure
+		    && messages == _other.messages
 		    && period == _other.period
 		    && reporter == _other.reporter
 		    && reportingVendor == _other.reportingVendor
-		    && scoring == _other.scoring
 		    && status == _other.status
 		    && subject == _other.subject
 		    && supplementalData == _other.supplementalData
@@ -247,19 +250,19 @@ open class MeasureReport: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(category)
 		hasher.combine(dataUpdateType)
 		hasher.combine(date)
 		hasher.combine(evaluatedResource)
 		hasher.combine(group)
 		hasher.combine(identifier)
-		hasher.combine(improvementNotation)
 		hasher.combine(inputParameters)
 		hasher.combine(location)
 		hasher.combine(measure)
+		hasher.combine(messages)
 		hasher.combine(period)
 		hasher.combine(reporter)
 		hasher.combine(reportingVendor)
-		hasher.combine(scoring)
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(supplementalData)
@@ -270,28 +273,52 @@ open class MeasureReport: DomainResource {
 /**
  Measure results for each group.
  
- The results of the calculation, one for each population group in the measure.
+ The results of the calculation, one for each population group in the measure. A MeasureReport SHALL have a group
+ element corresponding to each group element defined in the Measure being reported.
  */
 open class MeasureReportGroup: BackboneElement {
 	
 	/// All possible types for "measureScore[x]"
 	public enum MeasureScoreX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
 		case codeableConcept(CodeableConcept)
 		case dateTime(FHIRPrimitive<DateTime>)
 		case duration(Duration)
 		case period(Period)
 		case quantity(Quantity)
 		case range(Range)
+		case ratio(Ratio)
 	}
 	
 	/// Pointer to specific group from Measure
 	public var linkId: FHIRPrimitive<FHIRString>?
 	
+	/// Title of a group. Note- this value is copied from this element in Measure
+	public var title: FHIRPrimitive<FHIRString>?
+	
+	/// The date the Measure Report was calculated
+	public var calculatedDate: FHIRPrimitive<DateTime>?
+	
 	/// Meaning of the group
 	public var code: CodeableConcept?
 	
+	/// Summary description
+	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
+	/// process | outcome | structure | patient-reported-outcome
+	public var type: CodeableConcept?
+	
 	/// What individual(s) the report is for
 	public var subject: Reference?
+	
+	/// What scoring method (e.g. proportion, ratio, continuous-variable)
+	public var scoring: CodeableConcept?
+	
+	/// increase | decrease
+	public var improvementNotation: CodeableConcept?
+	
+	/// Explanation of improvement notation
+	public var improvementNotationGuidance: FHIRPrimitive<FHIRString>?
 	
 	/// The populations in the group
 	public var population: [MeasureReportGroupPopulation]?
@@ -310,42 +337,65 @@ open class MeasureReportGroup: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		calculatedDate: FHIRPrimitive<DateTime>? = nil,
 		code: CodeableConcept? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		improvementNotation: CodeableConcept? = nil,
+		improvementNotationGuidance: FHIRPrimitive<FHIRString>? = nil,
 		linkId: FHIRPrimitive<FHIRString>? = nil,
 		measureScore: MeasureScoreX? = nil,
 		modifierExtension: [Extension]? = nil,
 		population: [MeasureReportGroupPopulation]? = nil,
+		scoring: CodeableConcept? = nil,
 		stratifier: [MeasureReportGroupStratifier]? = nil,
-		subject: Reference? = nil
+		subject: Reference? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil,
+		type: CodeableConcept? = nil
 	) {
 		self.init()
+		self.calculatedDate = calculatedDate
 		self.code = code
+		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
+		self.improvementNotation = improvementNotation
+		self.improvementNotationGuidance = improvementNotationGuidance
 		self.linkId = linkId
 		self.measureScore = measureScore
 		self.modifierExtension = modifierExtension
 		self.population = population
+		self.scoring = scoring
 		self.stratifier = stratifier
 		self.subject = subject
+		self.title = title
+		self.type = type
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case calculatedDate; case _calculatedDate
 		case code
+		case description_fhir = "description"; case _description_fhir = "_description"
+		case improvementNotation
+		case improvementNotationGuidance; case _improvementNotationGuidance
 		case linkId; case _linkId
+		case measureScoreBoolean; case _measureScoreBoolean
 		case measureScoreCodeableConcept
 		case measureScoreDateTime; case _measureScoreDateTime
 		case measureScoreDuration
 		case measureScorePeriod
 		case measureScoreQuantity
 		case measureScoreRange
+		case measureScoreRatio
 		case population
+		case scoring
 		case stratifier
 		case subject
+		case title; case _title
+		case type
 	}
 	
 	/// Initializer for Decodable
@@ -353,7 +403,11 @@ open class MeasureReportGroup: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.calculatedDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .calculatedDate, auxiliaryKey: ._calculatedDate)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
+		self.improvementNotation = try CodeableConcept(from: _container, forKeyIfPresent: .improvementNotation)
+		self.improvementNotationGuidance = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .improvementNotationGuidance, auxiliaryKey: ._improvementNotationGuidance)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		var _t_measureScore: MeasureScoreX? = nil
 		if let measureScoreQuantity = try Quantity(from: _container, forKeyIfPresent: .measureScoreQuantity) {
@@ -392,10 +446,25 @@ open class MeasureReportGroup: BackboneElement {
 			}
 			_t_measureScore = .duration(measureScoreDuration)
 		}
+		if let measureScoreBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .measureScoreBoolean, auxiliaryKey: ._measureScoreBoolean) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreBoolean, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .boolean(measureScoreBoolean)
+		}
+		if let measureScoreRatio = try Ratio(from: _container, forKeyIfPresent: .measureScoreRatio) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreRatio, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .ratio(measureScoreRatio)
+		}
 		self.measureScore = _t_measureScore
 		self.population = try [MeasureReportGroupPopulation](from: _container, forKeyIfPresent: .population)
+		self.scoring = try CodeableConcept(from: _container, forKeyIfPresent: .scoring)
 		self.stratifier = try [MeasureReportGroupStratifier](from: _container, forKeyIfPresent: .stratifier)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
 	}
 	
@@ -404,7 +473,11 @@ open class MeasureReportGroup: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try calculatedDate?.encode(on: &_container, forKey: .calculatedDate, auxiliaryKey: ._calculatedDate)
 		try code?.encode(on: &_container, forKey: .code)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
+		try improvementNotation?.encode(on: &_container, forKey: .improvementNotation)
+		try improvementNotationGuidance?.encode(on: &_container, forKey: .improvementNotationGuidance, auxiliaryKey: ._improvementNotationGuidance)
 		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		if let _enum = measureScore {
 			switch _enum {
@@ -420,11 +493,18 @@ open class MeasureReportGroup: BackboneElement {
 				try _value.encode(on: &_container, forKey: .measureScoreRange)
 			case .duration(let _value):
 				try _value.encode(on: &_container, forKey: .measureScoreDuration)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreBoolean, auxiliaryKey: ._measureScoreBoolean)
+			case .ratio(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreRatio)
 			}
 		}
 		try population?.encode(on: &_container, forKey: .population)
+		try scoring?.encode(on: &_container, forKey: .scoring)
 		try stratifier?.encode(on: &_container, forKey: .stratifier)
 		try subject?.encode(on: &_container, forKey: .subject)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
+		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
 	}
 	
@@ -437,46 +517,70 @@ open class MeasureReportGroup: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return code == _other.code
+		return calculatedDate == _other.calculatedDate
+		    && code == _other.code
+		    && description_fhir == _other.description_fhir
+		    && improvementNotation == _other.improvementNotation
+		    && improvementNotationGuidance == _other.improvementNotationGuidance
 		    && linkId == _other.linkId
 		    && measureScore == _other.measureScore
 		    && population == _other.population
+		    && scoring == _other.scoring
 		    && stratifier == _other.stratifier
 		    && subject == _other.subject
+		    && title == _other.title
+		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(calculatedDate)
 		hasher.combine(code)
+		hasher.combine(description_fhir)
+		hasher.combine(improvementNotation)
+		hasher.combine(improvementNotationGuidance)
 		hasher.combine(linkId)
 		hasher.combine(measureScore)
 		hasher.combine(population)
+		hasher.combine(scoring)
 		hasher.combine(stratifier)
 		hasher.combine(subject)
+		hasher.combine(title)
+		hasher.combine(type)
 	}
 }
 
 /**
  The populations in the group.
  
- The populations that make up the population group, one for each type of population appropriate for the measure.
+ The populations that make up the population group, one for each type of population appropriate for the measure. Each
+ group in the MeasureReport SHALL have populations as defined in the corresponding group of the Measure being reported.
  */
 open class MeasureReportGroupPopulation: BackboneElement {
 	
 	/// Pointer to specific population from Measure
 	public var linkId: FHIRPrimitive<FHIRString>?
 	
+	/// Title of a group. Note- this value is copied from this element in Measure
+	public var title: FHIRPrimitive<FHIRString>?
+	
 	/// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-
 	/// exception | measure-population | measure-population-exclusion | measure-observation
 	public var code: CodeableConcept?
 	
+	/// The human readable description of this population criteria
+	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
 	/// Size of the population
 	public var count: FHIRPrimitive<FHIRInteger>?
+	
+	/// Size of the population as a quantity
+	public var countQuantity: Quantity?
 	
 	/// For subject-list reports, the subject results in this population
 	public var subjectResults: Reference?
 	
-	/// For subject-list reports, a subject result in this population
+	/// For subject-list reports, references to the individual reports for subjects in this population
 	public var subjectReport: [Reference]?
 	
 	/// What individual(s) in the population
@@ -491,17 +595,22 @@ open class MeasureReportGroupPopulation: BackboneElement {
 	public convenience init(
 		code: CodeableConcept? = nil,
 		count: FHIRPrimitive<FHIRInteger>? = nil,
+		countQuantity: Quantity? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		subjectReport: [Reference]? = nil,
 		subjectResults: Reference? = nil,
-		subjects: Reference? = nil
+		subjects: Reference? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
 	) {
 		self.init()
 		self.code = code
 		self.count = count
+		self.countQuantity = countQuantity
+		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
 		self.linkId = linkId
@@ -509,6 +618,7 @@ open class MeasureReportGroupPopulation: BackboneElement {
 		self.subjectReport = subjectReport
 		self.subjectResults = subjectResults
 		self.subjects = subjects
+		self.title = title
 	}
 	
 	// MARK: - Codable
@@ -516,10 +626,13 @@ open class MeasureReportGroupPopulation: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case count; case _count
+		case countQuantity
+		case description_fhir = "description"; case _description_fhir = "_description"
 		case linkId; case _linkId
 		case subjectReport
 		case subjectResults
 		case subjects
+		case title; case _title
 	}
 	
 	/// Initializer for Decodable
@@ -529,10 +642,13 @@ open class MeasureReportGroupPopulation: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.count = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .count, auxiliaryKey: ._count)
+		self.countQuantity = try Quantity(from: _container, forKeyIfPresent: .countQuantity)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		self.subjectReport = try [Reference](from: _container, forKeyIfPresent: .subjectReport)
 		self.subjectResults = try Reference(from: _container, forKeyIfPresent: .subjectResults)
 		self.subjects = try Reference(from: _container, forKeyIfPresent: .subjects)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		try super.init(from: decoder)
 	}
 	
@@ -543,10 +659,13 @@ open class MeasureReportGroupPopulation: BackboneElement {
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
 		try count?.encode(on: &_container, forKey: .count, auxiliaryKey: ._count)
+		try countQuantity?.encode(on: &_container, forKey: .countQuantity)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try subjectReport?.encode(on: &_container, forKey: .subjectReport)
 		try subjectResults?.encode(on: &_container, forKey: .subjectResults)
 		try subjects?.encode(on: &_container, forKey: .subjects)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try super.encode(to: encoder)
 	}
 	
@@ -561,36 +680,49 @@ open class MeasureReportGroupPopulation: BackboneElement {
 		}
 		return code == _other.code
 		    && count == _other.count
+		    && countQuantity == _other.countQuantity
+		    && description_fhir == _other.description_fhir
 		    && linkId == _other.linkId
 		    && subjectReport == _other.subjectReport
 		    && subjectResults == _other.subjectResults
 		    && subjects == _other.subjects
+		    && title == _other.title
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(count)
+		hasher.combine(countQuantity)
+		hasher.combine(description_fhir)
 		hasher.combine(linkId)
 		hasher.combine(subjectReport)
 		hasher.combine(subjectResults)
 		hasher.combine(subjects)
+		hasher.combine(title)
 	}
 }
 
 /**
  Stratification results.
  
- When a measure includes multiple stratifiers, there will be a stratifier group for each stratifier defined by the
- measure.
+ The stratification results for this measure group, calculated as defined by the stratifier element of the measure being
+ reported. Each group in the MeasureReport SHALL have stratifiers as defined in the corresponding group of the Measure
+ being reported.
  */
 open class MeasureReportGroupStratifier: BackboneElement {
 	
 	/// Pointer to specific stratifier from Measure
 	public var linkId: FHIRPrimitive<FHIRString>?
 	
+	/// Title of a group's stratifier. Note- this value is copied from this element in Measure
+	public var title: FHIRPrimitive<FHIRString>?
+	
 	/// What stratifier of the group
 	public var code: CodeableConcept?
+	
+	/// The human readable description of this stratifier
+	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Stratum results, one for each unique value, or set of values, in the stratifier, or stratifier components
 	public var stratum: [MeasureReportGroupStratifierStratum]?
@@ -603,27 +735,33 @@ open class MeasureReportGroupStratifier: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: CodeableConcept? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		linkId: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		stratum: [MeasureReportGroupStratifierStratum]? = nil
+		stratum: [MeasureReportGroupStratifierStratum]? = nil,
+		title: FHIRPrimitive<FHIRString>? = nil
 	) {
 		self.init()
 		self.code = code
+		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
 		self.linkId = linkId
 		self.modifierExtension = modifierExtension
 		self.stratum = stratum
+		self.title = title
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
 		case code
+		case description_fhir = "description"; case _description_fhir = "_description"
 		case linkId; case _linkId
 		case stratum
+		case title; case _title
 	}
 	
 	/// Initializer for Decodable
@@ -632,8 +770,10 @@ open class MeasureReportGroupStratifier: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		self.stratum = try [MeasureReportGroupStratifierStratum](from: _container, forKeyIfPresent: .stratum)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		try super.init(from: decoder)
 	}
 	
@@ -643,8 +783,10 @@ open class MeasureReportGroupStratifier: BackboneElement {
 		
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try stratum?.encode(on: &_container, forKey: .stratum)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try super.encode(to: encoder)
 	}
 	
@@ -658,15 +800,19 @@ open class MeasureReportGroupStratifier: BackboneElement {
 			return false
 		}
 		return code == _other.code
+		    && description_fhir == _other.description_fhir
 		    && linkId == _other.linkId
 		    && stratum == _other.stratum
+		    && title == _other.title
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
+		hasher.combine(description_fhir)
 		hasher.combine(linkId)
 		hasher.combine(stratum)
+		hasher.combine(title)
 	}
 }
 
@@ -680,12 +826,14 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
 	/// All possible types for "measureScore[x]"
 	public enum MeasureScoreX: Hashable {
+		case boolean(FHIRPrimitive<FHIRBool>)
 		case codeableConcept(CodeableConcept)
 		case dateTime(FHIRPrimitive<DateTime>)
 		case duration(Duration)
 		case period(Period)
 		case quantity(Quantity)
 		case range(Range)
+		case ratio(Ratio)
 	}
 	
 	/// All possible types for "value[x]"
@@ -740,12 +888,14 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case component
+		case measureScoreBoolean; case _measureScoreBoolean
 		case measureScoreCodeableConcept
 		case measureScoreDateTime; case _measureScoreDateTime
 		case measureScoreDuration
 		case measureScorePeriod
 		case measureScoreQuantity
 		case measureScoreRange
+		case measureScoreRatio
 		case population
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
@@ -796,6 +946,18 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .measureScoreDuration, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
 			}
 			_t_measureScore = .duration(measureScoreDuration)
+		}
+		if let measureScoreBoolean = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .measureScoreBoolean, auxiliaryKey: ._measureScoreBoolean) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreBoolean, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .boolean(measureScoreBoolean)
+		}
+		if let measureScoreRatio = try Ratio(from: _container, forKeyIfPresent: .measureScoreRatio) {
+			if _t_measureScore != nil {
+				throw DecodingError.dataCorruptedError(forKey: .measureScoreRatio, in: _container, debugDescription: "More than one value provided for \"measureScore\"")
+			}
+			_t_measureScore = .ratio(measureScoreRatio)
 		}
 		self.measureScore = _t_measureScore
 		self.population = try [MeasureReportGroupStratifierStratumPopulation](from: _container, forKeyIfPresent: .population)
@@ -854,6 +1016,10 @@ open class MeasureReportGroupStratifierStratum: BackboneElement {
 				try _value.encode(on: &_container, forKey: .measureScoreRange)
 			case .duration(let _value):
 				try _value.encode(on: &_container, forKey: .measureScoreDuration)
+			case .boolean(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreBoolean, auxiliaryKey: ._measureScoreBoolean)
+			case .ratio(let _value):
+				try _value.encode(on: &_container, forKey: .measureScoreRatio)
 			}
 		}
 		try population?.encode(on: &_container, forKey: .population)
@@ -920,6 +1086,9 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	/// What stratifier component of the group
 	public var code: CodeableConcept
 	
+	/// The human readable description of this stratifier component
+	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
 	/// The stratum component value, e.g. male
 	/// One of `value[x]`
 	public var value: ValueX
@@ -934,6 +1103,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: CodeableConcept,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		linkId: FHIRPrimitive<FHIRString>? = nil,
@@ -941,6 +1111,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 		value: ValueX
 	) {
 		self.init(code: code, value: value)
+		self.description_fhir = description_fhir
 		self.`extension` = `extension`
 		self.id = id
 		self.linkId = linkId
@@ -951,6 +1122,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code
+		case description_fhir = "description"; case _description_fhir = "_description"
 		case linkId; case _linkId
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
@@ -970,6 +1142,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		var _t_value: ValueX? = nil
 		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
@@ -1012,6 +1185,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 		
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		
 			switch value {
@@ -1040,6 +1214,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 			return false
 		}
 		return code == _other.code
+		    && description_fhir == _other.description_fhir
 		    && linkId == _other.linkId
 		    && value == _other.value
 	}
@@ -1047,6 +1222,7 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
+		hasher.combine(description_fhir)
 		hasher.combine(linkId)
 		hasher.combine(value)
 	}
@@ -1055,7 +1231,8 @@ open class MeasureReportGroupStratifierStratumComponent: BackboneElement {
 /**
  Population results in this stratum.
  
- The populations that make up the stratum, one for each type of population appropriate to the measure.
+ The populations that make up the stratum, one for each type of population appropriate to the measure. For each
+ stratifier, systems MAY provide population breakdowns in addition to the stratified scores.
  */
 open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	
@@ -1068,6 +1245,9 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	
 	/// Size of the population
 	public var count: FHIRPrimitive<FHIRInteger>?
+	
+	/// Size of the population as a quantity
+	public var countQuantity: Quantity?
 	
 	/// For subject-list reports, the subject results in this population
 	public var subjectResults: Reference?
@@ -1087,6 +1267,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	public convenience init(
 		code: CodeableConcept? = nil,
 		count: FHIRPrimitive<FHIRInteger>? = nil,
+		countQuantity: Quantity? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		linkId: FHIRPrimitive<FHIRString>? = nil,
@@ -1098,6 +1279,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 		self.init()
 		self.code = code
 		self.count = count
+		self.countQuantity = countQuantity
 		self.`extension` = `extension`
 		self.id = id
 		self.linkId = linkId
@@ -1112,6 +1294,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case count; case _count
+		case countQuantity
 		case linkId; case _linkId
 		case subjectReport
 		case subjectResults
@@ -1125,6 +1308,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.count = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .count, auxiliaryKey: ._count)
+		self.countQuantity = try Quantity(from: _container, forKeyIfPresent: .countQuantity)
 		self.linkId = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .linkId, auxiliaryKey: ._linkId)
 		self.subjectReport = try [Reference](from: _container, forKeyIfPresent: .subjectReport)
 		self.subjectResults = try Reference(from: _container, forKeyIfPresent: .subjectResults)
@@ -1139,6 +1323,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
 		try count?.encode(on: &_container, forKey: .count, auxiliaryKey: ._count)
+		try countQuantity?.encode(on: &_container, forKey: .countQuantity)
 		try linkId?.encode(on: &_container, forKey: .linkId, auxiliaryKey: ._linkId)
 		try subjectReport?.encode(on: &_container, forKey: .subjectReport)
 		try subjectResults?.encode(on: &_container, forKey: .subjectResults)
@@ -1157,6 +1342,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 		}
 		return code == _other.code
 		    && count == _other.count
+		    && countQuantity == _other.countQuantity
 		    && linkId == _other.linkId
 		    && subjectReport == _other.subjectReport
 		    && subjectResults == _other.subjectResults
@@ -1167,6 +1353,7 @@ open class MeasureReportGroupStratifierStratumPopulation: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(count)
+		hasher.combine(countQuantity)
 		hasher.combine(linkId)
 		hasher.combine(subjectReport)
 		hasher.combine(subjectResults)

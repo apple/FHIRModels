@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -53,4 +53,7 @@ public enum TriggerType: String, FHIRPrimitiveType {
 	/// The trigger occurs at a specific time or periodically as described by a timing or schedule. A periodic event
 	/// cannot have any data elements, but may have a name assigned as a shorthand for the event.
 	case periodic
+	
+	/// The trigger occurs as defined by a subscription topic.
+	case subscriptionTopic = "subscription-topic"
 }

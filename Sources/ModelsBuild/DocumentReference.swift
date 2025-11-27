@@ -2,8 +2,8 @@
 //  DocumentReference.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DocumentReference)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DocumentReference)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -69,8 +69,8 @@ open class DocumentReference: DomainResource {
 	/// Related identifiers or resources associated with the document reference
 	public var related: [Reference]?
 	
-	/// Body part included
-	public var bodySite: [CodeableReference]?
+	/// Body structure included
+	public var bodyStructure: [CodeableReference]?
 	
 	/// Kind of facility where patient was seen
 	public var facilityType: CodeableConcept?
@@ -117,7 +117,7 @@ open class DocumentReference: DomainResource {
 		attester: [DocumentReferenceAttester]? = nil,
 		author: [Reference]? = nil,
 		basedOn: [Reference]? = nil,
-		bodySite: [CodeableReference]? = nil,
+		bodyStructure: [CodeableReference]? = nil,
 		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
 		content: [DocumentReferenceContent],
@@ -151,7 +151,7 @@ open class DocumentReference: DomainResource {
 		self.attester = attester
 		self.author = author
 		self.basedOn = basedOn
-		self.bodySite = bodySite
+		self.bodyStructure = bodyStructure
 		self.category = category
 		self.contained = contained
 		self.context = context
@@ -186,7 +186,7 @@ open class DocumentReference: DomainResource {
 		case attester
 		case author
 		case basedOn
-		case bodySite
+		case bodyStructure
 		case category
 		case content
 		case context
@@ -217,7 +217,7 @@ open class DocumentReference: DomainResource {
 		self.attester = try [DocumentReferenceAttester](from: _container, forKeyIfPresent: .attester)
 		self.author = try [Reference](from: _container, forKeyIfPresent: .author)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
-		self.bodySite = try [CodeableReference](from: _container, forKeyIfPresent: .bodySite)
+		self.bodyStructure = try [CodeableReference](from: _container, forKeyIfPresent: .bodyStructure)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.content = try [DocumentReferenceContent](from: _container, forKey: .content)
 		self.context = try [Reference](from: _container, forKeyIfPresent: .context)
@@ -249,7 +249,7 @@ open class DocumentReference: DomainResource {
 		try attester?.encode(on: &_container, forKey: .attester)
 		try author?.encode(on: &_container, forKey: .author)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
-		try bodySite?.encode(on: &_container, forKey: .bodySite)
+		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
 		try category?.encode(on: &_container, forKey: .category)
 		try content.encode(on: &_container, forKey: .content)
 		try context?.encode(on: &_container, forKey: .context)
@@ -285,7 +285,7 @@ open class DocumentReference: DomainResource {
 		return attester == _other.attester
 		    && author == _other.author
 		    && basedOn == _other.basedOn
-		    && bodySite == _other.bodySite
+		    && bodyStructure == _other.bodyStructure
 		    && category == _other.category
 		    && content == _other.content
 		    && context == _other.context
@@ -313,7 +313,7 @@ open class DocumentReference: DomainResource {
 		hasher.combine(attester)
 		hasher.combine(author)
 		hasher.combine(basedOn)
-		hasher.combine(bodySite)
+		hasher.combine(bodyStructure)
 		hasher.combine(category)
 		hasher.combine(content)
 		hasher.combine(context)

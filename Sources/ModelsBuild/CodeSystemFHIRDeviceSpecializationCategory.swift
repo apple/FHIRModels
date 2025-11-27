@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,6 +45,6 @@ public enum FHIRDeviceSpecializationCategory: String, FHIRPrimitiveType {
 	/// A performance standard.
 	case performance
 	
-	/// Class or catefory of risk.
+	/// Class or category of risk.
 	case riskClass = "risk-class"
 }

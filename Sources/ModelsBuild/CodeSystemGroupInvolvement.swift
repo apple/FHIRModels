@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,6 +30,10 @@ public enum GroupInvolvement: String, FHIRPrimitiveType {
 	/// The group member was working in the workplace, but is not consistently present.
 	case casual
 	
+	/// Patient is included in the list on the grounds of being a family member in a family group. See [Relationships
+	/// inside the group](group.html#relationships) for more detailed family relationships.
+	case familyMember = "family-member"
+	
 	/// This is the group member's primary workplace on a consistent basis.
 	case fullTime = "full-time"
 	
@@ -46,6 +50,10 @@ public enum GroupInvolvement: String, FHIRPrimitiveType {
 	
 	/// Group member is animal kept as a pet by the family/household.
 	case pet
+	
+	/// Patient is included in the list on the grounds of being the primary contact point for a family, household,
+	/// workplace, etc.
+	case primaryContact = "primary-contact"
 	
 	/// Patient is included in the list on the grounds of being a primary exposure case (sometimes, but not
 	/// neceessarily, direct exposure to the index case, or a known infected person).

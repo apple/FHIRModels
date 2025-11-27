@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,4 +29,9 @@ public enum DetectedIssueStatus: String, FHIRPrimitiveType {
 	
 	/// Indicates the detected issue has been mitigated
 	case mitigated
+	
+	/// Indicates that an error occurred in the evaluation of the proposed action. For example, a drug/drug interaction
+	/// detected issue could have a status of processing-error to indicate that an error was encountered attempting to
+	/// determine whether there was a drug-drug interaction.
+	case processingError = "processing-error"
 }

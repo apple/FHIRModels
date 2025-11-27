@@ -2,8 +2,8 @@
 //  AdministrableProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ open class AdministrableProductDefinition: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .administrableProductDefinition }
 	
-	/// An identifier for the administrable product
+	/// An identifier for the administrable product instance
 	public var identifier: [Identifier]?
 	
 	/// The status of this administrable product. Enables tracking the life-cycle of the content.
@@ -50,7 +50,7 @@ open class AdministrableProductDefinition: DomainResource {
 	public var producedFrom: [Reference]?
 	
 	/// The ingredients of this administrable medicinal product. This is only needed if the ingredients are not
-	/// specified either using ManufacturedItemDefiniton, or using by incoming references from the Ingredient resource
+	/// specified either using ManufacturedItemDefinition, or using incoming references from the Ingredient resource
 	public var ingredient: [CodeableConcept]?
 	
 	/// A device that is integral to the medicinal product, in effect being considered as an "ingredient" of the
@@ -60,6 +60,9 @@ open class AdministrableProductDefinition: DomainResource {
 	/// A general description of the product, when in its final form, suitable for administration e.g. effervescent blue
 	/// liquid, to be swallowed
 	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
+	/// A code that this product is known by, within some formal terminology. May be a PhPID
+	public var code: [Coding]?
 	
 	/// Characteristics e.g. a product's onset of action
 	public var property: [AdministrableProductDefinitionProperty]?
@@ -77,6 +80,7 @@ open class AdministrableProductDefinition: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		administrableDoseForm: CodeableConcept? = nil,
+		code: [Coding]? = nil,
 		contained: [ResourceProxy]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		device: Reference? = nil,
@@ -98,6 +102,7 @@ open class AdministrableProductDefinition: DomainResource {
 	) {
 		self.init(routeOfAdministration: routeOfAdministration, status: status)
 		self.administrableDoseForm = administrableDoseForm
+		self.code = code
 		self.contained = contained
 		self.description_fhir = description_fhir
 		self.device = device
@@ -120,6 +125,7 @@ open class AdministrableProductDefinition: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case administrableDoseForm
+		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case device
 		case formOf
@@ -138,6 +144,7 @@ open class AdministrableProductDefinition: DomainResource {
 		
 		// Decode all our properties
 		self.administrableDoseForm = try CodeableConcept(from: _container, forKeyIfPresent: .administrableDoseForm)
+		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.device = try Reference(from: _container, forKeyIfPresent: .device)
 		self.formOf = try [Reference](from: _container, forKeyIfPresent: .formOf)
@@ -157,6 +164,7 @@ open class AdministrableProductDefinition: DomainResource {
 		
 		// Encode all our properties
 		try administrableDoseForm?.encode(on: &_container, forKey: .administrableDoseForm)
+		try code?.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try device?.encode(on: &_container, forKey: .device)
 		try formOf?.encode(on: &_container, forKey: .formOf)
@@ -180,6 +188,7 @@ open class AdministrableProductDefinition: DomainResource {
 			return false
 		}
 		return administrableDoseForm == _other.administrableDoseForm
+		    && code == _other.code
 		    && description_fhir == _other.description_fhir
 		    && device == _other.device
 		    && formOf == _other.formOf
@@ -195,6 +204,7 @@ open class AdministrableProductDefinition: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(administrableDoseForm)
+		hasher.combine(code)
 		hasher.combine(description_fhir)
 		hasher.combine(device)
 		hasher.combine(formOf)
@@ -221,6 +231,7 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 		case date(FHIRPrimitive<FHIRDate>)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case quantity(Quantity)
+		case range(Range)
 		case reference(Reference)
 	}
 	
@@ -268,6 +279,7 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 		case valueDate; case _valueDate
 		case valueMarkdown; case _valueMarkdown
 		case valueQuantity
+		case valueRange
 		case valueReference
 	}
 	
@@ -290,6 +302,12 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
 		}
 		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
 			if _t_value != nil {
@@ -338,6 +356,8 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
 			case .boolean(let _value):
@@ -379,7 +399,7 @@ open class AdministrableProductDefinitionProperty: BackboneElement {
  The path by which the product is taken into or makes contact with the body.
  
  The path by which the product is taken into or makes contact with the body. In some regions this is referred to as the
- licenced or approved route. RouteOfAdministration cannot be used when the 'formOf' product already uses
+ licensed or approved route. RouteOfAdministration cannot be used when the 'formOf' product already uses
  MedicinalProductDefinition.route (and vice versa).
  */
 open class AdministrableProductDefinitionRouteOfAdministration: BackboneElement {

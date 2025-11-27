@@ -2,8 +2,8 @@
 //  Provenance.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Provenance)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Provenance)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import FMCore
  trust, and allowing reproducibility. Provenance assertions are a form of contextual metadata and can themselves become
  important records with their own provenance. Provenance statement indicates clinical significance in terms of
  confidence in authenticity, reliability, and trustworthiness, integrity, and stage in lifecycle (e.g. Document
- Completion - has the artifact been legally authenticated), all of which may impact security, privacy, and trust
+ Completion - has the artifact been legally authenticated), all of which MAY impact security, privacy, and trust
  policies.
  */
 open class Provenance: DomainResource {

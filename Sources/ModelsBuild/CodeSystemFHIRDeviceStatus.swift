@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,4 +35,7 @@ public enum FHIRDeviceStatus: String, FHIRPrimitiveType {
 	
 	/// The device record is not current and is not appropriate for reference in new instances.
 	case inactive
+	
+	/// The status of the device has not been determined.
+	case unknown
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@ import FMCore
  */
 public enum EncounterDiagnosisUse: String, FHIRPrimitiveType {
 	
-	/// final
+	/// Final diagnosis established at the end of the encounter or episode of care.
 	case final
 	
-	/// working
+	/// Provisional diagnosis used during the encounter or episode of care that may be refined or changed.
 	case working
 }

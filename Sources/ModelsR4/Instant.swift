@@ -36,7 +36,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#instant
  */
-public struct Instant: FHIRPrimitiveType, Sendable {
+public struct Instant: FHIRPrimitiveType {
 	
 	private var _timezoneIsUnaltered = true
 	

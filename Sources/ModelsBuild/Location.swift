@@ -2,8 +2,8 @@
 //  Location.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Location)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Location)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -39,6 +39,9 @@ open class Location: DomainResource {
 	/// The operational status of the location (typically only for a bed/room)
 	public var operationalStatus: Coding?
 	
+	/// Codes that identify this location
+	public var code: [CodeableConcept]?
+	
 	/// Name of the location as used by humans
 	public var name: FHIRPrimitive<FHIRString>?
 	
@@ -52,7 +55,7 @@ open class Location: DomainResource {
 	/// Indicates whether a resource instance represents a specific location or a class of locations.
 	public var mode: FHIRPrimitive<LocationMode>?
 	
-	/// Type of function performed
+	/// Types of services available at this location
 	public var type: [CodeableConcept]?
 	
 	/// Official contact details for the location
@@ -95,6 +98,7 @@ open class Location: DomainResource {
 		address: Address? = nil,
 		alias: [FHIRPrimitive<FHIRString>]? = nil,
 		characteristic: [CodeableConcept]? = nil,
+		code: [CodeableConcept]? = nil,
 		contact: [ExtendedContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
@@ -123,6 +127,7 @@ open class Location: DomainResource {
 		self.address = address
 		self.alias = alias
 		self.characteristic = characteristic
+		self.code = code
 		self.contact = contact
 		self.contained = contained
 		self.description_fhir = description_fhir
@@ -154,6 +159,7 @@ open class Location: DomainResource {
 		case address
 		case alias; case _alias
 		case characteristic
+		case code
 		case contact
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case endpoint
@@ -179,6 +185,7 @@ open class Location: DomainResource {
 		self.address = try Address(from: _container, forKeyIfPresent: .address)
 		self.alias = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .alias, auxiliaryKey: ._alias)
 		self.characteristic = try [CodeableConcept](from: _container, forKeyIfPresent: .characteristic)
+		self.code = try [CodeableConcept](from: _container, forKeyIfPresent: .code)
 		self.contact = try [ExtendedContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
@@ -205,6 +212,7 @@ open class Location: DomainResource {
 		try address?.encode(on: &_container, forKey: .address)
 		try alias?.encode(on: &_container, forKey: .alias, auxiliaryKey: ._alias)
 		try characteristic?.encode(on: &_container, forKey: .characteristic)
+		try code?.encode(on: &_container, forKey: .code)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try endpoint?.encode(on: &_container, forKey: .endpoint)
@@ -235,6 +243,7 @@ open class Location: DomainResource {
 		return address == _other.address
 		    && alias == _other.alias
 		    && characteristic == _other.characteristic
+		    && code == _other.code
 		    && contact == _other.contact
 		    && description_fhir == _other.description_fhir
 		    && endpoint == _other.endpoint
@@ -257,6 +266,7 @@ open class Location: DomainResource {
 		hasher.combine(address)
 		hasher.combine(alias)
 		hasher.combine(characteristic)
+		hasher.combine(code)
 		hasher.combine(contact)
 		hasher.combine(description_fhir)
 		hasher.combine(endpoint)

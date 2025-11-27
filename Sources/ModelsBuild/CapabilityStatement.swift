@@ -2,8 +2,8 @@
 //  CapabilityStatement.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CapabilityStatement)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ open class CapabilityStatement: DomainResource {
 	/// The status of this capability statement. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -76,13 +76,16 @@ open class CapabilityStatement: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for capability statement (if applicable)
+	/// ActorDefinitions the CapabilityStatement supports
+	public var actorDefinition: [FHIRPrimitive<Canonical>]?
+	
+	/// Jurisdiction of the authority that maintains the capability statement (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this capability statement is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -110,7 +113,7 @@ open class CapabilityStatement: DomainResource {
 	/// formats supported (xml | json | ttl | mime type)
 	public var format: [FHIRPrimitive<FHIRString>]
 	
-	/// Patch formats supported
+	/// Patch formats supported (Mime types for FHIR and JSON And XML Patch)
 	public var patchFormat: [FHIRPrimitive<FHIRString>]?
 	
 	/// Languages supported
@@ -141,6 +144,7 @@ open class CapabilityStatement: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		acceptLanguage: [FHIRPrimitive<FHIRString>]? = nil,
+		actorDefinition: [FHIRPrimitive<Canonical>]? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
@@ -181,6 +185,7 @@ open class CapabilityStatement: DomainResource {
 	) {
 		self.init(date: date, fhirVersion: fhirVersion, format: format, kind: kind, status: status)
 		self.acceptLanguage = acceptLanguage
+		self.actorDefinition = actorDefinition
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
@@ -219,6 +224,7 @@ open class CapabilityStatement: DomainResource {
 	
 	private enum CodingKeys: String, CodingKey {
 		case acceptLanguage; case _acceptLanguage
+		case actorDefinition; case _actorDefinition
 		case contact
 		case copyright; case _copyright
 		case copyrightLabel; case _copyrightLabel
@@ -257,6 +263,7 @@ open class CapabilityStatement: DomainResource {
 		
 		// Decode all our properties
 		self.acceptLanguage = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .acceptLanguage, auxiliaryKey: ._acceptLanguage)
+		self.actorDefinition = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .actorDefinition, auxiliaryKey: ._actorDefinition)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -308,6 +315,7 @@ open class CapabilityStatement: DomainResource {
 		
 		// Encode all our properties
 		try acceptLanguage?.encode(on: &_container, forKey: .acceptLanguage, auxiliaryKey: ._acceptLanguage)
+		try actorDefinition?.encode(on: &_container, forKey: .actorDefinition, auxiliaryKey: ._actorDefinition)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -357,6 +365,7 @@ open class CapabilityStatement: DomainResource {
 			return false
 		}
 		return acceptLanguage == _other.acceptLanguage
+		    && actorDefinition == _other.actorDefinition
 		    && contact == _other.contact
 		    && copyright == _other.copyright
 		    && copyrightLabel == _other.copyrightLabel
@@ -391,6 +400,7 @@ open class CapabilityStatement: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(acceptLanguage)
+		hasher.combine(actorDefinition)
 		hasher.combine(contact)
 		hasher.combine(copyright)
 		hasher.combine(copyrightLabel)
@@ -877,7 +887,7 @@ open class CapabilityStatementMessagingSupportedMessage: BackboneElement {
 open class CapabilityStatementRest: BackboneElement {
 	
 	/// Identifies whether this portion of the statement is describing the ability to initiate or receive restful
-	/// operations.
+	/// interactions.
 	public var mode: FHIRPrimitive<RestfulCapabilityMode>
 	
 	/// General description of implementation
@@ -889,7 +899,7 @@ open class CapabilityStatementRest: BackboneElement {
 	/// Resource served on the REST interface
 	public var resource: [CapabilityStatementRestResource]?
 	
-	/// What operations are supported?
+	/// What interactions are supported?
 	public var interaction: [CapabilityStatementRestInteraction]?
 	
 	/// Search parameters for searching all resources
@@ -1012,17 +1022,17 @@ open class CapabilityStatementRest: BackboneElement {
 }
 
 /**
- What operations are supported?.
+ What interactions are supported?.
  
  A specification of restful operations supported by the system.
  */
 open class CapabilityStatementRestInteraction: BackboneElement {
 	
-	/// A coded identifier of the operation, supported by the system.
+	/// A coded identifier of the interaction, supported by the system.
 	/// Restricted to: ['transaction', 'batch', 'search-system', 'history-system']
 	public var code: FHIRPrimitive<FHIRRestfulInteractions>
 	
-	/// Anything special about operation behavior
+	/// Anything special about interaction behavior
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties
@@ -1100,38 +1110,11 @@ open class CapabilityStatementRestInteraction: BackboneElement {
  */
 open class CapabilityStatementRestResource: BackboneElement {
 	
-	/// A type of resource exposed via the restful interface.
-	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
-	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
-	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
-	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
-	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
-	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
-	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
-	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
-	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
-	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
-	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
-	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
-	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
-	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
-	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
-	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
-	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
-	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
-	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
-	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
-	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
-	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
-	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
-	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
-	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
-	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
-	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
-	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
-	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
-	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
-	public var type: FHIRPrimitive<ResourceType>
+	/// A resource type that is supported
+	public var type: FHIRPrimitive<FHIRURI>
+	
+	/// The definition for an additional resource
+	public var definition: FHIRPrimitive<Canonical>?
 	
 	/// System-wide profile
 	public var profile: FHIRPrimitive<Canonical>?
@@ -1142,7 +1125,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 	/// Additional information about the use of the resource type
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
-	/// What operations are supported?
+	/// What interactions are supported?
 	public var interaction: [CapabilityStatementRestResourceInteraction]?
 	
 	/// This field is set to no-version to specify that the system does not support (server) or use (client) versioning
@@ -1188,7 +1171,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 	public var operation: [CapabilityStatementRestResourceOperation]?
 	
 	/// Designated initializer taking all required properties
-	public init(type: FHIRPrimitive<ResourceType>) {
+	public init(type: FHIRPrimitive<FHIRURI>) {
 		self.type = type
 		super.init()
 	}
@@ -1200,6 +1183,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		conditionalPatch: FHIRPrimitive<FHIRBool>? = nil,
 		conditionalRead: FHIRPrimitive<ConditionalReadStatus>? = nil,
 		conditionalUpdate: FHIRPrimitive<FHIRBool>? = nil,
+		definition: FHIRPrimitive<Canonical>? = nil,
 		documentation: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -1213,7 +1197,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		searchParam: [CapabilityStatementRestResourceSearchParam]? = nil,
 		searchRevInclude: [FHIRPrimitive<FHIRString>]? = nil,
 		supportedProfile: [FHIRPrimitive<Canonical>]? = nil,
-		type: FHIRPrimitive<ResourceType>,
+		type: FHIRPrimitive<FHIRURI>,
 		updateCreate: FHIRPrimitive<FHIRBool>? = nil,
 		versioning: FHIRPrimitive<ResourceVersionPolicy>? = nil
 	) {
@@ -1223,6 +1207,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		self.conditionalPatch = conditionalPatch
 		self.conditionalRead = conditionalRead
 		self.conditionalUpdate = conditionalUpdate
+		self.definition = definition
 		self.documentation = documentation
 		self.`extension` = `extension`
 		self.id = id
@@ -1248,6 +1233,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		case conditionalPatch; case _conditionalPatch
 		case conditionalRead; case _conditionalRead
 		case conditionalUpdate; case _conditionalUpdate
+		case definition; case _definition
 		case documentation; case _documentation
 		case interaction
 		case operation
@@ -1273,6 +1259,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		self.conditionalPatch = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionalPatch, auxiliaryKey: ._conditionalPatch)
 		self.conditionalRead = try FHIRPrimitive<ConditionalReadStatus>(from: _container, forKeyIfPresent: .conditionalRead, auxiliaryKey: ._conditionalRead)
 		self.conditionalUpdate = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionalUpdate, auxiliaryKey: ._conditionalUpdate)
+		self.definition = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
 		self.interaction = try [CapabilityStatementRestResourceInteraction](from: _container, forKeyIfPresent: .interaction)
 		self.operation = try [CapabilityStatementRestResourceOperation](from: _container, forKeyIfPresent: .operation)
@@ -1283,7 +1270,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		self.searchParam = try [CapabilityStatementRestResourceSearchParam](from: _container, forKeyIfPresent: .searchParam)
 		self.searchRevInclude = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .searchRevInclude, auxiliaryKey: ._searchRevInclude)
 		self.supportedProfile = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .supportedProfile, auxiliaryKey: ._supportedProfile)
-		self.type = try FHIRPrimitive<ResourceType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<FHIRURI>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		self.updateCreate = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .updateCreate, auxiliaryKey: ._updateCreate)
 		self.versioning = try FHIRPrimitive<ResourceVersionPolicy>(from: _container, forKeyIfPresent: .versioning, auxiliaryKey: ._versioning)
 		try super.init(from: decoder)
@@ -1299,6 +1286,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		try conditionalPatch?.encode(on: &_container, forKey: .conditionalPatch, auxiliaryKey: ._conditionalPatch)
 		try conditionalRead?.encode(on: &_container, forKey: .conditionalRead, auxiliaryKey: ._conditionalRead)
 		try conditionalUpdate?.encode(on: &_container, forKey: .conditionalUpdate, auxiliaryKey: ._conditionalUpdate)
+		try definition?.encode(on: &_container, forKey: .definition, auxiliaryKey: ._definition)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
 		try interaction?.encode(on: &_container, forKey: .interaction)
 		try operation?.encode(on: &_container, forKey: .operation)
@@ -1329,6 +1317,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		    && conditionalPatch == _other.conditionalPatch
 		    && conditionalRead == _other.conditionalRead
 		    && conditionalUpdate == _other.conditionalUpdate
+		    && definition == _other.definition
 		    && documentation == _other.documentation
 		    && interaction == _other.interaction
 		    && operation == _other.operation
@@ -1351,6 +1340,7 @@ open class CapabilityStatementRestResource: BackboneElement {
 		hasher.combine(conditionalPatch)
 		hasher.combine(conditionalRead)
 		hasher.combine(conditionalUpdate)
+		hasher.combine(definition)
 		hasher.combine(documentation)
 		hasher.combine(interaction)
 		hasher.combine(operation)
@@ -1368,19 +1358,19 @@ open class CapabilityStatementRestResource: BackboneElement {
 }
 
 /**
- What operations are supported?.
+ What interactions are supported?.
  
- Identifies a restful operation supported by the solution.
+ Identifies a restful interaction supported by the solution.
  */
 open class CapabilityStatementRestResourceInteraction: BackboneElement {
 	
-	/// Coded identifier of the operation, supported by the system resource.
+	/// Coded identifier of the interaction, supported by the system resource.
 	/// Restricted to: ['read', 'vread', 'update', 'update-conditional', 'patch', 'patch-conditional', 'delete',
 	/// 'delete-conditional-single', 'delete-conditional-multiple', 'delete-history', 'delete-history-version',
 	/// 'history-instance', 'history-type', 'create', 'create-conditional', 'search-type']
 	public var code: FHIRPrimitive<FHIRRestfulInteractions>
 	
-	/// Anything special about operation behavior
+	/// Anything special about interaction behavior
 	public var documentation: FHIRPrimitive<FHIRString>?
 	
 	/// Designated initializer taking all required properties

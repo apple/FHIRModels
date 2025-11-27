@@ -2,8 +2,8 @@
 //  Library.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Library)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Library)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import FMCore
 /**
  Represents a library of quality improvement components.
  
- The Library resource is a general-purpose container for knowledge asset definitions. It can be used to describe and
- expose existing knowledge assets such as logic libraries and information model descriptions, as well as to describe a
- collection of knowledge assets.
+ The Library resource is a general-purpose container for knowledge artifact definitions. It can be used to describe and
+ expose existing knowledge artifacts such as logic libraries and information model descriptions, as well as to describe
+ a collection of knowledge artifacts.
  */
 open class Library: DomainResource {
 	
@@ -67,10 +67,10 @@ open class Library: DomainResource {
 	/// The status of this library. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
-	/// logic-library | model-definition | asset-collection | module-definition
+	/// logic-library | model-definition | asset-collection | module-definition | etc.
 	public var type: CodeableConcept
 	
 	/// Type of individual the library content is focused on
@@ -92,7 +92,7 @@ open class Library: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for library (if applicable)
+	/// Jurisdiction of the authority that maintains the library (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this library is defined
@@ -101,7 +101,7 @@ open class Library: DomainResource {
 	/// Describes the clinical usage of the library
 	public var usage: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)

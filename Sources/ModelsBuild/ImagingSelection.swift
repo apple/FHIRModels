@@ -2,8 +2,8 @@
 //  ImagingSelection.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ImagingSelection)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ImagingSelection)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,43 +20,45 @@
 import FMCore
 
 /**
- A selection of DICOM SOP instances and/or frames.
+ A selection of DICOM SOP instances.
  
- A selection of DICOM SOP instances and/or frames within a single Study and Series. This might include additional
- specifics such as an image region, an Observation UID or a Segmentation Number, allowing linkage to an Observation
- Resource or transferring this information along with the ImagingStudy Resource.
+ A selection of DICOM SOP instances within a single Study and Series. This might include additional specifics such as a
+ set of frames or an image region, allowing linkage to an Observation Resource.
  */
 open class ImagingSelection: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .imagingSelection }
 	
-	/// Business Identifier for Imaging Selection
+	/// Business identifier for imaging selection
 	public var identifier: [Identifier]?
 	
-	/// The current state of the ImagingSelection resource. This is not the status of any ImagingStudy, ServiceRequest,
-	/// or Task resources associated with the ImagingSelection.
+	/// The current state of the imaging selection. This is distinct from the status of any imaging study, service
+	/// request, or task associated with the imaging selection.
 	public var status: FHIRPrimitive<ImagingSelectionStatus>
 	
 	/// Classifies the imaging selection
 	public var category: [CodeableConcept]?
 	
+	/// The distinct modality
+	public var modality: CodeableConcept?
+	
 	/// Imaging Selection purpose text or code
 	public var code: CodeableConcept
 	
-	/// Subject of the selected instances
+	/// Who or what is the subject of the imaging selection
 	public var subject: Reference?
 	
-	/// Date / Time when this imaging selection was created
+	/// When the imaging selection was created
 	public var issued: FHIRPrimitive<Instant>?
 	
-	/// Selectors of the instances (human or machine)
+	/// Who performed imaging selection and what they did
 	public var performer: [ImagingSelectionPerformer]?
 	
-	/// Associated requests
+	/// Fulfills plan or order
 	public var basedOn: [Reference]?
 	
 	/// The imaging study from which the imaging selection is derived
-	public var derivedFrom: [Reference]?
+	public var derivedFrom: Reference?
 	
 	/// DICOM Study Instance UID
 	public var studyUid: FHIRPrimitive<FHIRString>?
@@ -64,25 +66,25 @@ open class ImagingSelection: DomainResource {
 	/// DICOM Series Instance UID
 	public var seriesUid: FHIRPrimitive<FHIRString>?
 	
-	/// DICOM Series Number
+	/// Numeric identifier of the selected series
 	public var seriesNumber: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// The Frame of Reference UID for the selected images
 	public var frameOfReferenceUid: FHIRPrimitive<FHIRString>?
 	
-	/// Body part examined
+	/// Selected anatomic structure
 	public var bodySite: [CodeableReference]?
 	
 	/// Related resources that are the focus for the imaging selection
 	public var focus: [Reference]?
 	
-	/// The network services providing retrieval for the images referenced in the imaging selection
+	/// The network services providing access for the subset of the study
 	public var endpoint: [Reference]?
 	
 	/// The selected instances
 	public var instance: [ImagingSelectionInstance]?
 	
-	/// A specific 3D region in a DICOM frame of reference
+	/// A 3D region in a DICOM frame of reference
 	public var imageRegion3D: [ImagingSelectionImageRegion3D]?
 	
 	/// Designated initializer taking all required properties
@@ -99,7 +101,7 @@ open class ImagingSelection: DomainResource {
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept,
 		contained: [ResourceProxy]? = nil,
-		derivedFrom: [Reference]? = nil,
+		derivedFrom: Reference? = nil,
 		endpoint: [Reference]? = nil,
 		`extension`: [Extension]? = nil,
 		focus: [Reference]? = nil,
@@ -112,6 +114,7 @@ open class ImagingSelection: DomainResource {
 		issued: FHIRPrimitive<Instant>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
+		modality: CodeableConcept? = nil,
 		modifierExtension: [Extension]? = nil,
 		performer: [ImagingSelectionPerformer]? = nil,
 		seriesNumber: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
@@ -139,6 +142,7 @@ open class ImagingSelection: DomainResource {
 		self.issued = issued
 		self.language = language
 		self.meta = meta
+		self.modality = modality
 		self.modifierExtension = modifierExtension
 		self.performer = performer
 		self.seriesNumber = seriesNumber
@@ -163,6 +167,7 @@ open class ImagingSelection: DomainResource {
 		case imageRegion3D
 		case instance
 		case issued; case _issued
+		case modality
 		case performer
 		case seriesNumber; case _seriesNumber
 		case seriesUid; case _seriesUid
@@ -180,7 +185,7 @@ open class ImagingSelection: DomainResource {
 		self.bodySite = try [CodeableReference](from: _container, forKeyIfPresent: .bodySite)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
-		self.derivedFrom = try [Reference](from: _container, forKeyIfPresent: .derivedFrom)
+		self.derivedFrom = try Reference(from: _container, forKeyIfPresent: .derivedFrom)
 		self.endpoint = try [Reference](from: _container, forKeyIfPresent: .endpoint)
 		self.focus = try [Reference](from: _container, forKeyIfPresent: .focus)
 		self.frameOfReferenceUid = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .frameOfReferenceUid, auxiliaryKey: ._frameOfReferenceUid)
@@ -188,6 +193,7 @@ open class ImagingSelection: DomainResource {
 		self.imageRegion3D = try [ImagingSelectionImageRegion3D](from: _container, forKeyIfPresent: .imageRegion3D)
 		self.instance = try [ImagingSelectionInstance](from: _container, forKeyIfPresent: .instance)
 		self.issued = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .issued, auxiliaryKey: ._issued)
+		self.modality = try CodeableConcept(from: _container, forKeyIfPresent: .modality)
 		self.performer = try [ImagingSelectionPerformer](from: _container, forKeyIfPresent: .performer)
 		self.seriesNumber = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .seriesNumber, auxiliaryKey: ._seriesNumber)
 		self.seriesUid = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .seriesUid, auxiliaryKey: ._seriesUid)
@@ -214,6 +220,7 @@ open class ImagingSelection: DomainResource {
 		try imageRegion3D?.encode(on: &_container, forKey: .imageRegion3D)
 		try instance?.encode(on: &_container, forKey: .instance)
 		try issued?.encode(on: &_container, forKey: .issued, auxiliaryKey: ._issued)
+		try modality?.encode(on: &_container, forKey: .modality)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try seriesNumber?.encode(on: &_container, forKey: .seriesNumber, auxiliaryKey: ._seriesNumber)
 		try seriesUid?.encode(on: &_container, forKey: .seriesUid, auxiliaryKey: ._seriesUid)
@@ -244,6 +251,7 @@ open class ImagingSelection: DomainResource {
 		    && imageRegion3D == _other.imageRegion3D
 		    && instance == _other.instance
 		    && issued == _other.issued
+		    && modality == _other.modality
 		    && performer == _other.performer
 		    && seriesNumber == _other.seriesNumber
 		    && seriesUid == _other.seriesUid
@@ -266,6 +274,7 @@ open class ImagingSelection: DomainResource {
 		hasher.combine(imageRegion3D)
 		hasher.combine(instance)
 		hasher.combine(issued)
+		hasher.combine(modality)
 		hasher.combine(performer)
 		hasher.combine(seriesNumber)
 		hasher.combine(seriesUid)
@@ -276,9 +285,9 @@ open class ImagingSelection: DomainResource {
 }
 
 /**
- A specific 3D region in a DICOM frame of reference.
+ A 3D region in a DICOM frame of reference.
  
- Each imaging selection might includes a 3D image region, specified by a region type and a set of 3D coordinates.
+ Specifies a 3D image region, defined by a region type and a set of 3D coordinates.
  */
 open class ImagingSelectionImageRegion3D: BackboneElement {
 	
@@ -366,16 +375,28 @@ open class ImagingSelectionInstance: BackboneElement {
 	/// DICOM SOP Instance UID
 	public var uid: FHIRPrimitive<FHIRString>
 	
-	/// DICOM Instance Number
+	/// The number of this instance in the series
 	public var number: FHIRPrimitive<FHIRUnsignedInteger>?
 	
-	/// DICOM SOP Class UID
+	/// DICOM class type
 	public var sopClass: FHIRPrimitive<FHIRURI>?
 	
-	/// The selected subset of the SOP Instance
-	public var subset: [FHIRPrimitive<FHIRString>]?
+	/// Selected frames
+	public var frameNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
 	
-	/// A specific 2D region in a DICOM image / frame
+	/// Selected content items
+	public var referencedContentItemIdentifier: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Selected segments
+	public var segmentNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Selected regions of interest
+	public var regionOfInterest: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// Selected waveform channel
+	public var waveFormChannel: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
+	/// A 2D region in an image
 	public var imageRegion2D: [ImagingSelectionInstanceImageRegion2D]?
 	
 	/// Designated initializer taking all required properties
@@ -387,32 +408,44 @@ open class ImagingSelectionInstance: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
+		frameNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		imageRegion2D: [ImagingSelectionInstanceImageRegion2D]? = nil,
 		modifierExtension: [Extension]? = nil,
 		number: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
+		referencedContentItemIdentifier: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		regionOfInterest: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
+		segmentNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
 		sopClass: FHIRPrimitive<FHIRURI>? = nil,
-		subset: [FHIRPrimitive<FHIRString>]? = nil,
-		uid: FHIRPrimitive<FHIRString>
+		uid: FHIRPrimitive<FHIRString>,
+		waveFormChannel: [FHIRPrimitive<FHIRPositiveInteger>]? = nil
 	) {
 		self.init(uid: uid)
 		self.`extension` = `extension`
+		self.frameNumber = frameNumber
 		self.id = id
 		self.imageRegion2D = imageRegion2D
 		self.modifierExtension = modifierExtension
 		self.number = number
+		self.referencedContentItemIdentifier = referencedContentItemIdentifier
+		self.regionOfInterest = regionOfInterest
+		self.segmentNumber = segmentNumber
 		self.sopClass = sopClass
-		self.subset = subset
+		self.waveFormChannel = waveFormChannel
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case frameNumber; case _frameNumber
 		case imageRegion2D
 		case number; case _number
+		case referencedContentItemIdentifier; case _referencedContentItemIdentifier
+		case regionOfInterest; case _regionOfInterest
+		case segmentNumber; case _segmentNumber
 		case sopClass; case _sopClass
-		case subset; case _subset
 		case uid; case _uid
+		case waveFormChannel; case _waveFormChannel
 	}
 	
 	/// Initializer for Decodable
@@ -420,11 +453,15 @@ open class ImagingSelectionInstance: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.frameNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .frameNumber, auxiliaryKey: ._frameNumber)
 		self.imageRegion2D = try [ImagingSelectionInstanceImageRegion2D](from: _container, forKeyIfPresent: .imageRegion2D)
 		self.number = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
+		self.referencedContentItemIdentifier = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .referencedContentItemIdentifier, auxiliaryKey: ._referencedContentItemIdentifier)
+		self.regionOfInterest = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .regionOfInterest, auxiliaryKey: ._regionOfInterest)
+		self.segmentNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .segmentNumber, auxiliaryKey: ._segmentNumber)
 		self.sopClass = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .sopClass, auxiliaryKey: ._sopClass)
-		self.subset = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .subset, auxiliaryKey: ._subset)
 		self.uid = try FHIRPrimitive<FHIRString>(from: _container, forKey: .uid, auxiliaryKey: ._uid)
+		self.waveFormChannel = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .waveFormChannel, auxiliaryKey: ._waveFormChannel)
 		try super.init(from: decoder)
 	}
 	
@@ -433,11 +470,15 @@ open class ImagingSelectionInstance: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try frameNumber?.encode(on: &_container, forKey: .frameNumber, auxiliaryKey: ._frameNumber)
 		try imageRegion2D?.encode(on: &_container, forKey: .imageRegion2D)
 		try number?.encode(on: &_container, forKey: .number, auxiliaryKey: ._number)
+		try referencedContentItemIdentifier?.encode(on: &_container, forKey: .referencedContentItemIdentifier, auxiliaryKey: ._referencedContentItemIdentifier)
+		try regionOfInterest?.encode(on: &_container, forKey: .regionOfInterest, auxiliaryKey: ._regionOfInterest)
+		try segmentNumber?.encode(on: &_container, forKey: .segmentNumber, auxiliaryKey: ._segmentNumber)
 		try sopClass?.encode(on: &_container, forKey: .sopClass, auxiliaryKey: ._sopClass)
-		try subset?.encode(on: &_container, forKey: .subset, auxiliaryKey: ._subset)
 		try uid.encode(on: &_container, forKey: .uid, auxiliaryKey: ._uid)
+		try waveFormChannel?.encode(on: &_container, forKey: .waveFormChannel, auxiliaryKey: ._waveFormChannel)
 		try super.encode(to: encoder)
 	}
 	
@@ -450,37 +491,42 @@ open class ImagingSelectionInstance: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return imageRegion2D == _other.imageRegion2D
+		return frameNumber == _other.frameNumber
+		    && imageRegion2D == _other.imageRegion2D
 		    && number == _other.number
+		    && referencedContentItemIdentifier == _other.referencedContentItemIdentifier
+		    && regionOfInterest == _other.regionOfInterest
+		    && segmentNumber == _other.segmentNumber
 		    && sopClass == _other.sopClass
-		    && subset == _other.subset
 		    && uid == _other.uid
+		    && waveFormChannel == _other.waveFormChannel
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(frameNumber)
 		hasher.combine(imageRegion2D)
 		hasher.combine(number)
+		hasher.combine(referencedContentItemIdentifier)
+		hasher.combine(regionOfInterest)
+		hasher.combine(segmentNumber)
 		hasher.combine(sopClass)
-		hasher.combine(subset)
 		hasher.combine(uid)
+		hasher.combine(waveFormChannel)
 	}
 }
 
 /**
- A specific 2D region in a DICOM image / frame.
+ A 2D region in an image.
  
- Each imaging selection instance or frame list might includes an image region, specified by a region type and a set of
- 2D coordinates.
- If the parent imagingSelection.instance contains a subset element of type frame, the image region applies to all frames
- in the subset list.
+ Specifies an image region, defined by a region type and a set of 2D coordinates in pixel space.
  */
 open class ImagingSelectionInstanceImageRegion2D: BackboneElement {
 	
-	/// Specifies the type of image region.
+	/// The type of image region.
 	public var regionType: FHIRPrimitive<ImagingSelection2DGraphicType>
 	
-	/// Specifies the coordinates that define the image region
+	/// The coordinates that define the image region
 	public var coordinate: [FHIRPrimitive<FHIRDecimal>]
 	
 	/// Designated initializer taking all required properties
@@ -552,33 +598,33 @@ open class ImagingSelectionInstanceImageRegion2D: BackboneElement {
 }
 
 /**
- Selectors of the instances (human or machine).
+ Who performed imaging selection and what they did.
  
- Selectors of the instances – human or machine.
+ Indicates who or what performed the imaging selection and how they were involved.
  */
 open class ImagingSelectionPerformer: BackboneElement {
 	
-	/// Type of performer
+	/// Type of performance
 	public var function: CodeableConcept?
 	
-	/// Author (human or machine)
-	public var actor: Reference?
+	/// Who performed the imaging selection
+	public var actor: Reference
 	
 	/// Designated initializer taking all required properties
-	override public init() {
+	public init(actor: Reference) {
+		self.actor = actor
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
-		actor: Reference? = nil,
+		actor: Reference,
 		`extension`: [Extension]? = nil,
 		function: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil
 	) {
-		self.init()
-		self.actor = actor
+		self.init(actor: actor)
 		self.`extension` = `extension`
 		self.function = function
 		self.id = id
@@ -597,7 +643,7 @@ open class ImagingSelectionPerformer: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actor = try Reference(from: _container, forKeyIfPresent: .actor)
+		self.actor = try Reference(from: _container, forKey: .actor)
 		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
 		try super.init(from: decoder)
 	}
@@ -607,7 +653,7 @@ open class ImagingSelectionPerformer: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try actor?.encode(on: &_container, forKey: .actor)
+		try actor.encode(on: &_container, forKey: .actor)
 		try function?.encode(on: &_container, forKey: .function)
 		try super.encode(to: encoder)
 	}

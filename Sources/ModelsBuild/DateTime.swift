@@ -35,7 +35,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#datetime
  */
-public struct DateTime: FHIRPrimitiveType, Sendable {
+public struct DateTime: FHIRPrimitiveType {
 	
 	private var _timeZoneIsUnaltered = true
 	

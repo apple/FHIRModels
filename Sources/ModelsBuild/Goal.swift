@@ -2,8 +2,8 @@
 //  Goal.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Goal)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Goal)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,11 @@
 import FMCore
 
 /**
- Describes the intended objective(s) for a patient, group or organization.
+ Describes the intended objective(s) for a patient, group, or organizational care.
  
- Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an
- activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.
+ Describes the intended objective(s) for a patient, group, or organizational care. Examples include a patient's weight
+ loss, restoration of an activity of daily living for a patient, obtaining herd immunity via immunization for a group,
+ meeting a process improvement objective for an organization, etc.
  */
 open class Goal: DomainResource {
 	
@@ -76,6 +77,9 @@ open class Goal: DomainResource {
 	/// Reason for current lifecycle status
 	public var statusReason: [CodeableConcept]?
 	
+	/// Who recorded the goal
+	public var recorder: Reference?
+	
 	/// Who's responsible for creating Goal?
 	public var source: Reference?
 	
@@ -84,9 +88,6 @@ open class Goal: DomainResource {
 	
 	/// Comments about the goal
 	public var note: [Annotation]?
-	
-	/// What result was achieved regarding the goal?
-	public var outcome: [CodeableReference]?
 	
 	/// Designated initializer taking all required properties
 	public init(description_fhir: CodeableConcept, lifecycleStatus: FHIRPrimitive<GoalLifecycleStatus>, subject: Reference) {
@@ -114,8 +115,8 @@ open class Goal: DomainResource {
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
-		outcome: [CodeableReference]? = nil,
 		priority: CodeableConcept? = nil,
+		recorder: Reference? = nil,
 		source: Reference? = nil,
 		start: StartX? = nil,
 		statusDate: FHIRPrimitive<FHIRDate>? = nil,
@@ -139,8 +140,8 @@ open class Goal: DomainResource {
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
-		self.outcome = outcome
 		self.priority = priority
+		self.recorder = recorder
 		self.source = source
 		self.start = start
 		self.statusDate = statusDate
@@ -161,8 +162,8 @@ open class Goal: DomainResource {
 		case identifier
 		case lifecycleStatus; case _lifecycleStatus
 		case note
-		case outcome
 		case priority
+		case recorder
 		case source
 		case startCodeableConcept
 		case startDate; case _startDate
@@ -186,8 +187,8 @@ open class Goal: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lifecycleStatus = try FHIRPrimitive<GoalLifecycleStatus>(from: _container, forKey: .lifecycleStatus, auxiliaryKey: ._lifecycleStatus)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.outcome = try [CodeableReference](from: _container, forKeyIfPresent: .outcome)
 		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
+		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
 		self.source = try Reference(from: _container, forKeyIfPresent: .source)
 		var _t_start: StartX? = nil
 		if let startDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .startDate, auxiliaryKey: ._startDate) {
@@ -224,8 +225,8 @@ open class Goal: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lifecycleStatus.encode(on: &_container, forKey: .lifecycleStatus, auxiliaryKey: ._lifecycleStatus)
 		try note?.encode(on: &_container, forKey: .note)
-		try outcome?.encode(on: &_container, forKey: .outcome)
 		try priority?.encode(on: &_container, forKey: .priority)
+		try recorder?.encode(on: &_container, forKey: .recorder)
 		try source?.encode(on: &_container, forKey: .source)
 		if let _enum = start {
 			switch _enum {
@@ -260,8 +261,8 @@ open class Goal: DomainResource {
 		    && identifier == _other.identifier
 		    && lifecycleStatus == _other.lifecycleStatus
 		    && note == _other.note
-		    && outcome == _other.outcome
 		    && priority == _other.priority
+		    && recorder == _other.recorder
 		    && source == _other.source
 		    && start == _other.start
 		    && statusDate == _other.statusDate
@@ -281,8 +282,8 @@ open class Goal: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(lifecycleStatus)
 		hasher.combine(note)
-		hasher.combine(outcome)
 		hasher.combine(priority)
+		hasher.combine(recorder)
 		hasher.combine(source)
 		hasher.combine(start)
 		hasher.combine(statusDate)
@@ -300,8 +301,8 @@ open class Goal: DomainResource {
  */
 open class GoalAcceptance: BackboneElement {
 	
-	/// Individual whose acceptance is reflected
-	public var individual: Reference
+	/// Individual or organization whose acceptance is reflected
+	public var participant: Reference
 	
 	/// Indicates whether the specified individual has accepted the goal or not.
 	public var status: FHIRPrimitive<GoalAcceptStatus>?
@@ -310,8 +311,8 @@ open class GoalAcceptance: BackboneElement {
 	public var priority: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
-	public init(individual: Reference) {
-		self.individual = individual
+	public init(participant: Reference) {
+		self.participant = participant
 		super.init()
 	}
 	
@@ -319,12 +320,12 @@ open class GoalAcceptance: BackboneElement {
 	public convenience init(
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		individual: Reference,
 		modifierExtension: [Extension]? = nil,
+		participant: Reference,
 		priority: CodeableConcept? = nil,
 		status: FHIRPrimitive<GoalAcceptStatus>? = nil
 	) {
-		self.init(individual: individual)
+		self.init(participant: participant)
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
@@ -335,7 +336,7 @@ open class GoalAcceptance: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case individual
+		case participant
 		case priority
 		case status; case _status
 	}
@@ -345,7 +346,7 @@ open class GoalAcceptance: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.individual = try Reference(from: _container, forKey: .individual)
+		self.participant = try Reference(from: _container, forKey: .participant)
 		self.priority = try CodeableConcept(from: _container, forKeyIfPresent: .priority)
 		self.status = try FHIRPrimitive<GoalAcceptStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		try super.init(from: decoder)
@@ -356,7 +357,7 @@ open class GoalAcceptance: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try individual.encode(on: &_container, forKey: .individual)
+		try participant.encode(on: &_container, forKey: .participant)
 		try priority?.encode(on: &_container, forKey: .priority)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try super.encode(to: encoder)
@@ -371,14 +372,14 @@ open class GoalAcceptance: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return individual == _other.individual
+		return participant == _other.participant
 		    && priority == _other.priority
 		    && status == _other.status
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(individual)
+		hasher.combine(participant)
 		hasher.combine(priority)
 		hasher.combine(status)
 	}

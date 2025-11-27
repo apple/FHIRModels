@@ -2,8 +2,8 @@
 //  Timing.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Timing)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Timing)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -162,6 +162,12 @@ open class TimingRepeat: Element {
 	/// s | min | h | d | wk | mo | a - unit of time (UCUM)
 	public var periodUnit: FHIRPrimitive<FHIRString>?
 	
+	/// Events within the repeat period do not start until startOffset has elapsed
+	public var startOffset: Quantity?
+	
+	/// Events within the repeat period step once endOffset before the end of the period
+	public var endOffset: Quantity?
+	
 	/// If one or more days of week is provided, then the action happens only on the specified day(s).
 	public var dayOfWeek: [FHIRPrimitive<DaysOfWeek>]?
 	
@@ -188,6 +194,7 @@ open class TimingRepeat: Element {
 		duration: FHIRPrimitive<FHIRDecimal>? = nil,
 		durationMax: FHIRPrimitive<FHIRDecimal>? = nil,
 		durationUnit: FHIRPrimitive<FHIRString>? = nil,
+		endOffset: Quantity? = nil,
 		`extension`: [Extension]? = nil,
 		frequency: FHIRPrimitive<FHIRPositiveInteger>? = nil,
 		frequencyMax: FHIRPrimitive<FHIRPositiveInteger>? = nil,
@@ -196,6 +203,7 @@ open class TimingRepeat: Element {
 		period: FHIRPrimitive<FHIRDecimal>? = nil,
 		periodMax: FHIRPrimitive<FHIRDecimal>? = nil,
 		periodUnit: FHIRPrimitive<FHIRString>? = nil,
+		startOffset: Quantity? = nil,
 		timeOfDay: [FHIRPrimitive<FHIRTime>]? = nil,
 		when: [FHIRPrimitive<FHIRString>]? = nil
 	) {
@@ -207,6 +215,7 @@ open class TimingRepeat: Element {
 		self.duration = duration
 		self.durationMax = durationMax
 		self.durationUnit = durationUnit
+		self.endOffset = endOffset
 		self.`extension` = `extension`
 		self.frequency = frequency
 		self.frequencyMax = frequencyMax
@@ -215,6 +224,7 @@ open class TimingRepeat: Element {
 		self.period = period
 		self.periodMax = periodMax
 		self.periodUnit = periodUnit
+		self.startOffset = startOffset
 		self.timeOfDay = timeOfDay
 		self.when = when
 	}
@@ -231,12 +241,14 @@ open class TimingRepeat: Element {
 		case duration; case _duration
 		case durationMax; case _durationMax
 		case durationUnit; case _durationUnit
+		case endOffset
 		case frequency; case _frequency
 		case frequencyMax; case _frequencyMax
 		case offset; case _offset
 		case period; case _period
 		case periodMax; case _periodMax
 		case periodUnit; case _periodUnit
+		case startOffset
 		case timeOfDay; case _timeOfDay
 		case when; case _when
 	}
@@ -272,12 +284,14 @@ open class TimingRepeat: Element {
 		self.duration = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .duration, auxiliaryKey: ._duration)
 		self.durationMax = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .durationMax, auxiliaryKey: ._durationMax)
 		self.durationUnit = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .durationUnit, auxiliaryKey: ._durationUnit)
+		self.endOffset = try Quantity(from: _container, forKeyIfPresent: .endOffset)
 		self.frequency = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .frequency, auxiliaryKey: ._frequency)
 		self.frequencyMax = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .frequencyMax, auxiliaryKey: ._frequencyMax)
 		self.offset = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .offset, auxiliaryKey: ._offset)
 		self.period = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .period, auxiliaryKey: ._period)
 		self.periodMax = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .periodMax, auxiliaryKey: ._periodMax)
 		self.periodUnit = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .periodUnit, auxiliaryKey: ._periodUnit)
+		self.startOffset = try Quantity(from: _container, forKeyIfPresent: .startOffset)
 		self.timeOfDay = try [FHIRPrimitive<FHIRTime>](from: _container, forKeyIfPresent: .timeOfDay, auxiliaryKey: ._timeOfDay)
 		self.when = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .when, auxiliaryKey: ._when)
 		try super.init(from: decoder)
@@ -304,12 +318,14 @@ open class TimingRepeat: Element {
 		try duration?.encode(on: &_container, forKey: .duration, auxiliaryKey: ._duration)
 		try durationMax?.encode(on: &_container, forKey: .durationMax, auxiliaryKey: ._durationMax)
 		try durationUnit?.encode(on: &_container, forKey: .durationUnit, auxiliaryKey: ._durationUnit)
+		try endOffset?.encode(on: &_container, forKey: .endOffset)
 		try frequency?.encode(on: &_container, forKey: .frequency, auxiliaryKey: ._frequency)
 		try frequencyMax?.encode(on: &_container, forKey: .frequencyMax, auxiliaryKey: ._frequencyMax)
 		try offset?.encode(on: &_container, forKey: .offset, auxiliaryKey: ._offset)
 		try period?.encode(on: &_container, forKey: .period, auxiliaryKey: ._period)
 		try periodMax?.encode(on: &_container, forKey: .periodMax, auxiliaryKey: ._periodMax)
 		try periodUnit?.encode(on: &_container, forKey: .periodUnit, auxiliaryKey: ._periodUnit)
+		try startOffset?.encode(on: &_container, forKey: .startOffset)
 		try timeOfDay?.encode(on: &_container, forKey: .timeOfDay, auxiliaryKey: ._timeOfDay)
 		try when?.encode(on: &_container, forKey: .when, auxiliaryKey: ._when)
 		try super.encode(to: encoder)
@@ -331,12 +347,14 @@ open class TimingRepeat: Element {
 		    && duration == _other.duration
 		    && durationMax == _other.durationMax
 		    && durationUnit == _other.durationUnit
+		    && endOffset == _other.endOffset
 		    && frequency == _other.frequency
 		    && frequencyMax == _other.frequencyMax
 		    && offset == _other.offset
 		    && period == _other.period
 		    && periodMax == _other.periodMax
 		    && periodUnit == _other.periodUnit
+		    && startOffset == _other.startOffset
 		    && timeOfDay == _other.timeOfDay
 		    && when == _other.when
 	}
@@ -350,12 +368,14 @@ open class TimingRepeat: Element {
 		hasher.combine(duration)
 		hasher.combine(durationMax)
 		hasher.combine(durationUnit)
+		hasher.combine(endOffset)
 		hasher.combine(frequency)
 		hasher.combine(frequencyMax)
 		hasher.combine(offset)
 		hasher.combine(period)
 		hasher.combine(periodMax)
 		hasher.combine(periodUnit)
+		hasher.combine(startOffset)
 		hasher.combine(timeOfDay)
 		hasher.combine(when)
 	}

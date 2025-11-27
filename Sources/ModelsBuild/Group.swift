@@ -2,8 +2,8 @@
 //  Group.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Group)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Group)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,9 +22,17 @@ import FMCore
 /**
  Group of multiple entities.
  
- Represents a defined collection of entities that may be discussed or acted upon collectively but which are not expected
- to act collectively, and are not formally or legally recognized; i.e. a collection of entities that isn't an
- Organization.
+ Represents a defined collection of entities that may be discussed or acted upon collectively but which are not
+ typically expected to act collectively.  These collections are also not typically formally or legally recognized.
+ 
+ NOTE: Group may be used to define families or households, which in some circumstances may act collectively or have a
+ degree of legal or formal recognition.  This should be considered an exception.  When Group is used for types of
+ entities other than Patient or RelatedPerson, the expectation remains that the Group will not act collectively or have
+ formal recognition - use Organization if these behaviors are needed.
+ 
+ For example, it is possible for a 'family' Group to be a performer of an Observation or owner of a Task.  However, this
+ is not permitted for a Group made up of Practitioners, PractitionerRoles or Organizations.  Organization or CareTeam
+ would need to be used instead.  A Group of Practitioners could, however, be a subject of an Observation.
  */
 open class Group: DomainResource {
 	
@@ -58,7 +66,7 @@ open class Group: DomainResource {
 	/// The current state of this Group.
 	public var status: FHIRPrimitive<PublicationStatus>?
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -79,7 +87,7 @@ open class Group: DomainResource {
 	/// Why this Group is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -389,12 +397,6 @@ open class Group: DomainResource {
  */
 open class GroupCharacteristic: BackboneElement {
 	
-	/// All possible types for "determinedBy[x]"
-	public enum DeterminedByX: Hashable {
-		case expression(Expression)
-		case reference(Reference)
-	}
-	
 	/// All possible types for "duration[x]"
 	public enum DurationX: Hashable {
 		case duration(Duration)
@@ -403,8 +405,8 @@ open class GroupCharacteristic: BackboneElement {
 	
 	/// All possible types for "instances[x]"
 	public enum InstancesX: Hashable {
-		case quantity(Quantity)
 		case range(Range)
+		case unsignedInt(FHIRPrimitive<FHIRUnsignedInteger>)
 	}
 	
 	/// All possible types for "value[x]"
@@ -434,9 +436,11 @@ open class GroupCharacteristic: BackboneElement {
 	/// Method for how the characteristic value was determined
 	public var method: [CodeableConcept]?
 	
-	/// Defines the characteristic
-	/// One of `determinedBy[x]`
-	public var determinedBy: DeterminedByX?
+	/// Formal algorithm to derive the value
+	public var formula: Expression?
+	
+	/// Who determines the value
+	public var determiner: Reference?
 	
 	/// Reference point for comparison
 	public var offset: CodeableConcept?
@@ -467,10 +471,11 @@ open class GroupCharacteristic: BackboneElement {
 	public convenience init(
 		code: CodeableConcept,
 		description_fhir: FHIRPrimitive<FHIRString>? = nil,
-		determinedBy: DeterminedByX? = nil,
+		determiner: Reference? = nil,
 		duration: DurationX? = nil,
 		exclude: FHIRPrimitive<FHIRBool>,
 		`extension`: [Extension]? = nil,
+		formula: Expression? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		instances: InstancesX? = nil,
 		method: [CodeableConcept]? = nil,
@@ -482,9 +487,10 @@ open class GroupCharacteristic: BackboneElement {
 	) {
 		self.init(code: code, exclude: exclude, value: value)
 		self.description_fhir = description_fhir
-		self.determinedBy = determinedBy
+		self.determiner = determiner
 		self.duration = duration
 		self.`extension` = `extension`
+		self.formula = formula
 		self.id = id
 		self.instances = instances
 		self.method = method
@@ -499,13 +505,13 @@ open class GroupCharacteristic: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case description_fhir = "description"; case _description_fhir = "_description"
-		case determinedByExpression
-		case determinedByReference
+		case determiner
 		case durationDuration
 		case durationRange
 		case exclude; case _exclude
-		case instancesQuantity
+		case formula
 		case instancesRange
+		case instancesUnsignedInt; case _instancesUnsignedInt
 		case method
 		case offset
 		case period
@@ -531,20 +537,7 @@ open class GroupCharacteristic: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKey: .code)
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
-		var _t_determinedBy: DeterminedByX? = nil
-		if let determinedByReference = try Reference(from: _container, forKeyIfPresent: .determinedByReference) {
-			if _t_determinedBy != nil {
-				throw DecodingError.dataCorruptedError(forKey: .determinedByReference, in: _container, debugDescription: "More than one value provided for \"determinedBy\"")
-			}
-			_t_determinedBy = .reference(determinedByReference)
-		}
-		if let determinedByExpression = try Expression(from: _container, forKeyIfPresent: .determinedByExpression) {
-			if _t_determinedBy != nil {
-				throw DecodingError.dataCorruptedError(forKey: .determinedByExpression, in: _container, debugDescription: "More than one value provided for \"determinedBy\"")
-			}
-			_t_determinedBy = .expression(determinedByExpression)
-		}
-		self.determinedBy = _t_determinedBy
+		self.determiner = try Reference(from: _container, forKeyIfPresent: .determiner)
 		var _t_duration: DurationX? = nil
 		if let durationDuration = try Duration(from: _container, forKeyIfPresent: .durationDuration) {
 			if _t_duration != nil {
@@ -560,12 +553,13 @@ open class GroupCharacteristic: BackboneElement {
 		}
 		self.duration = _t_duration
 		self.exclude = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .exclude, auxiliaryKey: ._exclude)
+		self.formula = try Expression(from: _container, forKeyIfPresent: .formula)
 		var _t_instances: InstancesX? = nil
-		if let instancesQuantity = try Quantity(from: _container, forKeyIfPresent: .instancesQuantity) {
+		if let instancesUnsignedInt = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .instancesUnsignedInt, auxiliaryKey: ._instancesUnsignedInt) {
 			if _t_instances != nil {
-				throw DecodingError.dataCorruptedError(forKey: .instancesQuantity, in: _container, debugDescription: "More than one value provided for \"instances\"")
+				throw DecodingError.dataCorruptedError(forKey: .instancesUnsignedInt, in: _container, debugDescription: "More than one value provided for \"instances\"")
 			}
-			_t_instances = .quantity(instancesQuantity)
+			_t_instances = .unsignedInt(instancesUnsignedInt)
 		}
 		if let instancesRange = try Range(from: _container, forKeyIfPresent: .instancesRange) {
 			if _t_instances != nil {
@@ -632,14 +626,7 @@ open class GroupCharacteristic: BackboneElement {
 		// Encode all our properties
 		try code.encode(on: &_container, forKey: .code)
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
-		if let _enum = determinedBy {
-			switch _enum {
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .determinedByReference)
-			case .expression(let _value):
-				try _value.encode(on: &_container, forKey: .determinedByExpression)
-			}
-		}
+		try determiner?.encode(on: &_container, forKey: .determiner)
 		if let _enum = duration {
 			switch _enum {
 			case .duration(let _value):
@@ -649,10 +636,11 @@ open class GroupCharacteristic: BackboneElement {
 			}
 		}
 		try exclude.encode(on: &_container, forKey: .exclude, auxiliaryKey: ._exclude)
+		try formula?.encode(on: &_container, forKey: .formula)
 		if let _enum = instances {
 			switch _enum {
-			case .quantity(let _value):
-				try _value.encode(on: &_container, forKey: .instancesQuantity)
+			case .unsignedInt(let _value):
+				try _value.encode(on: &_container, forKey: .instancesUnsignedInt, auxiliaryKey: ._instancesUnsignedInt)
 			case .range(let _value):
 				try _value.encode(on: &_container, forKey: .instancesRange)
 			}
@@ -693,9 +681,10 @@ open class GroupCharacteristic: BackboneElement {
 		}
 		return code == _other.code
 		    && description_fhir == _other.description_fhir
-		    && determinedBy == _other.determinedBy
+		    && determiner == _other.determiner
 		    && duration == _other.duration
 		    && exclude == _other.exclude
+		    && formula == _other.formula
 		    && instances == _other.instances
 		    && method == _other.method
 		    && offset == _other.offset
@@ -708,9 +697,10 @@ open class GroupCharacteristic: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(code)
 		hasher.combine(description_fhir)
-		hasher.combine(determinedBy)
+		hasher.combine(determiner)
 		hasher.combine(duration)
 		hasher.combine(exclude)
+		hasher.combine(formula)
 		hasher.combine(instances)
 		hasher.combine(method)
 		hasher.combine(offset)

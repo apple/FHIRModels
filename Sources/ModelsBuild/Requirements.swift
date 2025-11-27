@@ -2,8 +2,8 @@
 //  Requirements.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Requirements)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Requirements)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,7 +57,10 @@ open class Requirements: DomainResource {
 	/// The status of this Requirements. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// High level categorization of Requirements
+	public var category: [Coding]?
+	
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -75,13 +78,13 @@ open class Requirements: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for Requirements (if applicable)
+	/// Jurisdiction of the authority that maintains the Requirements (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this Requirements is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -90,13 +93,16 @@ open class Requirements: DomainResource {
 	/// Other set of Requirements this builds on
 	public var derivedFrom: [FHIRPrimitive<Canonical>]?
 	
+	/// External requirements that apply here
+	public var imports: [RequirementsImports]?
+	
 	/// External artifact (rule/document etc. that) created this set of requirements
 	public var reference: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Actor for these requirements
-	public var actor: [FHIRPrimitive<Canonical>]?
+	public var actor: [RequirementsActor]?
 	
-	/// Actual statement as markdown
+	/// Conformance requirement statement
 	public var statement: [RequirementsStatement]?
 	
 	/// Designated initializer taking all required properties
@@ -107,7 +113,8 @@ open class Requirements: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		actor: [FHIRPrimitive<Canonical>]? = nil,
+		actor: [RequirementsActor]? = nil,
+		category: [Coding]? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
@@ -120,6 +127,7 @@ open class Requirements: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
+		imports: [RequirementsImports]? = nil,
 		jurisdiction: [CodeableConcept]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
@@ -139,6 +147,7 @@ open class Requirements: DomainResource {
 	) {
 		self.init(status: status)
 		self.actor = actor
+		self.category = category
 		self.contact = contact
 		self.contained = contained
 		self.copyright = copyright
@@ -151,6 +160,7 @@ open class Requirements: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
+		self.imports = imports
 		self.jurisdiction = jurisdiction
 		self.language = language
 		self.meta = meta
@@ -171,7 +181,8 @@ open class Requirements: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case actor; case _actor
+		case actor
+		case category
 		case contact
 		case copyright; case _copyright
 		case copyrightLabel; case _copyrightLabel
@@ -180,6 +191,7 @@ open class Requirements: DomainResource {
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case experimental; case _experimental
 		case identifier
+		case imports
 		case jurisdiction
 		case name; case _name
 		case publisher; case _publisher
@@ -200,7 +212,8 @@ open class Requirements: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.actor = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .actor, auxiliaryKey: ._actor)
+		self.actor = try [RequirementsActor](from: _container, forKeyIfPresent: .actor)
+		self.category = try [Coding](from: _container, forKeyIfPresent: .category)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -209,6 +222,7 @@ open class Requirements: DomainResource {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.experimental = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .experimental, auxiliaryKey: ._experimental)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.imports = try [RequirementsImports](from: _container, forKeyIfPresent: .imports)
 		self.jurisdiction = try [CodeableConcept](from: _container, forKeyIfPresent: .jurisdiction)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
@@ -242,7 +256,8 @@ open class Requirements: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try actor?.encode(on: &_container, forKey: .actor, auxiliaryKey: ._actor)
+		try actor?.encode(on: &_container, forKey: .actor)
+		try category?.encode(on: &_container, forKey: .category)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -251,6 +266,7 @@ open class Requirements: DomainResource {
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try experimental?.encode(on: &_container, forKey: .experimental, auxiliaryKey: ._experimental)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try imports?.encode(on: &_container, forKey: .imports)
 		try jurisdiction?.encode(on: &_container, forKey: .jurisdiction)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
@@ -283,6 +299,7 @@ open class Requirements: DomainResource {
 			return false
 		}
 		return actor == _other.actor
+		    && category == _other.category
 		    && contact == _other.contact
 		    && copyright == _other.copyright
 		    && copyrightLabel == _other.copyrightLabel
@@ -291,6 +308,7 @@ open class Requirements: DomainResource {
 		    && description_fhir == _other.description_fhir
 		    && experimental == _other.experimental
 		    && identifier == _other.identifier
+		    && imports == _other.imports
 		    && jurisdiction == _other.jurisdiction
 		    && name == _other.name
 		    && publisher == _other.publisher
@@ -308,6 +326,7 @@ open class Requirements: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(actor)
+		hasher.combine(category)
 		hasher.combine(contact)
 		hasher.combine(copyright)
 		hasher.combine(copyrightLabel)
@@ -316,6 +335,7 @@ open class Requirements: DomainResource {
 		hasher.combine(description_fhir)
 		hasher.combine(experimental)
 		hasher.combine(identifier)
+		hasher.combine(imports)
 		hasher.combine(jurisdiction)
 		hasher.combine(name)
 		hasher.combine(publisher)
@@ -332,9 +352,171 @@ open class Requirements: DomainResource {
 }
 
 /**
- Actual statement as markdown.
+ Actor for these requirements.
  
- The actual statement of requirement, in markdown format.
+ An actor these requirements are in regard to.
+ */
+open class RequirementsActor: BackboneElement {
+	
+	/// Actor referenced
+	public var reference: FHIRPrimitive<Canonical>
+	
+	/// Unique label for actor (used in statements)
+	public var key: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	public init(reference: FHIRPrimitive<Canonical>) {
+		self.reference = reference
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: FHIRPrimitive<Canonical>
+	) {
+		self.init(reference: reference)
+		self.`extension` = `extension`
+		self.id = id
+		self.key = key
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case key; case _key
+		case reference; case _reference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .key, auxiliaryKey: ._key)
+		self.reference = try FHIRPrimitive<Canonical>(from: _container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try key?.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
+		try reference.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? RequirementsActor else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return key == _other.key
+		    && reference == _other.reference
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(key)
+		hasher.combine(reference)
+	}
+}
+
+/**
+ External requirements that apply here.
+ 
+ Points to requirements defined elsewhere that have the same force as if they were defined in this instance.
+ */
+open class RequirementsImports: BackboneElement {
+	
+	/// Source of imported statements
+	public var reference: FHIRPrimitive<Canonical>
+	
+	/// Statement key
+	public var key: [FHIRPrimitive<FHIRString>]?
+	
+	/// Designated initializer taking all required properties
+	public init(reference: FHIRPrimitive<Canonical>) {
+		self.reference = reference
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: [FHIRPrimitive<FHIRString>]? = nil,
+		modifierExtension: [Extension]? = nil,
+		reference: FHIRPrimitive<Canonical>
+	) {
+		self.init(reference: reference)
+		self.`extension` = `extension`
+		self.id = id
+		self.key = key
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case key; case _key
+		case reference; case _reference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.key = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .key, auxiliaryKey: ._key)
+		self.reference = try FHIRPrimitive<Canonical>(from: _container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try key?.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
+		try reference.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? RequirementsImports else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return key == _other.key
+		    && reference == _other.reference
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(key)
+		hasher.combine(reference)
+	}
+}
+
+/**
+ Conformance requirement statement.
+ 
+ The actual statement of conformance requirement.
  */
 open class RequirementsStatement: BackboneElement {
 	
@@ -344,8 +526,8 @@ open class RequirementsStatement: BackboneElement {
 	/// Short Human label for this statement
 	public var label: FHIRPrimitive<FHIRString>?
 	
-	/// SHALL | SHOULD | MAY | SHOULD-NOT
-	public var conformance: [FHIRPrimitive<FHIRString>]?
+	/// A short human usable label for this statement.
+	public var conformance: [FHIRPrimitive<ConformanceExpectation>]?
 	
 	/// Set to true if requirements statement is conditional
 	public var conditionality: FHIRPrimitive<FHIRBool>?
@@ -353,11 +535,11 @@ open class RequirementsStatement: BackboneElement {
 	/// The actual requirement
 	public var requirement: FHIRPrimitive<FHIRString>
 	
-	/// Another statement this clarifies/restricts ([url#]key)
-	public var derivedFrom: FHIRPrimitive<FHIRString>?
+	/// Another statement this is refining, tightening, or establishing more context for
+	public var derivedFrom: RequirementsStatementDerivedFrom?
 	
-	/// A larger requirement that this requirement helps to refine and enable
-	public var parent: FHIRPrimitive<FHIRString>?
+	/// Higher-level requirement or statement which this is a logical sub-requirement of
+	public var partOf: RequirementsStatementPartOf?
 	
 	/// Design artifact that satisfies this requirement
 	public var satisfiedBy: [FHIRPrimitive<FHIRURI>]?
@@ -368,6 +550,9 @@ open class RequirementsStatement: BackboneElement {
 	/// Who asked for this statement
 	public var source: [Reference]?
 	
+	/// Key of relevant actor
+	public var actor: [FHIRPrimitive<FHIRString>]?
+	
 	/// Designated initializer taking all required properties
 	public init(key: FHIRPrimitive<FHIRString>, requirement: FHIRPrimitive<FHIRString>) {
 		self.key = key
@@ -377,21 +562,23 @@ open class RequirementsStatement: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		actor: [FHIRPrimitive<FHIRString>]? = nil,
 		conditionality: FHIRPrimitive<FHIRBool>? = nil,
-		conformance: [FHIRPrimitive<FHIRString>]? = nil,
-		derivedFrom: FHIRPrimitive<FHIRString>? = nil,
+		conformance: [FHIRPrimitive<ConformanceExpectation>]? = nil,
+		derivedFrom: RequirementsStatementDerivedFrom? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		key: FHIRPrimitive<FHIRString>,
 		label: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		parent: FHIRPrimitive<FHIRString>? = nil,
+		partOf: RequirementsStatementPartOf? = nil,
 		reference: [FHIRPrimitive<FHIRURI>]? = nil,
 		requirement: FHIRPrimitive<FHIRString>,
 		satisfiedBy: [FHIRPrimitive<FHIRURI>]? = nil,
 		source: [Reference]? = nil
 	) {
 		self.init(key: key, requirement: requirement)
+		self.actor = actor
 		self.conditionality = conditionality
 		self.conformance = conformance
 		self.derivedFrom = derivedFrom
@@ -399,7 +586,7 @@ open class RequirementsStatement: BackboneElement {
 		self.id = id
 		self.label = label
 		self.modifierExtension = modifierExtension
-		self.parent = parent
+		self.partOf = partOf
 		self.reference = reference
 		self.satisfiedBy = satisfiedBy
 		self.source = source
@@ -408,12 +595,13 @@ open class RequirementsStatement: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case actor; case _actor
 		case conditionality; case _conditionality
 		case conformance; case _conformance
-		case derivedFrom; case _derivedFrom
+		case derivedFrom
 		case key; case _key
 		case label; case _label
-		case parent; case _parent
+		case partOf
 		case reference; case _reference
 		case requirement; case _requirement
 		case satisfiedBy; case _satisfiedBy
@@ -425,12 +613,13 @@ open class RequirementsStatement: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.actor = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .actor, auxiliaryKey: ._actor)
 		self.conditionality = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .conditionality, auxiliaryKey: ._conditionality)
-		self.conformance = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .conformance, auxiliaryKey: ._conformance)
-		self.derivedFrom = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .derivedFrom, auxiliaryKey: ._derivedFrom)
+		self.conformance = try [FHIRPrimitive<ConformanceExpectation>](from: _container, forKeyIfPresent: .conformance, auxiliaryKey: ._conformance)
+		self.derivedFrom = try RequirementsStatementDerivedFrom(from: _container, forKeyIfPresent: .derivedFrom)
 		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKey: .key, auxiliaryKey: ._key)
 		self.label = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .label, auxiliaryKey: ._label)
-		self.parent = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .parent, auxiliaryKey: ._parent)
+		self.partOf = try RequirementsStatementPartOf(from: _container, forKeyIfPresent: .partOf)
 		self.reference = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
 		self.requirement = try FHIRPrimitive<FHIRString>(from: _container, forKey: .requirement, auxiliaryKey: ._requirement)
 		self.satisfiedBy = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .satisfiedBy, auxiliaryKey: ._satisfiedBy)
@@ -443,12 +632,13 @@ open class RequirementsStatement: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try actor?.encode(on: &_container, forKey: .actor, auxiliaryKey: ._actor)
 		try conditionality?.encode(on: &_container, forKey: .conditionality, auxiliaryKey: ._conditionality)
 		try conformance?.encode(on: &_container, forKey: .conformance, auxiliaryKey: ._conformance)
-		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom, auxiliaryKey: ._derivedFrom)
+		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom)
 		try key.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
 		try label?.encode(on: &_container, forKey: .label, auxiliaryKey: ._label)
-		try parent?.encode(on: &_container, forKey: .parent, auxiliaryKey: ._parent)
+		try partOf?.encode(on: &_container, forKey: .partOf)
 		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
 		try requirement.encode(on: &_container, forKey: .requirement, auxiliaryKey: ._requirement)
 		try satisfiedBy?.encode(on: &_container, forKey: .satisfiedBy, auxiliaryKey: ._satisfiedBy)
@@ -465,12 +655,13 @@ open class RequirementsStatement: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return conditionality == _other.conditionality
+		return actor == _other.actor
+		    && conditionality == _other.conditionality
 		    && conformance == _other.conformance
 		    && derivedFrom == _other.derivedFrom
 		    && key == _other.key
 		    && label == _other.label
-		    && parent == _other.parent
+		    && partOf == _other.partOf
 		    && reference == _other.reference
 		    && requirement == _other.requirement
 		    && satisfiedBy == _other.satisfiedBy
@@ -479,15 +670,180 @@ open class RequirementsStatement: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(actor)
 		hasher.combine(conditionality)
 		hasher.combine(conformance)
 		hasher.combine(derivedFrom)
 		hasher.combine(key)
 		hasher.combine(label)
-		hasher.combine(parent)
+		hasher.combine(partOf)
 		hasher.combine(reference)
 		hasher.combine(requirement)
 		hasher.combine(satisfiedBy)
 		hasher.combine(source)
+	}
+}
+
+/**
+ Another statement this is refining, tightening, or establishing more context for.
+ 
+ Indicates that this statement is refining, tightening, or establishing more context for the referenced
+ requirement/statement.
+ */
+open class RequirementsStatementDerivedFrom: BackboneElement {
+	
+	/// Pointer to Requirements instance
+	public var reference: FHIRPrimitive<Canonical>?
+	
+	/// Key of referenced statement
+	public var key: FHIRPrimitive<FHIRString>
+	
+	/// Designated initializer taking all required properties
+	public init(key: FHIRPrimitive<FHIRString>) {
+		self.key = key
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil,
+		reference: FHIRPrimitive<Canonical>? = nil
+	) {
+		self.init(key: key)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reference = reference
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case key; case _key
+		case reference; case _reference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKey: .key, auxiliaryKey: ._key)
+		self.reference = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try key.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
+		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? RequirementsStatementDerivedFrom else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return key == _other.key
+		    && reference == _other.reference
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(key)
+		hasher.combine(reference)
+	}
+}
+
+/**
+ Higher-level requirement or statement which this is a logical sub-requirement of.
+ 
+ Identifies a higher-level requirement or statement which this referencing statement is a logical sub-requirement of.
+ I.e. This statement is a necessary step to achieving the referenced requirement/statement.
+ */
+open class RequirementsStatementPartOf: BackboneElement {
+	
+	/// Pointer to Requirements instance
+	public var reference: FHIRPrimitive<Canonical>?
+	
+	/// Key of referenced statement
+	public var key: FHIRPrimitive<FHIRString>
+	
+	/// Designated initializer taking all required properties
+	public init(key: FHIRPrimitive<FHIRString>) {
+		self.key = key
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		key: FHIRPrimitive<FHIRString>,
+		modifierExtension: [Extension]? = nil,
+		reference: FHIRPrimitive<Canonical>? = nil
+	) {
+		self.init(key: key)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reference = reference
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case key; case _key
+		case reference; case _reference
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKey: .key, auxiliaryKey: ._key)
+		self.reference = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try key.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
+		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? RequirementsStatementPartOf else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return key == _other.key
+		    && reference == _other.reference
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(key)
+		hasher.combine(reference)
 	}
 }

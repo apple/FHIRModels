@@ -2,8 +2,8 @@
 //  SubscriptionStatus.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/SubscriptionStatus)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -187,6 +187,9 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	/// Query describing data relevant to this notification
 	public var relatedQuery: [SubscriptionStatusNotificationEventRelatedQuery]?
 	
+	/// Authorization information relevant to a notification
+	public var authorizationHint: [SubscriptionStatusNotificationEventAuthorizationHint]?
+	
 	/// Designated initializer taking all required properties
 	public init(eventNumber: FHIRInteger64) {
 		self.eventNumber = eventNumber
@@ -196,6 +199,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		additionalContext: [Reference]? = nil,
+		authorizationHint: [SubscriptionStatusNotificationEventAuthorizationHint]? = nil,
 		eventNumber: FHIRInteger64,
 		`extension`: [Extension]? = nil,
 		focus: Reference? = nil,
@@ -207,6 +211,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	) {
 		self.init(eventNumber: eventNumber)
 		self.additionalContext = additionalContext
+		self.authorizationHint = authorizationHint
 		self.`extension` = `extension`
 		self.focus = focus
 		self.id = id
@@ -220,6 +225,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case additionalContext
+		case authorizationHint
 		case eventNumber
 		case focus
 		case relatedQuery
@@ -233,6 +239,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		
 		// Decode all our properties
 		self.additionalContext = try [Reference](from: _container, forKeyIfPresent: .additionalContext)
+		self.authorizationHint = try [SubscriptionStatusNotificationEventAuthorizationHint](from: _container, forKeyIfPresent: .authorizationHint)
 		self.eventNumber = try FHIRInteger64(from: _container, forKey: .eventNumber)
 		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
 		self.relatedQuery = try [SubscriptionStatusNotificationEventRelatedQuery](from: _container, forKeyIfPresent: .relatedQuery)
@@ -247,6 +254,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 		
 		// Encode all our properties
 		try additionalContext?.encode(on: &_container, forKey: .additionalContext)
+		try authorizationHint?.encode(on: &_container, forKey: .authorizationHint)
 		try eventNumber.encode(on: &_container, forKey: .eventNumber)
 		try focus?.encode(on: &_container, forKey: .focus)
 		try relatedQuery?.encode(on: &_container, forKey: .relatedQuery)
@@ -265,6 +273,7 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 			return false
 		}
 		return additionalContext == _other.additionalContext
+		    && authorizationHint == _other.authorizationHint
 		    && eventNumber == _other.eventNumber
 		    && focus == _other.focus
 		    && relatedQuery == _other.relatedQuery
@@ -275,11 +284,93 @@ open class SubscriptionStatusNotificationEvent: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(additionalContext)
+		hasher.combine(authorizationHint)
 		hasher.combine(eventNumber)
 		hasher.combine(focus)
 		hasher.combine(relatedQuery)
 		hasher.combine(timestamp)
 		hasher.combine(triggerEvent)
+	}
+}
+
+/**
+ Authorization information relevant to a notification.
+ 
+ Authorization context information and value (e.g., token).
+ */
+open class SubscriptionStatusNotificationEventAuthorizationHint: BackboneElement {
+	
+	/// Classification of the authorization hint, e.g., 'oAuthChallengeToken'
+	public var authorizationType: Coding
+	
+	/// Authorization value, as defined by the 'authorizationType'
+	public var value: FHIRPrimitive<FHIRString>?
+	
+	/// Designated initializer taking all required properties
+	public init(authorizationType: Coding) {
+		self.authorizationType = authorizationType
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		authorizationType: Coding,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		value: FHIRPrimitive<FHIRString>? = nil
+	) {
+		self.init(authorizationType: authorizationType)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.value = value
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case authorizationType
+		case value; case _value
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.authorizationType = try Coding(from: _container, forKey: .authorizationType)
+		self.value = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .value, auxiliaryKey: ._value)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try authorizationType.encode(on: &_container, forKey: .authorizationType)
+		try value?.encode(on: &_container, forKey: .value, auxiliaryKey: ._value)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? SubscriptionStatusNotificationEventAuthorizationHint else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return authorizationType == _other.authorizationType
+		    && value == _other.value
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(authorizationType)
+		hasher.combine(value)
 	}
 }
 

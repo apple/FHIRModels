@@ -2,8 +2,8 @@
 //  Coverage.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Coverage)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Coverage)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,8 +32,12 @@ open class Coverage: DomainResource {
 	/// Business identifier(s) for this coverage
 	public var identifier: [Identifier]?
 	
-	/// The status of the resource instance.
+	/// The status of the resource instance. The status element does not indicate whether the policy reflected in the
+	/// instance is in-force at any particular point in time, that would be conveyed via the 'period' element.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// Reason for status change
+	public var statusReason: FHIRPrimitive<FHIRString>?
 	
 	/// The nature of the coverage be it insurance, or cash payment such as self-pay.
 	public var kind: FHIRPrimitive<Kind>
@@ -122,6 +126,7 @@ open class Coverage: DomainResource {
 		policyHolder: Reference? = nil,
 		relationship: CodeableConcept? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
 		subrogation: FHIRPrimitive<FHIRBool>? = nil,
 		subscriber: Reference? = nil,
 		subscriberId: [Identifier]? = nil,
@@ -149,6 +154,7 @@ open class Coverage: DomainResource {
 		self.period = period
 		self.policyHolder = policyHolder
 		self.relationship = relationship
+		self.statusReason = statusReason
 		self.subrogation = subrogation
 		self.subscriber = subscriber
 		self.subscriberId = subscriberId
@@ -175,6 +181,7 @@ open class Coverage: DomainResource {
 		case policyHolder
 		case relationship
 		case status; case _status
+		case statusReason; case _statusReason
 		case subrogation; case _subrogation
 		case subscriber
 		case subscriberId
@@ -202,6 +209,7 @@ open class Coverage: DomainResource {
 		self.policyHolder = try Reference(from: _container, forKeyIfPresent: .policyHolder)
 		self.relationship = try CodeableConcept(from: _container, forKeyIfPresent: .relationship)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
 		self.subrogation = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .subrogation, auxiliaryKey: ._subrogation)
 		self.subscriber = try Reference(from: _container, forKeyIfPresent: .subscriber)
 		self.subscriberId = try [Identifier](from: _container, forKeyIfPresent: .subscriberId)
@@ -230,6 +238,7 @@ open class Coverage: DomainResource {
 		try policyHolder?.encode(on: &_container, forKey: .policyHolder)
 		try relationship?.encode(on: &_container, forKey: .relationship)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
 		try subrogation?.encode(on: &_container, forKey: .subrogation, auxiliaryKey: ._subrogation)
 		try subscriber?.encode(on: &_container, forKey: .subscriber)
 		try subscriberId?.encode(on: &_container, forKey: .subscriberId)
@@ -262,6 +271,7 @@ open class Coverage: DomainResource {
 		    && policyHolder == _other.policyHolder
 		    && relationship == _other.relationship
 		    && status == _other.status
+		    && statusReason == _other.statusReason
 		    && subrogation == _other.subrogation
 		    && subscriber == _other.subscriber
 		    && subscriberId == _other.subscriberId
@@ -286,6 +296,7 @@ open class Coverage: DomainResource {
 		hasher.combine(policyHolder)
 		hasher.combine(relationship)
 		hasher.combine(status)
+		hasher.combine(statusReason)
 		hasher.combine(subrogation)
 		hasher.combine(subscriber)
 		hasher.combine(subscriberId)

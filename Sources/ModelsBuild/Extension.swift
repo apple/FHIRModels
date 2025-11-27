@@ -2,8 +2,8 @@
 //  Extension.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Extension)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Extension)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -82,6 +82,7 @@ open class Extension: DataType {
 		case url(FHIRPrimitive<FHIRURI>)
 		case usageContext(UsageContext)
 		case uuid(FHIRPrimitive<FHIRURI>)
+		case virtualServiceDetail(VirtualServiceDetail)
 	}
 	
 	/// identifies the meaning of the extension
@@ -168,6 +169,7 @@ open class Extension: DataType {
 		case valueUrl; case _valueUrl
 		case valueUsageContext
 		case valueUuid; case _valueUuid
+		case valueVirtualServiceDetail
 	}
 	
 	/// Initializer for Decodable
@@ -489,6 +491,12 @@ open class Extension: DataType {
 			}
 			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
+		if let valueVirtualServiceDetail = try VirtualServiceDetail(from: _container, forKeyIfPresent: .valueVirtualServiceDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueVirtualServiceDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .virtualServiceDetail(valueVirtualServiceDetail)
+		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDosage, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -617,6 +625,8 @@ open class Extension: DataType {
 				try _value.encode(on: &_container, forKey: .valueAvailability)
 			case .extendedContactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
+			case .virtualServiceDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueVirtualServiceDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):

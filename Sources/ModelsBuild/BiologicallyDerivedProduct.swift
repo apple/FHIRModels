@@ -2,8 +2,8 @@
 //  BiologicallyDerivedProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -236,12 +236,14 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		case period(Period)
 	}
 	
-	/// Individual performing collection
+	/// Individual performing the collection
 	public var collector: Reference?
 	
-	/// The patient who underwent the medical procedure to collect the product or the organization that facilitated the
-	/// collection
-	public var source: Reference?
+	/// The patient who underwent the medical procedure to collect the product
+	public var sourcePatient: Reference?
+	
+	/// The organization that facilitated the collection
+	public var sourceOrganization: Reference?
 	
 	/// Time of product collection
 	/// One of `collected[x]`
@@ -263,7 +265,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		procedure: Reference? = nil,
-		source: Reference? = nil
+		sourceOrganization: Reference? = nil,
+		sourcePatient: Reference? = nil
 	) {
 		self.init()
 		self.collected = collected
@@ -272,7 +275,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		self.id = id
 		self.modifierExtension = modifierExtension
 		self.procedure = procedure
-		self.source = source
+		self.sourceOrganization = sourceOrganization
+		self.sourcePatient = sourcePatient
 	}
 	
 	// MARK: - Codable
@@ -282,7 +286,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		case collectedPeriod
 		case collector
 		case procedure
-		case source
+		case sourceOrganization
+		case sourcePatient
 	}
 	
 	/// Initializer for Decodable
@@ -306,7 +311,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		self.collected = _t_collected
 		self.collector = try Reference(from: _container, forKeyIfPresent: .collector)
 		self.procedure = try Reference(from: _container, forKeyIfPresent: .procedure)
-		self.source = try Reference(from: _container, forKeyIfPresent: .source)
+		self.sourceOrganization = try Reference(from: _container, forKeyIfPresent: .sourceOrganization)
+		self.sourcePatient = try Reference(from: _container, forKeyIfPresent: .sourcePatient)
 		try super.init(from: decoder)
 	}
 	
@@ -325,7 +331,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		}
 		try collector?.encode(on: &_container, forKey: .collector)
 		try procedure?.encode(on: &_container, forKey: .procedure)
-		try source?.encode(on: &_container, forKey: .source)
+		try sourceOrganization?.encode(on: &_container, forKey: .sourceOrganization)
+		try sourcePatient?.encode(on: &_container, forKey: .sourcePatient)
 		try super.encode(to: encoder)
 	}
 	
@@ -341,7 +348,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		return collected == _other.collected
 		    && collector == _other.collector
 		    && procedure == _other.procedure
-		    && source == _other.source
+		    && sourceOrganization == _other.sourceOrganization
+		    && sourcePatient == _other.sourcePatient
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -349,7 +357,8 @@ open class BiologicallyDerivedProductCollection: BackboneElement {
 		hasher.combine(collected)
 		hasher.combine(collector)
 		hasher.combine(procedure)
-		hasher.combine(source)
+		hasher.combine(sourceOrganization)
+		hasher.combine(sourcePatient)
 	}
 }
 

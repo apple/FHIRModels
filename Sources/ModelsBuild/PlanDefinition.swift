@@ -2,8 +2,8 @@
 //  PlanDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PlanDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/PlanDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -71,13 +71,13 @@ open class PlanDefinition: DomainResource {
 	/// Subordinate title of the plan definition
 	public var subtitle: FHIRPrimitive<FHIRString>?
 	
-	/// order-set | clinical-protocol | eca-rule | workflow-definition
+	/// order-set | protocol | eca-rule | workflow-definition | etc.
 	public var type: CodeableConcept?
 	
 	/// The status of this plan definition. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Type of individual the plan definition is focused on
@@ -99,7 +99,7 @@ open class PlanDefinition: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for plan definition (if applicable)
+	/// Jurisdiction of the authority that maintains the plan definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this plan definition is defined
@@ -108,7 +108,7 @@ open class PlanDefinition: DomainResource {
 	/// Describes the clinical usage of the plan
 	public var usage: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -543,7 +543,8 @@ open class PlanDefinition: DomainResource {
  
  An action or group of actions to be taken as part of the plan. For example, in clinical care, an action would be to
  prescribe a particular indicated medication, or perform a particular test as appropriate. In pharmaceutical quality, an
- action would be the test that needs to be performed on a drug product as defined in the quality specification.
+ action would be the test that needs to be performed on a drug product as defined in the quality specification or the
+ steps that are planned in a manufacturing process of a drug product or a drug substance.
  */
 open class PlanDefinitionAction: BackboneElement {
 	
@@ -565,6 +566,7 @@ open class PlanDefinitionAction: BackboneElement {
 		case age(Age)
 		case duration(Duration)
 		case range(Range)
+		case relativeTime(RelativeTime)
 		case timing(Timing)
 	}
 	
@@ -583,8 +585,8 @@ open class PlanDefinitionAction: BackboneElement {
 	/// Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system
 	public var textEquivalent: FHIRPrimitive<FHIRString>?
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the action should be addressed with respect to other actions.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// Code representing the meaning of the action or sub-actions
 	public var code: CodeableConcept?
@@ -627,8 +629,14 @@ open class PlanDefinitionAction: BackboneElement {
 	/// Who should participate in the action
 	public var participant: [PlanDefinitionActionParticipant]?
 	
-	/// create | update | remove | fire-event
+	/// create | update | remove | fire-event | etc.
 	public var type: CodeableConcept?
+	
+	/// All - meaning the applicability of each child action is evaluated independently; if a child action is applicable
+	/// according to the applicability criteria, it is applied. Any - meaning that each child action is evaluated in
+	/// order, and the first action that returns an applicability of true will be applied, and processing of the parent
+	/// action will stop. If not specified, the default behavior of All is used.
+	public var applicabilityBehavior: FHIRPrimitive<ActionApplicabilityBehavior>?
 	
 	/// Defines the grouping behavior for the action and its children.
 	public var groupingBehavior: FHIRPrimitive<ActionGroupingBehavior>?
@@ -666,6 +674,7 @@ open class PlanDefinitionAction: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		action: [PlanDefinitionAction]? = nil,
+		applicabilityBehavior: FHIRPrimitive<ActionApplicabilityBehavior>? = nil,
 		cardinalityBehavior: FHIRPrimitive<ActionCardinalityBehavior>? = nil,
 		code: CodeableConcept? = nil,
 		condition: [PlanDefinitionActionCondition]? = nil,
@@ -685,7 +694,7 @@ open class PlanDefinitionAction: BackboneElement {
 		participant: [PlanDefinitionActionParticipant]? = nil,
 		precheckBehavior: FHIRPrimitive<ActionPrecheckBehavior>? = nil,
 		prefix: FHIRPrimitive<FHIRString>? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		reason: [CodeableConcept]? = nil,
 		relatedAction: [PlanDefinitionActionRelatedAction]? = nil,
 		requiredBehavior: FHIRPrimitive<ActionRequiredBehavior>? = nil,
@@ -700,6 +709,7 @@ open class PlanDefinitionAction: BackboneElement {
 	) {
 		self.init()
 		self.action = action
+		self.applicabilityBehavior = applicabilityBehavior
 		self.cardinalityBehavior = cardinalityBehavior
 		self.code = code
 		self.condition = condition
@@ -737,6 +747,7 @@ open class PlanDefinitionAction: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case action
+		case applicabilityBehavior; case _applicabilityBehavior
 		case cardinalityBehavior; case _cardinalityBehavior
 		case code
 		case condition
@@ -766,6 +777,7 @@ open class PlanDefinitionAction: BackboneElement {
 		case timingAge
 		case timingDuration
 		case timingRange
+		case timingRelativeTime
 		case timingTiming
 		case title; case _title
 		case transform; case _transform
@@ -779,6 +791,7 @@ open class PlanDefinitionAction: BackboneElement {
 		
 		// Decode all our properties
 		self.action = try [PlanDefinitionAction](from: _container, forKeyIfPresent: .action)
+		self.applicabilityBehavior = try FHIRPrimitive<ActionApplicabilityBehavior>(from: _container, forKeyIfPresent: .applicabilityBehavior, auxiliaryKey: ._applicabilityBehavior)
 		self.cardinalityBehavior = try FHIRPrimitive<ActionCardinalityBehavior>(from: _container, forKeyIfPresent: .cardinalityBehavior, auxiliaryKey: ._cardinalityBehavior)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.condition = try [PlanDefinitionActionCondition](from: _container, forKeyIfPresent: .condition)
@@ -808,7 +821,7 @@ open class PlanDefinitionAction: BackboneElement {
 		self.participant = try [PlanDefinitionActionParticipant](from: _container, forKeyIfPresent: .participant)
 		self.precheckBehavior = try FHIRPrimitive<ActionPrecheckBehavior>(from: _container, forKeyIfPresent: .precheckBehavior, auxiliaryKey: ._precheckBehavior)
 		self.prefix = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .prefix, auxiliaryKey: ._prefix)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.reason = try [CodeableConcept](from: _container, forKeyIfPresent: .reason)
 		self.relatedAction = try [PlanDefinitionActionRelatedAction](from: _container, forKeyIfPresent: .relatedAction)
 		self.requiredBehavior = try FHIRPrimitive<ActionRequiredBehavior>(from: _container, forKeyIfPresent: .requiredBehavior, auxiliaryKey: ._requiredBehavior)
@@ -859,6 +872,12 @@ open class PlanDefinitionAction: BackboneElement {
 			}
 			_t_timing = .timing(timingTiming)
 		}
+		if let timingRelativeTime = try RelativeTime(from: _container, forKeyIfPresent: .timingRelativeTime) {
+			if _t_timing != nil {
+				throw DecodingError.dataCorruptedError(forKey: .timingRelativeTime, in: _container, debugDescription: "More than one value provided for \"timing\"")
+			}
+			_t_timing = .relativeTime(timingRelativeTime)
+		}
 		self.timing = _t_timing
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.transform = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .transform, auxiliaryKey: ._transform)
@@ -873,6 +892,7 @@ open class PlanDefinitionAction: BackboneElement {
 		
 		// Encode all our properties
 		try action?.encode(on: &_container, forKey: .action)
+		try applicabilityBehavior?.encode(on: &_container, forKey: .applicabilityBehavior, auxiliaryKey: ._applicabilityBehavior)
 		try cardinalityBehavior?.encode(on: &_container, forKey: .cardinalityBehavior, auxiliaryKey: ._cardinalityBehavior)
 		try code?.encode(on: &_container, forKey: .code)
 		try condition?.encode(on: &_container, forKey: .condition)
@@ -922,6 +942,8 @@ open class PlanDefinitionAction: BackboneElement {
 				try _value.encode(on: &_container, forKey: .timingRange)
 			case .timing(let _value):
 				try _value.encode(on: &_container, forKey: .timingTiming)
+			case .relativeTime(let _value):
+				try _value.encode(on: &_container, forKey: .timingRelativeTime)
 			}
 		}
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
@@ -941,6 +963,7 @@ open class PlanDefinitionAction: BackboneElement {
 			return false
 		}
 		return action == _other.action
+		    && applicabilityBehavior == _other.applicabilityBehavior
 		    && cardinalityBehavior == _other.cardinalityBehavior
 		    && code == _other.code
 		    && condition == _other.condition
@@ -974,6 +997,7 @@ open class PlanDefinitionAction: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(action)
+		hasher.combine(applicabilityBehavior)
 		hasher.combine(cardinalityBehavior)
 		hasher.combine(code)
 		hasher.combine(condition)

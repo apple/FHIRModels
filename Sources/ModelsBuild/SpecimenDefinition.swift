@@ -2,8 +2,8 @@
 //  SpecimenDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/SpecimenDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -90,13 +90,13 @@ open class SpecimenDefinition: DomainResource {
 	/// Content intends to support these contexts
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for this SpecimenDefinition (if applicable)
+	/// Jurisdiction of the authority that maintains the this SpecimenDefinition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this SpecimenDefinition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)

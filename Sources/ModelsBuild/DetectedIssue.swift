@@ -2,8 +2,8 @@
 //  DetectedIssue.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DetectedIssue)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -33,31 +33,31 @@ open class DetectedIssue: DomainResource {
 	public enum IdentifiedX: Hashable {
 		case dateTime(FHIRPrimitive<DateTime>)
 		case period(Period)
+		case timing(Timing)
 	}
 	
-	/// Unique id for the detected issue
+	/// Business identifier for detected issue
 	public var identifier: [Identifier]?
 	
-	/// preliminary | final | entered-in-error | mitigated
+	/// preliminary | final | entered-in-error | unknown | mitigated | processing-error
 	public var status: FHIRPrimitive<FHIRString>
 	
-	/// Type of detected issue, e.g. drug-drug, duplicate therapy, etc
+	/// High level categorization of detected issue
 	public var category: [CodeableConcept]?
 	
 	/// Specific type of detected issue, e.g. drug-drug, duplicate therapy, etc
 	public var code: CodeableConcept?
 	
-	/// Indicates the degree of importance associated with the identified issue based on the potential impact on the
-	/// patient.
-	public var severity: FHIRPrimitive<DetectedIssueSeverity>?
+	/// high | moderate | low
+	public var severity: CodeableConcept?
 	
 	/// Associated subject
 	public var subject: Reference?
 	
-	/// Encounter detected issue is part of
+	/// Encounter the detected issue is part of
 	public var encounter: Reference?
 	
-	/// When identified
+	/// When detected issue occurred/is occurring
 	/// One of `identified[x]`
 	public var identified: IdentifiedX?
 	
@@ -75,6 +75,18 @@ open class DetectedIssue: DomainResource {
 	
 	/// Authority for issue
 	public var reference: FHIRPrimitive<FHIRURI>?
+	
+	/// The quality of the evidence supporting the detected issue
+	public var qualityOfEvidence: CodeableConcept?
+	
+	/// Time frame of clinical effect
+	public var expectedOnsetType: CodeableConcept?
+	
+	/// What medication class
+	public var medicationClass: [CodeableConcept]?
+	
+	/// Importance of taking action on the issue
+	public var managementCode: CodeableConcept?
 	
 	/// Step taken to address
 	public var mitigation: [DetectedIssueMitigation]?
@@ -94,6 +106,7 @@ open class DetectedIssue: DomainResource {
 		detail: FHIRPrimitive<FHIRString>? = nil,
 		encounter: Reference? = nil,
 		evidence: [DetectedIssueEvidence]? = nil,
+		expectedOnsetType: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identified: IdentifiedX? = nil,
@@ -101,11 +114,14 @@ open class DetectedIssue: DomainResource {
 		implicated: [Reference]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		managementCode: CodeableConcept? = nil,
+		medicationClass: [CodeableConcept]? = nil,
 		meta: Meta? = nil,
 		mitigation: [DetectedIssueMitigation]? = nil,
 		modifierExtension: [Extension]? = nil,
+		qualityOfEvidence: CodeableConcept? = nil,
 		reference: FHIRPrimitive<FHIRURI>? = nil,
-		severity: FHIRPrimitive<DetectedIssueSeverity>? = nil,
+		severity: CodeableConcept? = nil,
 		status: FHIRPrimitive<FHIRString>,
 		subject: Reference? = nil,
 		text: Narrative? = nil
@@ -118,6 +134,7 @@ open class DetectedIssue: DomainResource {
 		self.detail = detail
 		self.encounter = encounter
 		self.evidence = evidence
+		self.expectedOnsetType = expectedOnsetType
 		self.`extension` = `extension`
 		self.id = id
 		self.identified = identified
@@ -125,9 +142,12 @@ open class DetectedIssue: DomainResource {
 		self.implicated = implicated
 		self.implicitRules = implicitRules
 		self.language = language
+		self.managementCode = managementCode
+		self.medicationClass = medicationClass
 		self.meta = meta
 		self.mitigation = mitigation
 		self.modifierExtension = modifierExtension
+		self.qualityOfEvidence = qualityOfEvidence
 		self.reference = reference
 		self.severity = severity
 		self.subject = subject
@@ -143,13 +163,18 @@ open class DetectedIssue: DomainResource {
 		case detail; case _detail
 		case encounter
 		case evidence
+		case expectedOnsetType
 		case identifiedDateTime; case _identifiedDateTime
 		case identifiedPeriod
+		case identifiedTiming
 		case identifier
 		case implicated
+		case managementCode
+		case medicationClass
 		case mitigation
+		case qualityOfEvidence
 		case reference; case _reference
-		case severity; case _severity
+		case severity
 		case status; case _status
 		case subject
 	}
@@ -165,6 +190,7 @@ open class DetectedIssue: DomainResource {
 		self.detail = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .detail, auxiliaryKey: ._detail)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.evidence = try [DetectedIssueEvidence](from: _container, forKeyIfPresent: .evidence)
+		self.expectedOnsetType = try CodeableConcept(from: _container, forKeyIfPresent: .expectedOnsetType)
 		var _t_identified: IdentifiedX? = nil
 		if let identifiedDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .identifiedDateTime, auxiliaryKey: ._identifiedDateTime) {
 			if _t_identified != nil {
@@ -178,12 +204,21 @@ open class DetectedIssue: DomainResource {
 			}
 			_t_identified = .period(identifiedPeriod)
 		}
+		if let identifiedTiming = try Timing(from: _container, forKeyIfPresent: .identifiedTiming) {
+			if _t_identified != nil {
+				throw DecodingError.dataCorruptedError(forKey: .identifiedTiming, in: _container, debugDescription: "More than one value provided for \"identified\"")
+			}
+			_t_identified = .timing(identifiedTiming)
+		}
 		self.identified = _t_identified
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.implicated = try [Reference](from: _container, forKeyIfPresent: .implicated)
+		self.managementCode = try CodeableConcept(from: _container, forKeyIfPresent: .managementCode)
+		self.medicationClass = try [CodeableConcept](from: _container, forKeyIfPresent: .medicationClass)
 		self.mitigation = try [DetectedIssueMitigation](from: _container, forKeyIfPresent: .mitigation)
+		self.qualityOfEvidence = try CodeableConcept(from: _container, forKeyIfPresent: .qualityOfEvidence)
 		self.reference = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .reference, auxiliaryKey: ._reference)
-		self.severity = try FHIRPrimitive<DetectedIssueSeverity>(from: _container, forKeyIfPresent: .severity, auxiliaryKey: ._severity)
+		self.severity = try CodeableConcept(from: _container, forKeyIfPresent: .severity)
 		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
@@ -200,19 +235,25 @@ open class DetectedIssue: DomainResource {
 		try detail?.encode(on: &_container, forKey: .detail, auxiliaryKey: ._detail)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try evidence?.encode(on: &_container, forKey: .evidence)
+		try expectedOnsetType?.encode(on: &_container, forKey: .expectedOnsetType)
 		if let _enum = identified {
 			switch _enum {
 			case .dateTime(let _value):
 				try _value.encode(on: &_container, forKey: .identifiedDateTime, auxiliaryKey: ._identifiedDateTime)
 			case .period(let _value):
 				try _value.encode(on: &_container, forKey: .identifiedPeriod)
+			case .timing(let _value):
+				try _value.encode(on: &_container, forKey: .identifiedTiming)
 			}
 		}
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try implicated?.encode(on: &_container, forKey: .implicated)
+		try managementCode?.encode(on: &_container, forKey: .managementCode)
+		try medicationClass?.encode(on: &_container, forKey: .medicationClass)
 		try mitigation?.encode(on: &_container, forKey: .mitigation)
+		try qualityOfEvidence?.encode(on: &_container, forKey: .qualityOfEvidence)
 		try reference?.encode(on: &_container, forKey: .reference, auxiliaryKey: ._reference)
-		try severity?.encode(on: &_container, forKey: .severity, auxiliaryKey: ._severity)
+		try severity?.encode(on: &_container, forKey: .severity)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
 		try super.encode(to: encoder)
@@ -233,10 +274,14 @@ open class DetectedIssue: DomainResource {
 		    && detail == _other.detail
 		    && encounter == _other.encounter
 		    && evidence == _other.evidence
+		    && expectedOnsetType == _other.expectedOnsetType
 		    && identified == _other.identified
 		    && identifier == _other.identifier
 		    && implicated == _other.implicated
+		    && managementCode == _other.managementCode
+		    && medicationClass == _other.medicationClass
 		    && mitigation == _other.mitigation
+		    && qualityOfEvidence == _other.qualityOfEvidence
 		    && reference == _other.reference
 		    && severity == _other.severity
 		    && status == _other.status
@@ -251,10 +296,14 @@ open class DetectedIssue: DomainResource {
 		hasher.combine(detail)
 		hasher.combine(encounter)
 		hasher.combine(evidence)
+		hasher.combine(expectedOnsetType)
 		hasher.combine(identified)
 		hasher.combine(identifier)
 		hasher.combine(implicated)
+		hasher.combine(managementCode)
+		hasher.combine(medicationClass)
 		hasher.combine(mitigation)
+		hasher.combine(qualityOfEvidence)
 		hasher.combine(reference)
 		hasher.combine(severity)
 		hasher.combine(status)

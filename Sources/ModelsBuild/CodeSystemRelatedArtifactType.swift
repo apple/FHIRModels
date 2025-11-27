@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,68 +27,14 @@ import FMCore
  */
 public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	
-	/// This artifact is amended with or changed by the target artifact. There is information in this artifact that
-	/// should be functionally replaced with information in the target artifact.
-	case amendedWith = "amended-with"
-	
-	/// This artifact amends or changes the target artifact. This artifact adds additional information that is
-	/// functionally expected to replace information in the target artifact. This artifact replaces a part but not all
-	/// of the target artifact.
-	case amends
-	
-	/// This artifact has additional information in the target artifact.
-	case appendedWith = "appended-with"
-	
-	/// This artifact adds additional information to the target artifact. The additional information does not replace or
-	/// change information in the target artifact.
-	case appends
-	
 	/// Bibliographic citation for papers, references, or other relevant material for the knowledge resource. This is
 	/// intended to allow for citation of related material, but that was not necessarily specifically prepared in
 	/// connection with this knowledge resource.
 	case citation
 	
-	/// The related artifact is the citation for this artifact.
-	case citeAs = "cite-as"
-	
-	/// This artifact is cited by the target artifact.
-	case citedBy = "cited-by"
-	
-	/// This artifact cites the target artifact. This may be a bibliographic citation for papers, references, or other
-	/// relevant material for the knowledge resource. This is intended to allow for citation of related material, but
-	/// that was not necessarily specifically prepared in connection with this knowledge resource.
-	case cites
-	
-	/// This artifact has comments about it in the target artifact.  The type of comments may be expressed in the
-	/// targetClassifier element such as reply, review, editorial, feedback, solicited, unsolicited, structured,
-	/// unstructured.
-	case commentIn = "comment-in"
-	
-	/// This artifact contains comments about the target artifact.
-	case commentsOn = "comments-on"
-	
 	/// This artifact is composed of the target artifact. This artifact is constructed with the target artifact as a
 	/// component. The target artifact is a part of this artifact. (A dataset is composed of data.).
 	case composedOf = "composed-of"
-	
-	/// This artifact is contained in the target artifact. The target artifact is a data structure whose instances are
-	/// collections of other objects.
-	case containedIn = "contained-in"
-	
-	/// This artifact is a container in which the target artifact is contained. A container is a data structure whose
-	/// instances are collections of other objects. (A database contains the dataset.).
-	case contains
-	
-	/// This artifact has corrections to it in the target artifact. The target artifact identifies errors and
-	/// replacement content for this artifact.
-	case correctionIn = "correction-in"
-	
-	/// This artifact identifies errors and replacement content for the target artifact.
-	case corrects
-	
-	/// This artifact was created with the target artifact. The target artifact is a tool or support material used in
-	/// the creation of the artifact, and not content that the artifact was derived from.
-	case createdWith = "created-with"
 	
 	/// This artifact depends on the target artifact. There is a requirement to use the target artifact in the creation
 	/// or interpretation of this artifact.
@@ -104,10 +50,6 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// as additional information on clinical context or appropriateness.
 	case documentation
 	
-	/// This artifact provides additional documentation for the target artifact. This could include additional
-	/// instructions on usage as well as additional information on clinical context or appropriateness.
-	case documents
-	
 	/// The target artifact is a summary of the justification for the knowledge resource including supporting evidence,
 	/// relevant guidelines, or other clinically important information. This information is intended to provide a way to
 	/// make the justification for the knowledge resource available to the consumer of interventions or results produced
@@ -122,55 +64,7 @@ public enum RelatedArtifactType: String, FHIRPrimitiveType {
 	/// independent of the status of each version.
 	case predecessor
 	
-	/// This artifact is replaced with or superseded by the target artifact. This artifact may be considered deprecated.
-	case replacedWith = "replaced-with"
-	
-	/// This artifact replaces or supersedes the target artifact. The target artifact may be considered deprecated.
-	case replaces
-	
-	/// This artifact is retracted by the target artifact. The content that was published in this artifact should be
-	/// considered removed from publication and should no longer be considered part of the public record.
-	case retractedBy = "retracted-by"
-	
-	/// This artifact retracts the target artifact. The content that was published in the target artifact should be
-	/// considered removed from publication and should no longer be considered part of the public record.
-	case retracts
-	
-	/// This artifact is a signature of the target artifact.
-	case signs
-	
-	/// This artifact has characteristics in common with the target artifact. This relationship may be used in systems
-	/// to “deduplicate” knowledge artifacts from different sources, or in systems to show “similar items”.
-	case similarTo = "similar-to"
-	
-	/// The target artifact is a precise description of a concept in this artifact. This may be used when the
-	/// RelatedArtifact datatype is used in elements contained in this artifact.
-	case specificationOf = "specification-of"
-	
 	/// The subsequent version of the knowledge artfact, used to establish an ordering of versions of an artifact,
 	/// independent of the status of each version.
 	case successor
-	
-	/// The target artifact contains additional information related to the knowledge artifact but is not documentation
-	/// as the additional information does not describe, explain, or instruct regarding the knowledge artifact content
-	/// or application. This could include an associated dataset.
-	case supportedWith = "supported-with"
-	
-	/// This artifact provides additional support for the target artifact. The type of support  is not documentation as
-	/// it does not describe, explain, or instruct regarding the target artifact.
-	case supports
-	
-	/// This artifact was transformed into the target artifact (e.g., by format or language conversion).
-	case transformedInto = "transformed-into"
-	
-	/// This artifact was generated by transforming a related artifact (e.g., format or language conversion), noted
-	/// separately with the “transforms” relationship type. This transformation used the target artifact to inform the
-	/// transformation. The target artifact may be a conversion script or translation guide.
-	case transformedWith = "transformed-with"
-	
-	/// This artifact was generated by transforming the target artifact (e.g., format or language conversion). This is
-	/// intended to capture the relationship in which a particular knowledge resource is based on the content of another
-	/// artifact, but changes are only apparent in form and there is only one target artifact with the “transforms”
-	/// relationship type.
-	case transforms
 }

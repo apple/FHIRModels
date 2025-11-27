@@ -2,8 +2,8 @@
 //  SubscriptionTopic.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SubscriptionTopic)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/SubscriptionTopic)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ open class SubscriptionTopic: DomainResource {
 	/// The current state of the SubscriptionTopic.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// If for testing purposes, not real usage
+	/// If For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date status first applied
@@ -84,7 +84,7 @@ open class SubscriptionTopic: DomainResource {
 	/// Why this SubscriptionTopic is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)

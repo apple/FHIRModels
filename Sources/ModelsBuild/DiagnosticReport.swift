@@ -2,8 +2,8 @@
 //  DiagnosticReport.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DiagnosticReport)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DiagnosticReport)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -57,20 +57,26 @@ open class DiagnosticReport: DomainResource {
 	/// The subject of the report - usually, but not always, the patient
 	public var subject: Reference?
 	
+	/// Related DiagnosticReports
+	public var relatesTo: [RelatedArtifact]?
+	
 	/// Encounter associated with the DiagnosticReport
 	public var encounter: Reference?
 	
-	/// Clinically relevant time/time-period for report
+	/// Clinically relevant time/time-period for the results that are included in the report
 	/// One of `effective[x]`
 	public var effective: EffectiveX?
 	
 	/// DateTime this version was made
-	public var issued: FHIRPrimitive<Instant>?
+	public var issued: FHIRPrimitive<DateTime>?
+	
+	/// The performed procedure(s) from which the report was produced
+	public var procedure: [Reference]?
 	
 	/// Responsible Diagnostic Service
 	public var performer: [Reference]?
 	
-	/// Primary result interpreter
+	/// Who analyzed and reported the conclusions and interpretations
 	public var resultsInterpreter: [Reference]?
 	
 	/// Specimens this report is based on
@@ -97,14 +103,20 @@ open class DiagnosticReport: DomainResource {
 	/// Clinical conclusion (interpretation) of test results
 	public var conclusion: FHIRPrimitive<FHIRString>?
 	
-	/// Codes for the clinical conclusion of test results
-	public var conclusionCode: [CodeableConcept]?
+	/// Codes and/or references for the clinical conclusion of test results
+	public var conclusionCode: [CodeableReference]?
 	
 	/// Recommendations based on findings and interpretations
 	public var recomendation: [CodeableReference]?
 	
 	/// Entire report as issued
 	public var presentedForm: [Attachment]?
+	
+	/// Communication initiated during the reporting process
+	public var communication: [Reference]?
+	
+	/// Prior data and findings for comparison
+	public var comparison: Reference?
 	
 	/// Designated initializer taking all required properties
 	public init(code: CodeableConcept, status: FHIRPrimitive<DiagnosticReportStatus>) {
@@ -118,9 +130,11 @@ open class DiagnosticReport: DomainResource {
 		basedOn: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
 		code: CodeableConcept,
+		communication: [Reference]? = nil,
+		comparison: Reference? = nil,
 		composition: Reference? = nil,
 		conclusion: FHIRPrimitive<FHIRString>? = nil,
-		conclusionCode: [CodeableConcept]? = nil,
+		conclusionCode: [CodeableReference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		effective: EffectiveX? = nil,
 		encounter: Reference? = nil,
@@ -128,7 +142,7 @@ open class DiagnosticReport: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		issued: FHIRPrimitive<Instant>? = nil,
+		issued: FHIRPrimitive<DateTime>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		media: [DiagnosticReportMedia]? = nil,
 		meta: Meta? = nil,
@@ -136,7 +150,9 @@ open class DiagnosticReport: DomainResource {
 		note: [Annotation]? = nil,
 		performer: [Reference]? = nil,
 		presentedForm: [Attachment]? = nil,
+		procedure: [Reference]? = nil,
 		recomendation: [CodeableReference]? = nil,
+		relatesTo: [RelatedArtifact]? = nil,
 		result: [Reference]? = nil,
 		resultsInterpreter: [Reference]? = nil,
 		specimen: [Reference]? = nil,
@@ -149,6 +165,8 @@ open class DiagnosticReport: DomainResource {
 		self.init(code: code, status: status)
 		self.basedOn = basedOn
 		self.category = category
+		self.communication = communication
+		self.comparison = comparison
 		self.composition = composition
 		self.conclusion = conclusion
 		self.conclusionCode = conclusionCode
@@ -167,7 +185,9 @@ open class DiagnosticReport: DomainResource {
 		self.note = note
 		self.performer = performer
 		self.presentedForm = presentedForm
+		self.procedure = procedure
 		self.recomendation = recomendation
+		self.relatesTo = relatesTo
 		self.result = result
 		self.resultsInterpreter = resultsInterpreter
 		self.specimen = specimen
@@ -183,6 +203,8 @@ open class DiagnosticReport: DomainResource {
 		case basedOn
 		case category
 		case code
+		case communication
+		case comparison
 		case composition
 		case conclusion; case _conclusion
 		case conclusionCode
@@ -195,7 +217,9 @@ open class DiagnosticReport: DomainResource {
 		case note
 		case performer
 		case presentedForm
+		case procedure
 		case recomendation
+		case relatesTo
 		case result
 		case resultsInterpreter
 		case specimen
@@ -213,9 +237,11 @@ open class DiagnosticReport: DomainResource {
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.communication = try [Reference](from: _container, forKeyIfPresent: .communication)
+		self.comparison = try Reference(from: _container, forKeyIfPresent: .comparison)
 		self.composition = try Reference(from: _container, forKeyIfPresent: .composition)
 		self.conclusion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .conclusion, auxiliaryKey: ._conclusion)
-		self.conclusionCode = try [CodeableConcept](from: _container, forKeyIfPresent: .conclusionCode)
+		self.conclusionCode = try [CodeableReference](from: _container, forKeyIfPresent: .conclusionCode)
 		var _t_effective: EffectiveX? = nil
 		if let effectiveDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .effectiveDateTime, auxiliaryKey: ._effectiveDateTime) {
 			if _t_effective != nil {
@@ -232,12 +258,14 @@ open class DiagnosticReport: DomainResource {
 		self.effective = _t_effective
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.issued = try FHIRPrimitive<Instant>(from: _container, forKeyIfPresent: .issued, auxiliaryKey: ._issued)
+		self.issued = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .issued, auxiliaryKey: ._issued)
 		self.media = try [DiagnosticReportMedia](from: _container, forKeyIfPresent: .media)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.performer = try [Reference](from: _container, forKeyIfPresent: .performer)
 		self.presentedForm = try [Attachment](from: _container, forKeyIfPresent: .presentedForm)
+		self.procedure = try [Reference](from: _container, forKeyIfPresent: .procedure)
 		self.recomendation = try [CodeableReference](from: _container, forKeyIfPresent: .recomendation)
+		self.relatesTo = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatesTo)
 		self.result = try [Reference](from: _container, forKeyIfPresent: .result)
 		self.resultsInterpreter = try [Reference](from: _container, forKeyIfPresent: .resultsInterpreter)
 		self.specimen = try [Reference](from: _container, forKeyIfPresent: .specimen)
@@ -256,6 +284,8 @@ open class DiagnosticReport: DomainResource {
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
 		try code.encode(on: &_container, forKey: .code)
+		try communication?.encode(on: &_container, forKey: .communication)
+		try comparison?.encode(on: &_container, forKey: .comparison)
 		try composition?.encode(on: &_container, forKey: .composition)
 		try conclusion?.encode(on: &_container, forKey: .conclusion, auxiliaryKey: ._conclusion)
 		try conclusionCode?.encode(on: &_container, forKey: .conclusionCode)
@@ -274,7 +304,9 @@ open class DiagnosticReport: DomainResource {
 		try note?.encode(on: &_container, forKey: .note)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try presentedForm?.encode(on: &_container, forKey: .presentedForm)
+		try procedure?.encode(on: &_container, forKey: .procedure)
 		try recomendation?.encode(on: &_container, forKey: .recomendation)
+		try relatesTo?.encode(on: &_container, forKey: .relatesTo)
 		try result?.encode(on: &_container, forKey: .result)
 		try resultsInterpreter?.encode(on: &_container, forKey: .resultsInterpreter)
 		try specimen?.encode(on: &_container, forKey: .specimen)
@@ -297,6 +329,8 @@ open class DiagnosticReport: DomainResource {
 		return basedOn == _other.basedOn
 		    && category == _other.category
 		    && code == _other.code
+		    && communication == _other.communication
+		    && comparison == _other.comparison
 		    && composition == _other.composition
 		    && conclusion == _other.conclusion
 		    && conclusionCode == _other.conclusionCode
@@ -308,7 +342,9 @@ open class DiagnosticReport: DomainResource {
 		    && note == _other.note
 		    && performer == _other.performer
 		    && presentedForm == _other.presentedForm
+		    && procedure == _other.procedure
 		    && recomendation == _other.recomendation
+		    && relatesTo == _other.relatesTo
 		    && result == _other.result
 		    && resultsInterpreter == _other.resultsInterpreter
 		    && specimen == _other.specimen
@@ -323,6 +359,8 @@ open class DiagnosticReport: DomainResource {
 		hasher.combine(basedOn)
 		hasher.combine(category)
 		hasher.combine(code)
+		hasher.combine(communication)
+		hasher.combine(comparison)
 		hasher.combine(composition)
 		hasher.combine(conclusion)
 		hasher.combine(conclusionCode)
@@ -334,7 +372,9 @@ open class DiagnosticReport: DomainResource {
 		hasher.combine(note)
 		hasher.combine(performer)
 		hasher.combine(presentedForm)
+		hasher.combine(procedure)
 		hasher.combine(recomendation)
+		hasher.combine(relatesTo)
 		hasher.combine(result)
 		hasher.combine(resultsInterpreter)
 		hasher.combine(specimen)

@@ -2,8 +2,8 @@
 //  Encounter.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Encounter)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Encounter)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ open class Encounter: DomainResource {
 	
 	/// The current state of the encounter (not the state of the patient within the encounter - that is subjectState).
 	public var status: FHIRPrimitive<EncounterStatus>
+	
+	/// A granular, workflows specific set of statuses that apply to the encounter
+	public var businessStatus: [EncounterBusinessStatus]?
 	
 	/// Classification of patient encounter context - e.g. Inpatient, outpatient
 	public var `class`: [CodeableConcept]?
@@ -127,6 +130,7 @@ open class Encounter: DomainResource {
 		admission: EncounterAdmission? = nil,
 		appointment: [Reference]? = nil,
 		basedOn: [Reference]? = nil,
+		businessStatus: [EncounterBusinessStatus]? = nil,
 		careTeam: [Reference]? = nil,
 		`class`: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
@@ -165,6 +169,7 @@ open class Encounter: DomainResource {
 		self.admission = admission
 		self.appointment = appointment
 		self.basedOn = basedOn
+		self.businessStatus = businessStatus
 		self.careTeam = careTeam
 		self.`class` = `class`
 		self.contained = contained
@@ -205,6 +210,7 @@ open class Encounter: DomainResource {
 		case admission
 		case appointment
 		case basedOn
+		case businessStatus
 		case careTeam
 		case `class` = "class"
 		case diagnosis
@@ -240,6 +246,7 @@ open class Encounter: DomainResource {
 		self.admission = try EncounterAdmission(from: _container, forKeyIfPresent: .admission)
 		self.appointment = try [Reference](from: _container, forKeyIfPresent: .appointment)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
+		self.businessStatus = try [EncounterBusinessStatus](from: _container, forKeyIfPresent: .businessStatus)
 		self.careTeam = try [Reference](from: _container, forKeyIfPresent: .careTeam)
 		self.`class` = try [CodeableConcept](from: _container, forKeyIfPresent: .`class`)
 		self.diagnosis = try [EncounterDiagnosis](from: _container, forKeyIfPresent: .diagnosis)
@@ -276,6 +283,7 @@ open class Encounter: DomainResource {
 		try admission?.encode(on: &_container, forKey: .admission)
 		try appointment?.encode(on: &_container, forKey: .appointment)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
+		try businessStatus?.encode(on: &_container, forKey: .businessStatus)
 		try careTeam?.encode(on: &_container, forKey: .careTeam)
 		try `class`?.encode(on: &_container, forKey: .`class`)
 		try diagnosis?.encode(on: &_container, forKey: .diagnosis)
@@ -316,6 +324,7 @@ open class Encounter: DomainResource {
 		    && admission == _other.admission
 		    && appointment == _other.appointment
 		    && basedOn == _other.basedOn
+		    && businessStatus == _other.businessStatus
 		    && careTeam == _other.careTeam
 		    && `class` == _other.`class`
 		    && diagnosis == _other.diagnosis
@@ -348,6 +357,7 @@ open class Encounter: DomainResource {
 		hasher.combine(admission)
 		hasher.combine(appointment)
 		hasher.combine(basedOn)
+		hasher.combine(businessStatus)
 		hasher.combine(careTeam)
 		hasher.combine(`class`)
 		hasher.combine(diagnosis)
@@ -495,6 +505,95 @@ open class EncounterAdmission: BackboneElement {
 		hasher.combine(origin)
 		hasher.combine(preAdmissionIdentifier)
 		hasher.combine(reAdmission)
+	}
+}
+
+/**
+ A granular, workflows specific set of statuses that apply to the encounter.
+ */
+open class EncounterBusinessStatus: BackboneElement {
+	
+	/// The current business status
+	public var code: CodeableConcept
+	
+	/// The kind of workflow the status is tracking
+	public var type: Coding?
+	
+	/// When the encounter entered this business status
+	public var effectiveDate: FHIRPrimitive<DateTime>?
+	
+	/// Designated initializer taking all required properties
+	public init(code: CodeableConcept) {
+		self.code = code
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		code: CodeableConcept,
+		effectiveDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		type: Coding? = nil
+	) {
+		self.init(code: code)
+		self.effectiveDate = effectiveDate
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.type = type
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case code
+		case effectiveDate; case _effectiveDate
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.code = try CodeableConcept(from: _container, forKey: .code)
+		self.effectiveDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .effectiveDate, auxiliaryKey: ._effectiveDate)
+		self.type = try Coding(from: _container, forKeyIfPresent: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try code.encode(on: &_container, forKey: .code)
+		try effectiveDate?.encode(on: &_container, forKey: .effectiveDate, auxiliaryKey: ._effectiveDate)
+		try type?.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? EncounterBusinessStatus else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return code == _other.code
+		    && effectiveDate == _other.effectiveDate
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(code)
+		hasher.combine(effectiveDate)
+		hasher.combine(type)
 	}
 }
 

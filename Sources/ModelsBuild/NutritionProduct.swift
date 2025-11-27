@@ -2,8 +2,8 @@
 //  NutritionProduct.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/NutritionProduct)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ open class NutritionProduct: DomainResource {
 	/// Broad product groups, like Fruit, Grain, Beverages, or Vegetables Products
 	public var category: [CodeableConcept]?
 	
-	/// Manufacturer, representative or officially responsible for the product
+	/// Manufacturer, representative or person officially responsible for the product
 	public var manufacturer: [Reference]?
 	
 	/// The product's nutritional information expressed by the nutrients
@@ -372,7 +372,7 @@ open class NutritionProductIngredient: BackboneElement {
 	/// One of `amount[x]`
 	public var amount: AmountX?
 	
-	/// Known or suspected substances that are a part of this product
+	/// A known or suspected allergenic and/or substance that is associated with an intolerance
 	public var allergen: FHIRPrimitive<FHIRBool>?
 	
 	/// Designated initializer taking all required properties
@@ -497,8 +497,8 @@ open class NutritionProductInstance: BackboneElement {
 	/// The date until which the product is expected to be good for consumption
 	public var useBy: FHIRPrimitive<DateTime>?
 	
-	/// An identifier that supports traceability to the event during which material in this product from one or more
-	/// biological entities was obtained or pooled
+	/// An identifier of the donation, collection, or pooling event from which biological material in this nutrition
+	/// product was derived
 	public var biologicalSourceEvent: Identifier?
 	
 	/// Designated initializer taking all required properties

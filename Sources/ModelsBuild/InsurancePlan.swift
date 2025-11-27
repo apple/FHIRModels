@@ -2,8 +2,8 @@
 //  InsurancePlan.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/InsurancePlan)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/InsurancePlan)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,7 +22,9 @@ import FMCore
 /**
  Plan details.
  
- Details about an insurance plan.
+ InsurancePlan describes the costs to the subscriber or beneficiary associated with benefits, as well as additional
+ information about the offering, such as who administers the plan, a coverage area, contact information, etc.  The
+ specific benefits covered by the plan are described in the `InsuranceProduct` referenced in `InsurancePlan.product`.
  */
 open class InsurancePlan: DomainResource {
 	

@@ -2,8 +2,8 @@
 //  ConceptMap.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ConceptMap)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ConceptMap)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ open class ConceptMap: DomainResource {
 	/// The status of this concept map. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -87,13 +87,13 @@ open class ConceptMap: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for concept map (if applicable)
+	/// Jurisdiction of the authority that maintains the concept map (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this concept map is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -499,7 +499,7 @@ open class ConceptMapAdditionalAttribute: BackboneElement {
 	/// Identifies this additional attribute through this resource
 	public var code: FHIRPrimitive<FHIRString>
 	
-	/// Formal identifier for the data element referred to in this attribte
+	/// Formal identifier for the data element referred to in this attribute
 	public var uri: FHIRPrimitive<FHIRURI>?
 	
 	/// Why the additional attribute is defined, and/or what the data element it refers to is
@@ -710,6 +710,9 @@ open class ConceptMapGroupElement: BackboneElement {
 	/// No mapping to a target concept for this source concept
 	public var noMap: FHIRPrimitive<FHIRBool>?
 	
+	/// Comments related to the mapping of the source element
+	public var comment: FHIRPrimitive<FHIRString>?
+	
 	/// Concept in target system for element
 	public var target: [ConceptMapGroupElementTarget]?
 	
@@ -721,6 +724,7 @@ open class ConceptMapGroupElement: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: FHIRPrimitive<FHIRString>? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
 		display: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -731,6 +735,7 @@ open class ConceptMapGroupElement: BackboneElement {
 	) {
 		self.init()
 		self.code = code
+		self.comment = comment
 		self.display = display
 		self.`extension` = `extension`
 		self.id = id
@@ -744,6 +749,7 @@ open class ConceptMapGroupElement: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
+		case comment; case _comment
 		case display; case _display
 		case noMap; case _noMap
 		case target
@@ -756,6 +762,7 @@ open class ConceptMapGroupElement: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .code, auxiliaryKey: ._code)
+		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.display = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .display, auxiliaryKey: ._display)
 		self.noMap = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .noMap, auxiliaryKey: ._noMap)
 		self.target = try [ConceptMapGroupElementTarget](from: _container, forKeyIfPresent: .target)
@@ -769,6 +776,7 @@ open class ConceptMapGroupElement: BackboneElement {
 		
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
+		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try display?.encode(on: &_container, forKey: .display, auxiliaryKey: ._display)
 		try noMap?.encode(on: &_container, forKey: .noMap, auxiliaryKey: ._noMap)
 		try target?.encode(on: &_container, forKey: .target)
@@ -786,6 +794,7 @@ open class ConceptMapGroupElement: BackboneElement {
 			return false
 		}
 		return code == _other.code
+		    && comment == _other.comment
 		    && display == _other.display
 		    && noMap == _other.noMap
 		    && target == _other.target
@@ -795,6 +804,7 @@ open class ConceptMapGroupElement: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
+		hasher.combine(comment)
 		hasher.combine(display)
 		hasher.combine(noMap)
 		hasher.combine(target)
@@ -822,7 +832,7 @@ open class ConceptMapGroupElementTarget: BackboneElement {
 	/// source-is-narrower-than-target).
 	public var relationship: FHIRPrimitive<ConceptMapRelationship>
 	
-	/// Description of status/issues in mapping
+	/// Comments related to the mapping to the target element
 	public var comment: FHIRPrimitive<FHIRString>?
 	
 	/// Property value for the source -> target mapping
@@ -1279,6 +1289,9 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	/// Display for the code
 	public var display: FHIRPrimitive<FHIRString>?
 	
+	/// Comments related to the choice of how to handle unmapped elements
+	public var comment: FHIRPrimitive<FHIRString>?
+	
 	/// Fixed code set when mode = fixed
 	public var valueSet: FHIRPrimitive<Canonical>?
 	
@@ -1298,6 +1311,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		code: FHIRPrimitive<FHIRString>? = nil,
+		comment: FHIRPrimitive<FHIRString>? = nil,
 		display: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -1309,6 +1323,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	) {
 		self.init(mode: mode)
 		self.code = code
+		self.comment = comment
 		self.display = display
 		self.`extension` = `extension`
 		self.id = id
@@ -1322,6 +1337,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case code; case _code
+		case comment; case _comment
 		case display; case _display
 		case mode; case _mode
 		case otherMap; case _otherMap
@@ -1335,6 +1351,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 		
 		// Decode all our properties
 		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .code, auxiliaryKey: ._code)
+		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
 		self.display = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .display, auxiliaryKey: ._display)
 		self.mode = try FHIRPrimitive<ConceptMapGroupUnmappedMode>(from: _container, forKey: .mode, auxiliaryKey: ._mode)
 		self.otherMap = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .otherMap, auxiliaryKey: ._otherMap)
@@ -1349,6 +1366,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 		
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
+		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
 		try display?.encode(on: &_container, forKey: .display, auxiliaryKey: ._display)
 		try mode.encode(on: &_container, forKey: .mode, auxiliaryKey: ._mode)
 		try otherMap?.encode(on: &_container, forKey: .otherMap, auxiliaryKey: ._otherMap)
@@ -1367,6 +1385,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 			return false
 		}
 		return code == _other.code
+		    && comment == _other.comment
 		    && display == _other.display
 		    && mode == _other.mode
 		    && otherMap == _other.otherMap
@@ -1377,6 +1396,7 @@ open class ConceptMapGroupUnmapped: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(code)
+		hasher.combine(comment)
 		hasher.combine(display)
 		hasher.combine(mode)
 		hasher.combine(otherMap)

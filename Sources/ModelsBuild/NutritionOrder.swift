@@ -2,8 +2,8 @@
 //  NutritionOrder.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/NutritionOrder)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/NutritionOrder)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,29 +31,21 @@ open class NutritionOrder: DomainResource {
 	/// Identifiers assigned to this order
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
-	/// Instantiates protocol or definition
-	public var instantiates: [FHIRPrimitive<FHIRURI>]?
-	
 	/// What this order fulfills
 	public var basedOn: [Reference]?
 	
 	/// Composite Request ID
 	public var groupIdentifier: Identifier?
 	
-	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// The workflow status of the nutrition order/request.
+	public var status: FHIRPrimitive<RequestStatus>
 	
-	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	public var intent: FHIRPrimitive<FHIRString>
+	/// Indicates the level of authority/intentionality associated with the NutrionOrder and where the request fits into
+	/// the workflow chain.
+	public var intent: FHIRPrimitive<RequestIntent>
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the Nutrition Order should be addressed with respect to other        requests.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// Who requires the diet, formula or nutritional supplement
 	public var subject: Reference
@@ -68,7 +60,7 @@ open class NutritionOrder: DomainResource {
 	public var dateTime: FHIRPrimitive<DateTime>
 	
 	/// Who ordered the diet, formula or nutritional supplement
-	public var orderer: Reference?
+	public var requester: Reference?
 	
 	/// Who is intended to perform the administration of the nutrition order
 	public var performer: [CodeableReference]?
@@ -102,7 +94,7 @@ open class NutritionOrder: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(dateTime: FHIRPrimitive<DateTime>, intent: FHIRPrimitive<FHIRString>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
+	public init(dateTime: FHIRPrimitive<DateTime>, intent: FHIRPrimitive<RequestIntent>, status: FHIRPrimitive<RequestStatus>, subject: Reference) {
 		self.dateTime = dateTime
 		self.intent = intent
 		self.status = status
@@ -126,20 +118,17 @@ open class NutritionOrder: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiates: [FHIRPrimitive<FHIRURI>]? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
-		intent: FHIRPrimitive<FHIRString>,
+		intent: FHIRPrimitive<RequestIntent>,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		oralDiet: NutritionOrderOralDiet? = nil,
-		orderer: Reference? = nil,
 		outsideFoodAllowed: FHIRPrimitive<FHIRBool>? = nil,
 		performer: [CodeableReference]? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		requester: Reference? = nil,
+		status: FHIRPrimitive<RequestStatus>,
 		subject: Reference,
 		supplement: [NutritionOrderSupplement]? = nil,
 		supportingInformation: [Reference]? = nil,
@@ -159,18 +148,15 @@ open class NutritionOrder: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiates = instantiates
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
 		self.oralDiet = oralDiet
-		self.orderer = orderer
 		self.outsideFoodAllowed = outsideFoodAllowed
 		self.performer = performer
 		self.priority = priority
+		self.requester = requester
 		self.supplement = supplement
 		self.supportingInformation = supportingInformation
 		self.text = text
@@ -189,16 +175,13 @@ open class NutritionOrder: DomainResource {
 		case foodPreferenceModifier
 		case groupIdentifier
 		case identifier
-		case instantiates; case _instantiates
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case intent; case _intent
 		case note
 		case oralDiet
-		case orderer
 		case outsideFoodAllowed; case _outsideFoodAllowed
 		case performer
 		case priority; case _priority
+		case requester
 		case status; case _status
 		case subject
 		case supplement
@@ -220,17 +203,14 @@ open class NutritionOrder: DomainResource {
 		self.foodPreferenceModifier = try [CodeableConcept](from: _container, forKeyIfPresent: .foodPreferenceModifier)
 		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiates = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiates, auxiliaryKey: ._instantiates)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
-		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.oralDiet = try NutritionOrderOralDiet(from: _container, forKeyIfPresent: .oralDiet)
-		self.orderer = try Reference(from: _container, forKeyIfPresent: .orderer)
 		self.outsideFoodAllowed = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .outsideFoodAllowed, auxiliaryKey: ._outsideFoodAllowed)
 		self.performer = try [CodeableReference](from: _container, forKeyIfPresent: .performer)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
+		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supplement = try [NutritionOrderSupplement](from: _container, forKeyIfPresent: .supplement)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
@@ -252,16 +232,13 @@ open class NutritionOrder: DomainResource {
 		try foodPreferenceModifier?.encode(on: &_container, forKey: .foodPreferenceModifier)
 		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiates?.encode(on: &_container, forKey: .instantiates, auxiliaryKey: ._instantiates)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
 		try note?.encode(on: &_container, forKey: .note)
 		try oralDiet?.encode(on: &_container, forKey: .oralDiet)
-		try orderer?.encode(on: &_container, forKey: .orderer)
 		try outsideFoodAllowed?.encode(on: &_container, forKey: .outsideFoodAllowed, auxiliaryKey: ._outsideFoodAllowed)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
+		try requester?.encode(on: &_container, forKey: .requester)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject.encode(on: &_container, forKey: .subject)
 		try supplement?.encode(on: &_container, forKey: .supplement)
@@ -288,16 +265,13 @@ open class NutritionOrder: DomainResource {
 		    && foodPreferenceModifier == _other.foodPreferenceModifier
 		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
-		    && instantiates == _other.instantiates
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && intent == _other.intent
 		    && note == _other.note
 		    && oralDiet == _other.oralDiet
-		    && orderer == _other.orderer
 		    && outsideFoodAllowed == _other.outsideFoodAllowed
 		    && performer == _other.performer
 		    && priority == _other.priority
+		    && requester == _other.requester
 		    && status == _other.status
 		    && subject == _other.subject
 		    && supplement == _other.supplement
@@ -316,16 +290,13 @@ open class NutritionOrder: DomainResource {
 		hasher.combine(foodPreferenceModifier)
 		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
-		hasher.combine(instantiates)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(intent)
 		hasher.combine(note)
 		hasher.combine(oralDiet)
-		hasher.combine(orderer)
 		hasher.combine(outsideFoodAllowed)
 		hasher.combine(performer)
 		hasher.combine(priority)
+		hasher.combine(requester)
 		hasher.combine(status)
 		hasher.combine(subject)
 		hasher.combine(supplement)
@@ -350,6 +321,9 @@ open class NutritionOrderAdditive: BackboneElement {
 	/// Amount of additive to be given or mixed in with the oral diet, supplement, and/or enteral feeding
 	public var quantity: Quantity?
 	
+	/// How the additive should enter the patient's gastrointestinal tract
+	public var routeOfAdministration: [CodeableConcept]?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -362,7 +336,8 @@ open class NutritionOrderAdditive: BackboneElement {
 		modifierExtension: [Extension]? = nil,
 		modularType: CodeableReference? = nil,
 		productName: FHIRPrimitive<FHIRString>? = nil,
-		quantity: Quantity? = nil
+		quantity: Quantity? = nil,
+		routeOfAdministration: [CodeableConcept]? = nil
 	) {
 		self.init()
 		self.`extension` = `extension`
@@ -371,6 +346,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		self.modularType = modularType
 		self.productName = productName
 		self.quantity = quantity
+		self.routeOfAdministration = routeOfAdministration
 	}
 	
 	// MARK: - Codable
@@ -379,6 +355,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		case modularType
 		case productName; case _productName
 		case quantity
+		case routeOfAdministration
 	}
 	
 	/// Initializer for Decodable
@@ -389,6 +366,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		self.modularType = try CodeableReference(from: _container, forKeyIfPresent: .modularType)
 		self.productName = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .productName, auxiliaryKey: ._productName)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
+		self.routeOfAdministration = try [CodeableConcept](from: _container, forKeyIfPresent: .routeOfAdministration)
 		try super.init(from: decoder)
 	}
 	
@@ -400,6 +378,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		try modularType?.encode(on: &_container, forKey: .modularType)
 		try productName?.encode(on: &_container, forKey: .productName, auxiliaryKey: ._productName)
 		try quantity?.encode(on: &_container, forKey: .quantity)
+		try routeOfAdministration?.encode(on: &_container, forKey: .routeOfAdministration)
 		try super.encode(to: encoder)
 	}
 	
@@ -415,6 +394,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		return modularType == _other.modularType
 		    && productName == _other.productName
 		    && quantity == _other.quantity
+		    && routeOfAdministration == _other.routeOfAdministration
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -422,6 +402,7 @@ open class NutritionOrderAdditive: BackboneElement {
 		hasher.combine(modularType)
 		hasher.combine(productName)
 		hasher.combine(quantity)
+		hasher.combine(routeOfAdministration)
 	}
 }
 
@@ -433,6 +414,12 @@ open class NutritionOrderAdditive: BackboneElement {
  */
 open class NutritionOrderEnteralFormula: BackboneElement {
 	
+	/// All possible types for "deliveryDevice[x]"
+	public enum DeliveryDeviceX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case codeableConcept(CodeableConcept)
+	}
+	
 	/// Type of patient enteral feeding
 	public var type: CodeableReference?
 	
@@ -440,7 +427,8 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 	public var productName: FHIRPrimitive<FHIRString>?
 	
 	/// Intended type of device for the enteral feeding administration
-	public var deliveryDevice: [CodeableReference]?
+	/// One of `deliveryDevice[x]`
+	public var deliveryDevice: DeliveryDeviceX?
 	
 	/// Amount of energy per specified volume of feeding that is required
 	public var caloricDensity: Quantity?
@@ -467,7 +455,7 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 		administration: [NutritionOrderEnteralFormulaAdministration]? = nil,
 		administrationInstruction: FHIRPrimitive<FHIRString>? = nil,
 		caloricDensity: Quantity? = nil,
-		deliveryDevice: [CodeableReference]? = nil,
+		deliveryDevice: DeliveryDeviceX? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		maxVolumeToAdminister: Quantity? = nil,
@@ -496,7 +484,8 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 		case administration
 		case administrationInstruction; case _administrationInstruction
 		case caloricDensity
-		case deliveryDevice
+		case deliveryDeviceCanonical; case _deliveryDeviceCanonical
+		case deliveryDeviceCodeableConcept
 		case maxVolumeToAdminister
 		case productName; case _productName
 		case routeOfAdministration
@@ -511,7 +500,20 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 		self.administration = try [NutritionOrderEnteralFormulaAdministration](from: _container, forKeyIfPresent: .administration)
 		self.administrationInstruction = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .administrationInstruction, auxiliaryKey: ._administrationInstruction)
 		self.caloricDensity = try Quantity(from: _container, forKeyIfPresent: .caloricDensity)
-		self.deliveryDevice = try [CodeableReference](from: _container, forKeyIfPresent: .deliveryDevice)
+		var _t_deliveryDevice: DeliveryDeviceX? = nil
+		if let deliveryDeviceCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .deliveryDeviceCodeableConcept) {
+			if _t_deliveryDevice != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deliveryDeviceCodeableConcept, in: _container, debugDescription: "More than one value provided for \"deliveryDevice\"")
+			}
+			_t_deliveryDevice = .codeableConcept(deliveryDeviceCodeableConcept)
+		}
+		if let deliveryDeviceCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .deliveryDeviceCanonical, auxiliaryKey: ._deliveryDeviceCanonical) {
+			if _t_deliveryDevice != nil {
+				throw DecodingError.dataCorruptedError(forKey: .deliveryDeviceCanonical, in: _container, debugDescription: "More than one value provided for \"deliveryDevice\"")
+			}
+			_t_deliveryDevice = .canonical(deliveryDeviceCanonical)
+		}
+		self.deliveryDevice = _t_deliveryDevice
 		self.maxVolumeToAdminister = try Quantity(from: _container, forKeyIfPresent: .maxVolumeToAdminister)
 		self.productName = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .productName, auxiliaryKey: ._productName)
 		self.routeOfAdministration = try [CodeableConcept](from: _container, forKeyIfPresent: .routeOfAdministration)
@@ -527,7 +529,14 @@ open class NutritionOrderEnteralFormula: BackboneElement {
 		try administration?.encode(on: &_container, forKey: .administration)
 		try administrationInstruction?.encode(on: &_container, forKey: .administrationInstruction, auxiliaryKey: ._administrationInstruction)
 		try caloricDensity?.encode(on: &_container, forKey: .caloricDensity)
-		try deliveryDevice?.encode(on: &_container, forKey: .deliveryDevice)
+		if let _enum = deliveryDevice {
+			switch _enum {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .deliveryDeviceCodeableConcept)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .deliveryDeviceCanonical, auxiliaryKey: ._deliveryDeviceCanonical)
+			}
+		}
 		try maxVolumeToAdminister?.encode(on: &_container, forKey: .maxVolumeToAdminister)
 		try productName?.encode(on: &_container, forKey: .productName, auxiliaryKey: ._productName)
 		try routeOfAdministration?.encode(on: &_container, forKey: .routeOfAdministration)

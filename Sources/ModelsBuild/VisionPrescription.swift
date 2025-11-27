@@ -2,8 +2,8 @@
 //  VisionPrescription.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/VisionPrescription)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/VisionPrescription)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,8 +34,14 @@ open class VisionPrescription: DomainResource {
 	/// What prescription fulfills
 	public var basedOn: [Reference]?
 	
+	/// Composite request identifier
+	public var groupIdentifier: Identifier?
+	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// Indicates how quickly the vision prescription should be addressed with respect to other requests.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// Response creation date
 	public var created: FHIRPrimitive<DateTime>
@@ -74,6 +80,7 @@ open class VisionPrescription: DomainResource {
 		dateWritten: FHIRPrimitive<DateTime>,
 		encounter: Reference? = nil,
 		`extension`: [Extension]? = nil,
+		groupIdentifier: Identifier? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
@@ -83,6 +90,7 @@ open class VisionPrescription: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		patient: Reference,
 		prescriber: Reference,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
 		text: Narrative? = nil
 	) {
@@ -91,12 +99,14 @@ open class VisionPrescription: DomainResource {
 		self.contained = contained
 		self.encounter = encounter
 		self.`extension` = `extension`
+		self.groupIdentifier = groupIdentifier
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.priority = priority
 		self.text = text
 	}
 	
@@ -107,10 +117,12 @@ open class VisionPrescription: DomainResource {
 		case created; case _created
 		case dateWritten; case _dateWritten
 		case encounter
+		case groupIdentifier
 		case identifier
 		case lensSpecification
 		case patient
 		case prescriber
+		case priority; case _priority
 		case status; case _status
 	}
 	
@@ -123,10 +135,12 @@ open class VisionPrescription: DomainResource {
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
 		self.dateWritten = try FHIRPrimitive<DateTime>(from: _container, forKey: .dateWritten, auxiliaryKey: ._dateWritten)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
+		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lensSpecification = try [VisionPrescriptionLensSpecification](from: _container, forKey: .lensSpecification)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.prescriber = try Reference(from: _container, forKey: .prescriber)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		try super.init(from: decoder)
 	}
@@ -140,10 +154,12 @@ open class VisionPrescription: DomainResource {
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
 		try dateWritten.encode(on: &_container, forKey: .dateWritten, auxiliaryKey: ._dateWritten)
 		try encounter?.encode(on: &_container, forKey: .encounter)
+		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lensSpecification.encode(on: &_container, forKey: .lensSpecification)
 		try patient.encode(on: &_container, forKey: .patient)
 		try prescriber.encode(on: &_container, forKey: .prescriber)
+		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try super.encode(to: encoder)
 	}
@@ -161,10 +177,12 @@ open class VisionPrescription: DomainResource {
 		    && created == _other.created
 		    && dateWritten == _other.dateWritten
 		    && encounter == _other.encounter
+		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
 		    && lensSpecification == _other.lensSpecification
 		    && patient == _other.patient
 		    && prescriber == _other.prescriber
+		    && priority == _other.priority
 		    && status == _other.status
 	}
 	
@@ -174,10 +192,12 @@ open class VisionPrescription: DomainResource {
 		hasher.combine(created)
 		hasher.combine(dateWritten)
 		hasher.combine(encounter)
+		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
 		hasher.combine(lensSpecification)
 		hasher.combine(patient)
 		hasher.combine(prescriber)
+		hasher.combine(priority)
 		hasher.combine(status)
 	}
 }

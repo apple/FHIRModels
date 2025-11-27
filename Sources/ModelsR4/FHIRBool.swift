@@ -23,7 +23,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#boolean
  */
-public struct FHIRBool: FHIRPrimitiveType, Sendable {
+public struct FHIRBool: FHIRPrimitiveType {
 	
 	public typealias BooleanLiteralType = Bool
 	

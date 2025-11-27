@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,17 +27,16 @@ import FMCore
  */
 public enum BiologicallyDerivedProductStatus: String, FHIRPrimitiveType {
 	
-	/// The biologically derived product has been clinically applied. Canonical map to complete.
+	/// The biologically derived product has been clinically applied.
 	case applied
 	
 	/// Product is currently available for use.
 	case available
 	
-	/// The biologically derived product has been discarded. Canonical map to abandoned.
-	case discarded = "Discarded"
+	/// The biologically derived product has been discarded.
+	case discarded
 	
-	/// The biologically derived product has been further processed to one or more other products. Canonical map to
-	/// replaced.
+	/// The biologically derived product has been further processed to one or more other products.
 	case processed
 	
 	/// Product is not currently available for use.

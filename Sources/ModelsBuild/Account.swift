@@ -2,8 +2,8 @@
 //  Account.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Account)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Account)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -72,8 +72,8 @@ open class Account: DomainResource {
 	/// The list of procedures relevant to this account
 	public var procedure: [AccountProcedure]?
 	
-	/// Other associated accounts related to this account
-	public var relatedAccount: [AccountRelatedAccount]?
+	/// Reference to an associated parent Account
+	public var parent: Reference?
 	
 	/// The base or default currency
 	public var currency: CodeableConcept?
@@ -111,8 +111,8 @@ open class Account: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		owner: Reference? = nil,
+		parent: Reference? = nil,
 		procedure: [AccountProcedure]? = nil,
-		relatedAccount: [AccountRelatedAccount]? = nil,
 		servicePeriod: Period? = nil,
 		status: FHIRPrimitive<AccountStatus>,
 		subject: [Reference]? = nil,
@@ -139,8 +139,8 @@ open class Account: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.owner = owner
+		self.parent = parent
 		self.procedure = procedure
-		self.relatedAccount = relatedAccount
 		self.servicePeriod = servicePeriod
 		self.subject = subject
 		self.text = text
@@ -162,8 +162,8 @@ open class Account: DomainResource {
 		case identifier
 		case name; case _name
 		case owner
+		case parent
 		case procedure
-		case relatedAccount
 		case servicePeriod
 		case status; case _status
 		case subject
@@ -187,8 +187,8 @@ open class Account: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.owner = try Reference(from: _container, forKeyIfPresent: .owner)
+		self.parent = try Reference(from: _container, forKeyIfPresent: .parent)
 		self.procedure = try [AccountProcedure](from: _container, forKeyIfPresent: .procedure)
-		self.relatedAccount = try [AccountRelatedAccount](from: _container, forKeyIfPresent: .relatedAccount)
 		self.servicePeriod = try Period(from: _container, forKeyIfPresent: .servicePeriod)
 		self.status = try FHIRPrimitive<AccountStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
@@ -213,8 +213,8 @@ open class Account: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try owner?.encode(on: &_container, forKey: .owner)
+		try parent?.encode(on: &_container, forKey: .parent)
 		try procedure?.encode(on: &_container, forKey: .procedure)
-		try relatedAccount?.encode(on: &_container, forKey: .relatedAccount)
 		try servicePeriod?.encode(on: &_container, forKey: .servicePeriod)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
@@ -243,8 +243,8 @@ open class Account: DomainResource {
 		    && identifier == _other.identifier
 		    && name == _other.name
 		    && owner == _other.owner
+		    && parent == _other.parent
 		    && procedure == _other.procedure
-		    && relatedAccount == _other.relatedAccount
 		    && servicePeriod == _other.servicePeriod
 		    && status == _other.status
 		    && subject == _other.subject
@@ -265,8 +265,8 @@ open class Account: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(name)
 		hasher.combine(owner)
+		hasher.combine(parent)
 		hasher.combine(procedure)
-		hasher.combine(relatedAccount)
 		hasher.combine(servicePeriod)
 		hasher.combine(status)
 		hasher.combine(subject)
@@ -587,7 +587,7 @@ open class AccountDiagnosis: BackboneElement {
 open class AccountGuarantor: BackboneElement {
 	
 	/// Responsible entity
-	public var party: Reference
+	public var party: Reference?
 	
 	/// Credit or other hold applied
 	public var onHold: FHIRPrimitive<FHIRBool>?
@@ -595,35 +595,59 @@ open class AccountGuarantor: BackboneElement {
 	/// Guarantee account during
 	public var period: Period?
 	
+	/// A specific Account for the guarantor
+	public var account: Reference?
+	
+	/// Responsible %'age of charges
+	public var responsibility: Quantity?
+	
+	/// Responsible financial limit
+	public var limit: Money?
+	
+	/// Rank order of guarator
+	public var rank: FHIRPrimitive<FHIRPositiveInteger>?
+	
 	/// Designated initializer taking all required properties
-	public init(party: Reference) {
-		self.party = party
+	override public init() {
 		super.init()
 	}
 	
 	/// Convenience initializer
 	public convenience init(
+		account: Reference? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
+		limit: Money? = nil,
 		modifierExtension: [Extension]? = nil,
 		onHold: FHIRPrimitive<FHIRBool>? = nil,
-		party: Reference,
-		period: Period? = nil
+		party: Reference? = nil,
+		period: Period? = nil,
+		rank: FHIRPrimitive<FHIRPositiveInteger>? = nil,
+		responsibility: Quantity? = nil
 	) {
-		self.init(party: party)
+		self.init()
+		self.account = account
 		self.`extension` = `extension`
 		self.id = id
+		self.limit = limit
 		self.modifierExtension = modifierExtension
 		self.onHold = onHold
+		self.party = party
 		self.period = period
+		self.rank = rank
+		self.responsibility = responsibility
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case account
+		case limit
 		case onHold; case _onHold
 		case party
 		case period
+		case rank; case _rank
+		case responsibility
 	}
 	
 	/// Initializer for Decodable
@@ -631,9 +655,13 @@ open class AccountGuarantor: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.account = try Reference(from: _container, forKeyIfPresent: .account)
+		self.limit = try Money(from: _container, forKeyIfPresent: .limit)
 		self.onHold = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .onHold, auxiliaryKey: ._onHold)
-		self.party = try Reference(from: _container, forKey: .party)
+		self.party = try Reference(from: _container, forKeyIfPresent: .party)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
+		self.rank = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .rank, auxiliaryKey: ._rank)
+		self.responsibility = try Quantity(from: _container, forKeyIfPresent: .responsibility)
 		try super.init(from: decoder)
 	}
 	
@@ -642,9 +670,13 @@ open class AccountGuarantor: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try account?.encode(on: &_container, forKey: .account)
+		try limit?.encode(on: &_container, forKey: .limit)
 		try onHold?.encode(on: &_container, forKey: .onHold, auxiliaryKey: ._onHold)
-		try party.encode(on: &_container, forKey: .party)
+		try party?.encode(on: &_container, forKey: .party)
 		try period?.encode(on: &_container, forKey: .period)
+		try rank?.encode(on: &_container, forKey: .rank, auxiliaryKey: ._rank)
+		try responsibility?.encode(on: &_container, forKey: .responsibility)
 		try super.encode(to: encoder)
 	}
 	
@@ -657,16 +689,24 @@ open class AccountGuarantor: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return onHold == _other.onHold
+		return account == _other.account
+		    && limit == _other.limit
+		    && onHold == _other.onHold
 		    && party == _other.party
 		    && period == _other.period
+		    && rank == _other.rank
+		    && responsibility == _other.responsibility
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(account)
+		hasher.combine(limit)
 		hasher.combine(onHold)
 		hasher.combine(party)
 		hasher.combine(period)
+		hasher.combine(rank)
+		hasher.combine(responsibility)
 	}
 }
 
@@ -789,84 +829,5 @@ open class AccountProcedure: BackboneElement {
 		hasher.combine(packageCode)
 		hasher.combine(sequence)
 		hasher.combine(type)
-	}
-}
-
-/**
- Other associated accounts related to this account.
- */
-open class AccountRelatedAccount: BackboneElement {
-	
-	/// Relationship of the associated Account
-	public var relationship: CodeableConcept?
-	
-	/// Reference to an associated Account
-	public var account: Reference
-	
-	/// Designated initializer taking all required properties
-	public init(account: Reference) {
-		self.account = account
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		account: Reference,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		relationship: CodeableConcept? = nil
-	) {
-		self.init(account: account)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.relationship = relationship
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case account
-		case relationship
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.account = try Reference(from: _container, forKey: .account)
-		self.relationship = try CodeableConcept(from: _container, forKeyIfPresent: .relationship)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try account.encode(on: &_container, forKey: .account)
-		try relationship?.encode(on: &_container, forKey: .relationship)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? AccountRelatedAccount else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return account == _other.account
-		    && relationship == _other.relationship
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(account)
-		hasher.combine(relationship)
 	}
 }

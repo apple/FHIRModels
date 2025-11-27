@@ -2,8 +2,8 @@
 //  CoverageEligibilityRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityRequest)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CoverageEligibilityRequest)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,6 +41,9 @@ open class CoverageEligibilityRequest: DomainResource {
 	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// Reason for status change
+	public var statusReason: FHIRPrimitive<FHIRString>?
 	
 	/// Desired processing priority
 	public var priority: CodeableConcept?
@@ -117,6 +120,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		purpose: [FHIRPrimitive<EligibilityRequestPurpose>],
 		serviced: ServicedX? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
 		supportingInfo: [CoverageEligibilityRequestSupportingInfo]? = nil,
 		text: Narrative? = nil
 	) {
@@ -137,6 +141,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		self.priority = priority
 		self.provider = provider
 		self.serviced = serviced
+		self.statusReason = statusReason
 		self.supportingInfo = supportingInfo
 		self.text = text
 	}
@@ -159,6 +164,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		case servicedDate; case _servicedDate
 		case servicedPeriod
 		case status; case _status
+		case statusReason; case _statusReason
 		case supportingInfo
 	}
 	
@@ -194,6 +200,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		}
 		self.serviced = _t_serviced
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
 		self.supportingInfo = try [CoverageEligibilityRequestSupportingInfo](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
 	}
@@ -224,6 +231,7 @@ open class CoverageEligibilityRequest: DomainResource {
 			}
 		}
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
 		try supportingInfo?.encode(on: &_container, forKey: .supportingInfo)
 		try super.encode(to: encoder)
 	}
@@ -251,6 +259,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		    && purpose == _other.purpose
 		    && serviced == _other.serviced
 		    && status == _other.status
+		    && statusReason == _other.statusReason
 		    && supportingInfo == _other.supportingInfo
 	}
 	
@@ -270,6 +279,7 @@ open class CoverageEligibilityRequest: DomainResource {
 		hasher.combine(purpose)
 		hasher.combine(serviced)
 		hasher.combine(status)
+		hasher.combine(statusReason)
 		hasher.combine(supportingInfo)
 	}
 }

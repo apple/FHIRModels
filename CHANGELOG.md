@@ -3,6 +3,12 @@ Changelog
 
 The changelog is in reverse chronological order, as usual.
 
+### 0.8.0
+
+- BREAKING CHANGES: update _build_ models to 6.0.0-ballot3 (http://build.fhir.org/)
+- Address https://github.com/apple/FHIRModels/issues/38 (thanks to [Lukas Kollmer](https://github.com/lukaskollmer) for the idea)
+- Move some unit tests to Swift Testing; since with testing https://github.com/apple/FHIRModels/issues/39 cannot be reproduced, resolves #39
+
 ### 0.7.0
 
 - Make most primitive types (such as `FHIRBool` and `FHIRDateComponents`) `Sendable`

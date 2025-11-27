@@ -2,8 +2,8 @@
 //  Signature.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Signature)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Signature)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ open class Signature: DataType {
 	/// The technical format of the signature
 	public var sigFormat: FHIRPrimitive<FHIRString>?
 	
-	/// The actual signature content (XML DigSig. JWS, picture, etc.)
+	/// The actual signature content (XML Signature, JSON Jose, picture, etc.)
 	public var data: FHIRPrimitive<Base64Binary>?
 	
 	/// Designated initializer taking all required properties

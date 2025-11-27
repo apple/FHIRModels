@@ -2,8 +2,8 @@
 //  PaymentReconciliation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/PaymentReconciliation)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,6 +36,9 @@ open class PaymentReconciliation: DomainResource {
 	
 	/// The status of the resource instance.
 	public var status: FHIRPrimitive<FinancialResourceStatusCodes>
+	
+	/// Reason for status change
+	public var statusReason: FHIRPrimitive<FHIRString>?
 	
 	/// Workflow originating payment
 	public var kind: CodeableConcept?
@@ -101,7 +104,7 @@ open class PaymentReconciliation: DomainResource {
 	public var returnedAmount: Money?
 	
 	/// Total amount of Payment
-	public var amount: Money
+	public var amount: Money?
 	
 	/// Business identifier for the payment
 	public var paymentIdentifier: Identifier?
@@ -116,8 +119,7 @@ open class PaymentReconciliation: DomainResource {
 	public var processNote: [PaymentReconciliationProcessNote]?
 	
 	/// Designated initializer taking all required properties
-	public init(amount: Money, created: FHIRPrimitive<DateTime>, date: FHIRPrimitive<FHIRDate>, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept) {
-		self.amount = amount
+	public init(created: FHIRPrimitive<DateTime>, date: FHIRPrimitive<FHIRDate>, status: FHIRPrimitive<FinancialResourceStatusCodes>, type: CodeableConcept) {
 		self.created = created
 		self.date = date
 		self.status = status
@@ -129,7 +131,7 @@ open class PaymentReconciliation: DomainResource {
 	public convenience init(
 		accountNumber: FHIRPrimitive<FHIRString>? = nil,
 		allocation: [PaymentReconciliationAllocation]? = nil,
-		amount: Money,
+		amount: Money? = nil,
 		authorization: FHIRPrimitive<FHIRString>? = nil,
 		cardBrand: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
@@ -161,13 +163,15 @@ open class PaymentReconciliation: DomainResource {
 		requestor: Reference? = nil,
 		returnedAmount: Money? = nil,
 		status: FHIRPrimitive<FinancialResourceStatusCodes>,
+		statusReason: FHIRPrimitive<FHIRString>? = nil,
 		tenderedAmount: Money? = nil,
 		text: Narrative? = nil,
 		type: CodeableConcept
 	) {
-		self.init(amount: amount, created: created, date: date, status: status, type: type)
+		self.init(created: created, date: date, status: status, type: type)
 		self.accountNumber = accountNumber
 		self.allocation = allocation
+		self.amount = amount
 		self.authorization = authorization
 		self.cardBrand = cardBrand
 		self.contained = contained
@@ -196,6 +200,7 @@ open class PaymentReconciliation: DomainResource {
 		self.request = request
 		self.requestor = requestor
 		self.returnedAmount = returnedAmount
+		self.statusReason = statusReason
 		self.tenderedAmount = tenderedAmount
 		self.text = text
 	}
@@ -230,6 +235,7 @@ open class PaymentReconciliation: DomainResource {
 		case requestor
 		case returnedAmount
 		case status; case _status
+		case statusReason; case _statusReason
 		case tenderedAmount
 		case type
 	}
@@ -241,7 +247,7 @@ open class PaymentReconciliation: DomainResource {
 		// Decode all our properties
 		self.accountNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .accountNumber, auxiliaryKey: ._accountNumber)
 		self.allocation = try [PaymentReconciliationAllocation](from: _container, forKeyIfPresent: .allocation)
-		self.amount = try Money(from: _container, forKey: .amount)
+		self.amount = try Money(from: _container, forKeyIfPresent: .amount)
 		self.authorization = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .authorization, auxiliaryKey: ._authorization)
 		self.cardBrand = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .cardBrand, auxiliaryKey: ._cardBrand)
 		self.created = try FHIRPrimitive<DateTime>(from: _container, forKey: .created, auxiliaryKey: ._created)
@@ -266,6 +272,7 @@ open class PaymentReconciliation: DomainResource {
 		self.requestor = try Reference(from: _container, forKeyIfPresent: .requestor)
 		self.returnedAmount = try Money(from: _container, forKeyIfPresent: .returnedAmount)
 		self.status = try FHIRPrimitive<FinancialResourceStatusCodes>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.statusReason = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .statusReason, auxiliaryKey: ._statusReason)
 		self.tenderedAmount = try Money(from: _container, forKeyIfPresent: .tenderedAmount)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		try super.init(from: decoder)
@@ -278,7 +285,7 @@ open class PaymentReconciliation: DomainResource {
 		// Encode all our properties
 		try accountNumber?.encode(on: &_container, forKey: .accountNumber, auxiliaryKey: ._accountNumber)
 		try allocation?.encode(on: &_container, forKey: .allocation)
-		try amount.encode(on: &_container, forKey: .amount)
+		try amount?.encode(on: &_container, forKey: .amount)
 		try authorization?.encode(on: &_container, forKey: .authorization, auxiliaryKey: ._authorization)
 		try cardBrand?.encode(on: &_container, forKey: .cardBrand, auxiliaryKey: ._cardBrand)
 		try created.encode(on: &_container, forKey: .created, auxiliaryKey: ._created)
@@ -303,6 +310,7 @@ open class PaymentReconciliation: DomainResource {
 		try requestor?.encode(on: &_container, forKey: .requestor)
 		try returnedAmount?.encode(on: &_container, forKey: .returnedAmount)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try statusReason?.encode(on: &_container, forKey: .statusReason, auxiliaryKey: ._statusReason)
 		try tenderedAmount?.encode(on: &_container, forKey: .tenderedAmount)
 		try type.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -344,6 +352,7 @@ open class PaymentReconciliation: DomainResource {
 		    && requestor == _other.requestor
 		    && returnedAmount == _other.returnedAmount
 		    && status == _other.status
+		    && statusReason == _other.statusReason
 		    && tenderedAmount == _other.tenderedAmount
 		    && type == _other.type
 	}
@@ -377,6 +386,7 @@ open class PaymentReconciliation: DomainResource {
 		hasher.combine(requestor)
 		hasher.combine(returnedAmount)
 		hasher.combine(status)
+		hasher.combine(statusReason)
 		hasher.combine(tenderedAmount)
 		hasher.combine(type)
 	}
@@ -436,6 +446,9 @@ open class PaymentReconciliationAllocation: BackboneElement {
 	/// Amount allocated to this payable
 	public var amount: Money?
 	
+	/// Applicable note numbers
+	public var noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -451,6 +464,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: Identifier? = nil,
 		modifierExtension: [Extension]? = nil,
+		noteNumber: [FHIRPrimitive<FHIRPositiveInteger>]? = nil,
 		payee: Reference? = nil,
 		predecessor: Identifier? = nil,
 		response: Reference? = nil,
@@ -469,6 +483,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		self.id = id
 		self.identifier = identifier
 		self.modifierExtension = modifierExtension
+		self.noteNumber = noteNumber
 		self.payee = payee
 		self.predecessor = predecessor
 		self.response = response
@@ -487,6 +502,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		case date; case _date
 		case encounter
 		case identifier
+		case noteNumber; case _noteNumber
 		case payee
 		case predecessor
 		case response
@@ -509,6 +525,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		self.date = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try Identifier(from: _container, forKeyIfPresent: .identifier)
+		self.noteNumber = try [FHIRPrimitive<FHIRPositiveInteger>](from: _container, forKeyIfPresent: .noteNumber, auxiliaryKey: ._noteNumber)
 		self.payee = try Reference(from: _container, forKeyIfPresent: .payee)
 		self.predecessor = try Identifier(from: _container, forKeyIfPresent: .predecessor)
 		self.response = try Reference(from: _container, forKeyIfPresent: .response)
@@ -549,6 +566,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try identifier?.encode(on: &_container, forKey: .identifier)
+		try noteNumber?.encode(on: &_container, forKey: .noteNumber, auxiliaryKey: ._noteNumber)
 		try payee?.encode(on: &_container, forKey: .payee)
 		try predecessor?.encode(on: &_container, forKey: .predecessor)
 		try response?.encode(on: &_container, forKey: .response)
@@ -583,6 +601,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		    && date == _other.date
 		    && encounter == _other.encounter
 		    && identifier == _other.identifier
+		    && noteNumber == _other.noteNumber
 		    && payee == _other.payee
 		    && predecessor == _other.predecessor
 		    && response == _other.response
@@ -600,6 +619,7 @@ open class PaymentReconciliationAllocation: BackboneElement {
 		hasher.combine(date)
 		hasher.combine(encounter)
 		hasher.combine(identifier)
+		hasher.combine(noteNumber)
 		hasher.combine(payee)
 		hasher.combine(predecessor)
 		hasher.combine(response)
@@ -618,6 +638,12 @@ open class PaymentReconciliationAllocation: BackboneElement {
  */
 open class PaymentReconciliationProcessNote: BackboneElement {
 	
+	/// Business kind of note
+	public var `class`: CodeableConcept?
+	
+	/// Note instance identifier
+	public var number: FHIRPrimitive<FHIRPositiveInteger>?
+	
 	/// The business purpose of the note text.
 	public var type: FHIRPrimitive<NoteType>?
 	
@@ -631,16 +657,20 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		`class`: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
+		number: FHIRPrimitive<FHIRPositiveInteger>? = nil,
 		text: FHIRPrimitive<FHIRString>? = nil,
 		type: FHIRPrimitive<NoteType>? = nil
 	) {
 		self.init()
+		self.`class` = `class`
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.number = number
 		self.text = text
 		self.type = type
 	}
@@ -648,6 +678,8 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case `class` = "class"
+		case number; case _number
 		case text; case _text
 		case type; case _type
 	}
@@ -657,6 +689,8 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.`class` = try CodeableConcept(from: _container, forKeyIfPresent: .`class`)
+		self.number = try FHIRPrimitive<FHIRPositiveInteger>(from: _container, forKeyIfPresent: .number, auxiliaryKey: ._number)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)
 		self.type = try FHIRPrimitive<NoteType>(from: _container, forKeyIfPresent: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
@@ -667,6 +701,8 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try `class`?.encode(on: &_container, forKey: .`class`)
+		try number?.encode(on: &_container, forKey: .number, auxiliaryKey: ._number)
 		try text?.encode(on: &_container, forKey: .text, auxiliaryKey: ._text)
 		try type?.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
 		try super.encode(to: encoder)
@@ -681,12 +717,16 @@ open class PaymentReconciliationProcessNote: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return text == _other.text
+		return `class` == _other.`class`
+		    && number == _other.number
+		    && text == _other.text
 		    && type == _other.type
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(`class`)
+		hasher.combine(number)
 		hasher.combine(text)
 		hasher.combine(type)
 	}

@@ -2,8 +2,8 @@
 //  ArtifactAssessment.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ArtifactAssessment)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ArtifactAssessment)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,26 +36,26 @@ open class ArtifactAssessment: DomainResource {
 		case uri(FHIRPrimitive<FHIRURI>)
 	}
 	
-	/// All possible types for "citeAs[x]"
-	public enum CiteAsX: Hashable {
-		case markdown(FHIRPrimitive<FHIRString>)
-		case reference(Reference)
-	}
-	
 	/// Additional identifier for the artifact assessment
 	public var identifier: [Identifier]?
 	
-	/// A short title for the assessment for use in displaying and selecting
+	/// A label for use in displaying and selecting the artifact assessment
 	public var title: FHIRPrimitive<FHIRString>?
 	
 	/// How to cite the comment or rating
-	/// One of `citeAs[x]`
-	public var citeAs: CiteAsX?
+	public var citeAs: FHIRPrimitive<FHIRString>?
+	
+	/// The artifact assessed, commented upon or rated
+	/// One of `artifact[x]`
+	public var artifact: ArtifactX
+	
+	/// Relationship to other Resources
+	public var relatesTo: [ArtifactAssessmentRelatesTo]?
 	
 	/// Date last changed
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// When the artifact assessment was approved by publisher
@@ -63,10 +63,6 @@ open class ArtifactAssessment: DomainResource {
 	
 	/// When the artifact assessment was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
-	
-	/// The artifact assessed, commented upon or rated
-	/// One of `artifact[x]`
-	public var artifact: ArtifactX
 	
 	/// Comment, classifier, or rating content
 	public var content: [ArtifactAssessmentContent]?
@@ -87,7 +83,7 @@ open class ArtifactAssessment: DomainResource {
 	public convenience init(
 		approvalDate: FHIRPrimitive<FHIRDate>? = nil,
 		artifact: ArtifactX,
-		citeAs: CiteAsX? = nil,
+		citeAs: FHIRPrimitive<FHIRString>? = nil,
 		contained: [ResourceProxy]? = nil,
 		content: [ArtifactAssessmentContent]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
@@ -101,6 +97,7 @@ open class ArtifactAssessment: DomainResource {
 		lastReviewDate: FHIRPrimitive<FHIRDate>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		relatesTo: [ArtifactAssessmentRelatesTo]? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		workflowStatus: FHIRPrimitive<ArtifactAssessmentWorkflowStatus>? = nil
@@ -121,6 +118,7 @@ open class ArtifactAssessment: DomainResource {
 		self.lastReviewDate = lastReviewDate
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.relatesTo = relatesTo
 		self.text = text
 		self.title = title
 		self.workflowStatus = workflowStatus
@@ -133,14 +131,14 @@ open class ArtifactAssessment: DomainResource {
 		case artifactCanonical; case _artifactCanonical
 		case artifactReference
 		case artifactUri; case _artifactUri
-		case citeAsMarkdown; case _citeAsMarkdown
-		case citeAsReference
+		case citeAs; case _citeAs
 		case content
 		case copyright; case _copyright
 		case date; case _date
 		case disposition; case _disposition
 		case identifier
 		case lastReviewDate; case _lastReviewDate
+		case relatesTo
 		case title; case _title
 		case workflowStatus; case _workflowStatus
 	}
@@ -176,26 +174,14 @@ open class ArtifactAssessment: DomainResource {
 			_t_artifact = .uri(artifactUri)
 		}
 		self.artifact = _t_artifact!
-		var _t_citeAs: CiteAsX? = nil
-		if let citeAsReference = try Reference(from: _container, forKeyIfPresent: .citeAsReference) {
-			if _t_citeAs != nil {
-				throw DecodingError.dataCorruptedError(forKey: .citeAsReference, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
-			}
-			_t_citeAs = .reference(citeAsReference)
-		}
-		if let citeAsMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown) {
-			if _t_citeAs != nil {
-				throw DecodingError.dataCorruptedError(forKey: .citeAsMarkdown, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
-			}
-			_t_citeAs = .markdown(citeAsMarkdown)
-		}
-		self.citeAs = _t_citeAs
+		self.citeAs = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .citeAs, auxiliaryKey: ._citeAs)
 		self.content = try [ArtifactAssessmentContent](from: _container, forKeyIfPresent: .content)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
 		self.disposition = try FHIRPrimitive<ArtifactAssessmentDisposition>(from: _container, forKeyIfPresent: .disposition, auxiliaryKey: ._disposition)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.lastReviewDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		self.relatesTo = try [ArtifactAssessmentRelatesTo](from: _container, forKeyIfPresent: .relatesTo)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.workflowStatus = try FHIRPrimitive<ArtifactAssessmentWorkflowStatus>(from: _container, forKeyIfPresent: .workflowStatus, auxiliaryKey: ._workflowStatus)
 		try super.init(from: decoder)
@@ -217,20 +203,14 @@ open class ArtifactAssessment: DomainResource {
 				try _value.encode(on: &_container, forKey: .artifactUri, auxiliaryKey: ._artifactUri)
 			}
 		
-		if let _enum = citeAs {
-			switch _enum {
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .citeAsReference)
-			case .markdown(let _value):
-				try _value.encode(on: &_container, forKey: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown)
-			}
-		}
+		try citeAs?.encode(on: &_container, forKey: .citeAs, auxiliaryKey: ._citeAs)
 		try content?.encode(on: &_container, forKey: .content)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try disposition?.encode(on: &_container, forKey: .disposition, auxiliaryKey: ._disposition)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try lastReviewDate?.encode(on: &_container, forKey: .lastReviewDate, auxiliaryKey: ._lastReviewDate)
+		try relatesTo?.encode(on: &_container, forKey: .relatesTo)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try workflowStatus?.encode(on: &_container, forKey: .workflowStatus, auxiliaryKey: ._workflowStatus)
 		try super.encode(to: encoder)
@@ -254,6 +234,7 @@ open class ArtifactAssessment: DomainResource {
 		    && disposition == _other.disposition
 		    && identifier == _other.identifier
 		    && lastReviewDate == _other.lastReviewDate
+		    && relatesTo == _other.relatesTo
 		    && title == _other.title
 		    && workflowStatus == _other.workflowStatus
 	}
@@ -269,6 +250,7 @@ open class ArtifactAssessment: DomainResource {
 		hasher.combine(disposition)
 		hasher.combine(identifier)
 		hasher.combine(lastReviewDate)
+		hasher.combine(relatesTo)
 		hasher.combine(title)
 		hasher.combine(workflowStatus)
 	}
@@ -280,9 +262,6 @@ open class ArtifactAssessment: DomainResource {
  A component comment, classifier, or rating of the artifact.
  */
 open class ArtifactAssessmentContent: BackboneElement {
-	
-	/// The type of information this component of the content represents.
-	public var informationType: FHIRPrimitive<ArtifactAssessmentInformationType>?
 	
 	/// Brief summary of the content
 	public var summary: FHIRPrimitive<FHIRString>?
@@ -297,18 +276,18 @@ open class ArtifactAssessmentContent: BackboneElement {
 	public var quantity: Quantity?
 	
 	/// Who authored the content
-	public var author: Reference?
+	public var author: [Reference]?
 	
 	/// What the comment is directed to
 	public var path: [FHIRPrimitive<FHIRURI>]?
 	
-	/// Additional information
-	public var relatedArtifact: [RelatedArtifact]?
+	/// Relationship to other Resources
+	public var relatesTo: [ArtifactAssessmentRelatesTo]?
 	
-	/// Acceptable to publicly share the resource content
+	/// Acceptable to publicly share the content
 	public var freeToShare: FHIRPrimitive<FHIRBool>?
 	
-	/// Contained content
+	/// Comment, classifier, or rating content
 	public var component: [ArtifactAssessmentContent]?
 	
 	/// Designated initializer taking all required properties
@@ -318,17 +297,16 @@ open class ArtifactAssessmentContent: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		author: Reference? = nil,
+		author: [Reference]? = nil,
 		classifier: [CodeableConcept]? = nil,
 		component: [ArtifactAssessmentContent]? = nil,
 		`extension`: [Extension]? = nil,
 		freeToShare: FHIRPrimitive<FHIRBool>? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		informationType: FHIRPrimitive<ArtifactAssessmentInformationType>? = nil,
 		modifierExtension: [Extension]? = nil,
 		path: [FHIRPrimitive<FHIRURI>]? = nil,
 		quantity: Quantity? = nil,
-		relatedArtifact: [RelatedArtifact]? = nil,
+		relatesTo: [ArtifactAssessmentRelatesTo]? = nil,
 		summary: FHIRPrimitive<FHIRString>? = nil,
 		type: CodeableConcept? = nil
 	) {
@@ -339,11 +317,10 @@ open class ArtifactAssessmentContent: BackboneElement {
 		self.`extension` = `extension`
 		self.freeToShare = freeToShare
 		self.id = id
-		self.informationType = informationType
 		self.modifierExtension = modifierExtension
 		self.path = path
 		self.quantity = quantity
-		self.relatedArtifact = relatedArtifact
+		self.relatesTo = relatesTo
 		self.summary = summary
 		self.type = type
 	}
@@ -355,10 +332,9 @@ open class ArtifactAssessmentContent: BackboneElement {
 		case classifier
 		case component
 		case freeToShare; case _freeToShare
-		case informationType; case _informationType
 		case path; case _path
 		case quantity
-		case relatedArtifact
+		case relatesTo
 		case summary; case _summary
 		case type
 	}
@@ -368,14 +344,13 @@ open class ArtifactAssessmentContent: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.author = try Reference(from: _container, forKeyIfPresent: .author)
+		self.author = try [Reference](from: _container, forKeyIfPresent: .author)
 		self.classifier = try [CodeableConcept](from: _container, forKeyIfPresent: .classifier)
 		self.component = try [ArtifactAssessmentContent](from: _container, forKeyIfPresent: .component)
 		self.freeToShare = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .freeToShare, auxiliaryKey: ._freeToShare)
-		self.informationType = try FHIRPrimitive<ArtifactAssessmentInformationType>(from: _container, forKeyIfPresent: .informationType, auxiliaryKey: ._informationType)
 		self.path = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .path, auxiliaryKey: ._path)
 		self.quantity = try Quantity(from: _container, forKeyIfPresent: .quantity)
-		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
+		self.relatesTo = try [ArtifactAssessmentRelatesTo](from: _container, forKeyIfPresent: .relatesTo)
 		self.summary = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .summary, auxiliaryKey: ._summary)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -390,10 +365,9 @@ open class ArtifactAssessmentContent: BackboneElement {
 		try classifier?.encode(on: &_container, forKey: .classifier)
 		try component?.encode(on: &_container, forKey: .component)
 		try freeToShare?.encode(on: &_container, forKey: .freeToShare, auxiliaryKey: ._freeToShare)
-		try informationType?.encode(on: &_container, forKey: .informationType, auxiliaryKey: ._informationType)
 		try path?.encode(on: &_container, forKey: .path, auxiliaryKey: ._path)
 		try quantity?.encode(on: &_container, forKey: .quantity)
-		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
+		try relatesTo?.encode(on: &_container, forKey: .relatesTo)
 		try summary?.encode(on: &_container, forKey: .summary, auxiliaryKey: ._summary)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -412,10 +386,9 @@ open class ArtifactAssessmentContent: BackboneElement {
 		    && classifier == _other.classifier
 		    && component == _other.component
 		    && freeToShare == _other.freeToShare
-		    && informationType == _other.informationType
 		    && path == _other.path
 		    && quantity == _other.quantity
-		    && relatedArtifact == _other.relatedArtifact
+		    && relatesTo == _other.relatesTo
 		    && summary == _other.summary
 		    && type == _other.type
 	}
@@ -426,11 +399,158 @@ open class ArtifactAssessmentContent: BackboneElement {
 		hasher.combine(classifier)
 		hasher.combine(component)
 		hasher.combine(freeToShare)
-		hasher.combine(informationType)
 		hasher.combine(path)
 		hasher.combine(quantity)
-		hasher.combine(relatedArtifact)
+		hasher.combine(relatesTo)
 		hasher.combine(summary)
+		hasher.combine(type)
+	}
+}
+
+/**
+ Relationship to other Resources.
+ 
+ Relationship that this ArtifactAssessment has with other FHIR or non-FHIR resources that already exist.
+ */
+open class ArtifactAssessmentRelatesTo: BackboneElement {
+	
+	/// All possible types for "target[x]"
+	public enum TargetX: Hashable {
+		case attachment(Attachment)
+		case canonical(FHIRPrimitive<Canonical>)
+		case markdown(FHIRPrimitive<FHIRString>)
+		case reference(Reference)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of |
+	/// part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in |
+	/// contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs
+	/// | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents |
+	/// specification-of | created-with | cite-as | reprint | reprint-of | summarizes
+	public var type: CodeableConcept
+	
+	/// The artifact that is related to this ArtifactAssessment
+	/// One of `target[x]`
+	public var target: TargetX
+	
+	/// Designated initializer taking all required properties
+	public init(target: TargetX, type: CodeableConcept) {
+		self.target = target
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: TargetX,
+		type: CodeableConcept
+	) {
+		self.init(target: target, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case targetAttachment
+		case targetCanonical; case _targetCanonical
+		case targetMarkdown; case _targetMarkdown
+		case targetReference
+		case targetUri; case _targetUri
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.targetAttachment) || _container.contains(CodingKeys.targetCanonical) || _container.contains(CodingKeys.targetMarkdown) || _container.contains(CodingKeys.targetReference) || _container.contains(CodingKeys.targetUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.targetAttachment, CodingKeys.targetCanonical, CodingKeys.targetMarkdown, CodingKeys.targetReference, CodingKeys.targetUri], debugDescription: "Must have at least one value for \"target\" but have none"))
+		}
+		
+		// Decode all our properties
+		var _t_target: TargetX? = nil
+		if let targetUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .targetUri, auxiliaryKey: ._targetUri) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetUri, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .uri(targetUri)
+		}
+		if let targetAttachment = try Attachment(from: _container, forKeyIfPresent: .targetAttachment) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetAttachment, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .attachment(targetAttachment)
+		}
+		if let targetCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .targetCanonical, auxiliaryKey: ._targetCanonical) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetCanonical, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .canonical(targetCanonical)
+		}
+		if let targetReference = try Reference(from: _container, forKeyIfPresent: .targetReference) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetReference, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .reference(targetReference)
+		}
+		if let targetMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetMarkdown, auxiliaryKey: ._targetMarkdown) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetMarkdown, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .markdown(targetMarkdown)
+		}
+		self.target = _t_target!
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		
+			switch target {
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .targetUri, auxiliaryKey: ._targetUri)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .targetAttachment)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .targetCanonical, auxiliaryKey: ._targetCanonical)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .targetReference)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .targetMarkdown, auxiliaryKey: ._targetMarkdown)
+			}
+		
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? ArtifactAssessmentRelatesTo else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return target == _other.target
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(target)
 		hasher.combine(type)
 	}
 }

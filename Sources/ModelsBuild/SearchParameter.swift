@@ -2,8 +2,8 @@
 //  SearchParameter.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SearchParameter)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/SearchParameter)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ open class SearchParameter: DomainResource {
 	/// The status of this search parameter. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -77,13 +77,13 @@ open class SearchParameter: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for search parameter (if applicable)
+	/// Jurisdiction of the authority that maintains the search parameter (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this search parameter is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -91,6 +91,9 @@ open class SearchParameter: DomainResource {
 	
 	/// Recommended name for parameter in search url
 	public var code: FHIRPrimitive<FHIRString>
+	
+	/// Additional recommended names for parameter in search url
+	public var aliasCode: [FHIRPrimitive<FHIRString>]?
 	
 	/// The resource type(s) this search parameter applies to
 	public var base: [FHIRPrimitive<FHIRString>]
@@ -104,7 +107,7 @@ open class SearchParameter: DomainResource {
 	/// How the search parameter relates to the set of elements returned by evaluating the expression query.
 	public var processingMode: FHIRPrimitive<SearchProcessingModeType>?
 	
-	/// FHIRPath expression that constraints the usage of this SearchParamete
+	/// FHIRPath expression that constraints the usage of this SearchParameter
 	public var constraint: FHIRPrimitive<FHIRString>?
 	
 	/// Types of resource (if a resource reference)
@@ -142,6 +145,7 @@ open class SearchParameter: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		aliasCode: [FHIRPrimitive<FHIRString>]? = nil,
 		base: [FHIRPrimitive<FHIRString>],
 		chain: [FHIRPrimitive<FHIRString>]? = nil,
 		code: FHIRPrimitive<FHIRString>,
@@ -183,6 +187,7 @@ open class SearchParameter: DomainResource {
 		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
 		self.init(base: base, code: code, description_fhir: description_fhir, name: name, status: status, type: type, url: url)
+		self.aliasCode = aliasCode
 		self.chain = chain
 		self.comparator = comparator
 		self.component = component
@@ -220,6 +225,7 @@ open class SearchParameter: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case aliasCode; case _aliasCode
 		case base; case _base
 		case chain; case _chain
 		case code; case _code
@@ -259,6 +265,7 @@ open class SearchParameter: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.aliasCode = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .aliasCode, auxiliaryKey: ._aliasCode)
 		self.base = try [FHIRPrimitive<FHIRString>](from: _container, forKey: .base, auxiliaryKey: ._base)
 		self.chain = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .chain, auxiliaryKey: ._chain)
 		self.code = try FHIRPrimitive<FHIRString>(from: _container, forKey: .code, auxiliaryKey: ._code)
@@ -311,6 +318,7 @@ open class SearchParameter: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try aliasCode?.encode(on: &_container, forKey: .aliasCode, auxiliaryKey: ._aliasCode)
 		try base.encode(on: &_container, forKey: .base, auxiliaryKey: ._base)
 		try chain?.encode(on: &_container, forKey: .chain, auxiliaryKey: ._chain)
 		try code.encode(on: &_container, forKey: .code, auxiliaryKey: ._code)
@@ -361,7 +369,8 @@ open class SearchParameter: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return base == _other.base
+		return aliasCode == _other.aliasCode
+		    && base == _other.base
 		    && chain == _other.chain
 		    && code == _other.code
 		    && comparator == _other.comparator
@@ -396,6 +405,7 @@ open class SearchParameter: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(aliasCode)
 		hasher.combine(base)
 		hasher.combine(chain)
 		hasher.combine(code)
@@ -440,7 +450,7 @@ open class SearchParameterComponent: BackboneElement {
 	/// Defines how the part works
 	public var definition: FHIRPrimitive<Canonical>
 	
-	/// Subexpression relative to main expression
+	/// Sub-expression relative to main expression
 	public var expression: FHIRPrimitive<FHIRString>
 	
 	/// Designated initializer taking all required properties

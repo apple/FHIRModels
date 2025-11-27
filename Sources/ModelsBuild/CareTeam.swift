@@ -2,8 +2,8 @@
 //  CareTeam.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/CareTeam)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/CareTeam)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import FMCore
 /**
  Planned participants in the coordination and delivery of care.
  
- The Care Team includes all the people and organizations who plan to participate in the coordination and delivery of
- care.
+ The Care Team includes all the people, organizations, and care teams who participate or plan to participate in the
+ coordination and delivery of care.
  */
 open class CareTeam: DomainResource {
 	
@@ -230,6 +230,9 @@ open class CareTeamParticipant: BackboneElement {
 	/// One of `effective[x]`
 	public var effective: EffectiveX?
 	
+	/// Basis for the member's participation
+	public var supportingInfo: [Reference]?
+	
 	/// Designated initializer taking all required properties
 	override public init() {
 		super.init()
@@ -243,7 +246,8 @@ open class CareTeamParticipant: BackboneElement {
 		member: Reference? = nil,
 		modifierExtension: [Extension]? = nil,
 		onBehalfOf: Reference? = nil,
-		role: CodeableConcept? = nil
+		role: CodeableConcept? = nil,
+		supportingInfo: [Reference]? = nil
 	) {
 		self.init()
 		self.effective = effective
@@ -253,6 +257,7 @@ open class CareTeamParticipant: BackboneElement {
 		self.modifierExtension = modifierExtension
 		self.onBehalfOf = onBehalfOf
 		self.role = role
+		self.supportingInfo = supportingInfo
 	}
 	
 	// MARK: - Codable
@@ -263,6 +268,7 @@ open class CareTeamParticipant: BackboneElement {
 		case member
 		case onBehalfOf
 		case role
+		case supportingInfo
 	}
 	
 	/// Initializer for Decodable
@@ -287,6 +293,7 @@ open class CareTeamParticipant: BackboneElement {
 		self.member = try Reference(from: _container, forKeyIfPresent: .member)
 		self.onBehalfOf = try Reference(from: _container, forKeyIfPresent: .onBehalfOf)
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
+		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
 	}
 	
@@ -306,6 +313,7 @@ open class CareTeamParticipant: BackboneElement {
 		try member?.encode(on: &_container, forKey: .member)
 		try onBehalfOf?.encode(on: &_container, forKey: .onBehalfOf)
 		try role?.encode(on: &_container, forKey: .role)
+		try supportingInfo?.encode(on: &_container, forKey: .supportingInfo)
 		try super.encode(to: encoder)
 	}
 	
@@ -322,6 +330,7 @@ open class CareTeamParticipant: BackboneElement {
 		    && member == _other.member
 		    && onBehalfOf == _other.onBehalfOf
 		    && role == _other.role
+		    && supportingInfo == _other.supportingInfo
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
@@ -330,5 +339,6 @@ open class CareTeamParticipant: BackboneElement {
 		hasher.combine(member)
 		hasher.combine(onBehalfOf)
 		hasher.combine(role)
+		hasher.combine(supportingInfo)
 	}
 }

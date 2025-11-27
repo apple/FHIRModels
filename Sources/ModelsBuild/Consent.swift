@@ -2,8 +2,8 @@
 //  Consent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Consent)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Consent)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -714,7 +714,7 @@ open class ConsentVerification: BackboneElement {
 	public var verified: FHIRPrimitive<FHIRBool>
 	
 	/// Business case of verification
-	public var verificationType: CodeableConcept?
+	public var type: CodeableConcept?
 	
 	/// Person conducting verification
 	public var verifiedBy: Reference?
@@ -723,7 +723,7 @@ open class ConsentVerification: BackboneElement {
 	public var verifiedWith: Reference?
 	
 	/// When consent verified
-	public var verificationDate: [FHIRPrimitive<DateTime>]?
+	public var date: [FHIRPrimitive<DateTime>]?
 	
 	/// Designated initializer taking all required properties
 	public init(verified: FHIRPrimitive<FHIRBool>) {
@@ -733,21 +733,21 @@ open class ConsentVerification: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
+		date: [FHIRPrimitive<DateTime>]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		verificationDate: [FHIRPrimitive<DateTime>]? = nil,
-		verificationType: CodeableConcept? = nil,
+		type: CodeableConcept? = nil,
 		verified: FHIRPrimitive<FHIRBool>,
 		verifiedBy: Reference? = nil,
 		verifiedWith: Reference? = nil
 	) {
 		self.init(verified: verified)
+		self.date = date
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.verificationDate = verificationDate
-		self.verificationType = verificationType
+		self.type = type
 		self.verifiedBy = verifiedBy
 		self.verifiedWith = verifiedWith
 	}
@@ -755,8 +755,8 @@ open class ConsentVerification: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case verificationDate; case _verificationDate
-		case verificationType
+		case date; case _date
+		case type
 		case verified; case _verified
 		case verifiedBy
 		case verifiedWith
@@ -767,8 +767,8 @@ open class ConsentVerification: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.verificationDate = try [FHIRPrimitive<DateTime>](from: _container, forKeyIfPresent: .verificationDate, auxiliaryKey: ._verificationDate)
-		self.verificationType = try CodeableConcept(from: _container, forKeyIfPresent: .verificationType)
+		self.date = try [FHIRPrimitive<DateTime>](from: _container, forKeyIfPresent: .date, auxiliaryKey: ._date)
+		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		self.verified = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .verified, auxiliaryKey: ._verified)
 		self.verifiedBy = try Reference(from: _container, forKeyIfPresent: .verifiedBy)
 		self.verifiedWith = try Reference(from: _container, forKeyIfPresent: .verifiedWith)
@@ -780,8 +780,8 @@ open class ConsentVerification: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try verificationDate?.encode(on: &_container, forKey: .verificationDate, auxiliaryKey: ._verificationDate)
-		try verificationType?.encode(on: &_container, forKey: .verificationType)
+		try date?.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
+		try type?.encode(on: &_container, forKey: .type)
 		try verified.encode(on: &_container, forKey: .verified, auxiliaryKey: ._verified)
 		try verifiedBy?.encode(on: &_container, forKey: .verifiedBy)
 		try verifiedWith?.encode(on: &_container, forKey: .verifiedWith)
@@ -797,8 +797,8 @@ open class ConsentVerification: BackboneElement {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return verificationDate == _other.verificationDate
-		    && verificationType == _other.verificationType
+		return date == _other.date
+		    && type == _other.type
 		    && verified == _other.verified
 		    && verifiedBy == _other.verifiedBy
 		    && verifiedWith == _other.verifiedWith
@@ -806,8 +806,8 @@ open class ConsentVerification: BackboneElement {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(verificationDate)
-		hasher.combine(verificationType)
+		hasher.combine(date)
+		hasher.combine(type)
 		hasher.combine(verified)
 		hasher.combine(verifiedBy)
 		hasher.combine(verifiedWith)

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,8 +36,12 @@ public enum ObservationStatus: String, FHIRPrimitiveType {
 	case appended
 	
 	/// The observation is unavailable because the measurement was not started or not completed (also sometimes called
-	/// "aborted").
+	/// "aborted"). A data absent reason should be present providing clarity as to why there is no value on an
+	/// Observation instance
 	case cancelled
+	
+	/// The observation cannot be obtained.
+	case cannotBeObtained = "cannot-be-obtained"
 	
 	/// Subsequent to being Final, the observation has been modified to correct an error in the original test result(s).
 	case corrected

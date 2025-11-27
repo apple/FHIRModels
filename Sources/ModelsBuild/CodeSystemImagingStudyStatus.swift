@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -34,15 +34,19 @@ public enum ImagingStudyStatus: String, FHIRPrimitiveType {
 	/// called "aborted").
 	case cancelled
 	
-	/// The imaging study has been withdrawn following a previous final release.  This electronic record should never
-	/// have existed, though it is possible that real-world decisions were based on it. (If real-world activity has
-	/// occurred, the status should be "cancelled" rather than "entered-in-error".).
+	/// The imaging study has been withdrawn after previously being available.  This electronic record should never have
+	/// existed, though it is possible that real-world decisions were based on it. (If real-world activity has occurred,
+	/// the status should be "cancelled" rather than "entered-in-error".).
 	case enteredInError = "entered-in-error"
 	
-	/// The existence of the imaging study is registered, but there is nothing yet available.
+	/// The resource describes information that is no longer valid. This MAY include an ImagingStudy that was removed
+	/// for retention policy reasons.
+	case inactive
+	
+	/// The existence of the imaging study is registered, but there are no images.
 	case registered
 	
-	/// The system does not know which of the status values currently applies for this request. Note: This concept is
-	/// not to be used for "other" - one of the listed statuses is presumed to apply, it's just not known which one.
+	/// The system does not know which of the status values currently applies for this ImagingStudy. Note: This concept
+	/// is not to be used for "other" - one of the listed statuses is presumed to apply, it's just not known which one.
 	case unknown
 }

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -32,13 +32,12 @@ public enum CodeSystemContentMode: String, FHIRPrimitiveType {
 	case complete
 	
 	/// A subset of the valid externally defined concepts are included in the code system resource. There is no specific
-	/// purpose or documented intent other than for illustrative purposes.
+	/// purpose or documented intent other than for illustrative purposes. This example content mode should not be used
+	/// if the content is better represented in a fragment.
 	case example
 	
-	/// A subset of the code system concepts are included in the code system resource. This is a curated subset released
-	/// for a specific purpose under the governance of the code system steward, and that the intent, bounds and
-	/// consequences of the fragmentation are clearly defined in the fragment or the code system documentation.
-	/// Fragments are also known as partitions.
+	/// A subset of the code system concepts that are included in the code system resource. This is a curated subset
+	/// released for a specific purpose.
 	case fragment
 	
 	/// None of the concepts defined by the code system are included in the code system resource.

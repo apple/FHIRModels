@@ -2,8 +2,8 @@
 //  SubstanceDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/SubstanceDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/SubstanceDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ open class SubstanceDefinition: DomainResource {
 	/// Identifier by which this substance is known
 	public var identifier: [Identifier]?
 	
-	/// A business level version identifier of the substance
+	/// A business level edition or revision identifier
 	public var version: FHIRPrimitive<FHIRString>?
 	
 	/// Status of substance within the catalogue e.g. active, retired
@@ -39,7 +39,7 @@ open class SubstanceDefinition: DomainResource {
 	/// linear or branch chain, or type of impurity
 	public var classification: [CodeableConcept]?
 	
-	/// If the substance applies to human or veterinary use
+	/// The applicable usage of the substance, as an example human or veterinary
 	public var domain: CodeableConcept?
 	
 	/// The quality standard, established benchmark, to which substance complies (e.g. USP/NF, BP)
@@ -47,9 +47,6 @@ open class SubstanceDefinition: DomainResource {
 	
 	/// Textual description of the substance
 	public var description_fhir: FHIRPrimitive<FHIRString>?
-	
-	/// Supporting literature
-	public var informationSource: [Reference]?
 	
 	/// Textual comment about the substance's catalogue or registry record
 	public var note: [Annotation]?
@@ -69,9 +66,6 @@ open class SubstanceDefinition: DomainResource {
 	/// General specifications for this substance
 	public var property: [SubstanceDefinitionProperty]?
 	
-	/// General information detailing this substance
-	public var referenceInformation: Reference?
-	
 	/// The average mass of a molecule of a compound
 	public var molecularWeight: [SubstanceDefinitionMolecularWeight]?
 	
@@ -86,15 +80,6 @@ open class SubstanceDefinition: DomainResource {
 	
 	/// A link between this substance and another
 	public var relationship: [SubstanceDefinitionRelationship]?
-	
-	/// Data items specific to nucleic acids
-	public var nucleicAcid: Reference?
-	
-	/// Data items specific to polymers
-	public var polymer: Reference?
-	
-	/// Data items specific to proteins
-	public var protein: Reference?
 	
 	/// Material or taxonomic/anatomical source
 	public var sourceMaterial: SubstanceDefinitionSourceMaterial?
@@ -117,7 +102,6 @@ open class SubstanceDefinition: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		informationSource: [Reference]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		manufacturer: [Reference]? = nil,
 		meta: Meta? = nil,
@@ -126,11 +110,7 @@ open class SubstanceDefinition: DomainResource {
 		molecularWeight: [SubstanceDefinitionMolecularWeight]? = nil,
 		name: [SubstanceDefinitionName]? = nil,
 		note: [Annotation]? = nil,
-		nucleicAcid: Reference? = nil,
-		polymer: Reference? = nil,
 		property: [SubstanceDefinitionProperty]? = nil,
-		protein: Reference? = nil,
-		referenceInformation: Reference? = nil,
 		relationship: [SubstanceDefinitionRelationship]? = nil,
 		sourceMaterial: SubstanceDefinitionSourceMaterial? = nil,
 		status: CodeableConcept? = nil,
@@ -151,7 +131,6 @@ open class SubstanceDefinition: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.informationSource = informationSource
 		self.language = language
 		self.manufacturer = manufacturer
 		self.meta = meta
@@ -160,11 +139,7 @@ open class SubstanceDefinition: DomainResource {
 		self.molecularWeight = molecularWeight
 		self.name = name
 		self.note = note
-		self.nucleicAcid = nucleicAcid
-		self.polymer = polymer
 		self.property = property
-		self.protein = protein
-		self.referenceInformation = referenceInformation
 		self.relationship = relationship
 		self.sourceMaterial = sourceMaterial
 		self.status = status
@@ -184,17 +159,12 @@ open class SubstanceDefinition: DomainResource {
 		case domain
 		case grade
 		case identifier
-		case informationSource
 		case manufacturer
 		case moiety
 		case molecularWeight
 		case name
 		case note
-		case nucleicAcid
-		case polymer
 		case property
-		case protein
-		case referenceInformation
 		case relationship
 		case sourceMaterial
 		case status
@@ -215,17 +185,12 @@ open class SubstanceDefinition: DomainResource {
 		self.domain = try CodeableConcept(from: _container, forKeyIfPresent: .domain)
 		self.grade = try [CodeableConcept](from: _container, forKeyIfPresent: .grade)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.informationSource = try [Reference](from: _container, forKeyIfPresent: .informationSource)
 		self.manufacturer = try [Reference](from: _container, forKeyIfPresent: .manufacturer)
 		self.moiety = try [SubstanceDefinitionMoiety](from: _container, forKeyIfPresent: .moiety)
 		self.molecularWeight = try [SubstanceDefinitionMolecularWeight](from: _container, forKeyIfPresent: .molecularWeight)
 		self.name = try [SubstanceDefinitionName](from: _container, forKeyIfPresent: .name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.nucleicAcid = try Reference(from: _container, forKeyIfPresent: .nucleicAcid)
-		self.polymer = try Reference(from: _container, forKeyIfPresent: .polymer)
 		self.property = try [SubstanceDefinitionProperty](from: _container, forKeyIfPresent: .property)
-		self.protein = try Reference(from: _container, forKeyIfPresent: .protein)
-		self.referenceInformation = try Reference(from: _container, forKeyIfPresent: .referenceInformation)
 		self.relationship = try [SubstanceDefinitionRelationship](from: _container, forKeyIfPresent: .relationship)
 		self.sourceMaterial = try SubstanceDefinitionSourceMaterial(from: _container, forKeyIfPresent: .sourceMaterial)
 		self.status = try CodeableConcept(from: _container, forKeyIfPresent: .status)
@@ -247,17 +212,12 @@ open class SubstanceDefinition: DomainResource {
 		try domain?.encode(on: &_container, forKey: .domain)
 		try grade?.encode(on: &_container, forKey: .grade)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try informationSource?.encode(on: &_container, forKey: .informationSource)
 		try manufacturer?.encode(on: &_container, forKey: .manufacturer)
 		try moiety?.encode(on: &_container, forKey: .moiety)
 		try molecularWeight?.encode(on: &_container, forKey: .molecularWeight)
 		try name?.encode(on: &_container, forKey: .name)
 		try note?.encode(on: &_container, forKey: .note)
-		try nucleicAcid?.encode(on: &_container, forKey: .nucleicAcid)
-		try polymer?.encode(on: &_container, forKey: .polymer)
 		try property?.encode(on: &_container, forKey: .property)
-		try protein?.encode(on: &_container, forKey: .protein)
-		try referenceInformation?.encode(on: &_container, forKey: .referenceInformation)
 		try relationship?.encode(on: &_container, forKey: .relationship)
 		try sourceMaterial?.encode(on: &_container, forKey: .sourceMaterial)
 		try status?.encode(on: &_container, forKey: .status)
@@ -283,17 +243,12 @@ open class SubstanceDefinition: DomainResource {
 		    && domain == _other.domain
 		    && grade == _other.grade
 		    && identifier == _other.identifier
-		    && informationSource == _other.informationSource
 		    && manufacturer == _other.manufacturer
 		    && moiety == _other.moiety
 		    && molecularWeight == _other.molecularWeight
 		    && name == _other.name
 		    && note == _other.note
-		    && nucleicAcid == _other.nucleicAcid
-		    && polymer == _other.polymer
 		    && property == _other.property
-		    && protein == _other.protein
-		    && referenceInformation == _other.referenceInformation
 		    && relationship == _other.relationship
 		    && sourceMaterial == _other.sourceMaterial
 		    && status == _other.status
@@ -311,17 +266,12 @@ open class SubstanceDefinition: DomainResource {
 		hasher.combine(domain)
 		hasher.combine(grade)
 		hasher.combine(identifier)
-		hasher.combine(informationSource)
 		hasher.combine(manufacturer)
 		hasher.combine(moiety)
 		hasher.combine(molecularWeight)
 		hasher.combine(name)
 		hasher.combine(note)
-		hasher.combine(nucleicAcid)
-		hasher.combine(polymer)
 		hasher.combine(property)
-		hasher.combine(protein)
-		hasher.combine(referenceInformation)
 		hasher.combine(relationship)
 		hasher.combine(sourceMaterial)
 		hasher.combine(status)
@@ -1069,6 +1019,7 @@ open class SubstanceDefinitionProperty: BackboneElement {
 		case codeableConcept(CodeableConcept)
 		case date(FHIRPrimitive<FHIRDate>)
 		case quantity(Quantity)
+		case range(Range)
 	}
 	
 	/// A code expressing the type of property
@@ -1108,6 +1059,7 @@ open class SubstanceDefinitionProperty: BackboneElement {
 		case valueCodeableConcept
 		case valueDate; case _valueDate
 		case valueQuantity
+		case valueRange
 	}
 	
 	/// Initializer for Decodable
@@ -1128,6 +1080,12 @@ open class SubstanceDefinitionProperty: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
 		}
 		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
 			if _t_value != nil {
@@ -1163,6 +1121,8 @@ open class SubstanceDefinitionProperty: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
 			case .boolean(let _value):

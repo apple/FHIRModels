@@ -2,8 +2,8 @@
 //  OperationDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/OperationDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ open class OperationDefinition: DomainResource {
 	/// Whether this is an operation or a named query.
 	public var kind: FHIRPrimitive<OperationKind>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -78,13 +78,13 @@ open class OperationDefinition: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for operation definition (if applicable)
+	/// Jurisdiction of the authority that maintains the operation definition (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this operation definition is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -92,6 +92,10 @@ open class OperationDefinition: DomainResource {
 	
 	/// Whether content is changed by the operation
 	public var affectsState: FHIRPrimitive<FHIRBool>?
+	
+	/// Indicates that this operation must always be handled as synchronous or asynchronous, or that the server must
+	/// provide both options, and clients can choose.
+	public var synchronicity: FHIRPrimitive<OperationSynchronicityControl>?
 	
 	/// Recommended name for operation in search url
 	public var code: FHIRPrimitive<FHIRString>
@@ -170,6 +174,7 @@ open class OperationDefinition: DomainResource {
 		purpose: FHIRPrimitive<FHIRString>? = nil,
 		resource: [FHIRPrimitive<FHIRString>]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
+		synchronicity: FHIRPrimitive<OperationSynchronicityControl>? = nil,
 		system: FHIRPrimitive<FHIRBool>,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
@@ -205,6 +210,7 @@ open class OperationDefinition: DomainResource {
 		self.publisher = publisher
 		self.purpose = purpose
 		self.resource = resource
+		self.synchronicity = synchronicity
 		self.text = text
 		self.title = title
 		self.url = url
@@ -239,6 +245,7 @@ open class OperationDefinition: DomainResource {
 		case purpose; case _purpose
 		case resource; case _resource
 		case status; case _status
+		case synchronicity; case _synchronicity
 		case system; case _system
 		case title; case _title
 		case type; case _type
@@ -277,6 +284,7 @@ open class OperationDefinition: DomainResource {
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
 		self.resource = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .resource, auxiliaryKey: ._resource)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.synchronicity = try FHIRPrimitive<OperationSynchronicityControl>(from: _container, forKeyIfPresent: .synchronicity, auxiliaryKey: ._synchronicity)
 		self.system = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .system, auxiliaryKey: ._system)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.type = try FHIRPrimitive<FHIRBool>(from: _container, forKey: .type, auxiliaryKey: ._type)
@@ -328,6 +336,7 @@ open class OperationDefinition: DomainResource {
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
 		try resource?.encode(on: &_container, forKey: .resource, auxiliaryKey: ._resource)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
+		try synchronicity?.encode(on: &_container, forKey: .synchronicity, auxiliaryKey: ._synchronicity)
 		try system.encode(on: &_container, forKey: .system, auxiliaryKey: ._system)
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try type.encode(on: &_container, forKey: .type, auxiliaryKey: ._type)
@@ -377,6 +386,7 @@ open class OperationDefinition: DomainResource {
 		    && purpose == _other.purpose
 		    && resource == _other.resource
 		    && status == _other.status
+		    && synchronicity == _other.synchronicity
 		    && system == _other.system
 		    && title == _other.title
 		    && type == _other.type
@@ -411,6 +421,7 @@ open class OperationDefinition: DomainResource {
 		hasher.combine(purpose)
 		hasher.combine(resource)
 		hasher.combine(status)
+		hasher.combine(synchronicity)
 		hasher.combine(system)
 		hasher.combine(title)
 		hasher.combine(type)
@@ -520,7 +531,7 @@ open class OperationDefinitionParameter: BackboneElement {
 	public var scope: [FHIRPrimitive<OperationParameterScope>]?
 	
 	/// Minimum Cardinality
-	public var min: FHIRPrimitive<FHIRInteger>
+	public var min: FHIRPrimitive<FHIRUnsignedInteger>
 	
 	/// Maximum Cardinality (a number or *)
 	public var max: FHIRPrimitive<FHIRString>
@@ -553,7 +564,7 @@ open class OperationDefinitionParameter: BackboneElement {
 	public var part: [OperationDefinitionParameter]?
 	
 	/// Designated initializer taking all required properties
-	public init(max: FHIRPrimitive<FHIRString>, min: FHIRPrimitive<FHIRInteger>, name: FHIRPrimitive<FHIRString>, use: FHIRPrimitive<OperationParameterUse>) {
+	public init(max: FHIRPrimitive<FHIRString>, min: FHIRPrimitive<FHIRUnsignedInteger>, name: FHIRPrimitive<FHIRString>, use: FHIRPrimitive<OperationParameterUse>) {
 		self.max = max
 		self.min = min
 		self.name = name
@@ -569,7 +580,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		max: FHIRPrimitive<FHIRString>,
-		min: FHIRPrimitive<FHIRInteger>,
+		min: FHIRPrimitive<FHIRUnsignedInteger>,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>,
 		part: [OperationDefinitionParameter]? = nil,
@@ -622,7 +633,7 @@ open class OperationDefinitionParameter: BackboneElement {
 		self.binding = try OperationDefinitionParameterBinding(from: _container, forKeyIfPresent: .binding)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
 		self.max = try FHIRPrimitive<FHIRString>(from: _container, forKey: .max, auxiliaryKey: ._max)
-		self.min = try FHIRPrimitive<FHIRInteger>(from: _container, forKey: .min, auxiliaryKey: ._min)
+		self.min = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKey: .min, auxiliaryKey: ._min)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKey: .name, auxiliaryKey: ._name)
 		self.part = try [OperationDefinitionParameter](from: _container, forKeyIfPresent: .part)
 		self.referencedFrom = try [OperationDefinitionParameterReferencedFrom](from: _container, forKeyIfPresent: .referencedFrom)

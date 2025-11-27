@@ -2,8 +2,8 @@
 //  Subscription.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Subscription)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Subscription)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- Notification about a SubscriptionTopic.
+ Information about a request for notifications to a client based on a SubscriptionTopic.
  
  The subscription resource describes a particular client's request to be notified about a SubscriptionTopic.
  */
@@ -58,10 +58,10 @@ open class Subscription: DomainResource {
 	/// Channel type for notifications
 	public var channelType: Coding
 	
-	/// Where the channel points to
+	/// URL where the channel sends notifications
 	public var endpoint: FHIRPrimitive<FHIRURI>?
 	
-	/// Channel type
+	/// Channel type dependent information
 	public var parameter: [SubscriptionParameter]?
 	
 	/// Interval in seconds to send 'heartbeat' notification
@@ -73,8 +73,8 @@ open class Subscription: DomainResource {
 	/// MIME type to send, or omit for no payload
 	public var contentType: FHIRPrimitive<FHIRString>?
 	
-	/// How much of the resource content to deliver in the notification payload. The choices are an empty payload, only
-	/// the resource id, or the full resource content.
+	/// How much resource content to deliver in the notification payloads. The choices are an empty payload, only the
+	/// resource id, or the full resource content.
 	public var content: FHIRPrimitive<SubscriptionPayloadContent>?
 	
 	/// Maximum number of events that can be combined in a single notification
@@ -387,7 +387,7 @@ open class SubscriptionFilterBy: BackboneElement {
 }
 
 /**
- Channel type.
+ Channel type dependent information.
  
  Channel-dependent information to send as part of the notification (e.g., HTTP Headers).
  */

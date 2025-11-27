@@ -2,8 +2,8 @@
 //  Immunization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Immunization)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Immunization)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -41,8 +41,9 @@ open class Immunization: DomainResource {
 	/// Authority that the immunization event is based on
 	public var basedOn: [Reference]?
 	
-	/// completed | entered-in-error | not-done
-	public var status: FHIRPrimitive<FHIRString>
+	/// Indicates the current status of the immunization event.
+	/// Restricted to: ['completed', 'entered-in-error', 'not-done']
+	public var status: FHIRPrimitive<EventStatus>
 	
 	/// Reason for current status
 	public var statusReason: CodeableConcept?
@@ -114,14 +115,14 @@ open class Immunization: DomainResource {
 	/// Funding source for the vaccine
 	public var fundingSource: CodeableConcept?
 	
-	/// Details of a reaction that follows immunization
+	/// Details of a reaction that followed the immunization
 	public var reaction: [ImmunizationReaction]?
 	
 	/// Protocol followed by the provider
 	public var protocolApplied: [ImmunizationProtocolApplied]?
 	
 	/// Designated initializer taking all required properties
-	public init(occurrence: OccurrenceX, patient: Reference, status: FHIRPrimitive<FHIRString>, vaccineCode: CodeableConcept) {
+	public init(occurrence: OccurrenceX, patient: Reference, status: FHIRPrimitive<EventStatus>, vaccineCode: CodeableConcept) {
 		self.occurrence = occurrence
 		self.patient = patient
 		self.status = status
@@ -161,7 +162,7 @@ open class Immunization: DomainResource {
 		reason: [CodeableReference]? = nil,
 		route: CodeableConcept? = nil,
 		site: CodeableConcept? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<EventStatus>,
 		statusReason: CodeableConcept? = nil,
 		subpotentReason: [CodeableConcept]? = nil,
 		supportingInformation: [Reference]? = nil,
@@ -283,7 +284,7 @@ open class Immunization: DomainResource {
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.route = try CodeableConcept(from: _container, forKeyIfPresent: .route)
 		self.site = try CodeableConcept(from: _container, forKeyIfPresent: .site)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try CodeableConcept(from: _container, forKeyIfPresent: .statusReason)
 		self.subpotentReason = try [CodeableConcept](from: _container, forKeyIfPresent: .subpotentReason)
 		self.supportingInformation = try [Reference](from: _container, forKeyIfPresent: .supportingInformation)
@@ -413,10 +414,10 @@ open class Immunization: DomainResource {
  */
 open class ImmunizationPerformer: BackboneElement {
 	
-	/// What type of performance was done
+	/// Type of performance
 	public var function: CodeableConcept?
 	
-	/// Individual or organization who was performing
+	/// Individual or organization who performed the event
 	public var actor: Reference
 	
 	/// Designated initializer taking all required properties
@@ -581,14 +582,14 @@ open class ImmunizationProtocolApplied: BackboneElement {
 	/// Who is responsible for publishing the recommendations
 	public var authority: Reference?
 	
-	/// Vaccine preventatable disease being targeted
+	/// Vaccine preventable disease being targeted
 	public var targetDisease: [CodeableConcept]?
 	
 	/// Dose number within series
-	public var doseNumber: FHIRPrimitive<FHIRString>?
+	public var doseNumber: CodeableConcept?
 	
 	/// Recommended number of doses for immunity
-	public var seriesDoses: FHIRPrimitive<FHIRString>?
+	public var seriesDoses: CodeableConcept?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -598,12 +599,12 @@ open class ImmunizationProtocolApplied: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		authority: Reference? = nil,
-		doseNumber: FHIRPrimitive<FHIRString>? = nil,
+		doseNumber: CodeableConcept? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		series: FHIRPrimitive<FHIRString>? = nil,
-		seriesDoses: FHIRPrimitive<FHIRString>? = nil,
+		seriesDoses: CodeableConcept? = nil,
 		targetDisease: [CodeableConcept]? = nil
 	) {
 		self.init()
@@ -621,9 +622,9 @@ open class ImmunizationProtocolApplied: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case authority
-		case doseNumber; case _doseNumber
+		case doseNumber
 		case series; case _series
-		case seriesDoses; case _seriesDoses
+		case seriesDoses
 		case targetDisease
 	}
 	
@@ -633,9 +634,9 @@ open class ImmunizationProtocolApplied: BackboneElement {
 		
 		// Decode all our properties
 		self.authority = try Reference(from: _container, forKeyIfPresent: .authority)
-		self.doseNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .doseNumber, auxiliaryKey: ._doseNumber)
+		self.doseNumber = try CodeableConcept(from: _container, forKeyIfPresent: .doseNumber)
 		self.series = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .series, auxiliaryKey: ._series)
-		self.seriesDoses = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .seriesDoses, auxiliaryKey: ._seriesDoses)
+		self.seriesDoses = try CodeableConcept(from: _container, forKeyIfPresent: .seriesDoses)
 		self.targetDisease = try [CodeableConcept](from: _container, forKeyIfPresent: .targetDisease)
 		try super.init(from: decoder)
 	}
@@ -646,9 +647,9 @@ open class ImmunizationProtocolApplied: BackboneElement {
 		
 		// Encode all our properties
 		try authority?.encode(on: &_container, forKey: .authority)
-		try doseNumber?.encode(on: &_container, forKey: .doseNumber, auxiliaryKey: ._doseNumber)
+		try doseNumber?.encode(on: &_container, forKey: .doseNumber)
 		try series?.encode(on: &_container, forKey: .series, auxiliaryKey: ._series)
-		try seriesDoses?.encode(on: &_container, forKey: .seriesDoses, auxiliaryKey: ._seriesDoses)
+		try seriesDoses?.encode(on: &_container, forKey: .seriesDoses)
 		try targetDisease?.encode(on: &_container, forKey: .targetDisease)
 		try super.encode(to: encoder)
 	}
@@ -680,7 +681,7 @@ open class ImmunizationProtocolApplied: BackboneElement {
 }
 
 /**
- Details of a reaction that follows immunization.
+ Details of a reaction that followed the immunization.
  
  Categorical data indicating that an adverse event is associated in time to an immunization.
  */

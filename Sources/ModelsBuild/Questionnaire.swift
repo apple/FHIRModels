@@ -2,8 +2,8 @@
 //  Questionnaire.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Questionnaire)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Questionnaire)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -60,40 +60,33 @@ open class Questionnaire: DomainResource {
 	/// The current state of this questionnaire.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// The types of subjects that can be the subject of responses created for the questionnaire.
 	/// Restricted to: ['Account', 'ActivityDefinition', 'ActorDefinition', 'AdministrableProductDefinition',
 	/// 'AdverseEvent', 'AllergyIntolerance', 'Appointment', 'AppointmentResponse', 'ArtifactAssessment', 'AuditEvent',
-	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BiologicallyDerivedProductDispense', 'BodyStructure',
-	/// 'Bundle', 'CapabilityStatement', 'CarePlan', 'CareTeam', 'ChargeItem', 'ChargeItemDefinition', 'Citation',
-	/// 'Claim', 'ClaimResponse', 'ClinicalImpression', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
-	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition',
-	/// 'ConditionDefinition', 'Consent', 'Contract', 'Coverage', 'CoverageEligibilityRequest',
-	/// 'CoverageEligibilityResponse', 'DetectedIssue', 'Device', 'DeviceAlert', 'DeviceAssociation',
-	/// 'DeviceDefinition', 'DeviceDispense', 'DeviceMetric', 'DeviceRequest', 'DeviceUsage', 'DiagnosticReport',
-	/// 'DocumentReference', 'Encounter', 'EncounterHistory', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse',
-	/// 'EpisodeOfCare', 'EventDefinition', 'Evidence', 'EvidenceReport', 'EvidenceVariable', 'ExampleScenario',
-	/// 'ExplanationOfBenefit', 'FamilyMemberHistory', 'Flag', 'FormularyItem', 'GenomicStudy', 'Goal',
-	/// 'GraphDefinition', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection', 'ImagingStudy',
-	/// 'Immunization', 'ImmunizationEvaluation', 'ImmunizationRecommendation', 'ImplementationGuide', 'Ingredient',
-	/// 'InsurancePlan', 'InsuranceProduct', 'InventoryItem', 'InventoryReport', 'Invoice', 'Library', 'Linkage',
-	/// 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport', 'Medication',
-	/// 'MedicationAdministration', 'MedicationDispense', 'MedicationKnowledge', 'MedicationRequest',
-	/// 'MedicationStatement', 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader',
-	/// 'MolecularDefinition', 'MolecularSequence', 'NamingSystem', 'NutritionIntake', 'NutritionOrder',
-	/// 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition', 'OperationOutcome',
-	/// 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters', 'Patient',
-	/// 'PaymentNotice', 'PaymentReconciliation', 'Permission', 'Person', 'PersonalRelationship', 'PlanDefinition',
-	/// 'Practitioner', 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
+	/// 'Basic', 'Binary', 'BiologicallyDerivedProduct', 'BodyStructure', 'Bundle', 'CapabilityStatement', 'CarePlan',
+	/// 'CareTeam', 'Claim', 'ClaimResponse', 'ClinicalUseDefinition', 'CodeSystem', 'Communication',
+	/// 'CommunicationRequest', 'CompartmentDefinition', 'Composition', 'ConceptMap', 'Condition', 'Consent',
+	/// 'Contract', 'Coverage', 'CoverageEligibilityRequest', 'CoverageEligibilityResponse', 'DetectedIssue', 'Device',
+	/// 'DeviceAlert', 'DeviceAssociation', 'DeviceDefinition', 'DeviceMetric', 'DeviceRequest', 'DiagnosticReport',
+	/// 'DocumentReference', 'Encounter', 'Endpoint', 'EnrollmentRequest', 'EnrollmentResponse', 'EpisodeOfCare',
+	/// 'EventDefinition', 'Evidence', 'EvidenceVariable', 'ExampleScenario', 'ExplanationOfBenefit',
+	/// 'FamilyMemberHistory', 'Flag', 'Goal', 'Group', 'GuidanceResponse', 'HealthcareService', 'ImagingSelection',
+	/// 'ImagingStudy', 'Immunization', 'ImplementationGuide', 'Ingredient', 'InsurancePlan', 'InsuranceProduct',
+	/// 'Invoice', 'Library', 'List', 'Location', 'ManufacturedItemDefinition', 'Measure', 'MeasureReport',
+	/// 'Medication', 'MedicationAdministration', 'MedicationDispense', 'MedicationRequest', 'MedicationStatement',
+	/// 'MedicinalProductDefinition', 'MessageDefinition', 'MessageHeader', 'NamingSystem', 'NutritionIntake',
+	/// 'NutritionOrder', 'NutritionProduct', 'Observation', 'ObservationDefinition', 'OperationDefinition',
+	/// 'OperationOutcome', 'Organization', 'OrganizationAffiliation', 'PackagedProductDefinition', 'Parameters',
+	/// 'Patient', 'PaymentNotice', 'PaymentReconciliation', 'Person', 'PlanDefinition', 'Practitioner',
+	/// 'PractitionerRole', 'Procedure', 'Provenance', 'Questionnaire', 'QuestionnaireResponse',
 	/// 'RegulatedAuthorization', 'RelatedPerson', 'RequestOrchestration', 'Requirements', 'ResearchStudy',
 	/// 'ResearchSubject', 'RiskAssessment', 'Schedule', 'SearchParameter', 'ServiceRequest', 'Slot', 'Specimen',
 	/// 'SpecimenDefinition', 'StructureDefinition', 'StructureMap', 'Subscription', 'SubscriptionStatus',
-	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'SubstanceNucleicAcid', 'SubstancePolymer',
-	/// 'SubstanceProtein', 'SubstanceReferenceInformation', 'SubstanceSourceMaterial', 'SupplyDelivery',
-	/// 'SupplyRequest', 'Task', 'TerminologyCapabilities', 'TestPlan', 'TestReport', 'TestScript', 'Transport',
-	/// 'ValueSet', 'VerificationResult', 'VisionPrescription']
+	/// 'SubscriptionTopic', 'Substance', 'SubstanceDefinition', 'Task', 'TerminologyCapabilities', 'ValueSet',
+	/// 'VisionPrescription']
 	public var subjectType: [FHIRPrimitive<ResourceType>]?
 	
 	/// Date last changed
@@ -111,13 +104,13 @@ open class Questionnaire: DomainResource {
 	/// The context that the content is intended to support
 	public var useContext: [UsageContext]?
 	
-	/// Intended jurisdiction for questionnaire (if applicable)
+	/// Jurisdiction of the authority that maintains the questionnaire (if applicable)
 	public var jurisdiction: [CodeableConcept]?
 	
 	/// Why this questionnaire is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Notice about intellectual property ownership, can include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
@@ -402,7 +395,7 @@ open class QuestionnaireItem: BackboneElement {
 	public var linkId: FHIRPrimitive<FHIRString>
 	
 	/// ElementDefinition - details for the item
-	public var definition: FHIRPrimitive<FHIRURI>?
+	public var definition: [FHIRPrimitive<FHIRURI>]?
 	
 	/// Corresponding concept for this item in a terminology
 	public var code: [Coding]?
@@ -413,9 +406,8 @@ open class QuestionnaireItem: BackboneElement {
 	/// Primary text for the item
 	public var text: FHIRPrimitive<FHIRString>?
 	
-	/// The type of questionnaire item this is - whether text for display, a grouping of other items or a particular
-	/// type of data to be captured (string, integer, Coding, etc.).
-	public var type: FHIRPrimitive<QuestionnaireItemType>
+	/// group | display | boolean | decimal | integer | date | dateTime +
+	public var type: FHIRPrimitive<FHIRString>
 	
 	/// Only allow data when
 	public var enableWhen: [QuestionnaireItemEnableWhen]?
@@ -423,8 +415,8 @@ open class QuestionnaireItem: BackboneElement {
 	/// Controls how multiple enableWhen values are interpreted -  whether all or any must be true.
 	public var enableBehavior: FHIRPrimitive<EnableWhenBehavior>?
 	
-	/// hidden | protected
-	public var disabledDisplay: FHIRPrimitive<FHIRString>?
+	/// Indicates if and how items that are disabled (because enableWhen evaluates to 'false') should be displayed.
+	public var disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>?
 	
 	/// Whether the item must be included in data results
 	public var required: FHIRPrimitive<FHIRBool>?
@@ -438,8 +430,9 @@ open class QuestionnaireItem: BackboneElement {
 	/// No more than these many characters
 	public var maxLength: FHIRPrimitive<FHIRInteger>?
 	
-	/// optionsOnly | optionsOrType | optionsOrString
-	public var answerConstraint: FHIRPrimitive<FHIRString>?
+	/// For items that have a defined set of allowed answers (via answerOption or answerValueSet), indicates whether
+	/// values *other* than those specified can be selected.
+	public var answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>?
 	
 	/// ValueSet containing permitted answers
 	public var answerValueSet: FHIRPrimitive<Canonical>?
@@ -454,7 +447,7 @@ open class QuestionnaireItem: BackboneElement {
 	public var item: [QuestionnaireItem]?
 	
 	/// Designated initializer taking all required properties
-	public init(linkId: FHIRPrimitive<FHIRString>, type: FHIRPrimitive<QuestionnaireItemType>) {
+	public init(linkId: FHIRPrimitive<FHIRString>, type: FHIRPrimitive<FHIRString>) {
 		self.linkId = linkId
 		self.type = type
 		super.init()
@@ -462,12 +455,12 @@ open class QuestionnaireItem: BackboneElement {
 	
 	/// Convenience initializer
 	public convenience init(
-		answerConstraint: FHIRPrimitive<FHIRString>? = nil,
+		answerConstraint: FHIRPrimitive<QuestionnaireAnswerConstraint>? = nil,
 		answerOption: [QuestionnaireItemAnswerOption]? = nil,
 		answerValueSet: FHIRPrimitive<Canonical>? = nil,
 		code: [Coding]? = nil,
-		definition: FHIRPrimitive<FHIRURI>? = nil,
-		disabledDisplay: FHIRPrimitive<FHIRString>? = nil,
+		definition: [FHIRPrimitive<FHIRURI>]? = nil,
+		disabledDisplay: FHIRPrimitive<QuestionnaireItemDisabledDisplay>? = nil,
 		enableBehavior: FHIRPrimitive<EnableWhenBehavior>? = nil,
 		enableWhen: [QuestionnaireItemEnableWhen]? = nil,
 		`extension`: [Extension]? = nil,
@@ -482,7 +475,7 @@ open class QuestionnaireItem: BackboneElement {
 		repeats: FHIRPrimitive<FHIRBool>? = nil,
 		required: FHIRPrimitive<FHIRBool>? = nil,
 		text: FHIRPrimitive<FHIRString>? = nil,
-		type: FHIRPrimitive<QuestionnaireItemType>
+		type: FHIRPrimitive<FHIRString>
 	) {
 		self.init(linkId: linkId, type: type)
 		self.answerConstraint = answerConstraint
@@ -534,12 +527,12 @@ open class QuestionnaireItem: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.answerConstraint = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .answerConstraint, auxiliaryKey: ._answerConstraint)
+		self.answerConstraint = try FHIRPrimitive<QuestionnaireAnswerConstraint>(from: _container, forKeyIfPresent: .answerConstraint, auxiliaryKey: ._answerConstraint)
 		self.answerOption = try [QuestionnaireItemAnswerOption](from: _container, forKeyIfPresent: .answerOption)
 		self.answerValueSet = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .answerValueSet, auxiliaryKey: ._answerValueSet)
 		self.code = try [Coding](from: _container, forKeyIfPresent: .code)
-		self.definition = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
-		self.disabledDisplay = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
+		self.definition = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .definition, auxiliaryKey: ._definition)
+		self.disabledDisplay = try FHIRPrimitive<QuestionnaireItemDisabledDisplay>(from: _container, forKeyIfPresent: .disabledDisplay, auxiliaryKey: ._disabledDisplay)
 		self.enableBehavior = try FHIRPrimitive<EnableWhenBehavior>(from: _container, forKeyIfPresent: .enableBehavior, auxiliaryKey: ._enableBehavior)
 		self.enableWhen = try [QuestionnaireItemEnableWhen](from: _container, forKeyIfPresent: .enableWhen)
 		self.initial = try [QuestionnaireItemInitial](from: _container, forKeyIfPresent: .initial)
@@ -551,7 +544,7 @@ open class QuestionnaireItem: BackboneElement {
 		self.repeats = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .repeats, auxiliaryKey: ._repeats)
 		self.required = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .required, auxiliaryKey: ._required)
 		self.text = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .text, auxiliaryKey: ._text)
-		self.type = try FHIRPrimitive<QuestionnaireItemType>(from: _container, forKey: .type, auxiliaryKey: ._type)
+		self.type = try FHIRPrimitive<FHIRString>(from: _container, forKey: .type, auxiliaryKey: ._type)
 		try super.init(from: decoder)
 	}
 	
@@ -644,10 +637,14 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 	public enum ValueX: Hashable {
 		case coding(Coding)
 		case date(FHIRPrimitive<FHIRDate>)
+		case dateTime(FHIRPrimitive<DateTime>)
+		case decimal(FHIRPrimitive<FHIRDecimal>)
 		case integer(FHIRPrimitive<FHIRInteger>)
+		case quantity(Quantity)
 		case reference(Reference)
 		case string(FHIRPrimitive<FHIRString>)
 		case time(FHIRPrimitive<FHIRTime>)
+		case uri(FHIRPrimitive<FHIRURI>)
 	}
 	
 	/// Answer value
@@ -684,10 +681,14 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 		case initialSelected; case _initialSelected
 		case valueCoding
 		case valueDate; case _valueDate
+		case valueDateTime; case _valueDateTime
+		case valueDecimal; case _valueDecimal
 		case valueInteger; case _valueInteger
+		case valueQuantity
 		case valueReference
 		case valueString; case _valueString
 		case valueTime; case _valueTime
+		case valueUri; case _valueUri
 	}
 	
 	/// Initializer for Decodable
@@ -695,13 +696,19 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueCoding, CodingKeys.valueDate, CodingKeys.valueInteger, CodingKeys.valueReference, CodingKeys.valueString, CodingKeys.valueTime], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueCoding, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueInteger, CodingKeys.valueQuantity, CodingKeys.valueReference, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueUri], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
 		self.initialSelected = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .initialSelected, auxiliaryKey: ._initialSelected)
 		var _t_value: ValueX? = nil
+		if let valueDecimal = try FHIRPrimitive<FHIRDecimal>(from: _container, forKeyIfPresent: .valueDecimal, auxiliaryKey: ._valueDecimal) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDecimal, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .decimal(valueDecimal)
+		}
 		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueInteger, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -713,6 +720,12 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueDate, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .date(valueDate)
+		}
+		if let valueDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .valueDateTime, auxiliaryKey: ._valueDateTime) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueDateTime, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .dateTime(valueDateTime)
 		}
 		if let valueTime = try FHIRPrimitive<FHIRTime>(from: _container, forKeyIfPresent: .valueTime, auxiliaryKey: ._valueTime) {
 			if _t_value != nil {
@@ -726,11 +739,23 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 			}
 			_t_value = .string(valueString)
 		}
+		if let valueUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .valueUri, auxiliaryKey: ._valueUri) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueUri, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .uri(valueUri)
+		}
 		if let valueCoding = try Coding(from: _container, forKeyIfPresent: .valueCoding) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueCoding, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .coding(valueCoding)
+		}
+		if let valueQuantity = try Quantity(from: _container, forKeyIfPresent: .valueQuantity) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .quantity(valueQuantity)
 		}
 		if let valueReference = try Reference(from: _container, forKeyIfPresent: .valueReference) {
 			if _t_value != nil {
@@ -750,16 +775,24 @@ open class QuestionnaireItemAnswerOption: BackboneElement {
 		try initialSelected?.encode(on: &_container, forKey: .initialSelected, auxiliaryKey: ._initialSelected)
 		
 			switch value {
+			case .decimal(let _value):
+				try _value.encode(on: &_container, forKey: .valueDecimal, auxiliaryKey: ._valueDecimal)
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .valueDateTime, auxiliaryKey: ._valueDateTime)
 			case .time(let _value):
 				try _value.encode(on: &_container, forKey: .valueTime, auxiliaryKey: ._valueTime)
 			case .string(let _value):
 				try _value.encode(on: &_container, forKey: .valueString, auxiliaryKey: ._valueString)
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .valueUri, auxiliaryKey: ._valueUri)
 			case .coding(let _value):
 				try _value.encode(on: &_container, forKey: .valueCoding)
+			case .quantity(let _value):
+				try _value.encode(on: &_container, forKey: .valueQuantity)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .valueReference)
 			}
@@ -797,6 +830,7 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 	
 	/// All possible types for "answer[x]"
 	public enum AnswerX: Hashable {
+		case attachment(Attachment)
 		case boolean(FHIRPrimitive<FHIRBool>)
 		case coding(Coding)
 		case date(FHIRPrimitive<FHIRDate>)
@@ -807,6 +841,7 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 		case reference(Reference)
 		case string(FHIRPrimitive<FHIRString>)
 		case time(FHIRPrimitive<FHIRTime>)
+		case uri(FHIRPrimitive<FHIRURI>)
 	}
 	
 	/// The linkId of question that determines whether item is enabled/disabled
@@ -845,6 +880,7 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case answerAttachment
 		case answerBoolean; case _answerBoolean
 		case answerCoding
 		case answerDate; case _answerDate
@@ -855,6 +891,7 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 		case answerReference
 		case answerString; case _answerString
 		case answerTime; case _answerTime
+		case answerUri; case _answerUri
 		case `operator` = "operator"; case _operator = "_operator"
 		case question; case _question
 	}
@@ -864,8 +901,8 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.answerBoolean) || _container.contains(CodingKeys.answerCoding) || _container.contains(CodingKeys.answerDate) || _container.contains(CodingKeys.answerDateTime) || _container.contains(CodingKeys.answerDecimal) || _container.contains(CodingKeys.answerInteger) || _container.contains(CodingKeys.answerQuantity) || _container.contains(CodingKeys.answerReference) || _container.contains(CodingKeys.answerString) || _container.contains(CodingKeys.answerTime) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.answerBoolean, CodingKeys.answerCoding, CodingKeys.answerDate, CodingKeys.answerDateTime, CodingKeys.answerDecimal, CodingKeys.answerInteger, CodingKeys.answerQuantity, CodingKeys.answerReference, CodingKeys.answerString, CodingKeys.answerTime], debugDescription: "Must have at least one value for \"answer\" but have none"))
+		guard _container.contains(CodingKeys.answerAttachment) || _container.contains(CodingKeys.answerBoolean) || _container.contains(CodingKeys.answerCoding) || _container.contains(CodingKeys.answerDate) || _container.contains(CodingKeys.answerDateTime) || _container.contains(CodingKeys.answerDecimal) || _container.contains(CodingKeys.answerInteger) || _container.contains(CodingKeys.answerQuantity) || _container.contains(CodingKeys.answerReference) || _container.contains(CodingKeys.answerString) || _container.contains(CodingKeys.answerTime) || _container.contains(CodingKeys.answerUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.answerAttachment, CodingKeys.answerBoolean, CodingKeys.answerCoding, CodingKeys.answerDate, CodingKeys.answerDateTime, CodingKeys.answerDecimal, CodingKeys.answerInteger, CodingKeys.answerQuantity, CodingKeys.answerReference, CodingKeys.answerString, CodingKeys.answerTime, CodingKeys.answerUri], debugDescription: "Must have at least one value for \"answer\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -930,6 +967,18 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 			}
 			_t_answer = .reference(answerReference)
 		}
+		if let answerUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .answerUri, auxiliaryKey: ._answerUri) {
+			if _t_answer != nil {
+				throw DecodingError.dataCorruptedError(forKey: .answerUri, in: _container, debugDescription: "More than one value provided for \"answer\"")
+			}
+			_t_answer = .uri(answerUri)
+		}
+		if let answerAttachment = try Attachment(from: _container, forKeyIfPresent: .answerAttachment) {
+			if _t_answer != nil {
+				throw DecodingError.dataCorruptedError(forKey: .answerAttachment, in: _container, debugDescription: "More than one value provided for \"answer\"")
+			}
+			_t_answer = .attachment(answerAttachment)
+		}
 		self.answer = _t_answer!
 		self.`operator` = try FHIRPrimitive<QuestionnaireItemOperator>(from: _container, forKey: .`operator`, auxiliaryKey: ._operator)
 		self.question = try FHIRPrimitive<FHIRString>(from: _container, forKey: .question, auxiliaryKey: ._question)
@@ -963,6 +1012,10 @@ open class QuestionnaireItemEnableWhen: BackboneElement {
 				try _value.encode(on: &_container, forKey: .answerQuantity)
 			case .reference(let _value):
 				try _value.encode(on: &_container, forKey: .answerReference)
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .answerUri, auxiliaryKey: ._answerUri)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .answerAttachment)
 			}
 		
 		try `operator`.encode(on: &_container, forKey: .`operator`, auxiliaryKey: ._operator)

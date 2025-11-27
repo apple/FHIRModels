@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,6 +36,10 @@ public enum TaskCode: String, FHIRPrimitiveType {
 	
 	/// Update the focal resource of the owning system to reflect the content specified as the Task.focus
 	case change
+	
+	/// A type of Task asking the Task.owner to deliver the data corresponding to the characteristics defined by the
+	/// Task.inputs to the Task.requester
+	case dataRequest = "data-request"
 	
 	/// Act to perform the actions described in the focus request.  This might result in a 'more assertive' request
 	/// (order for a plan or proposal, filler order for a placer order), but is intend to eventually result in events.

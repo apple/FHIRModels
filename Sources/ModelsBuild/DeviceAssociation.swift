@@ -2,8 +2,8 @@
 //  DeviceAssociation.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceAssociation)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DeviceAssociation)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 import FMCore
 
 /**
- A record of association or dissociation of a device with a patient.
+ A record of association or dissociation of a device with a subject (e.g. patient) and/or operator.
  */
 open class DeviceAssociation: DomainResource {
 	
@@ -29,20 +29,26 @@ open class DeviceAssociation: DomainResource {
 	/// Instance identifier
 	public var identifier: [Identifier]?
 	
-	/// Reference to the devices associated with the patient or group
+	/// Reference to the device that is being associated
 	public var device: Reference
 	
 	/// Describes the relationship between the device and subject
-	public var category: [CodeableConcept]?
+	public var relationship: [CodeableConcept]?
 	
-	/// implanted | explanted | attached | entered-in-error | unknown
-	public var status: CodeableConcept
+	/// Indicates the state of the Device association.
+	public var status: FHIRPrimitive<DeviceAssociationStatus>
 	
 	/// The reasons given for the current association status
 	public var statusReason: [CodeableConcept]?
 	
-	/// The individual, group of individuals or device that the device is on or associated with
+	/// State of the device’s association
+	public var associationStatus: CodeableConcept?
+	
+	/// The entity(ies) that the device is on or associated with
 	public var subject: Reference?
+	
+	/// The target of the association
+	public var focus: Reference?
 	
 	/// Current anatomical location of the device in/on subject
 	public var bodyStructure: Reference?
@@ -50,11 +56,8 @@ open class DeviceAssociation: DomainResource {
 	/// Begin and end dates and times for the device association
 	public var period: Period?
 	
-	/// The details about the device when it is in use to describe its operation
-	public var operation: [DeviceAssociationOperation]?
-	
 	/// Designated initializer taking all required properties
-	public init(device: Reference, status: CodeableConcept) {
+	public init(device: Reference, status: FHIRPrimitive<DeviceAssociationStatus>) {
 		self.device = device
 		self.status = status
 		super.init()
@@ -62,37 +65,39 @@ open class DeviceAssociation: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
+		associationStatus: CodeableConcept? = nil,
 		bodyStructure: Reference? = nil,
-		category: [CodeableConcept]? = nil,
 		contained: [ResourceProxy]? = nil,
 		device: Reference,
 		`extension`: [Extension]? = nil,
+		focus: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
-		operation: [DeviceAssociationOperation]? = nil,
 		period: Period? = nil,
-		status: CodeableConcept,
+		relationship: [CodeableConcept]? = nil,
+		status: FHIRPrimitive<DeviceAssociationStatus>,
 		statusReason: [CodeableConcept]? = nil,
 		subject: Reference? = nil,
 		text: Narrative? = nil
 	) {
 		self.init(device: device, status: status)
+		self.associationStatus = associationStatus
 		self.bodyStructure = bodyStructure
-		self.category = category
 		self.contained = contained
 		self.`extension` = `extension`
+		self.focus = focus
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
-		self.operation = operation
 		self.period = period
+		self.relationship = relationship
 		self.statusReason = statusReason
 		self.subject = subject
 		self.text = text
@@ -101,13 +106,14 @@ open class DeviceAssociation: DomainResource {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
+		case associationStatus
 		case bodyStructure
-		case category
 		case device
+		case focus
 		case identifier
-		case operation
 		case period
-		case status
+		case relationship
+		case status; case _status
 		case statusReason
 		case subject
 	}
@@ -117,13 +123,14 @@ open class DeviceAssociation: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
+		self.associationStatus = try CodeableConcept(from: _container, forKeyIfPresent: .associationStatus)
 		self.bodyStructure = try Reference(from: _container, forKeyIfPresent: .bodyStructure)
-		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
 		self.device = try Reference(from: _container, forKey: .device)
+		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.operation = try [DeviceAssociationOperation](from: _container, forKeyIfPresent: .operation)
 		self.period = try Period(from: _container, forKeyIfPresent: .period)
-		self.status = try CodeableConcept(from: _container, forKey: .status)
+		self.relationship = try [CodeableConcept](from: _container, forKeyIfPresent: .relationship)
+		self.status = try FHIRPrimitive<DeviceAssociationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKeyIfPresent: .subject)
 		try super.init(from: decoder)
@@ -134,13 +141,14 @@ open class DeviceAssociation: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
+		try associationStatus?.encode(on: &_container, forKey: .associationStatus)
 		try bodyStructure?.encode(on: &_container, forKey: .bodyStructure)
-		try category?.encode(on: &_container, forKey: .category)
 		try device.encode(on: &_container, forKey: .device)
+		try focus?.encode(on: &_container, forKey: .focus)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try operation?.encode(on: &_container, forKey: .operation)
 		try period?.encode(on: &_container, forKey: .period)
-		try status.encode(on: &_container, forKey: .status)
+		try relationship?.encode(on: &_container, forKey: .relationship)
+		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try statusReason?.encode(on: &_container, forKey: .statusReason)
 		try subject?.encode(on: &_container, forKey: .subject)
 		try super.encode(to: encoder)
@@ -155,12 +163,13 @@ open class DeviceAssociation: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return bodyStructure == _other.bodyStructure
-		    && category == _other.category
+		return associationStatus == _other.associationStatus
+		    && bodyStructure == _other.bodyStructure
 		    && device == _other.device
+		    && focus == _other.focus
 		    && identifier == _other.identifier
-		    && operation == _other.operation
 		    && period == _other.period
+		    && relationship == _other.relationship
 		    && status == _other.status
 		    && statusReason == _other.statusReason
 		    && subject == _other.subject
@@ -168,103 +177,15 @@ open class DeviceAssociation: DomainResource {
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
+		hasher.combine(associationStatus)
 		hasher.combine(bodyStructure)
-		hasher.combine(category)
 		hasher.combine(device)
+		hasher.combine(focus)
 		hasher.combine(identifier)
-		hasher.combine(operation)
 		hasher.combine(period)
+		hasher.combine(relationship)
 		hasher.combine(status)
 		hasher.combine(statusReason)
 		hasher.combine(subject)
-	}
-}
-
-/**
- The details about the device when it is in use to describe its operation.
- */
-open class DeviceAssociationOperation: BackboneElement {
-	
-	/// Device operational condition
-	public var status: CodeableConcept
-	
-	/// The individual performing the action enabled by the device
-	public var `operator`: [Reference]?
-	
-	/// Begin and end dates and times for the device's operation
-	public var period: Period?
-	
-	/// Designated initializer taking all required properties
-	public init(status: CodeableConcept) {
-		self.status = status
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil,
-		`operator`: [Reference]? = nil,
-		period: Period? = nil,
-		status: CodeableConcept
-	) {
-		self.init(status: status)
-		self.`extension` = `extension`
-		self.id = id
-		self.modifierExtension = modifierExtension
-		self.`operator` = `operator`
-		self.period = period
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case `operator` = "operator"
-		case period
-		case status
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.`operator` = try [Reference](from: _container, forKeyIfPresent: .`operator`)
-		self.period = try Period(from: _container, forKeyIfPresent: .period)
-		self.status = try CodeableConcept(from: _container, forKey: .status)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try `operator`?.encode(on: &_container, forKey: .`operator`)
-		try period?.encode(on: &_container, forKey: .period)
-		try status.encode(on: &_container, forKey: .status)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? DeviceAssociationOperation else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return `operator` == _other.`operator`
-		    && period == _other.period
-		    && status == _other.status
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(`operator`)
-		hasher.combine(period)
-		hasher.combine(status)
 	}
 }

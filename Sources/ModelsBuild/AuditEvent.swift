@@ -2,8 +2,8 @@
 //  AuditEvent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AuditEvent)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/AuditEvent)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -456,6 +456,9 @@ open class AuditEventEntity: BackboneElement {
 	/// Security labels on the entity
 	public var securityLabel: [CodeableConcept]?
 	
+	/// Descriptive text
+	public var description_fhir: FHIRPrimitive<FHIRString>?
+	
 	/// Query parameters
 	public var query: FHIRPrimitive<Base64Binary>?
 	
@@ -473,6 +476,7 @@ open class AuditEventEntity: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		agent: [AuditEventAgent]? = nil,
+		description_fhir: FHIRPrimitive<FHIRString>? = nil,
 		detail: [AuditEventEntityDetail]? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
@@ -484,6 +488,7 @@ open class AuditEventEntity: BackboneElement {
 	) {
 		self.init()
 		self.agent = agent
+		self.description_fhir = description_fhir
 		self.detail = detail
 		self.`extension` = `extension`
 		self.id = id
@@ -498,6 +503,7 @@ open class AuditEventEntity: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case agent
+		case description_fhir = "description"; case _description_fhir = "_description"
 		case detail
 		case query; case _query
 		case role
@@ -511,6 +517,7 @@ open class AuditEventEntity: BackboneElement {
 		
 		// Decode all our properties
 		self.agent = try [AuditEventAgent](from: _container, forKeyIfPresent: .agent)
+		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.detail = try [AuditEventEntityDetail](from: _container, forKeyIfPresent: .detail)
 		self.query = try FHIRPrimitive<Base64Binary>(from: _container, forKeyIfPresent: .query, auxiliaryKey: ._query)
 		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
@@ -525,6 +532,7 @@ open class AuditEventEntity: BackboneElement {
 		
 		// Encode all our properties
 		try agent?.encode(on: &_container, forKey: .agent)
+		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try detail?.encode(on: &_container, forKey: .detail)
 		try query?.encode(on: &_container, forKey: .query, auxiliaryKey: ._query)
 		try role?.encode(on: &_container, forKey: .role)
@@ -543,6 +551,7 @@ open class AuditEventEntity: BackboneElement {
 			return false
 		}
 		return agent == _other.agent
+		    && description_fhir == _other.description_fhir
 		    && detail == _other.detail
 		    && query == _other.query
 		    && role == _other.role
@@ -553,6 +562,7 @@ open class AuditEventEntity: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(agent)
+		hasher.combine(description_fhir)
 		hasher.combine(detail)
 		hasher.combine(query)
 		hasher.combine(role)

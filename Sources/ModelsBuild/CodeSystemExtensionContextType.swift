@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -31,9 +31,11 @@ public enum ExtensionContextType: String, FHIRPrimitiveType {
 	/// that identifies the extension.
 	case `extension`
 	
-	/// The context is any element that has an ElementDefinition.id that matches that found in the expression. This
-	/// includes ElementDefinition Ids that have slicing identifiers. The full path for the element is
-	/// [url]#[elementid]. If there is no #, the Element id is one defined in the base specification.
+	/// The context is any element that has an ElementDefinition.id that matches that found in the expression.      This
+	/// includes ElementDefinition Ids that have slicing identifiers, and also includes specialization logic (see
+	/// [Extension Context](defining-extensions.html#context)). The full path for the element is [url]#[elementid]. If
+	/// there is no #, the Element id is one defined in the base specification. When an element has assigned type, the
+	/// type is also an assigned id for this element, which means that the type can also be used here.
 	case element
 	
 	/// The context is all elements that match the FHIRPath query found in the expression.

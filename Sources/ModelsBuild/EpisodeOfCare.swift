@@ -2,8 +2,8 @@
 //  EpisodeOfCare.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EpisodeOfCare)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/EpisodeOfCare)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -233,7 +233,7 @@ open class EpisodeOfCareDiagnosis: BackboneElement {
 	public var condition: [CodeableReference]?
 	
 	/// Role that this diagnosis has within the episode of care (e.g. admission, billing, discharge …)
-	public var use: CodeableConcept?
+	public var use: [CodeableConcept]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -246,7 +246,7 @@ open class EpisodeOfCareDiagnosis: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		use: CodeableConcept? = nil
+		use: [CodeableConcept]? = nil
 	) {
 		self.init()
 		self.condition = condition
@@ -269,7 +269,7 @@ open class EpisodeOfCareDiagnosis: BackboneElement {
 		
 		// Decode all our properties
 		self.condition = try [CodeableReference](from: _container, forKeyIfPresent: .condition)
-		self.use = try CodeableConcept(from: _container, forKeyIfPresent: .use)
+		self.use = try [CodeableConcept](from: _container, forKeyIfPresent: .use)
 		try super.init(from: decoder)
 	}
 	
@@ -309,7 +309,7 @@ open class EpisodeOfCareDiagnosis: BackboneElement {
 open class EpisodeOfCareReason: BackboneElement {
 	
 	/// What the reason value should be used for/as
-	public var use: CodeableConcept?
+	public var use: [CodeableConcept]?
 	
 	/// Medical reason to be addressed
 	public var value: [CodeableReference]?
@@ -324,7 +324,7 @@ open class EpisodeOfCareReason: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		use: CodeableConcept? = nil,
+		use: [CodeableConcept]? = nil,
 		value: [CodeableReference]? = nil
 	) {
 		self.init()
@@ -347,7 +347,7 @@ open class EpisodeOfCareReason: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.use = try CodeableConcept(from: _container, forKeyIfPresent: .use)
+		self.use = try [CodeableConcept](from: _container, forKeyIfPresent: .use)
 		self.value = try [CodeableReference](from: _container, forKeyIfPresent: .value)
 		try super.init(from: decoder)
 	}

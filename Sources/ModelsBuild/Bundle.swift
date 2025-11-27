@@ -2,8 +2,8 @@
 //  Bundle.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Bundle)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Bundle)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ open class Bundle: Resource {
 	/// When the bundle was assembled
 	public var timestamp: FHIRPrimitive<Instant>?
 	
-	/// If search, the total number of matches
+	/// Total matches across all pages
 	public var total: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// Links related to this Bundle
@@ -46,10 +46,10 @@ open class Bundle: Resource {
 	/// Entry in the bundle - will have a resource or information
 	public var entry: [BundleEntry]?
 	
-	/// Digital Signature
+	/// Digital Signature (deprecated: use Provenance Signatures)
 	public var signature: Signature?
 	
-	/// Issues with the Bundle
+	/// OperationOutcome with issues about the Bundle
 	public var issues: ResourceProxy?
 	
 	/// Designated initializer taking all required properties

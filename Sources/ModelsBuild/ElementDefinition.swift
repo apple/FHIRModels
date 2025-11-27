@@ -2,8 +2,8 @@
 //  ElementDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ElementDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -82,6 +82,7 @@ open class ElementDefinition: BackboneType {
 		case url(FHIRPrimitive<FHIRURI>)
 		case usageContext(UsageContext)
 		case uuid(FHIRPrimitive<FHIRURI>)
+		case virtualServiceDetail(VirtualServiceDetail)
 	}
 	
 	/// All possible types for "fixed[x]"
@@ -140,6 +141,7 @@ open class ElementDefinition: BackboneType {
 		case url(FHIRPrimitive<FHIRURI>)
 		case usageContext(UsageContext)
 		case uuid(FHIRPrimitive<FHIRURI>)
+		case virtualServiceDetail(VirtualServiceDetail)
 	}
 	
 	/// All possible types for "maxValue[x]"
@@ -226,6 +228,7 @@ open class ElementDefinition: BackboneType {
 		case url(FHIRPrimitive<FHIRURI>)
 		case usageContext(UsageContext)
 		case uuid(FHIRPrimitive<FHIRURI>)
+		case virtualServiceDetail(VirtualServiceDetail)
 	}
 	
 	/// Path of the element in the hierarchy of elements
@@ -242,7 +245,7 @@ open class ElementDefinition: BackboneType {
 	/// If this slice definition constrains an inherited slice definition (or not)
 	public var sliceIsConstraining: FHIRPrimitive<FHIRBool>?
 	
-	/// Name for element to display with or prompt for element
+	/// String to display with or prompt for element
 	public var label: FHIRPrimitive<FHIRString>?
 	
 	/// Corresponding codes in terminologies
@@ -260,7 +263,7 @@ open class ElementDefinition: BackboneType {
 	/// Comments about the use of this element
 	public var comment: FHIRPrimitive<FHIRString>?
 	
-	/// Why this resource has been created
+	/// Requirements satisfied by this element/structure and its constraints
 	public var requirements: FHIRPrimitive<FHIRString>?
 	
 	/// Other names
@@ -497,6 +500,7 @@ open class ElementDefinition: BackboneType {
 		case defaultValueUrl; case _defaultValueUrl
 		case defaultValueUsageContext
 		case defaultValueUuid; case _defaultValueUuid
+		case defaultValueVirtualServiceDetail
 		case definition; case _definition
 		case example
 		case fixedAddress
@@ -553,6 +557,7 @@ open class ElementDefinition: BackboneType {
 		case fixedUrl; case _fixedUrl
 		case fixedUsageContext
 		case fixedUuid; case _fixedUuid
+		case fixedVirtualServiceDetail
 		case isModifier; case _isModifier
 		case isModifierReason; case _isModifierReason
 		case isSummary; case _isSummary
@@ -640,6 +645,7 @@ open class ElementDefinition: BackboneType {
 		case patternUrl; case _patternUrl
 		case patternUsageContext
 		case patternUuid; case _patternUuid
+		case patternVirtualServiceDetail
 		case representation; case _representation
 		case requirements; case _requirements
 		case short; case _short
@@ -976,6 +982,12 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_defaultValue = .extendedContactDetail(defaultValueExtendedContactDetail)
 		}
+		if let defaultValueVirtualServiceDetail = try VirtualServiceDetail(from: _container, forKeyIfPresent: .defaultValueVirtualServiceDetail) {
+			if _t_defaultValue != nil {
+				throw DecodingError.dataCorruptedError(forKey: .defaultValueVirtualServiceDetail, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
+			}
+			_t_defaultValue = .virtualServiceDetail(defaultValueVirtualServiceDetail)
+		}
 		if let defaultValueDosage = try Dosage(from: _container, forKeyIfPresent: .defaultValueDosage) {
 			if _t_defaultValue != nil {
 				throw DecodingError.dataCorruptedError(forKey: .defaultValueDosage, in: _container, debugDescription: "More than one value provided for \"defaultValue\"")
@@ -1303,6 +1315,12 @@ open class ElementDefinition: BackboneType {
 				throw DecodingError.dataCorruptedError(forKey: .fixedExtendedContactDetail, in: _container, debugDescription: "More than one value provided for \"fixed\"")
 			}
 			_t_fixed = .extendedContactDetail(fixedExtendedContactDetail)
+		}
+		if let fixedVirtualServiceDetail = try VirtualServiceDetail(from: _container, forKeyIfPresent: .fixedVirtualServiceDetail) {
+			if _t_fixed != nil {
+				throw DecodingError.dataCorruptedError(forKey: .fixedVirtualServiceDetail, in: _container, debugDescription: "More than one value provided for \"fixed\"")
+			}
+			_t_fixed = .virtualServiceDetail(fixedVirtualServiceDetail)
 		}
 		if let fixedDosage = try Dosage(from: _container, forKeyIfPresent: .fixedDosage) {
 			if _t_fixed != nil {
@@ -1767,6 +1785,12 @@ open class ElementDefinition: BackboneType {
 			}
 			_t_pattern = .extendedContactDetail(patternExtendedContactDetail)
 		}
+		if let patternVirtualServiceDetail = try VirtualServiceDetail(from: _container, forKeyIfPresent: .patternVirtualServiceDetail) {
+			if _t_pattern != nil {
+				throw DecodingError.dataCorruptedError(forKey: .patternVirtualServiceDetail, in: _container, debugDescription: "More than one value provided for \"pattern\"")
+			}
+			_t_pattern = .virtualServiceDetail(patternVirtualServiceDetail)
+		}
 		if let patternDosage = try Dosage(from: _container, forKeyIfPresent: .patternDosage) {
 			if _t_pattern != nil {
 				throw DecodingError.dataCorruptedError(forKey: .patternDosage, in: _container, debugDescription: "More than one value provided for \"pattern\"")
@@ -1910,6 +1934,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .defaultValueAvailability)
 			case .extendedContactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueExtendedContactDetail)
+			case .virtualServiceDetail(let _value):
+				try _value.encode(on: &_container, forKey: .defaultValueVirtualServiceDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .defaultValueDosage)
 			case .meta(let _value):
@@ -2024,6 +2050,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .fixedAvailability)
 			case .extendedContactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .fixedExtendedContactDetail)
+			case .virtualServiceDetail(let _value):
+				try _value.encode(on: &_container, forKey: .fixedVirtualServiceDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .fixedDosage)
 			case .meta(let _value):
@@ -2197,6 +2225,8 @@ open class ElementDefinition: BackboneType {
 				try _value.encode(on: &_container, forKey: .patternAvailability)
 			case .extendedContactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .patternExtendedContactDetail)
+			case .virtualServiceDetail(let _value):
+				try _value.encode(on: &_container, forKey: .patternVirtualServiceDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .patternDosage)
 			case .meta(let _value):
@@ -2407,7 +2437,7 @@ open class ElementDefinitionBinding: Element {
 	/// provided value set must be adhered to in the instances.
 	public var strength: FHIRPrimitive<BindingStrength>
 	
-	/// Intended use of codes in the bound value set
+	/// Guidance on the codes to be used
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Source of value set
@@ -2504,8 +2534,11 @@ open class ElementDefinitionBinding: Element {
  */
 open class ElementDefinitionBindingAdditional: Element {
 	
-	/// maximum | minimum | required | extensible | candidate | current | preferred | ui | starter | component
-	public var purpose: FHIRPrimitive<FHIRString>
+	/// Unique identifier so additional bindings to be matched across profiles
+	public var key: FHIRPrimitive<FHIRString>?
+	
+	/// The use of this additional binding.
+	public var purpose: FHIRPrimitive<AdditionalBindingPurposeCodes>
 	
 	/// The value set for the additional binding
 	public var valueSet: FHIRPrimitive<Canonical>
@@ -2523,7 +2556,7 @@ open class ElementDefinitionBindingAdditional: Element {
 	public var any: FHIRPrimitive<FHIRBool>?
 	
 	/// Designated initializer taking all required properties
-	public init(purpose: FHIRPrimitive<FHIRString>, valueSet: FHIRPrimitive<Canonical>) {
+	public init(purpose: FHIRPrimitive<AdditionalBindingPurposeCodes>, valueSet: FHIRPrimitive<Canonical>) {
 		self.purpose = purpose
 		self.valueSet = valueSet
 		super.init()
@@ -2535,7 +2568,8 @@ open class ElementDefinitionBindingAdditional: Element {
 		documentation: FHIRPrimitive<FHIRString>? = nil,
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
-		purpose: FHIRPrimitive<FHIRString>,
+		key: FHIRPrimitive<FHIRString>? = nil,
+		purpose: FHIRPrimitive<AdditionalBindingPurposeCodes>,
 		shortDoco: FHIRPrimitive<FHIRString>? = nil,
 		usage: [UsageContext]? = nil,
 		valueSet: FHIRPrimitive<Canonical>
@@ -2545,6 +2579,7 @@ open class ElementDefinitionBindingAdditional: Element {
 		self.documentation = documentation
 		self.`extension` = `extension`
 		self.id = id
+		self.key = key
 		self.shortDoco = shortDoco
 		self.usage = usage
 	}
@@ -2554,6 +2589,7 @@ open class ElementDefinitionBindingAdditional: Element {
 	private enum CodingKeys: String, CodingKey {
 		case any; case _any
 		case documentation; case _documentation
+		case key; case _key
 		case purpose; case _purpose
 		case shortDoco; case _shortDoco
 		case usage
@@ -2567,7 +2603,8 @@ open class ElementDefinitionBindingAdditional: Element {
 		// Decode all our properties
 		self.any = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .any, auxiliaryKey: ._any)
 		self.documentation = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .documentation, auxiliaryKey: ._documentation)
-		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKey: .purpose, auxiliaryKey: ._purpose)
+		self.key = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .key, auxiliaryKey: ._key)
+		self.purpose = try FHIRPrimitive<AdditionalBindingPurposeCodes>(from: _container, forKey: .purpose, auxiliaryKey: ._purpose)
 		self.shortDoco = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .shortDoco, auxiliaryKey: ._shortDoco)
 		self.usage = try [UsageContext](from: _container, forKeyIfPresent: .usage)
 		self.valueSet = try FHIRPrimitive<Canonical>(from: _container, forKey: .valueSet, auxiliaryKey: ._valueSet)
@@ -2581,6 +2618,7 @@ open class ElementDefinitionBindingAdditional: Element {
 		// Encode all our properties
 		try any?.encode(on: &_container, forKey: .any, auxiliaryKey: ._any)
 		try documentation?.encode(on: &_container, forKey: .documentation, auxiliaryKey: ._documentation)
+		try key?.encode(on: &_container, forKey: .key, auxiliaryKey: ._key)
 		try purpose.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
 		try shortDoco?.encode(on: &_container, forKey: .shortDoco, auxiliaryKey: ._shortDoco)
 		try usage?.encode(on: &_container, forKey: .usage)
@@ -2599,6 +2637,7 @@ open class ElementDefinitionBindingAdditional: Element {
 		}
 		return any == _other.any
 		    && documentation == _other.documentation
+		    && key == _other.key
 		    && purpose == _other.purpose
 		    && shortDoco == _other.shortDoco
 		    && usage == _other.usage
@@ -2609,6 +2648,7 @@ open class ElementDefinitionBindingAdditional: Element {
 		super.hash(into: &hasher)
 		hasher.combine(any)
 		hasher.combine(documentation)
+		hasher.combine(key)
 		hasher.combine(purpose)
 		hasher.combine(shortDoco)
 		hasher.combine(usage)
@@ -2809,6 +2849,7 @@ open class ElementDefinitionExample: Element {
 		case url(FHIRPrimitive<FHIRURI>)
 		case usageContext(UsageContext)
 		case uuid(FHIRPrimitive<FHIRURI>)
+		case virtualServiceDetail(VirtualServiceDetail)
 	}
 	
 	/// Describes the purpose of this example
@@ -2895,6 +2936,7 @@ open class ElementDefinitionExample: Element {
 		case valueUrl; case _valueUrl
 		case valueUsageContext
 		case valueUuid; case _valueUuid
+		case valueVirtualServiceDetail
 	}
 	
 	/// Initializer for Decodable
@@ -2902,8 +2944,8 @@ open class ElementDefinitionExample: Element {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Validate that we have at least one of the mandatory properties for expanded properties
-		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueAvailability) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueExtendedContactDetail) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) else {
-			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueAvailability, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueExtendedContactDetail, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid], debugDescription: "Must have at least one value for \"value\" but have none"))
+		guard _container.contains(CodingKeys.valueAddress) || _container.contains(CodingKeys.valueAge) || _container.contains(CodingKeys.valueAnnotation) || _container.contains(CodingKeys.valueAttachment) || _container.contains(CodingKeys.valueAvailability) || _container.contains(CodingKeys.valueBase64Binary) || _container.contains(CodingKeys.valueBoolean) || _container.contains(CodingKeys.valueCanonical) || _container.contains(CodingKeys.valueCode) || _container.contains(CodingKeys.valueCodeableConcept) || _container.contains(CodingKeys.valueCodeableReference) || _container.contains(CodingKeys.valueCoding) || _container.contains(CodingKeys.valueContactDetail) || _container.contains(CodingKeys.valueContactPoint) || _container.contains(CodingKeys.valueCount) || _container.contains(CodingKeys.valueDataRequirement) || _container.contains(CodingKeys.valueDate) || _container.contains(CodingKeys.valueDateTime) || _container.contains(CodingKeys.valueDecimal) || _container.contains(CodingKeys.valueDistance) || _container.contains(CodingKeys.valueDosage) || _container.contains(CodingKeys.valueDuration) || _container.contains(CodingKeys.valueExpression) || _container.contains(CodingKeys.valueExtendedContactDetail) || _container.contains(CodingKeys.valueHumanName) || _container.contains(CodingKeys.valueId) || _container.contains(CodingKeys.valueIdentifier) || _container.contains(CodingKeys.valueInstant) || _container.contains(CodingKeys.valueInteger) || _container.contains(CodingKeys.valueInteger64) || _container.contains(CodingKeys.valueMarkdown) || _container.contains(CodingKeys.valueMeta) || _container.contains(CodingKeys.valueMoney) || _container.contains(CodingKeys.valueOid) || _container.contains(CodingKeys.valueParameterDefinition) || _container.contains(CodingKeys.valuePeriod) || _container.contains(CodingKeys.valuePositiveInt) || _container.contains(CodingKeys.valueQuantity) || _container.contains(CodingKeys.valueRange) || _container.contains(CodingKeys.valueRatio) || _container.contains(CodingKeys.valueRatioRange) || _container.contains(CodingKeys.valueReference) || _container.contains(CodingKeys.valueRelatedArtifact) || _container.contains(CodingKeys.valueSampledData) || _container.contains(CodingKeys.valueSignature) || _container.contains(CodingKeys.valueString) || _container.contains(CodingKeys.valueTime) || _container.contains(CodingKeys.valueTiming) || _container.contains(CodingKeys.valueTriggerDefinition) || _container.contains(CodingKeys.valueUnsignedInt) || _container.contains(CodingKeys.valueUri) || _container.contains(CodingKeys.valueUrl) || _container.contains(CodingKeys.valueUsageContext) || _container.contains(CodingKeys.valueUuid) || _container.contains(CodingKeys.valueVirtualServiceDetail) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.valueAddress, CodingKeys.valueAge, CodingKeys.valueAnnotation, CodingKeys.valueAttachment, CodingKeys.valueAvailability, CodingKeys.valueBase64Binary, CodingKeys.valueBoolean, CodingKeys.valueCanonical, CodingKeys.valueCode, CodingKeys.valueCodeableConcept, CodingKeys.valueCodeableReference, CodingKeys.valueCoding, CodingKeys.valueContactDetail, CodingKeys.valueContactPoint, CodingKeys.valueCount, CodingKeys.valueDataRequirement, CodingKeys.valueDate, CodingKeys.valueDateTime, CodingKeys.valueDecimal, CodingKeys.valueDistance, CodingKeys.valueDosage, CodingKeys.valueDuration, CodingKeys.valueExpression, CodingKeys.valueExtendedContactDetail, CodingKeys.valueHumanName, CodingKeys.valueId, CodingKeys.valueIdentifier, CodingKeys.valueInstant, CodingKeys.valueInteger, CodingKeys.valueInteger64, CodingKeys.valueMarkdown, CodingKeys.valueMeta, CodingKeys.valueMoney, CodingKeys.valueOid, CodingKeys.valueParameterDefinition, CodingKeys.valuePeriod, CodingKeys.valuePositiveInt, CodingKeys.valueQuantity, CodingKeys.valueRange, CodingKeys.valueRatio, CodingKeys.valueRatioRange, CodingKeys.valueReference, CodingKeys.valueRelatedArtifact, CodingKeys.valueSampledData, CodingKeys.valueSignature, CodingKeys.valueString, CodingKeys.valueTime, CodingKeys.valueTiming, CodingKeys.valueTriggerDefinition, CodingKeys.valueUnsignedInt, CodingKeys.valueUri, CodingKeys.valueUrl, CodingKeys.valueUsageContext, CodingKeys.valueUuid, CodingKeys.valueVirtualServiceDetail], debugDescription: "Must have at least one value for \"value\" but have none"))
 		}
 		
 		// Decode all our properties
@@ -3221,6 +3263,12 @@ open class ElementDefinitionExample: Element {
 			}
 			_t_value = .extendedContactDetail(valueExtendedContactDetail)
 		}
+		if let valueVirtualServiceDetail = try VirtualServiceDetail(from: _container, forKeyIfPresent: .valueVirtualServiceDetail) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueVirtualServiceDetail, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .virtualServiceDetail(valueVirtualServiceDetail)
+		}
 		if let valueDosage = try Dosage(from: _container, forKeyIfPresent: .valueDosage) {
 			if _t_value != nil {
 				throw DecodingError.dataCorruptedError(forKey: .valueDosage, in: _container, debugDescription: "More than one value provided for \"value\"")
@@ -3349,6 +3397,8 @@ open class ElementDefinitionExample: Element {
 				try _value.encode(on: &_container, forKey: .valueAvailability)
 			case .extendedContactDetail(let _value):
 				try _value.encode(on: &_container, forKey: .valueExtendedContactDetail)
+			case .virtualServiceDetail(let _value):
+				try _value.encode(on: &_container, forKey: .valueVirtualServiceDetail)
 			case .dosage(let _value):
 				try _value.encode(on: &_container, forKey: .valueDosage)
 			case .meta(let _value):
@@ -3585,7 +3635,7 @@ open class ElementDefinitionSlicing: Element {
  Element values that are used to distinguish the slices.
  
  Designates which child elements are used to discriminate between the slices when processing an instance. If one or more
- discriminators are provided, the value of the child elements in the instance data SHALL completely distinguish which
+ discriminators are provided, the values of the child elements in the instance data SHALL completely distinguish which
  slice the element in the resource matches based on the allowed values for those elements in each of the slices.
  */
 open class ElementDefinitionSlicingDiscriminator: Element {

@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public enum MedicationDispenseStatusCodes: String, FHIRPrimitiveType {
 	case preparation
 	
 	/// Actions implied by the dispense have been permanently halted, before all of them occurred.
-	case stopped
+	case unfulfilled
 	
 	/// The authoring system does not know which of the status values applies for this medication dispense.  Note: this
 	/// concept is not to be used for other - one of the listed statuses is presumed to apply, it's just now known which

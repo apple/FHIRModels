@@ -2,8 +2,8 @@
 //  RegulatedAuthorization.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 import FMCore
 
 /**
- Regulatory approval, clearance or licencing related to a regulated product, treatment, facility or activity e.g. Market
+ Regulatory approval, clearance or licensing related to a regulated product, treatment, facility or activity e.g. Market
  Authorization for a Medicinal Product.
  
- Regulatory approval, clearance or licencing related to a regulated product, treatment, facility or activity that is
+ Regulatory approval, clearance or licensing related to a regulated product, treatment, facility or activity that is
  cited in a guidance, regulation, rule or legislative act. An example is Market Authorization relating to a Medicinal
  Product.
  */

@@ -2,8 +2,8 @@
 //  EnrollmentRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/EnrollmentRequest)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/EnrollmentRequest)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ open class EnrollmentRequest: DomainResource {
 	/// Responsible practitioner
 	public var provider: Reference?
 	
-	/// The subject to be enrolled
+	/// The subject(s)to be enrolled
 	public var candidate: Reference?
 	
 	/// Insurance information

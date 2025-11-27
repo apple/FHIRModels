@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ public enum GroupType: String, FHIRPrimitiveType {
 	/// Group contains "animal" Patient resources.
 	case animal
 	
+	/// Group contains BiologicallyDerivedProduct resources.
+	case biologicallyDerivedProduct
+	
 	/// Group contains CareTeam resources.
 	case careteam
 	
@@ -41,6 +44,15 @@ public enum GroupType: String, FHIRPrimitiveType {
 	
 	/// Group contains Location resources.
 	case location
+	
+	/// Group contains Medication resources.
+	case medication
+	
+	/// Group contains MedicinalProductDefinition resources.
+	case medicinalproductdefinition
+	
+	/// Group contains NutritionProduct resources.
+	case nutritionProduct
 	
 	/// Group contains Organization resources.
 	case organization
@@ -56,4 +68,10 @@ public enum GroupType: String, FHIRPrimitiveType {
 	
 	/// Group contains Specimen resources.
 	case specimen
+	
+	/// Group contains Substance resources.
+	case substance
+	
+	/// Group contains SubstanceDefinition resources.
+	case substancedefinition
 }

@@ -24,7 +24,7 @@ import FMCore
  
  http://hl7.org/fhir/datatypes.html#base64Binary
  */
-public struct Base64Binary: FHIRPrimitiveType, Sendable {
+public struct Base64Binary: FHIRPrimitiveType {
 	
 	public var dataString: String
 	

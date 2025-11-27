@@ -2,8 +2,8 @@
 //  Composition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Composition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Composition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ import FMCore
  A set of resources composed into a single coherent clinical statement with clinical attestation.
  
  A set of healthcare-related information that is assembled together into a single logical package that provides a single
- coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is
- making the statement. A Composition defines the structure and narrative content necessary for a document. However, a
- Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where
+ coherent statement of meaning, establishes its own context and has traceability to the author who is making the
+ statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition
+ alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where
  Bundle.type=document, and any other resources referenced from Composition must be included as subsequent entries in the
  Bundle (for example Patient, Practitioner, Encounter, etc.).
  */
@@ -41,6 +41,12 @@ open class Composition: DomainResource {
 	
 	/// An explicitly assigned identifier of a variation of the content in the Composition
 	public var version: FHIRPrimitive<FHIRString>?
+	
+	/// Represents informed consents and medico-legal transactions
+	public var consent: [Reference]?
+	
+	/// Fulfills plan, proposal or order
+	public var basedOn: [Reference]?
 	
 	/// The workflow/clinical status of this composition. The status is a marker for the clinical standing of the
 	/// document.
@@ -65,13 +71,17 @@ open class Composition: DomainResource {
 	public var useContext: [UsageContext]?
 	
 	/// Who and/or what authored the composition
-	public var author: [Reference]
+	public var author: [Reference]?
+	
+	/// Identifies supporting entities, including parents, relatives, caregivers, insurance policyholders, guarantors,
+	/// and others related in some way to the patient
+	public var participant: [CompositionParticipant]?
 	
 	/// Name for this Composition (computer friendly)
 	public var name: FHIRPrimitive<FHIRString>?
 	
 	/// Human Readable name/title
-	public var title: FHIRPrimitive<FHIRString>
+	public var title: FHIRPrimitive<FHIRString>?
 	
 	/// For any additional notes
 	public var note: [Annotation]?
@@ -83,7 +93,7 @@ open class Composition: DomainResource {
 	public var custodian: Reference?
 	
 	/// Relationships to other compositions/documents
-	public var relatesTo: [RelatedArtifact]?
+	public var relatesTo: [CompositionRelatesTo]?
 	
 	/// The clinical service(s) being documented
 	public var event: [CompositionEvent]?
@@ -92,11 +102,9 @@ open class Composition: DomainResource {
 	public var section: [CompositionSection]?
 	
 	/// Designated initializer taking all required properties
-	public init(author: [Reference], date: FHIRPrimitive<DateTime>, status: FHIRPrimitive<CompositionStatus>, title: FHIRPrimitive<FHIRString>, type: CodeableConcept) {
-		self.author = author
+	public init(date: FHIRPrimitive<DateTime>, status: FHIRPrimitive<CompositionStatus>, type: CodeableConcept) {
 		self.date = date
 		self.status = status
-		self.title = title
 		self.type = type
 		super.init()
 	}
@@ -104,8 +112,10 @@ open class Composition: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		attester: [CompositionAttester]? = nil,
-		author: [Reference],
+		author: [Reference]? = nil,
+		basedOn: [Reference]? = nil,
 		category: [CodeableConcept]? = nil,
+		consent: [Reference]? = nil,
 		contained: [ResourceProxy]? = nil,
 		custodian: Reference? = nil,
 		date: FHIRPrimitive<DateTime>,
@@ -120,20 +130,24 @@ open class Composition: DomainResource {
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		note: [Annotation]? = nil,
-		relatesTo: [RelatedArtifact]? = nil,
+		participant: [CompositionParticipant]? = nil,
+		relatesTo: [CompositionRelatesTo]? = nil,
 		section: [CompositionSection]? = nil,
 		status: FHIRPrimitive<CompositionStatus>,
 		subject: [Reference]? = nil,
 		text: Narrative? = nil,
-		title: FHIRPrimitive<FHIRString>,
+		title: FHIRPrimitive<FHIRString>? = nil,
 		type: CodeableConcept,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
 		version: FHIRPrimitive<FHIRString>? = nil
 	) {
-		self.init(author: author, date: date, status: status, title: title, type: type)
+		self.init(date: date, status: status, type: type)
 		self.attester = attester
+		self.author = author
+		self.basedOn = basedOn
 		self.category = category
+		self.consent = consent
 		self.contained = contained
 		self.custodian = custodian
 		self.encounter = encounter
@@ -147,10 +161,12 @@ open class Composition: DomainResource {
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.note = note
+		self.participant = participant
 		self.relatesTo = relatesTo
 		self.section = section
 		self.subject = subject
 		self.text = text
+		self.title = title
 		self.url = url
 		self.useContext = useContext
 		self.version = version
@@ -161,7 +177,9 @@ open class Composition: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case attester
 		case author
+		case basedOn
 		case category
+		case consent
 		case custodian
 		case date; case _date
 		case encounter
@@ -169,6 +187,7 @@ open class Composition: DomainResource {
 		case identifier
 		case name; case _name
 		case note
+		case participant
 		case relatesTo
 		case section
 		case status; case _status
@@ -186,8 +205,10 @@ open class Composition: DomainResource {
 		
 		// Decode all our properties
 		self.attester = try [CompositionAttester](from: _container, forKeyIfPresent: .attester)
-		self.author = try [Reference](from: _container, forKey: .author)
+		self.author = try [Reference](from: _container, forKeyIfPresent: .author)
+		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
+		self.consent = try [Reference](from: _container, forKeyIfPresent: .consent)
 		self.custodian = try Reference(from: _container, forKeyIfPresent: .custodian)
 		self.date = try FHIRPrimitive<DateTime>(from: _container, forKey: .date, auxiliaryKey: ._date)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
@@ -195,11 +216,12 @@ open class Composition: DomainResource {
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.relatesTo = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatesTo)
+		self.participant = try [CompositionParticipant](from: _container, forKeyIfPresent: .participant)
+		self.relatesTo = try [CompositionRelatesTo](from: _container, forKeyIfPresent: .relatesTo)
 		self.section = try [CompositionSection](from: _container, forKeyIfPresent: .section)
 		self.status = try FHIRPrimitive<CompositionStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.subject = try [Reference](from: _container, forKeyIfPresent: .subject)
-		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKey: .title, auxiliaryKey: ._title)
+		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.type = try CodeableConcept(from: _container, forKey: .type)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
@@ -213,8 +235,10 @@ open class Composition: DomainResource {
 		
 		// Encode all our properties
 		try attester?.encode(on: &_container, forKey: .attester)
-		try author.encode(on: &_container, forKey: .author)
+		try author?.encode(on: &_container, forKey: .author)
+		try basedOn?.encode(on: &_container, forKey: .basedOn)
 		try category?.encode(on: &_container, forKey: .category)
+		try consent?.encode(on: &_container, forKey: .consent)
 		try custodian?.encode(on: &_container, forKey: .custodian)
 		try date.encode(on: &_container, forKey: .date, auxiliaryKey: ._date)
 		try encounter?.encode(on: &_container, forKey: .encounter)
@@ -222,11 +246,12 @@ open class Composition: DomainResource {
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try note?.encode(on: &_container, forKey: .note)
+		try participant?.encode(on: &_container, forKey: .participant)
 		try relatesTo?.encode(on: &_container, forKey: .relatesTo)
 		try section?.encode(on: &_container, forKey: .section)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
 		try subject?.encode(on: &_container, forKey: .subject)
-		try title.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
+		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try type.encode(on: &_container, forKey: .type)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
@@ -245,7 +270,9 @@ open class Composition: DomainResource {
 		}
 		return attester == _other.attester
 		    && author == _other.author
+		    && basedOn == _other.basedOn
 		    && category == _other.category
+		    && consent == _other.consent
 		    && custodian == _other.custodian
 		    && date == _other.date
 		    && encounter == _other.encounter
@@ -253,6 +280,7 @@ open class Composition: DomainResource {
 		    && identifier == _other.identifier
 		    && name == _other.name
 		    && note == _other.note
+		    && participant == _other.participant
 		    && relatesTo == _other.relatesTo
 		    && section == _other.section
 		    && status == _other.status
@@ -268,7 +296,9 @@ open class Composition: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(attester)
 		hasher.combine(author)
+		hasher.combine(basedOn)
 		hasher.combine(category)
+		hasher.combine(consent)
 		hasher.combine(custodian)
 		hasher.combine(date)
 		hasher.combine(encounter)
@@ -276,6 +306,7 @@ open class Composition: DomainResource {
 		hasher.combine(identifier)
 		hasher.combine(name)
 		hasher.combine(note)
+		hasher.combine(participant)
 		hasher.combine(relatesTo)
 		hasher.combine(section)
 		hasher.combine(status)
@@ -461,6 +492,260 @@ open class CompositionEvent: BackboneElement {
 }
 
 /**
+ Identifies supporting entities, including parents, relatives, caregivers, insurance policyholders, guarantors, and
+ others related in some way to the patient.
+ 
+ Identifies supporting entities, including parents, relatives, caregivers, insurance policyholders, guarantors, and
+ others related in some way to the patient. A supporting person or organization is an individual or an organization with
+ a relationship to the patient. A supporting person who is playing multiple roles would be recorded in multiple
+ participants (e.g., emergency contact and next-of-kin).
+ */
+open class CompositionParticipant: BackboneElement {
+	
+	/// AUT | AUTHEN | CST | LA | RCT | SBJ
+	public var type: [CodeableConcept]
+	
+	/// None
+	public var function: [CodeableConcept]?
+	
+	/// Time period of participation
+	public var time: Period?
+	
+	/// Who the participant is
+	public var party: Reference
+	
+	/// Designated initializer taking all required properties
+	public init(party: Reference, type: [CodeableConcept]) {
+		self.party = party
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		function: [CodeableConcept]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		party: Reference,
+		time: Period? = nil,
+		type: [CodeableConcept]
+	) {
+		self.init(party: party, type: type)
+		self.`extension` = `extension`
+		self.function = function
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.time = time
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case function
+		case party
+		case time
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.function = try [CodeableConcept](from: _container, forKeyIfPresent: .function)
+		self.party = try Reference(from: _container, forKey: .party)
+		self.time = try Period(from: _container, forKeyIfPresent: .time)
+		self.type = try [CodeableConcept](from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try function?.encode(on: &_container, forKey: .function)
+		try party.encode(on: &_container, forKey: .party)
+		try time?.encode(on: &_container, forKey: .time)
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? CompositionParticipant else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return function == _other.function
+		    && party == _other.party
+		    && time == _other.time
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(function)
+		hasher.combine(party)
+		hasher.combine(time)
+		hasher.combine(type)
+	}
+}
+
+/**
+ Relationships to other compositions/documents.
+ 
+ Relationships that this composition has with other compositions or documents (FHIR or non-FHIR resources) that already
+ exist.
+ */
+open class CompositionRelatesTo: BackboneElement {
+	
+	/// All possible types for "target[x]"
+	public enum TargetX: Hashable {
+		case attachment(Attachment)
+		case canonical(FHIRPrimitive<Canonical>)
+		case markdown(FHIRPrimitive<FHIRString>)
+		case reference(Reference)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of |
+	/// part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in |
+	/// contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs
+	/// | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents |
+	/// specification-of | created-with | cite-as | reprint | reprint-of | summarizes
+	public var type: CodeableConcept
+	
+	/// The artifact that is related to this Composition
+	/// One of `target[x]`
+	public var target: TargetX
+	
+	/// Designated initializer taking all required properties
+	public init(target: TargetX, type: CodeableConcept) {
+		self.target = target
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: TargetX,
+		type: CodeableConcept
+	) {
+		self.init(target: target, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case targetAttachment
+		case targetCanonical; case _targetCanonical
+		case targetMarkdown; case _targetMarkdown
+		case targetReference
+		case targetUri; case _targetUri
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.targetAttachment) || _container.contains(CodingKeys.targetCanonical) || _container.contains(CodingKeys.targetMarkdown) || _container.contains(CodingKeys.targetReference) || _container.contains(CodingKeys.targetUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.targetAttachment, CodingKeys.targetCanonical, CodingKeys.targetMarkdown, CodingKeys.targetReference, CodingKeys.targetUri], debugDescription: "Must have at least one value for \"target\" but have none"))
+		}
+		
+		// Decode all our properties
+		var _t_target: TargetX? = nil
+		if let targetUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .targetUri, auxiliaryKey: ._targetUri) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetUri, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .uri(targetUri)
+		}
+		if let targetAttachment = try Attachment(from: _container, forKeyIfPresent: .targetAttachment) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetAttachment, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .attachment(targetAttachment)
+		}
+		if let targetCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .targetCanonical, auxiliaryKey: ._targetCanonical) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetCanonical, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .canonical(targetCanonical)
+		}
+		if let targetReference = try Reference(from: _container, forKeyIfPresent: .targetReference) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetReference, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .reference(targetReference)
+		}
+		if let targetMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetMarkdown, auxiliaryKey: ._targetMarkdown) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetMarkdown, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .markdown(targetMarkdown)
+		}
+		self.target = _t_target!
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		
+			switch target {
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .targetUri, auxiliaryKey: ._targetUri)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .targetAttachment)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .targetCanonical, auxiliaryKey: ._targetCanonical)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .targetReference)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .targetMarkdown, auxiliaryKey: ._targetMarkdown)
+			}
+		
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? CompositionRelatesTo else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return target == _other.target
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(target)
+		hasher.combine(type)
+	}
+}
+
+/**
  Composition is broken into sections.
  
  The root of the sections that make up the composition.
@@ -473,7 +758,7 @@ open class CompositionSection: BackboneElement {
 	/// Classification of section (recommended)
 	public var code: CodeableConcept?
 	
-	/// Who and/or what authored the section
+	/// Who and/or what authored the section, when the section is authored by someone other than the composition.author
 	public var author: [Reference]?
 	
 	/// Who/what the section is about, when it is not about the subject of composition
@@ -481,6 +766,9 @@ open class CompositionSection: BackboneElement {
 	
 	/// Text summary of the section, for human interpretation
 	public var text: Narrative?
+	
+	/// Information about the section contents that is not represented by any of the section entries
+	public var note: [Annotation]?
 	
 	/// Order of section entries
 	public var orderedBy: CodeableConcept?
@@ -509,6 +797,7 @@ open class CompositionSection: BackboneElement {
 		focus: Reference? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
+		note: [Annotation]? = nil,
 		orderedBy: CodeableConcept? = nil,
 		section: [CompositionSection]? = nil,
 		text: Narrative? = nil,
@@ -523,6 +812,7 @@ open class CompositionSection: BackboneElement {
 		self.focus = focus
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.note = note
 		self.orderedBy = orderedBy
 		self.section = section
 		self.text = text
@@ -537,6 +827,7 @@ open class CompositionSection: BackboneElement {
 		case emptyReason
 		case entry
 		case focus
+		case note
 		case orderedBy
 		case section
 		case text
@@ -553,6 +844,7 @@ open class CompositionSection: BackboneElement {
 		self.emptyReason = try CodeableConcept(from: _container, forKeyIfPresent: .emptyReason)
 		self.entry = try [Reference](from: _container, forKeyIfPresent: .entry)
 		self.focus = try Reference(from: _container, forKeyIfPresent: .focus)
+		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.orderedBy = try CodeableConcept(from: _container, forKeyIfPresent: .orderedBy)
 		self.section = try [CompositionSection](from: _container, forKeyIfPresent: .section)
 		self.text = try Narrative(from: _container, forKeyIfPresent: .text)
@@ -570,6 +862,7 @@ open class CompositionSection: BackboneElement {
 		try emptyReason?.encode(on: &_container, forKey: .emptyReason)
 		try entry?.encode(on: &_container, forKey: .entry)
 		try focus?.encode(on: &_container, forKey: .focus)
+		try note?.encode(on: &_container, forKey: .note)
 		try orderedBy?.encode(on: &_container, forKey: .orderedBy)
 		try section?.encode(on: &_container, forKey: .section)
 		try text?.encode(on: &_container, forKey: .text)
@@ -591,6 +884,7 @@ open class CompositionSection: BackboneElement {
 		    && emptyReason == _other.emptyReason
 		    && entry == _other.entry
 		    && focus == _other.focus
+		    && note == _other.note
 		    && orderedBy == _other.orderedBy
 		    && section == _other.section
 		    && text == _other.text
@@ -604,6 +898,7 @@ open class CompositionSection: BackboneElement {
 		hasher.combine(emptyReason)
 		hasher.combine(entry)
 		hasher.combine(focus)
+		hasher.combine(note)
 		hasher.combine(orderedBy)
 		hasher.combine(section)
 		hasher.combine(text)

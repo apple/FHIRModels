@@ -2,8 +2,8 @@
 //  HealthcareService.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/HealthcareService)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/HealthcareService)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -357,7 +357,7 @@ open class HealthcareServiceEligibility: BackboneElement {
 	public var comment: FHIRPrimitive<FHIRString>?
 	
 	/// The period this eligibility rule applies
-	public var period: FHIRPrimitive<FHIRString>?
+	public var period: Period?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -371,7 +371,7 @@ open class HealthcareServiceEligibility: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		period: FHIRPrimitive<FHIRString>? = nil,
+		period: Period? = nil,
 		value: ValueX? = nil
 	) {
 		self.init()
@@ -389,7 +389,7 @@ open class HealthcareServiceEligibility: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case code
 		case comment; case _comment
-		case period; case _period
+		case period
 		case valueBoolean; case _valueBoolean
 		case valueCodeableConcept
 		case valueQuantity
@@ -404,7 +404,7 @@ open class HealthcareServiceEligibility: BackboneElement {
 		// Decode all our properties
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.comment = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .comment, auxiliaryKey: ._comment)
-		self.period = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .period, auxiliaryKey: ._period)
+		self.period = try Period(from: _container, forKeyIfPresent: .period)
 		var _t_value: ValueX? = nil
 		if let valueCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .valueCodeableConcept) {
 			if _t_value != nil {
@@ -447,7 +447,7 @@ open class HealthcareServiceEligibility: BackboneElement {
 		// Encode all our properties
 		try code?.encode(on: &_container, forKey: .code)
 		try comment?.encode(on: &_container, forKey: .comment, auxiliaryKey: ._comment)
-		try period?.encode(on: &_container, forKey: .period, auxiliaryKey: ._period)
+		try period?.encode(on: &_container, forKey: .period)
 		if let _enum = value {
 			switch _enum {
 			case .codeableConcept(let _value):

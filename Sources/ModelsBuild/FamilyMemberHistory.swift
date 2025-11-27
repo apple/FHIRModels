@@ -2,8 +2,8 @@
 //  FamilyMemberHistory.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -54,12 +54,6 @@ open class FamilyMemberHistory: DomainResource {
 	/// External Id(s) for this record
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
 	/// A code specifying the status of the record of the family history of a specific family member.
 	public var status: FHIRPrimitive<FamilyHistoryStatus>
 	
@@ -72,8 +66,11 @@ open class FamilyMemberHistory: DomainResource {
 	/// When history was recorded or last updated
 	public var date: FHIRPrimitive<DateTime>?
 	
-	/// Who or what participated in the activities related to the family member history and how they were involved
-	public var participant: [FamilyMemberHistoryParticipant]?
+	/// Who recorded the family member history
+	public var recorder: Reference?
+	
+	/// Person or device that asserts this family member history
+	public var asserter: Reference?
 	
 	/// The family member described
 	public var name: FHIRPrimitive<FHIRString>?
@@ -122,6 +119,7 @@ open class FamilyMemberHistory: DomainResource {
 	/// Convenience initializer
 	public convenience init(
 		age: AgeX? = nil,
+		asserter: Reference? = nil,
 		born: BornX? = nil,
 		condition: [FamilyMemberHistoryCondition]? = nil,
 		contained: [ResourceProxy]? = nil,
@@ -133,17 +131,15 @@ open class FamilyMemberHistory: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		name: FHIRPrimitive<FHIRString>? = nil,
 		note: [Annotation]? = nil,
-		participant: [FamilyMemberHistoryParticipant]? = nil,
 		patient: Reference,
 		procedure: [FamilyMemberHistoryProcedure]? = nil,
 		reason: [CodeableReference]? = nil,
+		recorder: Reference? = nil,
 		relationship: CodeableConcept,
 		sex: CodeableConcept? = nil,
 		status: FHIRPrimitive<FamilyHistoryStatus>,
@@ -151,6 +147,7 @@ open class FamilyMemberHistory: DomainResource {
 	) {
 		self.init(patient: patient, relationship: relationship, status: status)
 		self.age = age
+		self.asserter = asserter
 		self.born = born
 		self.condition = condition
 		self.contained = contained
@@ -162,16 +159,14 @@ open class FamilyMemberHistory: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.name = name
 		self.note = note
-		self.participant = participant
 		self.procedure = procedure
 		self.reason = reason
+		self.recorder = recorder
 		self.sex = sex
 		self.text = text
 	}
@@ -182,6 +177,7 @@ open class FamilyMemberHistory: DomainResource {
 		case ageAge
 		case ageRange
 		case ageString; case _ageString
+		case asserter
 		case bornDate; case _bornDate
 		case bornPeriod
 		case bornString; case _bornString
@@ -195,14 +191,12 @@ open class FamilyMemberHistory: DomainResource {
 		case deceasedString; case _deceasedString
 		case estimatedAge; case _estimatedAge
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case name; case _name
 		case note
-		case participant
 		case patient
 		case procedure
 		case reason
+		case recorder
 		case relationship
 		case sex
 		case status; case _status
@@ -233,6 +227,7 @@ open class FamilyMemberHistory: DomainResource {
 			_t_age = .string(ageString)
 		}
 		self.age = _t_age
+		self.asserter = try Reference(from: _container, forKeyIfPresent: .asserter)
 		var _t_born: BornX? = nil
 		if let bornPeriod = try Period(from: _container, forKeyIfPresent: .bornPeriod) {
 			if _t_born != nil {
@@ -290,14 +285,12 @@ open class FamilyMemberHistory: DomainResource {
 		self.deceased = _t_deceased
 		self.estimatedAge = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .estimatedAge, auxiliaryKey: ._estimatedAge)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.name = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .name, auxiliaryKey: ._name)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.participant = try [FamilyMemberHistoryParticipant](from: _container, forKeyIfPresent: .participant)
 		self.patient = try Reference(from: _container, forKey: .patient)
 		self.procedure = try [FamilyMemberHistoryProcedure](from: _container, forKeyIfPresent: .procedure)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
+		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
 		self.relationship = try CodeableConcept(from: _container, forKey: .relationship)
 		self.sex = try CodeableConcept(from: _container, forKeyIfPresent: .sex)
 		self.status = try FHIRPrimitive<FamilyHistoryStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
@@ -319,6 +312,7 @@ open class FamilyMemberHistory: DomainResource {
 				try _value.encode(on: &_container, forKey: .ageString, auxiliaryKey: ._ageString)
 			}
 		}
+		try asserter?.encode(on: &_container, forKey: .asserter)
 		if let _enum = born {
 			switch _enum {
 			case .period(let _value):
@@ -348,14 +342,12 @@ open class FamilyMemberHistory: DomainResource {
 		}
 		try estimatedAge?.encode(on: &_container, forKey: .estimatedAge, auxiliaryKey: ._estimatedAge)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try name?.encode(on: &_container, forKey: .name, auxiliaryKey: ._name)
 		try note?.encode(on: &_container, forKey: .note)
-		try participant?.encode(on: &_container, forKey: .participant)
 		try patient.encode(on: &_container, forKey: .patient)
 		try procedure?.encode(on: &_container, forKey: .procedure)
 		try reason?.encode(on: &_container, forKey: .reason)
+		try recorder?.encode(on: &_container, forKey: .recorder)
 		try relationship.encode(on: &_container, forKey: .relationship)
 		try sex?.encode(on: &_container, forKey: .sex)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
@@ -372,6 +364,7 @@ open class FamilyMemberHistory: DomainResource {
 			return false
 		}
 		return age == _other.age
+		    && asserter == _other.asserter
 		    && born == _other.born
 		    && condition == _other.condition
 		    && dataAbsentReason == _other.dataAbsentReason
@@ -379,14 +372,12 @@ open class FamilyMemberHistory: DomainResource {
 		    && deceased == _other.deceased
 		    && estimatedAge == _other.estimatedAge
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && name == _other.name
 		    && note == _other.note
-		    && participant == _other.participant
 		    && patient == _other.patient
 		    && procedure == _other.procedure
 		    && reason == _other.reason
+		    && recorder == _other.recorder
 		    && relationship == _other.relationship
 		    && sex == _other.sex
 		    && status == _other.status
@@ -395,6 +386,7 @@ open class FamilyMemberHistory: DomainResource {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(age)
+		hasher.combine(asserter)
 		hasher.combine(born)
 		hasher.combine(condition)
 		hasher.combine(dataAbsentReason)
@@ -402,14 +394,12 @@ open class FamilyMemberHistory: DomainResource {
 		hasher.combine(deceased)
 		hasher.combine(estimatedAge)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(name)
 		hasher.combine(note)
-		hasher.combine(participant)
 		hasher.combine(patient)
 		hasher.combine(procedure)
 		hasher.combine(reason)
+		hasher.combine(recorder)
 		hasher.combine(relationship)
 		hasher.combine(sex)
 		hasher.combine(status)
@@ -574,87 +564,6 @@ open class FamilyMemberHistoryCondition: BackboneElement {
 		hasher.combine(note)
 		hasher.combine(onset)
 		hasher.combine(outcome)
-	}
-}
-
-/**
- Who or what participated in the activities related to the family member history and how they were involved.
- 
- Indicates who or what participated in the activities related to the family member history and how they were involved.
- */
-open class FamilyMemberHistoryParticipant: BackboneElement {
-	
-	/// Type of involvement
-	public var function: CodeableConcept?
-	
-	/// Who or what participated in the activities related to the family member history
-	public var actor: Reference
-	
-	/// Designated initializer taking all required properties
-	public init(actor: Reference) {
-		self.actor = actor
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		actor: Reference,
-		`extension`: [Extension]? = nil,
-		function: CodeableConcept? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
-	) {
-		self.init(actor: actor)
-		self.`extension` = `extension`
-		self.function = function
-		self.id = id
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case actor
-		case function
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.actor = try Reference(from: _container, forKey: .actor)
-		self.function = try CodeableConcept(from: _container, forKeyIfPresent: .function)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try actor.encode(on: &_container, forKey: .actor)
-		try function?.encode(on: &_container, forKey: .function)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? FamilyMemberHistoryParticipant else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return actor == _other.actor
-		    && function == _other.function
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(actor)
-		hasher.combine(function)
 	}
 }
 

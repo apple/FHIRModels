@@ -2,8 +2,8 @@
 //  NutritionIntake.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/NutritionIntake)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/NutritionIntake)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -49,20 +49,15 @@ open class NutritionIntake: DomainResource {
 	/// External identifier
 	public var identifier: [Identifier]?
 	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
-	
 	/// Fulfils plan, proposal or order
 	public var basedOn: [Reference]?
 	
 	/// Part of referenced event
 	public var partOf: [Reference]?
 	
-	/// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// A code representing the patient or other source's judgment about the state of the intake that this assertion is
+	/// about.  Generally, this will be active or completed.
+	public var status: FHIRPrimitive<EventStatus>
 	
 	/// Reason for current status
 	public var statusReason: [CodeableConcept]?
@@ -91,7 +86,7 @@ open class NutritionIntake: DomainResource {
 	/// The nutrition product intended for consumption and/or administration
 	public var nutritionItem: [NutritionIntakeNutritionItem]?
 	
-	/// Who performed the intake and how they were involved
+	/// Who or what performed the intake and how they were involved
 	public var performer: [NutritionIntakePerformer]?
 	
 	/// Where the intake occurred
@@ -107,7 +102,7 @@ open class NutritionIntake: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<FHIRString>, subject: Reference) {
+	public init(status: FHIRPrimitive<EventStatus>, subject: Reference) {
 		self.status = status
 		self.subject = subject
 		super.init()
@@ -124,8 +119,6 @@ open class NutritionIntake: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		location: Reference? = nil,
 		meta: Meta? = nil,
@@ -138,7 +131,7 @@ open class NutritionIntake: DomainResource {
 		reason: [CodeableReference]? = nil,
 		recorded: FHIRPrimitive<DateTime>? = nil,
 		reported: ReportedX? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<EventStatus>,
 		statusReason: [CodeableConcept]? = nil,
 		subject: Reference,
 		text: Narrative? = nil
@@ -153,8 +146,6 @@ open class NutritionIntake: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.language = language
 		self.location = location
 		self.meta = meta
@@ -179,8 +170,6 @@ open class NutritionIntake: DomainResource {
 		case derivedFrom
 		case encounter
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case location
 		case note
 		case nutritionItem
@@ -207,8 +196,6 @@ open class NutritionIntake: DomainResource {
 		self.derivedFrom = try [Reference](from: _container, forKeyIfPresent: .derivedFrom)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.location = try Reference(from: _container, forKeyIfPresent: .location)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.nutritionItem = try [NutritionIntakeNutritionItem](from: _container, forKeyIfPresent: .nutritionItem)
@@ -244,7 +231,7 @@ open class NutritionIntake: DomainResource {
 			_t_reported = .reference(reportedReference)
 		}
 		self.reported = _t_reported
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.statusReason = try [CodeableConcept](from: _container, forKeyIfPresent: .statusReason)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		try super.init(from: decoder)
@@ -260,8 +247,6 @@ open class NutritionIntake: DomainResource {
 		try derivedFrom?.encode(on: &_container, forKey: .derivedFrom)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try location?.encode(on: &_container, forKey: .location)
 		try note?.encode(on: &_container, forKey: .note)
 		try nutritionItem?.encode(on: &_container, forKey: .nutritionItem)
@@ -305,8 +290,6 @@ open class NutritionIntake: DomainResource {
 		    && derivedFrom == _other.derivedFrom
 		    && encounter == _other.encounter
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && location == _other.location
 		    && note == _other.note
 		    && nutritionItem == _other.nutritionItem
@@ -328,8 +311,6 @@ open class NutritionIntake: DomainResource {
 		hasher.combine(derivedFrom)
 		hasher.combine(encounter)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(location)
 		hasher.combine(note)
 		hasher.combine(nutritionItem)
@@ -359,11 +340,8 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 	/// What nutrition item was consumed
 	public var consumedItem: [NutritionIntakeNutritionItemConsumedItem]?
 	
-	/// Flag to indicate if the food (i.e. solid and/or liquid) was refused or otherwise not consumed
-	public var notConsumed: FHIRPrimitive<FHIRBool>?
-	
-	/// Reason the nutrition item was not consumed
-	public var notConsumedReason: CodeableConcept?
+	/// What nutrition item was not consumed
+	public var notConsumedItem: [NutritionIntakeNutritionItemNotConsumedItem]?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -376,8 +354,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
-		notConsumed: FHIRPrimitive<FHIRBool>? = nil,
-		notConsumedReason: CodeableConcept? = nil,
+		notConsumedItem: [NutritionIntakeNutritionItemNotConsumedItem]? = nil,
 		nutritionProduct: CodeableReference? = nil,
 		type: CodeableConcept? = nil
 	) {
@@ -386,8 +363,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
-		self.notConsumed = notConsumed
-		self.notConsumedReason = notConsumedReason
+		self.notConsumedItem = notConsumedItem
 		self.nutritionProduct = nutritionProduct
 		self.type = type
 	}
@@ -396,8 +372,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 	
 	private enum CodingKeys: String, CodingKey {
 		case consumedItem
-		case notConsumed; case _notConsumed
-		case notConsumedReason
+		case notConsumedItem
 		case nutritionProduct
 		case type
 	}
@@ -408,8 +383,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 		
 		// Decode all our properties
 		self.consumedItem = try [NutritionIntakeNutritionItemConsumedItem](from: _container, forKeyIfPresent: .consumedItem)
-		self.notConsumed = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .notConsumed, auxiliaryKey: ._notConsumed)
-		self.notConsumedReason = try CodeableConcept(from: _container, forKeyIfPresent: .notConsumedReason)
+		self.notConsumedItem = try [NutritionIntakeNutritionItemNotConsumedItem](from: _container, forKeyIfPresent: .notConsumedItem)
 		self.nutritionProduct = try CodeableReference(from: _container, forKeyIfPresent: .nutritionProduct)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
 		try super.init(from: decoder)
@@ -421,8 +395,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 		
 		// Encode all our properties
 		try consumedItem?.encode(on: &_container, forKey: .consumedItem)
-		try notConsumed?.encode(on: &_container, forKey: .notConsumed, auxiliaryKey: ._notConsumed)
-		try notConsumedReason?.encode(on: &_container, forKey: .notConsumedReason)
+		try notConsumedItem?.encode(on: &_container, forKey: .notConsumedItem)
 		try nutritionProduct?.encode(on: &_container, forKey: .nutritionProduct)
 		try type?.encode(on: &_container, forKey: .type)
 		try super.encode(to: encoder)
@@ -438,8 +411,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 			return false
 		}
 		return consumedItem == _other.consumedItem
-		    && notConsumed == _other.notConsumed
-		    && notConsumedReason == _other.notConsumedReason
+		    && notConsumedItem == _other.notConsumedItem
 		    && nutritionProduct == _other.nutritionProduct
 		    && type == _other.type
 	}
@@ -447,8 +419,7 @@ open class NutritionIntakeNutritionItem: BackboneElement {
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(consumedItem)
-		hasher.combine(notConsumed)
-		hasher.combine(notConsumedReason)
+		hasher.combine(notConsumedItem)
 		hasher.combine(nutritionProduct)
 		hasher.combine(type)
 	}
@@ -671,14 +642,103 @@ open class NutritionIntakeNutritionItemConsumedItemTotalIntake: BackboneElement 
 }
 
 /**
- Who performed the intake and how they were involved.
+ What nutrition item was not consumed.
+ */
+open class NutritionIntakeNutritionItemNotConsumedItem: BackboneElement {
+	
+	/// Reason the nutrition item was not consumed
+	public var reason: CodeableConcept?
+	
+	/// The intended frequency of consumption that was not followed
+	public var schedule: Timing?
+	
+	/// Quantity of the specified food (i.e. solid and/or liquid) that was not consumed
+	public var amount: Quantity?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		amount: Quantity? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		reason: CodeableConcept? = nil,
+		schedule: Timing? = nil
+	) {
+		self.init()
+		self.amount = amount
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.reason = reason
+		self.schedule = schedule
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case amount
+		case reason
+		case schedule
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.amount = try Quantity(from: _container, forKeyIfPresent: .amount)
+		self.reason = try CodeableConcept(from: _container, forKeyIfPresent: .reason)
+		self.schedule = try Timing(from: _container, forKeyIfPresent: .schedule)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try amount?.encode(on: &_container, forKey: .amount)
+		try reason?.encode(on: &_container, forKey: .reason)
+		try schedule?.encode(on: &_container, forKey: .schedule)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? NutritionIntakeNutritionItemNotConsumedItem else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return amount == _other.amount
+		    && reason == _other.reason
+		    && schedule == _other.schedule
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(amount)
+		hasher.combine(reason)
+		hasher.combine(schedule)
+	}
+}
+
+/**
+ Who or what performed the intake and how they were involved.
  */
 open class NutritionIntakePerformer: BackboneElement {
 	
 	/// Type of performer
 	public var function: CodeableConcept?
 	
-	/// Who performed the intake
+	/// Who or what performed the intake
 	public var actor: Reference
 	
 	/// Designated initializer taking all required properties

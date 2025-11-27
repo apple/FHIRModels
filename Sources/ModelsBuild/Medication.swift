@@ -2,8 +2,8 @@
 //  Medication.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Medication)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Medication)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -45,17 +45,18 @@ open class Medication: DomainResource {
 	/// powder | tablets | capsule +
 	public var doseForm: CodeableConcept?
 	
-	/// When the specified product code does not infer a package size, this is the specific amount of drug in the
-	/// product
-	public var totalVolume: Quantity?
+	/// When the code does not specify the package size, this backbone element can be used to specify the overall amount
+	/// of medication in the package
+	public var packageSize: MedicationPackageSize?
 	
-	/// Active or inactive ingredient
+	/// Components of a medication. These can be ingredient substances or other medications, in the case of combination
+	/// packaged medications
 	public var ingredient: [MedicationIngredient]?
 	
 	/// Details about packaged medications
-	public var batch: MedicationBatch?
+	public var instance: MedicationInstance?
 	
-	/// Knowledge about this medication
+	/// Formal definition of the medication
 	public var definition: Reference?
 	
 	/// Designated initializer taking all required properties
@@ -65,7 +66,6 @@ open class Medication: DomainResource {
 	
 	/// Convenience initializer
 	public convenience init(
-		batch: MedicationBatch? = nil,
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
 		definition: Reference? = nil,
@@ -75,16 +75,16 @@ open class Medication: DomainResource {
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
 		ingredient: [MedicationIngredient]? = nil,
+		instance: MedicationInstance? = nil,
 		language: FHIRPrimitive<FHIRString>? = nil,
 		marketingAuthorizationHolder: Reference? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
+		packageSize: MedicationPackageSize? = nil,
 		status: FHIRPrimitive<MedicationStatusCodes>? = nil,
-		text: Narrative? = nil,
-		totalVolume: Quantity? = nil
+		text: Narrative? = nil
 	) {
 		self.init()
-		self.batch = batch
 		self.code = code
 		self.contained = contained
 		self.definition = definition
@@ -94,27 +94,28 @@ open class Medication: DomainResource {
 		self.identifier = identifier
 		self.implicitRules = implicitRules
 		self.ingredient = ingredient
+		self.instance = instance
 		self.language = language
 		self.marketingAuthorizationHolder = marketingAuthorizationHolder
 		self.meta = meta
 		self.modifierExtension = modifierExtension
+		self.packageSize = packageSize
 		self.status = status
 		self.text = text
-		self.totalVolume = totalVolume
 	}
 	
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case batch
 		case code
 		case definition
 		case doseForm
 		case identifier
 		case ingredient
+		case instance
 		case marketingAuthorizationHolder
+		case packageSize
 		case status; case _status
-		case totalVolume
 	}
 	
 	/// Initializer for Decodable
@@ -122,15 +123,15 @@ open class Medication: DomainResource {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.batch = try MedicationBatch(from: _container, forKeyIfPresent: .batch)
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.definition = try Reference(from: _container, forKeyIfPresent: .definition)
 		self.doseForm = try CodeableConcept(from: _container, forKeyIfPresent: .doseForm)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
 		self.ingredient = try [MedicationIngredient](from: _container, forKeyIfPresent: .ingredient)
+		self.instance = try MedicationInstance(from: _container, forKeyIfPresent: .instance)
 		self.marketingAuthorizationHolder = try Reference(from: _container, forKeyIfPresent: .marketingAuthorizationHolder)
+		self.packageSize = try MedicationPackageSize(from: _container, forKeyIfPresent: .packageSize)
 		self.status = try FHIRPrimitive<MedicationStatusCodes>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
-		self.totalVolume = try Quantity(from: _container, forKeyIfPresent: .totalVolume)
 		try super.init(from: decoder)
 	}
 	
@@ -139,15 +140,15 @@ open class Medication: DomainResource {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try batch?.encode(on: &_container, forKey: .batch)
 		try code?.encode(on: &_container, forKey: .code)
 		try definition?.encode(on: &_container, forKey: .definition)
 		try doseForm?.encode(on: &_container, forKey: .doseForm)
 		try identifier?.encode(on: &_container, forKey: .identifier)
 		try ingredient?.encode(on: &_container, forKey: .ingredient)
+		try instance?.encode(on: &_container, forKey: .instance)
 		try marketingAuthorizationHolder?.encode(on: &_container, forKey: .marketingAuthorizationHolder)
+		try packageSize?.encode(on: &_container, forKey: .packageSize)
 		try status?.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
-		try totalVolume?.encode(on: &_container, forKey: .totalVolume)
 		try super.encode(to: encoder)
 	}
 	
@@ -160,114 +161,34 @@ open class Medication: DomainResource {
 		guard super.isEqual(to: _other) else {
 			return false
 		}
-		return batch == _other.batch
-		    && code == _other.code
+		return code == _other.code
 		    && definition == _other.definition
 		    && doseForm == _other.doseForm
 		    && identifier == _other.identifier
 		    && ingredient == _other.ingredient
+		    && instance == _other.instance
 		    && marketingAuthorizationHolder == _other.marketingAuthorizationHolder
+		    && packageSize == _other.packageSize
 		    && status == _other.status
-		    && totalVolume == _other.totalVolume
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(batch)
 		hasher.combine(code)
 		hasher.combine(definition)
 		hasher.combine(doseForm)
 		hasher.combine(identifier)
 		hasher.combine(ingredient)
+		hasher.combine(instance)
 		hasher.combine(marketingAuthorizationHolder)
+		hasher.combine(packageSize)
 		hasher.combine(status)
-		hasher.combine(totalVolume)
 	}
 }
 
 /**
- Details about packaged medications.
- 
- Information that only applies to packages (not products).
- */
-open class MedicationBatch: BackboneElement {
-	
-	/// Identifier assigned to batch
-	public var lotNumber: FHIRPrimitive<FHIRString>?
-	
-	/// When batch will expire
-	public var expirationDate: FHIRPrimitive<DateTime>?
-	
-	/// Designated initializer taking all required properties
-	override public init() {
-		super.init()
-	}
-	
-	/// Convenience initializer
-	public convenience init(
-		expirationDate: FHIRPrimitive<DateTime>? = nil,
-		`extension`: [Extension]? = nil,
-		id: FHIRPrimitive<FHIRString>? = nil,
-		lotNumber: FHIRPrimitive<FHIRString>? = nil,
-		modifierExtension: [Extension]? = nil
-	) {
-		self.init()
-		self.expirationDate = expirationDate
-		self.`extension` = `extension`
-		self.id = id
-		self.lotNumber = lotNumber
-		self.modifierExtension = modifierExtension
-	}
-	
-	// MARK: - Codable
-	
-	private enum CodingKeys: String, CodingKey {
-		case expirationDate; case _expirationDate
-		case lotNumber; case _lotNumber
-	}
-	
-	/// Initializer for Decodable
-	public required init(from decoder: Decoder) throws {
-		let _container = try decoder.container(keyedBy: CodingKeys.self)
-		
-		// Decode all our properties
-		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
-		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
-		try super.init(from: decoder)
-	}
-	
-	/// Encodable
-	public override func encode(to encoder: Encoder) throws {
-		var _container = encoder.container(keyedBy: CodingKeys.self)
-		
-		// Encode all our properties
-		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
-		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
-		try super.encode(to: encoder)
-	}
-	
-	// MARK: - Equatable & Hashable
-	
-	public override func isEqual(to _other: Any?) -> Bool {
-		guard let _other = _other as? MedicationBatch else {
-			return false
-		}
-		guard super.isEqual(to: _other) else {
-			return false
-		}
-		return expirationDate == _other.expirationDate
-		    && lotNumber == _other.lotNumber
-	}
-	
-	public override func hash(into hasher: inout Hasher) {
-		super.hash(into: &hasher)
-		hasher.combine(expirationDate)
-		hasher.combine(lotNumber)
-	}
-}
-
-/**
- Active or inactive ingredient.
+ Components of a medication. These can be ingredient substances or other medications, in the case of combination
+ packaged medications.
  
  Identifies a particular constituent of interest in the product.
  */
@@ -280,11 +201,14 @@ open class MedicationIngredient: BackboneElement {
 		case ratio(Ratio)
 	}
 	
-	/// The ingredient (substance or medication) that the ingredient.strength relates to
+	/// The specific substance or medication that is the ingredient
 	public var item: CodeableReference
 	
 	/// Active ingredient indicator
 	public var isActive: FHIRPrimitive<FHIRBool>?
+	
+	/// A code that defines the type of ingredient, active, base, etc.
+	public var role: CodeableConcept?
 	
 	/// Quantity of ingredient present
 	/// One of `strength[x]`
@@ -303,6 +227,7 @@ open class MedicationIngredient: BackboneElement {
 		isActive: FHIRPrimitive<FHIRBool>? = nil,
 		item: CodeableReference,
 		modifierExtension: [Extension]? = nil,
+		role: CodeableConcept? = nil,
 		strength: StrengthX? = nil
 	) {
 		self.init(item: item)
@@ -310,6 +235,7 @@ open class MedicationIngredient: BackboneElement {
 		self.id = id
 		self.isActive = isActive
 		self.modifierExtension = modifierExtension
+		self.role = role
 		self.strength = strength
 	}
 	
@@ -318,6 +244,7 @@ open class MedicationIngredient: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case isActive; case _isActive
 		case item
+		case role
 		case strengthCodeableConcept
 		case strengthQuantity
 		case strengthRatio
@@ -330,6 +257,7 @@ open class MedicationIngredient: BackboneElement {
 		// Decode all our properties
 		self.isActive = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .isActive, auxiliaryKey: ._isActive)
 		self.item = try CodeableReference(from: _container, forKey: .item)
+		self.role = try CodeableConcept(from: _container, forKeyIfPresent: .role)
 		var _t_strength: StrengthX? = nil
 		if let strengthRatio = try Ratio(from: _container, forKeyIfPresent: .strengthRatio) {
 			if _t_strength != nil {
@@ -360,6 +288,7 @@ open class MedicationIngredient: BackboneElement {
 		// Encode all our properties
 		try isActive?.encode(on: &_container, forKey: .isActive, auxiliaryKey: ._isActive)
 		try item.encode(on: &_container, forKey: .item)
+		try role?.encode(on: &_container, forKey: .role)
 		if let _enum = strength {
 			switch _enum {
 			case .ratio(let _value):
@@ -384,6 +313,7 @@ open class MedicationIngredient: BackboneElement {
 		}
 		return isActive == _other.isActive
 		    && item == _other.item
+		    && role == _other.role
 		    && strength == _other.strength
 	}
 	
@@ -391,6 +321,178 @@ open class MedicationIngredient: BackboneElement {
 		super.hash(into: &hasher)
 		hasher.combine(isActive)
 		hasher.combine(item)
+		hasher.combine(role)
 		hasher.combine(strength)
+	}
+}
+
+/**
+ Details about packaged medications.
+ 
+ Information that only applies to packages (not products).
+ */
+open class MedicationInstance: BackboneElement {
+	
+	/// Identifier for the physical instance, typically a serial number
+	public var identifier: [Identifier]?
+	
+	/// Identifier assigned to batch
+	public var lotNumber: FHIRPrimitive<FHIRString>?
+	
+	/// When instance will expire
+	public var expirationDate: FHIRPrimitive<DateTime>?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		expirationDate: FHIRPrimitive<DateTime>? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		identifier: [Identifier]? = nil,
+		lotNumber: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil
+	) {
+		self.init()
+		self.expirationDate = expirationDate
+		self.`extension` = `extension`
+		self.id = id
+		self.identifier = identifier
+		self.lotNumber = lotNumber
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case expirationDate; case _expirationDate
+		case identifier
+		case lotNumber; case _lotNumber
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.expirationDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .expirationDate, auxiliaryKey: ._expirationDate)
+		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
+		self.lotNumber = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .lotNumber, auxiliaryKey: ._lotNumber)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try expirationDate?.encode(on: &_container, forKey: .expirationDate, auxiliaryKey: ._expirationDate)
+		try identifier?.encode(on: &_container, forKey: .identifier)
+		try lotNumber?.encode(on: &_container, forKey: .lotNumber, auxiliaryKey: ._lotNumber)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationInstance else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return expirationDate == _other.expirationDate
+		    && identifier == _other.identifier
+		    && lotNumber == _other.lotNumber
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(expirationDate)
+		hasher.combine(identifier)
+		hasher.combine(lotNumber)
+	}
+}
+
+/**
+ When the code does not specify the package size, this backbone element can be used to specify the overall amount of
+ medication in the package.
+ */
+open class MedicationPackageSize: BackboneElement {
+	
+	/// The number of items in the package that are represented by the code
+	public var numberOfItems: Quantity?
+	
+	/// The amount per each item
+	public var amountPerItem: Ratio?
+	
+	/// Designated initializer taking all required properties
+	override public init() {
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		amountPerItem: Ratio? = nil,
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		numberOfItems: Quantity? = nil
+	) {
+		self.init()
+		self.amountPerItem = amountPerItem
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+		self.numberOfItems = numberOfItems
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case amountPerItem
+		case numberOfItems
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Decode all our properties
+		self.amountPerItem = try Ratio(from: _container, forKeyIfPresent: .amountPerItem)
+		self.numberOfItems = try Quantity(from: _container, forKeyIfPresent: .numberOfItems)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		try amountPerItem?.encode(on: &_container, forKey: .amountPerItem)
+		try numberOfItems?.encode(on: &_container, forKey: .numberOfItems)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? MedicationPackageSize else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return amountPerItem == _other.amountPerItem
+		    && numberOfItems == _other.numberOfItems
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(amountPerItem)
+		hasher.combine(numberOfItems)
 	}
 }

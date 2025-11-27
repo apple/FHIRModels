@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@
 import FMCore
 
 /**
- This example value set defines a set of codes that can be used to indicate the role of one Organization in relation to
- its affiliation with another.
+ This example code system defines a set of codes that can be used to indicate the role of one Organization in relation
+ to its affiliation with another.
  
  URL: http://hl7.org/fhir/organization-role
  */

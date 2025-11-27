@@ -2,8 +2,8 @@
 //  CodeSystems.swift
 //  HealthRecords
 //
-//  Generated from FHIR 6.0.0-ballot2
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -27,18 +27,18 @@ import FMCore
  */
 public enum EncounterReasonUse: String, FHIRPrimitiveType {
 	
-	/// AD
+	/// Diagnosis (often provisional) documented as the reason for admission to the facility.
 	case AD
 	
-	/// CC
+	/// Patient's stated reason for seeking care.
 	case CC
 	
-	/// HC
+	/// An identified issue, risk, or concern requiring monitoring or management.
 	case HC
 	
-	/// HM
+	/// Preventive or routine services (e.g., screening, immunization) performed to maintain health.
 	case HM
 	
-	/// RV
+	/// Provider-recognized reason for the encounter (may differ from chief complaint).
 	case RV
 }

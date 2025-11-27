@@ -2,8 +2,8 @@
 //  ManufacturedItemDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/ManufacturedItemDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/ManufacturedItemDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ open class ManufacturedItemDefinition: DomainResource {
 	/// General characteristics of this item
 	public var property: [ManufacturedItemDefinitionProperty]?
 	
-	/// Physical parts of the manufactured item, that it is intrisically made from. This is distinct from the
+	/// Physical parts of the manufactured item, that it is intrinsically made from. This is distinct from the
 	/// ingredients that are part of its chemical makeup
 	public var component: [ManufacturedItemDefinitionComponent]?
 	
@@ -195,7 +195,7 @@ open class ManufacturedItemDefinition: DomainResource {
 }
 
 /**
- Physical parts of the manufactured item, that it is intrisically made from. This is distinct from the ingredients that
+ Physical parts of the manufactured item, that it is intrinsically made from. This is distinct from the ingredients that
  are part of its chemical makeup.
  */
 open class ManufacturedItemDefinitionComponent: BackboneElement {
@@ -206,7 +206,7 @@ open class ManufacturedItemDefinitionComponent: BackboneElement {
 	/// The function of this component within the item e.g. delivers active ingredient, masks taste
 	public var function: [CodeableConcept]?
 	
-	/// The measurable amount of total quantity of all substances in the component, expressable in different ways (e.g.
+	/// The measurable amount of total quantity of all substances in the component, expressible in different ways (e.g.
 	/// by mass or volume)
 	public var amount: [Quantity]?
 	
@@ -324,7 +324,7 @@ open class ManufacturedItemDefinitionComponent: BackboneElement {
  */
 open class ManufacturedItemDefinitionComponentConstituent: BackboneElement {
 	
-	/// The measurable amount of the substance, expressable in different ways (e.g. by mass or volume)
+	/// The measurable amount of the substance, expressible in different ways (e.g. by mass or volume)
 	public var amount: [Quantity]?
 	
 	/// The physical location of the constituent/ingredient within the component
@@ -431,6 +431,7 @@ open class ManufacturedItemDefinitionProperty: BackboneElement {
 		case date(FHIRPrimitive<FHIRDate>)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case quantity(Quantity)
+		case range(Range)
 		case reference(Reference)
 	}
 	
@@ -472,6 +473,7 @@ open class ManufacturedItemDefinitionProperty: BackboneElement {
 		case valueDate; case _valueDate
 		case valueMarkdown; case _valueMarkdown
 		case valueQuantity
+		case valueRange
 		case valueReference
 	}
 	
@@ -493,6 +495,12 @@ open class ManufacturedItemDefinitionProperty: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
 		}
 		if let valueDate = try FHIRPrimitive<FHIRDate>(from: _container, forKeyIfPresent: .valueDate, auxiliaryKey: ._valueDate) {
 			if _t_value != nil {
@@ -540,6 +548,8 @@ open class ManufacturedItemDefinitionProperty: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueCodeableConcept)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
 			case .date(let _value):
 				try _value.encode(on: &_container, forKey: .valueDate, auxiliaryKey: ._valueDate)
 			case .boolean(let _value):

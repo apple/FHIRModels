@@ -2,8 +2,8 @@
 //  DeviceRequest.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/DeviceRequest)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/DeviceRequest)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,14 +36,15 @@ open class DeviceRequest: DomainResource {
 		case timing(Timing)
 	}
 	
+	/// All possible types for "product[x]"
+	public enum ProductX: Hashable {
+		case canonical(FHIRPrimitive<Canonical>)
+		case codeableConcept(CodeableConcept)
+		case reference(Reference)
+	}
+	
 	/// External Request identifier
 	public var identifier: [Identifier]?
-	
-	/// Instantiates FHIR protocol or definition
-	public var instantiatesCanonical: [FHIRPrimitive<Canonical>]?
-	
-	/// Instantiates external protocol or definition
-	public var instantiatesUri: [FHIRPrimitive<FHIRURI>]?
 	
 	/// What request fulfills
 	public var basedOn: [Reference]?
@@ -54,20 +55,21 @@ open class DeviceRequest: DomainResource {
 	/// Identifier of composite request
 	public var groupIdentifier: Identifier?
 	
-	/// draft | active | on-hold | revoked | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>?
+	/// The status of the request.
+	public var status: FHIRPrimitive<RequestStatus>?
 	
-	/// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-	public var intent: FHIRPrimitive<FHIRString>
+	/// Whether the request is a proposal, plan, an original order or a reflex order.
+	public var intent: FHIRPrimitive<RequestIntent>
 	
-	/// routine | urgent | asap | stat
-	public var priority: FHIRPrimitive<FHIRString>?
+	/// Indicates how quickly the request should be addressed with respect to other requests.
+	public var priority: FHIRPrimitive<RequestPriority>?
 	
 	/// True if the request is to stop or not to start using the device
 	public var doNotPerform: FHIRPrimitive<FHIRBool>?
 	
 	/// Device requested
-	public var code: CodeableReference
+	/// One of `product[x]`
+	public var product: ProductX
 	
 	/// Quantity of devices to supply
 	public var quantity: FHIRPrimitive<FHIRInteger>?
@@ -94,6 +96,9 @@ open class DeviceRequest: DomainResource {
 	/// Requested Filler
 	public var performer: CodeableReference?
 	
+	/// Requested location
+	public var location: [CodeableReference]?
+	
 	/// Coded/Linked Reason for request
 	public var reason: [CodeableReference]?
 	
@@ -116,9 +121,9 @@ open class DeviceRequest: DomainResource {
 	public var relevantHistory: [Reference]?
 	
 	/// Designated initializer taking all required properties
-	public init(code: CodeableReference, intent: FHIRPrimitive<FHIRString>, subject: Reference) {
-		self.code = code
+	public init(intent: FHIRPrimitive<RequestIntent>, product: ProductX, subject: Reference) {
 		self.intent = intent
+		self.product = product
 		self.subject = subject
 		super.init()
 	}
@@ -129,7 +134,6 @@ open class DeviceRequest: DomainResource {
 		asNeededFor: CodeableConcept? = nil,
 		authoredOn: FHIRPrimitive<DateTime>? = nil,
 		basedOn: [Reference]? = nil,
-		code: CodeableReference,
 		contained: [ResourceProxy]? = nil,
 		doNotPerform: FHIRPrimitive<FHIRBool>? = nil,
 		encounter: Reference? = nil,
@@ -138,29 +142,29 @@ open class DeviceRequest: DomainResource {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		identifier: [Identifier]? = nil,
 		implicitRules: FHIRPrimitive<FHIRURI>? = nil,
-		instantiatesCanonical: [FHIRPrimitive<Canonical>]? = nil,
-		instantiatesUri: [FHIRPrimitive<FHIRURI>]? = nil,
 		insurance: [Reference]? = nil,
-		intent: FHIRPrimitive<FHIRString>,
+		intent: FHIRPrimitive<RequestIntent>,
 		language: FHIRPrimitive<FHIRString>? = nil,
+		location: [CodeableReference]? = nil,
 		meta: Meta? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
 		occurrence: OccurrenceX? = nil,
 		parameter: [DeviceRequestParameter]? = nil,
 		performer: CodeableReference? = nil,
-		priority: FHIRPrimitive<FHIRString>? = nil,
+		priority: FHIRPrimitive<RequestPriority>? = nil,
+		product: ProductX,
 		quantity: FHIRPrimitive<FHIRInteger>? = nil,
 		reason: [CodeableReference]? = nil,
 		relevantHistory: [Reference]? = nil,
 		replaces: [Reference]? = nil,
 		requester: Reference? = nil,
-		status: FHIRPrimitive<FHIRString>? = nil,
+		status: FHIRPrimitive<RequestStatus>? = nil,
 		subject: Reference,
 		supportingInfo: [Reference]? = nil,
 		text: Narrative? = nil
 	) {
-		self.init(code: code, intent: intent, subject: subject)
+		self.init(intent: intent, product: product, subject: subject)
 		self.asNeeded = asNeeded
 		self.asNeededFor = asNeededFor
 		self.authoredOn = authoredOn
@@ -173,10 +177,9 @@ open class DeviceRequest: DomainResource {
 		self.id = id
 		self.identifier = identifier
 		self.implicitRules = implicitRules
-		self.instantiatesCanonical = instantiatesCanonical
-		self.instantiatesUri = instantiatesUri
 		self.insurance = insurance
 		self.language = language
+		self.location = location
 		self.meta = meta
 		self.modifierExtension = modifierExtension
 		self.note = note
@@ -201,15 +204,13 @@ open class DeviceRequest: DomainResource {
 		case asNeededFor
 		case authoredOn; case _authoredOn
 		case basedOn
-		case code
 		case doNotPerform; case _doNotPerform
 		case encounter
 		case groupIdentifier
 		case identifier
-		case instantiatesCanonical; case _instantiatesCanonical
-		case instantiatesUri; case _instantiatesUri
 		case insurance
 		case intent; case _intent
+		case location
 		case note
 		case occurrenceDateTime; case _occurrenceDateTime
 		case occurrencePeriod
@@ -217,6 +218,9 @@ open class DeviceRequest: DomainResource {
 		case parameter
 		case performer
 		case priority; case _priority
+		case productCanonical; case _productCanonical
+		case productCodeableConcept
+		case productReference
 		case quantity; case _quantity
 		case reason
 		case relevantHistory
@@ -231,20 +235,23 @@ open class DeviceRequest: DomainResource {
 	public required init(from decoder: Decoder) throws {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.productCanonical) || _container.contains(CodingKeys.productCodeableConcept) || _container.contains(CodingKeys.productReference) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.productCanonical, CodingKeys.productCodeableConcept, CodingKeys.productReference], debugDescription: "Must have at least one value for \"product\" but have none"))
+		}
+		
 		// Decode all our properties
 		self.asNeeded = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .asNeeded, auxiliaryKey: ._asNeeded)
 		self.asNeededFor = try CodeableConcept(from: _container, forKeyIfPresent: .asNeededFor)
 		self.authoredOn = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .authoredOn, auxiliaryKey: ._authoredOn)
 		self.basedOn = try [Reference](from: _container, forKeyIfPresent: .basedOn)
-		self.code = try CodeableReference(from: _container, forKey: .code)
 		self.doNotPerform = try FHIRPrimitive<FHIRBool>(from: _container, forKeyIfPresent: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		self.encounter = try Reference(from: _container, forKeyIfPresent: .encounter)
 		self.groupIdentifier = try Identifier(from: _container, forKeyIfPresent: .groupIdentifier)
 		self.identifier = try [Identifier](from: _container, forKeyIfPresent: .identifier)
-		self.instantiatesCanonical = try [FHIRPrimitive<Canonical>](from: _container, forKeyIfPresent: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		self.instantiatesUri = try [FHIRPrimitive<FHIRURI>](from: _container, forKeyIfPresent: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		self.insurance = try [Reference](from: _container, forKeyIfPresent: .insurance)
-		self.intent = try FHIRPrimitive<FHIRString>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.intent = try FHIRPrimitive<RequestIntent>(from: _container, forKey: .intent, auxiliaryKey: ._intent)
+		self.location = try [CodeableReference](from: _container, forKeyIfPresent: .location)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		var _t_occurrence: OccurrenceX? = nil
 		if let occurrenceDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime) {
@@ -268,13 +275,33 @@ open class DeviceRequest: DomainResource {
 		self.occurrence = _t_occurrence
 		self.parameter = try [DeviceRequestParameter](from: _container, forKeyIfPresent: .parameter)
 		self.performer = try CodeableReference(from: _container, forKeyIfPresent: .performer)
-		self.priority = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		self.priority = try FHIRPrimitive<RequestPriority>(from: _container, forKeyIfPresent: .priority, auxiliaryKey: ._priority)
+		var _t_product: ProductX? = nil
+		if let productCodeableConcept = try CodeableConcept(from: _container, forKeyIfPresent: .productCodeableConcept) {
+			if _t_product != nil {
+				throw DecodingError.dataCorruptedError(forKey: .productCodeableConcept, in: _container, debugDescription: "More than one value provided for \"product\"")
+			}
+			_t_product = .codeableConcept(productCodeableConcept)
+		}
+		if let productReference = try Reference(from: _container, forKeyIfPresent: .productReference) {
+			if _t_product != nil {
+				throw DecodingError.dataCorruptedError(forKey: .productReference, in: _container, debugDescription: "More than one value provided for \"product\"")
+			}
+			_t_product = .reference(productReference)
+		}
+		if let productCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .productCanonical, auxiliaryKey: ._productCanonical) {
+			if _t_product != nil {
+				throw DecodingError.dataCorruptedError(forKey: .productCanonical, in: _container, debugDescription: "More than one value provided for \"product\"")
+			}
+			_t_product = .canonical(productCanonical)
+		}
+		self.product = _t_product!
 		self.quantity = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .quantity, auxiliaryKey: ._quantity)
 		self.reason = try [CodeableReference](from: _container, forKeyIfPresent: .reason)
 		self.relevantHistory = try [Reference](from: _container, forKeyIfPresent: .relevantHistory)
 		self.replaces = try [Reference](from: _container, forKeyIfPresent: .replaces)
 		self.requester = try Reference(from: _container, forKeyIfPresent: .requester)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<RequestStatus>(from: _container, forKeyIfPresent: .status, auxiliaryKey: ._status)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [Reference](from: _container, forKeyIfPresent: .supportingInfo)
 		try super.init(from: decoder)
@@ -289,15 +316,13 @@ open class DeviceRequest: DomainResource {
 		try asNeededFor?.encode(on: &_container, forKey: .asNeededFor)
 		try authoredOn?.encode(on: &_container, forKey: .authoredOn, auxiliaryKey: ._authoredOn)
 		try basedOn?.encode(on: &_container, forKey: .basedOn)
-		try code.encode(on: &_container, forKey: .code)
 		try doNotPerform?.encode(on: &_container, forKey: .doNotPerform, auxiliaryKey: ._doNotPerform)
 		try encounter?.encode(on: &_container, forKey: .encounter)
 		try groupIdentifier?.encode(on: &_container, forKey: .groupIdentifier)
 		try identifier?.encode(on: &_container, forKey: .identifier)
-		try instantiatesCanonical?.encode(on: &_container, forKey: .instantiatesCanonical, auxiliaryKey: ._instantiatesCanonical)
-		try instantiatesUri?.encode(on: &_container, forKey: .instantiatesUri, auxiliaryKey: ._instantiatesUri)
 		try insurance?.encode(on: &_container, forKey: .insurance)
 		try intent.encode(on: &_container, forKey: .intent, auxiliaryKey: ._intent)
+		try location?.encode(on: &_container, forKey: .location)
 		try note?.encode(on: &_container, forKey: .note)
 		if let _enum = occurrence {
 			switch _enum {
@@ -312,6 +337,16 @@ open class DeviceRequest: DomainResource {
 		try parameter?.encode(on: &_container, forKey: .parameter)
 		try performer?.encode(on: &_container, forKey: .performer)
 		try priority?.encode(on: &_container, forKey: .priority, auxiliaryKey: ._priority)
+		
+			switch product {
+			case .codeableConcept(let _value):
+				try _value.encode(on: &_container, forKey: .productCodeableConcept)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .productReference)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .productCanonical, auxiliaryKey: ._productCanonical)
+			}
+		
 		try quantity?.encode(on: &_container, forKey: .quantity, auxiliaryKey: ._quantity)
 		try reason?.encode(on: &_container, forKey: .reason)
 		try relevantHistory?.encode(on: &_container, forKey: .relevantHistory)
@@ -336,20 +371,19 @@ open class DeviceRequest: DomainResource {
 		    && asNeededFor == _other.asNeededFor
 		    && authoredOn == _other.authoredOn
 		    && basedOn == _other.basedOn
-		    && code == _other.code
 		    && doNotPerform == _other.doNotPerform
 		    && encounter == _other.encounter
 		    && groupIdentifier == _other.groupIdentifier
 		    && identifier == _other.identifier
-		    && instantiatesCanonical == _other.instantiatesCanonical
-		    && instantiatesUri == _other.instantiatesUri
 		    && insurance == _other.insurance
 		    && intent == _other.intent
+		    && location == _other.location
 		    && note == _other.note
 		    && occurrence == _other.occurrence
 		    && parameter == _other.parameter
 		    && performer == _other.performer
 		    && priority == _other.priority
+		    && product == _other.product
 		    && quantity == _other.quantity
 		    && reason == _other.reason
 		    && relevantHistory == _other.relevantHistory
@@ -366,20 +400,19 @@ open class DeviceRequest: DomainResource {
 		hasher.combine(asNeededFor)
 		hasher.combine(authoredOn)
 		hasher.combine(basedOn)
-		hasher.combine(code)
 		hasher.combine(doNotPerform)
 		hasher.combine(encounter)
 		hasher.combine(groupIdentifier)
 		hasher.combine(identifier)
-		hasher.combine(instantiatesCanonical)
-		hasher.combine(instantiatesUri)
 		hasher.combine(insurance)
 		hasher.combine(intent)
+		hasher.combine(location)
 		hasher.combine(note)
 		hasher.combine(occurrence)
 		hasher.combine(parameter)
 		hasher.combine(performer)
 		hasher.combine(priority)
+		hasher.combine(product)
 		hasher.combine(quantity)
 		hasher.combine(reason)
 		hasher.combine(relevantHistory)

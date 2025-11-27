@@ -2,8 +2,8 @@
 //  AdverseEvent.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/AdverseEvent)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/AdverseEvent)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -35,12 +35,6 @@ open class AdverseEvent: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .adverseEvent }
 	
-	/// All possible types for "cause[x]"
-	public enum CauseX: Hashable {
-		case dateTime(FHIRPrimitive<DateTime>)
-		case period(Period)
-	}
-	
 	/// All possible types for "effect[x]"
 	public enum EffectX: Hashable {
 		case dateTime(FHIRPrimitive<DateTime>)
@@ -50,8 +44,9 @@ open class AdverseEvent: DomainResource {
 	/// Business identifier for the event
 	public var identifier: [Identifier]?
 	
-	/// in-progress | completed | entered-in-error | unknown
-	public var status: FHIRPrimitive<FHIRString>
+	/// The current state of the adverse event or potential adverse event.
+	/// Restricted to: ['in-progress', 'completed', 'entered-in-error', 'unknown']
+	public var status: FHIRPrimitive<EventStatus>
 	
 	/// Whether the event actually happened or was a near miss. Note that this is independent of whether anyone was
 	/// affected or harmed or how severely.
@@ -70,10 +65,6 @@ open class AdverseEvent: DomainResource {
 	/// The Encounter associated with the start of the AdverseEvent
 	public var encounter: Reference?
 	
-	/// When the cause of the AdverseEvent occurred
-	/// One of `cause[x]`
-	public var cause: CauseX?
-	
 	/// When the effect of the AdverseEvent occurred
 	/// One of `effect[x]`
 	public var effect: EffectX?
@@ -85,7 +76,7 @@ open class AdverseEvent: DomainResource {
 	public var recordedDate: FHIRPrimitive<DateTime>?
 	
 	/// Effect on the subject due to this event
-	public var resultingEffect: [Reference]?
+	public var resultingEffect: [CodeableReference]?
 	
 	/// Location where adverse event occurred
 	public var location: Reference?
@@ -127,7 +118,7 @@ open class AdverseEvent: DomainResource {
 	public var note: [Annotation]?
 	
 	/// Designated initializer taking all required properties
-	public init(actuality: FHIRPrimitive<AdverseEventActuality>, status: FHIRPrimitive<FHIRString>, subject: Reference) {
+	public init(actuality: FHIRPrimitive<AdverseEventActuality>, status: FHIRPrimitive<EventStatus>, subject: Reference) {
 		self.actuality = actuality
 		self.status = status
 		self.subject = subject
@@ -138,7 +129,6 @@ open class AdverseEvent: DomainResource {
 	public convenience init(
 		actuality: FHIRPrimitive<AdverseEventActuality>,
 		category: [CodeableConcept]? = nil,
-		cause: CauseX? = nil,
 		code: CodeableConcept? = nil,
 		contained: [ResourceProxy]? = nil,
 		contributingFactor: [CodeableReference]? = nil,
@@ -161,9 +151,9 @@ open class AdverseEvent: DomainResource {
 		preventiveAction: [CodeableReference]? = nil,
 		recordedDate: FHIRPrimitive<DateTime>? = nil,
 		recorder: Reference? = nil,
-		resultingEffect: [Reference]? = nil,
+		resultingEffect: [CodeableReference]? = nil,
 		seriousness: CodeableConcept? = nil,
-		status: FHIRPrimitive<FHIRString>,
+		status: FHIRPrimitive<EventStatus>,
 		study: [Reference]? = nil,
 		subject: Reference,
 		supportingInfo: [CodeableReference]? = nil,
@@ -172,7 +162,6 @@ open class AdverseEvent: DomainResource {
 	) {
 		self.init(actuality: actuality, status: status, subject: subject)
 		self.category = category
-		self.cause = cause
 		self.code = code
 		self.contained = contained
 		self.contributingFactor = contributingFactor
@@ -208,8 +197,6 @@ open class AdverseEvent: DomainResource {
 	private enum CodingKeys: String, CodingKey {
 		case actuality; case _actuality
 		case category
-		case causeDateTime; case _causeDateTime
-		case causePeriod
 		case code
 		case contributingFactor
 		case detected; case _detected
@@ -242,20 +229,6 @@ open class AdverseEvent: DomainResource {
 		// Decode all our properties
 		self.actuality = try FHIRPrimitive<AdverseEventActuality>(from: _container, forKey: .actuality, auxiliaryKey: ._actuality)
 		self.category = try [CodeableConcept](from: _container, forKeyIfPresent: .category)
-		var _t_cause: CauseX? = nil
-		if let causeDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .causeDateTime, auxiliaryKey: ._causeDateTime) {
-			if _t_cause != nil {
-				throw DecodingError.dataCorruptedError(forKey: .causeDateTime, in: _container, debugDescription: "More than one value provided for \"cause\"")
-			}
-			_t_cause = .dateTime(causeDateTime)
-		}
-		if let causePeriod = try Period(from: _container, forKeyIfPresent: .causePeriod) {
-			if _t_cause != nil {
-				throw DecodingError.dataCorruptedError(forKey: .causePeriod, in: _container, debugDescription: "More than one value provided for \"cause\"")
-			}
-			_t_cause = .period(causePeriod)
-		}
-		self.cause = _t_cause
 		self.code = try CodeableConcept(from: _container, forKeyIfPresent: .code)
 		self.contributingFactor = try [CodeableReference](from: _container, forKeyIfPresent: .contributingFactor)
 		self.detected = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .detected, auxiliaryKey: ._detected)
@@ -284,9 +257,9 @@ open class AdverseEvent: DomainResource {
 		self.preventiveAction = try [CodeableReference](from: _container, forKeyIfPresent: .preventiveAction)
 		self.recordedDate = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .recordedDate, auxiliaryKey: ._recordedDate)
 		self.recorder = try Reference(from: _container, forKeyIfPresent: .recorder)
-		self.resultingEffect = try [Reference](from: _container, forKeyIfPresent: .resultingEffect)
+		self.resultingEffect = try [CodeableReference](from: _container, forKeyIfPresent: .resultingEffect)
 		self.seriousness = try CodeableConcept(from: _container, forKeyIfPresent: .seriousness)
-		self.status = try FHIRPrimitive<FHIRString>(from: _container, forKey: .status, auxiliaryKey: ._status)
+		self.status = try FHIRPrimitive<EventStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.study = try [Reference](from: _container, forKeyIfPresent: .study)
 		self.subject = try Reference(from: _container, forKey: .subject)
 		self.supportingInfo = try [CodeableReference](from: _container, forKeyIfPresent: .supportingInfo)
@@ -301,14 +274,6 @@ open class AdverseEvent: DomainResource {
 		// Encode all our properties
 		try actuality.encode(on: &_container, forKey: .actuality, auxiliaryKey: ._actuality)
 		try category?.encode(on: &_container, forKey: .category)
-		if let _enum = cause {
-			switch _enum {
-			case .dateTime(let _value):
-				try _value.encode(on: &_container, forKey: .causeDateTime, auxiliaryKey: ._causeDateTime)
-			case .period(let _value):
-				try _value.encode(on: &_container, forKey: .causePeriod)
-			}
-		}
 		try code?.encode(on: &_container, forKey: .code)
 		try contributingFactor?.encode(on: &_container, forKey: .contributingFactor)
 		try detected?.encode(on: &_container, forKey: .detected, auxiliaryKey: ._detected)
@@ -352,7 +317,6 @@ open class AdverseEvent: DomainResource {
 		}
 		return actuality == _other.actuality
 		    && category == _other.category
-		    && cause == _other.cause
 		    && code == _other.code
 		    && contributingFactor == _other.contributingFactor
 		    && detected == _other.detected
@@ -381,7 +345,6 @@ open class AdverseEvent: DomainResource {
 		super.hash(into: &hasher)
 		hasher.combine(actuality)
 		hasher.combine(category)
-		hasher.combine(cause)
 		hasher.combine(code)
 		hasher.combine(contributingFactor)
 		hasher.combine(detected)
@@ -495,11 +458,21 @@ open class AdverseEventParticipant: BackboneElement {
  */
 open class AdverseEventSuspectEntity: BackboneElement {
 	
+	/// All possible types for "occurrence[x]"
+	public enum OccurrenceX: Hashable {
+		case dateTime(FHIRPrimitive<DateTime>)
+		case period(Period)
+	}
+	
 	/// Refers to the specific entity that caused the adverse event
 	public var instance: CodeableReference
 	
 	/// Information on the possible cause of the event
 	public var causality: AdverseEventSuspectEntityCausality?
+	
+	/// When the suspect entity occurred
+	/// One of `occurrence[x]`
+	public var occurrence: OccurrenceX?
 	
 	/// Designated initializer taking all required properties
 	public init(instance: CodeableReference) {
@@ -513,13 +486,15 @@ open class AdverseEventSuspectEntity: BackboneElement {
 		`extension`: [Extension]? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		instance: CodeableReference,
-		modifierExtension: [Extension]? = nil
+		modifierExtension: [Extension]? = nil,
+		occurrence: OccurrenceX? = nil
 	) {
 		self.init(instance: instance)
 		self.causality = causality
 		self.`extension` = `extension`
 		self.id = id
 		self.modifierExtension = modifierExtension
+		self.occurrence = occurrence
 	}
 	
 	// MARK: - Codable
@@ -527,6 +502,8 @@ open class AdverseEventSuspectEntity: BackboneElement {
 	private enum CodingKeys: String, CodingKey {
 		case causality
 		case instance
+		case occurrenceDateTime; case _occurrenceDateTime
+		case occurrencePeriod
 	}
 	
 	/// Initializer for Decodable
@@ -536,6 +513,20 @@ open class AdverseEventSuspectEntity: BackboneElement {
 		// Decode all our properties
 		self.causality = try AdverseEventSuspectEntityCausality(from: _container, forKeyIfPresent: .causality)
 		self.instance = try CodeableReference(from: _container, forKey: .instance)
+		var _t_occurrence: OccurrenceX? = nil
+		if let occurrenceDateTime = try FHIRPrimitive<DateTime>(from: _container, forKeyIfPresent: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime) {
+			if _t_occurrence != nil {
+				throw DecodingError.dataCorruptedError(forKey: .occurrenceDateTime, in: _container, debugDescription: "More than one value provided for \"occurrence\"")
+			}
+			_t_occurrence = .dateTime(occurrenceDateTime)
+		}
+		if let occurrencePeriod = try Period(from: _container, forKeyIfPresent: .occurrencePeriod) {
+			if _t_occurrence != nil {
+				throw DecodingError.dataCorruptedError(forKey: .occurrencePeriod, in: _container, debugDescription: "More than one value provided for \"occurrence\"")
+			}
+			_t_occurrence = .period(occurrencePeriod)
+		}
+		self.occurrence = _t_occurrence
 		try super.init(from: decoder)
 	}
 	
@@ -546,6 +537,14 @@ open class AdverseEventSuspectEntity: BackboneElement {
 		// Encode all our properties
 		try causality?.encode(on: &_container, forKey: .causality)
 		try instance.encode(on: &_container, forKey: .instance)
+		if let _enum = occurrence {
+			switch _enum {
+			case .dateTime(let _value):
+				try _value.encode(on: &_container, forKey: .occurrenceDateTime, auxiliaryKey: ._occurrenceDateTime)
+			case .period(let _value):
+				try _value.encode(on: &_container, forKey: .occurrencePeriod)
+			}
+		}
 		try super.encode(to: encoder)
 	}
 	
@@ -560,12 +559,14 @@ open class AdverseEventSuspectEntity: BackboneElement {
 		}
 		return causality == _other.causality
 		    && instance == _other.instance
+		    && occurrence == _other.occurrence
 	}
 	
 	public override func hash(into hasher: inout Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(causality)
 		hasher.combine(instance)
+		hasher.combine(occurrence)
 	}
 }
 

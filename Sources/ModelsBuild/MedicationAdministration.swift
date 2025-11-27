@@ -2,8 +2,8 @@
 //  MedicationAdministration.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ open class MedicationAdministration: DomainResource {
 	/// while some other process is under way.
 	public var status: FHIRPrimitive<MedicationAdministrationStatusCodes>
 	
-	/// Reason administration not performed
+	/// Reason status of the administration changed
 	public var statusReason: [CodeableConcept]?
 	
 	/// Type of medication administration
@@ -76,7 +76,7 @@ open class MedicationAdministration: DomainResource {
 	/// When the MedicationAdministration was first captured in the subject's record
 	public var recorded: FHIRPrimitive<DateTime>?
 	
-	/// Full dose was not administered
+	/// An indication that the full ordered dose was not administered
 	public var isSubPotent: FHIRPrimitive<FHIRBool>?
 	
 	/// Reason full dose was not administered

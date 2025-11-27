@@ -2,8 +2,8 @@
 //  Evidence.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/Evidence)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/Evidence)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -30,12 +30,6 @@ open class Evidence: DomainResource {
 	
 	override open class var resourceType: ResourceType { return .evidence }
 	
-	/// All possible types for "citeAs[x]"
-	public enum CiteAsX: Hashable {
-		case markdown(FHIRPrimitive<FHIRString>)
-		case reference(Reference)
-	}
-	
 	/// All possible types for "versionAlgorithm[x]"
 	public enum VersionAlgorithmX: Hashable {
 		case coding(Coding)
@@ -61,14 +55,13 @@ open class Evidence: DomainResource {
 	/// Name for this summary (human friendly)
 	public var title: FHIRPrimitive<FHIRString>?
 	
-	/// Citation for this evidence
-	/// One of `citeAs[x]`
-	public var citeAs: CiteAsX?
+	/// Display of how to cite this Evidence
+	public var citeAs: FHIRPrimitive<FHIRString>?
 	
 	/// The status of this summary. Enables tracking the life-cycle of the content.
 	public var status: FHIRPrimitive<PublicationStatus>
 	
-	/// For testing purposes, not real usage
+	/// For testing only - never for real usage
 	public var experimental: FHIRPrimitive<FHIRBool>?
 	
 	/// Date last changed
@@ -80,14 +73,17 @@ open class Evidence: DomainResource {
 	/// When the summary was last reviewed by the publisher
 	public var lastReviewDate: FHIRPrimitive<FHIRDate>?
 	
+	/// Who authored the content
+	public var author: [ContactDetail]?
+	
 	/// Name of the publisher/steward (organization or individual)
 	public var publisher: FHIRPrimitive<FHIRString>?
 	
 	/// Contact details for the publisher
 	public var contact: [ContactDetail]?
 	
-	/// Who authored the content
-	public var author: [ContactDetail]?
+	/// Who entered the data for the evidence
+	public var recorder: [ContactDetail]?
 	
 	/// Who edited the content
 	public var editor: [ContactDetail]?
@@ -104,14 +100,14 @@ open class Evidence: DomainResource {
 	/// Why this Evidence is defined
 	public var purpose: FHIRPrimitive<FHIRString>?
 	
-	/// Use and/or publishing restrictions
+	/// Intellectual property ownership, may include restrictions on use
 	public var copyright: FHIRPrimitive<FHIRString>?
 	
 	/// Copyright holder and year(s)
 	public var copyrightLabel: FHIRPrimitive<FHIRString>?
 	
-	/// Link or citation to artifact associated with the summary
-	public var relatedArtifact: [RelatedArtifact]?
+	/// Relationships to other Resources
+	public var relatesTo: [EvidenceRelatesTo]?
 	
 	/// Description of the particular summary
 	public var description_fhir: FHIRPrimitive<FHIRString>?
@@ -122,11 +118,11 @@ open class Evidence: DomainResource {
 	/// Footnotes and/or explanatory notes
 	public var note: [Annotation]?
 	
-	/// Evidence variable such as population, exposure, or outcome
-	public var variableDefinition: [EvidenceVariableDefinition]
+	/// Description, classification, and definition of a single variable
+	public var variableDefinition: [EvidenceVariableDefinition]?
 	
-	/// The method to combine studies
-	public var synthesisType: CodeableConcept?
+	/// The design of the synthesis (combination of studies) that produced this evidence
+	public var synthesisType: [CodeableConcept]?
 	
 	/// The design of the study that produced this evidence
 	public var studyDesign: [CodeableConcept]?
@@ -138,9 +134,8 @@ open class Evidence: DomainResource {
 	public var certainty: [EvidenceCertainty]?
 	
 	/// Designated initializer taking all required properties
-	public init(status: FHIRPrimitive<PublicationStatus>, variableDefinition: [EvidenceVariableDefinition]) {
+	public init(status: FHIRPrimitive<PublicationStatus>) {
 		self.status = status
-		self.variableDefinition = variableDefinition
 		super.init()
 	}
 	
@@ -150,7 +145,7 @@ open class Evidence: DomainResource {
 		assertion: FHIRPrimitive<FHIRString>? = nil,
 		author: [ContactDetail]? = nil,
 		certainty: [EvidenceCertainty]? = nil,
-		citeAs: CiteAsX? = nil,
+		citeAs: FHIRPrimitive<FHIRString>? = nil,
 		contact: [ContactDetail]? = nil,
 		contained: [ResourceProxy]? = nil,
 		copyright: FHIRPrimitive<FHIRString>? = nil,
@@ -172,21 +167,22 @@ open class Evidence: DomainResource {
 		note: [Annotation]? = nil,
 		publisher: FHIRPrimitive<FHIRString>? = nil,
 		purpose: FHIRPrimitive<FHIRString>? = nil,
-		relatedArtifact: [RelatedArtifact]? = nil,
+		recorder: [ContactDetail]? = nil,
+		relatesTo: [EvidenceRelatesTo]? = nil,
 		reviewer: [ContactDetail]? = nil,
 		statistic: [EvidenceStatistic]? = nil,
 		status: FHIRPrimitive<PublicationStatus>,
 		studyDesign: [CodeableConcept]? = nil,
-		synthesisType: CodeableConcept? = nil,
+		synthesisType: [CodeableConcept]? = nil,
 		text: Narrative? = nil,
 		title: FHIRPrimitive<FHIRString>? = nil,
 		url: FHIRPrimitive<FHIRURI>? = nil,
 		useContext: [UsageContext]? = nil,
-		variableDefinition: [EvidenceVariableDefinition],
+		variableDefinition: [EvidenceVariableDefinition]? = nil,
 		version: FHIRPrimitive<FHIRString>? = nil,
 		versionAlgorithm: VersionAlgorithmX? = nil
 	) {
-		self.init(status: status, variableDefinition: variableDefinition)
+		self.init(status: status)
 		self.approvalDate = approvalDate
 		self.assertion = assertion
 		self.author = author
@@ -213,7 +209,8 @@ open class Evidence: DomainResource {
 		self.note = note
 		self.publisher = publisher
 		self.purpose = purpose
-		self.relatedArtifact = relatedArtifact
+		self.recorder = recorder
+		self.relatesTo = relatesTo
 		self.reviewer = reviewer
 		self.statistic = statistic
 		self.studyDesign = studyDesign
@@ -222,6 +219,7 @@ open class Evidence: DomainResource {
 		self.title = title
 		self.url = url
 		self.useContext = useContext
+		self.variableDefinition = variableDefinition
 		self.version = version
 		self.versionAlgorithm = versionAlgorithm
 	}
@@ -233,8 +231,7 @@ open class Evidence: DomainResource {
 		case assertion; case _assertion
 		case author
 		case certainty
-		case citeAsMarkdown; case _citeAsMarkdown
-		case citeAsReference
+		case citeAs; case _citeAs
 		case contact
 		case copyright; case _copyright
 		case copyrightLabel; case _copyrightLabel
@@ -249,7 +246,8 @@ open class Evidence: DomainResource {
 		case note
 		case publisher; case _publisher
 		case purpose; case _purpose
-		case relatedArtifact
+		case recorder
+		case relatesTo
 		case reviewer
 		case statistic
 		case status; case _status
@@ -273,20 +271,7 @@ open class Evidence: DomainResource {
 		self.assertion = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .assertion, auxiliaryKey: ._assertion)
 		self.author = try [ContactDetail](from: _container, forKeyIfPresent: .author)
 		self.certainty = try [EvidenceCertainty](from: _container, forKeyIfPresent: .certainty)
-		var _t_citeAs: CiteAsX? = nil
-		if let citeAsReference = try Reference(from: _container, forKeyIfPresent: .citeAsReference) {
-			if _t_citeAs != nil {
-				throw DecodingError.dataCorruptedError(forKey: .citeAsReference, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
-			}
-			_t_citeAs = .reference(citeAsReference)
-		}
-		if let citeAsMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown) {
-			if _t_citeAs != nil {
-				throw DecodingError.dataCorruptedError(forKey: .citeAsMarkdown, in: _container, debugDescription: "More than one value provided for \"citeAs\"")
-			}
-			_t_citeAs = .markdown(citeAsMarkdown)
-		}
-		self.citeAs = _t_citeAs
+		self.citeAs = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .citeAs, auxiliaryKey: ._citeAs)
 		self.contact = try [ContactDetail](from: _container, forKeyIfPresent: .contact)
 		self.copyright = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyright, auxiliaryKey: ._copyright)
 		self.copyrightLabel = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -301,16 +286,17 @@ open class Evidence: DomainResource {
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
 		self.publisher = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .publisher, auxiliaryKey: ._publisher)
 		self.purpose = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .purpose, auxiliaryKey: ._purpose)
-		self.relatedArtifact = try [RelatedArtifact](from: _container, forKeyIfPresent: .relatedArtifact)
+		self.recorder = try [ContactDetail](from: _container, forKeyIfPresent: .recorder)
+		self.relatesTo = try [EvidenceRelatesTo](from: _container, forKeyIfPresent: .relatesTo)
 		self.reviewer = try [ContactDetail](from: _container, forKeyIfPresent: .reviewer)
 		self.statistic = try [EvidenceStatistic](from: _container, forKeyIfPresent: .statistic)
 		self.status = try FHIRPrimitive<PublicationStatus>(from: _container, forKey: .status, auxiliaryKey: ._status)
 		self.studyDesign = try [CodeableConcept](from: _container, forKeyIfPresent: .studyDesign)
-		self.synthesisType = try CodeableConcept(from: _container, forKeyIfPresent: .synthesisType)
+		self.synthesisType = try [CodeableConcept](from: _container, forKeyIfPresent: .synthesisType)
 		self.title = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .title, auxiliaryKey: ._title)
 		self.url = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .url, auxiliaryKey: ._url)
 		self.useContext = try [UsageContext](from: _container, forKeyIfPresent: .useContext)
-		self.variableDefinition = try [EvidenceVariableDefinition](from: _container, forKey: .variableDefinition)
+		self.variableDefinition = try [EvidenceVariableDefinition](from: _container, forKeyIfPresent: .variableDefinition)
 		self.version = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .version, auxiliaryKey: ._version)
 		var _t_versionAlgorithm: VersionAlgorithmX? = nil
 		if let versionAlgorithmString = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .versionAlgorithmString, auxiliaryKey: ._versionAlgorithmString) {
@@ -338,14 +324,7 @@ open class Evidence: DomainResource {
 		try assertion?.encode(on: &_container, forKey: .assertion, auxiliaryKey: ._assertion)
 		try author?.encode(on: &_container, forKey: .author)
 		try certainty?.encode(on: &_container, forKey: .certainty)
-		if let _enum = citeAs {
-			switch _enum {
-			case .reference(let _value):
-				try _value.encode(on: &_container, forKey: .citeAsReference)
-			case .markdown(let _value):
-				try _value.encode(on: &_container, forKey: .citeAsMarkdown, auxiliaryKey: ._citeAsMarkdown)
-			}
-		}
+		try citeAs?.encode(on: &_container, forKey: .citeAs, auxiliaryKey: ._citeAs)
 		try contact?.encode(on: &_container, forKey: .contact)
 		try copyright?.encode(on: &_container, forKey: .copyright, auxiliaryKey: ._copyright)
 		try copyrightLabel?.encode(on: &_container, forKey: .copyrightLabel, auxiliaryKey: ._copyrightLabel)
@@ -360,7 +339,8 @@ open class Evidence: DomainResource {
 		try note?.encode(on: &_container, forKey: .note)
 		try publisher?.encode(on: &_container, forKey: .publisher, auxiliaryKey: ._publisher)
 		try purpose?.encode(on: &_container, forKey: .purpose, auxiliaryKey: ._purpose)
-		try relatedArtifact?.encode(on: &_container, forKey: .relatedArtifact)
+		try recorder?.encode(on: &_container, forKey: .recorder)
+		try relatesTo?.encode(on: &_container, forKey: .relatesTo)
 		try reviewer?.encode(on: &_container, forKey: .reviewer)
 		try statistic?.encode(on: &_container, forKey: .statistic)
 		try status.encode(on: &_container, forKey: .status, auxiliaryKey: ._status)
@@ -369,7 +349,7 @@ open class Evidence: DomainResource {
 		try title?.encode(on: &_container, forKey: .title, auxiliaryKey: ._title)
 		try url?.encode(on: &_container, forKey: .url, auxiliaryKey: ._url)
 		try useContext?.encode(on: &_container, forKey: .useContext)
-		try variableDefinition.encode(on: &_container, forKey: .variableDefinition)
+		try variableDefinition?.encode(on: &_container, forKey: .variableDefinition)
 		try version?.encode(on: &_container, forKey: .version, auxiliaryKey: ._version)
 		if let _enum = versionAlgorithm {
 			switch _enum {
@@ -410,7 +390,8 @@ open class Evidence: DomainResource {
 		    && note == _other.note
 		    && publisher == _other.publisher
 		    && purpose == _other.purpose
-		    && relatedArtifact == _other.relatedArtifact
+		    && recorder == _other.recorder
+		    && relatesTo == _other.relatesTo
 		    && reviewer == _other.reviewer
 		    && statistic == _other.statistic
 		    && status == _other.status
@@ -445,7 +426,8 @@ open class Evidence: DomainResource {
 		hasher.combine(note)
 		hasher.combine(publisher)
 		hasher.combine(purpose)
-		hasher.combine(relatedArtifact)
+		hasher.combine(recorder)
+		hasher.combine(relatesTo)
 		hasher.combine(reviewer)
 		hasher.combine(statistic)
 		hasher.combine(status)
@@ -480,7 +462,7 @@ open class EvidenceCertainty: BackboneElement {
 	public var rating: CodeableConcept?
 	
 	/// Individual or group who did the rating
-	public var rater: FHIRPrimitive<FHIRString>?
+	public var rater: [FHIRPrimitive<FHIRString>]?
 	
 	/// A domain or subdomain of certainty
 	public var subcomponent: [EvidenceCertainty]?
@@ -497,7 +479,7 @@ open class EvidenceCertainty: BackboneElement {
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
-		rater: FHIRPrimitive<FHIRString>? = nil,
+		rater: [FHIRPrimitive<FHIRString>]? = nil,
 		rating: CodeableConcept? = nil,
 		subcomponent: [EvidenceCertainty]? = nil,
 		type: CodeableConcept? = nil
@@ -532,7 +514,7 @@ open class EvidenceCertainty: BackboneElement {
 		// Decode all our properties
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
-		self.rater = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .rater, auxiliaryKey: ._rater)
+		self.rater = try [FHIRPrimitive<FHIRString>](from: _container, forKeyIfPresent: .rater, auxiliaryKey: ._rater)
 		self.rating = try CodeableConcept(from: _container, forKeyIfPresent: .rating)
 		self.subcomponent = try [EvidenceCertainty](from: _container, forKeyIfPresent: .subcomponent)
 		self.type = try CodeableConcept(from: _container, forKeyIfPresent: .type)
@@ -582,11 +564,159 @@ open class EvidenceCertainty: BackboneElement {
 }
 
 /**
+ Relationships to other Resources.
+ 
+ Relationships that this Evidence has with other FHIR or non-FHIR resources that already exist.
+ */
+open class EvidenceRelatesTo: BackboneElement {
+	
+	/// All possible types for "target[x]"
+	public enum TargetX: Hashable {
+		case attachment(Attachment)
+		case canonical(FHIRPrimitive<Canonical>)
+		case markdown(FHIRPrimitive<FHIRString>)
+		case reference(Reference)
+		case uri(FHIRPrimitive<FHIRURI>)
+	}
+	
+	/// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of |
+	/// part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in |
+	/// contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs
+	/// | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents |
+	/// specification-of | created-with | cite-as | reprint | reprint-of | summarizes
+	public var type: CodeableConcept
+	
+	/// The artifact that is related to this Evidence
+	/// One of `target[x]`
+	public var target: TargetX
+	
+	/// Designated initializer taking all required properties
+	public init(target: TargetX, type: CodeableConcept) {
+		self.target = target
+		self.type = type
+		super.init()
+	}
+	
+	/// Convenience initializer
+	public convenience init(
+		`extension`: [Extension]? = nil,
+		id: FHIRPrimitive<FHIRString>? = nil,
+		modifierExtension: [Extension]? = nil,
+		target: TargetX,
+		type: CodeableConcept
+	) {
+		self.init(target: target, type: type)
+		self.`extension` = `extension`
+		self.id = id
+		self.modifierExtension = modifierExtension
+	}
+	
+	// MARK: - Codable
+	
+	private enum CodingKeys: String, CodingKey {
+		case targetAttachment
+		case targetCanonical; case _targetCanonical
+		case targetMarkdown; case _targetMarkdown
+		case targetReference
+		case targetUri; case _targetUri
+		case type
+	}
+	
+	/// Initializer for Decodable
+	public required init(from decoder: Decoder) throws {
+		let _container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		// Validate that we have at least one of the mandatory properties for expanded properties
+		guard _container.contains(CodingKeys.targetAttachment) || _container.contains(CodingKeys.targetCanonical) || _container.contains(CodingKeys.targetMarkdown) || _container.contains(CodingKeys.targetReference) || _container.contains(CodingKeys.targetUri) else {
+			throw DecodingError.valueNotFound(Any.self, DecodingError.Context(codingPath: [CodingKeys.targetAttachment, CodingKeys.targetCanonical, CodingKeys.targetMarkdown, CodingKeys.targetReference, CodingKeys.targetUri], debugDescription: "Must have at least one value for \"target\" but have none"))
+		}
+		
+		// Decode all our properties
+		var _t_target: TargetX? = nil
+		if let targetUri = try FHIRPrimitive<FHIRURI>(from: _container, forKeyIfPresent: .targetUri, auxiliaryKey: ._targetUri) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetUri, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .uri(targetUri)
+		}
+		if let targetAttachment = try Attachment(from: _container, forKeyIfPresent: .targetAttachment) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetAttachment, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .attachment(targetAttachment)
+		}
+		if let targetCanonical = try FHIRPrimitive<Canonical>(from: _container, forKeyIfPresent: .targetCanonical, auxiliaryKey: ._targetCanonical) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetCanonical, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .canonical(targetCanonical)
+		}
+		if let targetReference = try Reference(from: _container, forKeyIfPresent: .targetReference) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetReference, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .reference(targetReference)
+		}
+		if let targetMarkdown = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .targetMarkdown, auxiliaryKey: ._targetMarkdown) {
+			if _t_target != nil {
+				throw DecodingError.dataCorruptedError(forKey: .targetMarkdown, in: _container, debugDescription: "More than one value provided for \"target\"")
+			}
+			_t_target = .markdown(targetMarkdown)
+		}
+		self.target = _t_target!
+		self.type = try CodeableConcept(from: _container, forKey: .type)
+		try super.init(from: decoder)
+	}
+	
+	/// Encodable
+	public override func encode(to encoder: Encoder) throws {
+		var _container = encoder.container(keyedBy: CodingKeys.self)
+		
+		// Encode all our properties
+		
+			switch target {
+			case .uri(let _value):
+				try _value.encode(on: &_container, forKey: .targetUri, auxiliaryKey: ._targetUri)
+			case .attachment(let _value):
+				try _value.encode(on: &_container, forKey: .targetAttachment)
+			case .canonical(let _value):
+				try _value.encode(on: &_container, forKey: .targetCanonical, auxiliaryKey: ._targetCanonical)
+			case .reference(let _value):
+				try _value.encode(on: &_container, forKey: .targetReference)
+			case .markdown(let _value):
+				try _value.encode(on: &_container, forKey: .targetMarkdown, auxiliaryKey: ._targetMarkdown)
+			}
+		
+		try type.encode(on: &_container, forKey: .type)
+		try super.encode(to: encoder)
+	}
+	
+	// MARK: - Equatable & Hashable
+	
+	public override func isEqual(to _other: Any?) -> Bool {
+		guard let _other = _other as? EvidenceRelatesTo else {
+			return false
+		}
+		guard super.isEqual(to: _other) else {
+			return false
+		}
+		return target == _other.target
+		    && type == _other.type
+	}
+	
+	public override func hash(into hasher: inout Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(target)
+		hasher.combine(type)
+	}
+}
+
+/**
  Values and parameters for a single statistic.
  */
 open class EvidenceStatistic: BackboneElement {
 	
-	/// Description of content
+	/// A natural language summary of the statistic
 	public var description_fhir: FHIRPrimitive<FHIRString>?
 	
 	/// Footnotes and/or explanatory notes
@@ -607,7 +737,7 @@ open class EvidenceStatistic: BackboneElement {
 	/// The number of participants affected
 	public var numberAffected: FHIRPrimitive<FHIRUnsignedInteger>?
 	
-	/// Number of samples in the statistic
+	/// Count of participants in the study sample
 	public var sampleSize: EvidenceStatisticSampleSize?
 	
 	/// An attribute of the Statistic
@@ -756,8 +886,8 @@ open class EvidenceStatisticAttributeEstimate: BackboneElement {
 	/// The type of attribute estimate, e.g., confidence interval or p value
 	public var type: CodeableConcept?
 	
-	/// The singular quantity of the attribute estimate, for attribute estimates represented as single values; also used
-	/// to report unit of measure
+	/// The singular quantity of the attribute estimate, for attribute estimates represented as single values, which may
+	/// include a unit of measure
 	public var quantity: Quantity?
 	
 	/// Level of confidence interval, e.g., 0.95 for 95% confidence interval
@@ -896,13 +1026,14 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
 	/// The plan for analysis
 	public var intended: FHIRPrimitive<FHIRBool>?
 	
-	/// The analysis that was applied
+	/// This model characteristic is part of the analysis that was applied, whether or not the analysis followed the
+	/// plan
 	public var applied: FHIRPrimitive<FHIRBool>?
 	
 	/// A variable adjusted for in the adjusted analysis
 	public var variable: [EvidenceStatisticModelCharacteristicVariable]?
 	
-	/// An attribute of the statistic used as a model characteristic
+	/// An attribute of the model characteristic
 	public var attribute: [EvidenceStatisticAttributeEstimate]?
 	
 	/// Designated initializer taking all required properties
@@ -1036,19 +1167,19 @@ open class EvidenceStatisticModelCharacteristic: BackboneElement {
  */
 open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 	
-	/// Description of the variable
+	/// Description and definition of the variable
 	public var variableDefinition: Reference
 	
-	/// How the variable is classified for use in adjusted analysis.
-	public var handling: FHIRPrimitive<EvidenceVariableHandling>?
+	/// boolean | continuous | dichotomous | ordinal | polychotomous | time-to-event | not-specified
+	public var handling: CodeableConcept?
 	
-	/// Description for grouping of ordinal or polychotomous variables
+	/// Qualitative label used for grouping values of a dichotomous, ordinal, or polychotomous variable
 	public var valueCategory: [CodeableConcept]?
 	
-	/// Discrete value for grouping of ordinal or polychotomous variables
+	/// Quantitative label used for grouping values of a dichotomous, ordinal, or polychotomous variable
 	public var valueQuantity: [Quantity]?
 	
-	/// Range of values for grouping of ordinal or polychotomous variables
+	/// Range of quantitative labels used for grouping values of a dichotomous, ordinal, or polychotomous variable
 	public var valueRange: [Range]?
 	
 	/// Designated initializer taking all required properties
@@ -1060,7 +1191,7 @@ open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 	/// Convenience initializer
 	public convenience init(
 		`extension`: [Extension]? = nil,
-		handling: FHIRPrimitive<EvidenceVariableHandling>? = nil,
+		handling: CodeableConcept? = nil,
 		id: FHIRPrimitive<FHIRString>? = nil,
 		modifierExtension: [Extension]? = nil,
 		valueCategory: [CodeableConcept]? = nil,
@@ -1081,7 +1212,7 @@ open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 	// MARK: - Codable
 	
 	private enum CodingKeys: String, CodingKey {
-		case handling; case _handling
+		case handling
 		case valueCategory
 		case valueQuantity
 		case valueRange
@@ -1093,7 +1224,7 @@ open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
 		// Decode all our properties
-		self.handling = try FHIRPrimitive<EvidenceVariableHandling>(from: _container, forKeyIfPresent: .handling, auxiliaryKey: ._handling)
+		self.handling = try CodeableConcept(from: _container, forKeyIfPresent: .handling)
 		self.valueCategory = try [CodeableConcept](from: _container, forKeyIfPresent: .valueCategory)
 		self.valueQuantity = try [Quantity](from: _container, forKeyIfPresent: .valueQuantity)
 		self.valueRange = try [Range](from: _container, forKeyIfPresent: .valueRange)
@@ -1106,7 +1237,7 @@ open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 		var _container = encoder.container(keyedBy: CodingKeys.self)
 		
 		// Encode all our properties
-		try handling?.encode(on: &_container, forKey: .handling, auxiliaryKey: ._handling)
+		try handling?.encode(on: &_container, forKey: .handling)
 		try valueCategory?.encode(on: &_container, forKey: .valueCategory)
 		try valueQuantity?.encode(on: &_container, forKey: .valueQuantity)
 		try valueRange?.encode(on: &_container, forKey: .valueRange)
@@ -1141,7 +1272,7 @@ open class EvidenceStatisticModelCharacteristicVariable: BackboneElement {
 }
 
 /**
- Number of samples in the statistic.
+ Count of participants in the study sample.
  */
 open class EvidenceStatisticSampleSize: BackboneElement {
 	
@@ -1154,11 +1285,14 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 	/// Number of contributing studies
 	public var numberOfStudies: FHIRPrimitive<FHIRUnsignedInteger>?
 	
-	/// Cumulative number of participants
+	/// Total number of participants
 	public var numberOfParticipants: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// Number of participants with known results for measured variables
 	public var knownDataCount: FHIRPrimitive<FHIRUnsignedInteger>?
+	
+	/// Total number of participants who were analayzed
+	public var numberAnalyzed: FHIRPrimitive<FHIRUnsignedInteger>?
 	
 	/// Designated initializer taking all required properties
 	override public init() {
@@ -1173,6 +1307,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		knownDataCount: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		modifierExtension: [Extension]? = nil,
 		note: [Annotation]? = nil,
+		numberAnalyzed: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		numberOfParticipants: FHIRPrimitive<FHIRUnsignedInteger>? = nil,
 		numberOfStudies: FHIRPrimitive<FHIRUnsignedInteger>? = nil
 	) {
@@ -1183,6 +1318,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		self.knownDataCount = knownDataCount
 		self.modifierExtension = modifierExtension
 		self.note = note
+		self.numberAnalyzed = numberAnalyzed
 		self.numberOfParticipants = numberOfParticipants
 		self.numberOfStudies = numberOfStudies
 	}
@@ -1193,6 +1329,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		case description_fhir = "description"; case _description_fhir = "_description"
 		case knownDataCount; case _knownDataCount
 		case note
+		case numberAnalyzed; case _numberAnalyzed
 		case numberOfParticipants; case _numberOfParticipants
 		case numberOfStudies; case _numberOfStudies
 	}
@@ -1205,6 +1342,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		self.description_fhir = try FHIRPrimitive<FHIRString>(from: _container, forKeyIfPresent: .description_fhir, auxiliaryKey: ._description_fhir)
 		self.knownDataCount = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .knownDataCount, auxiliaryKey: ._knownDataCount)
 		self.note = try [Annotation](from: _container, forKeyIfPresent: .note)
+		self.numberAnalyzed = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberAnalyzed, auxiliaryKey: ._numberAnalyzed)
 		self.numberOfParticipants = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfParticipants, auxiliaryKey: ._numberOfParticipants)
 		self.numberOfStudies = try FHIRPrimitive<FHIRUnsignedInteger>(from: _container, forKeyIfPresent: .numberOfStudies, auxiliaryKey: ._numberOfStudies)
 		try super.init(from: decoder)
@@ -1218,6 +1356,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		try description_fhir?.encode(on: &_container, forKey: .description_fhir, auxiliaryKey: ._description_fhir)
 		try knownDataCount?.encode(on: &_container, forKey: .knownDataCount, auxiliaryKey: ._knownDataCount)
 		try note?.encode(on: &_container, forKey: .note)
+		try numberAnalyzed?.encode(on: &_container, forKey: .numberAnalyzed, auxiliaryKey: ._numberAnalyzed)
 		try numberOfParticipants?.encode(on: &_container, forKey: .numberOfParticipants, auxiliaryKey: ._numberOfParticipants)
 		try numberOfStudies?.encode(on: &_container, forKey: .numberOfStudies, auxiliaryKey: ._numberOfStudies)
 		try super.encode(to: encoder)
@@ -1235,6 +1374,7 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		return description_fhir == _other.description_fhir
 		    && knownDataCount == _other.knownDataCount
 		    && note == _other.note
+		    && numberAnalyzed == _other.numberAnalyzed
 		    && numberOfParticipants == _other.numberOfParticipants
 		    && numberOfStudies == _other.numberOfStudies
 	}
@@ -1244,13 +1384,17 @@ open class EvidenceStatisticSampleSize: BackboneElement {
 		hasher.combine(description_fhir)
 		hasher.combine(knownDataCount)
 		hasher.combine(note)
+		hasher.combine(numberAnalyzed)
 		hasher.combine(numberOfParticipants)
 		hasher.combine(numberOfStudies)
 	}
 }
 
 /**
- Evidence variable such as population, exposure, or outcome.
+ Description, classification, and definition of a single variable.
+ 
+ Description, classification, and definition of a single variable. The collection of variables defines what the evidence
+ is about.
  */
 open class EvidenceVariableDefinition: BackboneElement {
 	
@@ -1263,7 +1407,7 @@ open class EvidenceVariableDefinition: BackboneElement {
 	/// Classification of the role of the variable.
 	public var variableRole: FHIRPrimitive<VariableRole>
 	
-	/// subgroup | variable-A | variable-B | variable-AB | confounder | collider | mediator | effect-modifier
+	/// Sub-classification of the role of the variable
 	public var roleSubtype: CodeableConcept?
 	
 	/// The reference value used for comparison

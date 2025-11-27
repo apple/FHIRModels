@@ -2,8 +2,8 @@
 //  MedicinalProductDefinition.swift
 //  HealthSoftware
 //
-//  Generated from FHIR 6.0.0-ballot2 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
-//  Copyright 2024 Apple Inc.
+//  Generated from FHIR 6.0.0-ballot3 (http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition)
+//  Copyright 2025 Apple Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -403,6 +403,7 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 		case integer(FHIRPrimitive<FHIRInteger>)
 		case markdown(FHIRPrimitive<FHIRString>)
 		case quantity(Quantity)
+		case range(Range)
 	}
 	
 	/// A code expressing the type of characteristic
@@ -444,6 +445,7 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 		case valueInteger; case _valueInteger
 		case valueMarkdown; case _valueMarkdown
 		case valueQuantity
+		case valueRange
 	}
 	
 	/// Initializer for Decodable
@@ -470,6 +472,12 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 				throw DecodingError.dataCorruptedError(forKey: .valueQuantity, in: _container, debugDescription: "More than one value provided for \"value\"")
 			}
 			_t_value = .quantity(valueQuantity)
+		}
+		if let valueRange = try Range(from: _container, forKeyIfPresent: .valueRange) {
+			if _t_value != nil {
+				throw DecodingError.dataCorruptedError(forKey: .valueRange, in: _container, debugDescription: "More than one value provided for \"value\"")
+			}
+			_t_value = .range(valueRange)
 		}
 		if let valueInteger = try FHIRPrimitive<FHIRInteger>(from: _container, forKeyIfPresent: .valueInteger, auxiliaryKey: ._valueInteger) {
 			if _t_value != nil {
@@ -513,6 +521,8 @@ open class MedicinalProductDefinitionCharacteristic: BackboneElement {
 				try _value.encode(on: &_container, forKey: .valueMarkdown, auxiliaryKey: ._valueMarkdown)
 			case .quantity(let _value):
 				try _value.encode(on: &_container, forKey: .valueQuantity)
+			case .range(let _value):
+				try _value.encode(on: &_container, forKey: .valueRange)
 			case .integer(let _value):
 				try _value.encode(on: &_container, forKey: .valueInteger, auxiliaryKey: ._valueInteger)
 			case .date(let _value):
