@@ -62,9 +62,8 @@ public struct FHIRDate: FHIRPrimitiveType {
 	}
 	
 	public init(_ originalString: String) throws {
-		let scanner = Scanner(string: originalString)
-		let (year, month, day) = try FHIRDate.parseComponents(from: scanner)
-		self.init(year: year, month: month, day: day)
+		let parsed = try DateTimeParser.dateComponents(from: originalString, config: .r6)
+		self.init(year: parsed.year, month: parsed.month, day: parsed.day)
 	}
 	
 	// MARK: Parsing
@@ -72,40 +71,8 @@ public struct FHIRDate: FHIRPrimitiveType {
 	/// Parse valid "date" strings.
 	/// See http://hl7.org/fhir/datatypes.html#date
 	public static func parseComponents(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (year: Int, month: UInt8?, day: UInt8?) {
-		let originalCharactersToBeSkipped = scanner.charactersToBeSkipped
-		defer { scanner.charactersToBeSkipped = originalCharactersToBeSkipped }
-		scanner.charactersToBeSkipped = nil
-		let numbers = CharacterSet.decimalDigits
-		
-		var scanLocation = scanner.scanLocation
-		guard let scanned = scanner.hs_scanCharacters(from: numbers), scanned.count == 4, let year = Int(scanned), year > 0 else {
-			throw FHIRDateParserError.invalidYear(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		
-		var month: UInt8?
-		var day: UInt8?
-		if scanner.scanString("-", into: nil) {
-			scanLocation = scanner.scanLocation
-			guard let scanned = scanner.hs_scanCharacters(from: numbers), scanned.count == 2, let scanMonth = UInt8(scanned), (1...12).contains(scanMonth) else {
-				throw FHIRDateParserError.invalidMonth(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-			}
-			month = scanMonth
-			
-			if scanner.scanString("-", into: nil) {
-				scanLocation = scanner.scanLocation
-				guard let scanned = scanner.hs_scanCharacters(from: numbers), scanned.count == 2, let scanDay = UInt8(scanned), (1...31).contains(scanDay) else {
-					throw FHIRDateParserError.invalidDay(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-				}
-				day = scanDay
-			}
-		}
-		
-		scanLocation = scanner.scanLocation
-		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		
-		return (year, month, day)
+		let parsed = try ScannerDateTimeParser.dateComponents(from: scanner, expectAtEnd: expectAtEnd)
+		return (parsed.year, parsed.month, parsed.day)
 	}
 	
 	public static func parse(from scanner: Scanner, expectAtEnd: Bool = true) throws -> FHIRDate {

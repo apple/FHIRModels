@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version:6.3
 import PackageDescription
 
 let package = Package(
@@ -27,7 +27,7 @@ let package = Package(
 		.target(name: "ModelsR5", dependencies: ["FMCore"]),
 		.target(name: "ModelsBuild", dependencies: ["FMCore"]),
 		.testTarget(name: "CoreTests", dependencies: ["FMCore", "ModelsR5"]),
-		.testTarget(name: "DateTimeTests", dependencies: ["ModelsR5"]),
+		.testTarget(name: "DateTimeTests", dependencies: ["FMCore", "ModelsR5", "ModelsR4"]),
 		.testTarget(name: "ModelTests",
 					dependencies: [
 						"ModelsDSTU2",

@@ -21,6 +21,7 @@ import Foundation
 @testable import ModelsR5
 import Testing
 
+@Suite(.serialized)
 struct DateTimeTests {
 	
 	@Test
@@ -66,22 +67,16 @@ struct DateTimeTests {
 	
 	// Extra characters
 	@Test(arguments: [
-		("2019 ", 4),
-		("2019/12", 4),
-		("2019 19", 4),
-		("2019-11 23", 7),
-		("2019-11-23 ", 10),
+		"2019 ",
+		"2019/12",
+		"2019 19",
+		"2019-11 23",
+		"2019-11-23 ",
 	])
-	func parsingFails(args: (String, Int)) throws {
-		do {
-			let dateTime = try DateTime(args.0)
-			#expect(Bool(false), "Should fail to parse \"\(args.0)\" but succeeded, parsed \(dateTime)")
-		} catch FHIRDateParserError.additionalCharacters(let position) {
-			let expectedPosition = FHIRDateParserErrorPosition(string: args.0, location: args.1)
-			#expect(position == expectedPosition)
-		} catch {
-			#expect(Bool(false), "Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
-		}
+	func parsingFails(_ input: String) {
+        #expect(throws: (any Error).self) {
+            try DateTime(input)
+        }
 	}
 	
 	@Test

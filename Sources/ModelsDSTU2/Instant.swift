@@ -60,9 +60,11 @@ public struct Instant: FHIRPrimitiveType {
 	}
 	
 	public init(_ originalString: String) throws {
-		let scanner = Scanner(string: originalString)
-		let (date, time, timezone, timeZoneString) = try Instant.parse(from: scanner)
-		self.init(date: date, time: time, timezone: timezone, originalTimeZoneString: timeZoneString)
+		let parsed = try DateTimeParser.instantComponents(from: originalString, config: .dstu2)
+		let date = InstantDate(year: parsed.date.year, month: parsed.date.month, day: parsed.date.day)
+		let parsedTime = parsed.time.time
+		let time = FHIRTime(hour: parsedTime.hour, minute: parsedTime.minute, second: parsedTime.second, originalSecondsString: parsedTime.originalSecondsString)
+		self.init(date: date, time: time, timezone: parsed.time.timeZone, originalTimeZoneString: parsed.time.timeZoneString)
 	}
 	
 	private init(date: InstantDate, time: FHIRTime, timezone: TimeZone, originalTimeZoneString: String? = nil) {
@@ -76,29 +78,11 @@ public struct Instant: FHIRPrimitiveType {
 	
 	/// Parse valid "instant" strings.
 	public static func parse(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (date: InstantDate, time: FHIRTime, timezone: TimeZone, timeZoneString: String) {
-		let originalCharactersToBeSkipped = scanner.charactersToBeSkipped
-		defer { scanner.charactersToBeSkipped = originalCharactersToBeSkipped }
-		scanner.charactersToBeSkipped = nil
-		
-		// Date, Time & TimeZone
-		let date = try InstantDate.parse(from: scanner, expectAtEnd: false)
-		guard scanner.scanString("T", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
-		}
-		
-		let scanLocation = scanner.scanLocation
-		let time = try FHIRTime.parse(from: scanner, expectAtEnd: false)
-		let (secondsFromGMT, timeZoneString) = try TimeZone.hs_parseComponents(from: scanner, expectAtEnd: true)
-		guard let timeZone = TimeZone(secondsFromGMT: secondsFromGMT) else {    // we should never hit this since `TimeZone.hs_parseComponents` takes care of validation
-			throw FHIRDateParserError.invalidTimeZoneHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		
-		// Done
-		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanner.scanLocation))
-		}
-		
-		return (date, time, timeZone, timeZoneString)
+		let parsed = try ScannerDateTimeParser.instantComponents(from: scanner, expectAtEnd: expectAtEnd)
+		let date = InstantDate(year: parsed.date.year, month: parsed.date.month, day: parsed.date.day)
+		let parsedTime = parsed.time.time
+		let time = FHIRTime(hour: parsedTime.hour, minute: parsedTime.minute, second: parsedTime.second, originalSecondsString: parsedTime.originalSecondsString)
+		return (date, time, parsed.time.timeZone, parsed.time.timeZoneString)
 	}
 }
 

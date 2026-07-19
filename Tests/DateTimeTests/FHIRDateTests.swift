@@ -17,154 +17,113 @@
 //  limitations under the License.
 
 import FMCore
+import Foundation
 import ModelsR5
-import XCTest
+import Testing
 
-class FHIRDateTests: XCTestCase {
-	
-	func testRendering() {
-		let string = "2019-10-08"
-		var fhirdate = try! FHIRDate(string)
-		let expected = FHIRDate(year: 2019, month: 10, day: 08)
-		XCTAssertEqual(fhirdate, expected)
-		XCTAssertEqual(fhirdate.description, string)
-		
-		fhirdate.year = 181
-		XCTAssertEqual(fhirdate.description, "0181-10-08")
-	}
-	
-	func testParsing() {
-		let successes = [
-			("2019", FHIRDate(year: 2019)),
-			("3019-12", FHIRDate(year: 3019, month: 12)),
-			("0019-12-29", FHIRDate(year: 19, month: 12, day: 29)),
-		]
-		
-		for (string, expectedDate) in successes {
-			do {
-				let fhirdate = try FHIRDate(string)
-				XCTAssertEqual(fhirdate, expectedDate)
-				XCTAssertEqual(string, fhirdate.description)
-			} catch {
-				XCTFail("Should succeed parsing \"\(string)\" but threw: \(error)")
-			}
-		}
-		
-		// Year
-		let yearThrowers = [
-			("19", 0),
-			(" 2019", 0),
-			("-2019-05-22", 0),
-			("Y2019", 0),
-			("0000-10-05", 0),
-			("12019-10-05", 0),
-		]
-		for (string, location) in yearThrowers {
-			do {
-				let fhirdate = try FHIRDate(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
-			} catch FHIRDateParserError.invalidYear(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidYear but threw \(error)")
-			}
-		}
-		
-		// Month
-		let monthThrowers = [
-			("2019-", 5),
-			("2019-00", 5),
-			("2019-19", 5),
-			("2019--12", 5),
-			("2019-00", 5),
-		]
-		for (string, location) in monthThrowers {
-			do {
-				let fhirdate = try FHIRDate(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
-			} catch FHIRDateParserError.invalidMonth(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidMonth but threw \(error)")
-			}
-		}
-		
-		// Day
-		let dayThrowers = [
-			("2019-11-", 8),
-			("2019-11-2", 8),
-			("2019-11-00", 8),
-			("2019-11-34", 8),
-		]
-		for (string, location) in dayThrowers {
-			do {
-				let fhirdate = try FHIRDate(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
-			} catch FHIRDateParserError.invalidDay(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidDay but threw \(error)")
-			}
-		}
-		
-		// Extra characters
-		let extraThrowers = [
-			("2019 ", 4),
-			("2019T", 4),
-			("2019/12", 4),
-			("2019 19", 4),
-			("2019-11 23", 7),
-			("2019-11-23T", 10),
-			("2019-11-23 ", 10),
-			("2019-11-23T14:22:30Z", 10),
-		]
-		for (string, location) in extraThrowers {
-			do {
-				let fhirdate = try FHIRDate(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(fhirdate)")
-			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
-			}
-		}
+
+@Suite(.serialized)
+struct FHIRDateTests {
+    @Test
+    func testRendering() throws {
+        let string = "2019-10-08"
+        var fhirdate = try FHIRDate(string)
+        let expected = FHIRDate(year: 2019, month: 10, day: 08)
+        #expect(fhirdate == expected)
+        #expect(fhirdate.description == string)
+
+        fhirdate.year = 181
+        #expect(fhirdate.description == "0181-10-08")
     }
-    
+}
+
+
+extension FHIRDateTests {
+    private enum TestDescriptor {
+        case success(String, FHIRDate)
+        case failure(String)
+    }
+
+
+    private static let corpus: [TestDescriptor] = [
+        .success("2019", FHIRDate(year: 2019)),
+        .success("3019-12", FHIRDate(year: 3019, month: 12)),
+        .success("0019-12-29", FHIRDate(year: 19, month: 12, day: 29)),
+
+        .failure("19"),
+        .failure(" 2019"),
+        .failure("-2019-05-22"),
+        .failure("Y2019"),
+        .failure("0000-10-05"),
+        .failure("12019-10-05"),
+
+        .failure("2019-"),
+        .failure("2019-00"),
+        .failure("2019-19"),
+        .failure("2019--12"),
+        .failure("2019-00"),
+
+        .failure("2019-11-"),
+        .failure("2019-11-2"),
+        .failure("2019-11-00"),
+        .failure("2019-11-34"),
+
+        .failure("2019 "),
+        .failure("2019T"),
+        .failure("2019/12"),
+        .failure("2019 19"),
+        .failure("2019-11 23"),
+        .failure("2019-11-23T"),
+        .failure("2019-11-23 "),
+        .failure("2019-11-23T14:22:30Z")
+
+    ]
+
+    @Test(arguments: corpus)
+    private func testParsing(_ descriptor: TestDescriptor) throws {
+        switch descriptor {
+        case let .success(input, expected):
+            let actual = try FHIRDate(input)
+            #expect(actual == expected)
+        case .failure(let input):
+            #expect(throws: (any Error).self) {
+                try FHIRDate(input)
+            }
+        }
+    }
+
+    @Test
     func testComparison() throws {
         try assertLeftToRight("2021-01-07", "2021-01-08", compares: .orderedAscending)
         try assertLeftToRight("2021-01-07", "2021-01-07", compares: .orderedSame)
         try assertLeftToRight("2021-01-07", "2021-01-06", compares: .orderedDescending)
-        
+
         try assertLeftToRight("2021-02", "2021-03", compares: .orderedAscending)
         try assertLeftToRight("2021-02", "2021-02", compares: .orderedSame)
         try assertLeftToRight("2021-02", "2021-01", compares: .orderedDescending)
-        
+
         try assertLeftToRight("2021", "2022", compares: .orderedAscending)
         try assertLeftToRight("2021", "2021", compares: .orderedSame)
         try assertLeftToRight("2021", "2020", compares: .orderedDescending)
-        
+
         try assertLeftToRight("2021-01-07", "2021-01", compares: .orderedDescending)
         try assertLeftToRight("2021-01-07", "2021", compares: .orderedDescending)
         try assertLeftToRight("2021-01", "2021-01-06", compares: .orderedAscending)
         try assertLeftToRight("2021", "2021-01-06", compares: .orderedAscending)
         try assertLeftToRight("2020-12-31", "2021-01-01", compares: .orderedAscending)
     }
-    
+
     // MARK: - Tools
-    
-    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult, file: StaticString = #filePath, line: UInt = #line) throws {
+
+    private func assertLeftToRight(_ left: String, _ right: String, compares: ComparisonResult) throws {
         let leftDate = try FHIRDate(left)
         let rightDate = try FHIRDate(right)
         if compares == .orderedDescending {
-            XCTAssertTrue(leftDate > rightDate, file: file, line: line)
+            #expect(leftDate > rightDate)
         } else if compares == .orderedSame {
-            XCTAssertEqual(leftDate, rightDate, file: file, line: line)
+            #expect(leftDate == rightDate)
         } else {
-            XCTAssertTrue(leftDate < rightDate, file: file, line: line)
+            #expect(leftDate < rightDate)
         }
     }
 }

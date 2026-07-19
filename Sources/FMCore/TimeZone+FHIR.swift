@@ -18,15 +18,13 @@
 
 import Foundation
 
-public extension TimeZone {
-	
-	init(_ originalString: String) throws {
-		let scanner = Scanner(string: originalString)
-		let (seconds, _) = try TimeZone.hs_parseComponents(from: scanner, expectAtEnd: true)
-		self.init(secondsFromGMT: seconds)!
+extension TimeZone {
+	public init(fhirTimeZoneString originalString: String) throws {
+        let parsed = try DateTimeParser.timeZoneComponents(from: originalString, config: .r4)
+		self.init(secondsFromGMT: parsed.secondsFromGMT)!
 	}
 	
-	func gmtOffsetString(for reference: ExpressibleAsNSDate) -> String {
+	public func gmtOffsetString(for reference: ExpressibleAsNSDate) -> String {
 		let referenceDate: Date
 		do {
 			referenceDate = try reference.asNSDate()
@@ -49,7 +47,7 @@ public extension TimeZone {
 		return String(format: "\(prefix)%02d:%02d", hours, minutes)
 	}
 	
-	static func hs_parseComponents(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (secondsFromGMT: Int, timeZoneString: String) {
+	package static func hs_parseComponents(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (secondsFromGMT: Int, timeZoneString: String) {
 		let originalCharactersToBeSkipped = scanner.charactersToBeSkipped
 		defer { scanner.charactersToBeSkipped = originalCharactersToBeSkipped }
 		scanner.charactersToBeSkipped = nil

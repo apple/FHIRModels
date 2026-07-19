@@ -18,150 +18,89 @@
 
 import FMCore
 import Foundation
-import XCTest
+import Testing
 
-class TimeZoneTests: XCTestCase {
-	
-	func testRendering() {
-		var timezone = TimeZone(secondsFromGMT: 0)
-		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "Z")
-		
-		timezone = TimeZone(secondsFromGMT: -7200)
-		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "-02:00")
-		
-		timezone = TimeZone(secondsFromGMT: 7200)
-		XCTAssertNotNil(timezone)
-		XCTAssertEqual(timezone?.gmtOffsetString(for: TimeRef()), "+02:00")
-	}
-	
-	func testParsing() {
-		let successes = [
-			("Z", 0),
-			("+00:00", 0),
-			("+00:22", 1320),
-			("+09:00", 32_400),
-			("-00:00", 0),
-			("-02:45", -9900),
-			("-11:00", -39_600),
-		]
-		
-		for (string, expectedSeconds) in successes {
-			do {
-				let timezone = try TimeZone(string)
-				XCTAssertEqual(timezone, TimeZone(secondsFromGMT: expectedSeconds))
-				if timezone.secondsFromGMT() != 0 {         // We'll always return "Z" in this case, so can't test with +00:00 and co
-					XCTAssertEqual(string, timezone.gmtOffsetString(for: TimeRef()))
-				}
-			} catch {
-				XCTFail("Should succeed parsing \"\(string)\" but threw: \(error)")
-			}
-		}
-		
-		// Prefix Failures
-		let prefixThrowers = [
-			("", 0),
-			("A", 0),
-			("U", 0),
-			("11:00", 0),
-			(" 09:00", 0),
-		]
-		for (string, location) in prefixThrowers {
-			do {
-				let timezone = try TimeZone(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
-			} catch FHIRDateParserError.invalidTimeZonePrefix(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidTimeZonePrefix but threw \(error)")
-			}
-		}
-		
-		// Hour Failures
-		let hourThrowers = [
-			("+19:00", 1),
-			("-15:00", 1),
-		]
-		for (string, location) in hourThrowers {
-			do {
-				let timezone = try TimeZone(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
-			} catch FHIRDateParserError.invalidTimeZoneHour(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidTimeZoneHour but threw \(error)")
-			}
-		}
-		
-		// Minute Failures
-		let minuteThrowers = [
-			("+01:0", 4),
-			("+14:01", 4),
-			("+07:60", 4),
-			("+05:92", 4),
-			("-05:60", 4),
-			("-03:85", 4),
-		]
-		for (string, location) in minuteThrowers {
-			do {
-				let timezone = try TimeZone(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
-			} catch FHIRDateParserError.invalidTimeZoneMinute(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidTimeZoneMinute but threw \(error)")
-			}
-		}
-		
-		// Separator Failures
-		let separatorThrowers = [
-			("+9", 2),
-			("+09", 3),
-			("+2:30", 2),
-			("+011:00", 3),
-			("+0120", 3),
-			("-04", 3),
-			("-0400", 3),
-			("-1500", 3),
-		]
-		for (string, location) in separatorThrowers {
-			do {
-				let timezone = try TimeZone(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
-			} catch FHIRDateParserError.invalidSeparator(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.invalidSeparator but threw \(error)")
-			}
-		}
-		
-		// Extra Failures
-		let extraThrowers = [
-			("+03:000", 6),
-			("-00:010", 6),
-		]
-		for (string, location) in extraThrowers {
-			do {
-				let timezone = try TimeZone(string)
-				XCTFail("Should fail to parse \"\(string)\" but succeeded, parsed \(timezone)")
-			} catch FHIRDateParserError.additionalCharacters(let position) {
-				let expectedPosition = FHIRDateParserErrorPosition(string: string, location: location)
-				XCTAssertEqual(position, expectedPosition)
-			} catch {
-				XCTFail("Should throw FHIRDateParserError.additionalCharacters but threw \(error)")
-			}
-		}
-	}
+
+@Suite(.serialized)
+struct TimeZoneTests {
+    private struct TimeRef: ExpressibleAsNSDate {
+        func asNSDate() throws -> Date {
+            Date()
+        }
+    }
+    
+    
+    @Test
+    func testRendering() throws {
+        var timezone = try #require(TimeZone(secondsFromGMT: 0))
+        #expect(timezone.gmtOffsetString(for: TimeRef()) == "Z")
+        
+        timezone = try #require(TimeZone(secondsFromGMT: -7200))
+        #expect(timezone.gmtOffsetString(for: TimeRef()) == "-02:00")
+        
+        timezone = try #require(TimeZone(secondsFromGMT: 7200))
+        #expect(timezone.gmtOffsetString(for: TimeRef()) == "+02:00")
+    }
 }
 
-struct TimeRef: ExpressibleAsNSDate {
-	
-	func asNSDate() throws -> Date {
-		Date()
+
+extension TimeZoneTests {
+    private enum TestDescriptor {
+        case success(input: String, gmtOffset: Int)
+        case failure(input: String)
+    }
+    
+    private static let corpus: [TestDescriptor] = [
+        .success(input: "Z", gmtOffset: 0),
+        .success(input: "+00:00", gmtOffset: 0),
+        .success(input: "+00:22", gmtOffset: 1320),
+        .success(input: "+09:00", gmtOffset: 32_400),
+        .success(input: "-00:00", gmtOffset: 0),
+        .success(input: "-02:45", gmtOffset: -9900),
+        .success(input: "-11:00", gmtOffset: -39_600),
+        
+        .failure(input: ""),
+        .failure(input: "A"),
+        .failure(input: "U"),
+        .failure(input: "11:00"),
+        .failure(input: " 09:00"),
+        
+        .failure(input: "+19:00"),
+        .failure(input: "-15:00"),
+        
+        .failure(input: "+01:0"),
+        .failure(input: "+14:01"),
+        .failure(input: "+07:60"),
+        .failure(input: "+05:92"),
+        .failure(input: "-05:60"),
+        .failure(input: "-03:85"),
+        
+        .failure(input: "+9"),
+        .failure(input: "+09"),
+        .failure(input: "+2:30"),
+        .failure(input: "+011:00"),
+        .failure(input: "+0120"),
+        .failure(input: "-04"),
+        .failure(input: "-0400"),
+        .failure(input: "-1500"),
+        
+        .failure(input: "+03:000"),
+        .failure(input: "-00:010")
+    ]
+    
+    @Test(arguments: corpus)
+    private func testParsing(_ descriptor: TestDescriptor) throws {
+        switch descriptor {
+        case .failure(let input):
+            #expect(throws: (any Error).self) {
+                try TimeZone(fhirTimeZoneString: input)
+            }
+        case let .success(input, gmtOffset):
+            let timeZone = try TimeZone(fhirTimeZoneString: input)
+            #expect(timeZone == TimeZone(secondsFromGMT: gmtOffset))
+            if timeZone.secondsFromGMT() != 0 { // We'll always return "Z" in this case, so can't test with +00:00 and co
+                #expect(input == timeZone.gmtOffsetString(for: TimeRef()))
+            }
+        }
 	}
 }

@@ -18,7 +18,7 @@
 
 import Foundation
 
-public struct FHIRDateParserErrorPosition: CustomStringConvertible, Sendable {
+public struct FHIRDateParserErrorPosition: Hashable, CustomStringConvertible, Sendable {
 	public let string: String
 	public let location: Int
 	
@@ -32,23 +32,9 @@ public struct FHIRDateParserErrorPosition: CustomStringConvertible, Sendable {
 	}
 }
 
-// MARK: - FHIRDateParserErrorPosition
-
-extension FHIRDateParserErrorPosition: Equatable {
-	public static func ==(lhs: FHIRDateParserErrorPosition, rhs: FHIRDateParserErrorPosition) -> Bool {
-		if lhs.string != rhs.string {
-			return false
-		}
-		if lhs.location != rhs.location {
-			return false
-		}
-		return true
-	}
-}
-
 // MARK: - FHIRDateParserError
 
-public enum FHIRDateParserError: LocalizedError {
+public enum FHIRDateParserError: LocalizedError, Hashable {
 	case invalidSeparator(FHIRDateParserErrorPosition)
 	case invalidYear(FHIRDateParserErrorPosition)
 	case invalidMonth(FHIRDateParserErrorPosition)
