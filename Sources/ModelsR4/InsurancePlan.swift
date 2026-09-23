@@ -171,8 +171,7 @@ public struct InsurancePlan: DomainResource {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -295,8 +294,7 @@ public struct InsurancePlanContact: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -380,8 +378,7 @@ public struct InsurancePlanCoverage: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -463,8 +460,7 @@ public struct InsurancePlanCoverageBenefit: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -540,8 +536,7 @@ public struct InsurancePlanCoverageBenefitLimit: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -639,8 +634,7 @@ public struct InsurancePlanPlan: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -734,8 +728,7 @@ public struct InsurancePlanPlanGeneralCost: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -813,8 +806,7 @@ public struct InsurancePlanPlanSpecificCost: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -888,8 +880,7 @@ public struct InsurancePlanPlanSpecificCostBenefit: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -975,8 +966,7 @@ public struct InsurancePlanPlanSpecificCostBenefitCost: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

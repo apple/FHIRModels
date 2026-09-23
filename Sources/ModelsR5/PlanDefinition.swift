@@ -327,8 +327,7 @@ public struct PlanDefinition: DomainResource {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -754,8 +753,7 @@ public struct PlanDefinitionAction: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -978,8 +976,7 @@ public struct PlanDefinitionActionCondition: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1055,8 +1052,7 @@ public struct PlanDefinitionActionDynamicValue: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1136,8 +1132,7 @@ public struct PlanDefinitionActionInput: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1219,8 +1214,7 @@ public struct PlanDefinitionActionOutput: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1320,8 +1314,7 @@ public struct PlanDefinitionActionParticipant: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1423,8 +1416,7 @@ public struct PlanDefinitionActionRelatedAction: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1533,8 +1525,7 @@ public struct PlanDefinitionActor: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1622,8 +1613,7 @@ public struct PlanDefinitionActorOption: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1733,8 +1723,7 @@ public struct PlanDefinitionGoal: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -1842,8 +1831,7 @@ public struct PlanDefinitionGoalTarget: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

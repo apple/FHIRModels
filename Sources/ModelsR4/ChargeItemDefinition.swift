@@ -229,8 +229,7 @@ public struct ChargeItemDefinition: DomainResource {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -365,8 +364,7 @@ public struct ChargeItemDefinitionApplicability: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -443,8 +441,7 @@ public struct ChargeItemDefinitionPropertyGroup: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -533,8 +530,7 @@ public struct ChargeItemDefinitionPropertyGroupPriceComponent: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

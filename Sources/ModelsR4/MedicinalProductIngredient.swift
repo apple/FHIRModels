@@ -123,8 +123,7 @@ public struct MedicinalProductIngredient: DomainResource {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -229,8 +228,7 @@ public struct MedicinalProductIngredientSpecifiedSubstance: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -339,8 +337,7 @@ public struct MedicinalProductIngredientSpecifiedSubstanceStrength: BackboneElem
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -440,8 +437,7 @@ public struct MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStren
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -519,8 +515,7 @@ public struct MedicinalProductIngredientSubstance: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

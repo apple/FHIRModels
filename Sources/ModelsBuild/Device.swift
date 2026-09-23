@@ -241,8 +241,7 @@ public struct Device: DomainResource {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -376,8 +375,7 @@ public struct DeviceAdditive: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -460,8 +458,7 @@ public struct DeviceConformsTo: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -547,8 +544,7 @@ public struct DeviceDeviceVersion: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -634,8 +630,7 @@ public struct DeviceName: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -731,8 +726,7 @@ public struct DeviceProperty: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -907,8 +901,7 @@ public struct DeviceUdiCarrier: BackboneElement {
 
 	/// Initializer for Decodable
 	public init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

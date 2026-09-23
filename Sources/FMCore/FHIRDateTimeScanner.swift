@@ -27,10 +27,11 @@ import Foundation
  */
 public struct FHIRDateTimeScanner: Sendable {
 	
-	/// The longest a syntactically valid FHIR date/time string can be: a full `dateTime` with a 4-digit year, a
-	/// 9-digit fractional second and a numeric time zone offset, e.g. `9999-12-31T23:59:60.123456789+14:00` (35
-	/// characters). A 10 digit slack is added to allow the parser to process the whole string and return a meaningful
-	/// error.
+	/**
+	 The longest a syntactically valid FHIR date/time string can be: a full `dateTime` with a 4-digit year, a 9-digit
+	 fractional second and a numeric time zone offset, e.g. `9999-12-31T23:59:60.123456789+14:00` (35 characters). A
+	 10 digit slack is added to allow the parser to process the whole string and return a meaningful error.
+	 */
 	private static let maxLength = 45
 	
 	@usableFromInline

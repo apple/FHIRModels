@@ -72,8 +72,7 @@ public final class Reference: DataTypeReadOnly, Sendable {
 	
 	/// Initializer for Decodable
 	public required init(from decoder: Decoder) throws {
-		let _depthTracker = try FHIRDecodingDepthTracker.enter(on: decoder)
-		defer { _depthTracker?.exit() }
+		try decoder.enforceFHIRModelsDepthLimit()
 		
 		let _container = try decoder.container(keyedBy: CodingKeys.self)
 		

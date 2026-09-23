@@ -48,26 +48,27 @@ final class DeserializationPerformanceTests: XCTestCase {
 		}
 	}
 	
-	func testParallelDeserializationMemoryFootprint() {
+	func testParallelDeserializationMemoryFootprint() throws {
 		let patientData = Self.patientJSONData
 		let observationData = Self.observationJSONData
 		let bundleData = Self.bundleLipidsJSONData
 		
+		// Shared on purpose: a decoder is safe for concurrent decoding, and an unconfigured one
+		// enforces the default depth limit.
+		let decoder = JSONDecoder()
+		
+		_ = try decoder.decode(Patient.self, from: patientData)
+		_ = try decoder.decode(Observation.self, from: observationData)
+		_ = try decoder.decode(ModelsR5.Bundle.self, from: bundleData)
+		
 		measure(metrics: [XCTMemoryMetric()]) {
-			let group = DispatchGroup()
-			let limit = DispatchSemaphore(value: ProcessInfo.processInfo.activeProcessorCount)
-			for _ in 0..<1000 {
-				limit.wait()
-				group.enter()
-				defer { limit.signal(); group.leave() }
-				let decoder = JSONDecoder.fhirModelsReadyDecoder()
-				autoreleasepool {
-					_ = try? decoder.decode(Patient.self, from: patientData)
-					_ = try? decoder.decode(Observation.self, from: observationData)
-					_ = try? decoder.decode(ModelsR5.Bundle.self, from: bundleData)
+			DispatchQueue.concurrentPerform(iterations: 1000) { _ in
+				try? autoreleasepool {
+					XCTAssertNoThrow(try decoder.decode(Patient.self, from: patientData))
+					XCTAssertNoThrow(try decoder.decode(Observation.self, from: observationData))
+					XCTAssertNoThrow(try decoder.decode(ModelsR5.Bundle.self, from: bundleData))
 				}
 			}
-			group.wait()
 		}
 	}
 	

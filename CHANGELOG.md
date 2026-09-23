@@ -5,6 +5,8 @@ The changelog is in reverse chronological order.
 
 ### 0.9.4
 
+- BREAKING CHANGE (from `0.9.2`): reverse course and replace `FHIRDecodingDepthTracker` with `JSONDecoder.maxFHIRModelsDepth`. There now is on-by-default depth tracking, see `FHIRDecodingDepth.swift`, implemented on top of `Decoder`. Thanks to [Lukas Kollmer](https://github.com/lukaskollmer) for the analysis and proposal in [#45](https://github.com/apple/FHIRModels/issues/45)
+- Lower the deployment target back to iOS 15 / macOS 12 / watchOS 8 / tvOS 15, since dropping the custom depth tracker removed the `OSAllocatedUnfairLock` dependency that had raised it in 0.9.2 (resolves https://github.com/apple/FHIRModels/issues/44)
 - Implement a custom, specialized, performance & safety -optimized date/time parser
 
 ### 0.9.3

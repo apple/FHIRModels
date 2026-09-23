@@ -75,9 +75,9 @@ public struct FHIRDate: FHIRPrimitiveType {
 	// MARK: Parsing
 	
 	/// Parse valid "date" strings.
-	/// See http://hl7.org/fhir/DSTU2/datatypes.html#date
+	/// See http://hl7.org/fhir/datatypes.html#date
 	public static func parseComponents(from scanner: inout FHIRDateTimeScanner, expectAtEnd: Bool = true) throws -> (year: Int, month: UInt8?, day: UInt8?) {
-		let year = try scanner.scanDigitsAndVerify(4, in: -9999...9999, orThrow: FHIRDateParserError.invalidYear)
+		let year = try scanner.scanDigitsAndVerify(4, in: 1...9999, orThrow: FHIRDateParserError.invalidYear)
 		
 		var month: UInt8?
 		var day: UInt8?
