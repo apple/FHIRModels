@@ -83,6 +83,11 @@ class TimeZoneTests: XCTestCase {
 		let hourThrowers = [
 			("+19:00", 1),
 			("-15:00", 1),
+			("-1500", 1),
+			("+9", 2),
+			("+2:30", 2),
+			("--05:00", 1),
+			("++05:00", 1),
 		]
 		for (string, location) in hourThrowers {
 			do {
@@ -98,7 +103,7 @@ class TimeZoneTests: XCTestCase {
 		
 		// Minute Failures
 		let minuteThrowers = [
-			("+01:0", 4),
+			("+01:0", 5),
 			("+14:01", 4),
 			("+07:60", 4),
 			("+05:92", 4),
@@ -119,14 +124,11 @@ class TimeZoneTests: XCTestCase {
 		
 		// Separator Failures
 		let separatorThrowers = [
-			("+9", 2),
 			("+09", 3),
-			("+2:30", 2),
 			("+011:00", 3),
 			("+0120", 3),
 			("-04", 3),
 			("-0400", 3),
-			("-1500", 3),
 		]
 		for (string, location) in separatorThrowers {
 			do {
@@ -144,6 +146,7 @@ class TimeZoneTests: XCTestCase {
 		let extraThrowers = [
 			("+03:000", 6),
 			("-00:010", 6),
+			("Z+07:00", 1),
 		]
 		for (string, location) in extraThrowers {
 			do {

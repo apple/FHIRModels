@@ -24,7 +24,8 @@ import FMCore
  constraints but may be zero-filled and may be ignored at receiver discretion. The time "24:00" SHALL NOT be used. A
  time zone SHALL NOT be present. Times can be converted to a Duration since midnight.
  
- While DSTU-2 did not allow "60" seconds (the leap second), this is allowed in R4 and we're gonna allow it here, too.
+ While DSTU-2 did not allow "60" seconds (the leap second), this is allowed in R4 forward and we're gonna allow it
+ universally.
  
  http://hl7.org/fhir/datatypes.html#time
  */
@@ -68,8 +69,8 @@ public struct FHIRTime: FHIRPrimitiveType {
 	}
 	
 	public init(_ originalString: String) throws {
-		let scanner = Scanner(string: originalString)
-		let (hour, minute, second, originalSecondsString) = try FHIRTime.parseComponents(from: scanner)
+		var scanner = try FHIRDateTimeScanner(originalString)
+		let (hour, minute, second, originalSecondsString) = try FHIRTime.parseComponents(from: &scanner)
 		self.init(hour: hour, minute: minute, second: second, originalSecondsString: originalSecondsString)
 	}
 	
@@ -88,84 +89,53 @@ public struct FHIRTime: FHIRPrimitiveType {
 	
 	/// Parse valid "time" strings.
 	/// See http://hl7.org/fhir/datatypes.html#time
-	public static func parseComponents(from scanner: Scanner, expectAtEnd: Bool = true) throws -> (hour: UInt8, minute: UInt8, second: Decimal, originalSecondString: String) {
-		let originalCharactersToBeSkipped = scanner.charactersToBeSkipped
-		defer { scanner.charactersToBeSkipped = originalCharactersToBeSkipped }
-		scanner.charactersToBeSkipped = nil
-		let numbers = CharacterSet.decimalDigits
-		
+	public static func parseComponents(from scanner: inout FHIRDateTimeScanner, expectAtEnd: Bool = true) throws -> (hour: UInt8, minute: UInt8, second: Decimal, originalSecondString: String) {
 		// Hours
-		var scanLocation = scanner.scanLocation
-		guard let hourString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		guard hourString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + hourString.count))
-		}
-		guard let hour = UInt8(hourString), hour <= 23 else {
-			throw FHIRDateParserError.invalidHour(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
+		let hour: UInt8 = try scanner.scanDigitsAndVerify(2, in: 0...23, orThrow: FHIRDateParserError.invalidHour)
 		
-		scanLocation = scanner.scanLocation
-		guard scanner.scanString(":", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
+		var scanLocation = scanner.index
+		guard scanner.scan(":") else {
+			throw FHIRDateParserError.invalidSeparator(scanner.position(at: scanLocation))
 		}
 		
 		// Minutes
-		scanLocation = scanner.scanLocation
-		guard let minuteString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidMinute(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		guard minuteString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + minuteString.count))
-		}
-		guard let minute = UInt8(minuteString), minute <= 59 else {
-			throw FHIRDateParserError.invalidMinute(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
+		let minute: UInt8 = try scanner.scanDigitsAndVerify(2, in: 0...59, orThrow: FHIRDateParserError.invalidMinute)
 		
-		scanLocation = scanner.scanLocation
-		guard scanner.scanString(":", into: nil) else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
+		scanLocation = scanner.index
+		guard scanner.scan(":") else {
+			throw FHIRDateParserError.invalidSeparator(scanner.position(at: scanLocation))
 		}
 		
 		// Seconds
-		scanLocation = scanner.scanLocation
-		guard let fullSecondString = scanner.hs_scanCharacters(from: numbers) else {
-			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
-		guard fullSecondString.count == 2 else {
-			throw FHIRDateParserError.invalidSeparator(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation + fullSecondString.count))
-		}
-		guard let scanSecondAlone = Int(fullSecondString), scanSecondAlone <= 60 else {
-			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
-		}
+		let secondsStart = scanner.index
+		let wholeSecond: Int = try scanner.scanDigitsAndVerify(2, in: 0...60, orThrow: FHIRDateParserError.invalidSecond)
 		
-		let secondString: String
-		scanLocation = scanner.scanLocation
-		if scanner.scanString(".", into: nil) {
-			scanLocation = scanner.scanLocation
-			guard let subSecondString = scanner.hs_scanCharacters(from: numbers) else {
-				throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
+		let second: Decimal
+		scanLocation = scanner.index
+		if scanner.scan(".") {
+			scanLocation = scanner.index
+			guard let subSecondDigits = scanner.scanDigits() else {
+				throw FHIRDateParserError.invalidSecond(scanner.position(at: scanLocation))
 			}
-			secondString = "\(fullSecondString).\(subSecondString)"
+			second = Decimal(integerPart: wholeSecond, asciiFractionDigits: subSecondDigits)
 		} else {
-			secondString = fullSecondString
+			second = Decimal(wholeSecond)
 		}
-		guard let second = Decimal(string: secondString), second <= 60.0 else {
-			throw FHIRDateParserError.invalidSecond(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
+		guard second <= 60.0 else {
+			throw FHIRDateParserError.invalidSecond(scanner.position(at: scanLocation))
 		}
+		let secondString = scanner.substring(secondsStart..<scanner.index)
 		
 		// End
-		scanLocation = scanner.scanLocation
 		if expectAtEnd && !scanner.isAtEnd {    // it's OK if we don't `expectAtEnd` but the scanner actually is
-			throw FHIRDateParserError.additionalCharacters(FHIRDateParserErrorPosition(string: scanner.string, location: scanLocation))
+			throw FHIRDateParserError.additionalCharacters(scanner.position(at: scanner.index))
 		}
 		
 		return (hour, minute, second, secondString)
 	}
 	
-	public static func parse(from scanner: Scanner, expectAtEnd: Bool = true) throws -> FHIRTime {
-		let (hour, minute, second, originalSecondsString) = try FHIRTime.parseComponents(from: scanner, expectAtEnd: expectAtEnd)
+	public static func parse(from scanner: inout FHIRDateTimeScanner, expectAtEnd: Bool = true) throws -> FHIRTime {
+		let (hour, minute, second, originalSecondsString) = try FHIRTime.parseComponents(from: &scanner, expectAtEnd: expectAtEnd)
 		return self.init(hour: hour, minute: minute, second: second, originalSecondsString: originalSecondsString)
 	}
 }
@@ -245,5 +215,23 @@ extension FHIRTime: Comparable {
 			}
 		}
 		return false
+	}
+}
+
+// MARK: -
+
+fileprivate extension Decimal {
+	
+	/// Creates a `Decimal` from an already-parsed integer part and a collection of ASCII fraction digits.
+	///
+	/// - parameter integerPart: The decimal's integer part, already parsed to an integer.
+	/// - parameter fractionDigits: The digits making up the decimal's fraction part.
+	///
+	/// - Note: `fractionDigits` must contain only ASCII digits (`0x30...0x39`). No validation is performed.
+	init(integerPart: some FixedWidthInteger, asciiFractionDigits fractionDigits: some Collection<UInt8>) {
+		let fractionCount = fractionDigits.count
+		var mantissa = UInt64(integerPart)
+		for byte in fractionDigits { mantissa = mantissa &* 10 &+ UInt64(byte &- 48) }
+		self.init(sign: .plus, exponent: -fractionCount, significand: Decimal(mantissa))
 	}
 }

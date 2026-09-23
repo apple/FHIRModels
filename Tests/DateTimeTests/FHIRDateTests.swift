@@ -52,12 +52,11 @@ class FHIRDateTests: XCTestCase {
 		
 		// Year
 		let yearThrowers = [
-			("19", 0),
+			("19", 2),
 			(" 2019", 0),
 			("-2019-05-22", 0),
 			("Y2019", 0),
 			("0000-10-05", 0),
-			("12019-10-05", 0),
 		]
 		for (string, location) in yearThrowers {
 			do {
@@ -94,7 +93,7 @@ class FHIRDateTests: XCTestCase {
 		// Day
 		let dayThrowers = [
 			("2019-11-", 8),
-			("2019-11-2", 8),
+			("2019-11-2", 9),
 			("2019-11-00", 8),
 			("2019-11-34", 8),
 		]
@@ -120,6 +119,7 @@ class FHIRDateTests: XCTestCase {
 			("2019-11-23T", 10),
 			("2019-11-23 ", 10),
 			("2019-11-23T14:22:30Z", 10),
+			("12019-10-05", 4),
 		]
 		for (string, location) in extraThrowers {
 			do {

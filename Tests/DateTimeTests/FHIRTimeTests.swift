@@ -65,6 +65,7 @@ class FHIRTimeTests: XCTestCase {
 			("T12:00:00", 0),
 			("24:00:00", 0),
 			("30:00:00", 0),
+			("9:00:00", 1),
 		]
 		for (string, location) in hourThrowers {
 			do {
@@ -82,6 +83,7 @@ class FHIRTimeTests: XCTestCase {
 		let minuteThrowers = [
 			("09:60:00", 3),
 			("09:72:00", 3),
+			("09:2:30", 4),
 		]
 		for (string, location) in minuteThrowers {
 			do {
@@ -100,6 +102,7 @@ class FHIRTimeTests: XCTestCase {
 			("09:41:71", 6),
 			("09:41:50.", 9),
 			("09:41:60.0001", 9),
+			("09:41:0", 7),
 		]
 		for (string, location) in secondThrowers {
 			do {
@@ -115,12 +118,8 @@ class FHIRTimeTests: XCTestCase {
 		
 		// Wrong separator
 		let separatorThrowers = [
-			("9:00:00", 1),
-			("019:00:00", 3),
-			("09:2:30", 4),
-			("09:022:30", 6),
-			("09:41:0", 7),
-			("09:41:000", 9),
+			("019:00:00", 2),
+			("09:022:30", 5),
 			("09 41 50", 2),
 			("09-41-50", 2),
 			("09:41 50", 5),
@@ -144,6 +143,7 @@ class FHIRTimeTests: XCTestCase {
 			("09:41:50-08:00", 8),
 			("09:41:50 ", 8),
 			("09:41:50+", 8),
+			("09:41:000", 8),
 		]
 		for (string, location) in extraThrowers {
 			do {

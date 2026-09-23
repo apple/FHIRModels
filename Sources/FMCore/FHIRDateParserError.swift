@@ -60,6 +60,8 @@ public enum FHIRDateParserError: LocalizedError {
 	case invalidTimeZoneHour(FHIRDateParserErrorPosition)
 	case invalidTimeZoneMinute(FHIRDateParserErrorPosition)
 	case additionalCharacters(FHIRDateParserErrorPosition)
+	case incompleteDate(FHIRDateParserErrorPosition)
+	case inputTooLong(FHIRDateParserErrorPosition)
 	
 	public var errorDescription: String? {
 		switch self {
@@ -85,6 +87,10 @@ public enum FHIRDateParserError: LocalizedError {
 			return "Invalid time zone minute at \(position)"
 		case .additionalCharacters(let position):
 			return "Unexpected characters after \(position)"
+		case .incompleteDate(let position):
+			return "A time cannot be added to an incomplete date at \(position)"
+		case .inputTooLong(let position):
+			return "Input is longer than any valid FHIR date/time string at \(position)"
 		}
 	}
 	
@@ -111,6 +117,10 @@ public enum FHIRDateParserError: LocalizedError {
 		case .invalidTimeZoneMinute(let position):
 			return position
 		case .additionalCharacters(let position):
+			return position
+		case .incompleteDate(let position):
+			return position
+		case .inputTooLong(let position):
 			return position
 		}
 	}

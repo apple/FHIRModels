@@ -84,6 +84,39 @@ struct DateTimeTests {
 		}
 	}
 	
+	// A time can only follow a complete date
+	@Test(arguments: [
+		("2020-03T17:07:11Z", 7),
+		("2020T17:07:11Z", 4),
+	])
+	func parsingFailsOnIncompleteDateWithTime(args: (String, Int)) throws {
+		do {
+			let dateTime = try DateTime(args.0)
+			#expect(Bool(false), "Should fail to parse \"\(args.0)\" but succeeded, parsed \(dateTime)")
+		} catch FHIRDateParserError.incompleteDate(let position) {
+			let expectedPosition = FHIRDateParserErrorPosition(string: args.0, location: args.1)
+			#expect(position == expectedPosition)
+		} catch {
+			#expect(Bool(false), "Should throw FHIRDateParserError.incompleteDate but threw \(error)")
+		}
+	}
+	
+	// "9999-12-31T23:59:60.123456789+14:00" (35 characters) is the longest a valid dateTime can be, we allow up to 45
+	// to allow the parser to parse past the date and report the issue position accurately.
+	@Test
+	func parsingFailsOnInputTooLong() throws {
+		let string = "9999-12-31T23:59:60.12345678901234567890+14:00"
+		do {
+			let dateTime = try DateTime(string)
+			#expect(Bool(false), "Should fail to parse \"\(string)\" but succeeded, parsed \(dateTime)")
+		} catch FHIRDateParserError.inputTooLong(let position) {
+			let expectedPosition = FHIRDateParserErrorPosition(string: string, location: 45)
+			#expect(position == expectedPosition)
+		} catch {
+			#expect(Bool(false), "Should throw FHIRDateParserError.inputTooLong but threw \(error)")
+		}
+	}
+	
 	@Test
 	func rendering() {
 		let string = "2017-12-09T09:30:51Z"

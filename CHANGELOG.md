@@ -3,6 +3,10 @@ Changelog
 
 The changelog is in reverse chronological order.
 
+### 0.9.4
+
+- Implement a custom, specialized, performance & safety -optimized date/time parser
+
 ### 0.9.3
 
 - Make it compile on Linux again (resolves https://github.com/apple/FHIRModels/issues/43, thanks for the report [Shinren Pan](https://github.com/shinrenpan))
