@@ -1,7 +1,7 @@
 FHIRModels
 ==========
 
-[![0.9.3](https://img.shields.io/badge/Latest-0.9.3-blueviolet.svg?style=flat)](https://github.com/apple/FHIRModels/releases) [![🔥 FHIR DSTU2, STU3, R4, R4B, R5, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3_•%20R4_•%20R4B_•%20R5_•%20β6.0-orange.svg?style=flat)][fhir] ![Works on macOS, iOS, watchOS, tvOS and Linux](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS_•%20Linux-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](LICENSE)
+[![0.9.4](https://img.shields.io/badge/Latest-0.9.4-blueviolet.svg?style=flat)](https://github.com/apple/FHIRModels/releases) [![🔥 FHIR DSTU2, STU3, R4, R4B, R5, build](https://img.shields.io/badge/🔥_FHIR-DSTU2_•%20STU3_•%20R4_•%20R4B_•%20R5_•%20β6.0-orange.svg?style=flat)][fhir] ![Works on macOS, iOS, watchOS, tvOS and Linux](https://img.shields.io/badge/Platform-macOS_•%20iOS_•%20watchOS_•%20tvOS_•%20Linux-blue.svg?style=flat) [![Swift Package Manager](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)][spm] [![License](https://img.shields.io/badge/License-APACHE_2.0-lightgrey.svg?style=flat)](LICENSE)
 
 FHIRModels is a Swift library for [FHIR®][fhir] resource data models.
 
@@ -33,7 +33,7 @@ Alternatively, you can add FHIRModels to your `Package.swift` file as a dependen
 ```swift
 dependencies: [
     .package(url: "https://github.com/apple/FHIRModels.git",
-            .upToNextMajor(from: "0.9.3"))
+            .upToNextMajor(from: "0.9.4"))
 ]
 ```
 
